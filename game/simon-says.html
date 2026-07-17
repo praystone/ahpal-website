@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記憶節奏 - 跟著我唸 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+        }
+        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
+        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .header .info {
+            background: #edf2f7;
+            padding: 4px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .simon-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 340px;
+            margin: 12px auto;
+        }
+        .simon-btn {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            border: 4px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.15s;
+            opacity: 0.7;
+        }
+        .simon-btn:hover { transform: scale(1.02); }
+        .simon-btn.active { opacity: 1; transform: scale(1.05); border-color: #005A9C; }
+        .simon-btn:disabled { cursor: not-allowed; opacity: 0.4; }
+        .simon-btn.green { background: #48bb78; }
+        .simon-btn.red { background: #fc8181; }
+        .simon-btn.yellow { background: #f6e05e; }
+        .simon-btn.blue { background: #63b3ed; }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #005A9C;
+            color: white;
+        }
+        .controls button:hover { background: #003d66; transform: scale(1.02); }
+        .message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+        .message.win { color: #38a169; font-weight: 700; }
+        .message.lose { color: #e53e3e; font-weight: 700; }
+        @media (max-width: 480px) { h1 { font-size: 22px; } .simon-btn { border-radius: 12px; } }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>🎵 記憶節奏 - 跟著我唸</h1>
+        <p class="desc">記住並重複顏色順序，考驗你的短期記憶！</p>
+        <div class="header">
+            <span class="info">🎯 回合 <span id="round">0</span></span>
+            <span class="info">⭐ 分數 <span id="score">0</span></span>
+        </div>
+        <div class="simon-grid" id="simonGrid">
+            <div class="simon-btn green" data-color="green"></div>
+            <div class="simon-btn red" data-color="red"></div>
+            <div class="simon-btn yellow" data-color="yellow"></div>
+            <div class="simon-btn blue" data-color="blue"></div>
+        </div>
+        <div class="controls">
+            <button onclick="initGame()">🔄 新遊戲</button>
+        </div>
+        <div class="message" id="message">點擊「新遊戲」開始！</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        var colors = ['green', 'red', 'yellow', 'blue'];
+        var sequence = [];
+        var playerSequence = [];
+        var round = 0;
+        var score = 0;
+        var isPlaying = false;
+        var isPlayerTurn = false;
+
+        var colorMap = {
+            'green': '#48bb78',
+            'red': '#fc8181',
+            'yellow': '#f6e05e',
+            'blue': '#63b3ed'
+        };
+
+        function initGame() {
+            sequence = [];
+            playerSequence = [];
+            round = 0;
+            score = 0;
+            isPlaying = true;
+            isPlayerTurn = false;
+            document.getElementById('round').textContent = round;
+            document.getElementById('score').textContent = score;
+            document.getElementById('message').textContent = '觀察顏色順序...';
+            document.getElementById('message').className = 'message';
+            enableButtons(false);
+            setTimeout(function() { playSequence(); }, 500);
+        }
+
+        function playSequence() {
+            isPlayerTurn = false;
+            enableButtons(false);
+            sequence.push(colors[Math.floor(Math.random() * colors.length)]);
+            round++;
+            document.getElementById('round').textContent = round;
+            var i = 0;
+            var interval = setInterval(function() {
+                if (i >= sequence.length) {
+                    clearInterval(interval);
+                    isPlayerTurn = true;
+                    playerSequence = [];
+                    enableButtons(true);
+                    document.getElementById('message').textContent = '輪到你了！重複點擊！';
+                    return;
+                }
+                flashButton(sequence[i]);
+                i++;
+            }, 600);
+        }
+
+        function flashButton(color) {
+            var btns = document.querySelectorAll('.simon-btn');
+            var target = null;
+            for (var i = 0; i < btns.length; i++) {
+                if (btns[i].dataset.color === color) {
+                    target = btns[i];
+                    break;
+                }
+            }
+            if (!target) return;
+            target.classList.add('active');
+            setTimeout(function() { target.classList.remove('active'); }, 300);
+        }
+
+        function enableButtons(enabled) {
+            var btns = document.querySelectorAll('.simon-btn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].disabled = !enabled;
+            }
+        }
+
+        function handleColorClick(color) {
+            if (!isPlayerTurn || !isPlaying) return;
+            var expected = sequence[playerSequence.length];
+            if (color === expected) {
+                playerSequence.push(color);
+                flashButton(color);
+                if (playerSequence.length === sequence.length) {
+                    isPlayerTurn = false;
+                    enableButtons(false);
+                    score += 10;
+                    document.getElementById('score').textContent = score;
+                    document.getElementById('message').textContent = '✅ 正確！進入下一回合！';
+                    setTimeout(function() {
+                        playSequence();
+                    }, 800);
+                }
+            } else {
+                isPlaying = false;
+                enableButtons(false);
+                document.getElementById('message').textContent = '❌ 順序錯誤！遊戲結束！';
+                document.getElementById('message').className = 'message lose';
+            }
+        }
+
+        var btns = document.querySelectorAll('.simon-btn');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener('click', function() {
+                handleColorClick(this.dataset.color);
+            });
+        }
+
+        initGame();
+    </script>
+</body>
+</html>

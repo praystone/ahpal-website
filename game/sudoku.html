@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>數獨 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        h1 { text-align: center; color: #2d3748; margin-bottom: 16px; font-size: 28px; }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 1px;
+            background: #cbd5e0;
+            border: 3px solid #2d3748;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .cell {
+            aspect-ratio: 1;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 600;
+            color: #2d3748;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .cell.given { color: #1a202c; font-weight: 700; }
+        .cell.user { color: #005A9C; }
+        .cell.highlight { background: #ebf8ff; }
+        .cell.selected { background: #bee3f8; }
+        .cell.error { color: #e53e3e; }
+        .cell:hover:not(.given) { background: #f7fafc; }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #edf2f7;
+            color: #2d3748;
+        }
+        .controls button:hover { background: #e2e8f0; transform: scale(1.02); }
+        .controls .primary { background: #005A9C; color: white; }
+        .controls .primary:hover { background: #003d66; }
+        .controls .danger { background: #e53e3e; color: white; }
+        .controls .danger:hover { background: #c53030; }
+        .num-pad {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .num-pad button {
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .num-pad button:hover { background: #edf2f7; }
+        .num-pad .clear { background: #fed7d7; color: #e53e3e; }
+        .num-pad .clear:hover { background: #feb2b2; }
+        .message {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #718096;
+        }
+        .message.success { color: #38a169; font-weight: 700; }
+        @media (max-width: 480px) {
+            .cell { font-size: 16px; }
+            .controls button { padding: 8px 14px; font-size: 12px; }
+            .num-pad button { font-size: 14px; padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>🧩 數獨</h1>
+        <div class="board" id="board"></div>
+        <div class="num-pad" id="numPad">
+            <button onclick="setNumber(1)">1</button>
+            <button onclick="setNumber(2)">2</button>
+            <button onclick="setNumber(3)">3</button>
+            <button onclick="setNumber(4)">4</button>
+            <button onclick="setNumber(5)">5</button>
+            <button onclick="setNumber(6)">6</button>
+            <button onclick="setNumber(7)">7</button>
+            <button onclick="setNumber(8)">8</button>
+            <button onclick="setNumber(9)">9</button>
+        </div>
+        <div class="controls">
+            <button class="primary" onclick="newGame()">🔄 新遊戲</button>
+            <button class="danger" onclick="clearCell()">✕ 清除</button>
+            <button onclick="hint()">💡 提示</button>
+        </div>
+        <div class="message" id="message">點擊空格，再點數字填入</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        let board = [];
+        let solution = [];
+        let selectedRow = -1, selectedCol = -1;
+        let difficulty = 30;
+
+        function generateSudoku() {
+            const base = [
+                [5,3,0,0,7,0,0,0,0],
+                [6,0,0,1,9,5,0,0,0],
+                [0,9,8,0,0,0,0,6,0],
+                [8,0,0,0,6,0,0,0,3],
+                [4,0,0,8,0,3,0,0,1],
+                [7,0,0,0,2,0,0,0,6],
+                [0,6,0,0,0,0,2,8,0],
+                [0,0,0,4,1,9,0,0,5],
+                [0,0,0,0,8,0,0,7,9]
+            ];
+            board = base.map(row => [...row]);
+            solveSudoku(board);
+            solution = board.map(row => [...row]);
+            
+            let removed = 0;
+            while (removed < difficulty) {
+                const r = Math.floor(Math.random() * 9);
+                const c = Math.floor(Math.random() * 9);
+                if (solution[r][c] !== 0) {
+                    solution[r][c] = 0;
+                    removed++;
+                }
+            }
+            board = solution.map(row => [...row]);
+            render();
+        }
+
+        function solveSudoku(grid) {
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    if (grid[r][c] === 0) {
+                        for (let n = 1; n <= 9; n++) {
+                            if (isValid(grid, r, c, n)) {
+                                grid[r][c] = n;
+                                if (solveSudoku(grid)) return true;
+                                grid[r][c] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function isValid(grid, row, col, num) {
+            for (let i = 0; i < 9; i++) {
+                if (grid[row][i] === num) return false;
+                if (grid[i][col] === num) return false;
+            }
+            const startRow = Math.floor(row / 3) * 3;
+            const startCol = Math.floor(col / 3) * 3;
+            for (let r = startRow; r < startRow + 3; r++) {
+                for (let c = startCol; c < startCol + 3; c++) {
+                    if (grid[r][c] === num) return false;
+                }
+            }
+            return true;
+        }
+
+        function render() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    if (board[r][c] !== 0) {
+                        cell.textContent = board[r][c];
+                        if (solution[r][c] !== 0 && board[r][c] === solution[r][c]) {
+                            cell.classList.add('given');
+                        } else {
+                            cell.classList.add('user');
+                        }
+                    }
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    cell.addEventListener('click', () => selectCell(r, c));
+                    boardEl.appendChild(cell);
+                }
+            }
+            highlightSelected();
+            document.getElementById('message').textContent = '點擊空格，再點數字填入';
+            document.getElementById('message').className = 'message';
+        }
+
+        function selectCell(r, c) {
+            selectedRow = r;
+            selectedCol = c;
+            highlightSelected();
+        }
+
+        function highlightSelected() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                cell.classList.remove('selected', 'highlight');
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                if (selectedRow >= 0 && selectedCol >= 0) {
+                    if (r === selectedRow || c === selectedCol) {
+                        cell.classList.add('highlight');
+                    }
+                    if (r === selectedRow && c === selectedCol) {
+                        cell.classList.add('selected');
+                    }
+                }
+            });
+        }
+
+        function setNumber(num) {
+            if (selectedRow < 0 || selectedCol < 0) {
+                document.getElementById('message').textContent = '⚠️ 請先點擊一個空格！';
+                return;
+            }
+            if (solution[selectedRow][selectedCol] !== 0) {
+                document.getElementById('message').textContent = '⚠️ 這是題目給的數字，不能修改！';
+                return;
+            }
+            board[selectedRow][selectedCol] = num;
+            render();
+            checkWin();
+        }
+
+        function clearCell() {
+            if (selectedRow < 0 || selectedCol < 0) return;
+            if (solution[selectedRow][selectedCol] !== 0) return;
+            board[selectedRow][selectedCol] = 0;
+            render();
+        }
+
+        function hint() {
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    if (board[r][c] === 0) {
+                        board[r][c] = solution[r][c];
+                        render();
+                        return;
+                    }
+                }
+            }
+            document.getElementById('message').textContent = '🎉 已經全部填好了！';
+        }
+
+        function checkWin() {
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    if (board[r][c] === 0) return;
+                }
+            }
+            document.getElementById('message').textContent = '🎉 恭喜你完成數獨！太棒了！';
+            document.getElementById('message').className = 'message success';
+        }
+
+        function newGame() {
+            generateSudoku();
+            selectedRow = -1;
+            selectedCol = -1;
+        }
+
+        generateSudoku();
+    </script>
+</body>
+</html>

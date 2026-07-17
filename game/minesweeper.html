@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>踩地雷 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+        }
+        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
+        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .header .info {
+            background: #edf2f7;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 2px;
+            background: #cbd5e0;
+            padding: 2px;
+            border-radius: 8px;
+            margin: 0 auto;
+            max-width: 400px;
+        }
+        .cell {
+            aspect-ratio: 1;
+            background: #a0aec0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .cell:hover { background: #b0bec5; }
+        .cell.revealed { background: #e2e8f0; cursor: default; }
+        .cell.revealed:hover { background: #e2e8f0; }
+        .cell.mine { background: #fc8181; }
+        .cell.flagged { background: #fbd38d; }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #005A9C;
+            color: white;
+        }
+        .controls button:hover { background: #003d66; transform: scale(1.02); }
+        .controls button.danger { background: #e53e3e; }
+        .controls button.danger:hover { background: #c53030; }
+        .message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+        .message.win { color: #38a169; font-weight: 700; }
+        .message.lose { color: #e53e3e; font-weight: 700; }
+        @media (max-width: 480px) {
+            .cell { font-size: 14px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>💣 踩地雷</h1>
+        <p class="desc">經典踩地雷推理遊戲，考驗你的邏輯</p>
+        <div class="header">
+            <span class="info">💣 <span id="mineCount">10</span></span>
+            <span class="info">🏆 <span id="flagCount">0</span></span>
+        </div>
+        <div class="board" id="board"></div>
+        <div class="controls">
+            <button onclick="initGame()">🔄 新遊戲</button>
+        </div>
+        <div class="message" id="message">點擊左鍵翻開，右鍵標記旗子</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        const ROWS = 9; const COLS = 9; const TOTAL_MINES = 10;
+        let board = [], revealed = [], flagged = [], gameOver = false, firstClick = true;
+
+        function initGame() {
+            board = []; revealed = Array.from({length: ROWS}, () => Array(COLS).fill(false));
+            flagged = Array.from({length: ROWS}, () => Array(COLS).fill(false));
+            gameOver = false; firstClick = true;
+            document.getElementById('message').textContent = '點擊左鍵翻開，右鍵標記旗子';
+            document.getElementById('message').className = 'message';
+            for (let r = 0; r < ROWS; r++) { board[r] = []; for (let c = 0; c < COLS; c++) board[r][c] = 0; }
+            updateCounts(); render();
+        }
+
+        function placeMines(excludeR, excludeC) {
+            let placed = 0;
+            while (placed < TOTAL_MINES) {
+                const r = Math.floor(Math.random() * ROWS), c = Math.floor(Math.random() * COLS);
+                if (board[r][c] === -1 || (Math.abs(r - excludeR) <= 1 && Math.abs(c - excludeC) <= 1)) continue;
+                board[r][c] = -1; placed++;
+            }
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    if (board[r][c] === -1) continue;
+                    let count = 0;
+                    for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+                        const nr = r + dr, nc = c + dc;
+                        if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && board[nr][nc] === -1) count++;
+                    }
+                    board[r][c] = count;
+                }
+            }
+        }
+
+        function revealCell(r, c) {
+            if (gameOver || revealed[r][c] || flagged[r][c]) return;
+            if (firstClick) { placeMines(r, c); firstClick = false; }
+            if (board[r][c] === -1) {
+                gameOver = true; revealAll();
+                document.getElementById('message').textContent = '💀 踩到地雷！遊戲結束！';
+                document.getElementById('message').className = 'message lose';
+                return;
+            }
+            reveal(r, c); checkWin();
+        }
+
+        function reveal(r, c) {
+            if (r < 0 || r >= ROWS || c < 0 || c >= COLS || revealed[r][c] || flagged[r][c]) return;
+            revealed[r][c] = true;
+            if (board[r][c] === 0) {
+                for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) reveal(r + dr, c + dc);
+            }
+            render();
+        }
+
+        function toggleFlag(r, c) {
+            if (gameOver || revealed[r][c]) return;
+            flagged[r][c] = !flagged[r][c];
+            updateCounts(); render();
+        }
+
+        function revealAll() {
+            for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (board[r][c] === -1) revealed[r][c] = true;
+            render();
+        }
+
+        function checkWin() {
+            let totalRevealed = 0;
+            for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (revealed[r][c]) totalRevealed++;
+            if (totalRevealed === ROWS * COLS - TOTAL_MINES) {
+                gameOver = true;
+                document.getElementById('message').textContent = '🎉 恭喜你贏了！太棒了！';
+                document.getElementById('message').className = 'message win';
+            }
+        }
+
+        function updateCounts() {
+            let flagCount = 0;
+            for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (flagged[r][c]) flagCount++;
+            document.getElementById('mineCount').textContent = TOTAL_MINES;
+            document.getElementById('flagCount').textContent = flagCount;
+        }
+
+        function render() {
+            const boardEl = document.getElementById('board'); boardEl.innerHTML = '';
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    if (revealed[r][c]) {
+                        cell.classList.add('revealed');
+                        if (board[r][c] === -1) { cell.textContent = '💣'; cell.classList.add('mine'); }
+                        else if (board[r][c] > 0) {
+                            cell.textContent = board[r][c];
+                            const colors = ['', '#3182ce', '#38a169', '#e53e3e', '#2d3748', '#805ad5', '#319795', '#2d3748', '#718096'];
+                            cell.style.color = colors[board[r][c]] || '#2d3748';
+                        }
+                    } else if (flagged[r][c]) { cell.classList.add('flagged'); cell.textContent = '🚩'; }
+                    cell.addEventListener('click', () => revealCell(r, c));
+                    cell.addEventListener('contextmenu', (e) => { e.preventDefault(); toggleFlag(r, c); });
+                    boardEl.appendChild(cell);
+                }
+            }
+        }
+        initGame();
+    </script>
+</body>
+</html>

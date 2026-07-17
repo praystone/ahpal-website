@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字搜尋 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #fcfaf2; color: #1c1c1c; min-height: 100vh; }
+        .game-nav { background: #005A9C; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 50; }
+        .game-nav .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; }
+        .game-nav .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; }
+        .game-nav .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; }
+        .game-nav .nav-links .back-btn { background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; font-weight: 500; }
+        .game-nav .nav-links .back-btn:hover { background: rgba(255,255,255,0.25); }
+        .game-wrapper { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .game-container { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e6ded1; }
+        .game-header { text-align: center; margin-bottom: 24px; }
+        .game-header h1 { font-size: 28px; color: #005A9C; }
+        .game-area { background: #f7f9fc; border-radius: 12px; padding: 20px; border: 1px solid #e6ded1; text-align: center; }
+        .game-area .word-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+        .game-area .word-list .word { background: #e2e8f0; padding: 4px 12px; border-radius: 12px; font-size: 13px; }
+        .game-area .word-list .word.found { background: #00A86B; color: white; }
+        .game-area .grid { display: grid; gap: 2px; margin: 0 auto; max-width: 400px; }
+        .game-area .cell { width: 36px; height: 36px; background: white; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .game-area .cell.selected { background: #bee3f8; }
+        .game-area .cell.found { background: #c6f6d5; color: #276749; }
+        .game-area .controls { margin-top: 16px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .game-area .controls button { padding: 10px 24px; background: #005A9C; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .game-area .controls button:hover { background: #003d66; }
+        .game-info { margin-top: 30px; padding: 24px; background: #f7f9fc; border-radius: 12px; border: 1px solid #e6ded1; }
+        .game-info h2 { font-size: 18px; color: #005A9C; margin-bottom: 12px; }
+        .game-info .how-to-play { background: white; padding: 16px 20px; border-radius: 8px; margin-top: 12px; border-left: 4px solid #00A86B; }
+        .game-footer { text-align: center; padding: 30px 0 20px; color: #999; font-size: 13px; border-top: 1px solid #e6ded1; margin-top: 40px; }
+        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: all 0.3s; }
+        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
+        @media (max-width: 500px) { .game-area .cell { width: 28px; height: 28px; font-size: 14px; } .game-container { padding: 16px; } }
+    </style>
+</head>
+<body>
+    <nav class="game-nav"><a href="/" class="logo">⚖️ 雅寶社區 · 頂客論壇</a><div class="nav-links"><a href="/">首頁</a><a href="/game/" class="back-btn">🎮 返回遊戲間</a></div></nav>
+    <div class="game-wrapper">
+        <div class="game-container">
+            <div class="game-header"><h1>🔍 文字搜尋</h1><p class="subtitle">在字母矩陣中找出隱藏的單字！</p></div>
+            <div class="game-area">
+                <div class="word-list" id="wordList"></div>
+                <div id="wordGrid" class="grid" style="grid-template-columns: repeat(8, 36px);"></div>
+                <div class="controls"><button onclick="initWordSearch()">🔄 新遊戲</button></div>
+            </div>
+            <div class="game-info">
+                <h2>🎯 如何玩文字搜尋？</h2>
+                <div class="how-to-play"><p><strong>🎮 遊戲目標：</strong>在字母矩陣中找出所有隱藏的單字。</p><p><strong>🖱️ 操作方法：</strong>點擊字母選取，再點擊另一個字母完成選取。</p></div>
+            </div>
+        </div>
+    </div>
+    <footer class="game-footer"><p>&copy; 2026 <a href="/">雅寶社區 · 頂客論壇 (AHPAL.COM)</a> — 遊戲間</p></footer>
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ TOP</button>
+    <script>
+        const wordList=['APPLE','BRAIN','CLOUD','DREAM','EAGLE','FLOWER','GREEN','HAPPY'];
+        let grid=[], foundWords=[], selectedCells=[];
+        const size=8;
+        function initWordSearch(){grid=[];foundWords=[];selectedCells=[];const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';for(let r=0;r<size;r++){grid[r]=[];for(let c=0;c<size;c++)grid[r][c]=letters[Math.floor(Math.random()*26)];}placeWords();renderWordSearch();}
+        function placeWords(){wordList.forEach(word=>{let placed=false;let attempts=0;while(!placed&&attempts<100){attempts++;const dirs=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];const dir=dirs[Math.floor(Math.random()*dirs.length)];const r=Math.floor(Math.random()*size);const c=Math.floor(Math.random()*size);let ok=true;for(let i=0;i<word.length;i++){const nr=r+dir[0]*i,nc=c+dir[1]*i;if(nr<0||nr>=size||nc<0||nc>=size){ok=false;break;}if(grid[nr][nc]!==word[i]&&grid[nr][nc]!==' '){ok=false;break;}}if(ok){for(let i=0;i<word.length;i++){grid[r+dir[0]*i][c+dir[1]*i]=word[i];}placed=true;}}});}
+        function renderWordSearch(){const container=document.getElementById('wordGrid');container.innerHTML='';for(let r=0;r<size;r++)for(let c=0;c<size;c++){const cell=document.createElement('div');cell.className='cell';cell.textContent=grid[r][c];cell.dataset.r=r;cell.dataset.c=c;cell.addEventListener('click',()=>handleCellClick(r,c));container.appendChild(cell);}renderWordList();}
+        function renderWordList(){const container=document.getElementById('wordList');container.innerHTML='';wordList.forEach(word=>{const span=document.createElement('span');span.className='word';if(foundWords.includes(word))span.classList.add('found');span.textContent=word;container.appendChild(span);});}
+        function handleCellClick(r,c){const index=r*size+c;if(selectedCells.includes(index)){selectedCells=selectedCells.filter(i=>i!==index);}else{selectedCells.push(index);}if(selectedCells.length===2){const [i1,i2]=selectedCells;const r1=Math.floor(i1/size),c1=i1%size;const r2=Math.floor(i2/size),c2=i2%size;const word=getWord(r1,c1,r2,c2);if(wordList.includes(word)&&!foundWords.includes(word)){foundWords.push(word);markFound(r1,c1,r2,c2);}selectedCells=[];}renderWordSearch();}
+        function getWord(r1,c1,r2,c2){const dr=r2-r1,dc=c2-c1;if(Math.abs(dr)>1||Math.abs(dc)>1)return '';let word='';let r=r1,c=c1;while(r>=0&&r<size&&c>=0&&c<size){word+=grid[r][c];r+=dr;c+=dc;}r=r1-dr;c=c1-dc;while(r>=0&&r<size&&c>=0&&c<size){word=grid[r][c]+word;r-=dr;c-=dc;}return word;}
+        function markFound(r1,c1,r2,c2){const dr=Math.sign(r2-r1)||0,dc=Math.sign(c2-c1)||0;let r=r1,c=c1;while(r>=0&&r<size&&c>=0&&c<size){const index=r*size+c;const el=document.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`);if(el)el.classList.add('found');r+=dr;c+=dc;}renderWordList();}
+        initWordSearch();
+    </script>
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p></body>
+</html>

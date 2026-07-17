@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜字遊戲 - 單字挑戰 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+        }
+        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
+        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .header .info {
+            background: #edf2f7;
+            padding: 4px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .hangman-ascii {
+            font-family: monospace;
+            font-size: 16px;
+            line-height: 1.4;
+            white-space: pre;
+            background: #edf2f7;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            color: #2d3748;
+            text-align: left;
+            display: inline-block;
+        }
+        .word-display {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 8px;
+            margin: 12px 0;
+            color: #2d3748;
+        }
+        .letters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            max-width: 400px;
+            margin: 12px auto;
+        }
+        .letters button {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #2d3748;
+        }
+        .letters button:hover { background: #ebf8ff; border-color: #005A9C; }
+        .letters button:disabled { opacity: 0.4; cursor: not-allowed; }
+        .letters button.correct { background: #c6f6d5; border-color: #38a169; }
+        .letters button.wrong { background: #fed7d7; border-color: #e53e3e; }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #005A9C;
+            color: white;
+        }
+        .controls button:hover { background: #003d66; transform: scale(1.02); }
+        .message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+        .message.win { color: #38a169; font-weight: 700; }
+        .message.lose { color: #e53e3e; font-weight: 700; }
+        @media (max-width: 480px) { h1 { font-size: 22px; } .word-display { font-size: 24px; letter-spacing: 4px; } .letters button { width: 34px; height: 34px; font-size: 14px; } }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>🔤 猜字遊戲 - 單字挑戰</h1>
+        <p class="desc">猜出隱藏的英文單字，拯救小人物！</p>
+        <div class="header">
+            <span class="info">❌ 錯誤 <span id="mistakes">0</span>/6</span>
+            <span class="info">🏆 勝場 <span id="wins">0</span></span>
+        </div>
+        <div class="hangman-ascii" id="hangmanDisplay"></div>
+        <div class="word-display" id="wordDisplay"></div>
+        <div class="letters" id="letters"></div>
+        <div class="controls">
+            <button onclick="initGame()">🔄 新遊戲</button>
+        </div>
+        <div class="message" id="message">點擊字母猜字！</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        var words = ['APPLE', 'BANANA', 'CHERRY', 'DRAGON', 'EAGLE', 'FLOWER', 'GARDEN', 'HAPPY', 'ISLAND', 'JUNGLE', 'KNIGHT', 'LION', 'MOON', 'NIGHT', 'OCEAN', 'PEACE', 'QUEEN', 'RIVER', 'SUN', 'TREE', 'UNITY', 'VALLEY', 'WATER', 'YOUTH', 'ZEBRA'];
+        var currentWord = '';
+        var guessedLetters = [];
+        var mistakes = 0;
+        var maxMistakes = 6;
+        var wins = parseInt(localStorage.getItem('hangmanWins')) || 0;
+        var gameActive = true;
+
+        var hangmanStages = [
+            '   +---+\n       |\n       |\n       |\n      ===',
+            '   +---+\n   O   |\n       |\n       |\n      ===',
+            '   +---+\n   O   |\n   |   |\n       |\n      ===',
+            '   +---+\n   O   |\n  /|   |\n       |\n      ===',
+            '   +---+\n   O   |\n  /|\\  |\n       |\n      ===',
+            '   +---+\n   O   |\n  /|\\  |\n  /    |\n      ===',
+            '   +---+\n   O   |\n  /|\\  |\n  / \\  |\n      ==='
+        ];
+
+        function initGame() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            guessedLetters = [];
+            mistakes = 0;
+            gameActive = true;
+            document.getElementById('wins').textContent = wins;
+            document.getElementById('mistakes').textContent = mistakes;
+            document.getElementById('message').textContent = '點擊字母猜字！';
+            document.getElementById('message').className = 'message';
+            render();
+        }
+
+        function render() {
+            document.getElementById('hangmanDisplay').textContent = hangmanStages[mistakes];
+            var display = currentWord.split('').map(function(letter) {
+                return guessedLetters.includes(letter) ? letter : '_';
+            }).join(' ');
+            document.getElementById('wordDisplay').textContent = display;
+
+            var lettersEl = document.getElementById('letters');
+            lettersEl.innerHTML = '';
+            var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            for (var i = 0; i < alphabet.length; i++) {
+                var btn = document.createElement('button');
+                btn.textContent = alphabet[i];
+                btn.dataset.letter = alphabet[i];
+                if (guessedLetters.includes(alphabet[i])) {
+                    btn.disabled = true;
+                    if (currentWord.includes(alphabet[i])) {
+                        btn.classList.add('correct');
+                    } else {
+                        btn.classList.add('wrong');
+                    }
+                }
+                btn.addEventListener('click', function() { handleGuess(this.dataset.letter); });
+                lettersEl.appendChild(btn);
+            }
+        }
+
+        function handleGuess(letter) {
+            if (!gameActive || guessedLetters.includes(letter)) return;
+            guessedLetters.push(letter);
+            if (currentWord.includes(letter)) {
+                render();
+                if (currentWord.split('').every(function(l) { return guessedLetters.includes(l); })) {
+                    gameActive = false;
+                    wins++;
+                    localStorage.setItem('hangmanWins', wins);
+                    document.getElementById('wins').textContent = wins;
+                    document.getElementById('message').textContent = '🎉 恭喜你猜對了！答案是 ' + currentWord;
+                    document.getElementById('message').className = 'message win';
+                }
+            } else {
+                mistakes++;
+                document.getElementById('mistakes').textContent = mistakes;
+                render();
+                if (mistakes >= maxMistakes) {
+                    gameActive = false;
+                    document.getElementById('message').textContent = '💀 遊戲結束！答案是 ' + currentWord;
+                    document.getElementById('message').className = 'message lose';
+                }
+            }
+        }
+
+        initGame();
+    </script>
+</body>
+</html>

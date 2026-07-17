@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顏色配對 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+        }
+        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
+        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .header .info {
+            background: #edf2f7;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .color-display {
+            width: 120px;
+            height: 120px;
+            border-radius: 16px;
+            margin: 12px auto;
+            border: 3px solid #e2e8f0;
+            transition: background 0.3s;
+        }
+        .color-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 16px;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .options button {
+            padding: 16px;
+            border: 3px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            color: #2d3748;
+        }
+        .options button:hover { transform: scale(1.03); border-color: #005A9C; }
+        .options button.correct { border-color: #48bb78; background: #c6f6d5; }
+        .options button.wrong { border-color: #fc8181; background: #fed7d7; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .controls { margin-top: 16px; }
+        .controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #005A9C;
+            color: white;
+        }
+        .controls button:hover { background: #003d66; transform: scale(1.02); }
+        .score { margin-top: 12px; font-size: 14px; color: #4a5568; }
+        @media (max-width: 480px) { h1 { font-size: 22px; } .color-display { width: 80px; height: 80px; } .color-name { font-size: 20px; } }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>🎯 顏色配對</h1>
+        <p class="desc">考驗你的反應速度和顏色辨識能力</p>
+        <div class="header">
+            <span class="info">🎯 回合 <span id="round">1</span>/10</span>
+            <span class="info">⭐ 分數 <span id="score">0</span></span>
+        </div>
+        <div class="color-display" id="colorDisplay"></div>
+        <div class="color-name" id="colorName">準備開始</div>
+        <div class="options" id="options"></div>
+        <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+        <div class="score" id="message">點擊與顯示顏色名稱相符的色塊</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        const COLORS = [
+            { name: '紅色', hex: '#e53e3e' }, { name: '藍色', hex: '#3182ce' },
+            { name: '綠色', hex: '#38a169' }, { name: '黃色', hex: '#ecc94b' },
+            { name: '紫色', hex: '#805ad5' }, { name: '橙色', hex: '#ed8936' },
+            { name: '粉紅', hex: '#ed64a6' }, { name: '青色', hex: '#319795' }
+        ];
+        let currentRound = 0, score = 0, totalRounds = 10, currentColor = null, isPlaying = false;
+
+        function initGame() {
+            currentRound = 0; score = 0; isPlaying = true;
+            document.getElementById('score').textContent = score;
+            document.getElementById('message').textContent = '';
+            nextRound();
+        }
+
+        function nextRound() {
+            currentRound++;
+            if (currentRound > totalRounds) { endGame(); return; }
+            document.getElementById('round').textContent = currentRound;
+            const shuffled = [...COLORS].sort(() => Math.random() - 0.5);
+            currentColor = shuffled[Math.floor(Math.random() * shuffled.length)];
+            const options = shuffled.slice(0, 4);
+            if (!options.some(c => c.name === currentColor.name)) options[Math.floor(Math.random() * 4)] = currentColor;
+            options.sort(() => Math.random() - 0.5);
+            document.getElementById('colorDisplay').style.background = currentColor.hex;
+            document.getElementById('colorName').textContent = currentColor.name;
+            const optionsEl = document.getElementById('options'); optionsEl.innerHTML = '';
+            for (const opt of options) {
+                const btn = document.createElement('button');
+                btn.style.background = opt.hex; btn.style.color = 'white';
+                btn.textContent = opt.name; btn.dataset.name = opt.name;
+                btn.addEventListener('click', () => handleAnswer(btn));
+                optionsEl.appendChild(btn);
+            }
+        }
+
+        function handleAnswer(btn) {
+            if (!isPlaying) return;
+            const btns = document.querySelectorAll('.options button');
+            btns.forEach(b => b.disabled = true);
+            const isCorrect = btn.dataset.name === currentColor.name;
+            if (isCorrect) {
+                btn.classList.add('correct'); score += 10;
+                document.getElementById('score').textContent = score;
+                document.getElementById('message').textContent = '✅ 正確！太棒了！';
+                document.getElementById('message').style.color = '#38a169';
+            } else {
+                btn.classList.add('wrong');
+                for (const b of btns) if (b.dataset.name === currentColor.name) b.classList.add('correct');
+                document.getElementById('message').textContent = '❌ 錯誤！正確答案是 ' + currentColor.name;
+                document.getElementById('message').style.color = '#e53e3e';
+            }
+            setTimeout(() => { btns.forEach(b => { b.className = ''; b.disabled = false; }); nextRound(); }, 1000);
+        }
+
+        function endGame() {
+            isPlaying = false;
+            document.getElementById('colorDisplay').style.background = '#e2e8f0';
+            document.getElementById('colorName').textContent = '🎉 遊戲結束！';
+            document.getElementById('message').textContent = '你的總分：' + score + ' 分！';
+            document.getElementById('message').style.color = '#38a169';
+            document.getElementById('options').innerHTML = '';
+        }
+        initGame();
+    </script>
+</body>
+</html>

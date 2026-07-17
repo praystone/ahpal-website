@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貪吃蛇 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a202c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: #2d3748;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+            max-width: 500px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            margin-bottom: 16px;
+        }
+        .header h1 { font-size: 24px; }
+        .score { font-size: 20px; background: #1a202c; padding: 4px 20px; border-radius: 8px; }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            gap: 2px;
+            background: #1a202c;
+            border-radius: 8px;
+            aspect-ratio: 1;
+        }
+        .cell {
+            aspect-ratio: 1;
+            background: #2d3748;
+            border-radius: 2px;
+        }
+        .cell.snake { background: #48bb78; }
+        .cell.head { background: #68d391; }
+        .cell.food { background: #fc8181; border-radius: 50%; }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .controls button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #48bb78;
+            color: white;
+        }
+        .controls button:hover { background: #38a169; transform: scale(1.02); }
+        .controls .danger { background: #fc8181; }
+        .controls .danger:hover { background: #f56565; }
+        .message {
+            text-align: center;
+            color: #a0aec0;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        @media (max-width: 480px) {
+            .header h1 { font-size: 18px; }
+            .score { font-size: 16px; padding: 4px 14px; }
+        }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <div class="header">
+            <h1>🐍 貪吃蛇</h1>
+            <div class="score">🏆 <span id="score">0</span></div>
+        </div>
+        <div class="board" id="board"></div>
+        <div class="controls">
+            <button onclick="changeDirection('up')">⬆</button>
+            <button onclick="changeDirection('left')">⬅</button>
+            <button onclick="changeDirection('down')">⬇</button>
+            <button onclick="changeDirection('right')">➡</button>
+            <button class="danger" onclick="resetGame()">🔄 重新開始</button>
+        </div>
+        <div class="message" id="message">使用方向鍵或按鈕控制</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        const size = 20;
+        let snake = [{r: 10, c: 10}];
+        let direction = {dr: 0, dc: 1};
+        let food = {r: 15, c: 15};
+        let score = 0;
+        let gameRunning = true;
+        let gameLoop = null;
+        const speed = 150;
+
+        function init() {
+            snake = [{r: 10, c: 10}, {r: 10, c: 9}, {r: 10, c: 8}];
+            direction = {dr: 0, dc: 1};
+            score = 0;
+            gameRunning = true;
+            spawnFood();
+            render();
+            if (gameLoop) clearInterval(gameLoop);
+            gameLoop = setInterval(update, speed);
+            document.getElementById('message').textContent = '使用方向鍵或按鈕控制';
+        }
+
+        function spawnFood() {
+            let pos;
+            do {
+                pos = {
+                    r: Math.floor(Math.random() * size),
+                    c: Math.floor(Math.random() * size)
+                };
+            } while (snake.some(s => s.r === pos.r && s.c === pos.c));
+            food = pos;
+        }
+
+        function update() {
+            if (!gameRunning) return;
+            const head = snake[0];
+            const newHead = {
+                r: head.r + direction.dr,
+                c: head.c + direction.dc
+            };
+            
+            if (newHead.r < 0 || newHead.r >= size || newHead.c < 0 || newHead.c >= size) {
+                gameOver();
+                return;
+            }
+            
+            if (snake.some(s => s.r === newHead.r && s.c === newHead.c)) {
+                gameOver();
+                return;
+            }
+            
+            snake.unshift(newHead);
+            
+            if (newHead.r === food.r && newHead.c === food.c) {
+                score += 10;
+                spawnFood();
+                document.getElementById('score').textContent = score;
+            } else {
+                snake.pop();
+            }
+            
+            render();
+        }
+
+        function render() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    if (snake.some(s => s.r === r && s.c === c)) {
+                        cell.classList.add('snake');
+                        if (snake[0].r === r && snake[0].c === c) {
+                            cell.classList.add('head');
+                        }
+                    }
+                    if (food.r === r && food.c === c) {
+                        cell.classList.add('food');
+                    }
+                    board.appendChild(cell);
+                }
+            }
+        }
+
+        function changeDirection(d) {
+            const dirs = {
+                'up': {dr: -1, dc: 0},
+                'down': {dr: 1, dc: 0},
+                'left': {dr: 0, dc: -1},
+                'right': {dr: 0, dc: 1}
+            };
+            const newDir = dirs[d];
+            if (direction.dr + newDir.dr === 0 && direction.dc + newDir.dc === 0) return;
+            direction = newDir;
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            if (gameLoop) clearInterval(gameLoop);
+            document.getElementById('message').textContent = '💀 遊戲結束！按「重新開始」再玩一次';
+        }
+
+        function resetGame() {
+            if (gameLoop) clearInterval(gameLoop);
+            init();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const map = {
+                'ArrowUp': 'up', 'ArrowDown': 'down',
+                'ArrowLeft': 'left', 'ArrowRight': 'right'
+            };
+            if (map[e.key]) {
+                e.preventDefault();
+                changeDirection(map[e.key]);
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>

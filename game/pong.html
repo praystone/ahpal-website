@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乒乓球 - 經典對戰 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a202c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: #2d3748;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+        }
+        h1 { color: white; margin-bottom: 4px; font-size: 28px; }
+        .desc { color: #a0aec0; font-size: 14px; margin-bottom: 16px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: white;
+        }
+        .header .info {
+            background: #1a202c;
+            padding: 4px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        canvas {
+            background: #1a202c;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 400 / 300;
+            cursor: none;
+        }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #48bb78;
+            color: white;
+        }
+        .controls button:hover { background: #38a169; transform: scale(1.02); }
+        .message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+        @media (max-width: 480px) { h1 { font-size: 22px; } }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>🏓 乒乓球 - 經典對戰</h1>
+        <p class="desc">經典乒乓球對戰，考驗你的反應速度！</p>
+        <div class="header">
+            <span class="info">👈 玩家 <span id="playerScore">0</span></span>
+            <span class="info">🤖 AI <span id="aiScore">0</span></span>
+        </div>
+        <canvas id="gameCanvas" width="400" height="300"></canvas>
+        <div class="controls">
+            <button onclick="initGame()">🔄 新遊戲</button>
+        </div>
+        <div class="message" id="message">滑鼠上下移動控制</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        var canvas = document.getElementById('gameCanvas');
+        var ctx = canvas.getContext('2d');
+        var W = 400, H = 300;
+        var player = { x: 20, y: 130, w: 12, h: 60, speed: 5 };
+        var ai = { x: 368, y: 130, w: 12, h: 60, speed: 4 };
+        var ball = { x: 200, y: 150, r: 8, dx: 3, dy: 3 };
+        var playerScore = 0, aiScore = 0;
+        var gameRunning = false;
+        var gameLoop = null;
+        var mouseY = 130;
+
+        function initGame() {
+            if (gameLoop) cancelAnimationFrame(gameLoop);
+            player.y = 130;
+            ai.y = 130;
+            ball.x = 200;
+            ball.y = 150;
+            ball.dx = 3 * (Math.random() > 0.5 ? 1 : -1);
+            ball.dy = 3 * (Math.random() > 0.5 ? 1 : -1);
+            playerScore = 0;
+            aiScore = 0;
+            gameRunning = true;
+            document.getElementById('playerScore').textContent = playerScore;
+            document.getElementById('aiScore').textContent = aiScore;
+            document.getElementById('message').textContent = '滑鼠上下移動控制';
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        function update() {
+            if (!gameRunning) return;
+
+            // 玩家移動
+            var targetY = mouseY - player.h/2;
+            player.y += (targetY - player.y) * 0.15;
+            player.y = Math.max(0, Math.min(H - player.h, player.y));
+
+            // AI 移動
+            var aiTarget = ball.y - ai.h/2;
+            ai.y += (aiTarget - ai.y) * 0.08;
+            ai.y = Math.max(0, Math.min(H - ai.h, ai.y));
+
+            // 球移動
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            // 上下反彈
+            if (ball.y - ball.r < 0 || ball.y + ball.r > H) {
+                ball.dy *= -1;
+            }
+
+            // 玩家碰撞
+            if (ball.x - ball.r < player.x + player.w &&
+                ball.x + ball.r > player.x &&
+                ball.y > player.y && ball.y < player.y + player.h) {
+                ball.dx = Math.abs(ball.dx) * 1.05;
+                var hitPos = (ball.y - player.y) / player.h;
+                ball.dy = (hitPos - 0.5) * 8;
+            }
+
+            // AI 碰撞
+            if (ball.x + ball.r > ai.x &&
+                ball.x - ball.r < ai.x + ai.w &&
+                ball.y > ai.y && ball.y < ai.y + ai.h) {
+                ball.dx = -Math.abs(ball.dx) * 1.05;
+                var hitPos = (ball.y - ai.y) / ai.h;
+                ball.dy = (hitPos - 0.5) * 8;
+            }
+
+            // 得分
+            if (ball.x - ball.r < -10) {
+                aiScore++;
+                document.getElementById('aiScore').textContent = aiScore;
+                resetBall();
+            }
+            if (ball.x + ball.r > W + 10) {
+                playerScore++;
+                document.getElementById('playerScore').textContent = playerScore;
+                resetBall();
+            }
+
+            draw();
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        function resetBall() {
+            ball.x = W/2;
+            ball.y = 150 + (Math.random() - 0.5) * 60;
+            ball.dx = 3 * (Math.random() > 0.5 ? 1 : -1);
+            ball.dy = 3 * (Math.random() > 0.5 ? 1 : -1);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = '#1a202c';
+            ctx.fillRect(0, 0, W, H);
+
+            // 中線
+            ctx.strokeStyle = '#4a5568';
+            ctx.setLineDash([6, 8]);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(W/2, 0);
+            ctx.lineTo(W/2, H);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 玩家
+            ctx.fillStyle = '#48bb78';
+            ctx.shadowColor = 'rgba(72,187,120,0.3)';
+            ctx.shadowBlur = 12;
+            ctx.fillRect(player.x, player.y, player.w, player.h);
+
+            // AI
+            ctx.fillStyle = '#fc8181';
+            ctx.shadowColor = 'rgba(252,129,129,0.3)';
+            ctx.shadowBlur = 12;
+            ctx.fillRect(ai.x, ai.y, ai.w, ai.h);
+
+            // 球
+            ctx.fillStyle = '#f6e05e';
+            ctx.shadowColor = 'rgba(246,224,94,0.5)';
+            ctx.shadowBlur = 20;
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        canvas.addEventListener('mousemove', function(e) {
+            var rect = canvas.getBoundingClientRect();
+            mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
+        });
+
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            var rect = canvas.getBoundingClientRect();
+            var touch = e.touches[0];
+            mouseY = (touch.clientY - rect.top) * (canvas.height / rect.height);
+        });
+
+        initGame();
+    </script>
+</body>
+</html>

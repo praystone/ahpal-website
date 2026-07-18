@@ -1,0 +1,503 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泡泡射擊 - 消消樂 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a202c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: #2d3748;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+            max-width: 420px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        h1 { color: white; margin-bottom: 4px; font-size: 28px; text-align: center; }
+        .desc { color: #a0aec0; font-size: 14px; margin-bottom: 16px; text-align: center; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: white;
+        }
+        .header .info {
+            background: #1a202c;
+            padding: 4px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        canvas {
+            background: #1a202c;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 380 / 450;
+            cursor: crosshair;
+        }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #48bb78;
+            color: white;
+        }
+        .controls button:hover { background: #38a169; transform: scale(1.02); }
+        .message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #a0aec0;
+            text-align: center;
+        }
+        @media (max-width: 480px) { h1 { font-size: 22px; } }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>🫧 泡泡射擊 - 消消樂</h1>
+        <p class="desc">瞄準射擊彩色泡泡，消除所有泡泡！</p>
+        <div class="header">
+            <span class="info">🎯 <span id="score">0</span></span>
+            <span class="info">💨 剩餘 <span id="shots">20</span></span>
+        </div>
+        <canvas id="gameCanvas" width="380" height="450"></canvas>
+        <div class="controls">
+            <button onclick="initGame()">🔄 新遊戲</button>
+        </div>
+        <div class="message" id="message">移動滑鼠瞄準，點擊射擊</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        var canvas = document.getElementById('gameCanvas');
+        var ctx = canvas.getContext('2d');
+        var W = 380, H = 450;
+        var COLS = 10, ROWS = 12;
+        var bubbleR = 16;
+        var bubbles = [];
+        var shooter = { x: W/2, y: H - 30 };
+        var nextColor = 0;
+        var currentColor = 0;
+        var shotDir = { dx: 0, dy: -1 };
+        var shooting = false;
+        var shotBubble = null;
+        var score = 0;
+        var shots = 20;
+        var gameRunning = false;
+        var gameLoop = null;
+        var mouseX = W/2;
+
+        var COLORS = ['#fc8181', '#f6ad55', '#f6e05e', '#48bb78', '#63b3ed', '#b794f4'];
+
+        function initGame() {
+            if (gameLoop) cancelAnimationFrame(gameLoop);
+            bubbles = [];
+            score = 0;
+            shots = 20;
+            gameRunning = true;
+            document.getElementById('score').textContent = score;
+            document.getElementById('shots').textContent = shots;
+            document.getElementById('message').textContent = '移動滑鼠瞄準，點擊射擊';
+
+            for (var r = 0; r < 6; r++) {
+                for (var c = 0; c < COLS; c++) {
+                    var x = (r % 2 === 0) ? c * (bubbleR * 2 + 2) + bubbleR + 5 : c * (bubbleR * 2 + 2) + bubbleR + bubbleR + 7;
+                    var y = r * (bubbleR * 2 + 2) + bubbleR + 10;
+                    bubbles.push({
+                        x: x, y: y, r: bubbleR,
+                        color: Math.floor(Math.random() * COLORS.length),
+                        active: true
+                    });
+                }
+            }
+            currentColor = Math.floor(Math.random() * COLORS.length);
+            nextColor = Math.floor(Math.random() * COLORS.length);
+            shooter.x = W/2;
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        function update() {
+            if (!gameRunning) return;
+
+            if (!shooting) {
+                var dx = mouseX - shooter.x;
+                var dy = -100;
+                var len = Math.sqrt(dx*dx + dy*dy);
+                shotDir.dx = dx / len;
+                shotDir.dy = dy / len;
+            }
+
+            if (shooting && shotBubble) {
+                shotBubble.x += shotDir.dx * 6;
+                shotBubble.y += shotDir.dy * 6;
+
+                var hit = false;
+                for (var i = 0; i < bubbles.length; i++) {
+                    if (!bubbles[i].active) continue;
+                    var b = bubbles[i];
+                    var dist = Math.sqrt((shotBubble.x - b.x)**2 + (shotBubble.y - b.y)**2);
+                    if (dist < bubbleR * 2) {
+                        hit = true;
+                        var col = Math.round((shotBubble.x - 5) / (bubbleR * 2 + 2));
+                        var row = Math.round((shotBubble.y - 10) / (bubbleR * 2 + 2));
+                        var nx = (row % 2 === 0) ? col * (bubbleR * 2 + 2) + bubbleR + 5 : col * (bubbleR * 2 + 2) + bubbleR + bubbleR + 7;
+                        var ny = row * (bubbleR * 2 + 2) + bubbleR + 10;
+                        bubbles.push({
+                            x: nx, y: ny, r: bubbleR,
+                            color: shotBubble.color,
+                            active: true
+                        });
+                        matchBubbles(nx, ny, shotBubble.color);
+                        shots--;
+                        document.getElementById('shots').textContent = shots;
+                        if (shots <= 0 || bubbles.filter(b => b.active).length === 0) {
+                            gameOver();
+                            return;
+                        }
+                        currentColor = nextColor;
+                        nextColor = Math.floor(Math.random() * COLORS.length);
+                        shooting = false;
+                        shotBubble = null;
+                        break;
+                    }
+                }
+                if (shotBubble && shotBubble.y < 10) {
+                    var col = Math.round((shotBubble.x - 5) / (bubbleR * 2 + 2));
+                    var row = 0;
+                    var nx = (row % 2 === 0) ? col * (bubbleR * 2 + 2) + bubbleR + 5 : col * (bubbleR * 2 + 2) + bubbleR + bubbleR + 7;
+                    var ny = row * (bubbleR * 2 + 2) + bubbleR + 10;
+                    bubbles.push({
+                        x: nx, y: ny, r: bubbleR,
+                        color: shotBubble.color,
+                        active: true
+                    });
+                    matchBubbles(nx, ny, shotBubble.color);
+                    shots--;
+                    document.getElementById('shots').textContent = shots;
+                    if (shots <= 0 || bubbles.filter(b => b.active).length === 0) {
+                        gameOver();
+                        return;
+                    }
+                    currentColor = nextColor;
+                    nextColor = Math.floor(Math.random() * COLORS.length);
+                    shooting = false;
+                    shotBubble = null;
+                }
+            }
+
+            draw();
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        function matchBubbles(x, y, color) {
+            var toRemove = [];
+            var queue = [{x:x, y:y}];
+            var visited = new Set();
+
+            while (queue.length > 0) {
+                var pos = queue.shift();
+                var key = pos.x + ',' + pos.y;
+                if (visited.has(key)) continue;
+                visited.add(key);
+
+                var bubble = bubbles.find(b => b.active && Math.abs(b.x - pos.x) < 2 && Math.abs(b.y - pos.y) < 2);
+                if (bubble && bubble.color === color) {
+                    toRemove.push(bubble);
+                    var neighbors = getNeighbors(bubble.x, bubble.y);
+                    for (var i = 0; i < neighbors.length; i++) {
+                        queue.push(neighbors[i]);
+                    }
+                }
+            }
+
+            if (toRemove.length >= 3) {
+                for (var i = 0; i < toRemove.length; i++) {
+                    toRemove[i].active = false;
+                    score += 10;
+                }
+                document.getElementById('score').textContent = score;
+                removeFloatingBubbles();
+            }
+        }
+
+        function getNeighbors(x, y) {
+            var result = [];
+            var dirs = [
+                {dx: bubbleR*2+2, dy: 0}, {dx: -(bubbleR*2+2), dy: 0},
+                {dx: bubbleR+1, dy: -(bubbleR*2+2)}, {dx: bubbleR+1, dy: bubbleR*2+2},
+                {dx: -(bubbleR+1), dy: -(bubbleR*2+2)}, {dx: -(bubbleR+1), dy: bubbleR*2+2}
+            ];
+            for (var i = 0; i < dirs.length; i++) {
+                var nx = x + dirs[i].dx;
+                var ny = y + dirs[i].dy;
+                var b = bubbles.find(b => b.active && Math.abs(b.x - nx) < 2 && Math.abs(b.y - ny) < 2);
+                if (b) result.push({x: b.x, y: b.y});
+            }
+            return result;
+        }
+
+        function removeFloatingBubbles() {
+            var connected = new Set();
+            var queue = [];
+            for (var i = 0; i < bubbles.length; i++) {
+                if (bubbles[i].active && bubbles[i].y < 30) {
+                    queue.push(bubbles[i]);
+                    connected.add(bubbles[i]);
+                }
+            }
+            while (queue.length > 0) {
+                var b = queue.shift();
+                var neighbors = getNeighbors(b.x, b.y);
+                for (var i = 0; i < neighbors.length; i++) {
+                    var n = bubbles.find(b2 => b2.active && Math.abs(b2.x - neighbors[i].x) < 2 && Math.abs(b2.y - neighbors[i].y) < 2);
+                    if (n && !connected.has(n)) {
+                        connected.add(n);
+                        queue.push(n);
+                    }
+                }
+            }
+            for (var i = 0; i < bubbles.length; i++) {
+                if (bubbles[i].active && !connected.has(bubbles[i])) {
+                    bubbles[i].active = false;
+                }
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = '#1a202c';
+            ctx.fillRect(0, 0, W, H);
+
+            for (var i = 0; i < bubbles.length; i++) {
+                if (!bubbles[i].active) continue;
+                var b = bubbles[i];
+                ctx.shadowColor = 'rgba(255,255,255,0.1)';
+                ctx.shadowBlur = 6;
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.fillStyle = COLORS[b.color];
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.fillStyle = 'rgba(255,255,255,0.2)';
+                ctx.beginPath();
+                ctx.arc(b.x - 4, b.y - 5, 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (shotBubble) {
+                ctx.shadowColor = 'rgba(255,255,255,0.2)';
+                ctx.shadowBlur = 10;
+                ctx.beginPath();
+                ctx.arc(shotBubble.x, shotBubble.y, bubbleR, 0, Math.PI * 2);
+                ctx.fillStyle = COLORS[shotBubble.color];
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            // 發射器
+            ctx.shadowColor = 'rgba(255,255,255,0.05)';
+            ctx.shadowBlur = 4;
+            ctx.beginPath();
+            ctx.arc(shooter.x, shooter.y, bubbleR, 0, Math.PI * 2);
+            ctx.fillStyle = COLORS[currentColor];
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // 下一顆
+            ctx.beginPath();
+            ctx.arc(shooter.x + 60, shooter.y, bubbleR - 4, 0, Math.PI * 2);
+            ctx.fillStyle = COLORS[nextColor];
+            ctx.fill();
+
+            // 瞄準線
+            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 6]);
+            ctx.beginPath();
+            ctx.moveTo(shooter.x, shooter.y);
+            ctx.lineTo(shooter.x + shotDir.dx * 200, shooter.y + shotDir.dy * 200);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function shoot() {
+            if (shooting || !gameRunning || shots <= 0) return;
+            shotBubble = {
+                x: shooter.x,
+                y: shooter.y,
+                r: bubbleR,
+                color: currentColor
+            };
+            shooting = true;
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            if (gameLoop) cancelAnimationFrame(gameLoop);
+            var msg = bubbles.filter(b => b.active).length === 0 ?
+                '🎉 恭喜你贏了！所有泡泡都消除了！' :
+                '💀 遊戲結束！分數：' + score;
+            document.getElementById('message').textContent = msg;
+        }
+
+        canvas.addEventListener('mousemove', function(e) {
+            var rect = canvas.getBoundingClientRect();
+            mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+        });
+
+        canvas.addEventListener('click', shoot);
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            var rect = canvas.getBoundingClientRect();
+            var touch = e.touches[0];
+            mouseX = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            shoot();
+        });
+
+        initGame();
+    </script>
+</body>
+</html>

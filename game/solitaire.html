@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>接龍 - 經典紙牌遊戲 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #0d1b2a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: #1b2d45;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+            max-width: 700px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        h1 { color: white; margin-bottom: 4px; font-size: 28px; }
+        .desc { color: #a0aec0; font-size: 14px; margin-bottom: 16px; text-align: center; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: white;
+        }
+        .header .info {
+            background: #0d1b2a;
+            padding: 4px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        canvas {
+            background: #0d1b2a;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 650px;
+            aspect-ratio: 650 / 400;
+            cursor: pointer;
+        }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #48bb78;
+            color: white;
+        }
+        .controls button:hover { background: #38a169; transform: scale(1.02); }
+        .message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #a0aec0;
+            text-align: center;
+        }
+        @media (max-width: 480px) { h1 { font-size: 22px; } }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>🃏 接龍 - 經典紙牌遊戲</h1>
+        <p class="desc">經典接龍紙牌遊戲，考驗你的策略思維！</p>
+        <div class="header">
+            <span class="info">⏱️ <span id="moves">0</span></span>
+            <span class="info">✅ 完成 <span id="done">0</span>/4</span>
+        </div>
+        <canvas id="gameCanvas" width="650" height="400"></canvas>
+        <div class="controls">
+            <button onclick="initGame()">🔄 新遊戲</button>
+        </div>
+        <div class="message" id="message">點擊卡片移動到正確位置</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        var canvas = document.getElementById('gameCanvas');
+        var ctx = canvas.getContext('2d');
+        var W = 650, H = 400;
+        var suits = ['♠', '♥', '♦', '♣'];
+        var ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+        var deck = [];
+        var stock = [];
+        var waste = [];
+        var foundations = [[], [], [], []];
+        var tableau = [[], [], [], [], [], [], []];
+        var moves = 0;
+        var selected = null;
+        var gameOver = false;
+
+        function initGame() {
+            deck = [];
+            for (var s = 0; s < 4; s++) {
+                for (var r = 0; r < 13; r++) {
+                    deck.push({ suit: s, rank: r, faceUp: false });
+                }
+            }
+            shuffle(deck);
+            stock = deck.slice();
+            waste = [];
+            foundations = [[], [], [], []];
+            tableau = [[], [], [], [], [], [], []];
+            moves = 0;
+            selected = null;
+            gameOver = false;
+            document.getElementById('moves').textContent = moves;
+            document.getElementById('done').textContent = '0';
+            document.getElementById('message').textContent = '點擊卡片移動到正確位置';
+
+            for (var i = 0; i < 7; i++) {
+                for (var j = 0; j <= i; j++) {
+                    var card = stock.pop();
+                    card.faceUp = (j === i);
+                    tableau[i].push(card);
+                }
+            }
+            draw();
+        }
+
+        function shuffle(arr) {
+            for (var i = arr.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = '#0d1b2a';
+            ctx.fillRect(0, 0, W, H);
+
+            var x = 20, y = 20, cardW = 60, cardH = 84, gap = 8;
+
+            // 顯示庫存
+            ctx.fillStyle = '#2d3748';
+            ctx.fillRect(x, y, cardW, cardH);
+            ctx.strokeStyle = '#4a5568';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x, y, cardW, cardH);
+            if (stock.length > 0) {
+                ctx.fillStyle = '#48bb78';
+                ctx.font = '24px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('♠', x + cardW/2, y + cardH/2);
+                ctx.fillStyle = '#a0aec0';
+                ctx.font = '12px Arial';
+                ctx.fillText(stock.length, x + cardW/2, y + cardH - 14);
+            }
+
+            // 顯示廢牌堆
+            var wx = x + cardW + gap;
+            ctx.fillStyle = '#2d3748';
+            ctx.fillRect(wx, y, cardW, cardH);
+            ctx.strokeStyle = '#4a5568';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(wx, y, cardW, cardH);
+            if (waste.length > 0) {
+                drawCard(wx, y, waste[waste.length-1]);
+            }
+
+            // 顯示基礎牌堆
+            var fx = x + (cardW + gap) * 3;
+            for (var i = 0; i < 4; i++) {
+                var fpx = fx + i * (cardW + gap);
+                ctx.fillStyle = '#2d3748';
+                ctx.fillRect(fpx, y, cardW, cardH);
+                ctx.strokeStyle = '#4a5568';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(fpx, y, cardW, cardH);
+                if (foundations[i].length > 0) {
+                    drawCard(fpx, y, foundations[i][foundations[i].length-1]);
+                }
+            }
+
+            // 顯示工作列
+            var ty = y + cardH + gap + 20;
+            for (var i = 0; i < 7; i++) {
+                var tx = x + i * (cardW + gap);
+                for (var j = 0; j < tableau[i].length; j++) {
+                    var cardY = ty + j * 18;
+                    if (j === tableau[i].length - 1 || tableau[i][j].faceUp) {
+                        drawCard(tx, cardY, tableau[i][j]);
+                    } else {
+                        ctx.fillStyle = '#4a5568';
+                        ctx.fillRect(tx + 2, cardY + 2, cardW - 4, cardH - 4);
+                        ctx.strokeStyle = '#5a6578';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(tx + 2, cardY + 2, cardW - 4, cardH - 4);
+                        ctx.fillStyle = '#718096';
+                        ctx.font = '20px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('♠', tx + cardW/2, cardY + cardH/2);
+                    }
+                }
+            }
+        }
+
+        function drawCard(x, y, card) {
+            var colors = ['#48bb78', '#fc8181', '#fc8181', '#48bb78'];
+            ctx.fillStyle = 'white';
+            ctx.shadowColor = 'rgba(255,255,255,0.05)';
+            ctx.shadowBlur = 4;
+            ctx.fillRect(x, y, 60, 84);
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x, y, 60, 84);
+
+            var rankStr = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'][card.rank];
+            var suitStr = ['♠','♥','♦','♣'][card.suit];
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillStyle = colors[card.suit];
+            ctx.fillText(rankStr, x + 4, y + 4);
+            ctx.font = '14px Arial';
+            ctx.fillText(suitStr, x + 4, y + 22);
+
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '28px Arial';
+            ctx.fillStyle = colors[card.suit];
+            ctx.fillText(suitStr, x + 30, y + 42);
+
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'bottom';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText(rankStr, x + 56, y + 80);
+            ctx.font = '14px Arial';
+            ctx.fillText(suitStr, x + 56, y + 62);
+        }
+
+        initGame();
+    </script>
+</body>
+</html>

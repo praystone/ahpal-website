@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>塗鴉跳躍 - 向上冒險 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a202c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .game-container {
+            background: #2d3748;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+        }
+        h1 { color: white; margin-bottom: 4px; font-size: 28px; }
+        .desc { color: #a0aec0; font-size: 14px; margin-bottom: 16px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: white;
+        }
+        .header .info {
+            background: #1a202c;
+            padding: 4px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        canvas {
+            background: #1a202c;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 360 / 500;
+            cursor: pointer;
+        }
+        .controls {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .controls button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #48bb78;
+            color: white;
+        }
+        .controls button:hover { background: #38a169; transform: scale(1.02); }
+        .message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+        @media (max-width: 480px) { h1 { font-size: 22px; } }
+    </style>
+</head>
+<body>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1>🦘 塗鴉跳躍 - 向上冒險</h1>
+        <p class="desc">控制塗鴉小人向上跳躍，挑戰最高分數！</p>
+        <div class="header">
+            <span class="info">🏆 分數 <span id="score">0</span></span>
+            <span class="info">🏅 最高 <span id="best">0</span></span>
+        </div>
+        <canvas id="gameCanvas" width="360" height="500"></canvas>
+        <div class="controls">
+            <button onclick="initGame()">🔄 新遊戲</button>
+        </div>
+        <div class="message" id="message">按住滑鼠/手指左右移動控制跳躍方向</div>
+    </div>
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+    <script>
+        var canvas = document.getElementById('gameCanvas');
+        var ctx = canvas.getContext('2d');
+        var W = 360, H = 500;
+        var player = { x: 180, y: 400, w: 30, h: 30, vy: 0, vx: 0 };
+        var platforms = [];
+        var score = 0;
+        var bestScore = parseInt(localStorage.getItem('doodleBest')) || 0;
+        var gameRunning = false;
+        var gameLoop = null;
+        var gravity = 0.5;
+        var jumpPower = -10;
+        var moveSpeed = 4;
+        var keys = {};
+        var isMouseDown = false;
+        var mouseX = 0;
+
+        function initGame() {
+            if (gameLoop) cancelAnimationFrame(gameLoop);
+            player = { x: 180, y: 400, w: 30, h: 30, vy: 0, vx: 0 };
+            platforms = [];
+            score = 0;
+            gameRunning = true;
+            document.getElementById('score').textContent = score;
+            document.getElementById('best').textContent = bestScore;
+            document.getElementById('message').textContent = '按住滑鼠/手指左右移動控制跳躍方向';
+
+            for (var i = 0; i < 8; i++) {
+                platforms.push({
+                    x: 20 + Math.random() * 300,
+                    y: 480 - i * 60,
+                    w: 50 + Math.random() * 40,
+                    h: 12,
+                    active: true
+                });
+            }
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        function update() {
+            if (!gameRunning) return;
+
+            // 重力
+            player.vy += gravity;
+            player.y += player.vy;
+
+            // 左右移動
+            if (isMouseDown) {
+                var diff = mouseX - player.x - player.w/2;
+                if (Math.abs(diff) > 5) {
+                    player.vx = Math.sign(diff) * moveSpeed;
+                } else {
+                    player.vx = 0;
+                }
+            } else if (keys['ArrowLeft'] || keys['a']) {
+                player.vx = -moveSpeed;
+            } else if (keys['ArrowRight'] || keys['d']) {
+                player.vx = moveSpeed;
+            } else {
+                player.vx *= 0.9;
+                if (Math.abs(player.vx) < 0.1) player.vx = 0;
+            }
+            player.x += player.vx;
+
+            // 邊界
+            if (player.x < 0) { player.x = 0; player.vx = 0; }
+            if (player.x + player.w > W) { player.x = W - player.w; player.vx = 0; }
+
+            // 平台碰撞
+            for (var i = 0; i < platforms.length; i++) {
+                var p = platforms[i];
+                if (!p.active) continue;
+                if (player.vy > 0 &&
+                    player.x + player.w > p.x &&
+                    player.x < p.x + p.w &&
+                    player.y + player.h > p.y &&
+                    player.y + player.h < p.y + p.h + 10) {
+                    player.vy = jumpPower;
+                    p.active = false;
+                    score++;
+                    document.getElementById('score').textContent = score;
+                    if (score > bestScore) {
+                        bestScore = score;
+                        localStorage.setItem('doodleBest', bestScore);
+                        document.getElementById('best').textContent = bestScore;
+                    }
+                }
+            }
+
+            // 生成新平台
+            if (player.y < H * 0.4) {
+                var diff = H * 0.4 - player.y;
+                player.y += diff;
+                for (var i = platforms.length - 1; i >= 0; i--) {
+                    platforms[i].y += diff;
+                    if (platforms[i].y > H) {
+                        platforms.splice(i, 1);
+                    }
+                }
+                while (platforms.length < 10) {
+                    var lastY = platforms.length > 0 ? platforms[platforms.length-1].y : H;
+                    platforms.push({
+                        x: 20 + Math.random() * 300,
+                        y: lastY - 50 - Math.random() * 40,
+                        w: 50 + Math.random() * 40,
+                        h: 12,
+                        active: true
+                    });
+                }
+            }
+
+            // 掉落檢查
+            if (player.y > H) {
+                gameOver();
+                return;
+            }
+
+            draw();
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = '#1a202c';
+            ctx.fillRect(0, 0, W, H);
+
+            // 平台
+            for (var i = 0; i < platforms.length; i++) {
+                var p = platforms[i];
+                ctx.fillStyle = p.active ? '#48bb78' : '#4a5568';
+                ctx.shadowColor = 'rgba(72,187,120,0.3)';
+                ctx.shadowBlur = 8;
+                ctx.fillRect(p.x, p.y, p.w, p.h);
+                ctx.shadowBlur = 0;
+            }
+
+            // 玩家
+            ctx.fillStyle = '#f6e05e';
+            ctx.shadowColor = 'rgba(246,224,94,0.5)';
+            ctx.shadowBlur = 20;
+            ctx.fillRect(player.x, player.y, player.w, player.h);
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = '#1a202c';
+            ctx.fillRect(player.x + 5, player.y + 5, 6, 6);
+            ctx.fillRect(player.x + player.w - 11, player.y + 5, 6, 6);
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            if (gameLoop) cancelAnimationFrame(gameLoop);
+            document.getElementById('message').textContent = '💀 遊戲結束！分數：' + score;
+        }
+
+        // 事件監聽
+        canvas.addEventListener('mousedown', function(e) {
+            isMouseDown = true;
+            var rect = canvas.getBoundingClientRect();
+            mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+        });
+        canvas.addEventListener('mousemove', function(e) {
+            if (isMouseDown) {
+                var rect = canvas.getBoundingClientRect();
+                mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+            }
+        });
+        canvas.addEventListener('mouseup', function() { isMouseDown = false; });
+        canvas.addEventListener('mouseleave', function() { isMouseDown = false; });
+
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            isMouseDown = true;
+            var rect = canvas.getBoundingClientRect();
+            var touch = e.touches[0];
+            mouseX = (touch.clientX - rect.left) * (canvas.width / rect.width);
+        });
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (isMouseDown) {
+                var rect = canvas.getBoundingClientRect();
+                var touch = e.touches[0];
+                mouseX = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            }
+        });
+        canvas.addEventListener('touchend', function(e) { e.preventDefault(); isMouseDown = false; });
+
+        document.addEventListener('keydown', function(e) {
+            keys[e.key] = true;
+            if (e.key === ' ') { e.preventDefault(); }
+        });
+        document.addEventListener('keyup', function(e) {
+            keys[e.key] = false;
+        });
+
+        initGame();
+    </script>
+</body>
+</html>

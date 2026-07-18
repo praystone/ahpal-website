@@ -6,7 +6,7 @@
     <title>雅寶社區 · 頂客論壇 | AHPAL.COM</title>
     <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 50 篇精選文章。">
     <meta name="keywords" content="科技教學,遊戲攻略,生活小常識,軟體評測,人生哲理,AI趨勢">
-
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
     <script>
@@ -15,175 +15,92 @@
         gtag('js', new Date());
         gtag('config', 'G-XXGG1VTGPB');
     </script>
-    <script async src="https://cse.google.com/cse.js?cx=940a30ae4765c4e72"></script>
-
+    
     <style>
-        :root {
-            --color-primary: #005A9C;
-            --color-secondary: #00A86B;
-            --color-accent: #FF6F61;
-            --color-bg: #F7F9FC;
-            --color-card: #FFFFFF;
-            --color-text: #1A202C;
-            --color-text-light: #4A5568;
-            --color-border: #E2E8F0;
-            --shadow-card: 0 4px 12px rgba(0,0,0,0.06);
-            --shadow-card-hover: 0 8px 25px rgba(0,0,0,0.12);
-            --radius-card: 14px;
-            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font-stack); background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; -webkit-font-smoothing: antialiased; }
-
-        .site-header { background: var(--color-primary); color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #F7F9FC; color: #1A202C; line-height: 1.8; font-size: 16px; }
+        .site-header { background: #005A9C; color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }
         .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; white-space: nowrap; }
+        .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }
         .logo:hover { color: rgba(255,255,255,0.85); }
         .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: white; border-bottom: 2px solid var(--color-secondary); }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; }
+        .nav-links a:hover { color: white; border-bottom: 2px solid #00A86B; }
         .nav-links .game-link { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }
         .nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
-
-        .search-nav { display: flex; align-items: center; }
-        .search-nav .gcse-searchbox-only { max-width: 200px; }
-        .search-nav input.gsc-input { background: rgba(255,255,255,0.12); border: none; border-radius: 30px; padding: 6px 14px; color: white; font-size: 13px; outline: none; transition: all 0.3s; width: 160px; }
-        .search-nav input.gsc-input:focus { background: rgba(255,255,255,0.2); width: 200px; }
-        .search-nav input.gsc-input::placeholder { color: rgba(255,255,255,0.6); }
-        .search-nav .gsc-search-button { background: rgba(255,255,255,0.15); border: none; border-radius: 30px; padding: 6px 14px; color: white; cursor: pointer; font-size: 13px; transition: background 0.3s; margin-left: 4px; }
-        .search-nav .gsc-search-button:hover { background: rgba(255,255,255,0.25); }
-
-        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
-        @media (max-width: 768px) { .header-inner { justify-content: space-between; } .nav-links { display: none; width: 100%; flex-direction: column; align-items: center; gap: 10px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.1); } .nav-links.mobile-open { display: flex; } .mobile-menu-btn { display: block; } .search-nav { order: 3; width: 100%; } .search-nav .gcse-searchbox-only { max-width: 100%; } .search-nav input.gsc-input { width: 100%; } .search-nav input.gsc-input:focus { width: 100%; } }
-        @media (max-width: 480px) { .logo { font-size: 17px; } .nav-links { font-size: 13px; gap: 8px; } }
-
         .main-wrapper { max-width: 1200px; margin: 28px auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 300px; gap: 30px; align-items: start; }
         @media (max-width: 992px) { .main-wrapper { grid-template-columns: 1fr; } }
-        .content-card { background: var(--color-card); padding: 36px 40px; border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+        .content-card { background: white; padding: 36px 40px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
         @media (max-width: 640px) { .content-card { padding: 24px 18px; } }
-
-        .hero-title { font-size: 30px; font-weight: 700; color: var(--color-text); margin-bottom: 2px; line-height: 1.3; }
-        .hero-title .highlight { color: var(--color-secondary); }
+        .hero-title { font-size: 30px; font-weight: 700; color: #1A202C; margin-bottom: 2px; line-height: 1.3; }
+        .hero-title .highlight { color: #00A86B; }
         .hero-sub { font-size: 14px; color: #718096; letter-spacing: 2px; margin-bottom: 12px; font-weight: 300; }
-        .hero-desc { font-size: 15px; color: var(--color-text-light); line-height: 1.9; }
-
-        #daily-challenge { margin: 20px 0 28px 0; }
-        .daily-challenge-card { background: linear-gradient(135deg, #005A9C 0%, #003d66 100%); color: white; padding: 24px 28px; border-radius: 14px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; box-shadow: 0 4px 16px rgba(0,90,156,0.25); transition: transform 0.2s; }
-        .daily-challenge-card:hover { transform: translateY(-2px); }
-        .daily-badge { font-size: 11px; background: rgba(255,255,255,0.2); padding: 2px 14px; border-radius: 20px; display: inline-block; letter-spacing: 0.5px; }
-        .daily-category { font-size: 13px; opacity: 0.8; }
-        .daily-title { font-size: 20px; font-weight: 700; margin: 2px 0; color: white; }
-        .daily-btn { display: inline-block; background: white; color: #005A9C; padding: 8px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.2s; margin-top: 4px; }
-        .daily-btn:hover { background: #f0f4f9; transform: scale(1.02); }
-
+        .hero-desc { font-size: 15px; color: #4A5568; line-height: 1.9; }
         .category-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin: 28px 0 32px 0; }
         @media (max-width: 768px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 480px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
-        .category-card { display: block; background: var(--color-bg); padding: 18px 12px; border-radius: var(--radius-card); text-decoration: none; text-align: center; border: 1px solid var(--color-border); transition: all 0.25s ease; }
-        .category-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); border-color: var(--color-secondary); }
+        .category-card { display: block; background: #F7F9FC; padding: 18px 12px; border-radius: 14px; text-decoration: none; text-align: center; border: 1px solid #E2E8F0; transition: all 0.25s ease; }
+        .category-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.10); border-color: #00A86B; }
         .category-card .emoji { font-size: 28px; display: block; margin-bottom: 4px; }
-        .category-card .cat-name { font-size: 13px; font-weight: 600; color: var(--color-text); }
+        .category-card .cat-name { font-size: 13px; font-weight: 600; color: #1A202C; }
         .category-card .cat-count { font-size: 11px; color: #718096; display: block; margin-top: 2px; }
-
-        .game-entry-card { display: block; background: linear-gradient(135deg, #005A9C 0%, #003d66 100%); color: white; padding: 20px 16px; border-radius: var(--radius-card); text-decoration: none; text-align: center; border: 1px solid #005A9C; transition: all 0.25s ease; margin: 20px 0 32px 0; }
-        .game-entry-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); border-color: var(--color-secondary); }
+        .game-entry-card { display: block; background: linear-gradient(135deg, #005A9C 0%, #003d66 100%); color: white; padding: 20px 16px; border-radius: 14px; text-decoration: none; text-align: center; margin: 20px 0 32px 0; }
+        .game-entry-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.10); }
         .game-entry-card .emoji { font-size: 36px; display: block; margin-bottom: 6px; }
         .game-entry-card .title { font-size: 18px; font-weight: 700; }
         .game-entry-card .desc { font-size: 13px; opacity: 0.8; margin-top: 2px; }
         .game-entry-card .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 2px 14px; border-radius: 20px; font-size: 11px; margin-top: 6px; }
-
-        .section-title { font-size: 20px; font-weight: 700; color: var(--color-text); margin: 0 0 16px 0; }
+        .section-title { font-size: 20px; font-weight: 700; color: #1A202C; margin: 0 0 16px 0; }
         .section-title small { font-weight: 400; font-size: 14px; color: #718096; margin-left: 10px; }
-
         #article-list { list-style: none; padding: 0; margin: 0 0 32px 0; }
-        #article-list li { background: var(--color-card); padding: 14px 18px; border-radius: 10px; box-shadow: var(--shadow-card); margin-bottom: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--color-border); transition: all 0.2s; }
-        #article-list li:hover { box-shadow: var(--shadow-card-hover); border-color: var(--color-secondary); transform: translateY(-1px); }
-        #article-list li .category { background: var(--color-primary); color: white; font-size: 11px; font-weight: 600; padding: 2px 12px; border-radius: 20px; white-space: nowrap; }
-        #article-list li .category.trend { background: var(--color-accent); }
-        #article-list li a { flex: 1; color: var(--color-text); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
-        #article-list li a:hover { color: var(--color-primary); }
+        #article-list li { background: white; padding: 14px 18px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid #E2E8F0; transition: all 0.2s; }
+        #article-list li:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.10); border-color: #00A86B; }
+        #article-list li .category { background: #005A9C; color: white; font-size: 11px; font-weight: 600; padding: 2px 12px; border-radius: 20px; white-space: nowrap; }
+        #article-list li a { flex: 1; color: #1A202C; text-decoration: none; font-size: 15px; font-weight: 500; }
+        #article-list li a:hover { color: #005A9C; }
         #article-list li .post-date { font-size: 12px; color: #718096; white-space: nowrap; }
-        @media (max-width: 600px) { #article-list li { flex-wrap: wrap; padding: 12px 14px; } #article-list li a { font-size: 14px; } #article-list li .post-date { font-size: 11px; } }
-
+        @media (max-width: 600px) { #article-list li { flex-wrap: wrap; padding: 12px 14px; } #article-list li a { font-size: 14px; } }
         .index-section { margin: 24px 0 8px 0; }
-        .index-section .cat-title { font-size: 14px; font-weight: 600; color: var(--color-text); border-left: 3px solid var(--color-secondary); padding-left: 12px; margin: 18px 0 10px 0; display: flex; align-items: center; gap: 10px; }
+        .index-section .cat-title { font-size: 14px; font-weight: 600; color: #1A202C; border-left: 3px solid #00A86B; padding-left: 12px; margin: 18px 0 10px 0; display: flex; align-items: center; gap: 10px; }
         .index-section .cat-title .count { font-size: 12px; font-weight: 400; color: #718096; }
         .index-tag-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-        .index-tag { background: var(--color-card); padding: 6px 16px; border-radius: 20px; font-size: 13px; color: var(--color-text-light); text-decoration: none; border: 1px solid var(--color-border); transition: all 0.2s; }
-        .index-tag:hover { border-color: var(--color-secondary); color: var(--color-text); box-shadow: var(--shadow-card); }
-
+        .index-tag { background: white; padding: 6px 16px; border-radius: 20px; font-size: 13px; color: #4A5568; text-decoration: none; border: 1px solid #E2E8F0; transition: all 0.2s; }
+        .index-tag:hover { border-color: #00A86B; color: #1A202C; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
         .sidebar { display: flex; flex-direction: column; gap: 24px; }
-        .sidebar .widget { background: var(--color-card); padding: 24px 20px; border-radius: var(--radius-card); box-shadow: var(--shadow-card); border: 1px solid var(--color-border); }
-        .sidebar .widget-title { font-size: 16px; font-weight: 700; color: var(--color-text); margin-bottom: 14px; border-bottom: 2px solid var(--color-primary); padding-bottom: 8px; }
-        .sidebar .widget p { font-size: 14px; color: var(--color-text-light); line-height: 1.7; }
+        .sidebar .widget { background: white; padding: 24px 20px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; }
+        .sidebar .widget-title { font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 14px; border-bottom: 2px solid #005A9C; padding-bottom: 8px; }
+        .sidebar .widget p { font-size: 14px; color: #4A5568; line-height: 1.7; }
         .sidebar .widget ul { list-style: none; padding: 0; margin: 0; }
         .sidebar .widget ul li { margin-bottom: 6px; font-size: 14px; }
-        .sidebar .widget ul li a { color: var(--color-text-light); text-decoration: none; transition: color 0.2s; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .sidebar .widget ul li a:hover { color: var(--color-primary); }
+        .sidebar .widget ul li a { color: #4A5568; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .sidebar .widget ul li a:hover { color: #005A9C; }
         .sidebar .widget .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
-        .sidebar .widget .tag-cloud a { background: var(--color-bg); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: var(--color-text-light); text-decoration: none; border: 1px solid var(--color-border); transition: all 0.2s; }
-        .sidebar .widget .tag-cloud a:hover { border-color: var(--color-secondary); color: var(--color-text); }
-
+        .sidebar .widget .tag-cloud a { background: #F7F9FC; padding: 4px 12px; border-radius: 20px; font-size: 12px; color: #4A5568; text-decoration: none; border: 1px solid #E2E8F0; }
+        .sidebar .widget .tag-cloud a:hover { border-color: #00A86B; color: #1A202C; }
         .site-footer { background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
         .footer-inner .copy { font-size: 13px; color: #718096; }
-        .footer-inner .declaration { font-size: 12px; color: var(--color-accent); letter-spacing: 1px; font-weight: 300; margin-top: 4px; }
-
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #005A9C;
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: opacity 0.3s, transform 0.3s;
-            opacity: 0.7;
-            z-index: 999;
-        }
-        #back-to-top:hover {
-            opacity: 1;
-            transform: scale(1.05);
-            background: #003d66;
-        }
+        .footer-inner .declaration { font-size: 12px; color: #FF6F61; letter-spacing: 1px; font-weight: 300; margin-top: 4px; }
+        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }
+        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
     </style>
 </head>
 <body>
-
     <header class="site-header">
         <div class="header-inner">
             <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links" id="navLinks">
-                <a href="/" class="active">首頁</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
                 <a href="/memorial.html">歲月迴聲</a>
                 <a href="/royal_dragon_karma.html">公義史錄</a>
                 <a href="/categories.html">📚 全部分類</a>
                 <a href="/game/" class="game-link">🎮 遊戲間</a>
             </nav>
-            <div class="search-nav">
-                <div class="gcse-searchbox-only" data-resultsUrl="/search-results.html"></div>
-            </div>
-            <button class="mobile-menu-btn" id="menuToggle" aria-label="選單">☰</button>
         </div>
     </header>
 
-    <script>
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('navLinks').classList.toggle('mobile-open');
-        });
-    </script>
-
-    <script src="/js/daily-challenge.js"></script>
-
     <div class="main-wrapper">
-
         <div class="content-card">
-
             <h1 class="hero-title">雅寶社區 <span class="highlight">·</span> 頂客論壇</h1>
             <p class="hero-sub">歲月 · 知識 · 共創</p>
             <p class="hero-desc">
@@ -192,28 +109,26 @@
                 從數位工具到人生成長，每一篇文章都經過編輯策展，為讀者提供真正有價值的資訊。
             </p>
 
-            <div id="daily-challenge"></div>
-
             <div class="category-grid">
                 <a href="/category-tech.html" class="category-card">
                     <span class="emoji">💻</span>
                     <span class="cat-name">3C 科技教學</span>
-                    <span class="cat-count">11 篇</span>
+                    <span class="cat-count">12 篇</span>
                 </a>
                 <a href="/category-game.html" class="category-card">
                     <span class="emoji">🎮</span>
                     <span class="cat-name">遊戲攻略</span>
-                    <span class="cat-count">50 篇</span>
+                    <span class="cat-count">39 篇</span>
                 </a>
                 <a href="/category-life.html" class="category-card">
                     <span class="emoji">🏠</span>
                     <span class="cat-name">生活小常識</span>
-                    <span class="cat-count">10 篇</span>
+                    <span class="cat-count">11 篇</span>
                 </a>
                 <a href="/category-review.html" class="category-card">
                     <span class="emoji">📊</span>
                     <span class="cat-name">軟體評測</span>
-                    <span class="cat-count">14 篇</span>
+                    <span class="cat-count">19 篇</span>
                 </a>
                 <a href="/category-philosophy.html" class="category-card">
                     <span class="emoji">🌟</span>
@@ -223,7 +138,7 @@
                 <a href="/category-trend.html" class="category-card">
                     <span class="emoji">🤖</span>
                     <span class="cat-name">AI 趨勢</span>
-                    <span class="cat-count">13 篇</span>
+                    <span class="cat-count">15 篇</span>
                 </a>
             </div>
 
@@ -236,118 +151,69 @@
 
             <h2 class="section-title">📌 最新文章 <small>持續更新中</small></h2>
             <ul id="article-list">
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-trends-2026.html">2026 年你一定要知道的 5 個 AI 趨勢</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-fintech-trends-2026.html">2026 年 5 大 AI 金融科技應用｜投資理財新革命</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-healthcare-trends-2026.html">AI 如何改變 2026 年醫療產業？智慧醫療趨勢全解析</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/top-5-ai-skills-2026.html">2026 年必學的 5 個 AI 技能｜職場競爭力全面升級</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-sustainable-development-2026.html">AI 與永續發展：2026 年如何用科技解決氣候變遷問題</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-education-revolution-2026.html">AI 時代的教育革命：2026 年孩子該學什麼？</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/generative-ai-tools-2026.html">生成式 AI 工具 2026 年必學 5 款</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/cybersecurity-privacy-tips.html">網路安全與個資保護技巧</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/phone-comparison-2026.html">最新手機評測與比較 2026</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/taiwan-travel-guide-2026.html">2026 台灣旅遊景點推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-life-applications.html">AI 人工智慧生活應用實例解析</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/digital-transformation-trends-2026.html">2026 數位轉型趨勢與應用</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-agent-trends-2026.html">2026 年 AI 代理人 (Agent) 趨勢全解析｜企業應用與未來展望</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/hk-bank-fixed-deposit-rates-2026.html">2026 年香港銀行定存利率比較：哪家最優惠？</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/dca-vs-lump-sum-2026.html">定期定額 vs 單筆投入：哪個更賺？2026 年投資策略比較</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/passive-income-methods-2026.html">被動收入 5 種方法：實現財富自由 2026 年實用指南</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/hk-stock-investing-2026.html">2026 年香港股市投資入門：新手必看 港股開戶與交易攻略</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/5-micro-habits-2026.html">2026 年你一定要養成的 5 個微習慣｜改變人生從小事開始</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/luck-psychology-secrets.html">為什麼有些人總是運氣好？心理學揭開幸運的秘密</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/7-habits-guide.html">高效能人士的 7 個習慣 讀書筆記與實踐指南</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/meditation-benefits.html">每天 15 分鐘冥想 改變你的大腦與人生</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/emerging-careers-2026.html">2026 年你一定要認識的 3 個新興職業</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/investment-trends-2026.html">從股市看趨勢：2026 下半年最具潛力的投資方向</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/ai-future-trends-2027.html">2027 年將改變生活的 5 大 AI 新技術預測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/jobs-disappearing-ai-era.html">AI 時代即將消失的 7 種職業 你該如何應對</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/doctors-secrets.html">醫生不會告訴你的 5 個健康秘密</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/successful-habits.html">成功人士的 10 個習慣 改變你的人生</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-backup-software-2026.html">2026 年 5 款最強備份軟體評測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-music-streaming-2026.html">2026 年 5 款最佳音樂串流平台比較</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-pdf-merger-2026.html">2026 年 5 款最強 PDF 合併工具評測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-screen-recorder-2026.html">2026 年 5 款最佳螢幕錄影軟體評測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-password-manager-2026.html">2026 年 5 款最佳密碼管理器評測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/robo-advisor-review-2026.html">2026 年機器人理財 APP 評測：AI 投資顧問哪家強？</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-free-image-sites-2026.html">2026 年 5 款最佳免費圖庫網站推薦｜商用版權完全指南</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/ai-writing-tools-comparison-2026.html">2026 年 5 款最強 AI 寫作工具評測與實測對比</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-cloud-storage-2026.html">2026 年 5 款最佳免費雲端硬碟評測與比較</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/chatgpt-advanced-tips.html">ChatGPT 進階技巧 10 招 讓你工作效率翻倍</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-antivirus-2026.html">2026 最佳防毒軟體評測 5 款推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/notion-beginner-guide.html">Notion 新手入門 10 招 提升工作效率</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/free-video-editor-2026.html">免費剪片軟體推薦 2026：5 款新手必學</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/note-app-comparison-2026.html">2026 最強筆記軟體對決：Notion vs Obsidian vs Evernote</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/ai-image-tools-comparison-2026.html">2026 線上 AI 繪圖工具比較：Midjourney vs DALL-E 3 vs Stable Diffusion</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/free-vpn-review-2026.html">5 款免費 VPN 評測 2026 哪款最快最安全</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-free-pdf-editor-2026.html">2026 最佳免費 PDF 編輯軟體推薦與評測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">📊 軟體評測</span><a href="/review/best-ai-presentation-tools-2026.html">2026 年 5 款最佳 AI 簡報生成工具評測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/kitchen-organization-tools-2026.html">2026 年 5 款超實用廚房收納神器推薦｜空間瞬間變大</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/indoor-plants-deco-guide-2026.html">2026 年植栽居家擺設指南：10 種好養又美觀的室內植物推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/money-saving-tips-2026.html">省錢妙招 10 招 一年多存 5 萬元</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/kitchen-cleaning-tips.html">廚房清潔 7 招 輕鬆除油垢</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/morning-routine-tips.html">每天 30 分鐘高效率晨間儀式：成功人士的早晨習慣</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/minimalist-living-tips.html">一週無痛極簡生活計畫：減少浪費與雜物的訣竅</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/home-office-setup-guide.html">打造高效工作空間：居家辦公室佈置 8 大法則</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/clothes-stain-removal-tips.html">衣服去漬 8 招 超實用</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/fridge-organization-tips.html">冰箱收納 7 秘訣 省電又保鮮</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/home-feng-shui-tips.html">2026 居家風水 10 大禁忌 讓你越住越順</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🏠 生活小常識</span><a href="/life/smart-home-guide-2026.html">2026 年居家智慧裝置選購指南｜打造你的智慧家庭</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/best-rpg-2026.html">2026 年最佳 RPG 遊戲 Top 5 推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/zelda-echoes-of-wisdom-collectibles.html">薩爾達傳說 智慧的再現 全收集攻略</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/free-shooter-games-2026.html">2026 年 5 款免費 PC 射擊遊戲推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/diablo4-season5-meta.html">暗黑破壞神 IV 賽季 5 最強流派攻略</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/best-indie-games-2026.html">2026 最夯 5 款獨立遊戲推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/ps5-beginner-setup-guide.html">PS5 新手入門 12 個必知設定｜主機優化完全指南</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/best-switch-games-2026.html">2026 年 5 款最耐玩 Switch 遊戲推薦｜必買清單</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/pc-game-optimization-guide.html">遊戲畫面卡頓怎麼辦？PC 遊戲最佳化設定完全指南</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/most-anticipated-games-2026.html">2026 年最期待 10 款遊戲大作發售日與亮點預測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/genshin-5-1-team-guide.html">原神 5.1 新角色配隊推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/stardew-valley-money-guide.html">星露谷物語 新手賺錢攻略 10 招</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/elden-ring-dlc-boss-guide.html">艾爾登法環 DLC 全 Boss 攻略技巧</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/top-10-mobile-games-2026.html">2026 最熱門 10 款手機遊戲推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/zelda-tears-of-the-kingdom-shrines.html">薩爾達傳說 王國之淚 全神廟攻略</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/genshin-5-0-quest.html">原神 5.0 隱藏任務全攻略</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/best-dashcam-2026-buying-guide.html">2026 年 5 款最強行車紀錄器推薦與選購指南</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/best-tablets-2026-buying-guide.html">2026 年 5 款高 CP 值平板電腦推薦與選購指南</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/best-wireless-earbuds-2026.html">2026 年最值得買的 5 款真無線藍牙耳機推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/iphone-16-photo-tips.html">iPhone 16 拍照技巧 8 招 輕鬆變大師</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/chrome-extensions-2026.html">2026 最實用 Chrome 擴充功能 10 款推薦</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/line-backup-failed-fix.html">Line 聊天紀錄備份失敗的解決方案</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/laptop-overheating-tips.html">筆電過熱發燙？有效散熱與保養方法</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/mobile-network-slow-fix.html">手機網路太慢怎麼辦？5 個優化技巧實測</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/mac-beginner-setup.html">Mac 新手入門 12 個必學設定</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/win11-hidden-tricks.html">Windows 11 隱藏技巧 15 個</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/iphone-battery-tips.html">iPhone 電池壽命延長 10 招</a><span class="post-date">2026-07-18</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/best-gaming-laptops-2026.html">2026 年 5 款最強電競筆電推薦與評測</a><span class="post-date">2026-07-18</span></li>
-                <!-- 由 Python 腳本自動更新 -->
+                <li><span class="category">其他</span><a href="/game\bubble-shooter.html">泡泡射擊 - 消消樂 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\solitaire.html">接龍 - 經典紙牌遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\pong.html">乒乓球 - 經典對戰 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\doodle-jump.html">塗鴉跳躍 - 向上冒險 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\simon-says.html">記憶節奏 - 跟著我唸 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\flappy-bird.html">飛翔小鳥 - 極限反應 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\hangman.html">猜字遊戲 - 單字挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\tic-tac-toe.html">井字遊戲 - 經典對戰 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\math-quiz.html">數學速算 - 腦力激盪 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\archery.html">弓箭手 - 精準射擊 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\color-memory.html">色彩記憶 - 顏色順序挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\jigsaw-puzzle.html">拼圖挑戰 - 完成圖片 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\shooting-range.html">射擊靶場 - 瞄準挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\breakout.html">打磚塊 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\clicker.html">點點樂 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\colormatch.html">顏色配對 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\wordsearch.html">文字搜尋 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\minesweeper.html">踩地雷 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\memory.html">記憶翻牌 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\tetris.html">俄羅斯方塊 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\snake.html">貪吃蛇 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\sudoku.html">數獨 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\2048.html">2048 - 雅寶遊戲間</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/trend\ai-agent-trends-2026.html">2026 年 AI 代理人 (Agent) 趨勢全解析｜企業應用與未來展望 – 雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\best-rpg-2026.html">2026 年最佳 RPG 遊戲 Top 5 推薦</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\zelda-echoes-of-wisdom-collectibles.html">薩爾達傳說 智慧的再現 全收集攻略</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\free-shooter-games-2026.html">2026 年 5 款免費 PC 射擊遊戲推薦 · 雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/game\best-indie-games-2026.html">2026 最夯 5 款獨立遊戲推薦｜雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/trend\top-5-ai-skills-2026.html">2026 年必學的 5 個 AI 技能｜職場競爭力全面升級｜雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-18</span></li>
+                <li><span class="category">其他</span><a href="/review\best-backup-software-2026.html">2026 年 5 款最強備份軟體評測｜雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-18</span></li>
             </ul>
 
             <div class="index-section">
-                <h2 class="section-title">📖 全部分類索引 <small>共 112+ 篇文章</small></h2>
+                <h2 class="section-title">📖 全部分類索引 <small>共 110+ 篇文章</small></h2>
 
-                <div class="cat-title">💻 3C 科技教學 <span class="count">(11篇)</span></div>
-                <div class="index-tag-grid" id="tag-tech"></div>
+                <div class="cat-title">💻 3C 科技教學 <span class="count">(12篇)</span></div>
+                <div class="index-tag-grid" id="tag-tech">
+                </div>
 
-                <div class="cat-title">🎮 遊戲攻略 <span class="count">(50篇)</span></div>
-                <div class="index-tag-grid" id="tag-game"></div>
+                <div class="cat-title">🎮 遊戲攻略 <span class="count">(39篇)</span></div>
+                <div class="index-tag-grid" id="tag-game">
+                </div>
 
-                <div class="cat-title">🏠 生活小常識 <span class="count">(10篇)</span></div>
-                <div class="index-tag-grid" id="tag-life"></div>
+                <div class="cat-title">🏠 生活小常識 <span class="count">(11篇)</span></div>
+                <div class="index-tag-grid" id="tag-life">
+                </div>
 
-                <div class="cat-title">📊 軟體評測 <span class="count">(14篇)</span></div>
-                <div class="index-tag-grid" id="tag-review"></div>
+                <div class="cat-title">📊 軟體評測 <span class="count">(19篇)</span></div>
+                <div class="index-tag-grid" id="tag-review">
+                </div>
 
                 <div class="cat-title">🌟 人生哲理 <span class="count">(14篇)</span></div>
-                <div class="index-tag-grid" id="tag-philosophy"></div>
+                <div class="index-tag-grid" id="tag-philosophy">
+                </div>
 
-                <div class="cat-title">🤖 AI 趨勢 <span class="count">(13篇)</span></div>
-                <div class="index-tag-grid" id="tag-trend"></div>
+                <div class="cat-title">🤖 AI 趨勢 <span class="count">(15篇)</span></div>
+                <div class="index-tag-grid" id="tag-trend">
+                </div>
             </div>
 
         </div>
 
         <aside class="sidebar">
-
             <div class="widget">
                 <div class="widget-title">⚖️ 關於本站</div>
                 <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。從歲月記憶到知識共創，我們相信：<strong>誠實守信，是文明社會永恆的基石。</strong></p>
@@ -356,33 +222,18 @@
             <div class="widget">
                 <div class="widget-title">🎮 雅寶遊戲間</div>
                 <p style="font-size:13px; margin-bottom:12px;">閱讀之餘，放鬆一下！免下載、即開即玩。</p>
-                <a href="/game/" style="display:inline-block; background:#005A9C; color:white; padding:8px 20px; border-radius:20px; text-decoration:none; font-size:14px; font-weight:500; transition:background 0.3s;" onmouseover="this.style.background='#003d66'" onmouseout="this.style.background='#005A9C'">🎮 進入遊戲間</a>
+                <a href="/game/" style="display:inline-block; background:#005A9C; color:white; padding:8px 20px; border-radius:20px; text-decoration:none; font-size:14px; font-weight:500;">🎮 進入遊戲間</a>
             </div>
 
             <div class="widget">
                 <div class="widget-title">🔥 熱門文章</div>
                 <ul id="hot-articles">
-<li><a href="/trend\ai-trends-2026.html">【雅寶社區 · 頂客論壇】2026 年你一定要知道...</a></li>
-<li><a href="/trend\top-5-ai-skills-2026.html">2026 年必學的 5 個 AI 技能｜職場競爭力...</a></li>
-<li><a href="/trend\ai-agent-trends-2026.html">2026 年 AI 代理人 (Agent) 趨勢全...</a></li>
-<li><a href="/review\best-backup-software-2026.html">【雅寶社區 · 頂客論壇】2026 年 5 款最強...</a></li>
-<li><a href="/review\best-music-streaming-2026.html">【雅寶社區 · 頂客論壇】2026 年 5 款最佳...</a></li>
-<li><a href="/review\best-screen-recorder-2026.html">【雅寶社區 · 頂客論壇】2026 年 5 款最佳...</a></li>
-<li><a href="/review\best-password-manager-2026.html">2026 年 5 款最佳密碼管理器評測 | 雅寶社...</a></li>
-<li><a href="/review\best-ai-presentation-tools-2026.html">2026 年 5 款最佳 AI 簡報生成工具評測 ...</a></li>
-<li><a href="/life\smart-home-guide-2026.html">2026 年居家智慧裝置選購指南｜打造你的智慧家庭...</a></li>
-<li><a href="/tech\best-gaming-laptops-2026.html">2026 年 5 款最強電競筆電推薦與評測 | 雅...</a></li>
-<li><a href="/game\bubble-shooter.html">泡泡射擊 - 消消樂 - 雅寶遊戲間</a></li>
-<li><a href="/game\solitaire.html">接龍 - 經典紙牌遊戲 - 雅寶遊戲間</a></li>
-<li><a href="/game\pong.html">乒乓球 - 經典對戰 - 雅寶遊戲間</a></li>
-<li><a href="/game\doodle-jump.html">塗鴉跳躍 - 向上冒險 - 雅寶遊戲間</a></li>
-<li><a href="/game\simon-says.html">記憶節奏 - 跟著我唸 - 雅寶遊戲間</a></li>
-<li><a href="/game\flappy-bird.html">飛翔小鳥 - 極限反應 - 雅寶遊戲間</a></li>
-<li><a href="/game\hangman.html">猜字遊戲 - 單字挑戰 - 雅寶遊戲間</a></li>
-<li><a href="/game\tic-tac-toe.html">井字遊戲 - 經典對戰 - 雅寶遊戲間</a></li>
-<li><a href="/game\math-quiz.html">數學速算 - 腦力激盪 - 雅寶遊戲間</a></li>
-<li><a href="/game\archery.html">弓箭手 - 精準射擊 - 雅寶遊戲間</a></li>
-    </ul>
+                    <li><a href="/tech/best-gaming-laptops-2026.html">2026 年 5 款最強電競筆電推薦與評測</a></li>
+                    <li><a href="/game/best-indie-games-2026.html">2026 最夯 5 款獨立遊戲推薦</a></li>
+                    <li><a href="/life/smart-home-guide-2026.html">2026 年居家智慧裝置選購指南</a></li>
+                    <li><a href="/review/best-ai-presentation-tools-2026.html">2026 年 5 款最佳 AI 簡報生成工具評測</a></li>
+                    <li><a href="/trend/ai-agent-trends-2026.html">2026 年 AI 代理人趨勢全解析</a></li>
+                </ul>
             </div>
 
             <div class="widget">
@@ -398,9 +249,7 @@
                     <a href="/categories.html">📚 全部分類</a>
                 </div>
             </div>
-
         </aside>
-
     </div>
 
     <footer class="site-footer">
@@ -416,6 +265,5 @@
     </footer>
 
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
-
 </body>
 </html>

@@ -9,20 +9,23 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-XXGG1VTGPB');
     </script>
     <style>
-        :root { --color-primary: #005A9C; --color-secondary: #00A86B; --color-bg: #F7F9FC; --color-card: #FFFFFF; --color-text: #1A202C; --color-text-light: #4A5568; --color-border: #E2E8F0; --shadow-card: 0 4px 12px rgba(0,0,0,0.06); --shadow-card-hover: 0 8px 25px rgba(0,0,0,0.12); --radius-card: 14px; }
+        :root { --color-primary: #005A9C; --color-secondary: #00A86B; --color-bg: #F7F9FC; --color-card: #FFFFFF; --color-text: #1A202C; --color-text-light: #4A5568; --color-border: #E2E8F0; --shadow-card: 0 4px 12px rgba(0,0,0,0.06); --radius-card: 14px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; }
-        .site-header { background: var(--color-primary); color: white; padding: 16px 0; position: sticky; top: 0; z-index: 50; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 22px; font-weight: 700; color: white; text-decoration: none; }
-        .nav-links { display: flex; gap: 28px; font-size: 14px; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; }
-        .nav-links a:hover { color: white; }
+        .site-header { background: var(--color-primary); color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: white; border-bottom: 2px solid var(--color-secondary); }
+        .nav-links .game-link { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }
+        .nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
         .breadcrumb { max-width: 1200px; margin: 16px auto 0; padding: 0 24px; font-size: 14px; color: #718096; }
         .breadcrumb a { color: var(--color-primary); text-decoration: none; }
         .main-wrapper { max-width: 1200px; margin: 24px auto; padding: 0 24px; }
@@ -34,7 +37,7 @@
         .section-title { font-size: 22px; font-weight: 700; color: var(--color-text); margin: 28px 0 16px 0; }
         .article-list { list-style: none; padding: 0; margin: 0; }
         .article-list li { background: var(--color-bg); padding: 14px 18px; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--color-border); transition: all 0.2s; }
-        .article-list li:hover { box-shadow: var(--shadow-card-hover); border-color: var(--color-secondary); }
+        .article-list li:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.10); border-color: var(--color-secondary); }
         .article-list li a { flex: 1; color: var(--color-text); text-decoration: none; font-size: 15px; font-weight: 500; }
         .article-list li a:hover { color: var(--color-primary); }
         .back-link { display: inline-block; margin-top: 24px; color: var(--color-primary); text-decoration: none; font-weight: 500; }
@@ -42,6 +45,8 @@
         .site-footer { background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
         .footer-inner .copy { font-size: 13px; color: #718096; }
+        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }
+        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
     </style>
 </head>
 <body>
@@ -52,7 +57,8 @@
                 <a href="/">首頁</a>
                 <a href="/memorial.html">歲月迴聲</a>
                 <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/category-tech.html">知識分類</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
             </nav>
         </div>
     </header>
@@ -67,17 +73,17 @@
 
             <h2 class="section-title">📖 全部文章</h2>
             <ul class="article-list">
-                <li><a href="/life\clothes-stain-removal-tips.html">【生活小常識】衣服去漬 8 招超實用！醬油、原子筆、黃斑一網打盡 - 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\fridge-organization-tips.html">冰箱收納 7 秘訣 省電又保鮮！主婦必學的超強冰箱整理術 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\home-feng-shui-tips.html">2026 居家風水 10 大禁忌！避開這些地雷讓你越住越順 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\home-office-setup-guide.html">打造高效工作空間：居家辦公室佈置 8 大法則 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\indoor-plants-deco-guide-2026.html">2026 年植栽居家擺設指南：10 種好養又美觀的室內植物推薦 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\kitchen-cleaning-tips.html">廚房清潔 7 招 輕鬆除油垢！資深家事達人教你無痛去污秘訣 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\kitchen-organization-tools-2026.html">2026 年 5 款超實用廚房收納神器推薦｜空間瞬間變大！小坪數廚房必看收納指南 - 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\minimalist-living-tips.html">一週無痛極簡生活計畫：減少浪費與雜物的訣竅 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\money-saving-tips-2026.html">2026最新！省錢妙招10招：無痛一年多存5萬元，小資族、頂客族必看理財攻略 - 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\morning-routine-tips.html">每天 30 分鐘高效率晨間儀式：成功人士的早晨習慣，開啟高效人生 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life\smart-home-guide-2026.html">2026 年居家智慧裝置選購指南｜打造你的智慧家庭 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/clothes-stain-removal-tips.html">【生活小常識】衣服去漬 8 招超實用！醬油、原子筆、黃斑一網打盡 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/fridge-organization-tips.html">冰箱收納 7 秘訣 省電又保鮮！主婦必學的超強冰箱整理術 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/home-feng-shui-tips.html">2026 居家風水 10 大禁忌！避開這些地雷讓你越住越順 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/home-office-setup-guide.html">打造高效工作空間：居家辦公室佈置 8 大法則 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/indoor-plants-deco-guide-2026.html">2026 年植栽居家擺設指南：10 種好養又美觀的室內植物推薦 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/kitchen-cleaning-tips.html">廚房清潔 7 招 輕鬆除油垢！資深家事達人教你無痛去污秘訣 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/kitchen-organization-tools-2026.html">2026 年 5 款超實用廚房收納神器推薦｜空間瞬間變大！小坪數廚房必看收納指南 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/minimalist-living-tips.html">一週無痛極簡生活計畫：減少浪費與雜物的訣竅 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/money-saving-tips-2026.html">2026最新！省錢妙招10招：無痛一年多存5萬元，小資族、頂客族必看理財攻略 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/morning-routine-tips.html">每天 30 分鐘高效率晨間儀式：成功人士的早晨習慣，開啟高效人生 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/smart-home-guide-2026.html">2026 年居家智慧裝置選購指南｜打造你的智慧家庭 - 雅寶社區 · 頂客論壇</a></li>
             </ul>
             <a href="/" class="back-link">← 返回首頁</a>
         </div>
@@ -93,5 +99,7 @@
             </div>
         </div>
     </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
 </body>
 </html>

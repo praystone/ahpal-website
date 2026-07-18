@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📚 全部分類 - 雅寶社區 · 頂客論壇</title>
-    <meta name="description" content="雅寶社區 · 頂客論壇 — 六大知識分類總覽：3C 科技、遊戲攻略、生活小常識、軟體評測、人生哲理、AI 趨勢。">
+    <meta name="description" content="雅寶社區 · 頂客論壇 — 六大知識分類總覽。">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
     <script>
@@ -15,146 +15,27 @@
     </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
-            background: #F7F9FC;
-            color: #1A202C;
-            padding: 20px;
-            line-height: 1.7;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #005A9C;
-            padding-bottom: 16px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .header h1 {
-            color: #005A9C;
-            font-size: 28px;
-            margin: 0;
-        }
-        .header a {
-            color: #005A9C;
-            text-decoration: none;
-            font-weight: 500;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #F7F9FC; color: #1A202C; padding: 20px; line-height: 1.7; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #005A9C; padding-bottom: 16px; margin-bottom: 30px; flex-wrap: wrap; gap: 12px; }
+        .header h1 { color: #005A9C; font-size: 28px; margin: 0; }
+        .header a { color: #005A9C; text-decoration: none; font-weight: 500; }
         .header a:hover { text-decoration: underline; }
-        .subtitle {
-            color: #4A5568;
-            margin-bottom: 28px;
-            font-size: 15px;
-        }
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            overflow: visible;
-            height: auto;
-        }
-        @media (max-width: 768px) {
-            .category-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 480px) {
-            .category-grid { grid-template-columns: 1fr; }
-        }
-        .category-card {
-            background: white;
-            border-radius: 14px;
-            padding: 24px 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border: 1px solid #E2E8F0;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.25s ease;
-        }
-        .category-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.10);
-            border-color: #00A86B;
-        }
-        .category-card .emoji {
-            font-size: 32px;
-            display: block;
-            margin-bottom: 6px;
-        }
-        .category-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1A202C;
-            margin-bottom: 2px;
-        }
-        .category-card .desc {
-            font-size: 13px;
-            color: #4A5568;
-            margin-bottom: 8px;
-        }
-        .category-card .count {
-            font-size: 12px;
-            color: #718096;
-        }
-        .category-card .article-list {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #E2E8F0;
-            list-style: none;
-        }
-        .category-card .article-list li {
-            font-size: 13px;
-            padding: 4px 0;
-            color: #005A9C;
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .category-card .article-list li:hover {
-            text-decoration: underline;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 30px;
-            color: #005A9C;
-            text-decoration: none;
-        }
+        .subtitle { color: #4A5568; margin-bottom: 28px; font-size: 15px; }
+        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        @media (max-width: 768px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .category-grid { grid-template-columns: 1fr; } }
+        .category-card { background: white; border-radius: 14px; padding: 24px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #E2E8F0; text-decoration: none; color: inherit; transition: all 0.25s ease; }
+        .category-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.10); border-color: #00A86B; }
+        .category-card .emoji { font-size: 32px; display: block; margin-bottom: 6px; }
+        .category-card h3 { font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 2px; }
+        .category-card .desc { font-size: 13px; color: #4A5568; margin-bottom: 8px; }
+        .category-card .count { font-size: 12px; color: #718096; }
+        .back-link { display: inline-block; margin-top: 30px; color: #005A9C; text-decoration: none; }
         .back-link:hover { text-decoration: underline; }
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #888;
-            font-size: 13px;
-            border-top: 1px solid #E2E8F0;
-            padding-top: 20px;
-        }
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #005A9C;
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: opacity 0.3s, transform 0.3s;
-            opacity: 0.7;
-            z-index: 999;
-        }
-        #back-to-top:hover {
-            opacity: 1;
-            transform: scale(1.05);
-            background: #003d66;
-        }
+        .footer { margin-top: 40px; text-align: center; color: #888; font-size: 13px; border-top: 1px solid #E2E8F0; padding-top: 20px; }
+        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }
+        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
     </style>
 </head>
 <body>
@@ -163,57 +44,35 @@
             <h1>📚 全部分類</h1>
             <a href="/">🏠 返回首頁</a>
         </div>
-
-        <p class="subtitle">六大知識領域，超過 120 篇精選文章，讓你一次掌握。</p>
-
+        <p class="subtitle">六大知識領域，超過 110 篇精選文章，讓你一次掌握。</p>
         <div class="category-grid">
 
             <a href="/category-tech.html" class="category-card">
                 <span class="emoji">💻</span>
                 <h3>💻 3C 科技教學</h3>
                 <p class="desc">手機、電腦、3C 產品教學與技巧</p>
-                <span class="count">📄 11 篇文章</span>
-                <ul class="article-list">
-                    <li>📌 2026 年 5 款最強行車紀錄器推薦與選購指南：超清晰畫質與安全防護首選 | 雅寶社區 ...</li>
-                    <li>📌 2026 年 5 款高 CP 值平板電腦推薦與選購指南：學生、上班族必看性價比之王 - 雅...</li>
-                    <li>📌 2026 年最值得買的 5 款真無線藍牙耳機推薦！降噪、音質與高 CP 值首選 - 雅寶社...</li>
-                </ul>
+                <span class="count">📄 12 篇文章</span>
             </a>
 
             <a href="/category-game.html" class="category-card">
                 <span class="emoji">🎮</span>
                 <h3>🎮 遊戲攻略</h3>
                 <p class="desc">熱門遊戲攻略、密技與推薦</p>
-                <span class="count">📄 50 篇文章</span>
-                <ul class="article-list">
-                    <li>📌 2048 - 雅寶遊戲間</li>
-                    <li>📌 弓箭手 - 精準射擊 - 雅寶遊戲間</li>
-                    <li>📌 2026 最夯 5 款獨立遊戲推薦：神作名單與必玩指南 | 雅寶社區 · 頂客論壇</li>
-                </ul>
+                <span class="count">📄 39 篇文章</span>
             </a>
 
             <a href="/category-life.html" class="category-card">
                 <span class="emoji">🏠</span>
                 <h3>🏠 生活小常識</h3>
                 <p class="desc">居家、收納、清潔、省錢生活智慧</p>
-                <span class="count">📄 10 篇文章</span>
-                <ul class="article-list">
-                    <li>📌 【生活小常識】衣服去漬 8 招超實用！醬油、原子筆、黃斑一網打盡 - 雅寶社區 · 頂客論...</li>
-                    <li>📌 冰箱收納 7 秘訣 省電又保鮮！主婦必學的超強冰箱整理術 | 雅寶社區 · 頂客論壇</li>
-                    <li>📌 2026 居家風水 10 大禁忌！避開這些地雷讓你越住越順 | 雅寶社區 · 頂客論壇</li>
-                </ul>
+                <span class="count">📄 11 篇文章</span>
             </a>
 
             <a href="/category-review.html" class="category-card">
                 <span class="emoji">📊</span>
                 <h3>📊 軟體評測</h3>
                 <p class="desc">免費軟體評測、工具推薦與教學</p>
-                <span class="count">📄 14 篇文章</span>
-                <ul class="article-list">
-                    <li>📌 2026 線上 AI 繪圖工具終極比較：Midjourney vs DALL-E 3 vs...</li>
-                    <li>📌 2026 年 5 款最強 AI 寫作工具評測與實測對比：終極挑選指南 - 雅寶社區 · 頂...</li>
-                    <li>📌 2026 最佳防毒軟體評測 5 款推薦：如何選擇最適合你的終極安全防護？ | 雅寶社區 ·...</li>
-                </ul>
+                <span class="count">📄 19 篇文章</span>
             </a>
 
             <a href="/category-philosophy.html" class="category-card">
@@ -221,28 +80,17 @@
                 <h3>🌟 人生哲理</h3>
                 <p class="desc">成功習慣、健康、職涯、人生成長</p>
                 <span class="count">📄 14 篇文章</span>
-                <ul class="article-list">
-                    <li>📌 2026 年你一定要養成的 5 個微習慣｜改變人生從小事開始 - 雅寶社區 · 頂客論壇</li>
-                    <li>📌 高效能人士的 7 個習慣 讀書筆記與實踐指南：2026終極個人成長策略 | 雅寶社區 · ...</li>
-                    <li>📌 2027 年將改變生活的 5 大 AI 新技術預測：科技奇點下的生命抉擇與人生哲理 | 雅...</li>
-                </ul>
             </a>
 
             <a href="/category-trend.html" class="category-card">
                 <span class="emoji">🤖</span>
                 <h3>🤖 AI 趨勢</h3>
                 <p class="desc">AI 技術趨勢、數位轉型、未來職業</p>
-                <span class="count">📄 13 篇文章</span>
-                <ul class="article-list">
-                    <li>📌 AI 時代的教育革命：2026 年孩子該學什麼？未來核心競爭力全解析 - 雅寶社區 · 頂...</li>
-                    <li>📌 2026 年 5 大 AI 金融科技應用｜投資理財新革命 - 雅寶社區 · 頂客論壇</li>
-                    <li>📌 AI 如何改變 2026 年醫療產業？智慧醫療趨勢全解析 - 雅寶社區 · 頂客論壇 (A...</li>
-                </ul>
+                <span class="count">📄 15 篇文章</span>
             </a>
+
         </div>
-
         <a href="/" class="back-link">← 返回首頁</a>
-
         <div class="footer">
             &copy; 2026 雅寶社區 · 頂客論壇 — 全部分類
             <div style="margin-top:6px;font-size:12px;">
@@ -252,7 +100,6 @@
             </div>
         </div>
     </div>
-
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
 </body>
 </html>

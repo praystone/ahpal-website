@@ -1,42 +1,255 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-TW">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>猜字遊戲 - 單字挑戰 - 雅寶遊戲間</title>
-<style>
-body{font-family:sans-serif;background:#f7fafc;display:flex;flex-direction:column;align-items:center;padding:20px;margin:0}
-.game-container{max-width:500px;width:100%;background:#fff;padding:24px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08);margin:20px 0}
-.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
-.controls button{padding:8px 16px;border-radius:8px;border:2px solid #005A9C;background:#fff;color:#005A9C;cursor:pointer;font-weight:bold}
-.controls button:hover{background:#005A9C;color:#fff}
-.how-to-play{background:#f0f4f8;padding:16px 20px;border-radius:12px;margin:16px auto;max-width:500px;border-left:4px solid #005A9C;font-size:14px}
-.comments-section{max-width:500px;width:100%;margin:20px auto;padding-top:20px;border-top:2px solid #e2e8f0}
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜字遊戲 - 單字挑戰 - 雅寶遊戲間</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+                /* ============================================================
+           頁首樣式（與首頁一致）
+           ============================================================ */
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: 100%;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .logo:hover { color: rgba(255,255,255,0.85); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: white;
+            border-bottom: 2px solid #00A86B;
+        }
+        .nav-links .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .nav-links .game-link:hover {
+            border-bottom: none;
+            background: rgba(255,255,255,0.25);
+        }
+                /* ============================================================
+           頁尾樣式（與首頁一致）
+           ============================================================ */
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 40px 0 28px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+        .footer-inner .copy {
+            font-size: 13px;
+            color: #718096;
+        }
+        .footer-inner .declaration {
+            font-size: 12px;
+            color: #FF6F61;
+            letter-spacing: 1px;
+            font-weight: 300;
+            margin-top: 4px;
+        }
+        .footer-inner a {
+            color: #A0AEC0;
+            text-decoration: none;
+        }
+        .footer-inner a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
+        .game-container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 20px 0;
+        }
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
+            font-size: 14px;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
+        }
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .how-to-play p {
+            margin: 0;
+        }
+        .how-to-play strong {
+            color: #005A9C;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+        .comments-section p {
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
+    </style>
 </head>
 <body>
-<header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
-<div class="game-container"></div>
-<div class="how-to-play"><h3>🎯 玩法說明</h3><p>玩法說明</p></div>
-<div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
-<footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
-<script>
-const words=['APPLE','BANANA','CHERRY','DRAGON','EAGLE','FLOWER','GARDEN','HAPPY','ISLAND','JUNGLE'];
-let word, guessed, mistakes, wins=0;
-const display=document.getElementById('hangmanDisplay'), wordDisplay=document.getElementById('wordDisplay'), lettersEl=document.getElementById('letters'), mistakesEl=document.getElementById('mistakes'), winsEl=document.getElementById('wins'), msg=document.getElementById('message');
-function init(){
-  word=words[Math.floor(Math.random()*words.length)]; guessed=[]; mistakes=0; mistakesEl.textContent='0'; msg.textContent='點擊字母猜字！'; render();
-}
-function render(){
-  wordDisplay.textContent=word.split('').map(c=>guessed.includes(c)?c:'_').join(' ');
-  lettersEl.innerHTML=''; for(let i=65;i<=90;i++){let c=String.fromCharCode(i);let b=document.createElement('button');b.textContent=c;b.disabled=guessed.includes(c);b.onclick=()=>guess(c);lettersEl.appendChild(b);}
-  display.textContent=['  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========',
-'  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========',
-'  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========',
-'  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========',
-'  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========',
-'  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========',
-'  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n========='][mistakes];
-}
-function guess(c){if(guessed.includes(c))return;guessed.push(c);if(!word.includes(c)){mistakes++;mistakesEl.textContent=mistakes;msg.textContent='❌ 錯誤 '+mistakes+'/6';if(mistakes>=6){msg.textContent='💀 遊戲結束！正確答案是 '+word;render();return;}}else{msg.textContent='✅ 正確！';}render();if(word.split('').every(c=>guessed.includes(c))){wins++;winsEl.textContent=wins;msg.textContent='🎉 你贏了！單字：'+word;}}
-window.init=init; init();
-</script>
-<style>#letters button{margin:3px;padding:6px 12px;border-radius:4px;border:1px solid #ccc;cursor:pointer;background:#fff}#letters button:disabled{opacity:.5;cursor:not-allowed}</style>
-</body></html>
+        <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/memorial.html">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html">公義史錄</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
+    <div class="game-container">
+    <h1>🔤 猜字遊戲</h1>
+    <div class="header">
+        <span class="info">❌ 錯誤 <span id="mistakes">0</span>/6</span>
+        <span class="info">🏆 勝場 <span id="wins">0</span></span>
+    </div>
+    <div class="hangman-ascii" id="hangmanDisplay"></div>
+    <div class="word-display" id="wordDisplay"></div>
+    <div class="letters" id="letters"></div>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊字母猜字！</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>點擊字母猜單字，錯誤超過 6 次則遊戲結束。</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
+            <div style="margin-top:6px;font-size:13px;">
+                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
+                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
+                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+            </div>
+            <div class="declaration">「從社區法治，走向知識共創」</div>
+        </div>
+    </footer>
+</body>
+</html>

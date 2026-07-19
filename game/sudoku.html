@@ -3,262 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>數獨 - 邏輯推理挑戰 - 雅寶遊戲間</title>
+    <title>數獨 - 雅寶遊戲間 | 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="經典數獨遊戲，在雅寶遊戲間免費玩。訓練你的邏輯推理能力！">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXGG1VTGPB');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
-            background: #f7fafc;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: #fcfaf2;
+            color: #1c1c1c;
             min-height: 100vh;
-            padding: 20px;
         }
-                /* ============================================================
-           頁首樣式（與首頁一致）
-           ============================================================ */
-        .site-header {
+        .game-nav {
             background: #005A9C;
             color: white;
-            padding: 12px 0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            width: 100%;
-        }
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+            padding: 12px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
+        .game-nav .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }
+        .game-nav .logo:hover { opacity: 0.85; }
+        .game-nav .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; }
+        .game-nav .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
+        .game-nav .nav-links a:hover { color: white; }
+        .game-nav .nav-links .back-btn { background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; font-weight: 500; }
+        .game-nav .nav-links .back-btn:hover { background: rgba(255,255,255,0.25); }
+
+        .game-wrapper { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .game-container { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e6ded1; }
+        .game-header { text-align: center; margin-bottom: 24px; }
+        .game-header h1 { font-size: 28px; color: #005A9C; margin-bottom: 4px; }
+        .game-header .subtitle { color: #888; font-size: 14px; }
+
+        .game-iframe-wrapper { background: #f7f9fc; border-radius: 12px; overflow: hidden; border: 1px solid #e6ded1; }
+        .game-iframe-wrapper iframe { display: block; width: 100%; height: 620px; border: none; }
+        @media (max-width: 768px) { .game-iframe-wrapper iframe { height: 520px; } }
+        @media (max-width: 500px) { .game-iframe-wrapper iframe { height: 460px; } }
+
+        .game-info { margin-top: 30px; padding: 24px; background: #f7f9fc; border-radius: 12px; border: 1px solid #e6ded1; }
+        .game-info h2 { font-size: 18px; color: #005A9C; margin-bottom: 12px; }
+        .game-info p { color: #555; font-size: 15px; line-height: 1.8; margin-bottom: 10px; }
+        .game-info ul { padding-left: 20px; color: #555; font-size: 14px; line-height: 2; }
+        .game-info .how-to-play { background: white; padding: 16px 20px; border-radius: 8px; margin-top: 12px; border-left: 4px solid #00A86B; }
+        .game-info .how-to-play strong { color: #005A9C; }
+
+        .related-games { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .related-games a { background: white; padding: 8px 20px; border-radius: 20px; font-size: 13px; color: #005A9C; text-decoration: none; border: 1px solid #e6ded1; transition: all 0.2s; }
+        .related-games a:hover { border-color: #005A9C; background: #f0f4f9; }
+
+        .game-footer { text-align: center; padding: 30px 0 20px; color: #999; font-size: 13px; border-top: 1px solid #e6ded1; margin-top: 40px; }
+        .game-footer a { color: #005A9C; text-decoration: none; }
+        .game-footer a:hover { text-decoration: underline; }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #005A9C;
             color: white;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .logo:hover { color: rgba(255,255,255,0.85); }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover {
-            color: white;
-            border-bottom: 2px solid #00A86B;
-        }
-        .nav-links .game-link {
-            background: rgba(255,255,255,0.15);
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-        .nav-links .game-link:hover {
-            border-bottom: none;
-            background: rgba(255,255,255,0.25);
-        }
-                /* ============================================================
-           頁尾樣式（與首頁一致）
-           ============================================================ */
-        .site-footer {
-            background: #2D3748;
-            color: #A0AEC0;
-            padding: 40px 0 28px 0;
-            margin-top: 40px;
-            font-size: 14px;
-            width: 100%;
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            text-align: center;
-        }
-        .footer-inner .copy {
-            font-size: 13px;
-            color: #718096;
-        }
-        .footer-inner .declaration {
-            font-size: 12px;
-            color: #FF6F61;
-            letter-spacing: 1px;
-            font-weight: 300;
-            margin-top: 4px;
-        }
-        .footer-inner a {
-            color: #A0AEC0;
-            text-decoration: none;
-        }
-        .footer-inner a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        
-        /* ============================================================
-           遊戲容器基本樣式
-           ============================================================ */
-        .game-container {
-            max-width: 500px;
-            width: 100%;
-            background: white;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin: 20px 0;
-        }
-        
-        /* ============================================================
-           玩法說明與留言區塊樣式
-           ============================================================ */
-        .how-to-play {
-            background: #f0f4f8;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin: 16px auto;
-            max-width: 500px;
-            width: 100%;
-            font-size: 14px;
-            color: #2d3748;
-            border-left: 4px solid #005A9C;
-        }
-        .how-to-play h3 {
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50px;
             font-size: 16px;
-            font-weight: 700;
-            color: #005A9C;
-            margin-bottom: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0.7;
+            z-index: 999;
+            transition: opacity 0.3s, transform 0.3s;
         }
-        .how-to-play p {
-            margin: 0;
-        }
-        .how-to-play strong {
-            color: #005A9C;
-        }
-        .comments-section {
-            max-width: 500px;
-            width: 100%;
-            margin: 20px auto;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
-        }
-        .comments-section h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 2px;
-        }
-        .comments-section p {
-            font-size: 14px;
-            color: #4a5568;
-            margin-bottom: 16px;
-        }
-        @media (max-width: 480px) {
-            .how-to-play { font-size: 13px; padding: 14px 16px; }
-            .comments-section h3 { font-size: 16px; }
+        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
+
+        @media (max-width: 600px) {
+            .game-nav .logo { font-size: 17px; }
+            .game-nav .nav-links { font-size: 12px; gap: 12px; }
             .game-container { padding: 16px; }
+            .game-header h1 { font-size: 22px; }
+            .game-info { padding: 16px; }
         }
     </style>
 </head>
 <body>
-        <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
+
+    <nav class="game-nav">
+        <a href="/" class="logo">⚖️ 雅寶社區 · 頂客論壇</a>
+        <div class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/game/" class="back-btn">🎮 返回遊戲間</a>
         </div>
-    </header>
-    
-    <!-- ============================================================
-    遊戲核心內容
-    ============================================================ -->
-    <div class="game-container">
-    <h1>🧩 數獨</h1>
-    <div class="board" id="board"></div>
-    <div class="num-pad" id="numPad">
-        <button onclick="setNumber(1)">1</button>
-        <button onclick="setNumber(2)">2</button>
-        <button onclick="setNumber(3)">3</button>
-        <button onclick="setNumber(4)">4</button>
-        <button onclick="setNumber(5)">5</button>
-        <button onclick="setNumber(6)">6</button>
-        <button onclick="setNumber(7)">7</button>
-        <button onclick="setNumber(8)">8</button>
-        <button onclick="setNumber(9)">9</button>
-    </div>
-    <div class="controls">
-        <button onclick="newGame()">🔄 新遊戲</button>
-        <button onclick="clearCell()">✕ 清除</button>
-        <button onclick="hint()">💡 提示</button>
-    </div>
-    <div class="message" id="message">點擊空格，再點數字填入</div>
-</div>
-    
-    <!-- ============================================================
-    通用頁尾模板（玩法說明 + Giscus 留言）
-    ============================================================ -->
-        <!-- ============================================================
-    🎮 玩法說明
-    ============================================================ -->
-    <div class="how-to-play">
-        <h3>🎯 玩法說明</h3>
-        <p>點擊空格，填入 1-9，確保每行、每列、每個 3x3 宮格內數字不重複。</p>
-    </div>
+    </nav>
 
-    <!-- ============================================================
-    💬 留言討論區 (Giscus)
-    ============================================================ -->
-    <div class="comments-section">
-        <h3>💬 討論與留言</h3>
-        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
-        <div class="giscus"></div>
-    </div>
-
-    <script src="https://giscus.app/client.js"
-        data-repo="praystone/ahpal-website"
-        data-repo-id="R_kgDOTbvurg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOTbvurs4DBhek"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-TW"
-        crossorigin="anonymous"
-        async>
-    </script>
-    
-        <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
-                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
+    <div class="game-wrapper">
+        <div class="game-container">
+            <div class="game-header">
+                <h1>🧩 數獨</h1>
+                <p class="subtitle">經典九宮格數字推理，訓練你的邏輯腦！</p>
             </div>
-            <div class="declaration">「從社區法治，走向知識共創」</div>
+
+            <div class="game-iframe-wrapper">
+                <iframe src="/game/puzzle/sudoku-game.html" allowfullscreen></iframe>
+            </div>
+
+            <div class="game-info">
+                <h2>🎯 如何玩數獨？</h2>
+                <div class="how-to-play">
+                    <p><strong>🎮 遊戲目標：</strong>填入數字 1-9，讓每一行、每一列、每一個 3x3 宮格都包含 1-9 不重複。</p>
+                    <p><strong>⌨️ 操作方法：</strong>點擊空格，輸入數字（1-9）。使用鍵盤數字鍵也可以直接輸入。</p>
+                    <p><strong>🧩 規則：</strong>每行、每列、每宮格都必須包含 1-9，且不能重複。</p>
+                    <p><strong>💡 小技巧：</strong>先從數字較多的行或列開始推理，使用「排除法」找出唯一可能的數字。</p>
+                </div>
+                <p style="margin-top:12px; font-size:14px; color:#888;">
+                    💡 如果遊戲無法載入，請檢查網路連線或重新整理頁面。
+                </p>
+            </div>
+
+            <div class="related-games">
+                <span style="font-size:14px; color:#888; display:flex; align-items:center;">🎮 其他遊戲：</span>
+                <a href="/game/puzzle/2048.html">🔢 2048</a>
+                <a href="#" style="opacity:0.5; cursor:default;">🧠 記憶配對 (即將推出)</a>
+            </div>
         </div>
+    </div>
+
+    <footer class="game-footer">
+        <p>&copy; 2026 <a href="/">雅寶社區 · 頂客論壇 (AHPAL.COM)</a> — 遊戲間</p>
+        <p style="font-size:12px; color:#bbb; margin-top:4px;">🎮 所有遊戲均為開源 HTML5 遊戲，免費提供，即開即玩。</p>
     </footer>
-</body>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p></body>
 </html>

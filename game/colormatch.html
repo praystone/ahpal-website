@@ -3,135 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>顏色配對 - 雅寶遊戲間</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+    <title>顏色配對 - 反應速度考驗 - 雅寶遊戲間</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #fcfaf2; color: #1c1c1c; min-height: 100vh; }
-        .game-nav { background: #005A9C; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 50; }
-        .game-nav .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; }
-        .game-nav .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; }
-        .game-nav .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; }
-        .game-nav .nav-links a:hover { color: white; }
-        .game-nav .nav-links .back-btn { background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; font-weight: 500; }
-        .game-nav .nav-links .back-btn:hover { background: rgba(255,255,255,0.25); }
-        .game-wrapper { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        .game-container { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e6ded1; }
-        .game-header { text-align: center; margin-bottom: 24px; }
-        .game-header h1 { font-size: 28px; color: #005A9C; }
-        .game-header .subtitle { color: #888; font-size: 14px; }
-        .game-area { background: #f7f9fc; border-radius: 12px; padding: 20px; border: 1px solid #e6ded1; text-align: center; }
-        .game-area .score { font-size: 18px; font-weight: bold; color: #005A9C; margin-bottom: 16px; }
-        .game-area .color-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 400px; margin: 0 auto; }
-        .game-area .color-btn { aspect-ratio: 1; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.2s; }
-        .game-area .color-btn:hover { transform: scale(1.05); }
-        .game-area .color-btn:disabled { cursor: not-allowed; opacity: 0.6; }
-        .game-area .controls { margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .game-area .controls button { padding: 10px 24px; background: #005A9C; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-        .game-area .controls button:hover { background: #003d66; }
-        .game-area .message { margin-top: 12px; font-size: 18px; font-weight: bold; color: #005A9C; }
-        .game-info { margin-top: 30px; padding: 24px; background: #f7f9fc; border-radius: 12px; border: 1px solid #e6ded1; }
-        .game-info h2 { font-size: 18px; color: #005A9C; margin-bottom: 12px; }
-        .game-info .how-to-play { background: white; padding: 16px 20px; border-radius: 8px; margin-top: 12px; border-left: 4px solid #00A86B; }
-        .game-info .how-to-play strong { color: #005A9C; }
-        .game-footer { text-align: center; padding: 30px 0 20px; color: #999; font-size: 13px; border-top: 1px solid #e6ded1; margin-top: 40px; }
-        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: all 0.3s; }
-        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
-        @media (max-width: 600px) { .game-area .color-btn { border-radius: 8px; } .game-container { padding: 16px; } }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .game-container {
+            max-width: 500px;
+            width: 100%;
+            background: #fff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            text-align: center;
+        }
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
+            border-left: 4px solid #005A9C;
+            font-size: 14px;
+        }
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .controls button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 2px solid #005A9C;
+            background: #fff;
+            color: #005A9C;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .controls button:hover {
+            background: #005A9C;
+            color: #fff;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .info span {
+            background: #f0f4f8;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .message {
+            margin-top: 10px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        .board, .grid {
+            display: grid;
+            gap: 2px;
+            margin: 10px auto;
+        }
+        .site-header {
+            background: #005A9C;
+            color: white;
+            padding: 12px 0;
+            width: 100%;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+        .game-link {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+        .site-footer {
+            background: #2D3748;
+            color: #A0AEC0;
+            padding: 20px 0;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <nav class="game-nav">
-        <a href="/" class="logo">⚖️ 雅寶社區 · 頂客論壇</a>
-        <div class="nav-links"><a href="/">首頁</a><a href="/game/" class="back-btn">🎮 返回遊戲間</a></div>
-    </nav>
-    <div class="game-wrapper">
-        <div class="game-container">
-            <div class="game-header"><h1>🎯 顏色配對</h1><p class="subtitle">考驗你的反應速度與顏色辨識能力！</p></div>
-            <div class="game-area">
-                <div class="score">🎯 分數：<span id="score">0</span></div>
-                <div id="colorGrid" class="color-grid"></div>
-                <div id="message" class="message"></div>
-                <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
-            </div>
-            <div class="game-info">
-                <h2>🎯 如何玩顏色配對？</h2>
-                <div class="how-to-play">
-                    <p><strong>🎮 遊戲目標：</strong>在最短時間內，找出顏色與文字相符的方塊！</p>
-                    <p><strong>🖱️ 操作方法：</strong>點擊顏色方塊，選中正確的顏色即可得分。</p>
-                    <p><strong>💡 小技巧：</strong>注意文字描述的顏色，不要被方塊顏色誤導！</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer class="game-footer"><p>&copy; 2026 <a href="/">雅寶社區 · 頂客論壇 (AHPAL.COM)</a> — 遊戲間</p></footer>
-    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ TOP</button>
-    <script>
-        const colors = ['紅', '藍', '綠', '黃', '紫', '橙'];
-        const colorMap = { '紅': '#e53e3e', '藍': '#3182ce', '綠': '#38a169', '黃': '#ecc94b', '紫': '#805ad5', '橙': '#ed8936' };
-        let currentTarget, score = 0, gameActive = true, timer;
-
-        function initGame() {
-            score = 0;
-            gameActive = true;
-            document.getElementById('score').textContent = score;
-            document.getElementById('message').textContent = '';
-            document.getElementById('message').style.color = '#005A9C';
-            generateRound();
-        }
-
-        function generateRound() {
-            if (!gameActive) return;
-            const targetColor = colors[Math.floor(Math.random() * colors.length)];
-            currentTarget = targetColor;
-            document.getElementById('message').textContent = `🔍 請找到「${targetColor}」的方塊！`;
-            document.getElementById('message').style.color = colorMap[targetColor];
-
-            const grid = document.getElementById('colorGrid');
-            grid.innerHTML = '';
-            const shuffled = [...colors];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-
-            shuffled.forEach(color => {
-                const btn = document.createElement('button');
-                btn.className = 'color-btn';
-                btn.style.background = colorMap[color];
-                btn.dataset.color = color;
-                btn.addEventListener('click', () => handleClick(color));
-                grid.appendChild(btn);
-            });
-
-            // 計時器：5秒內未點擊則失敗
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                if (gameActive) {
-                    gameActive = false;
-                    document.getElementById('message').textContent = '⏰ 時間到！點擊「新遊戲」重新挑戰。';
-                    document.getElementById('message').style.color = '#e53e3e';
-                    document.querySelectorAll('.color-btn').forEach(b => b.disabled = true);
-                }
-            }, 5000);
-        }
-
-        function handleClick(color) {
-            if (!gameActive) return;
-            if (color === currentTarget) {
-                score++;
-                document.getElementById('score').textContent = score;
-                generateRound();
-            } else {
-                gameActive = false;
-                document.getElementById('message').textContent = `❌ 錯了！正確答案是「${currentTarget}」，點擊「新遊戲」重新挑戰。`;
-                document.getElementById('message').style.color = '#e53e3e';
-                document.querySelectorAll('.color-btn').forEach(b => b.disabled = true);
-                clearTimeout(timer);
-            }
-        }
-
-        initGame();
-    </script>
-<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p></body>
+    <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
+    <div class="game-container">
+    <h1>🎯 顏色配對</h1>
+    <div class="info"><span>🎯 回合 <span id="round">1</span>/10</span> <span>⭐ 分數 <span id="score">0</span></span></div>
+    <div class="color-display" id="colorDisplay"></div>
+    <div class="color-name" id="colorName">準備開始</div>
+    <div class="options" id="options"></div>
+    <div class="controls"><button onclick="init()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊與顯示顏色名稱相符的色塊</div>
+</div>
+<script>
+const colors=['red','blue','green','yellow','purple','orange'];
+let round=1, score=0, target;
+const display=document.getElementById('colorDisplay'), nameEl=document.getElementById('colorName'), options=document.getElementById('options'), msg=document.getElementById('message'), roundEl=document.getElementById('round'), scoreEl=document.getElementById('score');
+function init(){
+  round=1; score=0; roundEl.textContent=round; scoreEl.textContent=score; next(); msg.textContent='點擊與顯示顏色名稱相符的色塊';
+}
+function next(){
+  target=colors[Math.floor(Math.random()*colors.length)];
+  let shuffled=[...colors].sort(()=>Math.random()-0.5);
+  display.style.background=target; nameEl.textContent=target.toUpperCase();
+  options.innerHTML=''; for(let c of shuffled){let b=document.createElement('button');b.style.background=c;b.style.width='60px';b.style.height='60px';b.style.border='2px solid #ccc';b.style.borderRadius='8px';b.style.cursor='pointer';b.onclick=()=>check(c);options.appendChild(b);}
+}
+function check(c){if(c===target){score+=10;msg.textContent='✅ 正確！';}else{score-=5;msg.textContent='❌ 錯誤！';}scoreEl.textContent=score;round++;roundEl.textContent=round;if(round>10){msg.textContent='🎉 遊戲結束！分數：'+score;return;}setTimeout(next,500);}
+window.init=init; init();
+</script>
+<style>#colorDisplay{width:100px;height:100px;border-radius:12px;margin:10px auto;border:2px solid #ccc}#options{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}</style>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>考驗你的反應速度和顏色辨識能力</p></div>
+    <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
+    <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
+</body>
 </html>

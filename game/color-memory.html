@@ -5,28 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>色彩記憶 - 顏色順序挑戰 - 雅寶遊戲間</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
             background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
+            margin: 0;
+            min-height: 100vh;
         }
-                /* ============================================================
-           頁首樣式（與首頁一致）
-           ============================================================ */
+        .game-container {
+            max-width: 500px;
+            width: 100%;
+            background: #fff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            text-align: center;
+        }
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
+            border-left: 4px solid #005A9C;
+            font-size: 14px;
+        }
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .controls button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 2px solid #005A9C;
+            background: #fff;
+            color: #005A9C;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .controls button:hover {
+            background: #005A9C;
+            color: #fff;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .info span {
+            background: #f0f4f8;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .message {
+            margin-top: 10px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        .board, .grid {
+            display: grid;
+            gap: 2px;
+            margin: 10px auto;
+        }
         .site-header {
             background: #005A9C;
             color: white;
             padding: 12px 0;
+            width: 100%;
+            text-align: center;
             position: sticky;
             top: 0;
             z-index: 50;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            width: 100%;
         }
         .header-inner {
             max-width: 1200px;
@@ -36,218 +109,72 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
         }
         .logo {
             font-size: 20px;
             font-weight: 700;
             color: white;
             text-decoration: none;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
         }
-        .logo:hover { color: rgba(255,255,255,0.85); }
         .nav-links {
             display: flex;
             gap: 20px;
             font-size: 14px;
             align-items: center;
-            flex-wrap: wrap;
         }
         .nav-links a {
             color: rgba(255,255,255,0.85);
             text-decoration: none;
-            transition: color 0.2s;
         }
         .nav-links a:hover {
             color: white;
-            border-bottom: 2px solid #00A86B;
         }
-        .nav-links .game-link {
+        .game-link {
             background: rgba(255,255,255,0.15);
             padding: 4px 14px;
             border-radius: 20px;
-            font-weight: 500;
         }
-        .nav-links .game-link:hover {
-            border-bottom: none;
-            background: rgba(255,255,255,0.25);
-        }
-                /* ============================================================
-           頁尾樣式（與首頁一致）
-           ============================================================ */
         .site-footer {
             background: #2D3748;
             color: #A0AEC0;
-            padding: 40px 0 28px 0;
-            margin-top: 40px;
-            font-size: 14px;
+            padding: 20px 0;
             width: 100%;
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
             text-align: center;
-        }
-        .footer-inner .copy {
-            font-size: 13px;
-            color: #718096;
-        }
-        .footer-inner .declaration {
-            font-size: 12px;
-            color: #FF6F61;
-            letter-spacing: 1px;
-            font-weight: 300;
-            margin-top: 4px;
-        }
-        .footer-inner a {
-            color: #A0AEC0;
-            text-decoration: none;
-        }
-        .footer-inner a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        
-        /* ============================================================
-           遊戲容器基本樣式
-           ============================================================ */
-        .game-container {
-            max-width: 500px;
-            width: 100%;
-            background: white;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin: 20px 0;
-        }
-        
-        /* ============================================================
-           玩法說明與留言區塊樣式
-           ============================================================ */
-        .how-to-play {
-            background: #f0f4f8;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin: 16px auto;
-            max-width: 500px;
-            width: 100%;
-            font-size: 14px;
-            color: #2d3748;
-            border-left: 4px solid #005A9C;
-        }
-        .how-to-play h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #005A9C;
-            margin-bottom: 4px;
-        }
-        .how-to-play p {
-            margin: 0;
-        }
-        .how-to-play strong {
-            color: #005A9C;
-        }
-        .comments-section {
-            max-width: 500px;
-            width: 100%;
-            margin: 20px auto;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
-        }
-        .comments-section h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 2px;
-        }
-        .comments-section p {
-            font-size: 14px;
-            color: #4a5568;
-            margin-bottom: 16px;
-        }
-        @media (max-width: 480px) {
-            .how-to-play { font-size: 13px; padding: 14px 16px; }
-            .comments-section h3 { font-size: 16px; }
-            .game-container { padding: 16px; }
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-        <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- ============================================================
-    遊戲核心內容
-    ============================================================ -->
+    <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
     <div class="game-container">
     <h1>🎨 色彩記憶</h1>
-    <div class="header">
-        <span class="info">🎯 回合 <span id="round">1</span></span>
-        <span class="info">⭐ 分數 <span id="score">0</span></span>
-    </div>
+    <div class="info"><span>🎯 回合 <span id="round">1</span></span> <span>⭐ 分數 <span id="score">0</span></span></div>
     <div class="color-panel" id="colorPanel"></div>
-    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="controls"><button onclick="startGame()">🔄 新遊戲</button></div>
     <div class="message" id="message">觀察顏色順序，然後重複點擊！</div>
 </div>
-    
-    <!-- ============================================================
-    通用頁尾模板（玩法說明 + Giscus 留言）
-    ============================================================ -->
-        <!-- ============================================================
-    🎮 玩法說明
-    ============================================================ -->
-    <div class="how-to-play">
-        <h3>🎯 玩法說明</h3>
-        <p>記住顏色順序，正確重複點擊，挑戰你的記憶力！</p>
-    </div>
-
-    <!-- ============================================================
-    💬 留言討論區 (Giscus)
-    ============================================================ -->
-    <div class="comments-section">
-        <h3>💬 討論與留言</h3>
-        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
-        <div class="giscus"></div>
-    </div>
-
-    <script src="https://giscus.app/client.js"
-        data-repo="praystone/ahpal-website"
-        data-repo-id="R_kgDOTbvurg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOTbvurs4DBhek"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-TW"
-        crossorigin="anonymous"
-        async>
-    </script>
-    
-        <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
-                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
-            </div>
-            <div class="declaration">「從社區法治，走向知識共創」</div>
-        </div>
-    </footer>
+<script>
+const colors=['red','blue','green','yellow'];
+let sequence=[], player=[], round=1, score=0, playing=false, playerTurn=false;
+const roundEl=document.getElementById('round'), scoreEl=document.getElementById('score'), msg=document.getElementById('message'), panel=document.getElementById('colorPanel');
+function init(){
+  sequence=[]; player=[]; round=1; score=0; playing=false; playerTurn=false;
+  roundEl.textContent=1; scoreEl.textContent=0; msg.textContent='點擊「新遊戲」開始！'; panel.innerHTML='';
+  colors.forEach(c=>{let b=document.createElement('div');b.className='color-btn';b.style.background=c;b.dataset.color=c;b.onclick=()=>handleClick(c);panel.appendChild(b);});
+}
+function startGame(){init();playing=true;nextRound();}
+function nextRound(){
+  if(!playing)return; player=[]; playerTurn=false; msg.textContent='👀 觀察顏色順序...'; roundEl.textContent=round;
+  let random=colors[Math.floor(Math.random()*colors.length)]; sequence.push(random);
+  let i=0; let interval=setInterval(()=>{if(i>=sequence.length){clearInterval(interval);playerTurn=true;msg.textContent='👆 點擊重複顏色順序！';return;}flash(sequence[i]);i++;},600);
+}
+function flash(color){document.querySelectorAll('.color-btn').forEach(b=>{if(b.dataset.color===color){b.style.opacity='0.3';setTimeout(()=>b.style.opacity='1',300);}});}
+function handleClick(color){if(!playing||!playerTurn)return;player.push(color);flash(color);let idx=player.length-1;if(player[idx]!==sequence[idx]){playing=false;playerTurn=false;msg.textContent='❌ 順序錯誤！遊戲結束';return;}if(player.length===sequence.length){score+=10;round++;scoreEl.textContent=score;roundEl.textContent=round;msg.textContent='✅ 正確！進入下一關！';playerTurn=false;setTimeout(nextRound,1000);}}
+window.init=init; window.startGame=startGame; window.resetGame=startGame; init();
+</script>
+<style>.color-btn{width:80px;height:80px;border-radius:12px;cursor:pointer;border:3px solid #ccc;transition:.3s;margin:5px}.color-panel{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}</style>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>記住顏色順序，挑戰記憶力！</p></div>
+    <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
+    <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 </body>
 </html>

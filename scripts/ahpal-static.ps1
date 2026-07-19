@@ -11,11 +11,17 @@ Write-Host ""
 # ============================================================
 # 1. 設定 API Key（尖峰時段使用 Gemini，離峰使用 DeepSeek）
 # ============================================================
+# 從 .env 讀取 API Key
+if (Test-Path ".env") {
+    Get-Content ".env" | ForEach-Object {
+        if ($_ -match '^([^=]+)=(.*)$') {
+            Set-Item -Path "env:$($Matches[1])" -Value $Matches[2]
+        }
+    }
+}
 
 # Google Gemini API Key（尖峰時段使用）
-# 格式必須是 AIzaSy 開頭，請至 https://aistudio.google.com/apikey 取得
 if (-not $env:GEMINI_API_KEY) {
-    # ⚠️ 請將下方金鑰替換為你的 Gemini API Key（AIzaSy 開頭）
     $env:GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
     Write-Host "   🔑 Gemini API Key 已設定" -ForegroundColor Green
 } else {
@@ -23,9 +29,7 @@ if (-not $env:GEMINI_API_KEY) {
 }
 
 # DeepSeek API Key（離峰時段使用）
-# 格式必須是 sk- 開頭，請至 https://platform.deepseek.com/ 取得
 if (-not $env:DEEPSEEK_API_KEY) {
-    # ⚠️ 請將下方金鑰替換為你的 DeepSeek API Key（sk- 開頭）
     $env:DEEPSEEK_API_KEY = "YOUR_DEEPSEEK_API_KEY"
     Write-Host "   🔑 DeepSeek API Key 已設定" -ForegroundColor Green
 } else {
@@ -35,16 +39,11 @@ if (-not $env:DEEPSEEK_API_KEY) {
 Write-Host ""
 
 # ============================================================
-# 2. 設定輸出目錄
+# 2. 設定輸出目錄（固定路徑）
 # ============================================================
 
-# 使用腳本所在目錄下的 ahpal-static 資料夾
-$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-if (-not $ScriptDir) {
-    $ScriptDir = Get-Location
-}
-
-$env:AHPAL_OUTPUT_DIR = Join-Path $ScriptDir "ahpal-static"
+# 使用固定路徑（專案根目錄）
+$env:AHPAL_OUTPUT_DIR = "C:\Users\User\ahpal-static"
 
 # 確保目錄存在
 if (-not (Test-Path $env:AHPAL_OUTPUT_DIR)) {
@@ -64,28 +63,18 @@ Write-Host ""
 
 # Gemini API Key 狀態
 if ($env:GEMINI_API_KEY) {
-    if ($env:GEMINI_API_KEY -match "^AIzaSy") {
-        $masked = $env:GEMINI_API_KEY.Substring(0, 6) + "..." + $env:GEMINI_API_KEY.Substring($env:GEMINI_API_KEY.Length - 4)
-        Write-Host "   ✅ Gemini API Key：$masked" -ForegroundColor Green
-        Write-Host "   📌 用途：尖峰時段（09:00-18:00）" -ForegroundColor Gray
-    } else {
-        Write-Host "   ⚠️ Gemini API Key 格式錯誤！應以 AIzaSy 開頭" -ForegroundColor Yellow
-        Write-Host "   📌 請至 https://aistudio.google.com/apikey 重新取得" -ForegroundColor Gray
-    }
+    $masked = $env:GEMINI_API_KEY.Substring(0, 4) + "..." + $env:GEMINI_API_KEY.Substring($env:GEMINI_API_KEY.Length - 4)
+    Write-Host "   ✅ Gemini API Key：$masked" -ForegroundColor Green
+    Write-Host "   📌 用途：尖峰時段（09:00-18:00）" -ForegroundColor Gray
 } else {
     Write-Host "   ❌ Gemini API Key：未設定" -ForegroundColor Red
 }
 
 # DeepSeek API Key 狀態
 if ($env:DEEPSEEK_API_KEY) {
-    if ($env:DEEPSEEK_API_KEY -match "^sk-") {
-        $masked = $env:DEEPSEEK_API_KEY.Substring(0, 6) + "..." + $env:DEEPSEEK_API_KEY.Substring($env:DEEPSEEK_API_KEY.Length - 4)
-        Write-Host "   ✅ DeepSeek API Key：$masked" -ForegroundColor Green
-        Write-Host "   📌 用途：離峰時段（18:00-09:00）" -ForegroundColor Gray
-    } else {
-        Write-Host "   ⚠️ DeepSeek API Key 格式錯誤！應以 sk- 開頭" -ForegroundColor Yellow
-        Write-Host "   📌 請至 https://platform.deepseek.com/ 重新取得" -ForegroundColor Gray
-    }
+    $masked = $env:DEEPSEEK_API_KEY.Substring(0, 4) + "..." + $env:DEEPSEEK_API_KEY.Substring($env:DEEPSEEK_API_KEY.Length - 4)
+    Write-Host "   ✅ DeepSeek API Key：$masked" -ForegroundColor Green
+    Write-Host "   📌 用途：離峰時段（18:00-09:00）" -ForegroundColor Gray
 } else {
     Write-Host "   ❌ DeepSeek API Key：未設定" -ForegroundColor Red
 }
@@ -104,17 +93,17 @@ if (Test-Path $env:AHPAL_OUTPUT_DIR) {
 Write-Host ""
 
 # ============================================================
-# 4. 檢查必要檔案是否存在
+# 4. 檢查必要檔案是否存在（已更新為新架構）
 # ============================================================
 
 Write-Host "📂 檢查必要檔案：" -ForegroundColor Yellow
 
 $RequiredFiles = @(
     "ahpal-master.ps1",
-    "ahpal_generator.py",
-    "add_articles.ps1",
     "backup-system.ps1",
-    "check-articles.ps1"
+    "check-articles.ps1",
+    "check-all.ps1",
+    "generate-games.ps1"
 )
 
 $MissingFiles = @()
@@ -145,20 +134,20 @@ Write-Host ""
 $currentHour = (Get-Date).Hour
 if ($currentHour -ge 9 -and $currentHour -lt 18) {
     Write-Host "⏰ 當前為尖峰時段（09:00-18:00）" -ForegroundColor Yellow
-    if ($env:GEMINI_API_KEY -and $env:GEMINI_API_KEY -match "^AIzaSy") {
+    if ($env:GEMINI_API_KEY) {
         Write-Host "   ✅ Gemini API Key 已設定，可使用 Gemini" -ForegroundColor Green
         Write-Host "   💡 建議使用 Gemini 生成文章（速度穩定）" -ForegroundColor Cyan
     } else {
-        Write-Host "   ⚠️ Gemini API Key 未設定或格式錯誤" -ForegroundColor Yellow
+        Write-Host "   ⚠️ Gemini API Key 未設定" -ForegroundColor Yellow
         Write-Host "   💡 建議等待 18:00 後使用 DeepSeek（離峰時段）" -ForegroundColor Cyan
     }
 } else {
     Write-Host "⏰ 當前為離峰時段（18:00-09:00）" -ForegroundColor Green
-    if ($env:DEEPSEEK_API_KEY -and $env:DEEPSEEK_API_KEY -match "^sk-") {
+    if ($env:DEEPSEEK_API_KEY) {
         Write-Host "   ✅ DeepSeek API Key 已設定，可使用 DeepSeek" -ForegroundColor Green
         Write-Host "   💡 建議使用 DeepSeek 生成文章（成本低、速度快）" -ForegroundColor Cyan
     } else {
-        Write-Host "   ⚠️ DeepSeek API Key 未設定或格式錯誤" -ForegroundColor Yellow
+        Write-Host "   ⚠️ DeepSeek API Key 未設定" -ForegroundColor Yellow
     }
 }
 

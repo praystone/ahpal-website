@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 全面系統檢查腳本 v1.0
+# 雅寶社區 · 頂客論壇 - 全面系統檢查腳本 v2.0
 # ============================================================
 # 功能：
 #   1. 檢查所有文章檔案（大小、品牌、品質）
@@ -8,16 +8,20 @@
 #   4. 檢查 Sitemap
 #   5. 檢查首頁
 #   6. 產生完整檢查報告
+#   7. 🆕 刪除品質未達標文章（<60分）
 # ============================================================
 # 使用方法：
 #   .\check-all.ps1              # 執行全面檢查
-#   .\check-all.ps1 -Fix         # 檢查並修復異常檔案
+#   .\check-all.ps1 -Fix         # 刪除品質未達標文章（<60分）
 #   .\check-all.ps1 -Report      # 產生詳細報告
+#   .\check-all.ps1 -Fix -Report # 刪除 + 報告
+#   .\check-all.ps1 -DryRun      # 預覽要刪除的文章（不實際刪除）
 # ============================================================
 
 param(
-    [switch]$Fix,       # 自動修復異常檔案（刪除並標記）
-    [switch]$Report     # 產生詳細報告
+    [switch]$Fix,       # 刪除品質未達標文章（<60分）
+    [switch]$Report,    # 產生詳細報告
+    [switch]$DryRun     # 預覽模式（不實際刪除）
 )
 
 # ============================================================
@@ -33,11 +37,15 @@ $ReportFile = "C:\Users\User\ahpal-full-check-report.txt"
 $DateStr = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "   📊 雅寶社區 · 頂客論壇 - 全面系統檢查工具 v1.0" -ForegroundColor Green
+Write-Host "   📊 雅寶社區 · 頂客論壇 - 全面系統檢查工具 v2.0" -ForegroundColor Green
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "📁 輸出目錄：$OutputDir" -ForegroundColor Cyan
 Write-Host "📅 檢查時間：$DateStr" -ForegroundColor Cyan
+
+if ($DryRun) {
+    Write-Host "🔍 預覽模式：只顯示要刪除的文章，不實際刪除" -ForegroundColor Yellow
+}
 Write-Host ""
 
 # ============================================================
@@ -59,6 +67,7 @@ $AllArticles = @()
 $AbnormalFiles = @()
 $MissingBrand = @()
 $HasApiError = @()
+$LowQualityFiles = @()
 $TotalSize = 0
 $TotalArticles = 0
 
@@ -123,6 +132,7 @@ foreach ($dirName in $CategoryDirs.Keys) {
             WordCount = 0
             Score = 0
             Passed = $false
+            IsLowQuality = $false
         }
         
         # 嘗試估算字數和品質
@@ -137,16 +147,24 @@ foreach ($dirName in $CategoryDirs.Keys) {
                 $hasFaq = $content -match '(FAQ|常見問題|Q：|問：|Q&A)'
                 $hasH2 = $content -match '<h2[^>]*>'
                 $hasH3 = $content -match '<h3[^>]*>'
+                $hasList = $content -match '<(ul|ol)[^>]*>'
+                $hasImage = $content -match '<img[^>]*>'
                 
                 $score = 0
                 if ($article.WordCount -ge 1200) { $score += 35 }
                 elseif ($article.WordCount -ge 800) { $score += 20 }
-                if ($hasH2) { $score += 25 }
+                else { $score += 10 }
+                
+                if ($hasH2) { $score += 20 }
                 if ($hasTable) { $score += 15 }
                 if ($hasFaq) { $score += 15 }
                 if ($hasH3) { $score += 10 }
+                if ($hasList) { $score += 5 }
+                if ($hasImage) { $score += 5 }
+                
                 $article.Score = $score
                 $article.Passed = $score -ge 60
+                $article.IsLowQuality = (-not $article.Passed)
             } catch {
                 # 無法解析
             }
@@ -157,6 +175,7 @@ foreach ($dirName in $CategoryDirs.Keys) {
         if ($isAbnormal) { $AbnormalFiles += $article }
         if (-not $hasBrand) { $MissingBrand += $article }
         if ($hasApiError) { $HasApiError += $article }
+        if ($article.IsLowQuality) { $LowQualityFiles += $article }
     }
 }
 
@@ -178,7 +197,6 @@ if (Test-Path $GameDir) {
     Write-Host "   🎮 遊戲總數：$GameCount 款" -ForegroundColor Cyan
     Write-Host "   📄 遊戲索引：$(if ($GameIndexExists) {'✅ 存在'} else {'❌ 不存在'})" -ForegroundColor $(if ($GameIndexExists) {'Green'} else {'Red'})
     
-    # 檢查遊戲檔案大小
     $SmallGames = $GameFiles | Where-Object { $_.Length -lt 2048 }
     if ($SmallGames.Count -gt 0) {
         Write-Host "   ⚠️ 發現 $($SmallGames.Count) 個異常小遊戲檔案：" -ForegroundColor Yellow
@@ -243,7 +261,8 @@ Write-Host "   ├─ 總文章數：$TotalArticles 篇" -ForegroundColor White
 Write-Host "   ├─ 正常檔案：$($TotalArticles - $AbnormalFiles.Count) 篇" -ForegroundColor Green
 Write-Host "   ├─ 異常檔案：$($AbnormalFiles.Count) 篇" -ForegroundColor $(if ($AbnormalFiles.Count -gt 0) {'Red'} else {'Green'})
 Write-Host "   ├─ 缺少品牌：$($MissingBrand.Count) 篇" -ForegroundColor $(if ($MissingBrand.Count -gt 0) {'Yellow'} else {'Green'})
-Write-Host "   └─ 含 API 錯誤：$($HasApiError.Count) 篇" -ForegroundColor $(if ($HasApiError.Count -gt 0) {'Yellow'} else {'Green'})
+Write-Host "   ├─ 含 API 錯誤：$($HasApiError.Count) 篇" -ForegroundColor $(if ($HasApiError.Count -gt 0) {'Yellow'} else {'Green'})
+Write-Host "   └─ 品質未達標：$($LowQualityFiles.Count) 篇" -ForegroundColor $(if ($LowQualityFiles.Count -gt 0) {'Red'} else {'Green'})
 
 if ($TotalSize) {
     $TotalSizeMB = [math]::Round($TotalSize / 1MB, 2)
@@ -263,8 +282,16 @@ foreach ($dirName in $CategoryDirs.Keys) {
 }
 
 # ============================================================
-# 7. 顯示異常檔案清單
+# 7. 顯示品質未達標清單
 # ============================================================
+if ($LowQualityFiles.Count -gt 0) {
+    Write-Host ""
+    Write-Host "❌ 品質未達標文章清單 (<60分)：" -ForegroundColor Red
+    $LowQualityFiles | Sort-Object Score | ForEach-Object {
+        Write-Host "   📄 $($_.RelativePath) (分數：$($_.Score)/100)" -ForegroundColor Red
+    }
+}
+
 if ($AbnormalFiles.Count -gt 0) {
     Write-Host ""
     Write-Host "❌ 異常檔案清單 (< 5KB)：" -ForegroundColor Red
@@ -299,15 +326,54 @@ if ($ScoredArticles.Count -gt 0) {
     $PassedCount = ($ScoredArticles | Where-Object { $_.Passed }).Count
     $FailedCount = $ScoredArticles.Count - $PassedCount
     Write-Host "   ├─ 通過 (≥60分)：$PassedCount 篇" -ForegroundColor Green
-    Write-Host "   └─ 未達標 (<60分)：$FailedCount 篇" -ForegroundColor $(if ($FailedCount -gt 0) {'Yellow'} else {'Green'})
+    Write-Host "   └─ 未達標 (<60分)：$FailedCount 篇" -ForegroundColor $(if ($FailedCount -gt 0) {'Red'} else {'Green'})
+    
+    # 顯示平均分數
+    $AvgScore = [math]::Round(($ScoredArticles | Measure-Object -Property Score -Average).Average, 1)
+    Write-Host "   📊 平均品質分數：$AvgScore 分" -ForegroundColor Cyan
 }
 
 # ============================================================
-# 9. 自動修復
+# 9. 刪除品質未達標文章（🆕 新功能）
 # ============================================================
-if ($Fix -and $AbnormalFiles.Count -gt 0) {
+if ($Fix -and $LowQualityFiles.Count -gt 0) {
     Write-Host ""
-    Write-Host "🔧 正在刪除異常文章..." -ForegroundColor Yellow
+    Write-Host "🔧 正在刪除品質未達標文章..." -ForegroundColor Yellow
+    
+    if ($DryRun) {
+        Write-Host "   🔍 預覽模式：以下文章將被刪除（但不實際刪除）" -ForegroundColor Yellow
+        foreach ($f in $LowQualityFiles) {
+            Write-Host "      📄 $($f.RelativePath) (分數：$($f.Score)/100)" -ForegroundColor Yellow
+        }
+        Write-Host ""
+        Write-Host "   📊 將刪除 $($LowQualityFiles.Count) 篇品質未達標文章" -ForegroundColor Yellow
+    } else {
+        $DeletedCount = 0
+        foreach ($f in $LowQualityFiles) {
+            try {
+                Remove-Item -Path $f.Path -Force
+                Write-Host "   🗑️ 已刪除：$($f.RelativePath) (分數：$($f.Score)/100)" -ForegroundColor Red
+                $DeletedCount++
+            } catch {
+                Write-Host "   ❌ 刪除失敗：$($f.RelativePath)" -ForegroundColor Red
+            }
+        }
+        Write-Host ""
+        Write-Host "✅ 已刪除 $DeletedCount 篇品質未達標文章" -ForegroundColor Green
+        Write-Host ""
+        Write-Host "📌 請重新執行 .\ahpal-master.ps1 生成文章" -ForegroundColor Yellow
+    }
+} elseif ($Fix -and $LowQualityFiles.Count -eq 0) {
+    Write-Host ""
+    Write-Host "✅ 沒有品質未達標的文章需要刪除！" -ForegroundColor Green
+}
+
+# ============================================================
+# 10. 刪除異常檔案（原有功能）
+# ============================================================
+if ($Fix -and $AbnormalFiles.Count -gt 0 -and -not $DryRun) {
+    Write-Host ""
+    Write-Host "🔧 正在刪除異常文章 (<5KB)..." -ForegroundColor Yellow
     foreach ($f in $AbnormalFiles) {
         try {
             Remove-Item -Path $f.Path -Force
@@ -318,12 +384,10 @@ if ($Fix -and $AbnormalFiles.Count -gt 0) {
     }
     Write-Host ""
     Write-Host "✅ 已刪除 $($AbnormalFiles.Count) 篇異常文章" -ForegroundColor Green
-    Write-Host ""
-    Write-Host "📌 請重新執行 .\ahpal-master.ps1 生成文章" -ForegroundColor Yellow
 }
 
 # ============================================================
-# 10. 產生報告
+# 11. 產生報告
 # ============================================================
 if ($Report) {
     Write-Host ""
@@ -343,9 +407,11 @@ if ($Report) {
    異常檔案: $($AbnormalFiles.Count) 篇
    缺少品牌: $($MissingBrand.Count) 篇
    含 API 錯誤: $($HasApiError.Count) 篇
+   品質未達標: $($LowQualityFiles.Count) 篇
    文章總大小: $([math]::Round($TotalSize / 1MB, 2)) MB
    品質通過: $PassedCount 篇
    品質未達標: $FailedCount 篇
+   平均品質分數: $AvgScore 分
 
 📂 各目錄統計：
 "@
@@ -355,6 +421,13 @@ if ($Report) {
             $ReportContent += "   $dirName : $($stat.Count) 篇, $($stat.SizeKB) KB`n"
         } else {
             $ReportContent += "   $dirName : (空)`n"
+        }
+    }
+
+    if ($LowQualityFiles.Count -gt 0) {
+        $ReportContent += "`n❌ 品質未達標文章清單 (<60分)：`n"
+        foreach ($f in $LowQualityFiles | Sort-Object Score) {
+            $ReportContent += "   - $($f.RelativePath) (分數：$($f.Score)/100)`n"
         }
     }
 
@@ -387,7 +460,7 @@ if ($Report) {
 }
 
 # ============================================================
-# 11. 完成
+# 12. 完成
 # ============================================================
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Green
@@ -396,7 +469,8 @@ Write-Host "============================================================" -Foreg
 Write-Host ""
 
 if (-not $Fix -and -not $Report) {
-    Write-Host "💡 若要自動刪除異常文章，請執行：.\check-all.ps1 -Fix" -ForegroundColor Yellow
+    Write-Host "💡 若要刪除品質未達標文章，請執行：.\check-all.ps1 -Fix" -ForegroundColor Yellow
+    Write-Host "💡 若要預覽要刪除的文章：.\check-all.ps1 -Fix -DryRun" -ForegroundColor Yellow
     Write-Host "💡 若要產生詳細報告，請執行：.\check-all.ps1 -Report" -ForegroundColor Yellow
     Write-Host "💡 若要同時執行：.\check-all.ps1 -Fix -Report" -ForegroundColor Yellow
 }

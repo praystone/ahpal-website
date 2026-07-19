@@ -257,5 +257,27 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
+<script>
+// ============================================================
+// 🎮 tetris - 遊戲邏輯
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const messageElement = document.getElementById('message');
+    if (messageElement) {
+        messageElement.innerText = '🎮 tetris 遊戲已載入！請點擊「新遊戲」開始遊玩。';
+    }
+    
+    // 通用遊戲框架
+    function initGame() {
+        alert('🎮 tetris 遊戲開始！');
+    }
+    
+    // 掛載到全域
+    window.initGame = initGame;
+    window.resetGame = initGame;
+});
+</script>
+
 </body>
 </html>
+

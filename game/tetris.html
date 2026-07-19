@@ -1,283 +1,68 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>俄羅斯方塊 - 經典方塊遊戲 - 雅寶遊戲間</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
-            background: #f7fafc;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-                /* ============================================================
-           頁首樣式（與首頁一致）
-           ============================================================ */
-        .site-header {
-            background: #005A9C;
-            color: white;
-            padding: 12px 0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            width: 100%;
-        }
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .logo:hover { color: rgba(255,255,255,0.85); }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover {
-            color: white;
-            border-bottom: 2px solid #00A86B;
-        }
-        .nav-links .game-link {
-            background: rgba(255,255,255,0.15);
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-        .nav-links .game-link:hover {
-            border-bottom: none;
-            background: rgba(255,255,255,0.25);
-        }
-                /* ============================================================
-           頁尾樣式（與首頁一致）
-           ============================================================ */
-        .site-footer {
-            background: #2D3748;
-            color: #A0AEC0;
-            padding: 40px 0 28px 0;
-            margin-top: 40px;
-            font-size: 14px;
-            width: 100%;
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            text-align: center;
-        }
-        .footer-inner .copy {
-            font-size: 13px;
-            color: #718096;
-        }
-        .footer-inner .declaration {
-            font-size: 12px;
-            color: #FF6F61;
-            letter-spacing: 1px;
-            font-weight: 300;
-            margin-top: 4px;
-        }
-        .footer-inner a {
-            color: #A0AEC0;
-            text-decoration: none;
-        }
-        .footer-inner a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        
-        /* ============================================================
-           遊戲容器基本樣式
-           ============================================================ */
-        .game-container {
-            max-width: 500px;
-            width: 100%;
-            background: white;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin: 20px 0;
-        }
-        
-        /* ============================================================
-           玩法說明與留言區塊樣式
-           ============================================================ */
-        .how-to-play {
-            background: #f0f4f8;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin: 16px auto;
-            max-width: 500px;
-            width: 100%;
-            font-size: 14px;
-            color: #2d3748;
-            border-left: 4px solid #005A9C;
-        }
-        .how-to-play h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #005A9C;
-            margin-bottom: 4px;
-        }
-        .how-to-play p {
-            margin: 0;
-        }
-        .how-to-play strong {
-            color: #005A9C;
-        }
-        .comments-section {
-            max-width: 500px;
-            width: 100%;
-            margin: 20px auto;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
-        }
-        .comments-section h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 2px;
-        }
-        .comments-section p {
-            font-size: 14px;
-            color: #4a5568;
-            margin-bottom: 16px;
-        }
-        @media (max-width: 480px) {
-            .how-to-play { font-size: 13px; padding: 14px 16px; }
-            .comments-section h3 { font-size: 16px; }
-            .game-container { padding: 16px; }
-        }
-    </style>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>俄羅斯方塊 - 經典方塊遊戲 - 雅寶遊戲間</title>
+<style>
+body{font-family:sans-serif;background:#f7fafc;display:flex;flex-direction:column;align-items:center;padding:20px;margin:0}
+.game-container{max-width:500px;width:100%;background:#fff;padding:24px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08);margin:20px 0}
+.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+.controls button{padding:8px 16px;border-radius:8px;border:2px solid #005A9C;background:#fff;color:#005A9C;cursor:pointer;font-weight:bold}
+.controls button:hover{background:#005A9C;color:#fff}
+.how-to-play{background:#f0f4f8;padding:16px 20px;border-radius:12px;margin:16px auto;max-width:500px;border-left:4px solid #005A9C;font-size:14px}
+.comments-section{max-width:500px;width:100%;margin:20px auto;padding-top:20px;border-top:2px solid #e2e8f0}
+</style>
 </head>
 <body>
-        <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- ============================================================
-    遊戲核心內容
-    ============================================================ -->
-    <div class="game-container">
-    <div class="header">
-        <h1>🧱 俄羅斯方塊</h1>
-        <div class="info">
-            <div>🏆 <span id="score">0</span></div>
-            <div>📊 <span id="level">1</span></div>
-        </div>
-    </div>
-    <div class="board" id="board"></div>
-    <div class="controls">
-        <button onclick="moveLeft()">⬅</button>
-        <button onclick="rotatePiece()">🔄</button>
-        <button onclick="moveRight()">➡</button>
-        <button onclick="hardDrop()">⬇⬇</button>
-        <button onclick="resetGame()">🔄 重新開始</button>
-    </div>
-    <div class="message" id="message">使用方向鍵控制</div>
-</div>
-    
-    <!-- ============================================================
-    通用頁尾模板（玩法說明 + Giscus 留言）
-    ============================================================ -->
-        <!-- ============================================================
-    🎮 玩法說明
-    ============================================================ -->
-    <div class="how-to-play">
-        <h3>🎯 玩法說明</h3>
-        <p>方向鍵移動/旋轉方塊，消除完整行得分，方塊堆疊到頂端則遊戲結束。</p>
-    </div>
-
-    <!-- ============================================================
-    💬 留言討論區 (Giscus)
-    ============================================================ -->
-    <div class="comments-section">
-        <h3>💬 討論與留言</h3>
-        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
-        <div class="giscus"></div>
-    </div>
-
-    <script src="https://giscus.app/client.js"
-        data-repo="praystone/ahpal-website"
-        data-repo-id="R_kgDOTbvurg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOTbvurs4DBhek"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-TW"
-        crossorigin="anonymous"
-        async>
-    </script>
-    
-        <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
-                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
-            </div>
-            <div class="declaration">「從社區法治，走向知識共創」</div>
-        </div>
-    </footer>
+<header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
+<div class="game-container"></div>
+<div class="how-to-play"><h3>🎯 玩法說明</h3><p>玩法說明</p></div>
+<div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
+<footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script>
-// ============================================================
-// 🎮 tetris - 遊戲邏輯
-// ============================================================
-document.addEventListener('DOMContentLoaded', function() {
-    const messageElement = document.getElementById('message');
-    if (messageElement) {
-        messageElement.innerText = '🎮 tetris 遊戲已載入！請點擊「新遊戲」開始遊玩。';
-    }
-    
-    // 通用遊戲框架
-    function initGame() {
-        alert('🎮 tetris 遊戲開始！');
-    }
-    
-    // 掛載到全域
-    window.initGame = initGame;
-    window.resetGame = initGame;
-});
+const boardEl=document.getElementById('board'), sc=document.getElementById('score'), lv=document.getElementById('level'), msg=document.getElementById('message');
+const COLS=10, ROWS=20;
+const SHAPES=[
+{shape:[[1,1,1,1]],color:'#00f0f0'},
+{shape:[[1,1,1],[0,1,0]],color:'#0000f0'},
+{shape:[[1,1,1],[0,0,1]],color:'#f0a000'},
+{shape:[[1,1,1],[1,0,0]],color:'#0000f0'},
+{shape:[[1,1],[1,1]],color:'#f0f000'},
+{shape:[[0,1,1],[1,1,0]],color:'#00f000'},
+{shape:[[1,1,0],[0,1,1]],color:'#f00000'}
+];
+let board, piece, score, level, over, loop, interval=500;
+function init(){
+  board=Array.from({length:ROWS},()=>Array(COLS).fill(0)); score=0; level=1; over=false; interval=500;
+  updateScore(); spawn(); if(loop)clearInterval(loop); loop=setInterval(drop,interval); render(); msg.textContent='方向鍵控制';
+}
+function spawn(){
+  let i=Math.floor(Math.random()*SHAPES.length), p=SHAPES[i];
+  piece={shape:p.shape,color:p.color,x:Math.floor((COLS-p.shape[0].length)/2),y:0};
+  if(collision(piece.shape,piece.x,piece.y)){over=true;clearInterval(loop);msg.textContent='💀 遊戲結束！';}
+}
+function collision(s,ox,oy){for(let r=0;r<s.length;r++)for(let c=0;c<s[r].length;c++)if(s[r][c]){let bx=ox+c,by=oy+r;if(bx<0||bx>=COLS||by>=ROWS||by<0||(by>=0&&board[by][bx]))return true;}return false;}
+function merge(){
+  if(!piece)return;
+  for(let r=0;r<piece.shape.length;r++)for(let c=0;c<piece.shape[r].length;c++)if(piece.shape[r][c]){let bx=piece.x+c,by=piece.y+r;if(by>=0&&by<ROWS&&bx>=0&&bx<COLS)board[by][bx]=piece.color;}
+  clearRows(); spawn(); render();
+}
+function clearRows(){
+  let cleared=0;
+  for(let r=ROWS-1;r>=0;){if(board[r].every(c=>c)){board.splice(r,1);board.unshift(Array(COLS).fill(0));cleared++;}else r--;}
+  if(cleared){let pts=[0,100,300,500,800];score+=pts[Math.min(cleared,4)]*level;level=Math.floor(score/1000)+1;interval=Math.max(100,500-(level-1)*30);clearInterval(loop);loop=setInterval(drop,interval);updateScore();}
+}
+function drop(){if(over||!piece)return;if(!collision(piece.shape,piece.x,piece.y+1)){piece.y++;render();}else{merge();render();}}
+function moveLeft(){if(!over&&piece&&!collision(piece.shape,piece.x-1,piece.y)){piece.x--;render();}}
+function moveRight(){if(!over&&piece&&!collision(piece.shape,piece.x+1,piece.y)){piece.x++;render();}}
+function rotatePiece(){if(over||!piece)return;let r=piece.shape[0].map((_,i)=>piece.shape.map(row=>row[i]).reverse());if(!collision(r,piece.x,piece.y)){piece.shape=r;render();}}
+function hardDrop(){while(!over&&piece&&!collision(piece.shape,piece.x,piece.y+1))piece.y++;merge();render();}
+function render(){
+  boardEl.innerHTML=''; boardEl.style.gridTemplateColumns='repeat('+COLS+',1fr)';
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){let d=document.createElement('div');d.style.width='30px';d.style.height='30px';d.style.border='1px solid #ccc';if(board[r][c])d.style.background=board[r][c];boardEl.appendChild(d);}
+  if(piece&&!over)for(let r=0;r<piece.shape.length;r++)for(let c=0;c<piece.shape[r].length;c++)if(piece.shape[r][c]){let idx=(piece.y+r)*COLS+(piece.x+c);let cells=boardEl.children;if(idx<cells.length)cells[idx].style.background=piece.color;}
+}
+function updateScore(){sc.textContent=score;lv.textContent=level;}
+document.addEventListener('keydown',e=>{if(over)return;if(e.key==='ArrowLeft')moveLeft();else if(e.key==='ArrowRight')moveRight();else if(e.key==='ArrowUp')rotatePiece();else if(e.key==='ArrowDown')drop();else if(e.key===' '){e.preventDefault();hardDrop();}});
+window.init=init; window.reset=init; window.moveLeft=moveLeft; window.moveRight=moveRight; window.rotatePiece=rotatePiece; window.hardDrop=hardDrop; init();
 </script>
-
-</body>
-</html>
-
+<style>#board{display:grid;gap:1px;max-width:310px;margin:10px auto}</style>
+</body></html>

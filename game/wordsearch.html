@@ -1,272 +1,53 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文字搜尋 - 找單字挑戰 - 雅寶遊戲間</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
-            background: #f7fafc;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-                /* ============================================================
-           頁首樣式（與首頁一致）
-           ============================================================ */
-        .site-header {
-            background: #005A9C;
-            color: white;
-            padding: 12px 0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            width: 100%;
-        }
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .logo:hover { color: rgba(255,255,255,0.85); }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover {
-            color: white;
-            border-bottom: 2px solid #00A86B;
-        }
-        .nav-links .game-link {
-            background: rgba(255,255,255,0.15);
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-        .nav-links .game-link:hover {
-            border-bottom: none;
-            background: rgba(255,255,255,0.25);
-        }
-                /* ============================================================
-           頁尾樣式（與首頁一致）
-           ============================================================ */
-        .site-footer {
-            background: #2D3748;
-            color: #A0AEC0;
-            padding: 40px 0 28px 0;
-            margin-top: 40px;
-            font-size: 14px;
-            width: 100%;
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            text-align: center;
-        }
-        .footer-inner .copy {
-            font-size: 13px;
-            color: #718096;
-        }
-        .footer-inner .declaration {
-            font-size: 12px;
-            color: #FF6F61;
-            letter-spacing: 1px;
-            font-weight: 300;
-            margin-top: 4px;
-        }
-        .footer-inner a {
-            color: #A0AEC0;
-            text-decoration: none;
-        }
-        .footer-inner a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        
-        /* ============================================================
-           遊戲容器基本樣式
-           ============================================================ */
-        .game-container {
-            max-width: 500px;
-            width: 100%;
-            background: white;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin: 20px 0;
-        }
-        
-        /* ============================================================
-           玩法說明與留言區塊樣式
-           ============================================================ */
-        .how-to-play {
-            background: #f0f4f8;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin: 16px auto;
-            max-width: 500px;
-            width: 100%;
-            font-size: 14px;
-            color: #2d3748;
-            border-left: 4px solid #005A9C;
-        }
-        .how-to-play h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #005A9C;
-            margin-bottom: 4px;
-        }
-        .how-to-play p {
-            margin: 0;
-        }
-        .how-to-play strong {
-            color: #005A9C;
-        }
-        .comments-section {
-            max-width: 500px;
-            width: 100%;
-            margin: 20px auto;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
-        }
-        .comments-section h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 2px;
-        }
-        .comments-section p {
-            font-size: 14px;
-            color: #4a5568;
-            margin-bottom: 16px;
-        }
-        @media (max-width: 480px) {
-            .how-to-play { font-size: 13px; padding: 14px 16px; }
-            .comments-section h3 { font-size: 16px; }
-            .game-container { padding: 16px; }
-        }
-    </style>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>文字搜尋 - 找單字挑戰 - 雅寶遊戲間</title>
+<style>
+body{font-family:sans-serif;background:#f7fafc;display:flex;flex-direction:column;align-items:center;padding:20px;margin:0}
+.game-container{max-width:500px;width:100%;background:#fff;padding:24px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08);margin:20px 0}
+.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+.controls button{padding:8px 16px;border-radius:8px;border:2px solid #005A9C;background:#fff;color:#005A9C;cursor:pointer;font-weight:bold}
+.controls button:hover{background:#005A9C;color:#fff}
+.how-to-play{background:#f0f4f8;padding:16px 20px;border-radius:12px;margin:16px auto;max-width:500px;border-left:4px solid #005A9C;font-size:14px}
+.comments-section{max-width:500px;width:100%;margin:20px auto;padding-top:20px;border-top:2px solid #e2e8f0}
+</style>
 </head>
 <body>
-        <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- ============================================================
-    遊戲核心內容
-    ============================================================ -->
-    <div class="game-container">
-    <h1>🔍 文字搜尋</h1>
-    <div class="word-list" id="wordList"></div>
-    <div class="board" id="board"></div>
-    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
-    <div class="message" id="message">點擊字母選取單字</div>
-</div>
-    
-    <!-- ============================================================
-    通用頁尾模板（玩法說明 + Giscus 留言）
-    ============================================================ -->
-        <!-- ============================================================
-    🎮 玩法說明
-    ============================================================ -->
-    <div class="how-to-play">
-        <h3>🎯 玩法說明</h3>
-        <p>拖曳選取字母，找出隱藏在矩陣中的單字。</p>
-    </div>
-
-    <!-- ============================================================
-    💬 留言討論區 (Giscus)
-    ============================================================ -->
-    <div class="comments-section">
-        <h3>💬 討論與留言</h3>
-        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
-        <div class="giscus"></div>
-    </div>
-
-    <script src="https://giscus.app/client.js"
-        data-repo="praystone/ahpal-website"
-        data-repo-id="R_kgDOTbvurg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOTbvurs4DBhek"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-TW"
-        crossorigin="anonymous"
-        async>
-    </script>
-    
-        <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
-                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
-            </div>
-            <div class="declaration">「從社區法治，走向知識共創」</div>
-        </div>
-    </footer>
+<header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
+<div class="game-container"></div>
+<div class="how-to-play"><h3>🎯 玩法說明</h3><p>玩法說明</p></div>
+<div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
+<footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script>
-// ============================================================
-// 🎮 wordsearch - 遊戲邏輯
-// ============================================================
-document.addEventListener('DOMContentLoaded', function() {
-    const messageElement = document.getElementById('message');
-    if (messageElement) {
-        messageElement.innerText = '🎮 wordsearch 遊戲已載入！請點擊「新遊戲」開始遊玩。';
-    }
-    
-    // 通用遊戲框架
-    function initGame() {
-        alert('🎮 wordsearch 遊戲開始！');
-    }
-    
-    // 掛載到全域
-    window.initGame = initGame;
-    window.resetGame = initGame;
-});
+const words=['APPLE','BANANA','CHERRY','GRAPE','MANGO','PEACH','PEAR','WATERMELON'];
+let grid, found;
+const boardEl=document.getElementById('board'), wordList=document.getElementById('wordList'), msg=document.getElementById('message');
+function init(){
+  grid=Array.from({length:8},()=>Array(8).fill('')); found=[];
+  placeWords(); fillEmpty(); renderWords(); render(); msg.textContent='點擊字母選取單字';
+}
+function placeWords(){
+  let dirs=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
+  for(let w of words){let placed=false;for(let tries=0;tries<100&&!placed;tries++){let r=Math.floor(Math.random()*8),c=Math.floor(Math.random()*8);let d=dirs[Math.floor(Math.random()*dirs.length)];let ok=true;for(let i=0;i<w.length;i++){let nr=r+d[0]*i,nc=c+d[1]*i;if(nr<0||nr>=8||nc<0||nc>=8||(grid[nr][nc]&&grid[nr][nc]!==w[i])){ok=false;break;}}if(ok){for(let i=0;i<w.length;i++)grid[r+d[0]*i][c+d[1]*i]=w[i];placed=true;}}}
+}
+function fillEmpty(){for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(!grid[r][c])grid[r][c]=String.fromCharCode(65+Math.floor(Math.random()*26));}
+function render(){
+  boardEl.innerHTML=''; boardEl.style.gridTemplateColumns='repeat(8,1fr)';
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){let d=document.createElement('div');d.className='letter';d.textContent=grid[r][c];d.dataset.r=r;d.dataset.c=c;d.onclick=()=>select(r,c);boardEl.appendChild(d);}
+}
+function renderWords(){wordList.innerHTML=words.map(w=>'<span class="word'+(found.includes(w)?' found':'')+'">'+w+'</span>').join(' ');}
+let selected=[];
+function select(r,c){
+  let idx=r*8+c; if(selected.includes(idx)){selected=[];return;}selected.push(idx); if(selected.length===2){checkWord();}
+}
+function checkWord(){
+  let word=''; for(let i of selected){let r=Math.floor(i/8),c=i%8;word+=grid[r][c];}
+  let rev=word.split('').reverse().join('');
+  let foundWord=null; for(let w of words){if((word===w||rev===w)&&!found.includes(w))foundWord=w;}
+  if(foundWord){found.push(foundWord);renderWords();msg.textContent='✅ 找到：'+foundWord;}else msg.textContent='❌ 再試一次！';
+  selected=[];render();
+}
+window.init=init; init();
 </script>
-
-</body>
-</html>
-
+<style>.letter{width:35px;height:35px;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;background:#fff}#board{display:grid;gap:1px;max-width:300px;margin:10px auto}.word{margin:4px;padding:4px 8px;background:#eee;border-radius:4px}.found{background:#a8e6cf;text-decoration:line-through}
+</style>
+</body></html>

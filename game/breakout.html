@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>打磚塊 - 雅寶遊戲間</title>
+    <title>打磚塊 - 經典打磚塊遊戲 - 雅寶遊戲間</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #1a202c;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,70 +109,69 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
-            background: #2d3748;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
             max-width: 500px;
             width: 100%;
-            text-align: center;
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: white; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #a0aec0; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            color: white;
-        }
-        .header .info {
-            background: #1a202c;
-            padding: 4px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        canvas {
-            background: #1a202c;
-            border-radius: 8px;
-            display: block;
-            margin: 0 auto;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
             width: 100%;
-            max-width: 450px;
-            aspect-ratio: 450 / 320;
-            cursor: none;
-        }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #48bb78;
-            color: white;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .controls button:hover { background: #38a169; transform: scale(1.02); }
-        .controls button.danger { background: #fc8181; }
-        .controls button.danger:hover { background: #f56565; }
-        .message {
-            margin-top: 12px;
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .how-to-play p {
+            margin: 0;
+        }
+        .how-to-play strong {
+            color: #005A9C;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+        .comments-section p {
             font-size: 14px;
-            color: #a0aec0;
+            color: #4a5568;
+            margin-bottom: 16px;
         }
-        .message.win { color: #48bb78; font-weight: 700; }
-        .message.lose { color: #fc8181; font-weight: 700; }
-        @media (max-width: 480px) { h1 { font-size: 22px; } }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -188,18 +187,58 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>🏏 打磚塊</h1>
-        <p class="desc">控制擋板，反彈球消滅所有磚塊！</p>
-        <div class="header">
-            <span class="info">🏆 <span id="score">0</span></span>
-            <span class="info">🧱 <span id="bricksLeft">0</span></span>
-            <span class="info">❤️ <span id="lives">3</span></span>
-        </div>
-        <canvas id="gameCanvas" width="450" height="320"></canvas>
-        <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
-        <div class="message" id="message">使用滑鼠或鍵盤 ← → 控制擋板</div>
+    <h1>🏏 打磚塊</h1>
+    <div class="header">
+        <span class="info">🏆 <span id="score">0</span></span>
+        <span class="info">🧱 <span id="bricksLeft">0</span></span>
+        <span class="info">❤️ <span id="lives">3</span></span>
     </div>
+    <canvas id="gameCanvas" width="450" height="320"></canvas>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">使用滑鼠或鍵盤 ← → 控制擋板</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>滑鼠移動擋板，反彈球消滅所有磚塊！</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -211,165 +250,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const W = 450, H = 320;
-        let paddle = { x: W/2 - 40, y: H - 30, w: 80, h: 12 };
-        let ball = { x: W/2, y: H - 45, r: 6, dx: 3, dy: -4 };
-        let bricks = [], score = 0, lives = 3, gameRunning = false, animationId = null;
-        const keys = { left: false, right: false };
-        const BRICK_ROWS = 5, BRICK_COLS = 8, BRICK_W = 46, BRICK_H = 16, BRICK_PAD = 4, BRICK_TOP = 30;
-        const COLORS = ['#fc8181', '#f6ad55', '#f6e05e', '#68d391', '#63b3ed', '#b794f4'];
-
-        function initGame() {
-            if (animationId) cancelAnimationFrame(animationId);
-            paddle.x = W/2 - 40; ball.x = W/2; ball.y = H - 45;
-            ball.dx = 3 * (Math.random() > 0.5 ? 1 : -1); ball.dy = -4;
-            score = 0; lives = 3; gameRunning = true;
-            document.getElementById('score').textContent = score;
-            document.getElementById('lives').textContent = lives;
-            document.getElementById('message').textContent = '使用滑鼠或鍵盤 ← → 控制擋板';
-            document.getElementById('message').className = 'message';
-            bricks = [];
-            for (let r = 0; r < BRICK_ROWS; r++) {
-                for (let c = 0; c < BRICK_COLS; c++) {
-                    bricks.push({
-                        x: c * (BRICK_W + BRICK_PAD) + BRICK_PAD/2 + 10,
-                        y: r * (BRICK_H + BRICK_PAD) + BRICK_TOP,
-                        w: BRICK_W, h: BRICK_H,
-                        alive: true,
-                        color: COLORS[r % COLORS.length]
-                    });
-                }
-            }
-            updateBrickCount();
-            gameLoop();
-        }
-
-        function gameLoop() {
-            if (!gameRunning) return;
-            update(); draw();
-            animationId = requestAnimationFrame(gameLoop);
-        }
-
-        function update() {
-            if (keys.left) paddle.x = Math.max(0, paddle.x - 5);
-            if (keys.right) paddle.x = Math.min(W - paddle.w, paddle.x + 5);
-            ball.x += ball.dx; ball.y += ball.dy;
-            if (ball.x - ball.r < 0 || ball.x + ball.r > W) ball.dx *= -1;
-            if (ball.y - ball.r < 0) ball.dy *= -1;
-            if (ball.y + ball.r > H) {
-                lives--;
-                document.getElementById('lives').textContent = lives;
-                if (lives <= 0) {
-                    gameRunning = false;
-                    document.getElementById('message').textContent = '💀 遊戲結束！按「新遊戲」再玩一次';
-                    document.getElementById('message').className = 'message lose';
-                    return;
-                }
-                resetBall(); return;
-            }
-            if (ball.dy > 0 && ball.y + ball.r >= paddle.y && ball.y + ball.r <= paddle.y + paddle.h + 4 &&
-                ball.x >= paddle.x - ball.r && ball.x <= paddle.x + paddle.w + ball.r) {
-                ball.dy *= -1;
-                const hitPos = (ball.x - paddle.x) / paddle.w;
-                ball.dx = (hitPos - 0.5) * 6;
-                if (Math.abs(ball.dx) < 1.5) ball.dx = 1.5 * (ball.dx > 0 ? 1 : -1);
-                ball.y = paddle.y - ball.r;
-            }
-            for (const brick of bricks) {
-                if (!brick.alive) continue;
-                if (ball.x + ball.r > brick.x && ball.x - ball.r < brick.x + brick.w &&
-                    ball.y + ball.r > brick.y && ball.y - ball.r < brick.y + brick.h) {
-                    brick.alive = false;
-                    ball.dy *= -1;
-                    score += 10;
-                    document.getElementById('score').textContent = score;
-                    updateBrickCount();
-                    break;
-                }
-            }
-            if (bricks.every(b => !b.alive)) {
-                gameRunning = false;
-                document.getElementById('message').textContent = '🎉 恭喜你贏了！太棒了！';
-                document.getElementById('message').className = 'message win';
-            }
-        }
-
-        function resetBall() {
-            ball.x = paddle.x + paddle.w/2;
-            ball.y = paddle.y - ball.r;
-            ball.dx = 3 * (Math.random() > 0.5 ? 1 : -1);
-            ball.dy = -4;
-        }
-
-        function updateBrickCount() {
-            document.getElementById('bricksLeft').textContent = bricks.filter(b => b.alive).length;
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-            for (const brick of bricks) {
-                if (!brick.alive) continue;
-                ctx.fillStyle = brick.color;
-                ctx.shadowColor = 'rgba(255,255,255,0.1)';
-                ctx.shadowBlur = 4;
-                ctx.fillRect(brick.x, brick.y, brick.w, brick.h);
-                ctx.shadowBlur = 0;
-                ctx.fillStyle = 'rgba(255,255,255,0.15)';
-                ctx.fillRect(brick.x + 2, brick.y + 2, brick.w - 4, 3);
-            }
-            ctx.fillStyle = '#48bb78';
-            ctx.shadowColor = 'rgba(72,187,120,0.3)';
-            ctx.shadowBlur = 12;
-            ctx.beginPath();
-            if (!ctx.roundRect) {
-                ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h);
-            } else {
-                ctx.roundRect(paddle.x, paddle.y, paddle.w, paddle.h, 6);
-            }
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            ctx.fillStyle = '#f6e05e';
-            ctx.shadowColor = 'rgba(246,224,94,0.5)';
-            ctx.shadowBlur = 16;
-            ctx.beginPath();
-            ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-        }
-
-        if (!CanvasRenderingContext2D.prototype.roundRect) {
-            CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-                if (r > w/2) r = w/2;
-                if (r > h/2) r = h/2;
-                this.moveTo(x + r, y);
-                this.arcTo(x + w, y, x + w, y + h, r);
-                this.arcTo(x + w, y + h, x, y + h, r);
-                this.arcTo(x, y + h, x, y, r);
-                this.arcTo(x, y, x + w, y, r);
-                return this;
-            };
-        }
-
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const mx = (e.clientX - rect.left) * scaleX;
-            paddle.x = Math.max(0, Math.min(W - paddle.w, mx - paddle.w/2));
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') keys.left = true;
-            if (e.key === 'ArrowRight') keys.right = true;
-        });
-        document.addEventListener('keyup', (e) => {
-            if (e.key === 'ArrowLeft') keys.left = false;
-            if (e.key === 'ArrowRight') keys.right = false;
-        });
-
-        initGame();
-    </script>
 </body>
 </html>

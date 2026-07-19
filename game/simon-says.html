@@ -7,8 +7,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,79 +109,69 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
+            max-width: 500px;
+            width: 100%;
             background: white;
             padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .header .info {
-            background: #edf2f7;
-            padding: 4px 16px;
-            border-radius: 8px;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
             font-size: 14px;
-            font-weight: 600;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .simon-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            max-width: 340px;
-            margin: 12px auto;
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
         }
-        .simon-btn {
-            aspect-ratio: 1;
-            border-radius: 16px;
-            border: 4px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.15s;
-            opacity: 0.7;
+        .how-to-play p {
+            margin: 0;
         }
-        .simon-btn:hover { transform: scale(1.02); }
-        .simon-btn.active { opacity: 1; transform: scale(1.05); border-color: #005A9C; }
-        .simon-btn:disabled { cursor: not-allowed; opacity: 0.4; }
-        .simon-btn.green { background: #48bb78; }
-        .simon-btn.red { background: #fc8181; }
-        .simon-btn.yellow { background: #f6e05e; }
-        .simon-btn.blue { background: #63b3ed; }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+        .how-to-play strong {
+            color: #005A9C;
         }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #005A9C;
-            color: white;
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
         }
-        .controls button:hover { background: #003d66; transform: scale(1.02); }
-        .message {
-            margin-top: 12px;
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+        .comments-section p {
             font-size: 14px;
             color: #4a5568;
+            margin-bottom: 16px;
         }
-        .message.win { color: #38a169; font-weight: 700; }
-        .message.lose { color: #e53e3e; font-weight: 700; }
-        @media (max-width: 480px) { h1 { font-size: 22px; } .simon-btn { border-radius: 12px; } }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -197,24 +187,62 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>🎵 記憶節奏 - 跟著我唸</h1>
-        <p class="desc">記住並重複顏色順序，考驗你的短期記憶！</p>
-        <div class="header">
-            <span class="info">🎯 回合 <span id="round">0</span></span>
-            <span class="info">⭐ 分數 <span id="score">0</span></span>
-        </div>
-        <div class="simon-grid" id="simonGrid">
-            <div class="simon-btn green" data-color="green"></div>
-            <div class="simon-btn red" data-color="red"></div>
-            <div class="simon-btn yellow" data-color="yellow"></div>
-            <div class="simon-btn blue" data-color="blue"></div>
-        </div>
-        <div class="controls">
-            <button onclick="initGame()">🔄 新遊戲</button>
-        </div>
-        <div class="message" id="message">點擊「新遊戲」開始！</div>
+    <h1>🎵 記憶節奏</h1>
+    <div class="header">
+        <span class="info">🎯 回合 <span id="round">0</span></span>
+        <span class="info">⭐ 分數 <span id="score">0</span></span>
     </div>
+    <div class="simon-grid" id="simonGrid">
+        <div class="simon-btn green" data-color="green"></div>
+        <div class="simon-btn red" data-color="red"></div>
+        <div class="simon-btn yellow" data-color="yellow"></div>
+        <div class="simon-btn blue" data-color="blue"></div>
+    </div>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊「新遊戲」開始！</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>記住並重複顏色順序，考驗你的短期記憶！</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -226,111 +254,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        var colors = ['green', 'red', 'yellow', 'blue'];
-        var sequence = [];
-        var playerSequence = [];
-        var round = 0;
-        var score = 0;
-        var isPlaying = false;
-        var isPlayerTurn = false;
-
-        var colorMap = {
-            'green': '#48bb78',
-            'red': '#fc8181',
-            'yellow': '#f6e05e',
-            'blue': '#63b3ed'
-        };
-
-        function initGame() {
-            sequence = [];
-            playerSequence = [];
-            round = 0;
-            score = 0;
-            isPlaying = true;
-            isPlayerTurn = false;
-            document.getElementById('round').textContent = round;
-            document.getElementById('score').textContent = score;
-            document.getElementById('message').textContent = '觀察顏色順序...';
-            document.getElementById('message').className = 'message';
-            enableButtons(false);
-            setTimeout(function() { playSequence(); }, 500);
-        }
-
-        function playSequence() {
-            isPlayerTurn = false;
-            enableButtons(false);
-            sequence.push(colors[Math.floor(Math.random() * colors.length)]);
-            round++;
-            document.getElementById('round').textContent = round;
-            var i = 0;
-            var interval = setInterval(function() {
-                if (i >= sequence.length) {
-                    clearInterval(interval);
-                    isPlayerTurn = true;
-                    playerSequence = [];
-                    enableButtons(true);
-                    document.getElementById('message').textContent = '輪到你了！重複點擊！';
-                    return;
-                }
-                flashButton(sequence[i]);
-                i++;
-            }, 600);
-        }
-
-        function flashButton(color) {
-            var btns = document.querySelectorAll('.simon-btn');
-            var target = null;
-            for (var i = 0; i < btns.length; i++) {
-                if (btns[i].dataset.color === color) {
-                    target = btns[i];
-                    break;
-                }
-            }
-            if (!target) return;
-            target.classList.add('active');
-            setTimeout(function() { target.classList.remove('active'); }, 300);
-        }
-
-        function enableButtons(enabled) {
-            var btns = document.querySelectorAll('.simon-btn');
-            for (var i = 0; i < btns.length; i++) {
-                btns[i].disabled = !enabled;
-            }
-        }
-
-        function handleColorClick(color) {
-            if (!isPlayerTurn || !isPlaying) return;
-            var expected = sequence[playerSequence.length];
-            if (color === expected) {
-                playerSequence.push(color);
-                flashButton(color);
-                if (playerSequence.length === sequence.length) {
-                    isPlayerTurn = false;
-                    enableButtons(false);
-                    score += 10;
-                    document.getElementById('score').textContent = score;
-                    document.getElementById('message').textContent = '✅ 正確！進入下一回合！';
-                    setTimeout(function() {
-                        playSequence();
-                    }, 800);
-                }
-            } else {
-                isPlaying = false;
-                enableButtons(false);
-                document.getElementById('message').textContent = '❌ 順序錯誤！遊戲結束！';
-                document.getElementById('message').className = 'message lose';
-            }
-        }
-
-        var btns = document.querySelectorAll('.simon-btn');
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].addEventListener('click', function() {
-                handleColorClick(this.dataset.color);
-            });
-        }
-
-        initGame();
-    </script>
 </body>
 </html>

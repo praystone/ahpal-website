@@ -7,8 +7,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,101 +109,69 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
+            max-width: 500px;
+            width: 100%;
             background: white;
             padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .header .info {
-            background: #edf2f7;
-            padding: 4px 16px;
-            border-radius: 8px;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
             font-size: 14px;
-            font-weight: 600;
-        }
-        .hangman-ascii {
-            font-family: monospace;
-            font-size: 16px;
-            line-height: 1.4;
-            white-space: pre;
-            background: #edf2f7;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 8px 0;
             color: #2d3748;
-            text-align: left;
-            display: inline-block;
+            border-left: 4px solid #005A9C;
         }
-        .word-display {
-            font-size: 32px;
+        .how-to-play h3 {
+            font-size: 16px;
             font-weight: 700;
-            letter-spacing: 8px;
-            margin: 12px 0;
-            color: #2d3748;
+            color: #005A9C;
+            margin-bottom: 4px;
         }
-        .letters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: center;
-            max-width: 400px;
-            margin: 12px auto;
+        .how-to-play p {
+            margin: 0;
         }
-        .letters button {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #2d3748;
+        .how-to-play strong {
+            color: #005A9C;
         }
-        .letters button:hover { background: #ebf8ff; border-color: #005A9C; }
-        .letters button:disabled { opacity: 0.4; cursor: not-allowed; }
-        .letters button.correct { background: #c6f6d5; border-color: #38a169; }
-        .letters button.wrong { background: #fed7d7; border-color: #e53e3e; }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
         }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #005A9C;
-            color: white;
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
         }
-        .controls button:hover { background: #003d66; transform: scale(1.02); }
-        .message {
-            margin-top: 12px;
+        .comments-section p {
             font-size: 14px;
             color: #4a5568;
+            margin-bottom: 16px;
         }
-        .message.win { color: #38a169; font-weight: 700; }
-        .message.lose { color: #e53e3e; font-weight: 700; }
-        @media (max-width: 480px) { h1 { font-size: 22px; } .word-display { font-size: 24px; letter-spacing: 4px; } .letters button { width: 34px; height: 34px; font-size: 14px; } }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -219,21 +187,59 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>🔤 猜字遊戲 - 單字挑戰</h1>
-        <p class="desc">猜出隱藏的英文單字，拯救小人物！</p>
-        <div class="header">
-            <span class="info">❌ 錯誤 <span id="mistakes">0</span>/6</span>
-            <span class="info">🏆 勝場 <span id="wins">0</span></span>
-        </div>
-        <div class="hangman-ascii" id="hangmanDisplay"></div>
-        <div class="word-display" id="wordDisplay"></div>
-        <div class="letters" id="letters"></div>
-        <div class="controls">
-            <button onclick="initGame()">🔄 新遊戲</button>
-        </div>
-        <div class="message" id="message">點擊字母猜字！</div>
+    <h1>🔤 猜字遊戲</h1>
+    <div class="header">
+        <span class="info">❌ 錯誤 <span id="mistakes">0</span>/6</span>
+        <span class="info">🏆 勝場 <span id="wins">0</span></span>
     </div>
+    <div class="hangman-ascii" id="hangmanDisplay"></div>
+    <div class="word-display" id="wordDisplay"></div>
+    <div class="letters" id="letters"></div>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊字母猜字！</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>點擊字母猜單字，錯誤超過 6 次則遊戲結束。</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -245,90 +251,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        var words = ['APPLE', 'BANANA', 'CHERRY', 'DRAGON', 'EAGLE', 'FLOWER', 'GARDEN', 'HAPPY', 'ISLAND', 'JUNGLE', 'KNIGHT', 'LION', 'MOON', 'NIGHT', 'OCEAN', 'PEACE', 'QUEEN', 'RIVER', 'SUN', 'TREE', 'UNITY', 'VALLEY', 'WATER', 'YOUTH', 'ZEBRA'];
-        var currentWord = '';
-        var guessedLetters = [];
-        var mistakes = 0;
-        var maxMistakes = 6;
-        var wins = parseInt(localStorage.getItem('hangmanWins')) || 0;
-        var gameActive = true;
-
-        var hangmanStages = [
-            '   +---+\n       |\n       |\n       |\n      ===',
-            '   +---+\n   O   |\n       |\n       |\n      ===',
-            '   +---+\n   O   |\n   |   |\n       |\n      ===',
-            '   +---+\n   O   |\n  /|   |\n       |\n      ===',
-            '   +---+\n   O   |\n  /|\\  |\n       |\n      ===',
-            '   +---+\n   O   |\n  /|\\  |\n  /    |\n      ===',
-            '   +---+\n   O   |\n  /|\\  |\n  / \\  |\n      ==='
-        ];
-
-        function initGame() {
-            currentWord = words[Math.floor(Math.random() * words.length)];
-            guessedLetters = [];
-            mistakes = 0;
-            gameActive = true;
-            document.getElementById('wins').textContent = wins;
-            document.getElementById('mistakes').textContent = mistakes;
-            document.getElementById('message').textContent = '點擊字母猜字！';
-            document.getElementById('message').className = 'message';
-            render();
-        }
-
-        function render() {
-            document.getElementById('hangmanDisplay').textContent = hangmanStages[mistakes];
-            var display = currentWord.split('').map(function(letter) {
-                return guessedLetters.includes(letter) ? letter : '_';
-            }).join(' ');
-            document.getElementById('wordDisplay').textContent = display;
-
-            var lettersEl = document.getElementById('letters');
-            lettersEl.innerHTML = '';
-            var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            for (var i = 0; i < alphabet.length; i++) {
-                var btn = document.createElement('button');
-                btn.textContent = alphabet[i];
-                btn.dataset.letter = alphabet[i];
-                if (guessedLetters.includes(alphabet[i])) {
-                    btn.disabled = true;
-                    if (currentWord.includes(alphabet[i])) {
-                        btn.classList.add('correct');
-                    } else {
-                        btn.classList.add('wrong');
-                    }
-                }
-                btn.addEventListener('click', function() { handleGuess(this.dataset.letter); });
-                lettersEl.appendChild(btn);
-            }
-        }
-
-        function handleGuess(letter) {
-            if (!gameActive || guessedLetters.includes(letter)) return;
-            guessedLetters.push(letter);
-            if (currentWord.includes(letter)) {
-                render();
-                if (currentWord.split('').every(function(l) { return guessedLetters.includes(l); })) {
-                    gameActive = false;
-                    wins++;
-                    localStorage.setItem('hangmanWins', wins);
-                    document.getElementById('wins').textContent = wins;
-                    document.getElementById('message').textContent = '🎉 恭喜你猜對了！答案是 ' + currentWord;
-                    document.getElementById('message').className = 'message win';
-                }
-            } else {
-                mistakes++;
-                document.getElementById('mistakes').textContent = mistakes;
-                render();
-                if (mistakes >= maxMistakes) {
-                    gameActive = false;
-                    document.getElementById('message').textContent = '💀 遊戲結束！答案是 ' + currentWord;
-                    document.getElementById('message').className = 'message lose';
-                }
-            }
-        }
-
-        initGame();
-    </script>
 </body>
 </html>

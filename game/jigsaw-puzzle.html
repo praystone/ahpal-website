@@ -7,8 +7,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,87 +109,68 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
+            max-width: 500px;
+            width: 100%;
             background: white;
             padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-            max-width: 550px;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .header .info {
-            background: #edf2f7;
-            padding: 4px 16px;
-            border-radius: 8px;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
             font-size: 14px;
-            font-weight: 600;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .puzzle-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            max-width: 400px;
-            margin: 0 auto;
-            aspect-ratio: 1;
-        }
-        .puzzle-piece {
-            aspect-ratio: 1;
-            background: #e2e8f0;
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.2s;
+        .how-to-play h3 {
+            font-size: 16px;
             font-weight: 700;
-            color: #4a5568;
-            border: 2px solid #cbd5e0;
+            color: #005A9C;
+            margin-bottom: 4px;
         }
-        .puzzle-piece:hover { transform: scale(1.03); }
-        .puzzle-piece.empty {
-            background: transparent;
-            border: 2px dashed #cbd5e0;
-            cursor: default;
+        .how-to-play p {
+            margin: 0;
         }
-        .puzzle-piece.empty:hover { transform: none; }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+        .how-to-play strong {
+            color: #005A9C;
         }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #005A9C;
-            color: white;
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
         }
-        .controls button:hover { background: #003d66; transform: scale(1.02); }
-        .message {
-            margin-top: 12px;
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+        .comments-section p {
             font-size: 14px;
             color: #4a5568;
+            margin-bottom: 16px;
         }
-        .message.win { color: #38a169; font-weight: 700; }
         @media (max-width: 480px) {
-            h1 { font-size: 22px; }
-            .puzzle-piece { font-size: 18px; }
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
         }
     </style>
 </head>
@@ -206,19 +187,57 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>拼圖挑戰 - 完成圖片</h1>
-        <p class="desc">拖曳拼塊，完成美麗的圖片！</p>
-        <div class="header">
-            <span class="info">👆 步數 <span id="moves">0</span></span>
-            <span class="info">⏱️ 時間 <span id="timer">0</span>s</span>
-        </div>
-        <div class="puzzle-grid" id="puzzleGrid"></div>
-        <div class="controls">
-            <button onclick="initGame()">🔄 新遊戲</button>
-        </div>
-        <div class="message" id="message">點擊相鄰拼塊移動</div>
+    <h1>🧩 拼圖挑戰</h1>
+    <div class="header">
+        <span class="info">👆 步數 <span id="moves">0</span></span>
+        <span class="info">⏱️ 時間 <span id="timer">0</span>s</span>
     </div>
+    <div class="puzzle-grid" id="puzzleGrid"></div>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊相鄰拼塊移動</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>點擊相鄰拼塊移動，完成完整圖片！</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -230,103 +249,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        const SIZE = 4;
-        const TOTAL = SIZE * SIZE;
-        let puzzle = [];
-        let emptyIndex = TOTAL - 1;
-        let moves = 0;
-        let timer = 0;
-        let timerInterval = null;
-        let gameRunning = false;
-
-        function initGame() {
-            if (timerInterval) clearInterval(timerInterval);
-            timer = 0;
-            moves = 0;
-            gameRunning = true;
-            document.getElementById('moves').textContent = moves;
-            document.getElementById('timer').textContent = timer;
-            document.getElementById('message').textContent = '點擊相鄰拼塊移動';
-            document.getElementById('message').className = 'message';
-            
-            const numbers = Array.from({length: TOTAL - 1}, (_, i) => i + 1);
-            numbers.push(0);
-            puzzle = numbers;
-            emptyIndex = TOTAL - 1;
-            shuffle();
-            render();
-            timerInterval = setInterval(() => {
-                timer++;
-                document.getElementById('timer').textContent = timer;
-            }, 1000);
-        }
-
-        function shuffle() {
-            for (let i = 0; i < 200; i++) {
-                const neighbors = getNeighbors(emptyIndex);
-                const randomNeighbor = neighbors[Math.floor(Math.random() * neighbors.length)];
-                swap(randomNeighbor);
-            }
-        }
-
-        function getNeighbors(index) {
-            const row = Math.floor(index / SIZE);
-            const col = index % SIZE;
-            const neighbors = [];
-            if (row > 0) neighbors.push(index - SIZE);
-            if (row < SIZE - 1) neighbors.push(index + SIZE);
-            if (col > 0) neighbors.push(index - 1);
-            if (col < SIZE - 1) neighbors.push(index + 1);
-            return neighbors;
-        }
-
-        function swap(index) {
-            [puzzle[index], puzzle[emptyIndex]] = [puzzle[emptyIndex], puzzle[index]];
-            emptyIndex = index;
-        }
-
-        function handleClick(index) {
-            if (!gameRunning) return;
-            const neighbors = getNeighbors(emptyIndex);
-            if (neighbors.includes(index)) {
-                swap(index);
-                moves++;
-                document.getElementById('moves').textContent = moves;
-                render();
-                checkWin();
-            }
-        }
-
-        function checkWin() {
-            for (let i = 0; i < TOTAL; i++) {
-                if (i === TOTAL - 1) {
-                    if (puzzle[i] !== 0) return;
-                } else if (puzzle[i] !== i + 1) return;
-            }
-            gameRunning = false;
-            if (timerInterval) clearInterval(timerInterval);
-            document.getElementById('message').textContent = '🎉 恭喜你完成拼圖！太棒了！';
-            document.getElementById('message').className = 'message win';
-        }
-
-        function render() {
-            const grid = document.getElementById('puzzleGrid');
-            grid.innerHTML = '';
-            for (let i = 0; i < TOTAL; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'puzzle-piece';
-                if (puzzle[i] === 0) {
-                    piece.classList.add('empty');
-                } else {
-                    piece.textContent = puzzle[i];
-                }
-                piece.addEventListener('click', () => handleClick(i));
-                grid.appendChild(piece);
-            }
-        }
-
-        initGame();
-    </script>
 </body>
 </html>

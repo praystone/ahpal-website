@@ -7,8 +7,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,73 +109,69 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
+            max-width: 500px;
+            width: 100%;
             background: white;
             padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .header .info {
-            background: #edf2f7;
-            padding: 4px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .color-panel {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            max-width: 350px;
-            margin: 12px auto;
-        }
-        .color-btn {
-            aspect-ratio: 1;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
             border-radius: 12px;
-            border: 3px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .color-btn:hover { transform: scale(1.05); }
-        .color-btn:disabled { cursor: not-allowed; opacity: 0.7; }
-        .color-btn.active { transform: scale(0.95); border-color: #005A9C; }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #005A9C;
-            color: white;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .controls button:hover { background: #003d66; transform: scale(1.02); }
-        .message {
-            margin-top: 12px;
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .how-to-play p {
+            margin: 0;
+        }
+        .how-to-play strong {
+            color: #005A9C;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+        .comments-section p {
             font-size: 14px;
             color: #4a5568;
+            margin-bottom: 16px;
         }
-        .message.win { color: #38a169; font-weight: 700; }
-        @media (max-width: 480px) { h1 { font-size: 22px; } }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -191,19 +187,57 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>🎨 色彩記憶 - 顏色順序挑戰</h1>
-        <p class="desc">記住顏色順序，挑戰你的記憶力！</p>
-        <div class="header">
-            <span class="info">🎯 回合 <span id="round">1</span></span>
-            <span class="info">⭐ 分數 <span id="score">0</span></span>
-        </div>
-        <div class="color-panel" id="colorPanel"></div>
-        <div class="controls">
-            <button onclick="initGame()">🔄 新遊戲</button>
-        </div>
-        <div class="message" id="message">觀察顏色順序，然後重複點擊！</div>
+    <h1>🎨 色彩記憶</h1>
+    <div class="header">
+        <span class="info">🎯 回合 <span id="round">1</span></span>
+        <span class="info">⭐ 分數 <span id="score">0</span></span>
     </div>
+    <div class="color-panel" id="colorPanel"></div>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">觀察顏色順序，然後重複點擊！</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>記住顏色順序，正確重複點擊，挑戰你的記憶力！</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -215,99 +249,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        const COLORS = ['#e53e3e', '#3182ce', '#38a169', '#ecc94b', '#805ad5', '#ed8936', '#ed64a6', '#319795'];
-        let sequence = [];
-        let playerSequence = [];
-        let round = 1;
-        let score = 0;
-        let isPlaying = false;
-        let isPlayerTurn = false;
-
-        function initGame() {
-            sequence = [];
-            playerSequence = [];
-            round = 1;
-            score = 0;
-            isPlaying = true;
-            isPlayerTurn = false;
-            document.getElementById('round').textContent = round;
-            document.getElementById('score').textContent = score;
-            document.getElementById('message').textContent = '觀察顏色順序，然後重複點擊！';
-            document.getElementById('message').className = 'message';
-            renderColors();
-            setTimeout(() => playSequence(), 500);
-        }
-
-        function renderColors() {
-            const panel = document.getElementById('colorPanel');
-            panel.innerHTML = '';
-            for (let i = 0; i < COLORS.length; i++) {
-                const btn = document.createElement('div');
-                btn.className = 'color-btn';
-                btn.style.background = COLORS[i];
-                btn.dataset.index = i;
-                btn.addEventListener('click', () => handleColorClick(i));
-                panel.appendChild(btn);
-            }
-        }
-
-        function playSequence() {
-            isPlayerTurn = false;
-            const btns = document.querySelectorAll('.color-btn');
-            btns.forEach(b => b.disabled = true);
-            
-            sequence.push(Math.floor(Math.random() * COLORS.length));
-            
-            let i = 0;
-            const interval = setInterval(() => {
-                if (i >= sequence.length) {
-                    clearInterval(interval);
-                    isPlayerTurn = true;
-                    playerSequence = [];
-                    btns.forEach(b => b.disabled = false);
-                    document.getElementById('message').textContent = '輪到你了！重複點擊！';
-                    return;
-                }
-                const idx = sequence[i];
-                btns[idx].classList.add('active');
-                setTimeout(() => btns[idx].classList.remove('active'), 300);
-                i++;
-            }, 600);
-        }
-
-        function handleColorClick(index) {
-            if (!isPlayerTurn || !isPlaying) return;
-            
-            const btns = document.querySelectorAll('.color-btn');
-            const expected = sequence[playerSequence.length];
-            
-            if (index === expected) {
-                playerSequence.push(index);
-                btns[index].classList.add('active');
-                setTimeout(() => btns[index].classList.remove('active'), 200);
-                
-                if (playerSequence.length === sequence.length) {
-                    isPlayerTurn = false;
-                    btns.forEach(b => b.disabled = true);
-                    score += 10 * round;
-                    round++;
-                    document.getElementById('score').textContent = score;
-                    document.getElementById('round').textContent = round;
-                    document.getElementById('message').textContent = '✅ 正確！進入下一回合！';
-                    setTimeout(() => {
-                        playSequence();
-                    }, 800);
-                }
-            } else {
-                isPlaying = false;
-                btns.forEach(b => b.disabled = true);
-                document.getElementById('message').textContent = '❌ 順序錯誤！遊戲結束！';
-                document.getElementById('message').className = 'message';
-            }
-        }
-
-        initGame();
-    </script>
 </body>
 </html>

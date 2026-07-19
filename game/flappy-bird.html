@@ -2,13 +2,13 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>飛翔小鳥 - 極限反應 - 雅寶遊戲間</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #1a202c;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,66 +109,69 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
-            background: #2d3748;
+            max-width: 500px;
+            width: 100%;
+            background: white;
             padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: white; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #a0aec0; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            color: white;
-        }
-        .header .info {
-            background: #1a202c;
-            padding: 4px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        canvas {
-            background: #1a202c;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
             border-radius: 12px;
-            display: block;
-            margin: 0 auto;
+            margin: 16px auto;
+            max-width: 500px;
             width: 100%;
-            max-width: 360px;
-            aspect-ratio: 360 / 500;
-            cursor: pointer;
-        }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #48bb78;
-            color: white;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .controls button:hover { background: #38a169; transform: scale(1.02); }
-        .message {
-            margin-top: 12px;
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .how-to-play p {
+            margin: 0;
+        }
+        .how-to-play strong {
+            color: #005A9C;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+        .comments-section p {
             font-size: 14px;
-            color: #a0aec0;
+            color: #4a5568;
+            margin-bottom: 16px;
         }
-        @media (max-width: 480px) { h1 { font-size: 22px; } }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -184,19 +187,57 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>🐦 飛翔小鳥 - 極限反應</h1>
-        <p class="desc">控制小鳥穿越障礙，挑戰你的反應極限！</p>
-        <div class="header">
-            <span class="info">🏆 分數 <span id="score">0</span></span>
-            <span class="info">🏅 最高 <span id="best">0</span></span>
-        </div>
-        <canvas id="gameCanvas" width="360" height="500"></canvas>
-        <div class="controls">
-            <button onclick="initGame()">🔄 新遊戲</button>
-        </div>
-        <div class="message" id="message">點擊畫面或按空白鍵跳躍！</div>
+    <h1>🐦 飛翔小鳥</h1>
+    <div class="header">
+        <span class="info">🏆 分數 <span id="score">0</span></span>
+        <span class="info">🏅 最高 <span id="best">0</span></span>
     </div>
+    <canvas id="gameCanvas" width="360" height="500"></canvas>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊畫面或按空白鍵跳躍！</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>點擊畫面或按空白鍵讓小鳥跳躍，穿越障礙！</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -208,115 +249,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        var canvas = document.getElementById('gameCanvas');
-        var ctx = canvas.getContext('2d');
-        var W = 360, H = 500;
-        var bird = { x: 60, y: 250, r: 12, vy: 0, gravity: 0.4, jump: -7 };
-        var pipes = [];
-        var score = 0;
-        var bestScore = parseInt(localStorage.getItem('flappyBest')) || 0;
-        var gameRunning = false;
-        var gameLoop = null;
-        var pipeGap = 140;
-        var pipeWidth = 50;
-        var pipeSpeed = 2.5;
-
-        function initGame() {
-            if (gameLoop) cancelAnimationFrame(gameLoop);
-            bird.y = 250;
-            bird.vy = 0;
-            pipes = [];
-            score = 0;
-            gameRunning = true;
-            document.getElementById('score').textContent = score;
-            document.getElementById('best').textContent = bestScore;
-            document.getElementById('message').textContent = '點擊畫面或按空白鍵跳躍！';
-            gameLoop = requestAnimationFrame(update);
-        }
-
-        function update() {
-            if (!gameRunning) return;
-            bird.vy += bird.gravity;
-            bird.y += bird.vy;
-            if (bird.y - bird.r < 0 || bird.y + bird.r > H) { gameOver(); return; }
-
-            if (pipes.length === 0 || pipes[pipes.length - 1].x < W - 180) {
-                var topHeight = Math.random() * (H - pipeGap - 80) + 40;
-                pipes.push({
-                    x: W,
-                    top: topHeight,
-                    bottom: topHeight + pipeGap,
-                    scored: false
-                });
-            }
-
-            for (var i = pipes.length - 1; i >= 0; i--) {
-                pipes[i].x -= pipeSpeed;
-                if (pipes[i].x + pipeWidth < 0) { pipes.splice(i, 1); continue; }
-                if (!pipes[i].scored && pipes[i].x + pipeWidth < bird.x - bird.r) {
-                    pipes[i].scored = true;
-                    score++;
-                    document.getElementById('score').textContent = score;
-                }
-                if (bird.x + bird.r > pipes[i].x && bird.x - bird.r < pipes[i].x + pipeWidth) {
-                    if (bird.y - bird.r < pipes[i].top || bird.y + bird.r > pipes[i].bottom) {
-                        gameOver(); return;
-                    }
-                }
-            }
-
-            draw();
-            gameLoop = requestAnimationFrame(update);
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-            ctx.fillStyle = '#2d3748';
-            ctx.fillRect(0, 0, W, H);
-            for (var i = 0; i < pipes.length; i++) {
-                var p = pipes[i];
-                ctx.fillStyle = '#48bb78';
-                ctx.fillRect(p.x, 0, pipeWidth, p.top);
-                ctx.fillRect(p.x, p.bottom, pipeWidth, H - p.bottom);
-                ctx.fillStyle = '#38a169';
-                ctx.fillRect(p.x - 4, p.top - 20, pipeWidth + 8, 20);
-                ctx.fillRect(p.x - 4, p.bottom, pipeWidth + 8, 20);
-            }
-            ctx.fillStyle = '#f6e05e';
-            ctx.shadowColor = 'rgba(246,224,94,0.5)';
-            ctx.shadowBlur = 20;
-            ctx.beginPath();
-            ctx.arc(bird.x, bird.y, bird.r, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            ctx.fillStyle = 'white';
-            ctx.font = '20px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('🐦', bird.x, bird.y + 6);
-        }
-
-        function jump() {
-            if (!gameRunning) return;
-            bird.vy = bird.jump;
-        }
-
-        function gameOver() {
-            gameRunning = false;
-            if (gameLoop) cancelAnimationFrame(gameLoop);
-            if (score > bestScore) {
-                bestScore = score;
-                localStorage.setItem('flappyBest', bestScore);
-                document.getElementById('best').textContent = bestScore;
-            }
-            document.getElementById('message').textContent = '💀 遊戲結束！分數：' + score;
-        }
-
-        canvas.addEventListener('click', jump);
-        canvas.addEventListener('touchstart', function(e) { e.preventDefault(); jump(); });
-        document.addEventListener('keydown', function(e) { if (e.key === ' ') { e.preventDefault(); jump(); } });
-
-        initGame();
-    </script>
 </body>
 </html>

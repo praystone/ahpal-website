@@ -7,8 +7,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,82 +109,69 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
+            max-width: 500px;
+            width: 100%;
             background: white;
             padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .header .info {
-            background: #edf2f7;
-            padding: 4px 16px;
-            border-radius: 8px;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
             font-size: 14px;
-            font-weight: 600;
-        }
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
-            max-width: 360px;
-            margin: 0 auto;
-            aspect-ratio: 1;
-        }
-        .cell {
-            background: #e2e8f0;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 56px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
             color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .cell:hover { background: #cbd5e0; }
-        .cell.x { color: #005A9C; }
-        .cell.o { color: #e53e3e; }
-        .cell.win { background: #c6f6d5; }
-        .cell:disabled { cursor: not-allowed; opacity: 0.8; }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
         }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #005A9C;
-            color: white;
+        .how-to-play p {
+            margin: 0;
         }
-        .controls button:hover { background: #003d66; transform: scale(1.02); }
-        .message {
-            margin-top: 12px;
+        .how-to-play strong {
+            color: #005A9C;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+        .comments-section p {
             font-size: 14px;
             color: #4a5568;
+            margin-bottom: 16px;
         }
-        .message.win { color: #38a169; font-weight: 700; }
-        .message.lose { color: #e53e3e; font-weight: 700; }
-        @media (max-width: 480px) { .cell { font-size: 40px; } h1 { font-size: 22px; } }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -200,20 +187,58 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>❌ 井字遊戲 - 經典對戰</h1>
-        <p class="desc">與 AI 對戰井字遊戲，考驗你的策略思維！</p>
-        <div class="header">
-            <span class="info">❌ 玩家 <span id="playerScore">0</span></span>
-            <span class="info">⚖️ 平手 <span id="drawScore">0</span></span>
-            <span class="info">⭕ AI <span id="aiScore">0</span></span>
-        </div>
-        <div class="board" id="board"></div>
-        <div class="controls">
-            <button onclick="initGame()">🔄 新遊戲</button>
-        </div>
-        <div class="message" id="message">點擊格子開始遊戲！</div>
+    <h1>❌ 井字遊戲</h1>
+    <div class="header">
+        <span class="info">❌ 玩家 <span id="playerScore">0</span></span>
+        <span class="info">⚖️ 平手 <span id="drawScore">0</span></span>
+        <span class="info">⭕ AI <span id="aiScore">0</span></span>
     </div>
+    <div class="board" id="board"></div>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊格子開始遊戲！</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>與 AI 對戰，連成三條線獲勝！</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -225,162 +250,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        var board = [];
-        var currentPlayer = 'X';
-        var gameActive = true;
-        var playerScore = 0;
-        var aiScore = 0;
-        var drawScore = 0;
-
-        function initGame() {
-            board = Array(9).fill(null);
-            currentPlayer = 'X';
-            gameActive = true;
-            document.getElementById('message').textContent = '輪到你！';
-            document.getElementById('message').className = 'message';
-            render();
-        }
-
-        function render() {
-            var boardEl = document.getElementById('board');
-            boardEl.innerHTML = '';
-            for (var i = 0; i < 9; i++) {
-                var cell = document.createElement('div');
-                cell.className = 'cell';
-                if (board[i] === 'X') cell.classList.add('x');
-                if (board[i] === 'O') cell.classList.add('o');
-                cell.textContent = board[i] || '';
-                cell.dataset.index = i;
-                cell.addEventListener('click', function() { handleClick(parseInt(this.dataset.index)); });
-                boardEl.appendChild(cell);
-            }
-        }
-
-        function handleClick(index) {
-            if (!gameActive || currentPlayer !== 'X' || board[index] !== null) return;
-            board[index] = 'X';
-            render();
-            if (checkWin('X')) {
-                gameActive = false;
-                playerScore++;
-                document.getElementById('playerScore').textContent = playerScore;
-                document.getElementById('message').textContent = '🎉 你贏了！太棒了！';
-                document.getElementById('message').className = 'message win';
-                highlightWin();
-                return;
-            }
-            if (board.every(c => c !== null)) {
-                gameActive = false;
-                drawScore++;
-                document.getElementById('drawScore').textContent = drawScore;
-                document.getElementById('message').textContent = '⚖️ 平手！';
-                document.getElementById('message').className = 'message';
-                return;
-            }
-            currentPlayer = 'O';
-            document.getElementById('message').textContent = 'AI 思考中...';
-            setTimeout(aiMove, 400);
-        }
-
-        function aiMove() {
-            if (!gameActive) return;
-            var bestScore = -Infinity;
-            var bestMove = null;
-            for (var i = 0; i < 9; i++) {
-                if (board[i] !== null) continue;
-                board[i] = 'O';
-                var score = minimax(board, 0, false);
-                board[i] = null;
-                if (score > bestScore) {
-                    bestScore = score;
-                    bestMove = i;
-                }
-            }
-            if (bestMove !== null) {
-                board[bestMove] = 'O';
-                render();
-                if (checkWin('O')) {
-                    gameActive = false;
-                    aiScore++;
-                    document.getElementById('aiScore').textContent = aiScore;
-                    document.getElementById('message').textContent = '💀 AI 贏了！再試一次！';
-                    document.getElementById('message').className = 'message lose';
-                    highlightWin();
-                    return;
-                }
-                if (board.every(c => c !== null)) {
-                    gameActive = false;
-                    drawScore++;
-                    document.getElementById('drawScore').textContent = drawScore;
-                    document.getElementById('message').textContent = '⚖️ 平手！';
-                    document.getElementById('message').className = 'message';
-                    return;
-                }
-                currentPlayer = 'X';
-                document.getElementById('message').textContent = '輪到你！';
-            }
-        }
-
-        function minimax(board, depth, isMaximizing) {
-            if (checkWin('O')) return 10 - depth;
-            if (checkWin('X')) return depth - 10;
-            if (board.every(c => c !== null)) return 0;
-            if (isMaximizing) {
-                var best = -Infinity;
-                for (var i = 0; i < 9; i++) {
-                    if (board[i] !== null) continue;
-                    board[i] = 'O';
-                    best = Math.max(best, minimax(board, depth + 1, false));
-                    board[i] = null;
-                }
-                return best;
-            } else {
-                var best = Infinity;
-                for (var i = 0; i < 9; i++) {
-                    if (board[i] !== null) continue;
-                    board[i] = 'X';
-                    best = Math.min(best, minimax(board, depth + 1, true));
-                    board[i] = null;
-                }
-                return best;
-            }
-        }
-
-        function checkWin(player) {
-            var winPatterns = [
-                [0,1,2],[3,4,5],[6,7,8],
-                [0,3,6],[1,4,7],[2,5,8],
-                [0,4,8],[2,4,6]
-            ];
-            for (var i = 0; i < winPatterns.length; i++) {
-                var [a,b,c] = winPatterns[i];
-                if (board[a] === player && board[b] === player && board[c] === player) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function highlightWin() {
-            var winPatterns = [
-                [0,1,2],[3,4,5],[6,7,8],
-                [0,3,6],[1,4,7],[2,5,8],
-                [0,4,8],[2,4,6]
-            ];
-            var cells = document.querySelectorAll('.cell');
-            for (var i = 0; i < winPatterns.length; i++) {
-                var [a,b,c] = winPatterns[i];
-                if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-                    cells[a].classList.add('win');
-                    cells[b].classList.add('win');
-                    cells[c].classList.add('win');
-                    return;
-                }
-            }
-        }
-
-        initGame();
-    </script>
 </body>
 </html>

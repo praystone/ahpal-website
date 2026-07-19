@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>踩地雷 - 雅寶遊戲間</title>
+    <title>踩地雷 - 經典推理遊戲 - 雅寶遊戲間</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,89 +109,68 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
+            max-width: 500px;
+            width: 100%;
             background: white;
             padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .header .info {
-            background: #edf2f7;
-            padding: 6px 16px;
-            border-radius: 8px;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
             font-size: 14px;
-            font-weight: 600;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .board {
-            display: grid;
-            grid-template-columns: repeat(9, 1fr);
-            gap: 2px;
-            background: #cbd5e0;
-            padding: 2px;
-            border-radius: 8px;
-            margin: 0 auto;
-            max-width: 400px;
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
         }
-        .cell {
-            aspect-ratio: 1;
-            background: #a0aec0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .how-to-play p {
+            margin: 0;
+        }
+        .how-to-play strong {
+            color: #005A9C;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .comments-section h3 {
             font-size: 18px;
             font-weight: 700;
-            cursor: pointer;
-            border-radius: 2px;
-            transition: background 0.15s;
-            user-select: none;
+            color: #1a202c;
+            margin-bottom: 2px;
         }
-        .cell:hover { background: #b0bec5; }
-        .cell.revealed { background: #e2e8f0; cursor: default; }
-        .cell.revealed:hover { background: #e2e8f0; }
-        .cell.mine { background: #fc8181; }
-        .cell.flagged { background: #fbd38d; }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #005A9C;
-            color: white;
-        }
-        .controls button:hover { background: #003d66; transform: scale(1.02); }
-        .controls button.danger { background: #e53e3e; }
-        .controls button.danger:hover { background: #c53030; }
-        .message {
-            margin-top: 12px;
+        .comments-section p {
             font-size: 14px;
             color: #4a5568;
+            margin-bottom: 16px;
         }
-        .message.win { color: #38a169; font-weight: 700; }
-        .message.lose { color: #e53e3e; font-weight: 700; }
         @media (max-width: 480px) {
-            .cell { font-size: 14px; }
-            h1 { font-size: 22px; }
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
         }
     </style>
 </head>
@@ -208,19 +187,59 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>💣 踩地雷</h1>
-        <p class="desc">經典踩地雷推理遊戲，考驗你的邏輯</p>
-        <div class="header">
-            <span class="info">💣 <span id="mineCount">10</span></span>
-            <span class="info">🏆 <span id="flagCount">0</span></span>
-        </div>
-        <div class="board" id="board"></div>
-        <div class="controls">
-            <button onclick="initGame()">🔄 新遊戲</button>
-        </div>
-        <div class="message" id="message">點擊左鍵翻開，右鍵標記旗子</div>
+    <h1>💣 踩地雷</h1>
+    <div class="header">
+        <span class="info">💣 <span id="mineCount">10</span></span>
+        <span class="info">🏆 <span id="flagCount">0</span></span>
     </div>
+    <div class="board" id="board"></div>
+    <div class="controls">
+        <button onclick="initGame()">🔄 新遊戲</button>
+    </div>
+    <div class="message" id="message">點擊左鍵翻開，右鍵標記旗子</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>左鍵翻開格子，右鍵標記地雷。不要踩到地雷！</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -232,111 +251,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        const ROWS = 9; const COLS = 9; const TOTAL_MINES = 10;
-        let board = [], revealed = [], flagged = [], gameOver = false, firstClick = true;
-
-        function initGame() {
-            board = []; revealed = Array.from({length: ROWS}, () => Array(COLS).fill(false));
-            flagged = Array.from({length: ROWS}, () => Array(COLS).fill(false));
-            gameOver = false; firstClick = true;
-            document.getElementById('message').textContent = '點擊左鍵翻開，右鍵標記旗子';
-            document.getElementById('message').className = 'message';
-            for (let r = 0; r < ROWS; r++) { board[r] = []; for (let c = 0; c < COLS; c++) board[r][c] = 0; }
-            updateCounts(); render();
-        }
-
-        function placeMines(excludeR, excludeC) {
-            let placed = 0;
-            while (placed < TOTAL_MINES) {
-                const r = Math.floor(Math.random() * ROWS), c = Math.floor(Math.random() * COLS);
-                if (board[r][c] === -1 || (Math.abs(r - excludeR) <= 1 && Math.abs(c - excludeC) <= 1)) continue;
-                board[r][c] = -1; placed++;
-            }
-            for (let r = 0; r < ROWS; r++) {
-                for (let c = 0; c < COLS; c++) {
-                    if (board[r][c] === -1) continue;
-                    let count = 0;
-                    for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
-                        const nr = r + dr, nc = c + dc;
-                        if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && board[nr][nc] === -1) count++;
-                    }
-                    board[r][c] = count;
-                }
-            }
-        }
-
-        function revealCell(r, c) {
-            if (gameOver || revealed[r][c] || flagged[r][c]) return;
-            if (firstClick) { placeMines(r, c); firstClick = false; }
-            if (board[r][c] === -1) {
-                gameOver = true; revealAll();
-                document.getElementById('message').textContent = '💀 踩到地雷！遊戲結束！';
-                document.getElementById('message').className = 'message lose';
-                return;
-            }
-            reveal(r, c); checkWin();
-        }
-
-        function reveal(r, c) {
-            if (r < 0 || r >= ROWS || c < 0 || c >= COLS || revealed[r][c] || flagged[r][c]) return;
-            revealed[r][c] = true;
-            if (board[r][c] === 0) {
-                for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) reveal(r + dr, c + dc);
-            }
-            render();
-        }
-
-        function toggleFlag(r, c) {
-            if (gameOver || revealed[r][c]) return;
-            flagged[r][c] = !flagged[r][c];
-            updateCounts(); render();
-        }
-
-        function revealAll() {
-            for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (board[r][c] === -1) revealed[r][c] = true;
-            render();
-        }
-
-        function checkWin() {
-            let totalRevealed = 0;
-            for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (revealed[r][c]) totalRevealed++;
-            if (totalRevealed === ROWS * COLS - TOTAL_MINES) {
-                gameOver = true;
-                document.getElementById('message').textContent = '🎉 恭喜你贏了！太棒了！';
-                document.getElementById('message').className = 'message win';
-            }
-        }
-
-        function updateCounts() {
-            let flagCount = 0;
-            for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (flagged[r][c]) flagCount++;
-            document.getElementById('mineCount').textContent = TOTAL_MINES;
-            document.getElementById('flagCount').textContent = flagCount;
-        }
-
-        function render() {
-            const boardEl = document.getElementById('board'); boardEl.innerHTML = '';
-            for (let r = 0; r < ROWS; r++) {
-                for (let c = 0; c < COLS; c++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    if (revealed[r][c]) {
-                        cell.classList.add('revealed');
-                        if (board[r][c] === -1) { cell.textContent = '💣'; cell.classList.add('mine'); }
-                        else if (board[r][c] > 0) {
-                            cell.textContent = board[r][c];
-                            const colors = ['', '#3182ce', '#38a169', '#e53e3e', '#2d3748', '#805ad5', '#319795', '#2d3748', '#718096'];
-                            cell.style.color = colors[board[r][c]] || '#2d3748';
-                        }
-                    } else if (flagged[r][c]) { cell.classList.add('flagged'); cell.textContent = '🚩'; }
-                    cell.addEventListener('click', () => revealCell(r, c));
-                    cell.addEventListener('contextmenu', (e) => { e.preventDefault(); toggleFlag(r, c); });
-                    boardEl.appendChild(cell);
-                }
-            }
-        }
-        initGame();
-    </script>
 </body>
 </html>

@@ -7,8 +7,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #1a202c;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,66 +109,69 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
-            background: #2d3748;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
             max-width: 500px;
             width: 100%;
-            text-align: center;
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: white; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #a0aec0; font-size: 14px; margin-bottom: 16px; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            color: white;
-        }
-        .header .info {
-            background: #1a202c;
-            padding: 4px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        canvas {
-            background: #1a202c;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
             border-radius: 12px;
-            display: block;
-            margin: 0 auto;
+            margin: 16px auto;
+            max-width: 500px;
             width: 100%;
-            max-width: 400px;
-            aspect-ratio: 400 / 300;
-            cursor: crosshair;
-        }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #48bb78;
-            color: white;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .controls button:hover { background: #38a169; transform: scale(1.02); }
-        .message {
-            margin-top: 12px;
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .how-to-play p {
+            margin: 0;
+        }
+        .how-to-play strong {
+            color: #005A9C;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .comments-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+        .comments-section p {
             font-size: 14px;
-            color: #a0aec0;
+            color: #4a5568;
+            margin-bottom: 16px;
         }
-        @media (max-width: 480px) { h1 { font-size: 22px; } }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -184,19 +187,57 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>🏹 弓箭手 - 精準射擊</h1>
-        <p class="desc">拉弓射箭，瞄準目標得分！</p>
-        <div class="header">
-            <span class="info">🎯 分數 <span id="score">0</span></span>
-            <span class="info">🏹 箭矢 <span id="arrows">10</span></span>
-        </div>
-        <canvas id="gameCanvas" width="400" height="300"></canvas>
-        <div class="controls">
-            <button onclick="initGame()">🔄 新遊戲</button>
-        </div>
-        <div class="message" id="message">點擊畫布射箭！</div>
+    <h1>🏹 弓箭手</h1>
+    <div class="header">
+        <span class="info">🎯 分數 <span id="score">0</span></span>
+        <span class="info">🏹 箭矢 <span id="arrows">10</span></span>
     </div>
+    <canvas id="gameCanvas" width="400" height="300"></canvas>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊畫布射箭！</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>點擊畫布射箭，瞄準移動的靶心得分！</p>
+    </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -208,89 +249,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const W = 400, H = 300;
-        let target = { x: 300, y: 100, r: 30, dx: 2, dy: 1.5 };
-        let score = 0;
-        let arrows = 10;
-        let gameRunning = true;
-        let animationId = null;
-
-        function initGame() {
-            if (animationId) cancelAnimationFrame(animationId);
-            score = 0;
-            arrows = 10;
-            gameRunning = true;
-            document.getElementById('score').textContent = score;
-            document.getElementById('arrows').textContent = arrows;
-            document.getElementById('message').textContent = '點擊畫布射箭！';
-            gameLoop();
-        }
-
-        function gameLoop() {
-            if (!gameRunning) return;
-            update();
-            draw();
-            animationId = requestAnimationFrame(gameLoop);
-        }
-
-        function update() {
-            target.x += target.dx;
-            target.y += target.dy;
-            if (target.x - target.r < 0 || target.x + target.r > W) target.dx *= -1;
-            if (target.y - target.r < 0 || target.y + target.r > H) target.dy *= -1;
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-            const rings = [target.r, target.r*0.7, target.r*0.4, target.r*0.15];
-            const colors = ['#fc8181', '#f6ad55', '#f6e05e', '#e53e3e'];
-            for (let i = 0; i < rings.length; i++) {
-                ctx.beginPath();
-                ctx.arc(target.x, target.y, rings[i], 0, Math.PI * 2);
-                ctx.fillStyle = colors[i % colors.length];
-                ctx.fill();
-                ctx.strokeStyle = '#1a202c';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-            }
-        }
-
-        canvas.addEventListener('click', (e) => {
-            if (!gameRunning || arrows <= 0) return;
-            const rect = canvas.getBoundingClientRect();
-            const scale = canvas.width / rect.width;
-            const mx = (e.clientX - rect.left) * scale;
-            const my = (e.clientY - rect.top) * scale;
-            
-            const dist = Math.sqrt((mx - target.x) ** 2 + (my - target.y) ** 2);
-            let points = 0;
-            if (dist <= target.r * 0.15) points = 50;
-            else if (dist <= target.r * 0.4) points = 30;
-            else if (dist <= target.r * 0.7) points = 20;
-            else if (dist <= target.r) points = 10;
-            
-            score += points;
-            arrows--;
-            document.getElementById('score').textContent = score;
-            document.getElementById('arrows').textContent = arrows;
-            
-            if (points > 0) {
-                document.getElementById('message').textContent = 🎯 命中！+ 分！;
-            } else {
-                document.getElementById('message').textContent = '❌ 沒打中，再試一次！';
-            }
-            
-            if (arrows <= 0) {
-                gameRunning = false;
-                if (animationId) cancelAnimationFrame(animationId);
-                document.getElementById('message').textContent = 🏁 遊戲結束！總分： 分！;
-            }
-        });
-
-        initGame();
-    </script>
 </body>
 </html>

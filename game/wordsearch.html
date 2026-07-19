@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文字搜尋 - 雅寶遊戲間</title>
+    <title>文字搜尋 - 找單字挑戰 - 雅寶遊戲間</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #f7fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,68 +109,69 @@
             color: white;
             text-decoration: underline;
         }
+        
+        /* ============================================================
+           遊戲容器基本樣式
+           ============================================================ */
         .game-container {
+            max-width: 500px;
+            width: 100%;
             background: white;
             padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-            max-width: 550px;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin: 20px 0;
         }
-        h1 { color: #2d3748; margin-bottom: 4px; font-size: 28px; }
-        .desc { color: #718096; font-size: 14px; margin-bottom: 16px; }
-        .word-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 12px; }
-        .word-list .word { background: #edf2f7; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; color: #2d3748; }
-        .word-list .word.found { background: #48bb78; color: white; text-decoration: line-through; }
-        .board {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 2px;
-            background: #cbd5e0;
-            padding: 2px;
-            border-radius: 8px;
-            max-width: 450px;
-            margin: 0 auto;
+        
+        /* ============================================================
+           玩法說明與留言區塊樣式
+           ============================================================ */
+        .how-to-play {
+            background: #f0f4f8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px auto;
+            max-width: 500px;
+            width: 100%;
+            font-size: 14px;
+            color: #2d3748;
+            border-left: 4px solid #005A9C;
         }
-        .cell {
-            aspect-ratio: 1;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .how-to-play h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .how-to-play p {
+            margin: 0;
+        }
+        .how-to-play strong {
+            color: #005A9C;
+        }
+        .comments-section {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .comments-section h3 {
             font-size: 18px;
             font-weight: 700;
-            cursor: pointer;
-            border-radius: 2px;
-            transition: background 0.15s;
-            user-select: none;
-            color: #2d3748;
+            color: #1a202c;
+            margin-bottom: 2px;
         }
-        .cell:hover { background: #ebf8ff; }
-        .cell.selected { background: #bee3f8; }
-        .controls {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .controls button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
+        .comments-section p {
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #005A9C;
-            color: white;
+            color: #4a5568;
+            margin-bottom: 16px;
         }
-        .controls button:hover { background: #003d66; transform: scale(1.02); }
-        .message { margin-top: 12px; font-size: 14px; color: #4a5568; }
-        .message.win { color: #38a169; font-weight: 700; }
-        @media (max-width: 480px) { .cell { font-size: 14px; } h1 { font-size: 22px; } .word-list .word { font-size: 11px; padding: 2px 10px; } }
+        @media (max-width: 480px) {
+            .how-to-play { font-size: 13px; padding: 14px 16px; }
+            .comments-section h3 { font-size: 16px; }
+            .game-container { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -186,14 +187,54 @@
             </nav>
         </div>
     </header>
+    
+    <!-- ============================================================
+    遊戲核心內容
+    ============================================================ -->
     <div class="game-container">
-        <h1>🔍 文字搜尋</h1>
-        <p class="desc">在字母矩陣中找出隱藏的單字</p>
-        <div class="word-list" id="wordList"></div>
-        <div class="board" id="board"></div>
-        <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
-        <div class="message" id="message">點擊字母選取單字</div>
+    <h1>🔍 文字搜尋</h1>
+    <div class="word-list" id="wordList"></div>
+    <div class="board" id="board"></div>
+    <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊字母選取單字</div>
+</div>
+    
+    <!-- ============================================================
+    通用頁尾模板（玩法說明 + Giscus 留言）
+    ============================================================ -->
+        <!-- ============================================================
+    🎮 玩法說明
+    ============================================================ -->
+    <div class="how-to-play">
+        <h3>🎯 玩法說明</h3>
+        <p>拖曳選取字母，找出隱藏在矩陣中的單字。</p>
     </div>
+
+    <!-- ============================================================
+    💬 留言討論區 (Giscus)
+    ============================================================ -->
+    <div class="comments-section">
+        <h3>💬 討論與留言</h3>
+        <p>歡迎分享你的遊戲心得、技巧或疑問！</p>
+        <div class="giscus"></div>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTbvurs4DBhek"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
         <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
@@ -205,120 +246,5 @@
             <div class="declaration">「從社區法治，走向知識共創」</div>
         </div>
     </footer>
-    <script>
-        const WORDS = ['APPLE','BANANA','CHERRY','GRAPE','MANGO','PEACH','PEAR','WATERMELON'];
-        const GRID_SIZE = 10;
-        let grid = [], foundWords = [], selectedCells = [], isSelecting = false;
-
-        function initGame() {
-            grid = Array.from({length: GRID_SIZE}, () => Array(GRID_SIZE).fill(''));
-            foundWords = []; selectedCells = [];
-            const shuffled = [...WORDS].sort(() => Math.random() - 0.5);
-            const selected = shuffled.slice(0, 6);
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            for (let r = 0; r < GRID_SIZE; r++) for (let c = 0; c < GRID_SIZE; c++) grid[r][c] = letters[Math.floor(Math.random() * 26)];
-            const directions = [[0,1],[1,0],[1,1],[1,-1],[0,-1],[-1,0],[-1,-1],[-1,1]];
-            for (const word of selected) {
-                let placed = false, attempts = 0;
-                while (!placed && attempts < 100) {
-                    attempts++;
-                    const r = Math.floor(Math.random() * GRID_SIZE), c = Math.floor(Math.random() * GRID_SIZE);
-                    const [dr, dc] = directions[Math.floor(Math.random() * directions.length)];
-                    let canPlace = true;
-                    for (let i = 0; i < word.length; i++) {
-                        const nr = r + dr * i, nc = c + dc * i;
-                        if (nr < 0 || nr >= GRID_SIZE || nc < 0 || nc >= GRID_SIZE) { canPlace = false; break; }
-                        if (grid[nr][nc] !== '' && grid[nr][nc] !== word[i]) { canPlace = false; break; }
-                    }
-                    if (canPlace) {
-                        for (let i = 0; i < word.length; i++) grid[r + dr * i][c + dc * i] = word[i];
-                        placed = true;
-                    }
-                }
-            }
-            renderWords(selected); render();
-            document.getElementById('message').textContent = '點擊字母選取單字';
-            document.getElementById('message').className = 'message';
-        }
-
-        function renderWords(words) {
-            const list = document.getElementById('wordList'); list.innerHTML = '';
-            for (const word of words) {
-                const span = document.createElement('span');
-                span.className = 'word' + (foundWords.includes(word) ? ' found' : '');
-                span.textContent = word; span.dataset.word = word;
-                list.appendChild(span);
-            }
-        }
-
-        function render() {
-            const boardEl = document.getElementById('board'); boardEl.innerHTML = '';
-            for (let r = 0; r < GRID_SIZE; r++) {
-                for (let c = 0; c < GRID_SIZE; c++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    cell.textContent = grid[r][c];
-                    cell.dataset.r = r; cell.dataset.c = c;
-                    cell.addEventListener('mousedown', () => startSelection(r, c));
-                    cell.addEventListener('mouseenter', () => addToSelection(r, c));
-                    cell.addEventListener('mouseup', () => endSelection());
-                    boardEl.appendChild(cell);
-                }
-            }
-        }
-
-        function startSelection(r, c) {
-            if (foundWords.length >= 6) return;
-            isSelecting = true; selectedCells = [{r, c}];
-            updateSelection();
-        }
-
-        function addToSelection(r, c) {
-            if (!isSelecting || foundWords.length >= 6) return;
-            const last = selectedCells[selectedCells.length - 1];
-            const dr = r - last.r, dc = c - last.c;
-            if (Math.abs(dr) > 1 || Math.abs(dc) > 1) return;
-            if (dr === 0 && dc === 0) return;
-            if (selectedCells.some(cell => cell.r === r && cell.c === c)) return;
-            selectedCells.push({r, c}); updateSelection();
-        }
-
-        function endSelection() {
-            if (!isSelecting) return;
-            isSelecting = false; checkWord();
-        }
-
-        function updateSelection() {
-            const cells = document.querySelectorAll('.cell');
-            cells.forEach(cell => cell.classList.remove('selected'));
-            for (const {r, c} of selectedCells) {
-                const idx = r * GRID_SIZE + c;
-                if (cells[idx]) cells[idx].classList.add('selected');
-            }
-        }
-
-        function checkWord() {
-            if (selectedCells.length < 3) { selectedCells = []; updateSelection(); return; }
-            const word = selectedCells.map(({r, c}) => grid[r][c]).join('');
-            const wordReversed = word.split('').reverse().join('');
-            const words = document.querySelectorAll('.word:not(.found)');
-            let found = false;
-            for (const el of words) {
-                if (el.textContent === word || el.textContent === wordReversed) {
-                    found = true; foundWords.push(el.textContent);
-                    el.classList.add('found');
-                    document.getElementById('message').textContent = '✅ 找到了：' + el.textContent;
-                    break;
-                }
-            }
-            if (!found) document.getElementById('message').textContent = '❌ 不是正確的單字，再試試！';
-            selectedCells = []; updateSelection();
-            if (foundWords.length >= 6) {
-                document.getElementById('message').textContent = '🎉 恭喜你找到所有單字！太棒了！';
-                document.getElementById('message').className = 'message win';
-            }
-        }
-        initGame();
-    </script>
 </body>
 </html>

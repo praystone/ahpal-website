@@ -1,17 +1,17 @@
 {
   "version": "1.0",
-  "last_build": "2026-07-22T01:36:02.744015",
+  "last_build": "2026-07-22T02:19:44.968185",
   "files": {
     "C:/Users/User/ahpal-static/404.html": "43e088f142052ee1fb6c859e457269ea",
-    "C:/Users/User/ahpal-static/categories.html": "d634afaaa134989569ca43eaa9721802",
+    "C:/Users/User/ahpal-static/categories.html": "ec570679becb9149827bc26972d78e7f",
     "C:/Users/User/ahpal-static/category-game.html": "3d75045560ea7d59608f6477708c6852",
     "C:/Users/User/ahpal-static/category-life.html": "864e318e853016ef67f74f4e174c0339",
     "C:/Users/User/ahpal-static/category-philosophy.html": "1592f5ca411d52eed2035ebc031f33ff",
     "C:/Users/User/ahpal-static/category-review.html": "91f289771e158c9b5d78801691910671",
-    "C:/Users/User/ahpal-static/category-tech.html": "936d48e6a7195ff68941e8d43766ea43",
+    "C:/Users/User/ahpal-static/category-tech.html": "2c1dc6c465ab0368dfb2b69d7513eae7",
     "C:/Users/User/ahpal-static/category-trend.html": "21c565adfbb482c8ff58d0abe819edcd",
     "C:/Users/User/ahpal-static/contact.html": "0c4f5523e559c903aa7f8742264d715d",
-    "C:/Users/User/ahpal-static/index.html": "2c587fe08bee2eae3e2a8104276f3c39",
+    "C:/Users/User/ahpal-static/index.html": "ad0bb675d04a3acda93959f971b3045e",
     "C:/Users/User/ahpal-static/justice.html": "d22d45c96cc77bb851960fe5f6d5e6d8",
     "C:/Users/User/ahpal-static/memorial.html": "2dbfe8ad0203332255056cda682eaa35",
     "C:/Users/User/ahpal-static/royal_dragon_karma.html": "846ba7b62236af11b777f22cd1c323aa",
@@ -283,10 +283,14 @@
     "C:/Users/User/ahpal-static/review/open-source-crm-2026.html": "b6e909ff0ff06a034315fd143cf5b876",
     "C:/Users/User/ahpal-static/trend/ai-video-editors-2026.html": "63ff5c0688a522e13b887aba730cc048",
     "C:/Users/User/ahpal-static/trend/ai-workflow-automation-2026.html": "b052ce423d0eda2069161bbab38ab20d",
-    "C:/Users/User/ahpal-static/trend/open-source-ai-2026.html": "1230cd4e5525e55b1b67baf4846ce140"
+    "C:/Users/User/ahpal-static/trend/open-source-ai-2026.html": "1230cd4e5525e55b1b67baf4846ce140",
+    "C:/Users/User/ahpal-static/tech/gaming-chair-guide-2026.html": "5229d772f099c54506127baa4ea40e4e",
+    "C:/Users/User/ahpal-static/tech/portable-ssd-guide-2026.html": "1fffe22e904537505ebf36f65a6a6c54",
+    "C:/Users/User/ahpal-static/tech/smart-home-ecosystem-2026.html": "ec73821fe2a9e2fa52d4b51fbe3043d0",
+    "C:/Users/User/ahpal-static/tech/wireless-charger-guide-2026.html": "5ae32debc28f3d00fdb4953bad2370ec"
   },
   "stats": {
-    "total": 282,
+    "total": 286,
     "changed": 0,
     "unchanged": 0
   }

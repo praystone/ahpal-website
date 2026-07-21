@@ -1,17 +1,17 @@
 {
   "version": "1.0",
-  "last_build": "2026-07-22T02:48:45.163774",
+  "last_build": "2026-07-22T03:00:55.346031",
   "files": {
     "C:/Users/User/ahpal-static/404.html": "43e088f142052ee1fb6c859e457269ea",
     "C:/Users/User/ahpal-static/categories.html": "e4edce53c05ed58a3f6c4a9a5678c6a1",
     "C:/Users/User/ahpal-static/category-game.html": "3d75045560ea7d59608f6477708c6852",
-    "C:/Users/User/ahpal-static/category-life.html": "864e318e853016ef67f74f4e174c0339",
+    "C:/Users/User/ahpal-static/category-life.html": "6862eebcc776a6533d6a740d5f26c8e1",
     "C:/Users/User/ahpal-static/category-philosophy.html": "1592f5ca411d52eed2035ebc031f33ff",
     "C:/Users/User/ahpal-static/category-review.html": "91f289771e158c9b5d78801691910671",
     "C:/Users/User/ahpal-static/category-tech.html": "2c1dc6c465ab0368dfb2b69d7513eae7",
-    "C:/Users/User/ahpal-static/category-trend.html": "21c565adfbb482c8ff58d0abe819edcd",
+    "C:/Users/User/ahpal-static/category-trend.html": "fd8cc12246523f436bdc3fd920b6fea1",
     "C:/Users/User/ahpal-static/contact.html": "0c4f5523e559c903aa7f8742264d715d",
-    "C:/Users/User/ahpal-static/index.html": "c7bd57efb19c96dd3ca6576fb21c2ca8",
+    "C:/Users/User/ahpal-static/index.html": "b683ea764695e5a0e48a82b5ca10868a",
     "C:/Users/User/ahpal-static/justice.html": "d22d45c96cc77bb851960fe5f6d5e6d8",
     "C:/Users/User/ahpal-static/memorial.html": "2dbfe8ad0203332255056cda682eaa35",
     "C:/Users/User/ahpal-static/royal_dragon_karma.html": "846ba7b62236af11b777f22cd1c323aa",
@@ -287,10 +287,12 @@
     "C:/Users/User/ahpal-static/tech/gaming-chair-guide-2026.html": "5229d772f099c54506127baa4ea40e4e",
     "C:/Users/User/ahpal-static/tech/portable-ssd-guide-2026.html": "1fffe22e904537505ebf36f65a6a6c54",
     "C:/Users/User/ahpal-static/tech/smart-home-ecosystem-2026.html": "ec73821fe2a9e2fa52d4b51fbe3043d0",
-    "C:/Users/User/ahpal-static/tech/wireless-charger-guide-2026.html": "5ae32debc28f3d00fdb4953bad2370ec"
+    "C:/Users/User/ahpal-static/tech/wireless-charger-guide-2026.html": "5ae32debc28f3d00fdb4953bad2370ec",
+    "C:/Users/User/ahpal-static/life/home-organization-ultimate-guide-2026.html": "1c62192af99f8ffa8e9f30cf907fac51",
+    "C:/Users/User/ahpal-static/trend/ai-art-tools-review-2026.html": "62ad17230d231fdbd08d5a561e01c932"
   },
   "stats": {
-    "total": 286,
+    "total": 288,
     "changed": 0,
     "unchanged": 0
   }

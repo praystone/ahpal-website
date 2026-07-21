@@ -1,4 +1,4 @@
-﻿# ============================================================
+# ============================================================
 # main.py - 主要入口模組（優化版）
 # ============================================================
 
@@ -79,11 +79,10 @@ keywords_list = [
     {"keyword": "3D 列印機入門", "category": "💻 3C 科技教學", "filename": "tech/3d-printer-guide-2026.html"},
     {"keyword": "空拍機選購 2026", "category": "💻 3C 科技教學", "filename": "tech/drone-buying-guide-2026.html"},
     {"keyword": "電動車充電樁安裝", "category": "💻 3C 科技教學", "filename": "tech/ev-charger-install-guide-2026.html"},
-    # Q3 新增 4 篇
     {"keyword": "電競椅選購指南 2026", "category": "💻 3C 科技教學", "filename": "tech/gaming-chair-guide-2026.html"},
     {"keyword": "行動固態硬碟推薦", "category": "💻 3C 科技教學", "filename": "tech/portable-ssd-guide-2026.html"},
     {"keyword": "無線充電盤選購", "category": "💻 3C 科技教學", "filename": "tech/wireless-charger-guide-2026.html"},
-    {"keyword": "2026 智慧家居生態系選購指南", "category": "💻 3C 科技教學", "filename": "tech/smart-home-ecosystem-2026.html"},
+    {"keyword": "2026 智慧家庭生態系選購指南", "category": "💻 3C 科技教學", "filename": "tech/smart-home-ecosystem-2026.html"},
 
     # ============================================================
     # game/ - 遊戲攻略（12 篇）
@@ -96,14 +95,13 @@ keywords_list = [
     {"keyword": "2026 免費 PC 射擊遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/free-shooter-games-2026.html"},
     {"keyword": "原神 5.0 隱藏任務全攻略", "category": "🎮 遊戲攻略", "filename": "game/genshin-5-0-quest.html"},
     {"keyword": "原神 5.1 新角色配隊攻略", "category": "🎮 遊戲攻略", "filename": "game/genshin-5-1-team-guide.html"},
-    # Q3 新增 4 篇
     {"keyword": "2026 下半年遊戲發售表", "category": "🎮 遊戲攻略", "filename": "game/upcoming-games-2026.html"},
     {"keyword": "Steam Deck 最佳設定指南", "category": "🎮 遊戲攻略", "filename": "game/steam-deck-guide-2026.html"},
     {"keyword": "10 款 Roguelite 獨立遊戲評比", "category": "🎮 遊戲攻略", "filename": "game/roguelite-games-2026.html"},
     {"keyword": "2026 多人合作獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/co-op-games-2026.html"},
 
     # ============================================================
-    # life/ - 生活小常識（17 篇）- 已去除重複
+    # life/ - 生活小常識（18 篇）
     # ============================================================
     {"keyword": "居家收納技巧 2026", "category": "🏠 生活小常識", "filename": "life/home-organization-tips-2026.html"},
     {"keyword": "省錢生活智慧 2026", "category": "🏠 生活小常識", "filename": "life/money-saving-tips-2026.html"},
@@ -122,6 +120,8 @@ keywords_list = [
     {"keyword": "除濕機選購指南", "category": "🏠 生活小常識", "filename": "life/dehumidifier-guide-2026.html"},
     {"keyword": "陽台植栽入門指南", "category": "🏠 生活小常識", "filename": "life/balcony-gardening-guide-2026.html"},
     {"keyword": "冰箱收納與管理技巧", "category": "🏠 生活小常識", "filename": "life/fridge-organization-guide-2026.html"},
+    {"keyword": "2026 寵物用品推薦指南", "category": "🏠 生活小常識", "filename": "life/pet-supplies-guide-2026.html"},
+    {"keyword": "居家收納終極指南 2026", "category": "🏠 生活小常識", "filename": "life/home-organization-ultimate-guide-2026.html"},
 
     # ============================================================
     # review/ - 軟體評測（19 篇）
@@ -141,7 +141,6 @@ keywords_list = [
     {"keyword": "檔案同步工具推薦", "category": "📊 軟體評測", "filename": "review/file-sync-tools-2026.html"},
     {"keyword": "開源軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/open-source-software-2026.html"},
     {"keyword": "AI 寫作工具評測", "category": "📊 軟體評測", "filename": "review/ai-writing-tools-review-2026.html"},
-    # Q3 新增 4 篇
     {"keyword": "免費圖片編輯軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/free-photo-editor-2026.html"},
     {"keyword": "AI 簡報生成工具評測", "category": "📊 軟體評測", "filename": "review/ai-presentation-tools-2026.html"},
     {"keyword": "跨平台筆記軟體終極對決", "category": "📊 軟體評測", "filename": "review/note-apps-comparison-2026.html"},
@@ -165,12 +164,11 @@ keywords_list = [
     {"keyword": "領導力培養", "category": "🌟 人生哲理", "filename": "philosophy/leadership-development-2026.html"},
     {"keyword": "創意思考方法", "category": "🌟 人生哲理", "filename": "philosophy/creative-thinking-methods-2026.html"},
     {"keyword": "人生哲學經典", "category": "🌟 人生哲理", "filename": "philosophy/life-philosophy-classics-2026.html"},
-    # Q3 新增 2 篇
     {"keyword": "數位排毒與心理健康", "category": "🌟 人生哲理", "filename": "philosophy/digital-detox-2026.html"},
     {"keyword": "工作與生活平衡實戰", "category": "🌟 人生哲理", "filename": "philosophy/work-life-balance-2026.html"},
 
     # ============================================================
-    # trend/ - AI 趨勢（18 篇）
+    # trend/ - AI 趨勢（19 篇）
     # ============================================================
     {"keyword": "AI 工具推薦 2026", "category": "🤖 AI 趨勢", "filename": "trend/ai-tools-2026.html"},
     {"keyword": "ChatGPT 應用技巧", "category": "🤖 AI 趨勢", "filename": "trend/chatgpt-applications-2026.html"},
@@ -187,10 +185,10 @@ keywords_list = [
     {"keyword": "AI 醫療應用趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-healthcare-applications-2026.html"},
     {"keyword": "AI 教育應用趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-education-applications-2026.html"},
     {"keyword": "AI 新創公司推薦", "category": "🤖 AI 趨勢", "filename": "trend/ai-startups-2026.html"},
-    # Q3 新增 3 篇
     {"keyword": "開源 AI 模型 2026 趨勢", "category": "🤖 AI 趨勢", "filename": "trend/open-source-ai-2026.html"},
     {"keyword": "AI 影片剪輯工具評測", "category": "🤖 AI 趨勢", "filename": "trend/ai-video-editors-2026.html"},
     {"keyword": "AI 自動化工作流程實例", "category": "🤖 AI 趨勢", "filename": "trend/ai-workflow-automation-2026.html"},
+    {"keyword": "AI 繪圖工具 2026 完整評測", "category": "🤖 AI 趨勢", "filename": "trend/ai-art-tools-review-2026.html"},
 ]
 
 # ============================================================
@@ -289,9 +287,7 @@ def main():
     if args.reset:
         logger.warning("⚠️ 重置狀態檔...")
         state_manager = get_state_manager()
-        state_manager.manifest["articles"] = {}
-        state_manager.manifest["stats"] = {"total": 0, "generated": 0, "pending": 0, "failed": 0}
-        state_manager.save()
+        state_manager.reset()
         logger.info("✅ 狀態檔已重置")
         return
     

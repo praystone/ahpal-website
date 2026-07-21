@@ -131,9 +131,6 @@ class StateManager:
             "version": self.state.get("version", "1.0")
         }
 
-    # ============================================================
-    # 🆕 新增：get_pending_articles 方法
-    # ============================================================
     def get_pending_articles(self, keywords_list):
         """取得待生成的文章清單（與原系統相容）"""
         pending = []
@@ -142,7 +139,6 @@ class StateManager:
             filename = item.get("filename")
             if filename:
                 filepath = os.path.join(os.path.dirname(STATE_FILE), filename)
-                # 檢查檔案是否不存在或已變更
                 if not os.path.exists(filepath) or self.is_changed(filepath):
                     pending.append(item)
         

@@ -2,6 +2,7 @@
 # sitemap_builder.py - Sitemap 建構模組（增量更新版）
 # ============================================================
 # 功能：僅針對變更的檔案增量更新 Sitemap，節省構建時間
+# 修正：日期格式符合 Google 標準（無微秒）
 # ============================================================
 
 import os
@@ -13,6 +14,14 @@ from src.state_manager import get_state_manager
 SITEMAP_PATH = os.path.join(OUTPUT_DIR, "sitemap.xml")
 XML_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
 ET.register_namespace('', XML_NS)
+
+# ============================================================
+# 日期格式輔助函數
+# ============================================================
+
+def get_now_iso():
+    """取得符合 Google 標準的 ISO 8601 日期格式（無微秒）"""
+    return datetime.now().replace(microsecond=0).isoformat() + "+00:00"
 
 # ============================================================
 # 核心函數
@@ -74,7 +83,8 @@ def update_sitemap_incrementally(changed_files=None):
                 path = loc_elem.text.replace("https://www.ahpal.com/", "").replace("http://www.ahpal.com/", "")
                 url_map[path] = url_elem
         
-        now = datetime.now().isoformat()
+        # ✅ 修正：使用標準日期格式（無微秒）
+        now = get_now_iso()
         
         for filepath in changed_files:
             if filepath in url_map:
@@ -116,11 +126,12 @@ def update_sitemap_incrementally(changed_files=None):
         update_sitemap_full()
 
 def update_sitemap_full():
-    """全量重建 Sitemap"""
+    """全量重建 Sitemap（日期格式已修正）"""
     html_files = scan_all_html_files()
     
     root = ET.Element('urlset', xmlns=XML_NS)
-    now = datetime.now().isoformat()
+    # ✅ 修正：使用標準日期格式（無微秒）
+    now = get_now_iso()
     
     # 首頁
     url_elem = ET.SubElement(root, 'url')
@@ -147,11 +158,21 @@ def update_sitemap_full():
             priority = ET.SubElement(url_elem, 'priority')
             priority.text = "0.8"
     
-    # 所有文章
+    # 所有文章（排除系統頁面）
+    exclude_files = [
+        "index.html", "categories.html", "sitemap.xml", 
+        "404.html", "memorial.html", "royal_dragon_karma.html", 
+        "ads.txt", "search-results.html", "test.html"
+    ]
+    
     for filepath in html_files:
-        if filepath in ["index.html", "categories.html", "sitemap.xml", "404.html", "memorial.html", "royal_dragon_karma.html", "ads.txt"]:
+        # 跳過排除檔案
+        if filepath in exclude_files:
             continue
         if filepath.startswith("category-"):
+            continue
+        # 跳過 docs/ 目錄（內部文件）
+        if filepath.startswith("docs/"):
             continue
         
         url_elem = ET.SubElement(root, 'url')
@@ -171,6 +192,8 @@ def update_sitemap_full():
     # 更新 state_manager
     state_manager = get_state_manager()
     for filepath in html_files:
+        if filepath in exclude_files or filepath.startswith("docs/"):
+            continue
         full_path = os.path.join(OUTPUT_DIR, filepath)
         if os.path.exists(full_path):
             current_hash = state_manager.get_file_hash(full_path)

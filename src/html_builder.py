@@ -5,6 +5,51 @@
 # 修正：統一頁頂品牌標示為可點擊超連結
 # ============================================================
 
+# ============================================================
+# 增量構建 - MD5 比對
+# ============================================================
+
+import hashlib
+import json
+from pathlib import Path
+
+# 狀態檔案路徑
+STATE_FILE = Path(__file__).parent.parent / "build-state.json"
+
+def get_file_hash(filepath):
+    """計算檔案的 MD5 雜湊值"""
+    if not Path(filepath).exists():
+        return None
+    with open(filepath, 'rb') as f:
+        return hashlib.md5(f.read()).hexdigest()
+
+def load_build_state():
+    """載入上次構建狀態"""
+    if STATE_FILE.exists():
+        with open(STATE_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {"files": {}}
+
+def save_build_state(state):
+    """儲存構建狀態"""
+    with open(STATE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(state, f, indent=2, ensure_ascii=False)
+
+def needs_rebuild(filepath, current_hash):
+    """檢查檔案是否需要重新構建"""
+    state = load_build_state()
+    file_key = str(filepath).replace("\\", "/")
+    previous_hash = state["files"].get(file_key)
+    return previous_hash != current_hash
+
+def mark_built(filepath, hash_value):
+    """標記檔案已構建"""
+    state = load_build_state()
+    file_key = str(filepath).replace("\\", "/")
+    state["files"][file_key] = hash_value
+    save_build_state(state)
+
+
 import os
 import re
 from datetime import datetime

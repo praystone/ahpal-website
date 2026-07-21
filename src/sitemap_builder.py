@@ -1,64 +1,186 @@
 ﻿# ============================================================
-# sitemap_builder.py - Sitemap 產生模組
+# sitemap_builder.py - Sitemap 建構模組（增量更新版）
 # ============================================================
-# 功能：掃描所有 HTML 檔案並產生 sitemap.xml
+# 功能：僅針對變更的檔案增量更新 Sitemap，節省構建時間
 # ============================================================
 
 import os
+import xml.etree.ElementTree as ET
 from datetime import datetime
 from src.config import OUTPUT_DIR
+from src.state_manager import get_state_manager
+
+SITEMAP_PATH = os.path.join(OUTPUT_DIR, "sitemap.xml")
+XML_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
+ET.register_namespace('', XML_NS)
 
 # ============================================================
-# 掃描所有 HTML 檔案
+# 核心函數
 # ============================================================
 
 def scan_all_html_files():
-    """掃描所有 HTML 檔案"""
+    """掃描所有 HTML 檔案（全量）"""
     html_files = []
     for root, dirs, files in os.walk(OUTPUT_DIR):
         for f in files:
-            if f.endswith(".html"):
+            if f.endswith('.html'):
                 rel_path = os.path.relpath(os.path.join(root, f), OUTPUT_DIR)
-                html_files.append({"filename": rel_path})
+                html_files.append(rel_path.replace("\\", "/"))
     return html_files
 
+def get_changed_files():
+    """取得變更的檔案清單（從 state_manager）"""
+    state_manager = get_state_manager()
+    changed = []
+    all_files = scan_all_html_files()
+    
+    for filepath in all_files:
+        full_path = os.path.join(OUTPUT_DIR, filepath)
+        if os.path.exists(full_path):
+            current_hash = state_manager.get_file_hash(full_path)
+            if state_manager.is_changed(full_path, current_hash):
+                changed.append(filepath)
+    
+    return changed
+
+def update_sitemap_incrementally(changed_files=None):
+    """增量更新 Sitemap"""
+    if changed_files is None:
+        changed_files = get_changed_files()
+    
+    if not changed_files:
+        print("📄 Sitemap 無變更，跳過更新")
+        return
+    
+    # 如果 Sitemap 不存在或變更檔案過多（> 50），全量重建
+    if not os.path.exists(SITEMAP_PATH) or len(changed_files) > 50:
+        print("📄 執行全量 Sitemap 重建...")
+        update_sitemap_full()
+        return
+    
+    print(f"📄 增量更新 Sitemap（{len(changed_files)} 個變更）...")
+    
+    try:
+        # 載入現有 Sitemap
+        tree = ET.parse(SITEMAP_PATH)
+        root = tree.getroot()
+        
+        # 建立 URL 路徑索引
+        url_map = {}
+        for url_elem in root.findall(f'.//{{{XML_NS}}}url'):
+            loc_elem = url_elem.find(f'{{{XML_NS}}}loc')
+            if loc_elem is not None and loc_elem.text:
+                # 提取路徑（移除 domain）
+                path = loc_elem.text.replace("https://www.ahpal.com/", "").replace("http://www.ahpal.com/", "")
+                url_map[path] = url_elem
+        
+        now = datetime.now().isoformat()
+        
+        for filepath in changed_files:
+            if filepath in url_map:
+                # 更新 existing entry
+                url_elem = url_map[filepath]
+                lastmod = url_elem.find(f'{{{XML_NS}}}lastmod')
+                if lastmod is None:
+                    lastmod = ET.SubElement(url_elem, 'lastmod')
+                lastmod.text = now
+                print(f"   ✅ 更新：{filepath}")
+            else:
+                # 新增 entry
+                url_elem = ET.SubElement(root, 'url')
+                loc = ET.SubElement(url_elem, 'loc')
+                loc.text = f"https://www.ahpal.com/{filepath}"
+                lastmod = ET.SubElement(url_elem, 'lastmod')
+                lastmod.text = now
+                changefreq = ET.SubElement(url_elem, 'changefreq')
+                changefreq.text = "weekly"
+                priority = ET.SubElement(url_elem, 'priority')
+                priority.text = "0.8" if filepath.startswith("game/") else "0.5"
+                print(f"   ✅ 新增：{filepath}")
+        
+        # 寫回檔案
+        tree.write(SITEMAP_PATH, encoding='utf-8', xml_declaration=True)
+        print(f"   ✅ Sitemap 增量更新完成")
+        
+        # 更新 state_manager
+        state_manager = get_state_manager()
+        for filepath in changed_files:
+            full_path = os.path.join(OUTPUT_DIR, filepath)
+            if os.path.exists(full_path):
+                current_hash = state_manager.get_file_hash(full_path)
+                state_manager.update_file(full_path, current_hash)
+        state_manager.save()
+        
+    except Exception as e:
+        print(f"   ⚠️ 增量更新失敗：{e}，執行全量重建...")
+        update_sitemap_full()
+
+def update_sitemap_full():
+    """全量重建 Sitemap"""
+    html_files = scan_all_html_files()
+    
+    root = ET.Element('urlset', xmlns=XML_NS)
+    now = datetime.now().isoformat()
+    
+    # 首頁
+    url_elem = ET.SubElement(root, 'url')
+    loc = ET.SubElement(url_elem, 'loc')
+    loc.text = "https://www.ahpal.com/"
+    lastmod = ET.SubElement(url_elem, 'lastmod')
+    lastmod.text = now
+    changefreq = ET.SubElement(url_elem, 'changefreq')
+    changefreq.text = "daily"
+    priority = ET.SubElement(url_elem, 'priority')
+    priority.text = "1.0"
+    
+    # 分類頁
+    for cat in ["tech", "game", "life", "review", "philosophy", "trend"]:
+        cat_file = f"category-{cat}.html"
+        if cat_file in html_files:
+            url_elem = ET.SubElement(root, 'url')
+            loc = ET.SubElement(url_elem, 'loc')
+            loc.text = f"https://www.ahpal.com/{cat_file}"
+            lastmod = ET.SubElement(url_elem, 'lastmod')
+            lastmod.text = now
+            changefreq = ET.SubElement(url_elem, 'changefreq')
+            changefreq.text = "weekly"
+            priority = ET.SubElement(url_elem, 'priority')
+            priority.text = "0.8"
+    
+    # 所有文章
+    for filepath in html_files:
+        if filepath in ["index.html", "categories.html", "sitemap.xml", "404.html", "memorial.html", "royal_dragon_karma.html", "ads.txt"]:
+            continue
+        if filepath.startswith("category-"):
+            continue
+        
+        url_elem = ET.SubElement(root, 'url')
+        loc = ET.SubElement(url_elem, 'loc')
+        loc.text = f"https://www.ahpal.com/{filepath}"
+        lastmod = ET.SubElement(url_elem, 'lastmod')
+        lastmod.text = now
+        changefreq = ET.SubElement(url_elem, 'changefreq')
+        changefreq.text = "weekly"
+        priority = ET.SubElement(url_elem, 'priority')
+        priority.text = "0.6" if filepath.startswith("game/") else "0.5"
+    
+    tree = ET.ElementTree(root)
+    tree.write(SITEMAP_PATH, encoding='utf-8', xml_declaration=True)
+    print(f"   ✅ Sitemap 全量重建完成（{len(html_files)} 個 URL）")
+    
+    # 更新 state_manager
+    state_manager = get_state_manager()
+    for filepath in html_files:
+        full_path = os.path.join(OUTPUT_DIR, filepath)
+        if os.path.exists(full_path):
+            current_hash = state_manager.get_file_hash(full_path)
+            state_manager.update_file(full_path, current_hash)
+    state_manager.save()
+
 # ============================================================
-# 更新 Sitemap
+# 對外 API
 # ============================================================
 
 def update_sitemap():
-    """更新 sitemap.xml"""
-    print("📄 更新 Sitemap...")
-    
-    all_files = []
-    for root, dirs, files in os.walk(OUTPUT_DIR):
-        for f in files:
-            if f.endswith(".html") or f.endswith(".xml"):
-                rel_path = os.path.relpath(os.path.join(root, f), OUTPUT_DIR)
-                all_files.append(rel_path)
-    
-    sitemap_content = '''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-'''
-    for file_path in all_files:
-        if file_path.startswith("game/") or file_path.startswith("tech/") or file_path.startswith("life/") or file_path.startswith("review/") or file_path.startswith("philosophy/") or file_path.startswith("trend/"):
-            priority = "0.8"
-        elif file_path.startswith("category-"):
-            priority = "0.7"
-        elif file_path == "index.html":
-            priority = "1.0"
-        else:
-            priority = "0.5"
-        sitemap_content += f'''  <url>
-    <loc>https://ahpal.com/{file_path}</loc>
-    <lastmod>{datetime.now().strftime('%Y-%m-%d')}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>{priority}</priority>
-  </url>
-'''
-    
-    sitemap_content += '</urlset>'
-    
-    with open(os.path.join(OUTPUT_DIR, "sitemap.xml"), "w", encoding="utf-8") as f:
-        f.write(sitemap_content)
-    print("✅ Sitemap 更新完成！")
+    """更新 Sitemap（自動判斷全量/增量）"""
+    update_sitemap_incrementally()

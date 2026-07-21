@@ -1,148 +1,157 @@
 ﻿# ============================================================
-# state_manager.py - 文章狀態追蹤模組
+# state_manager.py - 狀態管理模組（強化版）
 # ============================================================
-# 功能：管理文章生成狀態，支援斷點續傳與增量生成
+# 功能：追蹤檔案變更，支援增量構建
 # ============================================================
 
-import json
 import os
+import json
 import hashlib
+from pathlib import Path
 from datetime import datetime
-from src.config import OUTPUT_DIR
 
-class ArticleStateManager:
-    """文章狀態管理器 - 使用 manifest.json 追蹤生成狀態"""
+# 狀態檔案路徑
+STATE_FILE = Path(__file__).parent.parent / "build-state.json"
+
+# ============================================================
+# 單例模式
+# ============================================================
+
+_state_manager_instance = None
+
+def get_state_manager():
+    """取得 StateManager 單例"""
+    global _state_manager_instance
+    if _state_manager_instance is None:
+        _state_manager_instance = StateManager()
+    return _state_manager_instance
+
+# ============================================================
+# StateManager 類別
+# ============================================================
+
+class StateManager:
+    def __init__(self):
+        self.state = self.load()
     
-    def __init__(self, manifest_path=None):
-        if manifest_path is None:
-            manifest_path = os.path.join(OUTPUT_DIR, "article-manifest.json")
-        self.manifest_path = manifest_path
-        self.manifest = self._load()
-    
-    def _load(self):
-        """載入狀態檔，若不存在則建立預設結構"""
-        if os.path.exists(self.manifest_path):
+    def load(self):
+        """載入狀態檔案"""
+        if STATE_FILE.exists():
             try:
-                with open(self.manifest_path, 'r', encoding='utf-8') as f:
+                with open(STATE_FILE, 'r', encoding='utf-8') as f:
                     return json.load(f)
-            except (json.JSONDecodeError, IOError):
-                print(f"⚠️ 狀態檔損毀，重新建立: {self.manifest_path}")
-        
+            except:
+                pass
         return {
             "version": "1.0",
-            "articles": {},
-            "stats": {
-                "total": 0,
-                "generated": 0,
-                "pending": 0,
-                "failed": 0
-            },
-            "last_updated": None
+            "last_build": None,
+            "files": {},
+            "stats": {"total": 0, "changed": 0, "unchanged": 0}
         }
     
     def save(self):
-        """儲存狀態檔"""
-        self.manifest["last_updated"] = datetime.now().isoformat()
-        try:
-            with open(self.manifest_path, 'w', encoding='utf-8') as f:
-                json.dump(self.manifest, f, indent=2, ensure_ascii=False)
-        except IOError as e:
-            print(f"❌ 儲存狀態檔失敗: {e}")
+        """儲存狀態檔案"""
+        self.state["last_build"] = datetime.now().isoformat()
+        self.state["stats"]["total"] = len(self.state["files"])
+        with open(STATE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(self.state, f, indent=2, ensure_ascii=False)
+        print(f"   💾 狀態已儲存（{self.state['stats']['total']} 個檔案）")
     
-    def _get_file_hash(self, filepath):
-        """計算檔案 MD5 哈希值"""
+    def get_file_hash(self, filepath):
+        """計算檔案的 MD5 雜湊值"""
         if not os.path.exists(filepath):
             return None
         try:
             with open(filepath, 'rb') as f:
                 return hashlib.md5(f.read()).hexdigest()
-        except IOError:
+        except:
             return None
     
-    def is_article_ready(self, filename):
-        """檢查文章是否已生成且完整（基於哈希值）"""
-        filepath = os.path.join(OUTPUT_DIR, filename)
-        if not os.path.exists(filepath):
-            return False
-        
-        current_hash = self._get_file_hash(filepath)
+    def is_changed(self, filepath, current_hash=None):
+        """檢查檔案是否變更"""
         if current_hash is None:
-            return False
-        
-        # 檢查狀態檔中的紀錄
-        if filename not in self.manifest["articles"]:
-            return False
-        
-        stored = self.manifest["articles"][filename]
-        
-        # 檢查檔案大小是否正常（≥ 5KB）
-        file_size = os.path.getsize(filepath)
-        if file_size < 5120:
-            return False
-        
-        return stored.get("hash") == current_hash
+            current_hash = self.get_file_hash(filepath)
+        if current_hash is None:
+            return True
+        file_key = str(filepath).replace("\\", "/")
+        previous_hash = self.state["files"].get(file_key)
+        return previous_hash != current_hash
     
-    def mark_generated(self, filename, quality_score=0, metadata=None):
-        """標記文章為已生成"""
-        filepath = os.path.join(OUTPUT_DIR, filename)
-        file_size = os.path.getsize(filepath) if os.path.exists(filepath) else 0
-        
-        self.manifest["articles"][filename] = {
-            "hash": self._get_file_hash(filepath),
-            "quality": quality_score,
-            "generated_at": datetime.now().isoformat(),
-            "size": file_size,
-            "metadata": metadata or {}
+    def update_file(self, filepath, hash_value=None):
+        """標記檔案已建構"""
+        if hash_value is None:
+            hash_value = self.get_file_hash(filepath)
+        if hash_value is None:
+            return
+        file_key = str(filepath).replace("\\", "/")
+        self.state["files"][file_key] = hash_value
+    
+    def update_file_batch(self, filepaths):
+        """批量標記檔案已建構"""
+        for filepath in filepaths:
+            self.update_file(filepath)
+        self.save()
+    
+    def get_changed_files(self, file_list):
+        """從檔案清單中篩選出變更的檔案"""
+        changed = []
+        for filepath in file_list:
+            if self.is_changed(filepath):
+                changed.append(filepath)
+        return changed
+    
+    def mark_built(self, filepath):
+        """標記已建構（alias）"""
+        self.update_file(filepath)
+        self.save()
+    
+    def mark_built_batch(self, filepaths):
+        """批量標記已建構（alias）"""
+        self.update_file_batch(filepaths)
+    
+    def reset(self):
+        """重置狀態"""
+        self.state = {
+            "version": "1.0",
+            "last_build": None,
+            "files": {},
+            "stats": {"total": 0, "changed": 0, "unchanged": 0}
         }
-        
-        # 更新統計
-        self.manifest["stats"]["total"] = len(self.manifest["articles"])
-        self.manifest["stats"]["generated"] = sum(
-            1 for a in self.manifest["articles"].values() 
-            if a.get("hash") is not None
-        )
-        
         self.save()
-    
-    def mark_failed(self, filename, error_message):
-        """標記文章生成失敗"""
-        if filename not in self.manifest["articles"]:
-            self.manifest["articles"][filename] = {}
-        
-        self.manifest["articles"][filename]["failed"] = True
-        self.manifest["articles"][filename]["error"] = error_message
-        self.manifest["articles"][filename]["failed_at"] = datetime.now().isoformat()
-        self.manifest["stats"]["failed"] += 1
-        self.save()
-    
-    def get_pending_articles(self, keywords_list):
-        """過濾出待生成的文章（基於狀態檔）"""
-        pending = []
-        for item in keywords_list:
-            filename = item["filename"]
-            if not self.is_article_ready(filename):
-                pending.append(item)
-        return pending
+        print("   🔄 狀態已重置")
     
     def get_summary(self):
         """取得狀態摘要"""
-        total = self.manifest["stats"]["total"]
-        generated = self.manifest["stats"]["generated"]
-        failed = self.manifest["stats"]["failed"]
-        
+        total = len(self.state["files"])
         return {
             "total": total,
-            "generated": generated,
-            "pending": total - generated - failed,
-            "failed": failed,
-            "last_updated": self.manifest.get("last_updated")
+            "last_build": self.state.get("last_build"),
+            "version": self.state.get("version", "1.0")
         }
 
-# 單例模式管理
-_state_manager = None
+    def get_pending_articles(self, keywords_list):
+        """取得待生成的文章清單（與原系統相容）"""
+        pending = []
+        
+        for item in keywords_list:
+            filename = item.get("filename")
+            if filename:
+                filepath = os.path.join(os.path.dirname(STATE_FILE), filename)
+                # 檢查檔案是否不存在或已變更
+                if not os.path.exists(filepath) or self.is_changed(filepath):
+                    pending.append(item)
+        
+        return pending
 
-def get_state_manager():
-    global _state_manager
-    if _state_manager is None:
-        _state_manager = ArticleStateManager()
-    return _state_manager
+
+# ============================================================
+# 向後相容的函數
+# ============================================================
+
+def get_pending_articles(keywords_list):
+    """向後相容：取得待生成文章清單"""
+    return get_state_manager().get_pending_articles(keywords_list)
+
+def mark_failed(filename, error_msg):
+    """標記文章生成失敗"""
+    print(f"   ❌ 失敗：{filename} - {error_msg}")

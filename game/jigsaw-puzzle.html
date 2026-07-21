@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 - 數字合併挑戰 - 雅寶遊戲間</title>
+    <title>拼圖挑戰 - 完成圖片 - 雅寶遊戲間</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
@@ -147,47 +147,32 @@
 <body>
     <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
     <div class="game-container">
-    <h1>🔢 2048</h1>
-    <div class="score-box"><span>分數：<span id="score">0</span></span></div>
-    <div class="grid" id="grid"></div>
+    <h1>🧩 拼圖挑戰</h1>
+    <div class="info"><span>👆 步數 <span id="moves">0</span></span> <span>⏱️ 時間 <span id="timer">0</span>s</span></div>
+    <div class="puzzle-grid" id="puzzleGrid"></div>
     <div class="controls"><button onclick="init()">🔄 新遊戲</button></div>
-    <div class="game-over" id="gameOver"><h2>遊戲結束！</h2><p>最終分數：<span id="finalScore">0</span></p></div>
+    <div class="message" id="message">點擊相鄰拼塊移動</div>
 </div>
 <script>
-let grid, score, size=4, over;
-const el=document.getElementById('grid'), sc=document.getElementById('score'), go=document.getElementById('gameOver');
+const grid=document.getElementById('puzzleGrid'), movesEl=document.getElementById('moves'), timerEl=document.getElementById('timer'), msg=document.getElementById('message');
+let tiles=[], empty, moves=0, seconds=0, timerInterval=null, gameRunning=false;
 function init(){
-  grid=Array.from({length:size},()=>Array(size).fill(0)); score=0; over=false; go.style.display='none';
-  add(); add(); render();
+  tiles=[]; for(let i=0;i<9;i++)tiles.push(i); empty=8; moves=0; seconds=0; movesEl.textContent=0; timerEl.textContent=0; msg.textContent='點擊相鄰拼塊移動';
+  if(timerInterval)clearInterval(timerInterval); timerInterval=setInterval(()=>{seconds++;timerEl.textContent=seconds;},1000);
+  shuffle(); render(); gameRunning=true;
 }
-function add(){
-  let e=[]; for(let i=0;i<size;i++)for(let j=0;j<size;j++)if(!grid[i][j])e.push({x:i,y:j});
-  if(!e.length)return; let c=e[Math.floor(Math.random()*e.length)]; grid[c.x][c.y]=Math.random()<.9?2:4;
-}
+function shuffle(){for(let i=0;i<100;i++){let neighbors=getNeighbors(empty);let r=neighbors[Math.floor(Math.random()*neighbors.length)];[tiles[empty],tiles[r]]=[tiles[r],tiles[empty]];empty=r;}}
+function getNeighbors(pos){let r=Math.floor(pos/3),c=pos%3,result=[];if(r>0)result.push(pos-3);if(r<2)result.push(pos+3);if(c>0)result.push(pos-1);if(c<2)result.push(pos+1);return result;}
 function render(){
-  el.innerHTML='';
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){let v=grid[i][j]; let d=document.createElement('div'); d.className='tile'+(v?' tile-'+v:''); d.textContent=v||''; el.appendChild(d);}
-  sc.textContent=score;
+  grid.innerHTML=''; grid.style.gridTemplateColumns='repeat(3,1fr)';
+  for(let i=0;i<9;i++){let d=document.createElement('div');d.className='puzzle-tile';if(tiles[i]===8){d.style.background='transparent';d.style.border='none';}else{d.textContent=tiles[i]+1;d.style.background='#3498db';d.style.color='#fff';d.onclick=()=>move(i);}grid.appendChild(d);}
 }
-function slide(r){let a=r.filter(v=>v), m=[]; for(let i=0;i<a.length;i++){if(i+1<a.length&&a[i]===a[i+1]){m.push(a[i]*2);score+=a[i]*2;i++;}else m.push(a[i]);}while(m.length<size)m.push(0);return m;}
-function move(d){
-  if(over)return; let o=grid.map(r=>[...r]);
-  if(d==='l')for(let i=0;i<size;i++)grid[i]=slide(grid[i]);
-  if(d==='r')for(let i=0;i<size;i++){let r=[...grid[i]].reverse();r=slide(r);grid[i]=r.reverse();}
-  if(d==='u')for(let j=0;j<size;j++){let c=[];for(let i=0;i<size;i++)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[i][j]=c[i];}
-  if(d==='d')for(let j=0;j<size;j++){let c=[];for(let i=size-1;i>=0;i--)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[size-1-i][j]=c[i];}
-  if(JSON.stringify(o)!==JSON.stringify(grid)){add();render();check();}
-}
-function check(){
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){if(!grid[i][j])return;if(j<size-1&&grid[i][j]===grid[i][j+1])return;if(i<size-1&&grid[i][j]===grid[i+1][j])return;}
-  over=true; document.getElementById('finalScore').textContent=score; go.style.display='block';
-}
-document.addEventListener('keydown',e=>{let m={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};if(m[e.key]){e.preventDefault();move(m[e.key]);}});
+function move(pos){if(!gameRunning)return;if(!getNeighbors(empty).includes(pos))return;moves++;movesEl.textContent=moves;[tiles[empty],tiles[pos]]=[tiles[pos],tiles[empty]];empty=pos;render();checkWin();}
+function checkWin(){if(tiles.every((v,i)=>v===i)){gameRunning=false;clearInterval(timerInterval);msg.textContent='🎉 完成拼圖！步數：'+moves+' 時間：'+seconds+'秒';}}
 window.init=init; init();
 </script>
-<style>.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:280px;margin:10px auto}.tile{width:60px;height:60px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;border-radius:4px}.tile-2{background:#eee4da}.tile-4{background:#ede0c8}.tile-8{background:#f2b179;color:#fff}.tile-16{background:#f59563;color:#fff}.tile-32{background:#f67c5f;color:#fff}.tile-64{background:#f65e3b;color:#fff}.tile-128{background:#edcf72;color:#fff}.tile-256{background:#edcc61;color:#fff}.tile-512{background:#edc850;color:#fff}.tile-1024{background:#edc53f;color:#fff}.tile-2048{background:#edc22e;color:#fff}.game-over{display:none;text-align:center;padding:20px;background:rgba(0,0,0,.8);color:#fff;border-radius:8px;margin-top:10px}
-</style>
-    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>合併相同數字，挑戰 2048！</p></div>
+<style>.puzzle-tile{width:70px;height:70px;display:flex;align-items:center;justify-content:center;font-size:28px;border-radius:8px;cursor:pointer;background:#3498db;color:#fff;border:2px solid #2980b9}#puzzleGrid{display:grid;gap:4px;max-width:220px;margin:10px auto}</style>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>拖曳拼塊，完成美麗的圖片！</p></div>
     <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
     <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script src="https://giscus.app/client.js"

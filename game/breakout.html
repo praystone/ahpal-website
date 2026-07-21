@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 - 數字合併挑戰 - 雅寶遊戲間</title>
+    <title>打磚塊 - 經典打磚塊遊戲 - 雅寶遊戲間</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
@@ -147,47 +147,46 @@
 <body>
     <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
     <div class="game-container">
-    <h1>🔢 2048</h1>
-    <div class="score-box"><span>分數：<span id="score">0</span></span></div>
-    <div class="grid" id="grid"></div>
+    <h1>🏏 打磚塊</h1>
+    <div class="info"><span>🏆 <span id="score">0</span></span> <span>🧱 <span id="bricksLeft">0</span></span> <span>❤️ <span id="lives">3</span></span></div>
+    <canvas id="gameCanvas" width="450" height="320"></canvas>
     <div class="controls"><button onclick="init()">🔄 新遊戲</button></div>
-    <div class="game-over" id="gameOver"><h2>遊戲結束！</h2><p>最終分數：<span id="finalScore">0</span></p></div>
+    <div class="message" id="message">使用滑鼠或鍵盤 ← → 控制擋板</div>
 </div>
 <script>
-let grid, score, size=4, over;
-const el=document.getElementById('grid'), sc=document.getElementById('score'), go=document.getElementById('gameOver');
+const canvas=document.getElementById('gameCanvas'), ctx=canvas.getContext('2d');
+const scoreEl=document.getElementById('score'), bricksEl=document.getElementById('bricksLeft'), livesEl=document.getElementById('lives'), msg=document.getElementById('message');
+canvas.width=450; canvas.height=320;
+let score=0, lives=3, ball, paddle, bricks=[], gameRunning=false;
 function init(){
-  grid=Array.from({length:size},()=>Array(size).fill(0)); score=0; over=false; go.style.display='none';
-  add(); add(); render();
+  score=0; lives=3; scoreEl.textContent=0; livesEl.textContent=3; msg.textContent='使用滑鼠或鍵盤 ← → 控制擋板';
+  ball={x:225,y:280,dx:3,dy:-3,radius:6};
+  paddle={x:200,y:305,width:60,height:10};
+  bricks=[]; for(let r=0;r<5;r++)for(let c=0;c<8;c++)bricks.push({x:c*55+10,y:r*25+30,width:50,height:15,alive:true});
+  bricksEl.textContent=bricks.filter(b=>b.alive).length; gameRunning=true; loop();
 }
-function add(){
-  let e=[]; for(let i=0;i<size;i++)for(let j=0;j<size;j++)if(!grid[i][j])e.push({x:i,y:j});
-  if(!e.length)return; let c=e[Math.floor(Math.random()*e.length)]; grid[c.x][c.y]=Math.random()<.9?2:4;
+function loop(){if(!gameRunning)return;update();draw();requestAnimationFrame(loop);}
+function update(){
+  ball.x+=ball.dx; ball.y+=ball.dy;
+  if(ball.x-ball.radius<0||ball.x+ball.radius>canvas.width)ball.dx=-ball.dx;
+  if(ball.y-ball.radius<0)ball.dy=-ball.dy;
+  if(ball.y+ball.radius>canvas.height){lives--;livesEl.textContent=lives;if(lives<=0){gameRunning=false;msg.textContent='💀 遊戲結束！點擊「新遊戲」';return;}resetBall();}
+  if(ball.x>paddle.x&&ball.x<paddle.x+paddle.width&&ball.y+ball.radius>=paddle.y){ball.dy=-ball.dy;ball.y=paddle.y-ball.radius;}
+  for(let b of bricks){if(!b.alive)continue;if(ball.x>b.x&&ball.x<b.x+b.width&&ball.y>b.y&&ball.y<b.y+b.height){b.alive=false;ball.dy=-ball.dy;score+=10;scoreEl.textContent=score;bricksEl.textContent=bricks.filter(b=>b.alive).length;if(bricks.every(b=>!b.alive)){msg.textContent='🎉 恭喜贏了！';gameRunning=false;}}}
 }
-function render(){
-  el.innerHTML='';
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){let v=grid[i][j]; let d=document.createElement('div'); d.className='tile'+(v?' tile-'+v:''); d.textContent=v||''; el.appendChild(d);}
-  sc.textContent=score;
+function resetBall(){ball.x=225;ball.y=280;ball.dx=3;ball.dy=-3;}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='#e74c3c'; ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.radius,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#2c3e50'; ctx.fillRect(paddle.x,paddle.y,paddle.width,paddle.height);
+  for(let b of bricks){if(!b.alive)continue;ctx.fillStyle=b.y<75?'#e74c3c':b.y<125?'#f39c12':'#3498db';ctx.fillRect(b.x,b.y,b.width,b.height);}
 }
-function slide(r){let a=r.filter(v=>v), m=[]; for(let i=0;i<a.length;i++){if(i+1<a.length&&a[i]===a[i+1]){m.push(a[i]*2);score+=a[i]*2;i++;}else m.push(a[i]);}while(m.length<size)m.push(0);return m;}
-function move(d){
-  if(over)return; let o=grid.map(r=>[...r]);
-  if(d==='l')for(let i=0;i<size;i++)grid[i]=slide(grid[i]);
-  if(d==='r')for(let i=0;i<size;i++){let r=[...grid[i]].reverse();r=slide(r);grid[i]=r.reverse();}
-  if(d==='u')for(let j=0;j<size;j++){let c=[];for(let i=0;i<size;i++)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[i][j]=c[i];}
-  if(d==='d')for(let j=0;j<size;j++){let c=[];for(let i=size-1;i>=0;i--)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[size-1-i][j]=c[i];}
-  if(JSON.stringify(o)!==JSON.stringify(grid)){add();render();check();}
-}
-function check(){
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){if(!grid[i][j])return;if(j<size-1&&grid[i][j]===grid[i][j+1])return;if(i<size-1&&grid[i][j]===grid[i+1][j])return;}
-  over=true; document.getElementById('finalScore').textContent=score; go.style.display='block';
-}
-document.addEventListener('keydown',e=>{let m={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};if(m[e.key]){e.preventDefault();move(m[e.key]);}});
+document.addEventListener('mousemove',e=>{let rect=canvas.getBoundingClientRect();paddle.x=e.clientX-rect.left-paddle.width/2;if(paddle.x<0)paddle.x=0;if(paddle.x+paddle.width>canvas.width)paddle.x=canvas.width-paddle.width;});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')paddle.x=Math.max(0,paddle.x-20);if(e.key==='ArrowRight')paddle.x=Math.min(canvas.width-paddle.width,paddle.x+20);});
 window.init=init; init();
 </script>
-<style>.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:280px;margin:10px auto}.tile{width:60px;height:60px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;border-radius:4px}.tile-2{background:#eee4da}.tile-4{background:#ede0c8}.tile-8{background:#f2b179;color:#fff}.tile-16{background:#f59563;color:#fff}.tile-32{background:#f67c5f;color:#fff}.tile-64{background:#f65e3b;color:#fff}.tile-128{background:#edcf72;color:#fff}.tile-256{background:#edcc61;color:#fff}.tile-512{background:#edc850;color:#fff}.tile-1024{background:#edc53f;color:#fff}.tile-2048{background:#edc22e;color:#fff}.game-over{display:none;text-align:center;padding:20px;background:rgba(0,0,0,.8);color:#fff;border-radius:8px;margin-top:10px}
-</style>
-    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>合併相同數字，挑戰 2048！</p></div>
+<style>#gameCanvas{display:block;margin:10px auto;background:#ecf0f1;border-radius:8px}</style>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>控制擋板，反彈球消滅所有磚塊！</p></div>
     <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
     <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script src="https://giscus.app/client.js"

@@ -1,7 +1,8 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組
+# html_builder.py - HTML 建構模組 v4.1
 # ============================================================
 # 功能：建構所有 HTML（首頁、分類頁、文章頁面）
+# 修正：統一頁頂品牌標示為可點擊超連結
 # ============================================================
 
 import os
@@ -11,6 +12,79 @@ from src.config import (
     OUTPUT_DIR, ADSENSE_CLIENT, GA4_ID,
     CATEGORIES, CURRENT_YEAR, CURRENT_DATE_STR
 )
+
+# ============================================================
+# 通用頁面元件
+# ============================================================
+
+# 頁頂品牌標示（統一為可點擊超連結）
+SITE_HEADER = '''<header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>'''
+
+# 頁尾
+SITE_FOOTER = '''<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
+        </div>
+    </div>
+</footer>'''
+
+# 返回頂部按鈕
+BACK_TO_TOP = '''<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>'''
+
+# 返回首頁連結（頁尾用）
+HOME_LINK = '<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>'
+
+# 品牌標示（頁頂用，可點擊）
+BRAND_LINK = '<p style="font-size:14px; color:#666; text-align:center; margin:10px 0;"><a href="/" style="color:#005A9C; text-decoration:none; font-weight:bold;">🏠 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></p>'
+
+# AdSense 程式碼
+ADSENSE_CODE = f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>'
+
+# GA4 程式碼
+GA4_CODE = f'''<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', '{GA4_ID}');
+</script>'''
 
 # ============================================================
 # 清理 AI 頁頂註解文字
@@ -39,52 +113,47 @@ def clean_ai_header(html_content):
     return html_content
 
 # ============================================================
-# 建構文章 HTML
+# 文章 HTML 增強（統一加入品牌、首頁連結、TOP按鈕）
+# ============================================================
+
+def enhance_article_html(html_content):
+    """增強文章 HTML：加入品牌標示、首頁連結、TOP按鈕"""
+    if not html_content:
+        return html_content
+    
+    # 清理 AI 頁頂註解
+    html_content = clean_ai_header(html_content)
+    
+    # 1. 確保 <body> 開頭有品牌標示（可點擊的超連結）
+    if '雅寶社區 · 頂客論壇' not in html_content:
+        # 在 <body> 後插入品牌標示
+        html_content = html_content.replace('<body>', '<body>\n' + BRAND_LINK)
+        print("   ✅ 已加入品牌標示（可點擊回首頁）")
+    
+    # 2. 確保頁尾有「返回首頁」連結（雙重保障）
+    if '返回首頁' not in html_content or 'ahpal.com' not in html_content:
+        html_content = html_content.replace('</body>', HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>')
+        print("   ✅ 已加入返回首頁連結")
+    else:
+        # 即使已有，也確保 BACK_TO_TOP 存在
+        if 'back-to-top' not in html_content:
+            html_content = html_content.replace('</body>', BACK_TO_TOP + '\n</body>')
+            print("   ✅ 已加入返回頂部按鈕")
+    
+    # 3. 確保 AdSense 程式碼存在
+    if 'pagead2.googlesyndication.com' not in html_content:
+        html_content = html_content.replace('</head>', ADSENSE_CODE + '\n' + GA4_CODE + '\n</head>')
+        print("   ✅ 已加入 AdSense 程式碼")
+    
+    return html_content
+
+# ============================================================
+# 建構文章 HTML（對外介面）
 # ============================================================
 
 def build_article_html(keyword, category, raw_html):
-    """建構完整的文章 HTML"""
-    html_content = clean_ai_header(raw_html)
-    
-    if '雅寶社區 · 頂客論壇' not in html_content:
-        brand_html = '<p style="font-size:14px; color:#666; text-align:center; margin:20px 0;">雅寶社區 · 頂客論壇 (AHPAL.COM)</p>'
-        html_content = html_content.replace('<body>', '<body>\n' + brand_html)
-    
-    if '返回首頁' not in html_content or 'ahpal.com' not in html_content:
-        home_link = '<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>'
-        html_content = html_content.replace('</body>', home_link + '\n</body>')
-    
-    if 'back-to-top' not in html_content:
-        top_button = '''
-<style>
-    #back-to-top {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: #005A9C;
-        color: white;
-        border: none;
-        padding: 12px 16px;
-        border-radius: 50px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: opacity 0.3s, transform 0.3s;
-        opacity: 0.7;
-        z-index: 999;
-    }
-    #back-to-top:hover {
-        opacity: 1;
-        transform: scale(1.05);
-        background: #003d66;
-    }
-</style>
-<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
-'''
-        html_content = html_content.replace('</body>', top_button + '\n</body>')
-    
-    return html_content
+    """建構完整的文章 HTML（對外介面）"""
+    return enhance_article_html(raw_html)
 
 # ============================================================
 # 建構首頁
@@ -157,14 +226,8 @@ def create_default_index():
     <title>雅寶社區 · 頂客論壇 | AHPAL.COM</title>
     <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 50 篇精選文章。">
     <meta name="keywords" content="科技教學,遊戲攻略,生活小常識,軟體評測,人生哲理,AI趨勢">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){{dataLayer.push(arguments);}}
-        gtag('js', new Date());
-        gtag('config', '{GA4_ID}');
-    </script>
+    {ADSENSE_CODE}
+    {GA4_CODE}
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #F7F9FC; color: #1A202C; line-height: 1.8; font-size: 16px; }}
@@ -230,23 +293,11 @@ def create_default_index():
         .footer-inner {{ max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }}
         .footer-inner .copy {{ font-size: 13px; color: #718096; }}
         .footer-inner .declaration {{ font-size: 12px; color: #FF6F61; letter-spacing: 1px; font-weight: 300; margin-top: 4px; }}
-        #back-to-top {{ position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }}
-        #back-to-top:hover {{ opacity: 1; transform: scale(1.05); background: #003d66; }}
+        {BACK_TO_TOP}
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
+    {SITE_HEADER}
 
     <div class="main-wrapper">
         <div class="content-card">
@@ -370,19 +421,9 @@ def create_default_index():
         </aside>
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; {CURRENT_YEAR} 雅寶社區 · 頂客論壇 (AHPAL.COM) — 版權所有</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📄 Sitemap</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">📚 全部分類</a>
-                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 12px;">🎮 遊戲間</a>
-            </div>
-            <div class="declaration">「從社區法治，走向知識共創」</div>
-        </div>
-    </footer>
-
-    <button id="back-to-top" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}});">⬆ TOP</button>
+    {SITE_FOOTER.format(year=CURRENT_YEAR)}
+    {BACK_TO_TOP}
+    {HOME_LINK}
 </body>
 </html>
 '''
@@ -406,14 +447,8 @@ def generate_categories_page():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📚 全部分類 - 雅寶社區 · 頂客論壇</title>
     <meta name="description" content="雅寶社區 · 頂客論壇 — 六大知識分類總覽。">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){{dataLayer.push(arguments);}}
-        gtag('js', new Date());
-        gtag('config', '{GA4_ID}');
-    </script>
+    {ADSENSE_CODE}
+    {GA4_CODE}
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #F7F9FC; color: #1A202C; padding: 20px; line-height: 1.7; }}
@@ -435,8 +470,7 @@ def generate_categories_page():
         .back-link {{ display: inline-block; margin-top: 30px; color: #005A9C; text-decoration: none; }}
         .back-link:hover {{ text-decoration: underline; }}
         .footer {{ margin-top: 40px; text-align: center; color: #888; font-size: 13px; border-top: 1px solid #E2E8F0; padding-top: 20px; }}
-        #back-to-top {{ position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }}
-        #back-to-top:hover {{ opacity: 1; transform: scale(1.05); background: #003d66; }}
+        {BACK_TO_TOP}
     </style>
 </head>
 <body>
@@ -475,7 +509,8 @@ def generate_categories_page():
             </div>
         </div>
     </div>
-    <button id="back-to-top" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}});">⬆ TOP</button>
+    {BACK_TO_TOP}
+    {HOME_LINK}
 </body>
 </html>
 '''
@@ -528,27 +563,13 @@ def generate_category_pages():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{cat_info['name']} - 雅寶社區 · 頂客論壇</title>
     <meta name="description" content="{cat_info['desc']} - 雅寶社區 · 頂客論壇">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){{dataLayer.push(arguments);}}
-        gtag('js', new Date());
-        gtag('config', '{GA4_ID}');
-    </script>
+    {ADSENSE_CODE}
+    {GA4_CODE}
     <style>
         :root {{ --color-primary: #005A9C; --color-secondary: #00A86B; --color-bg: #F7F9FC; --color-card: #FFFFFF; --color-text: #1A202C; --color-text-light: #4A5568; --color-border: #E2E8F0; --shadow-card: 0 4px 12px rgba(0,0,0,0.06); --radius-card: 14px; }}
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; }}
-        .site-header {{ background: var(--color-primary); color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }}
-        .header-inner {{ max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }}
-        .logo {{ font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }}
-        .logo:hover {{ color: rgba(255,255,255,0.85); }}
-        .nav-links {{ display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }}
-        .nav-links a {{ color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }}
-        .nav-links a:hover, .nav-links a.active {{ color: white; border-bottom: 2px solid var(--color-secondary); }}
-        .nav-links .game-link {{ background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }}
-        .nav-links .game-link:hover {{ background: rgba(255,255,255,0.25); border-bottom: none; }}
+        {SITE_HEADER}
         .breadcrumb {{ max-width: 1200px; margin: 16px auto 0; padding: 0 24px; font-size: 14px; color: #718096; }}
         .breadcrumb a {{ color: var(--color-primary); text-decoration: none; }}
         .main-wrapper {{ max-width: 1200px; margin: 24px auto; padding: 0 24px; }}
@@ -565,26 +586,12 @@ def generate_category_pages():
         .article-list li a:hover {{ color: var(--color-primary); }}
         .back-link {{ display: inline-block; margin-top: 24px; color: var(--color-primary); text-decoration: none; font-weight: 500; }}
         .back-link:hover {{ text-decoration: underline; }}
-        .site-footer {{ background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }}
-        .footer-inner {{ max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }}
-        .footer-inner .copy {{ font-size: 13px; color: #718096; }}
-        #back-to-top {{ position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }}
-        #back-to-top:hover {{ opacity: 1; transform: scale(1.05); background: #003d66; }}
+        {SITE_FOOTER}
+        {BACK_TO_TOP}
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
+    {SITE_HEADER}
 
     <div class="breadcrumb"><a href="/">首頁</a> &gt; {cat_info['name']}</div>
 
@@ -608,18 +615,9 @@ def generate_category_pages():
         </div>
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; {CURRENT_YEAR} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
-                <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
-            </div>
-        </div>
-    </footer>
-
-    <button id="back-to-top" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}});">⬆ TOP</button>
+    {SITE_FOOTER.format(year=CURRENT_YEAR)}
+    {BACK_TO_TOP}
+    {HOME_LINK}
 </body>
 </html>
 '''

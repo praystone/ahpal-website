@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 - 數字合併挑戰 - 雅寶遊戲間</title>
+    <title>文字搜尋 - 找單字挑戰 - 雅寶遊戲間</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
@@ -147,47 +147,38 @@
 <body>
     <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
     <div class="game-container">
-    <h1>🔢 2048</h1>
-    <div class="score-box"><span>分數：<span id="score">0</span></span></div>
-    <div class="grid" id="grid"></div>
+    <h1>🔍 文字搜尋</h1>
+    <div class="word-list" id="wordList"></div>
+    <div class="board" id="board"></div>
     <div class="controls"><button onclick="init()">🔄 新遊戲</button></div>
-    <div class="game-over" id="gameOver"><h2>遊戲結束！</h2><p>最終分數：<span id="finalScore">0</span></p></div>
+    <div class="message" id="message">點擊字母選取單字</div>
 </div>
 <script>
-let grid, score, size=4, over;
-const el=document.getElementById('grid'), sc=document.getElementById('score'), go=document.getElementById('gameOver');
+const words=['APPLE','BANANA','CHERRY','GRAPE','MANGO','PEACH','PEAR','WATERMELON'];
+let grid, found;
+const boardEl=document.getElementById('board'), wordList=document.getElementById('wordList'), msg=document.getElementById('message');
 function init(){
-  grid=Array.from({length:size},()=>Array(size).fill(0)); score=0; over=false; go.style.display='none';
-  add(); add(); render();
+  grid=Array.from({length:8},()=>Array(8).fill('')); found=[];
+  placeWords(); fillEmpty(); renderWords(); render(); msg.textContent='點擊字母選取單字';
 }
-function add(){
-  let e=[]; for(let i=0;i<size;i++)for(let j=0;j<size;j++)if(!grid[i][j])e.push({x:i,y:j});
-  if(!e.length)return; let c=e[Math.floor(Math.random()*e.length)]; grid[c.x][c.y]=Math.random()<.9?2:4;
+function placeWords(){
+  let dirs=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
+  for(let w of words){let placed=false;for(let tries=0;tries<100&&!placed;tries++){let r=Math.floor(Math.random()*8),c=Math.floor(Math.random()*8);let d=dirs[Math.floor(Math.random()*dirs.length)];let ok=true;for(let i=0;i<w.length;i++){let nr=r+d[0]*i,nc=c+d[1]*i;if(nr<0||nr>=8||nc<0||nc>=8||(grid[nr][nc]&&grid[nr][nc]!==w[i])){ok=false;break;}}if(ok){for(let i=0;i<w.length;i++)grid[r+d[0]*i][c+d[1]*i]=w[i];placed=true;}}}
 }
+function fillEmpty(){for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(!grid[r][c])grid[r][c]=String.fromCharCode(65+Math.floor(Math.random()*26));}
 function render(){
-  el.innerHTML='';
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){let v=grid[i][j]; let d=document.createElement('div'); d.className='tile'+(v?' tile-'+v:''); d.textContent=v||''; el.appendChild(d);}
-  sc.textContent=score;
+  boardEl.innerHTML=''; boardEl.style.gridTemplateColumns='repeat(8,1fr)';
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){let d=document.createElement('div');d.className='letter';d.textContent=grid[r][c];d.dataset.r=r;d.dataset.c=c;d.onclick=()=>select(r,c);boardEl.appendChild(d);}
 }
-function slide(r){let a=r.filter(v=>v), m=[]; for(let i=0;i<a.length;i++){if(i+1<a.length&&a[i]===a[i+1]){m.push(a[i]*2);score+=a[i]*2;i++;}else m.push(a[i]);}while(m.length<size)m.push(0);return m;}
-function move(d){
-  if(over)return; let o=grid.map(r=>[...r]);
-  if(d==='l')for(let i=0;i<size;i++)grid[i]=slide(grid[i]);
-  if(d==='r')for(let i=0;i<size;i++){let r=[...grid[i]].reverse();r=slide(r);grid[i]=r.reverse();}
-  if(d==='u')for(let j=0;j<size;j++){let c=[];for(let i=0;i<size;i++)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[i][j]=c[i];}
-  if(d==='d')for(let j=0;j<size;j++){let c=[];for(let i=size-1;i>=0;i--)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[size-1-i][j]=c[i];}
-  if(JSON.stringify(o)!==JSON.stringify(grid)){add();render();check();}
-}
-function check(){
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){if(!grid[i][j])return;if(j<size-1&&grid[i][j]===grid[i][j+1])return;if(i<size-1&&grid[i][j]===grid[i+1][j])return;}
-  over=true; document.getElementById('finalScore').textContent=score; go.style.display='block';
-}
-document.addEventListener('keydown',e=>{let m={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};if(m[e.key]){e.preventDefault();move(m[e.key]);}});
+function renderWords(){wordList.innerHTML=words.map(w=>'<span class="word'+(found.includes(w)?' found':'')+'">'+w+'</span>').join(' ');}
+let selected=[];
+function select(r,c){let idx=r*8+c; if(selected.includes(idx)){selected=[];return;}selected.push(idx); if(selected.length===2){checkWord();}}
+function checkWord(){let word=''; for(let i of selected){let r=Math.floor(i/8),c=i%8;word+=grid[r][c];}let rev=word.split('').reverse().join('');let foundWord=null;for(let w of words){if((word===w||rev===w)&&!found.includes(w))foundWord=w;}if(foundWord){found.push(foundWord);renderWords();msg.textContent='✅ 找到：'+foundWord;}else msg.textContent='❌ 再試一次！';selected=[];render();}
 window.init=init; init();
 </script>
-<style>.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:280px;margin:10px auto}.tile{width:60px;height:60px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;border-radius:4px}.tile-2{background:#eee4da}.tile-4{background:#ede0c8}.tile-8{background:#f2b179;color:#fff}.tile-16{background:#f59563;color:#fff}.tile-32{background:#f67c5f;color:#fff}.tile-64{background:#f65e3b;color:#fff}.tile-128{background:#edcf72;color:#fff}.tile-256{background:#edcc61;color:#fff}.tile-512{background:#edc850;color:#fff}.tile-1024{background:#edc53f;color:#fff}.tile-2048{background:#edc22e;color:#fff}.game-over{display:none;text-align:center;padding:20px;background:rgba(0,0,0,.8);color:#fff;border-radius:8px;margin-top:10px}
+<style>.letter{width:35px;height:35px;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;background:#fff}#board{display:grid;gap:1px;max-width:300px;margin:10px auto}.word{margin:4px;padding:4px 8px;background:#eee;border-radius:4px}.found{background:#a8e6cf;text-decoration:line-through}
 </style>
-    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>合併相同數字，挑戰 2048！</p></div>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>在字母矩陣中找出隱藏的單字</p></div>
     <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
     <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script src="https://giscus.app/client.js"

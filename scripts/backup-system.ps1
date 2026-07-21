@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 系統備份腳本 v2.1
+# 雅寶社區 · 頂客論壇 - 系統備份腳本 v2.2
 # ============================================================
 # 功能：
 #   1. 備份所有 PowerShell / Python 腳本
@@ -17,7 +17,7 @@ param(
 )
 
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "📦 雅寶社區 · 頂客論壇 - 系統備份工具 v2.1" -ForegroundColor Green
+Write-Host "📦 雅寶社區 · 頂客論壇 - 系統備份工具 v2.2" -ForegroundColor Green
 Write-Host "============================================================" -ForegroundColor Cyan
 
 # ============================================================
@@ -28,7 +28,7 @@ if (-not $ScriptDir) {
     $ScriptDir = Get-Location
 }
 
-# 主要輸出目錄 (新位置)
+# 主要輸出目錄
 $MainOutputDir = "C:\Users\User\ahpal-static"
 
 # 備援輸出目錄 (舊位置)
@@ -61,16 +61,19 @@ Write-Host "📁 建立備份目錄：$BackupDir" -ForegroundColor Yellow
 New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
 
 # ============================================================
-# 3. 備份腳本檔案
+# 3. 備份腳本檔案（已更新為新架構）
 # ============================================================
 Write-Host ""
 Write-Host "📄 備份腳本檔案..." -ForegroundColor Yellow
 
 $ScriptFiles = @(
+    "ahpal-master.ps1",
     "ahpal-static.ps1",
-    "add_articles.ps1",
-    "ahpal_generator.py",
-    "backup-system.ps1"
+    "generate-games.ps1",
+    "backup-system.ps1",
+    "check-articles.ps1",
+    "check-all.ps1",
+    "config.ps1"
 )
 
 $ScriptBackupDir = Join-Path $BackupDir "scripts"
@@ -89,7 +92,56 @@ foreach ($file in $ScriptFiles) {
 }
 
 # ============================================================
-# 4. 備份完整網站檔案
+# 4. 備份 Python 原始碼（新增）
+# ============================================================
+Write-Host ""
+Write-Host "🐍 備份 Python 原始碼..." -ForegroundColor Yellow
+
+$SrcDir = Join-Path $ActualOutputDir "src"
+if (Test-Path $SrcDir) {
+    $SrcBackupDir = Join-Path $BackupDir "src"
+    New-Item -ItemType Directory -Path $SrcBackupDir -Force | Out-Null
+    Copy-Item -Path "$SrcDir\*" -Destination $SrcBackupDir -Recurse -Force
+    $SrcFileCount = (Get-ChildItem -Path $SrcBackupDir -Recurse -File).Count
+    Write-Host "   ✅ 已備份 Python 原始碼（$SrcFileCount 個檔案）" -ForegroundColor Green
+} else {
+    Write-Host "   ⚠️ 找不到 src/ 目錄，跳過 Python 備份" -ForegroundColor Yellow
+}
+
+# ============================================================
+# 5. 備份環境設定檔
+# ============================================================
+Write-Host ""
+Write-Host "🔐 備份環境設定檔..." -ForegroundColor Yellow
+
+$EnvFiles = @(
+    ".env.template",
+    ".gitignore",
+    "README.md"
+)
+
+$EnvBackupDir = Join-Path $BackupDir "config"
+New-Item -ItemType Directory -Path $EnvBackupDir -Force | Out-Null
+
+foreach ($file in $EnvFiles) {
+    $src = Join-Path $ActualOutputDir $file
+    if (Test-Path $src) {
+        Copy-Item -Path $src -Destination $EnvBackupDir -Force
+        Write-Host "   ✅ 已備份：$file" -ForegroundColor Green
+    } else {
+        Write-Host "   ⚠️ 找不到：$file" -ForegroundColor Yellow
+    }
+}
+
+# .env 檔案（敏感資訊，只備份範例）
+$EnvPath = Join-Path $ActualOutputDir ".env"
+if (Test-Path $EnvPath) {
+    Write-Host "   ⚠️ .env 檔案存在（包含敏感資訊，跳過備份）" -ForegroundColor Yellow
+    Write-Host "   📌 請手動備份 .env 檔案至安全位置" -ForegroundColor Gray
+}
+
+# ============================================================
+# 6. 備份完整網站檔案
 # ============================================================
 Write-Host ""
 Write-Host "📄 備份完整網站檔案 (這可能需要一些時間)..." -ForegroundColor Yellow
@@ -108,7 +160,7 @@ if (Test-Path $ActualOutputDir) {
 }
 
 # ============================================================
-# 5. 備份關鍵頁面 (精簡版，僅備份重要檔案)
+# 7. 備份關鍵頁面 (精簡版，僅備份重要檔案)
 # ============================================================
 Write-Host ""
 Write-Host "📄 備份關鍵頁面 (精簡版)..." -ForegroundColor Yellow
@@ -123,7 +175,8 @@ $KeyFiles = @(
     "sitemap.xml",
     "404.html",
     "memorial.html",
-    "royal_dragon_karma.html"
+    "royal_dragon_karma.html",
+    "ads.txt"
 )
 
 foreach ($file in $KeyFiles) {
@@ -163,7 +216,7 @@ if (Test-Path $GameSrcDir) {
 }
 
 # ============================================================
-# 6. 產生文章清單
+# 8. 產生文章清單
 # ============================================================
 Write-Host ""
 Write-Host "📋 產生文章清單..." -ForegroundColor Yellow
@@ -236,7 +289,7 @@ Set-Content -Path $ManifestPath -Value $ManifestContent -Encoding UTF8
 Write-Host "   ✅ 已產生文章清單（$($AllArticles.Count) 篇）" -ForegroundColor Green
 
 # ============================================================
-# 7. 產生備份摘要 (metadata.txt)
+# 9. 產生備份摘要 (metadata.txt)
 # ============================================================
 $MetadataPath = Join-Path $BackupDir "backup-metadata.txt"
 $Metadata = @"
@@ -245,7 +298,7 @@ $Metadata = @"
 ============================================================
 
 備份時間：$(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
-備份工具版本：v2.1
+備份工具版本：v2.2
 執行者：$env:USERNAME
 電腦名稱：$env:COMPUTERNAME
 
@@ -254,13 +307,16 @@ $Metadata = @"
 
 📊 備份統計：
    - 腳本檔案：$ScriptsBackupCount 個
+   - Python 原始碼：$(if (Test-Path $SrcBackupDir) { (Get-ChildItem -Path $SrcBackupDir -Recurse -File).Count } else { 0 }) 個
    - 完整網站備份：$WebFileCount 個檔案 (${WebSize} MB)
    - 關鍵頁面：$(Get-ChildItem -Path $WebLightBackupDir -File -Filter "*.html" | Measure-Object).Count 個
    - 總文章數：$($AllArticles.Count) 篇
    - 文章總大小：$([math]::Round(($AllArticles | Measure-Object -Property Size -Sum).Sum / 1MB, 2)) MB
 
 📁 備份內容：
-   - scripts/              # 所有腳本
+   - scripts/              # 所有 PowerShell 腳本
+   - src/                  # Python 原始碼（v4.2 模組）
+   - config/               # 環境設定檔（.env.template, .gitignore, README.md）
    - website-full/         # 完整網站檔案
    - website-light/        # 關鍵頁面 + 遊戲
    - article-manifest.txt  # 文章清單
@@ -270,16 +326,14 @@ $Metadata = @"
 Set-Content -Path $MetadataPath -Value $Metadata -Encoding UTF8
 
 # ============================================================
-# 8. 自動壓縮 (如果啟用)
+# 10. 自動壓縮 (如果啟用)
 # ============================================================
 if ($Compress) {
     Write-Host ""
     Write-Host "🗜️ 正在壓縮備份為 ZIP 檔案..." -ForegroundColor Yellow
     
-    # 檢查是否有 7-Zip 或 PowerShell 壓縮支援
     $ZipPath = "$BackupDir.zip"
     
-    # 使用 PowerShell 內建 Compress-Archive (Windows 10/11 內建)
     try {
         Compress-Archive -Path $BackupDir -DestinationPath $ZipPath -Force
         Write-Host "   ✅ 已壓縮備份：$ZipPath" -ForegroundColor Green
@@ -293,7 +347,7 @@ if ($Compress) {
 }
 
 # ============================================================
-# 9. 備份完成摘要
+# 11. 備份完成摘要
 # ============================================================
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Green
@@ -308,11 +362,13 @@ if ($Compress -and (Test-Path $ZipPath)) {
 Write-Host ""
 Write-Host "📊 備份統計：" -ForegroundColor Yellow
 Write-Host "   ├─ 腳本檔案：$ScriptsBackupCount 個" -ForegroundColor Cyan
+Write-Host "   ├─ Python 原始碼：$(if (Test-Path $SrcBackupDir) { (Get-ChildItem -Path $SrcBackupDir -Recurse -File).Count } else { 0 }) 個" -ForegroundColor Cyan
 Write-Host "   ├─ 完整網站：$WebFileCount 個檔案 (${WebSize} MB)" -ForegroundColor Cyan
 Write-Host "   ├─ 關鍵頁面：$(Get-ChildItem -Path $WebLightBackupDir -File -Filter "*.html" | Measure-Object).Count 個" -ForegroundColor Cyan
 Write-Host "   └─ 總文章數：$($AllArticles.Count) 篇" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "💡 若要還原，請將 website-full/ 或 website-light/ 的內容複製回 $ActualOutputDir" -ForegroundColor Yellow
+Write-Host "💡 若要還原，請將 website-full/ 的內容複製回 $ActualOutputDir" -ForegroundColor Yellow
+Write-Host "   🔐 還原後請記得手動恢復 .env 檔案" -ForegroundColor Yellow
 Write-Host ""
 
 Read-Host "按 Enter 鍵結束"

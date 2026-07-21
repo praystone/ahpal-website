@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 - 數字合併挑戰 - 雅寶遊戲間</title>
+    <title>俄羅斯方塊 - 經典方塊遊戲 - 雅寶遊戲間</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
@@ -147,47 +147,61 @@
 <body>
     <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
     <div class="game-container">
-    <h1>🔢 2048</h1>
-    <div class="score-box"><span>分數：<span id="score">0</span></span></div>
-    <div class="grid" id="grid"></div>
-    <div class="controls"><button onclick="init()">🔄 新遊戲</button></div>
-    <div class="game-over" id="gameOver"><h2>遊戲結束！</h2><p>最終分數：<span id="finalScore">0</span></p></div>
+    <h1>🧱 俄羅斯方塊</h1>
+    <div class="info"><span>🏆 <span id="score">0</span></span> <span>📊 <span id="level">1</span></span></div>
+    <div class="board" id="board"></div>
+    <div class="controls"><button onclick="init()">🔄 重新開始</button></div>
+    <div class="message" id="message">方向鍵控制</div>
 </div>
 <script>
-let grid, score, size=4, over;
-const el=document.getElementById('grid'), sc=document.getElementById('score'), go=document.getElementById('gameOver');
+const boardEl=document.getElementById('board'), sc=document.getElementById('score'), lv=document.getElementById('level'), msg=document.getElementById('message');
+const COLS=10, ROWS=20;
+const SHAPES=[
+{shape:[[1,1,1,1]],color:'#00f0f0'},
+{shape:[[1,1,1],[0,1,0]],color:'#0000f0'},
+{shape:[[1,1,1],[0,0,1]],color:'#f0a000'},
+{shape:[[1,1,1],[1,0,0]],color:'#0000f0'},
+{shape:[[1,1],[1,1]],color:'#f0f000'},
+{shape:[[0,1,1],[1,1,0]],color:'#00f000'},
+{shape:[[1,1,0],[0,1,1]],color:'#f00000'}
+];
+let board, piece, score, level, over, loop, interval=500;
 function init(){
-  grid=Array.from({length:size},()=>Array(size).fill(0)); score=0; over=false; go.style.display='none';
-  add(); add(); render();
+  board=Array.from({length:ROWS},()=>Array(COLS).fill(0)); score=0; level=1; over=false; interval=500;
+  updateScore(); spawn(); if(loop)clearInterval(loop); loop=setInterval(drop,interval); render(); msg.textContent='方向鍵控制';
 }
-function add(){
-  let e=[]; for(let i=0;i<size;i++)for(let j=0;j<size;j++)if(!grid[i][j])e.push({x:i,y:j});
-  if(!e.length)return; let c=e[Math.floor(Math.random()*e.length)]; grid[c.x][c.y]=Math.random()<.9?2:4;
+function spawn(){
+  let i=Math.floor(Math.random()*SHAPES.length), p=SHAPES[i];
+  piece={shape:p.shape,color:p.color,x:Math.floor((COLS-p.shape[0].length)/2),y:0};
+  if(collision(piece.shape,piece.x,piece.y)){over=true;clearInterval(loop);msg.textContent='💀 遊戲結束！';}
 }
+function collision(s,ox,oy){for(let r=0;r<s.length;r++)for(let c=0;c<s[r].length;c++)if(s[r][c]){let bx=ox+c,by=oy+r;if(bx<0||bx>=COLS||by>=ROWS||by<0||(by>=0&&board[by][bx]))return true;}return false;}
+function merge(){
+  if(!piece)return;
+  for(let r=0;r<piece.shape.length;r++)for(let c=0;c<piece.shape[r].length;c++)if(piece.shape[r][c]){let bx=piece.x+c,by=piece.y+r;if(by>=0&&by<ROWS&&bx>=0&&bx<COLS)board[by][bx]=piece.color;}
+  clearRows(); spawn(); render();
+}
+function clearRows(){
+  let cleared=0;
+  for(let r=ROWS-1;r>=0;){if(board[r].every(c=>c)){board.splice(r,1);board.unshift(Array(COLS).fill(0));cleared++;}else r--;}
+  if(cleared){let pts=[0,100,300,500,800];score+=pts[Math.min(cleared,4)]*level;level=Math.floor(score/1000)+1;interval=Math.max(100,500-(level-1)*30);clearInterval(loop);loop=setInterval(drop,interval);updateScore();}
+}
+function drop(){if(over||!piece)return;if(!collision(piece.shape,piece.x,piece.y+1)){piece.y++;render();}else{merge();render();}}
+function moveLeft(){if(!over&&piece&&!collision(piece.shape,piece.x-1,piece.y)){piece.x--;render();}}
+function moveRight(){if(!over&&piece&&!collision(piece.shape,piece.x+1,piece.y)){piece.x++;render();}}
+function rotatePiece(){if(over||!piece)return;let r=piece.shape[0].map((_,i)=>piece.shape.map(row=>row[i]).reverse());if(!collision(r,piece.x,piece.y)){piece.shape=r;render();}}
+function hardDrop(){while(!over&&piece&&!collision(piece.shape,piece.x,piece.y+1))piece.y++;merge();render();}
 function render(){
-  el.innerHTML='';
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){let v=grid[i][j]; let d=document.createElement('div'); d.className='tile'+(v?' tile-'+v:''); d.textContent=v||''; el.appendChild(d);}
-  sc.textContent=score;
+  boardEl.innerHTML=''; boardEl.style.gridTemplateColumns='repeat('+COLS+',1fr)';
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){let d=document.createElement('div');d.style.width='30px';d.style.height='30px';d.style.border='1px solid #ccc';if(board[r][c])d.style.background=board[r][c];boardEl.appendChild(d);}
+  if(piece&&!over)for(let r=0;r<piece.shape.length;r++)for(let c=0;c<piece.shape[r].length;c++)if(piece.shape[r][c]){let idx=(piece.y+r)*COLS+(piece.x+c);let cells=boardEl.children;if(idx<cells.length)cells[idx].style.background=piece.color;}
 }
-function slide(r){let a=r.filter(v=>v), m=[]; for(let i=0;i<a.length;i++){if(i+1<a.length&&a[i]===a[i+1]){m.push(a[i]*2);score+=a[i]*2;i++;}else m.push(a[i]);}while(m.length<size)m.push(0);return m;}
-function move(d){
-  if(over)return; let o=grid.map(r=>[...r]);
-  if(d==='l')for(let i=0;i<size;i++)grid[i]=slide(grid[i]);
-  if(d==='r')for(let i=0;i<size;i++){let r=[...grid[i]].reverse();r=slide(r);grid[i]=r.reverse();}
-  if(d==='u')for(let j=0;j<size;j++){let c=[];for(let i=0;i<size;i++)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[i][j]=c[i];}
-  if(d==='d')for(let j=0;j<size;j++){let c=[];for(let i=size-1;i>=0;i--)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[size-1-i][j]=c[i];}
-  if(JSON.stringify(o)!==JSON.stringify(grid)){add();render();check();}
-}
-function check(){
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){if(!grid[i][j])return;if(j<size-1&&grid[i][j]===grid[i][j+1])return;if(i<size-1&&grid[i][j]===grid[i+1][j])return;}
-  over=true; document.getElementById('finalScore').textContent=score; go.style.display='block';
-}
-document.addEventListener('keydown',e=>{let m={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};if(m[e.key]){e.preventDefault();move(m[e.key]);}});
-window.init=init; init();
+function updateScore(){sc.textContent=score;lv.textContent=level;}
+document.addEventListener('keydown',e=>{if(over)return;if(e.key==='ArrowLeft')moveLeft();else if(e.key==='ArrowRight')moveRight();else if(e.key==='ArrowUp')rotatePiece();else if(e.key==='ArrowDown')drop();else if(e.key===' '){e.preventDefault();hardDrop();}});
+window.init=init; window.reset=init; init();
 </script>
-<style>.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:280px;margin:10px auto}.tile{width:60px;height:60px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;border-radius:4px}.tile-2{background:#eee4da}.tile-4{background:#ede0c8}.tile-8{background:#f2b179;color:#fff}.tile-16{background:#f59563;color:#fff}.tile-32{background:#f67c5f;color:#fff}.tile-64{background:#f65e3b;color:#fff}.tile-128{background:#edcf72;color:#fff}.tile-256{background:#edcc61;color:#fff}.tile-512{background:#edc850;color:#fff}.tile-1024{background:#edc53f;color:#fff}.tile-2048{background:#edc22e;color:#fff}.game-over{display:none;text-align:center;padding:20px;background:rgba(0,0,0,.8);color:#fff;border-radius:8px;margin-top:10px}
-</style>
-    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>合併相同數字，挑戰 2048！</p></div>
+<style>#board{display:grid;gap:1px;max-width:310px;margin:10px auto}</style>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>旋轉、排列方塊，消除完整行數！</p></div>
     <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
     <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script src="https://giscus.app/client.js"

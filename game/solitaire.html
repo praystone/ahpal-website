@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 - 數字合併挑戰 - 雅寶遊戲間</title>
+    <title>接龍 - 經典紙牌遊戲 - 雅寶遊戲間</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
@@ -147,47 +147,35 @@
 <body>
     <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
     <div class="game-container">
-    <h1>🔢 2048</h1>
-    <div class="score-box"><span>分數：<span id="score">0</span></span></div>
-    <div class="grid" id="grid"></div>
+    <h1>🃏 接龍</h1>
+    <div class="info"><span>⏱️ <span id="moves">0</span></span> <span>✅ 完成 <span id="done">0</span>/4</span></div>
+    <canvas id="gameCanvas" width="650" height="400"></canvas>
     <div class="controls"><button onclick="init()">🔄 新遊戲</button></div>
-    <div class="game-over" id="gameOver"><h2>遊戲結束！</h2><p>最終分數：<span id="finalScore">0</span></p></div>
+    <div class="message" id="message">點擊卡片移動到正確位置</div>
 </div>
 <script>
-let grid, score, size=4, over;
-const el=document.getElementById('grid'), sc=document.getElementById('score'), go=document.getElementById('gameOver');
+const canvas=document.getElementById('gameCanvas'), ctx=canvas.getContext('2d');
+const movesEl=document.getElementById('moves'), doneEl=document.getElementById('done'), msg=document.getElementById('message');
+canvas.width=650; canvas.height=400;
+let deck=[], table=[], foundations=[], moves=0, done=0;
+const suits=['♠','♥','♦','♣'];
+const ranks=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 function init(){
-  grid=Array.from({length:size},()=>Array(size).fill(0)); score=0; over=false; go.style.display='none';
-  add(); add(); render();
+  deck=[]; for(let s of suits)for(let r of ranks)deck.push({rank:r,suit:s,face:true});
+  deck=deck.sort(()=>Math.random()-0.5);
+  table=Array.from({length:7},()=>[]); foundations=Array.from({length:4},()=>[]);
+  for(let i=0;i<7;i++){for(let j=0;j<=i;j++){let c=deck.pop();c.face=j===i;table[i].push(c);}}
+  moves=0; done=0; movesEl.textContent='0'; doneEl.textContent='0'; msg.textContent='點擊卡片移動到正確位置'; draw();
 }
-function add(){
-  let e=[]; for(let i=0;i<size;i++)for(let j=0;j<size;j++)if(!grid[i][j])e.push({x:i,y:j});
-  if(!e.length)return; let c=e[Math.floor(Math.random()*e.length)]; grid[c.x][c.y]=Math.random()<.9?2:4;
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let i=0;i<7;i++){for(let j=0;j<table[i].length;j++){let c=table[i][j];let x=50+i*80,y=50+j*20;ctx.fillStyle=c.face?'#fff':'#2c3e50';ctx.fillRect(x,y,70,90);ctx.strokeStyle='#333';ctx.strokeRect(x,y,70,90);if(c.face){ctx.fillStyle='#000';ctx.font='16px Arial';ctx.fillText(c.rank+c.suit,x+10,y+30);}}}
+  for(let i=0;i<4;i++){let x=450+i*80,y=50;ctx.fillStyle='#fff';ctx.fillRect(x,y,70,90);ctx.strokeStyle='#333';ctx.strokeRect(x,y,70,90);if(foundations[i].length){let c=foundations[i][foundations[i].length-1];ctx.fillStyle='#000';ctx.font='16px Arial';ctx.fillText(c.rank+c.suit,x+10,y+30);}}
 }
-function render(){
-  el.innerHTML='';
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){let v=grid[i][j]; let d=document.createElement('div'); d.className='tile'+(v?' tile-'+v:''); d.textContent=v||''; el.appendChild(d);}
-  sc.textContent=score;
-}
-function slide(r){let a=r.filter(v=>v), m=[]; for(let i=0;i<a.length;i++){if(i+1<a.length&&a[i]===a[i+1]){m.push(a[i]*2);score+=a[i]*2;i++;}else m.push(a[i]);}while(m.length<size)m.push(0);return m;}
-function move(d){
-  if(over)return; let o=grid.map(r=>[...r]);
-  if(d==='l')for(let i=0;i<size;i++)grid[i]=slide(grid[i]);
-  if(d==='r')for(let i=0;i<size;i++){let r=[...grid[i]].reverse();r=slide(r);grid[i]=r.reverse();}
-  if(d==='u')for(let j=0;j<size;j++){let c=[];for(let i=0;i<size;i++)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[i][j]=c[i];}
-  if(d==='d')for(let j=0;j<size;j++){let c=[];for(let i=size-1;i>=0;i--)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[size-1-i][j]=c[i];}
-  if(JSON.stringify(o)!==JSON.stringify(grid)){add();render();check();}
-}
-function check(){
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){if(!grid[i][j])return;if(j<size-1&&grid[i][j]===grid[i][j+1])return;if(i<size-1&&grid[i][j]===grid[i+1][j])return;}
-  over=true; document.getElementById('finalScore').textContent=score; go.style.display='block';
-}
-document.addEventListener('keydown',e=>{let m={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};if(m[e.key]){e.preventDefault();move(m[e.key]);}});
 window.init=init; init();
 </script>
-<style>.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:280px;margin:10px auto}.tile{width:60px;height:60px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;border-radius:4px}.tile-2{background:#eee4da}.tile-4{background:#ede0c8}.tile-8{background:#f2b179;color:#fff}.tile-16{background:#f59563;color:#fff}.tile-32{background:#f67c5f;color:#fff}.tile-64{background:#f65e3b;color:#fff}.tile-128{background:#edcf72;color:#fff}.tile-256{background:#edcc61;color:#fff}.tile-512{background:#edc850;color:#fff}.tile-1024{background:#edc53f;color:#fff}.tile-2048{background:#edc22e;color:#fff}.game-over{display:none;text-align:center;padding:20px;background:rgba(0,0,0,.8);color:#fff;border-radius:8px;margin-top:10px}
-</style>
-    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>合併相同數字，挑戰 2048！</p></div>
+<style>#gameCanvas{display:block;margin:10px auto;background:#2ecc71;border-radius:8px;cursor:pointer}</style>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>經典接龍紙牌遊戲！</p></div>
     <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
     <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script src="https://giscus.app/client.js"

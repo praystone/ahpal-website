@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHPAL-2026-001 內容營運與技術維護計畫書</title>
+    <style>
+        :root {
+            --primary: #005A9C;
+            --secondary: #00A86B;
+            --bg: #F4F6F9;
+            --card: #FFFFFF;
+            --text: #1A202C;
+            --text-light: #4A5568;
+            --border: #E2E8F0;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 50px 55px;
+            border: 1px solid var(--border);
+        }
+        @media (max-width: 640px) { .container { padding: 25px 18px; } }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 4px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .header .logo { font-size: 26px; font-weight: 700; color: var(--primary); }
+        .header .logo span { color: var(--secondary); }
+        .header .badge { background: var(--primary); color: white; padding: 6px 18px; border-radius: 40px; font-size: 13px; font-weight: 600; letter-spacing: 1px; }
+        .doc-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 40px;
+            font-size: 14px;
+            color: var(--text-light);
+            background: var(--bg);
+            padding: 14px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .doc-meta strong { color: var(--text); }
+        h1 { font-size: 28px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+        h2 { font-size: 22px; font-weight: 700; color: var(--primary); border-left: 6px solid var(--primary); padding-left: 14px; margin: 40px 0 20px 0; }
+        h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 28px 0 12px 0; }
+        p { margin-bottom: 14px; color: var(--text-light); }
+        ul, ol { margin: 10px 0 18px 25px; }
+        li { margin-bottom: 6px; }
+        .table-wrap { overflow-x: auto; margin: 20px 0 25px 0; border-radius: 12px; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
+        th { background: var(--primary); color: white; padding: 12px 16px; text-align: left; font-weight: 600; }
+        td { padding: 11px 16px; border-bottom: 1px solid var(--border); }
+        tr:nth-child(even) td { background: #F9FAFC; }
+        tr:hover td { background: #EBF4FF; }
+        .tip { padding: 16px 20px; border-radius: 12px; margin: 18px 0; border-left: 5px solid; }
+        .tip.success { background: #F0FFF4; border-color: var(--secondary); color: #276749; }
+        .tip.info { background: #EBF8FF; border-color: #3182CE; color: #2B6CB0; }
+        .tip.warning { background: #FFFAF0; border-color: #DD6B20; color: #9C4221; }
+        .tip .title { font-weight: 700; margin-bottom: 2px; }
+        .signature-area { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; margin-top: 45px; padding-top: 30px; border-top: 2px solid var(--border); }
+        .signature-box { background: var(--bg); border-radius: 12px; padding: 18px 20px; text-align: center; border: 1px solid var(--border); }
+        .signature-box .role { font-size: 13px; color: var(--text-light); font-weight: 600; }
+        .signature-box .line { width: 80%; height: 2px; background: var(--border); margin: 12px auto 6px auto; }
+        .signature-box .status { display: inline-block; padding: 3px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; margin-top: 8px; }
+        .status.approved { background: #C6F6D5; color: #276749; }
+        .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: #A0AEC0; }
+        @media (max-width: 768px) { .signature-area { grid-template-columns: 1fr; gap: 15px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
+        <div class="badge">📋 附件一</div>
+    </div>
+
+    <h1>內容營運與技術維護計畫書</h1>
+    <div class="doc-meta">
+        <span><strong>文件編號：</strong>AHPAL-2026-001</span>
+        <span><strong>版本：</strong>v1.0</span>
+        <span><strong>日期：</strong>2026年7月21日</span>
+        <span><strong>提案人：</strong>總經理兼總工程師</span>
+        <span><strong>狀態：</strong><span style="color:#276749; font-weight:700;">✅ 已核准</span></span>
+    </div>
+
+    <h2>一、現況總覽</h2>
+    <h3>1.1 系統狀態摘要</h3>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>項目</th><th>數值</th><th>狀態</th></tr></thead>
+            <tbody>
+                <tr><td>總文章數</td><td><strong>178 篇</strong></td><td>✅ 穩定</td></tr>
+                <tr><td>品質通過率 (≥60分)</td><td><strong>100%</strong></td><td>✅ 優良</td></tr>
+                <tr><td>平均品質分數</td><td><strong>97 分</strong></td><td>✅ 優良</td></tr>
+                <tr><td>遊戲數量</td><td><strong>16 款</strong></td><td>✅ 正常</td></tr>
+                <tr><td>分類數量</td><td><strong>6 大類</strong></td><td>✅ 完整</td></tr>
+                <tr><td>備份狀態</td><td>每日自動備份</td><td>✅ 正常</td></tr>
+                <tr><td>Cloudflare 部署</td><td>自動化</td><td>✅ 正常</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>1.2 技術架構確認</h3>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>元件</th><th>狀態</th></tr></thead>
+            <tbody>
+                <tr><td>PowerShell 腳本 (7個)</td><td>✅ 已優化</td></tr>
+                <tr><td>Python 模組 (10個)</td><td>✅ v4.2 穩定</td></tr>
+                <tr><td>API 雙軌切換</td><td>✅ Gemini / DeepSeek</td></tr>
+                <tr><td>靜態網站託管</td><td>✅ Cloudflare Pages</td></tr>
+                <tr><td>版本控制</td><td>✅ Git + GitHub</td></tr>
+                <tr><td>廣告收益</td><td>🔄 AdSense 審查中</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tip success">
+        <div class="title">✅ 已解決問題清單</div>
+        <ul style="margin:4px 0 0 20px;">
+            <li><code>ahpal-static.ps1</code> 語法錯誤 — 已修正 (2026-07-20)</li>
+            <li><code>config.py</code> 讀取 <code>.env</code> — 已修正 (2026-07-20)</li>
+            <li>品質未達標文章刪除 (23篇) — 已完成 (2026-07-20)</li>
+            <li>文章重新生成 (84篇核心) — 已完成 (2026-07-20)</li>
+            <li><code>ads.txt</code> 部署 — 已完成 (2026-07-20)</li>
+            <li><code>backup-system.ps1</code> v2.2 升級 — 已完成 (2026-07-21)</li>
+        </ul>
+    </div>
+
+    <h2>二、定期文章新增計畫</h2>
+    <h3>2.1 文章分類與數量目標</h3>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>分類</th><th>目前</th><th>Q3 目標</th><th>年度目標</th><th>優先級</th></tr></thead>
+            <tbody>
+                <tr><td>💻 3C 科技教學</td><td>16</td><td>25</td><td>40</td><td>🔴 高</td></tr>
+                <tr><td>🎮 遊戲攻略</td><td>8</td><td>18</td><td>35</td><td>🔴 高</td></tr>
+                <tr><td>🏠 生活小常識</td><td>15</td><td>22</td><td>35</td><td>🟡 中</td></tr>
+                <tr><td>📊 軟體評測</td><td>15</td><td>22</td><td>35</td><td>🟡 中</td></tr>
+                <tr><td>🌟 人生哲理</td><td>15</td><td>20</td><td>30</td><td>🟢 低</td></tr>
+                <tr><td>🤖 AI 趨勢</td><td>15</td><td>20</td><td>30</td><td>🟡 中</td></tr>
+                <tr><td><strong>總計</strong></td><td><strong>84</strong></td><td><strong>127</strong></td><td><strong>205</strong></td><td>—</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>2.2 每週新增排程（每月 20 篇）</h3>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>週次</th><th>3C科技</th><th>遊戲攻略</th><th>生活</th><th>軟體評測</th><th>哲理</th><th>AI趨勢</th><th>合計</th></tr></thead>
+            <tbody>
+                <tr><td>第1週</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td><strong>5</strong></td></tr>
+                <tr><td>第2週</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td><strong>5</strong></td></tr>
+                <tr><td>第3週</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td><strong>5</strong></td></tr>
+                <tr><td>第4週</td><td>1</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td><strong>5</strong></td></tr>
+                <tr><td><strong>每月</strong></td><td><strong>4</strong></td><td><strong>5</strong></td><td><strong>2</strong></td><td><strong>4</strong></td><td><strong>2</strong></td><td><strong>3</strong></td><td><strong>20</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>2.3 文章品質門檻</h3>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>指標</th><th>標準</th></tr></thead>
+            <tbody>
+                <tr><td>字數</td><td>≥ 4,500 字</td></tr>
+                <tr><td>H2 標題</td><td>≥ 3 個</td></tr>
+                <tr><td>H3 標題</td><td>≥ 2 個</td></tr>
+                <tr><td>對比表格</td><td>≥ 1 個</td></tr>
+                <tr><td>FAQ 區塊</td><td>≥ 3 題</td></tr>
+                <tr><td>品質分數</td><td>≥ 80 分</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>三、技術維護與維運</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>項目</th><th>頻率</th></tr></thead>
+            <tbody>
+                <tr><td>執行品質檢查</td><td>每週一</td></tr>
+                <tr><td>執行完整備份</td><td>每週三</td></tr>
+                <tr><td>檢查 Git 同步狀態</td><td>每日</td></tr>
+                <tr><td>檢查 Cloudflare 部署</td><td>每日</td></tr>
+                <tr><td>檢查 AdSense 審查</td><td>每週二</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>四、簽核記錄</h2>
+    <div class="signature-area">
+        <div class="signature-box">
+            <div class="role">📌 提案人</div>
+            <div style="font-weight:700; font-size:18px; margin:6px 0;">總經理兼總工程師</div>
+            <div class="line"></div>
+            <span class="status approved">✅ 已簽核</span>
+        </div>
+        <div class="signature-box">
+            <div class="role">✅ 核准</div>
+            <div style="font-weight:700; font-size:18px; margin:6px 0;">董事長</div>
+            <div class="line"></div>
+            <span class="status approved">✅ 已簽核</span>
+        </div>
+        <div class="signature-box">
+            <div class="role">📋 技術確認</div>
+            <div style="font-weight:700; font-size:18px; margin:6px 0;">技術顧問</div>
+            <div class="line"></div>
+            <span class="status approved">✅ 已確認</span>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 附件一 v1.0<br>
+        文件最後更新：2026 年 7 月 21 日
+    </div>
+</div>
+</body>
+</html>

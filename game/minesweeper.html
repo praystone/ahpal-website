@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 - 數字合併挑戰 - 雅寶遊戲間</title>
+    <title>踩地雷 - 經典推理遊戲 - 雅寶遊戲間</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
@@ -147,47 +147,35 @@
 <body>
     <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
     <div class="game-container">
-    <h1>🔢 2048</h1>
-    <div class="score-box"><span>分數：<span id="score">0</span></span></div>
-    <div class="grid" id="grid"></div>
+    <h1>💣 踩地雷</h1>
+    <div class="info"><span>💣 <span id="mineCount">10</span></span> <span>🚩 <span id="flagCount">0</span></span></div>
+    <div class="board" id="board"></div>
     <div class="controls"><button onclick="init()">🔄 新遊戲</button></div>
-    <div class="game-over" id="gameOver"><h2>遊戲結束！</h2><p>最終分數：<span id="finalScore">0</span></p></div>
+    <div class="message" id="message">左鍵翻開，右鍵標記</div>
 </div>
 <script>
-let grid, score, size=4, over;
-const el=document.getElementById('grid'), sc=document.getElementById('score'), go=document.getElementById('gameOver');
+const R=9,C=9,M=10; let board, revealed, flagged, over, flags=0;
+const boardEl=document.getElementById('board'), mineEl=document.getElementById('mineCount'), flagEl=document.getElementById('flagCount'), msg=document.getElementById('message');
 function init(){
-  grid=Array.from({length:size},()=>Array(size).fill(0)); score=0; over=false; go.style.display='none';
-  add(); add(); render();
+  board=Array.from({length:R},()=>Array(C).fill(0)); revealed=Array.from({length:R},()=>Array(C).fill(false)); flagged=Array.from({length:R},()=>Array(C).fill(false)); over=false; flags=0;
+  mineEl.textContent=M; flagEl.textContent='0'; msg.textContent='左鍵翻開，右鍵標記';
+  place(); calc(); render();
 }
-function add(){
-  let e=[]; for(let i=0;i<size;i++)for(let j=0;j<size;j++)if(!grid[i][j])e.push({x:i,y:j});
-  if(!e.length)return; let c=e[Math.floor(Math.random()*e.length)]; grid[c.x][c.y]=Math.random()<.9?2:4;
-}
+function place(){let p=0;while(p<M){let x=Math.floor(Math.random()*C),y=Math.floor(Math.random()*R);if(board[y][x]!==-1){board[y][x]=-1;p++;}}}
+function calc(){for(let y=0;y<R;y++)for(let x=0;x<C;x++){if(board[y][x]===-1)continue;let c=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){let ny=y+dy,nx=x+dx;if(ny>=0&&ny<R&&nx>=0&&nx<C&&board[ny][nx]===-1)c++;}board[y][x]=c;}}
 function render(){
-  el.innerHTML='';
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){let v=grid[i][j]; let d=document.createElement('div'); d.className='tile'+(v?' tile-'+v:''); d.textContent=v||''; el.appendChild(d);}
-  sc.textContent=score;
+  boardEl.innerHTML=''; boardEl.style.gridTemplateColumns='repeat('+C+',1fr)';
+  for(let y=0;y<R;y++)for(let x=0;x<C;x++){let d=document.createElement('div');d.className='cell';if(revealed[y][x]){if(board[y][x]===-1){d.textContent='💣';d.style.background='#e74c3c';}else if(board[y][x]>0){d.textContent=board[y][x];d.style.background='#ecf0f1';}else d.style.background='#ecf0f1';}else{d.textContent=flagged[y][x]?'🚩':'';d.style.background='#bdc3c7';}d.onclick=()=>reveal(x,y);d.oncontextmenu=(e)=>{e.preventDefault();toggleFlag(x,y);};boardEl.appendChild(d);}
 }
-function slide(r){let a=r.filter(v=>v), m=[]; for(let i=0;i<a.length;i++){if(i+1<a.length&&a[i]===a[i+1]){m.push(a[i]*2);score+=a[i]*2;i++;}else m.push(a[i]);}while(m.length<size)m.push(0);return m;}
-function move(d){
-  if(over)return; let o=grid.map(r=>[...r]);
-  if(d==='l')for(let i=0;i<size;i++)grid[i]=slide(grid[i]);
-  if(d==='r')for(let i=0;i<size;i++){let r=[...grid[i]].reverse();r=slide(r);grid[i]=r.reverse();}
-  if(d==='u')for(let j=0;j<size;j++){let c=[];for(let i=0;i<size;i++)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[i][j]=c[i];}
-  if(d==='d')for(let j=0;j<size;j++){let c=[];for(let i=size-1;i>=0;i--)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[size-1-i][j]=c[i];}
-  if(JSON.stringify(o)!==JSON.stringify(grid)){add();render();check();}
-}
-function check(){
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){if(!grid[i][j])return;if(j<size-1&&grid[i][j]===grid[i][j+1])return;if(i<size-1&&grid[i][j]===grid[i+1][j])return;}
-  over=true; document.getElementById('finalScore').textContent=score; go.style.display='block';
-}
-document.addEventListener('keydown',e=>{let m={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};if(m[e.key]){e.preventDefault();move(m[e.key]);}});
+function reveal(x,y){if(over||flagged[y][x]||revealed[y][x])return;if(board[y][x]===-1){revealAll();msg.textContent='💀 踩到地雷！點擊「新遊戲」';return;}revealCell(x,y);render();checkWin();}
+function revealCell(x,y){if(revealed[y][x])return;revealed[y][x]=true;if(board[y][x]===0){for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){let ny=y+dy,nx=x+dx;if(ny>=0&&ny<R&&nx>=0&&nx<C&&!revealed[ny][nx])revealCell(nx,ny);}}}
+function toggleFlag(x,y){if(over||revealed[y][x])return;flagged[y][x]=!flagged[y][x];flags+=flagged[y][x]?1:-1;flagEl.textContent=flags;render();}
+function revealAll(){for(let y=0;y<R;y++)for(let x=0;x<C;x++)revealed[y][x]=true;render();}
+function checkWin(){let total=R*C;let revealedCount=revealed.flat().filter(r=>r).length;if(total-revealedCount===M){msg.textContent='🎉 恭喜你贏了！';over=true;}}
 window.init=init; init();
 </script>
-<style>.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:280px;margin:10px auto}.tile{width:60px;height:60px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;border-radius:4px}.tile-2{background:#eee4da}.tile-4{background:#ede0c8}.tile-8{background:#f2b179;color:#fff}.tile-16{background:#f59563;color:#fff}.tile-32{background:#f67c5f;color:#fff}.tile-64{background:#f65e3b;color:#fff}.tile-128{background:#edcf72;color:#fff}.tile-256{background:#edcc61;color:#fff}.tile-512{background:#edc850;color:#fff}.tile-1024{background:#edc53f;color:#fff}.tile-2048{background:#edc22e;color:#fff}.game-over{display:none;text-align:center;padding:20px;background:rgba(0,0,0,.8);color:#fff;border-radius:8px;margin-top:10px}
-</style>
-    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>合併相同數字，挑戰 2048！</p></div>
+<style>.cell{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;border-radius:4px;cursor:pointer;background:#bdc3c7}#board{display:grid;gap:2px;max-width:290px;margin:10px auto}</style>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>經典踩地雷推理遊戲</p></div>
     <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
     <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script src="https://giscus.app/client.js"

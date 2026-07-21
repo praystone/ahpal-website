@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 - 數字合併挑戰 - 雅寶遊戲間</title>
+    <title>數學速算 - 腦力激盪 - 雅寶遊戲間</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
@@ -147,47 +147,33 @@
 <body>
     <header class="site-header"><div class="header-inner"><a href="/" class="logo">雅寶社區 · 頂客論壇</a><nav class="nav-links"><a href="/">首頁</a><a href="/categories.html">📚 全部分類</a><a href="/game/" class="game-link">🎮 遊戲間</a></nav></div></header>
     <div class="game-container">
-    <h1>🔢 2048</h1>
-    <div class="score-box"><span>分數：<span id="score">0</span></span></div>
-    <div class="grid" id="grid"></div>
-    <div class="controls"><button onclick="init()">🔄 新遊戲</button></div>
-    <div class="game-over" id="gameOver"><h2>遊戲結束！</h2><p>最終分數：<span id="finalScore">0</span></p></div>
+    <h1>🧠 數學速算</h1>
+    <div class="info"><span>✅ 正確 <span id="correct">0</span></span> <span>❌ 錯誤 <span id="wrong">0</span></span> <span>⏱️ <span id="timer">60</span>s</span></div>
+    <div class="question" id="question">準備開始</div>
+    <div class="options" id="options"></div>
+    <div class="controls"><button onclick="startGame()">🚀 開始挑戰</button><button onclick="init()">🔄 新遊戲</button></div>
+    <div class="message" id="message">點擊「開始挑戰」開始！</div>
 </div>
 <script>
-let grid, score, size=4, over;
-const el=document.getElementById('grid'), sc=document.getElementById('score'), go=document.getElementById('gameOver');
+let correct=0,wrong=0,timeLeft=60,running=false;
+const correctEl=document.getElementById('correct'), wrongEl=document.getElementById('wrong'), timerEl=document.getElementById('timer'), questionEl=document.getElementById('question'), optionsEl=document.getElementById('options'), msg=document.getElementById('message');
 function init(){
-  grid=Array.from({length:size},()=>Array(size).fill(0)); score=0; over=false; go.style.display='none';
-  add(); add(); render();
+  correct=0; wrong=0; timeLeft=60; running=false; correctEl.textContent=0; wrongEl.textContent=0; timerEl.textContent=60; questionEl.textContent='準備開始'; optionsEl.innerHTML=''; msg.textContent='點擊「開始挑戰」開始！';
 }
-function add(){
-  let e=[]; for(let i=0;i<size;i++)for(let j=0;j<size;j++)if(!grid[i][j])e.push({x:i,y:j});
-  if(!e.length)return; let c=e[Math.floor(Math.random()*e.length)]; grid[c.x][c.y]=Math.random()<.9?2:4;
+function startGame(){
+  if(running)return; running=true; generate(); let interval=setInterval(()=>{timeLeft--;timerEl.textContent=timeLeft;if(timeLeft<=0){clearInterval(interval);running=false;msg.textContent='⏱️ 時間到！正確：'+correct+' 錯誤：'+wrong;}},1000);
 }
-function render(){
-  el.innerHTML='';
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){let v=grid[i][j]; let d=document.createElement('div'); d.className='tile'+(v?' tile-'+v:''); d.textContent=v||''; el.appendChild(d);}
-  sc.textContent=score;
+function generate(){
+  if(!running)return; let a=Math.floor(Math.random()*20)+1,b=Math.floor(Math.random()*20)+1; let ops=['+','-','*']; let op=ops[Math.floor(Math.random()*ops.length)]; let ans; if(op==='+')ans=a+b;else if(op==='-')ans=a-b;else ans=a*b;
+  questionEl.textContent=a+' '+op+' '+b+' = ?';
+  let choices=[ans,ans+Math.floor(Math.random()*10)+1,ans-Math.floor(Math.random()*10)-1,ans+Math.floor(Math.random()*5)+3]; choices=choices.sort(()=>Math.random()-0.5);
+  optionsEl.innerHTML=''; choices.forEach(c=>{let b=document.createElement('button');b.textContent=c;b.onclick=()=>check(c,ans);optionsEl.appendChild(b);});
 }
-function slide(r){let a=r.filter(v=>v), m=[]; for(let i=0;i<a.length;i++){if(i+1<a.length&&a[i]===a[i+1]){m.push(a[i]*2);score+=a[i]*2;i++;}else m.push(a[i]);}while(m.length<size)m.push(0);return m;}
-function move(d){
-  if(over)return; let o=grid.map(r=>[...r]);
-  if(d==='l')for(let i=0;i<size;i++)grid[i]=slide(grid[i]);
-  if(d==='r')for(let i=0;i<size;i++){let r=[...grid[i]].reverse();r=slide(r);grid[i]=r.reverse();}
-  if(d==='u')for(let j=0;j<size;j++){let c=[];for(let i=0;i<size;i++)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[i][j]=c[i];}
-  if(d==='d')for(let j=0;j<size;j++){let c=[];for(let i=size-1;i>=0;i--)c.push(grid[i][j]);c=slide(c);for(let i=0;i<size;i++)grid[size-1-i][j]=c[i];}
-  if(JSON.stringify(o)!==JSON.stringify(grid)){add();render();check();}
-}
-function check(){
-  for(let i=0;i<size;i++)for(let j=0;j<size;j++){if(!grid[i][j])return;if(j<size-1&&grid[i][j]===grid[i][j+1])return;if(i<size-1&&grid[i][j]===grid[i+1][j])return;}
-  over=true; document.getElementById('finalScore').textContent=score; go.style.display='block';
-}
-document.addEventListener('keydown',e=>{let m={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};if(m[e.key]){e.preventDefault();move(m[e.key]);}});
-window.init=init; init();
+function check(choice,ans){if(!running)return;if(choice===ans){correct++;correctEl.textContent=correct;msg.textContent='✅ 正確！';}else{wrong++;wrongEl.textContent=wrong;msg.textContent='❌ 錯誤！答案是 '+ans;}generate();}
+window.init=init; window.startGame=startGame; init();
 </script>
-<style>.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:280px;margin:10px auto}.tile{width:60px;height:60px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;border-radius:4px}.tile-2{background:#eee4da}.tile-4{background:#ede0c8}.tile-8{background:#f2b179;color:#fff}.tile-16{background:#f59563;color:#fff}.tile-32{background:#f67c5f;color:#fff}.tile-64{background:#f65e3b;color:#fff}.tile-128{background:#edcf72;color:#fff}.tile-256{background:#edcc61;color:#fff}.tile-512{background:#edc850;color:#fff}.tile-1024{background:#edc53f;color:#fff}.tile-2048{background:#edc22e;color:#fff}.game-over{display:none;text-align:center;padding:20px;background:rgba(0,0,0,.8);color:#fff;border-radius:8px;margin-top:10px}
-</style>
-    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>合併相同數字，挑戰 2048！</p></div>
+<style>#options button{margin:5px;padding:10px 20px;font-size:18px;border-radius:8px;border:2px solid #ccc;cursor:pointer;background:#fff}#options button:hover{background:#3498db;color:#fff}</style>
+    <div class="how-to-play"><h3>🎯 玩法說明</h3><p>在時間內回答數學問題！</p></div>
     <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
     <footer class="site-footer"><div class="footer-inner"><div class="copy">&copy; 2026 雅寶社區 · 頂客論壇</div></div></footer>
 <script src="https://giscus.app/client.js"

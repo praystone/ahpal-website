@@ -1,12 +1,11 @@
 ﻿<!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【Mac 新手教學】剛換 Mac 必看！12 個超實用必學設定，效率直接翻倍！ - 雅寶社區 · 頂客論壇 (AHPAL.COM)</title>
-    <meta name="description" content="剛從 Windows 轉到 Mac 系統感到不習慣嗎？雅寶社區為您整理 12 個 Mac 新手入門必學設定，包含軌跡板優化、Finder 設定、快捷鍵調整等實操步驟，讓您的 MacBook 運作效率倍增！">
-    <meta name="keywords" content="Mac 新手入門 12 個必學設定, Mac 新手教學, macOS 設定, Windows 轉 Mac, 軌跡板設定, 頂客論壇">
-    <link rel="canonical" href="https://www.ahpal.com/mac-beginners-guide">
+    <title>【Mac 新手教學】剛從 Windows 轉過來？Mac 新手入門 12 個必學設定，效率直接翻倍！ - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="剛買新 Mac 卻不知道怎麼用？本文為 Windows 轉 Mac 新手量身打造，整理出 12 個必學的 macOS 系統優化設定，包含觸控板右鍵、三指拖移、熱角、Finder 路徑列等，並附上 Windows 與 Mac 對照表與常見 FAQ，讓你秒速上手，工作效率翻倍！">
+    <meta name="keywords" content="Mac 新手入門 12 個必學設定, Mac 新手教學, Windows 轉 Mac, macOS 設定, Mac 快捷鍵, 觸控板設定, 雅寶社區, 頂客論壇">
     
     <!-- Google AdSense 廣告碼 -->
     <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348' crossorigin='anonymous'></script>
@@ -22,384 +21,520 @@
 
     <style>
         :root {
-            --primary-color: #005A9C;
-            --secondary-color: #f4f6f9;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f8f9fa;
             --text-color: #333333;
-            --light-text: #666666;
-            --border-color: #dddddd;
-            --accent-color: #e74c3c;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
             line-height: 1.8;
             color: var(--text-color);
-            background-color: #f9f9f9;
+            background-color: var(--bg-color);
             margin: 0;
             padding: 0;
         }
+
         header {
-            background-color: #ffffff;
-            border-bottom: 3px solid var(--primary-color);
+            background-color: var(--primary-color);
+            color: white;
             padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: var(--primary-color);
             text-decoration: none;
+            color: white;
         }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
         .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
+
+        article {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .category-badge {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
         h1 {
             font-size: 32px;
-            color: #111;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 20px;
             line-height: 1.4;
-            margin-bottom: 10px;
         }
+
         .meta-info {
             font-size: 14px;
-            color: var(--light-text);
+            color: #7f8c8d;
             margin-bottom: 30px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 15px;
         }
-        .meta-info span {
-            margin-right: 15px;
+
+        .intro {
+            font-size: 18px;
+            color: #555;
+            background-color: #ebf5fb;
+            padding: 20px;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 4px;
+            margin-bottom: 30px;
         }
+
         h2 {
             font-size: 24px;
             color: var(--primary-color);
-            border-left: 5px solid var(--primary-color);
-            padding-left: 12px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
             margin-top: 40px;
-            margin-bottom: 20px;
         }
+
         h3 {
             font-size: 20px;
-            color: #222;
+            color: var(--accent-color);
             margin-top: 30px;
-            margin-bottom: 15px;
         }
+
         p {
             margin-bottom: 20px;
         }
+
         ol, ul {
             padding-left: 20px;
             margin-bottom: 20px;
         }
+
         li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
+
         .step-box {
-            background-color: var(--secondary-color);
-            border-left: 4px solid var(--primary-color);
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e1;
             padding: 15px 20px;
+            border-radius: 8px;
             margin: 15px 0;
-            border-radius: 0 8px 8px 0;
         }
-        .step-box p {
-            margin: 0;
-            font-weight: bold;
+
+        .step-box strong {
+            color: #e74c3c;
         }
-        .highlight {
-            background-color: #fff3cd;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-weight: bold;
+
+        /* 表格樣式 */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 30px 0;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
-        }
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 12px 15px;
             text-align: left;
+            min-width: 600px;
         }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+        }
+
         th {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: bold;
         }
+
         tr:nth-child(even) {
-            background-color: #f8f9fa;
+            background-color: #f8fafc;
         }
+
+        /* FAQ 區塊 */
         .faq-section {
-            background-color: #f0f7fc;
-            padding: 25px;
+            background-color: #f1f5f9;
+            padding: 30px;
             border-radius: 8px;
-            margin-top: 40px;
+            margin-top: 50px;
         }
+
         .faq-item {
             margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
+
         .faq-question {
             font-weight: bold;
             color: var(--primary-color);
             font-size: 18px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
-        .faq-answer {
-            color: #444;
-        }
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            color: var(--light-text);
-            font-size: 14px;
-            border-top: 1px solid var(--border-color);
-            margin-top: 50px;
-        }
-        #backToTop {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--primary-color);
+
+        .faq-question::before {
+            content: "Q";
+            background-color: var(--accent-color);
             color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: none;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            transition: opacity 0.3s, background-color 0.3s;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-size: 14px;
         }
-        #backToTop:hover {
-            background-color: #003F70;
+
+        .faq-answer {
+            color: #555;
+            padding-left: 34px;
         }
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            table {
-                display: block;
-                overflow-x: auto;
-            }
+
+        footer {
+            background-color: var(--primary-color);
+            color: #94a3b8;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            font-size: 14px;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .cta-btn:hover {
+            background-color: #c0392b;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="https://www.ahpal.com" class="logo">雅寶社區 · 頂客論壇</a>
+        <div class="header-container">
+            <a href="https://ahpal.com" class="logo">雅寶社區 <span>· 頂客論壇</span></a>
+            <span style="font-size: 14px;">專業 3C 科技教學社群</span>
+        </div>
     </header>
 
     <div class="container">
         <article>
-            <h1>【Mac 新手教學】剛換 Mac 必看！12 個超實用必學設定，效率直接翻倍！</h1>
-            <div class="meta-info">
-                <span>分類：3C 科技教學</span>
-                <span>作者：資深論壇版主 & SEO 專家</span>
-                <span>更新日期：2024年10月</span>
-            </div>
-
-            <p>許多剛從 Windows 陣營轉過來 macOS 的新手，第一時間通常會覺得「滑鼠怎麼怪怪的？」、「為什麼按右鍵沒反應？」或是「找不到檔案的副檔名？」。別擔心，這不是 Mac 不好用，而是因為預設的系統設定偏向極簡，還沒有完全釋放它的潛能！</p>
+            <span class="category-badge">3C 科技教學</span>
+            <h1>【Mac 新手教學】剛從 Windows 轉過來？超實用 Mac 新手入門 12 個必學設定，效率直接翻倍！</h1>
             
-            <p>今天，身為 20 年 Mac 老玩家的版主，就為大家整理了 <strong>Mac 新手入門 12 個必學設定</strong>。只要花 10 分鐘跟著底下的步驟調整，保證你的 MacBook 順手度大幅提升，工作效率直接翻倍！</p>
-
-            <h2>一、Mac 新手入門 12 個必學設定實操指南</h2>
-
-            <h3>1. 啟用軌跡板「輔助按鈕」（右鍵功能）</h3>
-            <p>Mac 的軌跡板預設是沒有「右鍵」點擊的，這對 Windows 轉過來的用戶極度不習慣。其實只要開啟輔助按鈕，就能找回熟悉的右鍵菜單。</p>
-            <div class="step-box">
-                <p>實操步驟：</p>
-                點選左上角「蘋果 」選單 &gt;「系統設定」 &gt;「軌跡板」 &gt; 在「點按」標籤頁中，將「輔助按鈕」改為<span class="highlight">「在右下角點按」</span>或<span class="highlight">「用兩指點按」</span>（推薦兩指，最為直覺）。
+            <div class="meta-info">
+                <span>發表時間：2024-11-20</span> | 
+                <span>作者：雅寶論壇資深編輯 (SEO 專欄)</span> | 
+                <span>閱讀時間：約 8 分鐘</span>
             </div>
 
-            <h3>2. 開啟「點一下來選取」</h3>
-            <p>預設情況下，Mac 的軌跡板需要「用力按壓下去」才算點擊，用久了手指很容易疲勞。開啟此功能後，只需輕觸軌跡板表面即可完成點按。</p>
-            <div class="step-box">
-                <p>實操步驟：</p>
-                進入「系統設定」 &gt;「軌跡板」 &gt; 在「點按」標籤下，勾選<span class="highlight">「點一下來選取」</span>。
+            <div class="intro">
+                剛從 Windows 陣營跳槽到 macOS 系統，看著精緻的畫面卻不知道從何下手？為什麼按右鍵沒反應？為什麼拖移視窗這麼吃力？別慌！身為 20 年的資深 Mac 玩家，今天這篇文章將為大家整理出 <strong>Mac 新手入門 12 個必學設定</strong>。只要花 10 分鐘跟著步驟調整，保證讓你的 MacBook 變得跟手腳一樣靈活，生產力直接飆升！
             </div>
 
-            <h3>3. 調整「滾動方向」為習慣模式</h3>
-            <p>Mac 預設的「自然滾動」與 Windows 的滾輪邏輯相反（Mac 模擬滑動手機螢幕，Windows 則是模擬拉動滾動條）。如果你有外接滑鼠，建議關閉此項。現行系統若要個別分開設定滑鼠與軌跡板，可在此處調整。</p>
+            <h2>為什麼 Mac 買來一定要先調整設定？</h2>
+            <p>
+                Apple 的 macOS 系統設計邏輯非常著重於「極簡」與「直覺」，但也因為如此，許多非常強大、好用的功能在預設情況下是被「關閉」或「隱藏」的。特別是對於習慣了 Windows 檔案總管與快捷鍵邏輯的新手來說，若不先進行優化，很容易覺得 Mac「很難用」。以下這 12 個設定，就是幫你打通 Windows 與 macOS 雙系統任督二脈的關鍵！
+            </p>
+
+            <h2>Mac 新手入門 12 個必學設定實操指南</h2>
+
+            <!-- 設定 1 -->
+            <h3>1. 啟用觸控板「輔助按鈕」（就是右鍵！）</h3>
+            <p>
+                剛拿到 Mac 的人最崩潰的就是：為什麼按觸控板右側沒有右鍵選單？預設必須要用兩隻手指點按才行。其實你可以改成跟 Windows 一樣的右下角點按。
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                進入「系統設定」 &gt;「軌跡板」 &gt; 切換到「捲動與縮放」標籤 &gt; 將<span class="highlight">「自然捲動」</span>關閉（若想維持 Windows 習慣）。
+                <strong>設定步驟：</strong><br>
+                點選左上角「蘋果 」選單 ➔「系統設定」 ➔ 「觸控板」 ➔ 在「點按」標籤頁中，找到「輔助按鈕」，將其下拉選單改為<strong>「按壓右下角」</strong>（或保留兩指點按，依個人習慣）。
             </div>
 
-            <h3>4. 開啟「三指拖移」功能（隱藏的神級設定）</h3>
-            <p>這是 Mac 最強大的隱藏功能之一！開啟後，你不需要按住軌跡板，只要用「三隻手指」輕放，就能直接拖曳視窗或選取文字，極度省力。</p>
+            <!-- 設定 2 -->
+            <h3>2. 開啟「輕點來按一下」</h3>
+            <p>
+                預設的 Mac 觸控板需要實體「按壓」下去才有反應，用久了手指容易疲勞。開啟這個功能後，你只需要像滑手機一樣「輕輕碰觸」就能完成點擊。
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                進入「系統設定」 &gt;「輔助使用」 &gt;「指標控制」 &gt; 點擊「軌跡板選項」 &gt; 啟用「使用軌跡板進行拖移」，並將拖移樣式改為<span class="highlight">「三指拖移」</span>。
+                <strong>設定步驟：</strong><br>
+                「系統設定」 ➔ 「觸控板」 ➔ 「點按」 ➔ 將<strong>「輕點來按一下」</strong>功能勾選開啟。
             </div>
 
-            <h3>5. Finder 顯示檔案「副檔名」與「路徑列」</h3>
-            <p>Mac 的 Finder（相當於 Windows 的檔案總管）預設不顯示副檔名（如 .jpg, .docx）與檔案所在的路徑，這對檔案管理非常不便。</p>
+            <!-- 設定 3 -->
+            <h3>3. 解鎖隱藏神技：「三指拖移」</h3>
+            <p>
+                這是許多 Mac 老手一致認為最不可或缺的功能！預設要拖曳視窗或選取文字，必須用力按住觸控板再移動。開啟「三指拖移」後，你只要用三隻手指輕放在觸控板上，就能直接拖曳視窗、選取檔案或文字，極度省力！
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                開啟 Finder &gt; 點擊上方選單列的「Finder」 &gt;「設定」 &gt; 在「進階」中勾選<span class="highlight">「顯示所有副檔名」</span>。接著在 Finder 視窗中，點擊上方選單列「顯示方式」 &gt; 選擇<span class="highlight">「顯示路徑列」</span>與<span class="highlight">「顯示狀態列」</span>。
+                <strong>設定步驟：</strong><br>
+                「系統設定」 ➔ 「輔助使用」 ➔ 「指標控制」 ➔ 點選「觸控板選項」 ➔ 開啟「使用觸控板進行拖移」，並將拖移風格下拉選單選擇<strong>「三指拖移」</strong>。
             </div>
 
-            <h3>6. 自動隱藏與優化 Dock 列</h3>
-            <p>螢幕空間寸土寸金，下方的 Dock 工具列一直佔著空間很礙眼。我們可以設定讓它在滑鼠靠近時才顯示，並精簡不常用的 App。</p>
+            <!-- 設定 4 -->
+            <h3>4. 設定「熱角 (Hot Corners)」快速啟動</h3>
+            <p>
+                熱角功能可以讓你把滑鼠游標移到螢幕的「四個角落」時，瞬間觸發特定動作（例如：鎖定螢幕、顯示桌面、啟動螢幕保護程式）。
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                進入「系統設定」 &gt;「桌面與 Dock」 &gt; 啟用<span class="highlight">「自動隱藏和顯示 Dock」</span>。此外，建議將「在 Dock 中顯示最近使用的應用程式」關閉，讓 Dock 保持乾淨。
+                <strong>設定步驟：</strong><br>
+                「系統設定」 ➔ 「桌面與 Dock」 ➔ 滑到最下方點選<strong>「熱角...」</strong> ➔ 為螢幕四個角指定功能（推薦：右下角設為「桌面」，右上角設為「鎖定螢幕」）。
             </div>
 
-            <h3>7. 設定「熱點」（Hot Corners）快速啟動</h3>
-            <p>熱點功能可以讓你把滑鼠游標移到螢幕的四個角落時，自動觸發特定動作（例如：鎖定螢幕、顯示桌面、啟動螢幕保護程式）。</p>
+            <!-- 設定 5 -->
+            <h3>5. 顯示 Finder（檔案總管）的「路徑列」與「狀態列」</h3>
+            <p>
+                Mac 的 Finder 預設非常乾淨，但這會讓你找不到檔案具體存在哪個資料夾，也看不到硬碟還剩多少容量。開啟這兩個設定，資訊一目了然！
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                進入「系統設定」 &gt;「桌面與 Dock」 &gt; 滾動到最下方點擊<span class="highlight">「熱點」</span> &gt; 為四個角設定你想要的快捷功能（例如：右下角設為「桌面」）。
+                <strong>設定步驟：</strong><br>
+                打開任意 Finder 視窗 ➔ 點選頂部選單列的「顯示方式」 ➔ 點選<strong>「顯示路徑列」</strong>與<strong>「顯示狀態列」</strong>。
             </div>
 
-            <h3>8. 優化輸入法切換快捷鍵</h3>
-            <p>Windows 切換中英文通常是按 Shift 或 Ctrl+Space。Mac 預設是按 Caps Lock（中/英鍵）或 Control+Space。建議熟悉 Caps Lock 切換，或自訂最順手的按鍵。</p>
+            <!-- 設定 6 -->
+            <h3>6. 修改預設瀏覽器與搜尋引擎</h3>
+            <p>
+                如果你習慣使用 Google Chrome，可以將其設為預設瀏覽器，這樣點擊郵件或訊息中的連結時，就會自動用 Chrome 開啟。
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                進入「系統設定」 &gt;「鍵盤」 &gt; 點擊「鍵盤快速鍵」 &gt;「輸入來源」 &gt; 在這裡可以自訂你習慣的切換組合鍵。
+                <strong>設定步驟：</strong><br>
+                「系統設定」 ➔ 「桌面與 Dock」 ➔ 找到<strong>「預設網頁瀏覽器」</strong> ➔ 下拉選擇你下載好的 Chrome 或其他瀏覽器。
             </div>
 
-            <h3>9. 更改螢幕截圖的儲存位置</h3>
-            <p>Mac 的截圖功能非常強大（Shift + Command + 3 或 4），但預設會把所有截圖存在「桌面」，時間久了桌面會亂成一團。我們可以自訂一個專屬的「截圖資料夾」。</p>
+            <!-- 設定 7 -->
+            <h3>7. 調整「中英文輸入法」切換快捷鍵</h3>
+            <p>
+                Windows 切換中英文是按 <code>Shift</code> 或 <code>Ctrl+Space</code>。Mac 預設是按左下角的 <code>caps lock ⇪</code>（中/英鍵）。如果你不習慣，可以調整為傳統的 <code>Control + Space</code>。
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                按下快捷鍵 <span class="highlight">Shift + Command + 5</span> &gt; 點擊畫面上出現的「選項」 &gt; 在「儲存至」下方選擇「其他位置」，並指定到你建立好的「螢幕截圖」資料夾。
+                <strong>設定步驟：</strong><br>
+                「系統設定」 ➔ 「鍵盤」 ➔ 點選「鍵盤快速鍵...」 ➔ 選擇「輸入來源」 ➔ 自訂你習慣的切換組合；或者在鍵盤設定中勾選/取消<strong>「使用中/英鍵切換...」</strong>。
             </div>
 
-            <h3>10. 啟用「台前調度」（Stage Manager）</h3>
-            <p>這是 macOS 近期推出的超強視窗管理功能，特別適合螢幕較小的 MacBook，能幫你把雜亂的視窗自動分類整理在螢幕左側，專注於當前工作。</p>
+            <!-- 設定 8 -->
+            <h3>8. 自動隱藏 Dock 工具列（釋放螢幕空間）</h3>
+            <p>
+                Mac 下方的 Dock 欄很佔空間，尤其是 13 吋的 MacBook。將它設定為自動隱藏，當滑鼠移過去時才顯示，能讓你的工作畫面變得寬敞許多。
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                點擊螢幕右上角的「控制中心」圖示 &gt; 點擊<span class="highlight">「台前調度」</span>（Stage Manager）圖示即可快速開啟或關閉。
+                <strong>設定步驟：</strong><br>
+                「系統設定」 ➔ 「桌面與 Dock」 ➔ 勾選<strong>「自動隱藏和顯示 Dock」</strong>。
             </div>
 
-            <h3>11. 調整電池充電優化，延長壽命</h3>
-            <p>現代 MacBook 效能強大，但電池保養同樣重要。開啟最佳化電池充電，系統會學習你的日常充電模式，暫緩充電超過 80%，有效減緩電池老化。</p>
+            <!-- 設定 9 -->
+            <h3>9. 活用 Spotlight 萬能搜尋（最速啟動 App）</h3>
+            <p>
+                不要再慢慢去應用程式資料夾找軟體了！學會用 <code>Command (⌘) + Space</code> 喚醒 Spotlight，輸入軟體名稱（如 "Line"）按 Enter 就能秒開，它還能當計算機和匯率換算器使用。
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                進入「系統設定」 &gt;「電池」 &gt; 點擊「電池健康度」旁的「i」圖示 &gt; 開啟<span class="highlight">「最佳化電池充電」</span>。
+                <strong>操作方式：</strong><br>
+                隨時按下鍵盤上的 <strong><code>Command (⌘) + 空白鍵 (Space)</code></strong>，輸入你要找的檔案、App 或是計算式（例如：120*45）。
             </div>
 
-            <h3>12. 善用「Spotlight」與開啟「不允許未授權配件」</h3>
-            <p>Spotlight（Command + Space）不僅是搜尋檔案的工具，它還能當計算機、匯率換算器、App 啟動器。另外，為了資安考量，建議限制 USB 配件的自動連接。</p>
+            <!-- 設定 10 -->
+            <h3>10. 開啟「最佳化電池充電」延長電池壽命</h3>
+            <p>
+                MacBook 的電池很貴！開啟此功能後，Mac 會學習你的每日充電習慣，暫緩充電超過 80%，有效減緩電池老化速度。
+            </p>
             <div class="step-box">
-                <p>實操步驟：</p>
-                （資安設定）進入「系統設定」 &gt;「隱私權與安全性」 &gt; 尋找「允許配件連接」 &gt; 設定為<span class="highlight">「詢問新配件」</span>，防止陌生 USB 裝置暗中讀取資料。
+                <strong>設定步驟：</strong><br>
+                「系統設定」 ➔ 「電池」 ➔ 點選「電池健康度」旁的 <strong>「ℹ️」 按鈕</strong> ➔ 開啟<strong>「最佳化電池充電」</strong>。
             </div>
 
-            <h2>二、Windows vs. Mac 系統常用邏輯對比表</h2>
-            <p>剛從 Windows 轉換過來的用戶，最常卡關的就是系統邏輯與快捷鍵的對應。以下表格幫大家整理出最核心的差異，讓您快速上手：</p>
+            <!-- 設定 11 -->
+            <h3>11. 設定「專注模式」（勿擾模式）避免彈窗打擾</h3>
+            <p>
+                工作或開會時，最討厭右上角一直彈出 LINE 或郵件通知。設定專注模式可以一鍵安靜。
+            </p>
+            <div class="step-box">
+                <strong>設定步驟：</strong><br>
+                點選螢幕右上角的「控制中心」圖示（兩個膠囊圖案） ➔ 點選<strong>「專注模式」</strong> ➔ 選擇「勿擾模式」，或在「系統設定」➔「專注模式」中自訂允許通知的聯絡人與 App。
+            </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>功能 / 概念</th>
-                        <th>Windows 系統</th>
-                        <th>Mac 系統 (macOS)</th>
-                        <th>說明與建議</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>主要控制鍵</strong></td>
-                        <td>Ctrl</td>
-                        <td>Command (⌘)</td>
-                        <td>大部分 Ctrl 組合鍵在 Mac 上都直接換成 Command（如 ⌘+C 複製）。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>檔案總管</strong></td>
-                        <td>本機 / 檔案總管</td>
-                        <td>Finder (尋找子)</td>
-                        <td>Mac 的 Finder 是管理所有檔案的核心。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>視窗關閉</strong></td>
-                        <td>點擊右上角「X」直接結束程式</td>
-                        <td>點擊左上角「紅色按鈕」（僅關閉視窗）</td>
-                        <td>Mac 點紅色按鈕後，程式仍在背景執行。需按下 <span class="highlight">⌘ + Q</span> 才能完全退出。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>刪除檔案</strong></td>
-                        <td>Delete 鍵</td>
-                        <td>Command (⌘) + Delete</td>
-                        <td>單按 Delete 鍵在 Mac 上是沒有反應的，必須搭配 Command。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>全螢幕/視窗最大化</strong></td>
-                        <td>最大化按鈕</td>
-                        <td>左上角「綠色按鈕」</td>
-                        <td>點擊會進入獨立的全螢幕虛擬桌面。按住 Option 再點綠色按鈕則可鋪滿當前桌面。</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- 設定 12 -->
+            <h3>12. 啟用「接續互通相機」與「通用剪貼簿」</h3>
+            <p>
+                如果你同時擁有 iPhone，這絕對是神級功能。在 Mac 上複製文字，可以直接在 iPhone 上貼上；或者在 Mac 上寫文件時，直接調用 iPhone 相機拍照並即時插入文件中。
+            </p>
+            <div class="step-box">
+                <strong>設定步驟：</strong><br>
+                確保 Mac 與 iPhone 登入<strong>同一個 Apple ID</strong>，並同時開啟 <strong>Wi-Fi 與藍牙</strong>。系統會自動啟用「通用剪貼簿」與「接續互通」功能，無需額外設定。
+            </div>
 
-            <h2>三、常見問題 FAQ</h2>
+            <h2>Windows 與 macOS 常用功能與快捷鍵對照表</h2>
+            <p>為了讓剛從 Windows 轉過來的朋友能無痛過渡，小編特別整理了這張超實用的功能對應與快捷鍵轉換表：</p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>功能/操作</th>
+                            <th>Windows 系統</th>
+                            <th>macOS 系統</th>
+                            <th>新手注意事項</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>檔案總管 / 檔案管理</strong></td>
+                            <td>本機 / 檔案總管</td>
+                            <td>Finder (訪達)</td>
+                            <td>Mac 沒有 C 槽 D 槽的概念，皆以資料夾管理。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>複製</strong></td>
+                            <td>Ctrl + C</td>
+                            <td>Command (⌘) + C</td>
+                            <td>Mac 的 Command 鍵相當於 Windows 的 Ctrl。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>貼上</strong></td>
+                            <td>Ctrl + V</td>
+                            <td>Command (⌘) + V</td>
+                            <td>同上。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>剪切檔案（移動）</strong></td>
+                            <td>Ctrl + X</td>
+                            <td>Cmd + C ➔ Cmd + Option + V</td>
+                            <td>Mac 不能直接對檔案按 Cmd+X，必須在貼上時加上 Option。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>開啟檔案/資料夾</strong></td>
+                            <td>Enter (確定鍵)</td>
+                            <td>Command (⌘) + O 或 Cmd + ↓</td>
+                            <td>在 Mac 按 Enter 是<strong>「重新命名」</strong>檔案！</td>
+                        </tr>
+                        <tr>
+                            <td><strong>強制結束程式</strong></td>
+                            <td>Ctrl + Alt + Del</td>
+                            <td>Command (⌘) + Option + Esc</td>
+                            <td>當程式當掉、轉彩虹球時，用此組合鍵強制關閉。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>刪除檔案</strong></td>
+                            <td>Delete</td>
+                            <td>Command (⌘) + Delete</td>
+                            <td>單按 Delete 鍵在 Mac 上無反應。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- FAQ Section -->
             <div class="faq-section">
+                <h2 style="margin-top: 0; border: none;">💡 Mac 新手常見問題 FAQ</h2>
+                
                 <div class="faq-item">
-                    <div class="faq-question">Q1: 為什麼我的 Mac 按下紅色 X 之後，程式好像還在執行？</div>
-                    <div class="faq-answer">這是 macOS 的獨特設計。點擊左上角的紅點只是「關閉視窗」，程式依然在背景保持熱啟動狀態（Dock 下方會有小圓點）。如果想要徹底關閉程式，請使用快捷鍵 <strong>Command + Q</strong>。</div>
+                    <div class="faq-question">為什麼我的外接隨身碟/行動硬碟接上 Mac 只能看、不能寫入？</div>
+                    <div class="faq-answer">
+                        這是因為你的硬碟格式為 Windows 專用的 <strong>NTFS</strong> 格式，macOS 預設僅支援讀取、無法寫入。建議將硬碟格式化為 <strong>exFAT</strong> 格式（Windows 與 Mac 皆支援讀寫），或者在 Mac 上安裝第三方 NTFS 讀寫軟體（如 Paragon NTFS 或 Tuxera NTFS）。
+                    </div>
                 </div>
+
                 <div class="faq-item">
-                    <div class="faq-question">Q2: 外接非 Apple 滑鼠時，滾輪方向跟軌跡板相反怎麼辦？</div>
-                    <div class="faq-answer">macOS 預設會將滑鼠滾輪與軌跡板的「自然捲動」綁定。若想分開設定，建議下載免費開源小工具 <strong>「LinearMouse」</strong> 或 <strong>「Scroll Reverser」</strong>，即可完美解決滑鼠與軌跡板方向衝突的問題。</div>
+                    <div class="faq-question">Mac 需要安裝防毒軟體嗎？</div>
+                    <div class="faq-answer">
+                        一般情況下<strong>不需要</strong>。macOS 本身擁有非常嚴格的安全防護機制（如內建的 Gatekeeper 與 XProtect）。只要你不要亂點不明郵件連結、不下載盜版破解軟體（dmg 檔），光靠內建的安全機制就非常足夠了。
+                    </div>
                 </div>
+
                 <div class="faq-item">
-                    <div class="faq-question">Q3: Mac 有像 Windows 一樣的「剪下」功能嗎？</div>
-                    <div class="faq-answer">有的！Mac 的「剪下」邏輯稍微不同：先按 <strong>Command + C</strong> 複製檔案，接著到目的地按下 <strong>Command + Option + V</strong>（這相當於把檔案「移動」過來），即可達到剪下的效果。</div>
+                    <div class="faq-question">怎麼在 Mac 上進行螢幕截圖？</div>
+                    <div class="faq-answer">
+                        Mac 內建非常強大的截圖功能：
+                        <ul>
+                            <li><strong>全螢幕截圖：</strong> <code>Shift + Command (⌘) + 3</code></li>
+                            <li><strong>選取區域截圖：</strong> <code>Shift + Command (⌘) + 4</code></li>
+                            <li><strong>開啟截圖工具列（錄影/視窗截圖）：</strong> <code>Shift + Command (⌘) + 5</code></li>
+                        </ul>
+                    </div>
                 </div>
+
                 <div class="faq-item">
-                    <div class="faq-question">Q4: 新買的 Mac 需要安裝防毒軟體嗎？</div>
-                    <div class="faq-answer">一般用戶不需要。macOS 本身內建了強大的安全防護機制（如 XProtect 與 Gatekeeper）。只要不隨意關閉系統安全設定、不下載來路不明的盜版軟體，單純使用是非常安全的。</div>
+                    <div class="faq-question">Mac 關機需要每天做嗎？還是直接蓋上螢幕就好？</div>
+                    <div class="faq-answer">
+                        <strong>直接蓋上螢幕睡覺即可！</strong> Mac 的電源管理極其優秀，休眠時耗電量極低（一整晚大約只耗 1-2% 系統電量）。頻繁開關機反而會消耗更多啟動電量與硬碟壽命。建議大約 1-2 週重啟一次系統，清除快取即可。
+                    </div>
                 </div>
             </div>
 
-            <h2>結論</h2>
-            <p>萬事起頭難，剛從 Windows 轉到 Mac 的前一兩週可能會有些許不適應，但只要把上述的 <strong>12 個必學設定</strong> 調整完畢，並多加練習軌跡板的手勢，你會發現 Mac 的系統設計其實非常人性化且高效。希望這篇教學能幫助所有 Mac 新手快速度過陣痛期！</p>
-            <p>如果你在設定過程中遇到任何問題，歡迎在下方留言回覆，我們雅寶社區的熱心板友們都會為您解答！</p>
+            <!-- CTA Box -->
+            <div class="cta-box">
+                <h3>覺得這篇教學對你有幫助嗎？</h3>
+                <p>歡迎加入「雅寶社區 · 頂客論壇」，與數萬名 3C 愛好者一起討論 Mac 使用心得、軟體推薦與疑難解答！</p>
+                <a href="https://ahpal.com" class="cta-btn">點此進入論壇參與討論</a>
+            </div>
+
         </article>
     </div>
 
     <footer>
-        <p>© 2024 雅寶社區 · 頂客論壇 (AHPAL.COM) 版權所有。本站教學內容未經授權請勿任意轉載。</p>
+        <div class="container" style="margin: 0 auto; padding: 0 20px;">
+            <p>© 2024 <a href="https://ahpal.com">雅寶社區 · 頂客論壇 (AHPAL.COM)</a>. All Rights Reserved.</p>
+            <p>本站提供最即時的 3C 科技教學、軟體下載與生活科技資訊。歡迎分享本文，轉載請註明出處。</p>
+        </div>
     </footer>
-
-    <!-- 返回頂部按鈕 -->
-    <button id="backToTop" onclick="scrollToTop()" title="返回頂部">TOP</button>
-
-    <script>
-        // 監聽滾動事件，顯示或隱藏返回頂部按鈕
-        window.onscroll = function() { scrollFunction() };
-
-        function scrollFunction() {
-            var btn = document.getElementById("backToTop");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "flex";
-            } else {
-                btn.style.display = "none";
-            }
-        }
-
-        // 滾動至頂部函數
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-    </script>
 
 <style>
     #back-to-top {
@@ -415,9 +550,9 @@
         font-weight: bold;
         cursor: pointer;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: opacity 0.3s, transform 0.3s;
         opacity: 0.7;
         z-index: 999;
+        transition: opacity 0.3s, transform 0.3s;
     }
     #back-to-top:hover {
         opacity: 1;
@@ -425,7 +560,5 @@
         background: #003d66;
     }
 </style>
-<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
-
-<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p></body>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button><p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p></body>
 </html>

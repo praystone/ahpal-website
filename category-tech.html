@@ -7,25 +7,26 @@
     <meta name="description" content="手機、電腦、3C 產品教學與技巧 - 雅寶社區 · 頂客論壇">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXGG1VTGPB');
-    </script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
     <style>
         :root { --color-primary: #005A9C; --color-secondary: #00A86B; --color-bg: #F7F9FC; --color-card: #FFFFFF; --color-text: #1A202C; --color-text-light: #4A5568; --color-border: #E2E8F0; --shadow-card: 0 4px 12px rgba(0,0,0,0.06); --radius-card: 14px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; }
-        .site-header { background: var(--color-primary); color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }
-        .logo:hover { color: rgba(255,255,255,0.85); }
-        .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: white; border-bottom: 2px solid var(--color-secondary); }
-        .nav-links .game-link { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }
-        .nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
+        <header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
         .breadcrumb { max-width: 1200px; margin: 16px auto 0; padding: 0 24px; font-size: 14px; color: #718096; }
         .breadcrumb a { color: var(--color-primary); text-decoration: none; }
         .main-wrapper { max-width: 1200px; margin: 24px auto; padding: 0 24px; }
@@ -42,26 +43,54 @@
         .article-list li a:hover { color: var(--color-primary); }
         .back-link { display: inline-block; margin-top: 24px; color: var(--color-primary); text-decoration: none; font-weight: 500; }
         .back-link:hover { text-decoration: underline; }
-        .site-footer { background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
-        .footer-inner .copy { font-size: 13px; color: #718096; }
-        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }
-        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
+        <footer class="site-footer">
+    <div class="footer-inner">
+        <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
+        </div>
+    </div>
+</footer>
+        <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
     </style>
 </head>
 <body>
     <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
 
     <div class="breadcrumb"><a href="/">首頁</a> &gt; 💻 3C 科技教學</div>
 
@@ -69,7 +98,7 @@
         <div class="content-card">
             <h1 class="hero-title">💻 💻 3C 科技教學</h1>
             <p class="hero-sub">手機、電腦、3C 產品教學與技巧</p>
-            <p class="hero-desc">共 31 篇文章</p>
+            <p class="hero-desc">共 34 篇文章</p>
 
             <h2 class="section-title">📖 全部文章</h2>
             <ul class="article-list">
@@ -82,18 +111,21 @@
                 <li><a href="/tech/best-smartwatch-2026.html">2026 年智慧手錶推薦：健康管理與運動追蹤終極對比 – 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/best-tablets-2026-buying-guide.html">2026 年 5 款高 CP 值平板電腦推薦與選購指南：學生、上班族必看性價比之王 - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/best-wireless-earbuds-2026.html">2026 年最值得買的 5 款真無線藍牙耳機推薦！降噪、音質與高 CP 值首選 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/tech/chatgpt-advanced-tips.html">ChatGPT 進階使用技巧 10 招：從新手變身 AI 溝通大師的實戰指南 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/chrome-extensions-2026.html">2026 最實用 Chrome 擴充功能 10 款推薦：提升工作效率與 AI 協同必備神器 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/drone-buying-guide-2026.html">drone-buying-guide-2026</a></li>
                 <li><a href="/tech/earbuds-guide-2026.html">2026 藍牙耳機推薦：雅寶社區 · 頂客論壇 編輯嚴選｜真無線、降噪、運動耳機完整評測</a></li>
                 <li><a href="/tech/ev-charger-install-guide-2026.html">2026 電動車充電樁安裝全攻略：從申請到驗收必看指南 – 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/folding-phone-buying-guide-2026.html">2026 年摺疊手機選購指南：5 款最強摺疊螢幕手機評測 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/gaming-monitor-guide-2026.html">電競螢幕選購 2026 終極指南｜雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/tech/google-photos-backup-guide.html">【2026最新】Google 相簿無限備份教學：省下訂閱費！Pixel 舊機流與黑科技改機全攻略 - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
                 <li><a href="/tech/iphone-16-photo-tips.html">iPhone 16 拍照技巧 8 招 輕鬆變大師！2026 終極實測教學 - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/iphone-battery-tips.html">【2024神級秘笈】iPhone 電池壽命延長 10 招！內行人才知道的蘋果省電優化技巧 - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
                 <li><a href="/tech/laptop-buying-guide-2026.html">2026筆電選購指南：雅寶社區 · 頂客論壇完整攻略</a></li>
                 <li><a href="/tech/laptop-overheating-tips.html">筆電過熱發燙？有效散熱與保養方法，5招告別卡頓與風扇暴走 - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/line-backup-failed-fix.html">LINE備份失敗怎麼辦？2024最新解決方案與超詳細步驟教學（iOS/Android適用） | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/tech/mac-beginner-setup.html">【Mac 新手教學】剛換 Mac 必看！12 個超實用必學設定，效率直接翻倍！ - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
+                <li><a href="/tech/line-hidden-features.html">LINE 隱藏功能 15 個你絕對不知道！2024 終極實用秘笈，工作、生活效率翻倍｜雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/tech/mac-beginner-setup.html">【Mac 新手教學】剛從 Windows 轉過來？Mac 新手入門 12 個必學設定，效率直接翻倍！ - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/mechanical-keyboard-guide-2026.html">2026 機械鍵盤推薦終極指南｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/mobile-network-slow-fix.html">手機網路太慢怎麼辦？5 個優化技巧實測，網速瞬間翻倍！ | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/tech/nas-buying-guide-2026.html">2026 NAS 選購指南｜雅寶社區 · 頂客論壇 完整教學</a></li>
@@ -110,16 +142,40 @@
     </div>
 
     <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
-                <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
-            </div>
+    <div class="footer-inner">
+        <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
         </div>
-    </footer>
-
+    </div>
+</footer>
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
+    <p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
 </body>
 </html>

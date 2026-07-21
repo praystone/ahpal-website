@@ -120,14 +120,16 @@ class StateManager:
         self.save()
         print("   🔄 狀態已重置")
     
-    def get_summary(self):
-        """取得狀態摘要"""
-        total = len(self.state["files"])
-        return {
-            "total": total,
-            "last_build": self.state.get("last_build"),
-            "version": self.state.get("version", "1.0")
-        }
+def get_summary(self):
+    """取得狀態摘要"""
+    total = len(self.state["files"])
+    return {
+        "total": total,
+        "generated": total,
+        "failed": 0,
+        "last_build": self.state.get("last_build"),
+        "version": self.state.get("version", "1.0")
+    }
 
     def get_pending_articles(self, keywords_list):
         """取得待生成的文章清單（與原系統相容）"""

@@ -7,25 +7,26 @@
     <meta name="description" content="熱門遊戲攻略、密技與推薦 - 雅寶社區 · 頂客論壇">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXGG1VTGPB');
-    </script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
     <style>
         :root { --color-primary: #005A9C; --color-secondary: #00A86B; --color-bg: #F7F9FC; --color-card: #FFFFFF; --color-text: #1A202C; --color-text-light: #4A5568; --color-border: #E2E8F0; --shadow-card: 0 4px 12px rgba(0,0,0,0.06); --radius-card: 14px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; }
-        .site-header { background: var(--color-primary); color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }
-        .logo:hover { color: rgba(255,255,255,0.85); }
-        .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: white; border-bottom: 2px solid var(--color-secondary); }
-        .nav-links .game-link { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }
-        .nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
+        <header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
         .breadcrumb { max-width: 1200px; margin: 16px auto 0; padding: 0 24px; font-size: 14px; color: #718096; }
         .breadcrumb a { color: var(--color-primary); text-decoration: none; }
         .main-wrapper { max-width: 1200px; margin: 24px auto; padding: 0 24px; }
@@ -42,26 +43,54 @@
         .article-list li a:hover { color: var(--color-primary); }
         .back-link { display: inline-block; margin-top: 24px; color: var(--color-primary); text-decoration: none; font-weight: 500; }
         .back-link:hover { text-decoration: underline; }
-        .site-footer { background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
-        .footer-inner .copy { font-size: 13px; color: #718096; }
-        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }
-        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
+        <footer class="site-footer">
+    <div class="footer-inner">
+        <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
+        </div>
+    </div>
+</footer>
+        <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
     </style>
 </head>
 <body>
     <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
 
     <div class="breadcrumb"><a href="/">首頁</a> &gt; 🎮 遊戲攻略</div>
 
@@ -69,42 +98,93 @@
         <div class="content-card">
             <h1 class="hero-title">🎮 🎮 遊戲攻略</h1>
             <p class="hero-sub">熱門遊戲攻略、密技與推薦</p>
-            <p class="hero-desc">共 16 篇文章</p>
+            <p class="hero-desc">共 43 篇文章</p>
 
             <h2 class="section-title">📖 全部文章</h2>
             <ul class="article-list">
                 <li><a href="/game/2048.html">2048 - 數字合併挑戰 - 雅寶遊戲間</a></li>
-                <li><a href="/game/best-indie-games-2026.html">2026 最夯 5 款獨立遊戲推薦｜雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/game/best-rpg-2026.html">2026 年最佳 RPG 遊戲 Top 5 推薦 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/archery.html">弓箭手 - 精準射擊 - 雅寶遊戲間</a></li>
+                <li><a href="/game/best-indie-games-2026.html">2026 ?憭?5 甈曄蝡??脫?佗??窄蝷曉? 繚 ?恥隢?</a></li>
+                <li><a href="/game/best-rpg-2026.html">2026 撟湔?雿?RPG ? Top 5 ?刻 | ?窄蝷曉? 繚 ?恥隢?</a></li>
                 <li><a href="/game/best-switch-games-2026.html">【2026最新】2026 年 5 款最耐玩 Switch 遊戲推薦｜必買清單與終極選購指南 - 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/game/diablo4-season5-meta.html">【雅寶社區 · 頂客論壇】暗黑破壞神 IV 賽季 5 最強流派攻略：獄境大軍制霸指南與 T0 職業推薦</a></li>
+                <li><a href="/game/breakout.html">打磚塊 - 經典打磚塊遊戲 - 雅寶遊戲間</a></li>
+                <li><a href="/game/bubble-shooter.html">泡泡射擊 - 消消樂 - 雅寶遊戲間</a></li>
+                <li><a href="/game/clicker.html">點點樂 - 快速點擊挑戰 - 雅寶遊戲間</a></li>
+                <li><a href="/game/co-op-games-2026.html">2026 多人合作獨立遊戲推薦｜雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/color-memory.html">色彩記憶 - 顏色順序挑戰 - 雅寶遊戲間</a></li>
+                <li><a href="/game/colormatch.html">顏色配對 - 反應速度考驗 - 雅寶遊戲間</a></li>
+                <li><a href="/game/diablo4-season5-meta.html">??撖嗥冗? 繚 ?恥隢???暺憯? IV 鞈賢迤 5 ?撘瑟?瘣暹?伐???憭扯??園????T0 ?瑟平?刻</a></li>
+                <li><a href="/game/doodle-jump.html">塗鴉跳躍 - 向上冒險 - 雅寶遊戲間</a></li>
                 <li><a href="/game/elden-ring-dlc-boss-guide.html">2026《艾爾登法環》DLC全Boss攻略技巧：黃金樹幽影通關必看打法與配裝指南 - 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/game/free-shooter-games-2026.html">2026 年 5 款免費 PC 射擊遊戲推薦 · 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/flappy-bird.html">飛翔小鳥 - 極限反應 - 雅寶遊戲間</a></li>
+                <li><a href="/game/free-shooter-games-2026.html">2026 撟?5 甈曉?鞎?PC 撠???刻 繚 ?窄蝷曉? 繚 ?恥隢?</a></li>
                 <li><a href="/game/genshin-5-0-quest.html">【原神 5.0 隱藏任務全攻略】納塔新地圖必做！超詳細觸發條件、實操步驟與原石獎勵匯整 - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
                 <li><a href="/game/genshin-5-1-team-guide.html">【2026最新】原神 5.1 新角色配隊全攻略：希諾寧最強陣容推薦與實操指南 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/hangman.html">猜字遊戲 - 單字挑戰 - 雅寶遊戲間</a></li>
+                <li><a href="/game/index.html">雅寶遊戲間</a></li>
+                <li><a href="/game/jigsaw-puzzle.html">拼圖挑戰 - 完成圖片 - 雅寶遊戲間</a></li>
+                <li><a href="/game/math-quiz.html">數學速算 - 腦力激盪 - 雅寶遊戲間</a></li>
+                <li><a href="/game/memory.html">記憶翻牌 - 配對挑戰 - 雅寶遊戲間</a></li>
+                <li><a href="/game/minesweeper.html">踩地雷 - 經典推理遊戲 - 雅寶遊戲間</a></li>
                 <li><a href="/game/most-anticipated-games-2026.html">2026 年最期待 10 款遊戲大作發售日與亮點預測 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/game/pc-game-optimization-guide.html">遊戲畫面卡頓怎麼辦？PC 遊戲最佳化設定完全指南 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/pong.html">乒乓球 - 經典對戰 - 雅寶遊戲間</a></li>
                 <li><a href="/game/ps5-beginner-setup-guide.html">PS5 新手入門 12 個必知設定｜主機優化完全指南 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/roguelite-games-2026.html">10 款 Roguelite 獨立遊戲評比｜雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/shooting-range.html">射擊靶場 - 瞄準挑戰 - 雅寶遊戲間</a></li>
+                <li><a href="/game/simon-says.html">記憶節奏 - 跟著我唸 - 雅寶遊戲間</a></li>
+                <li><a href="/game/snake.html">貪吃蛇 - 經典街機遊戲 - 雅寶遊戲間</a></li>
+                <li><a href="/game/solitaire.html">接龍 - 經典紙牌遊戲 - 雅寶遊戲間</a></li>
                 <li><a href="/game/stardew-valley-money-guide.html">【2026 攻略】星露谷物語 新手賺錢攻略 10 招！從零開始的百萬富翁致富秘笈 - 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/game/top-10-mobile-games-2026.html">2026最熱門10款手機遊戲推薦！最新手遊排行榜與評測 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/game/zelda-echoes-of-wisdom-collectibles.html">薩爾達傳說 智慧的再現 全收集攻略 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/game/zelda-tears-of-the-kingdom-shrines.html">【薩爾達傳說 王國之淚】全 152 座神廟位置地圖與解謎攻略：天空與地表神廟全收錄！ - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
+                <li><a href="/game/steam-deck-guide-2026.html">Steam Deck 最佳設定指南 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/sudoku.html">數獨 - 邏輯推理挑戰 - 雅寶遊戲間</a></li>
+                <li><a href="/game/tetris.html">俄羅斯方塊 - 經典方塊遊戲 - 雅寶遊戲間</a></li>
+                <li><a href="/game/tic-tac-toe.html">井字遊戲 - 經典對戰 - 雅寶遊戲間</a></li>
+                <li><a href="/game/top-10-mobile-games-2026.html">2026 最夯 10 款手機遊戲推薦！年度神作排行、新手攻略與必玩清單全解析 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/upcoming-games-2026.html">2026下半年遊戲發售表完整攻略｜雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/game/wordsearch.html">文字搜尋 - 找單字挑戰 - 雅寶遊戲間</a></li>
+                <li><a href="/game/zelda-echoes-of-wisdom-collectibles.html">?拍?隤??箸?????冽???| ?窄蝷曉? 繚 ?恥隢?</a></li>
+                <li><a href="/game/zelda-tears-of-the-kingdom-shrines.html">【薩爾達傳說 王國之淚】全神廟攻略：152個神廟位置、通關解謎與地底對照全指南 | 雅寶社區 · 頂客論壇</a></li>
             </ul>
             <a href="/" class="back-link">← 返回首頁</a>
         </div>
     </div>
 
     <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
-                <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
-            </div>
+    <div class="footer-inner">
+        <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
         </div>
-    </footer>
-
+    </div>
+</footer>
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
+    <p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
 </body>
 </html>

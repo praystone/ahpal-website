@@ -5,6 +5,7 @@
 # 新增：選項 [A] 臨時強制使用 DeepSeek（尖峰時段也適用）
 #       選項 [B] 恢復自動切換模式
 #       已更新為重構版 v4.0（使用 src/main.py）
+#       修正：$PythonScript 路徑指向專案根目錄
 # ============================================================
 
 # ============================================================
@@ -45,8 +46,11 @@ if (-not $env:AHPAL_OUTPUT_DIR) {
 $OutputDir = $env:AHPAL_OUTPUT_DIR
 $BackupRoot = "C:\Users\User\ahpal-backup"
 
-# 腳本路徑（重構版）
-$PythonScript = Join-Path $ScriptDir "src\main.py"
+# ============================================================
+# 腳本路徑（重構版）- 已修正
+# ============================================================
+$ProjectRoot = Split-Path -Parent $ScriptDir  # scripts/ 的上一層 = 專案根目錄
+$PythonScript = Join-Path $ProjectRoot "src\main.py"
 $GameGeneratorScript = Join-Path $ScriptDir "generate-games.ps1"
 $BackupScript = Join-Path $ScriptDir "backup-system.ps1"
 $CheckScript = Join-Path $ScriptDir "check-articles.ps1"

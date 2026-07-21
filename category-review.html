@@ -7,25 +7,26 @@
     <meta name="description" content="免費軟體評測、工具推薦與教學 - 雅寶社區 · 頂客論壇">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXGG1VTGPB');
-    </script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
     <style>
         :root { --color-primary: #005A9C; --color-secondary: #00A86B; --color-bg: #F7F9FC; --color-card: #FFFFFF; --color-text: #1A202C; --color-text-light: #4A5568; --color-border: #E2E8F0; --shadow-card: 0 4px 12px rgba(0,0,0,0.06); --radius-card: 14px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; }
-        .site-header { background: var(--color-primary); color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }
-        .logo:hover { color: rgba(255,255,255,0.85); }
-        .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: white; border-bottom: 2px solid var(--color-secondary); }
-        .nav-links .game-link { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }
-        .nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
+        <header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
         .breadcrumb { max-width: 1200px; margin: 16px auto 0; padding: 0 24px; font-size: 14px; color: #718096; }
         .breadcrumb a { color: var(--color-primary); text-decoration: none; }
         .main-wrapper { max-width: 1200px; margin: 24px auto; padding: 0 24px; }
@@ -42,26 +43,54 @@
         .article-list li a:hover { color: var(--color-primary); }
         .back-link { display: inline-block; margin-top: 24px; color: var(--color-primary); text-decoration: none; font-weight: 500; }
         .back-link:hover { text-decoration: underline; }
-        .site-footer { background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
-        .footer-inner .copy { font-size: 13px; color: #718096; }
-        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }
-        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
+        <footer class="site-footer">
+    <div class="footer-inner">
+        <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
+        </div>
+    </div>
+</footer>
+        <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
     </style>
 </head>
 <body>
     <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
 
     <div class="breadcrumb"><a href="/">首頁</a> &gt; 📊 軟體評測</div>
 
@@ -69,12 +98,13 @@
         <div class="content-card">
             <h1 class="hero-title">📊 📊 軟體評測</h1>
             <p class="hero-sub">免費軟體評測、工具推薦與教學</p>
-            <p class="hero-desc">共 36 篇文章</p>
+            <p class="hero-desc">共 40 篇文章</p>
 
             <h2 class="section-title">📖 全部文章</h2>
             <ul class="article-list">
                 <li><a href="/review/ai-art-generator-review-2026.html">2026 最新 AI 繪圖軟體評測：雅寶社區 · 頂客論壇實測比較</a></li>
                 <li><a href="/review/ai-image-tools-comparison-2026.html">2026 線上 AI 繪圖工具終極比較：Midjourney vs DALL-E 3 vs Stable Diffusion 評測與實操教學 | 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
+                <li><a href="/review/ai-presentation-tools-2026.html">2026 最新 AI 簡報生成工具評測｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/ai-presentation-tools-review-2026.html">2026 年 AI 簡報工具評測：5 款讓簡報製作效率翻倍的軟體 – 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/ai-video-editor-review-2026.html">2026 年 AI 影片剪輯軟體評測：5 款新手與專業必備工具對比｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/ai-writing-tools-comparison-2026.html">2026 年 5 款最強 AI 寫作工具評測與實測對比：終極挑選指南 - 雅寶社區 · 頂客論壇</a></li>
@@ -93,12 +123,15 @@
                 <li><a href="/review/chatgpt-advanced-tips.html">【2026 終極指南】ChatGPT 進階技巧 10 招，讓你的工作效率瞬間翻倍！ - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/cloud-storage-comparison-2026.html">2026 年雲端硬碟終極對比：Google Drive vs iCloud vs Dropbox vs OneDrive | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/file-sync-tools-2026.html">雅寶社區 · 頂客論壇｜2026 檔案同步工具推薦：實測對比、步驟教學與常見問題</a></li>
+                <li><a href="/review/free-photo-editor-2026.html">2026 免費圖片編輯軟體推薦｜雅寶社區 · 頂客論壇 實測評比</a></li>
                 <li><a href="/review/free-video-editor-2026.html">免費剪片軟體推薦 2026：5 款新手必學！無痛上手短影音與專業剪輯 - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/free-vpn-review-2026.html">5 款免費 VPN 評測 2026：哪款最快最安全？資深版主實測推薦 - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/music-streaming-comparison-2026.html">2026 音樂串流平台比較：Spotify vs Apple Music vs KKBOX vs YouTube Music 完整實測｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/note-app-comparison-2026.html">2026 最強筆記軟體對決：Notion vs Obsidian vs Evernote 深度評測 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/review/note-apps-comparison-2026.html">跨平台筆記軟體終極對決 · 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/note-taking-apps-2026.html">2026筆記軟體推薦終極指南｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/notion-beginner-guide.html">【Notion 新手教學】2026 必學 10 招超實用技巧，工作效率瞬間翻倍！ - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/review/open-source-crm-2026.html">2026 開源 CRM 系統推薦｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/open-source-software-2026.html">2026 開源軟體推薦終極指南｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/password-manager-2026.html">密碼管理軟體推薦 2026 實戰評測｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/review/pdf-editor-2026.html">2026 最新 PDF 編輯軟體推薦：免費付費完整評比｜雅寶社區 · 頂客論壇</a></li>
@@ -115,16 +148,40 @@
     </div>
 
     <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
-                <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
-            </div>
+    <div class="footer-inner">
+        <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
         </div>
-    </footer>
-
+    </div>
+</footer>
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
+    <p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
 </body>
 </html>

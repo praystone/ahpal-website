@@ -7,25 +7,26 @@
     <meta name="description" content="居家、收納、清潔、省錢生活智慧 - 雅寶社區 · 頂客論壇">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXGG1VTGPB');
-    </script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
     <style>
         :root { --color-primary: #005A9C; --color-secondary: #00A86B; --color-bg: #F7F9FC; --color-card: #FFFFFF; --color-text: #1A202C; --color-text-light: #4A5568; --color-border: #E2E8F0; --shadow-card: 0 4px 12px rgba(0,0,0,0.06); --radius-card: 14px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; }
-        .site-header { background: var(--color-primary); color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }
-        .logo:hover { color: rgba(255,255,255,0.85); }
-        .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: white; border-bottom: 2px solid var(--color-secondary); }
-        .nav-links .game-link { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }
-        .nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
+        <header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
         .breadcrumb { max-width: 1200px; margin: 16px auto 0; padding: 0 24px; font-size: 14px; color: #718096; }
         .breadcrumb a { color: var(--color-primary); text-decoration: none; }
         .main-wrapper { max-width: 1200px; margin: 24px auto; padding: 0 24px; }
@@ -42,26 +43,54 @@
         .article-list li a:hover { color: var(--color-primary); }
         .back-link { display: inline-block; margin-top: 24px; color: var(--color-primary); text-decoration: none; font-weight: 500; }
         .back-link:hover { text-decoration: underline; }
-        .site-footer { background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
-        .footer-inner .copy { font-size: 13px; color: #718096; }
-        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: opacity 0.3s, transform 0.3s; }
-        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
+        <footer class="site-footer">
+    <div class="footer-inner">
+        <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
+        </div>
+    </div>
+</footer>
+        <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
     </style>
 </head>
 <body>
     <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
-            <nav class="nav-links">
-                <a href="/">首頁</a>
-                <a href="/memorial.html">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html">公義史錄</a>
-                <a href="/categories.html">📚 全部分類</a>
-                <a href="/game/" class="game-link">🎮 遊戲間</a>
-            </nav>
-        </div>
-    </header>
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
 
     <div class="breadcrumb"><a href="/">首頁</a> &gt; 🏠 生活小常識</div>
 
@@ -69,22 +98,29 @@
         <div class="content-card">
             <h1 class="hero-title">🏠 🏠 生活小常識</h1>
             <p class="hero-sub">居家、收納、清潔、省錢生活智慧</p>
-            <p class="hero-desc">共 27 篇文章</p>
+            <p class="hero-desc">共 41 篇文章</p>
 
             <h2 class="section-title">📖 全部文章</h2>
             <ul class="article-list">
                 <li><a href="/life/air-purifier-guide-2026.html">空氣清淨機推薦 2026 實測指南｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/balcony-gardening-2026.html">陽台種菜入門全攻略｜雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life/clothes-stain-removal-tips.html">【生活小常識】衣服去漬 8 招超實用！醬油、原子筆、黃斑一網打盡 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/balcony-gardening-guide-2026.html">陽台植栽入門指南 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/clothes-stain-removal-tips.html">衣服去漬 8 招超實用！醬油、原子筆、黃漬一網打盡，生活必學去汙指南 - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
                 <li><a href="/life/clothing-storage-tips-2026.html">衣物收納技巧大公開：雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/co-owned-property-dispute-split.html">房屋共有持分糾紛怎麼辦？專家詳解「分割 3 種方式」與實操步驟，徹底解決產權難題！ | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/condo-management-fee-dispute.html">公寓大廈管理費糾紛住戶該怎麼辦？資深版主親授：3大實操步驟與法律自保指南 | 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
                 <li><a href="/life/dehumidifier-guide-2026.html">2026 除濕機選購指南：雅寶社區 · 頂客論壇 實測推薦</a></li>
                 <li><a href="/life/energy-saving-tips-2026.html">2026 年省電秘訣 10 招：電費帳單輕鬆省一半｜雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life/fridge-organization-tips.html">冰箱收納 7 秘訣 省電又保鮮！主婦必學的超強冰箱整理術 | 雅寶社區 · 頂客論壇</a></li>
-                <li><a href="/life/home-feng-shui-tips.html">2026 居家風水 10 大禁忌！避開這些地雷讓你越住越順 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/fridge-organization-guide-2026.html">冰箱收納與管理技巧 | 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/fridge-organization-tips.html">冰箱收納 7 秘訣！省電又保鮮的實用整理術，告別冰箱黑洞｜雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/haunted-house-dispute-resolution.html">買到凶宅怎麼辦？【凶宅交易糾紛 買方可以解約嗎】律師親授3大自救步驟與解約條件 - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
+                <li><a href="/life/home-feng-shui-tips.html">居家風水 10 大禁忌：避開這些煞氣，讓你越住越順！ | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/home-office-setup-guide.html">打造高效工作空間：居家辦公室佈置 8 大法則 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/home-organization-tips-2026.html">2026 年居家收納術：10 個讓你瞬間變整齊的實用技巧 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/home-safety-checklist-2026.html">居家安全檢查全攻略｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/home-security-guide-2026.html">2026 年居家安全系統選購指南：智慧防護與監控完全解析 – 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/house-area-shortage-compensation.html">買房驚見「坪數縮水」怎麼辦？房屋買賣面積短少求償 5 步驟，房產專家與律師教你如何討回公道！ - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
+                <li><a href="/life/house-leakage-liability-guide.html">房屋漏水責任歸屬 3 種情況一次看懂！超實用修繕與法律求償指南 - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/household-apps-2026.html">家事管理 APP 推薦｜雅寶社區 · 頂客論壇｜2026 最新實測比較</a></li>
                 <li><a href="/life/indoor-plants-deco-guide-2026.html">2026 年植栽居家擺設指南：10 種好養又美觀的室內植物推薦 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/kids-home-activities-2026.html">親子居家活動推薦｜雅寶社區 · 頂客論壇</a></li>
@@ -95,27 +131,58 @@
                 <li><a href="/life/money-saving-tips-2026.html">2026最新！省錢妙招10招：無痛一年多存5萬元，小資族、頂客族必看理財攻略 - 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/morning-routine-tips.html">每天 30 分鐘高效率晨間儀式：成功人士的早晨習慣，開啟高效人生 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/moving-packing-tips-2026.html">搬家打包技巧終極指南 · 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/neighbor-noise-complaint-legal.html">鄰居噪音擾民怎麼辦？4 種法律救濟管道與最強蒐證實操指南 - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
+                <li><a href="/life/penghu-fireworks-festival-guide.html">【2026澎湖花火節攻略】台灣離島旅遊首選！時間、機票、船票、秘境觀賞點與行程規劃全指南 | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/pet-supplies-guide-2026.html">寵物用品推薦 2026 實操指南｜雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/pre-sale-house-contract-dispute.html">【買房必看】預售屋合約糾紛頻傳？專家傳授「自保 6 招」避開買房陷阱！ - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
+                <li><a href="/life/real-estate-dispute-traps.html">買賣房屋糾紛 5 大常見陷阱！專家教你如何避坑、自保與維權全攻略 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/rental-deposit-dispute-rights.html">租屋押金拿不回？房客必知 7 項權益與自保步驟，拒當租屋冤大頭！ | 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/robot-vacuum-buying-guide-2026.html">2026 年掃地機器人選購指南：5 款最強掃拖旗艦對比 – 雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/robot-vacuum-guide-2026.html">掃地機器人選購終極指南｜雅寶社區 · 頂客論壇</a></li>
                 <li><a href="/life/second-hand-platforms-2026.html">二手物品買賣平台推薦與實戰指南 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/seller-conceal-defects-liability.html">賣房隱瞞瑕疵怎麼辦？賣方法律責任與自保條款一次看懂！ - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
                 <li><a href="/life/smart-home-guide-2026.html">2026 年居家智慧裝置選購指南｜打造你的智慧家庭 - 雅寶社區 · 頂客論壇</a></li>
+                <li><a href="/life/taichung-mrt-travel-2026.html">2026台中捷運一日遊》在地人推薦8條超強路線！免開車、不塞車，捷運沿線景點/美食/交通全攻略 - 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></li>
             </ul>
             <a href="/" class="back-link">← 返回首頁</a>
         </div>
     </div>
 
     <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
-            <div style="margin-top:6px;font-size:13px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
-                <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
-                <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
-            </div>
+    <div class="footer-inner">
+        <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div style="margin-top:6px;font-size:13px;">
+            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
+            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
+            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
         </div>
-    </footer>
-
+    </div>
+</footer>
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
+    <p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
 </body>
 </html>

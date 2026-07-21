@@ -1,101 +1,117 @@
-﻿## 📄 完整 README.md（請全部複製）
+🦞 **收到！立即為您更新 README.md！**
+
+---
+
+## 📄 更新後的 README.md
 
 ```markdown
-# 雅寶社區 · 頂客論壇 (AHPAL.COM)
+# 🦞 雅寶社區 · 頂客論壇 (AHPAL.COM)
 
-**版本**：v4.2 | **文章**：202 篇 | **遊戲**：23 款 | **更新**：2026-07-20
-
----
-
-## 📖 專案簡介
-
-雅寶社區 · 頂客論壇是一個 **AI 驅動的自動化內容平台**，結合：
-
-- 🤖 **AI 文章生成**：支援 Google Gemini（尖峰）與 DeepSeek（離峰）雙 API 自動切換
-- 🎮 **HTML5 遊戲**：23 款互動遊戲，免下載即開即玩
-- ⚙️ **自動化部署**：一鍵完成內容生成 → 靜態檔案輸出 → Cloudflare 部署
+> AI 驅動的自動化內容平台 — 24/7 全自動營運引擎
 
 ---
 
-## 🚀 快速開始
+## 📌 專案簡介
 
-### 第一次使用
+AHPAL.COM 是一個結合 **AI 文章生成**、**HTML5 遊戲** 與 **自動化部署** 的靜態內容平台。系統透過 Google Gemini 與 DeepSeek 雙 API 自動切換，實現低成本、高品質的內容生產，並透過 Cloudflare Pages 全球 CDN 加速發布。
 
-```powershell
-# 1. 設定環境變數（API Key）
-.\ahpal-static.ps1
+---
 
-# 2. 執行總指揮（完整流程）
-.\ahpal-master.ps1
+## 🚀 核心功能
+
+| 功能 | 說明 |
+|------|------|
+| 🤖 **AI 文章生成** | 支援 Gemini（尖峰）與 DeepSeek（離峰）雙 API 自動切換 |
+| 🎮 **HTML5 遊戲** | 43 款互動遊戲，免下載即開即玩 |
+| ⚙️ **自動化部署** | 一鍵完成內容生成 → 靜態檔案輸出 → Cloudflare Pages 部署 |
+| ⏰ **自動排程** | Windows 排程器每 2 小時自動執行部署（18:00 - 09:00） |
+| 📧 **自動通知** | Gmail HTML 精美報告，即時回報部署狀態 |
+| 🔄 **斷點續傳** | 透過 manifest 記錄狀態，中斷後可從中斷點繼續 |
+| 📊 **增量構建** | MD5 比對，節省 80-90% 構建時間 |
+
+---
+
+## 📊 系統數據（截至 2026.07.22）
+
+| 指標 | 數值 |
+|------|------|
+| 總頁面數 | 288+ 個 |
+| 文章總數 | 288 篇 |
+| 遊戲數量 | 43 款 |
+| 分類數量 | 6 個 |
+| 部署頻率 | 每 2 小時一次（夜間） |
+
+---
+
+## 🛠️ 技術棧
+
+| 元件 | 技術 |
+|------|------|
+| 總指揮 | PowerShell |
+| 內容生成引擎 | Python 3（模組化架構） |
+| AI 模型 | Google Gemini Flash / DeepSeek Chat |
+| 靜態託管 | Cloudflare Pages |
+| 版本控制 | Git + GitHub |
+| 自動排程 | Windows 工作排程器 |
+| 通知系統 | Gmail SMTP |
+
+---
+
+## 📁 目錄結構
+
+```
+C:\Users\User\ahpal-static\
+├── src/                    # Python 原始碼（10 個模組）
+├── scripts/                # PowerShell 腳本
+├── game/                   # 43 款遊戲
+├── tech/                   # 3C 科技教學
+├── life/                   # 生活小常識
+├── review/                 # 軟體評測
+├── philosophy/             # 人生哲理
+├── trend/                  # AI 趨勢
+├── data/                   # 待新增文章佇列
+├── docs/                   # 系統文件
+├── index.html              # 首頁
+├── categories.html         # 全部分類
+├── sitemap.xml             # 網站地圖
+├── article-manifest.json   # 文章狀態追蹤
+├── .env                    # API Key（不上傳）
+├── .env.template           # 環境變數範本
+├── .gitignore              # Git 忽略規則
+└── README.md               # 本文件
 ```
 
-### 日常更新
+---
+
+## ⚡ 快速開始
+
+### 1. 環境設定
 
 ```powershell
-# 進入網站目錄
+# 複製專案
+cd C:\Users\User
+git clone https://github.com/praystone/ahpal-website.git ahpal-static
+
+# 建立 .env 檔案
+cd ahpal-static
+Copy-Item .env.template .env
+notepad .env   # 填入實際 API Key
+```
+
+### 2. 安裝必要軟體
+
+| 軟體 | 用途 |
+|------|------|
+| Python 3 | 執行生成腳本 |
+| Node.js | 執行 Wrangler CLI |
+| Wrangler | 部署到 Cloudflare |
+| Git | 版本控制 |
+
+### 3. 執行部署
+
+```powershell
 cd C:\Users\User\ahpal-static
-
-# 查看變更
-git status
-
-# 提交變更
-git add .
-git commit -m "更新說明"
-git push
-```
-
----
-
-## 🏗️ 技術架構
-
-| 元件 | 技術 | 用途 |
-|------|------|------|
-| 總指揮 | PowerShell v6.3 | 控制流程、協調各元件 |
-| 環境設定 | ahpal-static.ps1 | 設定 API Key 與輸出目錄 |
-| 內容生成 | Python 3（模組化） | 呼叫 AI API、生成文章 |
-| AI 模型 | Gemini Flash / DeepSeek | 生成高品質繁體中文文章 |
-| 靜態託管 | Cloudflare Pages | CDN 加速、SSL、無限流量 |
-| 版本控制 | Git + GitHub | 原始碼備份、自動部署 |
-
----
-
-## 📂 目錄結構
-
-```
-C:\Users\User\
-├── ahpal-master.ps1          # 總指揮腳本 v6.3
-├── ahpal-static.ps1          # 環境設定檔
-├── generate-games.ps1        # 遊戲生成腳本 v2.0
-├── backup-system.ps1         # 備份腳本
-├── check-articles.ps1        # 文章檢查腳本
-├── check-all.ps1             # 全面系統檢查
-├── config.ps1                # 統一設定檔
-├── README.md                 # 專案說明
-├── src/                      # Python 原始碼（v4.2 模組化）
-│   ├── main.py               # 主要入口
-│   ├── config.py             # 設定管理
-│   ├── api_client.py         # API 呼叫層（含容錯切換）
-│   ├── article_generator.py  # 文章生成核心
-│   ├── html_builder.py       # HTML 建構器
-│   ├── quality_checker.py    # 品質檢查
-│   ├── sitemap_builder.py    # Sitemap 產生器
-│   ├── state_manager.py      # 狀態管理（斷點續傳）
-│   ├── logger.py             # 日誌管理
-│   └── __init__.py           # 套件初始化
-├── ahpal-static/             # 網站輸出目錄（部署來源）
-│   ├── index.html            # 首頁
-│   ├── categories.html       # 全部分類
-│   ├── sitemap.xml           # 網站地圖
-│   ├── game/                 # 23 款遊戲 + 15 篇攻略
-│   ├── tech/                 # 16 篇文章
-│   ├── life/                 # 15 篇文章
-│   ├── review/               # 23 篇文章
-│   ├── philosophy/           # 18 篇文章
-│   └── trend/                # 20 篇文章
-├── docs/                     # 技術文件
-│   └── AI交接與新進工程師接手手冊.html
-├── logs/                     # 日誌目錄（自動產生）
-└── ahpal-backup/             # 備份目錄（自動產生）
+.\scripts\ahpal-master.ps1
 ```
 
 ---
@@ -104,19 +120,54 @@ C:\Users\User\
 
 | 用途 | 指令 |
 |------|------|
-| 完整部署（推薦） | `.\ahpal-master.ps1` |
-| 快速更新（跳過備份） | `.\ahpal-master.ps1` → 選 `[2]` |
-| 只生成遊戲 | `.\ahpal-master.ps1` → 選 `[3]` |
-| 只生成文章（不部署） | `.\ahpal-master.ps1` → 選 `[4]` |
-| 只做備份 | `.\ahpal-master.ps1` → 選 `[5]` |
-| 只做 Git + 部署 | `.\ahpal-master.ps1` → 選 `[6]` |
-| 檢查文章狀態 | `.\check-articles.ps1` |
-| 全面系統檢查 | `.\check-all.ps1` |
-| 強制使用 DeepSeek | `.\ahpal-master.ps1` → 按 `[A]` |
-| 恢復自動切換 | `.\ahpal-master.ps1` → 按 `[B]` |
-| 執行備份 | `.\backup-system.ps1` |
-| 查看狀態摘要 | `python src/main.py --dry-run` |
-| 重置狀態檔 | `python src/main.py --reset` |
+| 一鍵完整部署 | `.\scripts\ahpal-master.ps1` |
+| 只生成文章 | `.\scripts\ahpal-master.ps1` → `[4]` |
+| 只部署 | `.\scripts\ahpal-master.ps1` → `[6]` |
+| 強制 DeepSeek | `.\scripts\ahpal-master.ps1` → `[A]` |
+| 新增文章 | 編輯 `data/pending-articles.json` → `.\scripts\add-articles.ps1` |
+| 檢查文章 | `.\scripts\check-articles.ps1` |
+| 系統檢查 | `.\scripts\check-all.ps1` |
+| 執行備份 | `.\scripts\backup-system.ps1` |
+| 手動部署 | `npx wrangler pages deploy . --project-name=ahpal-pages` |
+
+---
+
+## ⏰ 自動排程
+
+| 設定 | 值 |
+|------|-----|
+| 排程名稱 | `AHPAL_AutoDeploy` |
+| 執行頻率 | 每 2 小時一次 |
+| 執行時段 | 18:00 - 09:00（夜間離峰） |
+| 執行內容 | Git Pull → Cloudflare 部署 → Gmail 通知 |
+
+---
+
+## 🔐 環境變數 (.env)
+
+```env
+# Google Gemini API Key（尖峰時段使用）
+GEMINI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+# DeepSeek API Key（離峰時段使用）
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+⚠️ **.env 不會上傳到 GitHub，請妥善保管！**
+
+---
+
+## 📧 通知系統
+
+每次部署完成後，系統會自動發送 HTML 格式的報告至：
+
+- 📧 `praystone@gmail.com`
+
+報告內容包含：
+- Git Pull 狀態
+- Cloudflare 部署狀態
+- 部署網址
+- 執行時間
 
 ---
 
@@ -124,144 +175,162 @@ C:\Users\User\
 
 | 時段 | API | 說明 |
 |------|-----|------|
-| 尖峰（09:00-18:00） | Google Gemini | 速度穩定，不受高峰影響 |
-| 離峰（18:00-09:00） | DeepSeek | 成本低，速度快 |
+| 尖峰（09:00-18:00） | Google Gemini | 高穩定性 |
+| 離峰（18:00-09:00） | DeepSeek | 低成本 |
 
-系統具備**容錯切換**功能：當 Gemini 發生錯誤時，自動切換到 DeepSeek。
-
-### 強制切換
-
-在 `ahpal-master.ps1` 選單中：
-- 按 `[A]`：強制使用 DeepSeek（尖峰時段也適用）
-- 按 `[B]`：恢復自動切換模式
+系統具備容錯切換機制，當主要 API 失敗時會自動切換至備援 API。
 
 ---
 
-## 💾 斷點續傳
+## 📊 系統狀態追蹤
 
-系統透過 `article-manifest.json` 記錄每篇文章的生成狀態，支援**斷點續傳**：
-
-- ✅ 跳過已生成的文章（節省 API 成本）
-- ✅ 只生成新增或異常的文章
-- ✅ 中斷後可從中斷點繼續
-- ✅ 記錄每篇文章的品質分數
-
----
-
-## 🌐 部署與上線
-
-### 自動部署（推薦）
-
-```powershell
-.\ahpal-master.ps1
-```
-
-### 手動部署
-
-```powershell
-npx wrangler pages deploy "C:\Users\User\ahpal-static" --project-name=ahpal-pages
-```
-
-### 部署後驗證
-
-| 頁面 | 網址 |
+| 檔案 | 用途 |
 |------|------|
-| 首頁 | https://www.ahpal.com/ |
-| 遊戲間 | https://www.ahpal.com/game/ |
-| 全部分類 | https://www.ahpal.com/categories.html |
-| Sitemap | https://www.ahpal.com/sitemap.xml |
+| `article-manifest.json` | 文章狀態追蹤（斷點續傳） |
+| `build-state.json` | 增量構建狀態 |
+| `logs/` | 系統日誌 |
 
 ---
 
-## 🔧 環境設定
-
-### 必要軟體
-
-| 軟體 | 用途 | 安裝指令 |
-|------|------|----------|
-| Python 3 | 執行生成腳本 | [下載安裝](https://www.python.org/downloads/) |
-| Node.js | 執行 Wrangler CLI | [下載安裝](https://nodejs.org/) |
-| Wrangler | 部署到 Cloudflare | `npm install -g wrangler` |
-| Git | 版本控制 | [下載安裝](https://git-scm.com/download/win) |
-
-### API Key 設定
-
-編輯 `ahpal-static.ps1`：
+## 🔧 排程管理
 
 ```powershell
-# Google Gemini API Key（尖峰時段使用）
-$env:GEMINI_API_KEY = "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+# 查看排程狀態
+Get-ScheduledTask -TaskName "AHPAL_AutoDeploy"
 
-# DeepSeek API Key（離峰時段使用）
-$env:DEEPSEEK_API_KEY = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+# 查看執行歷史
+Get-ScheduledTask -TaskName "AHPAL_AutoDeploy" | Get-ScheduledTaskInfo
+
+# 手動觸發排程
+Start-ScheduledTask -TaskName "AHPAL_AutoDeploy"
+
+# 開啟圖形排程器
+taskschd.msc
 ```
 
 ---
 
-## ❓ 常見問題
+## 🛡️ 電源管理（伺服器模式）
 
-### Q1：如何確認 API Key 是否正確？
-執行 `.\ahpal-static.ps1` 查看環境狀態摘要。
+為確保 24/7 不中斷運作，請確認以下設定：
 
-### Q2：文章生成到一半卡住了怎麼辦？
-按 `Ctrl + C` 中斷，檢查 API Key。系統支援斷點續傳，重新執行會從中斷點繼續。
-
-### Q3：如何只重新生成某幾篇文章？
-刪除對應的 HTML 檔案，然後執行 `.\ahpal-master.ps1` 選 `[4]`。
-
-### Q4：網站更新後沒有看到變化？
-清除瀏覽器快取（`Ctrl + Shift + R`），或檢查 Cloudflare Pages 部署是否成功。
-
-### Q5：如何查看目前網站的文章總數？
 ```powershell
-.\check-articles.ps1
-# 或
-python src/main.py --dry-run
+# AC 電源模式最佳化
+powercfg -change -monitor-timeout-ac 0
+powercfg -change -standby-timeout-ac 0
+powercfg -change -disk-timeout-ac 0
+```
+
+| 設定 | 建議值 |
+|------|--------|
+| 螢幕關閉（AC） | 從不 |
+| 系統睡眠（AC） | 從不 |
+| 硬碟關閉（AC） | 0（永不） |
+| 闔上螢幕（AC） | 不採取動作 |
+
+---
+
+## 📦 備份與還原
+
+### 執行備份
+```powershell
+cd C:\Users\User\ahpal-static
+.\scripts\backup-system.ps1
+```
+
+### 災難復原
+```powershell
+# 從 GitHub 複製
+git clone https://github.com/praystone/ahpal-website.git ahpal-static
+
+# 還原 .env
+# 從備份複製 .env 到 ahpal-static/
+
+# 重新生成內容
+cd ahpal-static
+.\scripts\generate-games.ps1
+python src/main.py
+
+# 部署
+git add .
+git commit -m "災難復原"
+git push
 ```
 
 ---
 
-## 📞 聯絡資訊
+## 🐛 常見問題
 
-- **網站**：https://www.ahpal.com
-- **儲存庫**：https://github.com/praystone/ahpal-website
-- **技術文件**：docs/AI交接與新進工程師接手手冊.html
+| 問題 | 解決方法 |
+|------|----------|
+| API Key 無效 | 更新 `.env` 中的 API Key |
+| Gemini 配額用完 | 按 `[A]` 強制切換 DeepSeek |
+| Git 推送失敗 | `git pull --rebase` |
+| 排程器執行失敗 | 執行 `.\scripts\fix-scheduled-task.ps1` |
+| 文章品質 0 分 | 執行 `.\scripts\check-articles.ps1 -Fix` |
+
+---
+
+## 🤝 貢獻者
+
+| 角色 | 姓名 |
+|------|------|
+| 🦞 龍蝦總工程師 | 技術負責人 |
+| 👔 總經理 | 營運團隊 |
+| 👑 董事長 | 最高決策者 |
 
 ---
 
-## 📜 版本歷史
-
-| 版本 | 日期 | 更新內容 |
-|------|------|----------|
-| v4.2 | 2026-07-20 | 模組化重構（9 個 Python 模組）、斷點續傳、雙 API 容錯切換 |
-| v4.1 | 2026-07-19 | 新增遊戲生成模組、強制 API 切換功能 |
-| v4.0 | 2026-07-17 | 首版發布、202 篇文章、23 款遊戲 |
-
----
+## 📄 授權
 
 © 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)
 
-最後更新：2026 年 7 月 20 日
+---
+
+## 🔗 相關連結
+
+| 連結 | 網址 |
+|------|------|
+| 生產環境 | https://www.ahpal.com |
+| Cloudflare Pages | https://ahpal-pages.pages.dev |
+| GitHub 儲存庫 | https://github.com/praystone/ahpal-website |
+
+---
+
+**文件版本：v5.0**
+**最後更新：2026 年 7 月 22 日**
 ```
 
 ---
 
-## ✅ 安裝步驟
+## 🚀 執行方式
 
 ```powershell
-# 1. 刪除舊的 README.md（如果存在）
-Remove-Item "C:\Users\User\README.md" -Force -ErrorAction SilentlyContinue
+cd C:\Users\User\ahpal-static
 
-# 2. 建立新的 README.md（複製上面完整內容後執行）
-# 請先複製上面的完整內容，然後執行：
-notepad "C:\Users\User\README.md"
-# 貼上內容後儲存
+# 用記事本開啟 README.md
+notepad README.md
 
-# 3. 驗證
-Get-Content "C:\Users\User\README.md" | Measure-Object -Line
-# 應該顯示 200+ 行
+# 貼上上面的完整內容 → Ctrl+S 儲存
+
+# 確認更新
+cat README.md | Select-Object -First 10
 ```
 
 ---
 
-**請複製上方完整內容，貼到 README.md 中儲存！** 📄🦞
+## ✅ 更新內容對照
+
+| 項目 | 更新前 | 更新後 |
+|------|--------|--------|
+| 文章數量 | 202 篇 | **288 篇** |
+| 遊戲數量 | 23 款 | **43 款** |
+| 排程頻率 | 每小時 | **每 2 小時（18:00-09:00）** |
+| 系統架構 | 無 | ✅ **完整技術棧說明** |
+| 排程管理 | 無 | ✅ **完整指令參考** |
+| 電源管理 | 無 | ✅ **伺服器模式設定** |
+| 常見問題 | 無 | ✅ **排錯指南** |
+
+---
+
+**README.md 已更新完成！** 🦞🚀

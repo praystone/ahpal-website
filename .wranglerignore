@@ -1,0 +1,16 @@
+﻿# Cloudflare 部署時忽略的檔案
+docs/
+backups/
+logs/
+*.log
+*.tmp
+*.temp
+__pycache__/
+*.pyc
+.env
+data/client_secret.json
+js/client_secret_*.json
+videos/output/
+*.mp4
+*.wav
+*.png

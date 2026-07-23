@@ -15,8 +15,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="聯絡 AHPAL.COM — 一般聯絡、網站建議、合作洽談。ahpal.com 註冊於 2008 年，18 年歷史高權重域名。">
-    <title>聯絡我們 | AHPAL.COM</title>
+    <meta name="description" content="ahpal.com 域名出售 — 18 年歷史高權重域名，註冊於 2008 年，歡迎收購詢問。">
+    <title>域名出售 | ahpal.com | AHPAL.COM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -46,14 +46,24 @@
         .form-input:focus { border-color: #b89047; outline: none; box-shadow: 0 0 0 3px rgba(184, 144, 71, 0.1); }
         .footer-link { transition: color 0.3s ease; }
         .footer-link:hover { color: #b89047; }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .domain-badge {
+            background: linear-gradient(135deg, #8a1c14, #b89047);
+        }
+        .gold-shimmer {
+            background: linear-gradient(120deg, #fcfaf2 0%, #f6f0e0 50%, #fcfaf2 100%);
+            background-size: 200% 100%;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
     </style>
 </head>
 <body>
 
     <!-- ============================================================ -->
-    <!-- 頂部導覽列（與 domain-sale.html 一致） -->
+    <!-- 頂部導覽列 -->
     <!-- ============================================================ -->
     <nav class="sticky top-0 z-50 bg-wa-bg/95 backdrop-blur-md border-b border-wa-line shadow-sm">
         <div class="max-w-6xl mx-auto px-4 md:px-6 h-16 md:h-20 flex justify-between items-center">
@@ -65,8 +75,8 @@
                 <a href="/" class="hover:text-wa-red transition-colors">首頁</a>
                 <a href="/memorial.html" class="hover:text-wa-red transition-colors">歲月迴聲</a>
                 <a href="/royal_dragon_karma.html" class="hover:text-wa-red transition-colors">公義史錄</a>
-                <a href="/contact.html" class="text-wa-red font-medium border-b-2 border-wa-red pb-0.5">聯絡我們</a>
-                <a href="/domain-sale.html" class="hover:text-wa-red transition-colors">🏷️ 域名出售</a>
+                <a href="/contact.html" class="hover:text-wa-red transition-colors">聯絡我們</a>
+                <a href="/domain-sale.html" class="text-wa-red font-medium border-b-2 border-wa-red pb-0.5">🏷️ 域名出售</a>
             </div>
             <button id="mobile-menu-btn" class="md:hidden text-wa-ink focus:outline-none p-2 hover:bg-wa-line/30 rounded-lg transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -76,8 +86,8 @@
             <a href="/" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">首頁</a>
             <a href="/memorial.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">歲月迴聲</a>
             <a href="/royal_dragon_karma.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">公義史錄</a>
-            <a href="/contact.html" class="block py-2 text-wa-red font-medium">聯絡我們</a>
-            <a href="/domain-sale.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">🏷️ 域名出售</a>
+            <a href="/contact.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">聯絡我們</a>
+            <a href="/domain-sale.html" class="block py-2 text-wa-red font-medium">🏷️ 域名出售</a>
         </div>
     </nav>
 
@@ -90,15 +100,23 @@
     <!-- ============================================================ -->
     <!-- Hero 區塊 -->
     <!-- ============================================================ -->
-    <header class="relative overflow-hidden border-b border-wa-line">
+    <header class="relative overflow-hidden gold-shimmer border-b border-wa-line">
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none">
+            <svg class="w-full h-full" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#8a1c14" stroke-width="0.5" stroke-dasharray="2 2" />
+                <path d="M 50,5 A 45,45 0 0,0 5,50" fill="none" stroke="#b89047" stroke-width="0.5" />
+            </svg>
+        </div>
         <div class="max-w-5xl mx-auto px-6 py-16 md:py-20 text-center relative z-10">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 border border-wa-gold/30 rounded-full text-[10px] text-wa-gold tracking-widest uppercase bg-white/50 backdrop-blur-sm mb-6">
-                <span class="w-1.5 h-1.5 rounded-full bg-wa-gold animate-pulse"></span>
-                Get in Touch
+                <span class="w-1.5 h-1.5 rounded-full bg-wa-red animate-pulse"></span>
+                Premium Domain
             </div>
-            <h1 class="font-serif text-3xl md:text-5xl font-bold text-wa-ink tracking-tight">聯絡我們</h1>
+            <h1 class="font-serif text-3xl md:text-5xl font-bold text-wa-ink tracking-tight">
+                ahpal.com
+            </h1>
             <p class="text-wa-gray text-sm md:text-base max-w-2xl mx-auto mt-4 leading-relaxed">
-                網站建議、內容合作、問題回報或其他一般事項，歡迎透過表單與我們聯繫。
+                註冊於 <strong class="text-wa-red">2008 年</strong> · 持有 <strong class="text-wa-red">18 年</strong> 歷史 · 高搜尋引擎權重
             </p>
             <div class="flex flex-wrap justify-center gap-4 mt-6">
                 <span class="inline-flex items-center gap-1.5 text-[10px] text-wa-gray bg-white px-3 py-1.5 rounded-full border border-wa-line">
@@ -107,72 +125,118 @@
                 <span class="inline-flex items-center gap-1.5 text-[10px] text-wa-gray bg-white px-3 py-1.5 rounded-full border border-wa-line">
                     <span class="text-wa-gold">●</span> 18 年歷史域名
                 </span>
+                <span class="inline-flex items-center gap-1.5 text-[10px] text-wa-gray bg-white px-3 py-1.5 rounded-full border border-wa-line">
+                    <span class="text-wa-red">●</span> 高度搜尋引擎權重
+                </span>
             </div>
             <div class="w-16 h-0.5 bg-gradient-to-r from-wa-gold to-wa-red mx-auto mt-8"></div>
         </div>
     </header>
 
     <!-- ============================================================ -->
-    <!-- 主要內容：一般聯絡表單 -->
+    <!-- 主要內容 -->
     <!-- ============================================================ -->
     <main class="max-w-5xl mx-auto px-6 py-12">
-        <section class="mb-8">
-            <div class="flex items-center gap-3 mb-2">
-                <span class="text-2xl">✉️</span>
-                <h2 class="font-serif text-2xl font-bold text-wa-ink">一般聯絡</h2>
-            </div>
-            <p class="text-sm text-wa-gray mb-6 max-w-2xl">網站建議、內容合作、問題回報或其他一般事項，請填寫以下表單。</p>
 
-            <div class="card-hover bg-white border border-wa-line rounded-xl p-6 md:p-8 shadow-sm">
+        <!-- 域名資訊卡 -->
+        <div class="bg-gradient-to-r from-wa-bg to-white border-2 border-wa-gold/30 rounded-xl p-6 md:p-8 mb-10 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-3 flex-wrap">
+                        <span class="font-serif text-3xl font-bold text-wa-ink">ahpal.com</span>
+                        <span class="px-3 py-1 bg-wa-red/10 text-wa-red text-[10px] rounded-full font-medium">高權重</span>
+                        <span class="px-3 py-1 bg-wa-gold/10 text-wa-gold text-[10px] rounded-full font-medium">18 年</span>
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-[10px] rounded-full font-medium">✅ 可出售</span>
+                    </div>
+                    <p class="text-sm text-wa-gray mt-2">註冊於 2008 年 · 穩定持有 18 年 · 自然搜尋流量可觀 · 品牌識別度高</p>
+                </div>
+            </div>
+            <!-- 詳細規格 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-6 border-t border-wa-line text-xs">
+                <div>
+                    <p class="text-wa-gray/60">註冊年份</p>
+                    <p class="font-medium text-wa-ink">2008</p>
+                </div>
+                <div>
+                    <p class="text-wa-gray/60">持有年份</p>
+                    <p class="font-medium text-wa-ink">18 年</p>
+                </div>
+                <div>
+                    <p class="text-wa-gray/60">域名後綴</p>
+                    <p class="font-medium text-wa-ink">.com</p>
+                </div>
+                <div>
+                    <p class="text-wa-gray/60">移轉方式</p>
+                    <p class="font-medium text-wa-ink">第三方託管</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 收購表單 -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="text-2xl">📩</span>
+                <h2 class="font-serif text-2xl font-bold text-wa-ink">提出收購意向</h2>
+            </div>
+            <p class="text-sm text-wa-gray mb-6 max-w-2xl">
+                若您對 ahpal.com 域名感興趣，請填寫以下表單。我們將優先評估具有商業與法治教育願景的收購請求。
+            </p>
+
+            <div class="card-hover bg-white border-2 border-wa-gold/40 rounded-xl p-6 md:p-8 shadow-sm relative overflow-hidden">
+                <div class="absolute -top-0.5 -right-0.5 bg-wa-gold text-white text-[8px] tracking-widest uppercase px-4 py-1 rounded-bl-lg font-medium">
+                    ⭐ 優先處理
+                </div>
                 <form action="https://formspree.io/f/mojozqld" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="hidden" name="inquiry_type" value="general">
+                    <input type="hidden" name="inquiry_type" value="domain_acquisition">
                     <div class="md:col-span-1">
-                        <label class="block text-[10px] uppercase tracking-widest text-wa-gray mb-1 font-medium">姓名 <span class="text-wa-red">*</span></label>
+                        <label class="block text-[10px] uppercase tracking-widest text-wa-gray mb-1 font-medium">機構或姓名 <span class="text-wa-red">*</span></label>
                         <input type="text" name="name" required class="form-input w-full border border-wa-line rounded-lg px-4 py-3 text-sm bg-wa-bg/30 focus:bg-white transition-colors">
                     </div>
                     <div class="md:col-span-1">
-                        <label class="block text-[10px] uppercase tracking-widest text-wa-gray mb-1 font-medium">電子郵件 <span class="text-wa-red">*</span></label>
+                        <label class="block text-[10px] uppercase tracking-widest text-wa-gray mb-1 font-medium">聯絡郵件 <span class="text-wa-red">*</span></label>
                         <input type="email" name="email" required class="form-input w-full border border-wa-line rounded-lg px-4 py-3 text-sm bg-wa-bg/30 focus:bg-white transition-colors">
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] uppercase tracking-widest text-wa-gray mb-1 font-medium">主旨</label>
-                        <input type="text" name="subject" placeholder="例如：網站建議、合作洽談" class="form-input w-full border border-wa-line rounded-lg px-4 py-3 text-sm bg-wa-bg/30 focus:bg-white transition-colors">
+                        <label class="block text-[10px] uppercase tracking-widest text-wa-gray mb-1 font-medium">聯絡電話（選填）</label>
+                        <input type="tel" name="phone" placeholder="例如：0912-345-678" class="form-input w-full border border-wa-line rounded-lg px-4 py-3 text-sm bg-wa-bg/30 focus:bg-white transition-colors">
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] uppercase tracking-widest text-wa-gray mb-1 font-medium">訊息內容 <span class="text-wa-red">*</span></label>
-                        <textarea name="message" rows="4" required class="form-input w-full border border-wa-line rounded-lg px-4 py-3 text-sm bg-wa-bg/30 focus:bg-white transition-colors resize-none"></textarea>
+                        <label class="block text-[10px] uppercase tracking-widest text-wa-gray mb-1 font-medium">收購意向說明 <span class="text-wa-red">*</span></label>
+                        <textarea name="message" rows="5" required placeholder="請簡述您的收購用途、預算範圍、預計應用方向（如：品牌建立、投資、內容平台等）" class="form-input w-full border border-wa-line rounded-lg px-4 py-3 text-sm bg-wa-bg/30 focus:bg-white transition-colors resize-none"></textarea>
                     </div>
-                    <div class="md:col-span-2">
-                        <button type="submit" class="w-full md:w-auto px-10 py-3 bg-wa-ink text-white hover:bg-wa-red transition-colors text-xs tracking-widest uppercase rounded-lg font-medium">
-                            發送訊息
+                    <div class="md:col-span-2 flex flex-col sm:flex-row gap-3 items-center justify-between">
+                        <p class="text-[10px] text-wa-gray/70">所有詢問將於 3 個工作日內由專人回覆</p>
+                        <button type="submit" class="w-full sm:w-auto px-10 py-3 bg-wa-gold text-white hover:bg-wa-red transition-colors text-xs tracking-widest uppercase rounded-lg font-medium shadow-sm hover:shadow-md">
+                            📩 送出收購詢問
                         </button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- FAQ -->
-        <section class="mt-16 pt-12 border-t border-wa-line">
-            <div class="text-center mb-8 space-y-2">
-                <span class="text-xs tracking-widest text-wa-gold uppercase">FAQ</span>
-                <h3 class="font-serif text-xl font-bold text-wa-ink">常見問題</h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div class="bg-white p-5 rounded-lg border border-wa-line hover:border-wa-gold transition-colors">
-                    <p class="font-semibold text-wa-ink text-xs">Q：回覆需要多久時間？</p>
-                    <p class="text-wa-gray text-[11px] mt-1">A：我們會在 <strong class="text-wa-red">3 個工作日內</strong> 回覆您的所有詢問。</p>
+        <!-- 交易流程 -->
+        <section class="mt-12 pt-8 border-t border-wa-line">
+            <h3 class="font-serif text-xl font-bold text-wa-ink text-center mb-8">交易流程</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-white p-5 rounded-lg border border-wa-line">
+                    <span class="block text-2xl mb-2">📋</span>
+                    <p class="font-medium text-wa-ink text-sm">填寫表單</p>
+                    <p class="text-wa-gray text-xs">提出收購意向</p>
                 </div>
-                <div class="bg-white p-5 rounded-lg border border-wa-line hover:border-wa-gold transition-colors">
-                    <p class="font-semibold text-wa-ink text-xs">Q：是否接受內容合作？</p>
-                    <p class="text-wa-gray text-[11px] mt-1">A：歡迎！請透過一般聯絡表單提供您的合作提案，我們會仔細評估。</p>
+                <div class="bg-white p-5 rounded-lg border border-wa-line">
+                    <span class="block text-2xl mb-2">📊</span>
+                    <p class="font-medium text-wa-ink text-sm">初步評估</p>
+                    <p class="text-wa-gray text-xs">3 個工作日內回覆</p>
                 </div>
-                <div class="bg-white p-5 rounded-lg border border-wa-line hover:border-wa-gold transition-colors">
-                    <p class="font-semibold text-wa-ink text-xs">Q：你們是商業網站嗎？</p>
-                    <p class="text-wa-gray text-[11px] mt-1">A：本網站為個人非營利性質之知識整理與社群紀念平台。</p>
+                <div class="bg-white p-5 rounded-lg border border-wa-line">
+                    <span class="block text-2xl mb-2">🤝</span>
+                    <p class="font-medium text-wa-ink text-sm">價格協商</p>
+                    <p class="text-wa-gray text-xs">雙方溝通確認</p>
                 </div>
-                <div class="bg-white p-5 rounded-lg border border-wa-line hover:border-wa-gold transition-colors">
-                    <p class="font-semibold text-wa-ink text-xs">Q：域名收購要怎麼聯繫？</p>
-                    <p class="text-wa-gray text-[11px] mt-1">A：請前往 <a href="/domain-sale.html" class="text-wa-red hover:underline">🏷️ 域名出售</a> 頁面填寫表單。</p>
+                <div class="bg-white p-5 rounded-lg border border-wa-line">
+                    <span class="block text-2xl mb-2">🔒</span>
+                    <p class="font-medium text-wa-ink text-sm">簽約移轉</p>
+                    <p class="text-wa-gray text-xs">第三方託管完成</p>
                 </div>
             </div>
         </section>
@@ -183,10 +247,11 @@
                 返回首頁
             </a>
         </div>
+
     </main>
 
     <!-- ============================================================ -->
-    <!-- 頁尾（與 domain-sale.html 一致） -->
+    <!-- 頁尾 -->
     <!-- ============================================================ -->
     <footer class="bg-wa-ink text-[#d9d9d9] border-t border-wa-gold/20 mt-8">
         <div class="max-w-6xl mx-auto px-6 pt-12 pb-8">
@@ -201,7 +266,7 @@
                         <li><a href="/" class="footer-link">首頁</a></li>
                         <li><a href="/memorial.html" class="footer-link">歲月迴聲</a></li>
                         <li><a href="/royal_dragon_karma.html" class="footer-link">公義史錄</a></li>
-                        <li><a href="/contact.html" class="footer-link text-wa-gold">聯絡我們</a></li>
+                        <li><a href="/domain-sale.html" class="footer-link text-wa-gold">🏷️ 域名出售</a></li>
                     </ul>
                 </div>
                 <div>

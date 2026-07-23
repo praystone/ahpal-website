@@ -1,5 +1,5 @@
 # ============================================================
-# main.py - 主要入口模組（優化版）
+# main.py - 主要入口模組（優化版 + 10 篇新文章）
 # ============================================================
 
 import sys
@@ -56,12 +56,12 @@ def check_api_keys():
     return True, []
 
 # ============================================================
-# 關鍵字清單（所有文章來源）- 含 Q3 + Q4 新增 40 篇
+# 關鍵字清單（所有文章來源）- 含 Q3 + Q4 新增 40 篇 + 10 篇新文章
 # ============================================================
 
 keywords_list = [
     # ============================================================
-    # tech/ - 3C 科技教學（25 篇）
+    # tech/ - 3C 科技教學（30 篇）
     # ============================================================
     {"keyword": "摺疊手機購買指南 2026", "category": "💻 3C 科技教學", "filename": "tech/folding-phone-buying-guide-2026.html"},
     {"keyword": "5G 手機選購 2026", "category": "💻 3C 科技教學", "filename": "tech/5g-phone-guide-2026.html"},
@@ -89,9 +89,15 @@ keywords_list = [
     {"keyword": "智慧手錶健康監測功能比較", "category": "💻 3C 科技教學", "filename": "tech/smartwatch-health-comparison-2026.html"},
     {"keyword": "2026 真無線藍牙耳機推薦", "category": "💻 3C 科技教學", "filename": "tech/tws-earbuds-guide-2026.html"},
     {"keyword": "電競螢幕 2026 採購指南", "category": "💻 3C 科技教學", "filename": "tech/gaming-monitor-2026-guide.html"},
+    # 新增 5 篇
+    {"keyword": "Windows 11 省電設定完整教學 2026", "category": "💻 3C 科技教學", "filename": "tech/Windows11省電設定完整教學2026.html"},
+    {"keyword": "手機儲存空間不足怎麼清理", "category": "💻 3C 科技教學", "filename": "tech/手機儲存空間不足怎麼清理.html"},
+    {"keyword": "家用 Wi-Fi 訊號增強實用方法", "category": "💻 3C 科技教學", "filename": "tech/家用Wi-Fi訊號增強實用方法.html"},
+    {"keyword": "AI 手機選購指南 2026", "category": "💻 3C 科技教學", "filename": "tech/ai-phone-buying-guide-2026.html"},
+    {"keyword": "筆電散熱墊推薦與評測 2026", "category": "💻 3C 科技教學", "filename": "tech/laptop-cooling-pad-guide-2026.html"},
 
     # ============================================================
-    # game/ - 遊戲攻略（17 篇）
+    # game/ - 遊戲攻略（20 篇）
     # ============================================================
     {"keyword": "2026 最夯 5 款獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/best-indie-games-2026.html"},
     {"keyword": "2026 年最佳 RPG Top 5", "category": "🎮 遊戲攻略", "filename": "game/best-rpg-2026.html"},
@@ -111,9 +117,13 @@ keywords_list = [
     {"keyword": "2026 最耐玩 Switch 遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/best-switch-games-2026.html"},
     {"keyword": "艾爾登法環 DLC 全 Boss 攻略", "category": "🎮 遊戲攻略", "filename": "game/elden-ring-dlc-boss-guide.html"},
     {"keyword": "2026 免費 PC 射擊遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/free-shooter-games-2026.html"},
+    # 新增 3 篇
+    {"keyword": "2026 年最受期待 5 款 3A 大作", "category": "🎮 遊戲攻略", "filename": "game/most-anticipated-aaa-2026.html"},
+    {"keyword": "Steam 夏季特賣 2026 必買清單", "category": "🎮 遊戲攻略", "filename": "game/steam-summer-sale-2026.html"},
+    {"keyword": "PS5 Pro 遊戲效能實測與推薦", "category": "🎮 遊戲攻略", "filename": "game/ps5-pro-game-test-2026.html"},
 
     # ============================================================
-    # life/ - 生活小常識（23 篇）
+    # life/ - 生活小常識（26 篇）
     # ============================================================
     {"keyword": "居家收納技巧 2026", "category": "🏠 生活小常識", "filename": "life/home-organization-tips-2026.html"},
     {"keyword": "省錢生活智慧 2026", "category": "🏠 生活小常識", "filename": "life/money-saving-tips-2026.html"},
@@ -140,9 +150,12 @@ keywords_list = [
     {"keyword": "陽台植栽入門指南", "category": "🏠 生活小常識", "filename": "life/balcony-gardening-guide-2026.html"},
     {"keyword": "冰箱收納與管理技巧", "category": "🏠 生活小常識", "filename": "life/fridge-organization-guide-2026.html"},
     {"keyword": "居家節能省電技巧 2026", "category": "🏠 生活小常識", "filename": "life/energy-saving-tips-2026.html"},
+    # 新增 2 篇
+    {"keyword": "小宅收納規劃實戰技巧", "category": "🏠 生活小常識", "filename": "life/小宅收納規劃實戰技巧.html"},
+    {"keyword": "居家防災包準備清單", "category": "🏠 生活小常識", "filename": "life/居家防災包準備清單.html"},
 
     # ============================================================
-    # review/ - 軟體評測（24 篇）
+    # review/ - 軟體評測（27 篇）
     # ============================================================
     {"keyword": "免費剪片軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/free-video-editor-2026.html"},
     {"keyword": "遠端桌面軟體比較", "category": "📊 軟體評測", "filename": "review/remote-desktop-comparison-2026.html"},
@@ -169,9 +182,12 @@ keywords_list = [
     {"keyword": "跨平台筆記軟體終極對決", "category": "📊 軟體評測", "filename": "review/note-apps-comparison-2026.html"},
     {"keyword": "開源 CRM 系統推薦", "category": "📊 軟體評測", "filename": "review/open-source-crm-2026.html"},
     {"keyword": "2026 最強 VPN 服務評測", "category": "📊 軟體評測", "filename": "review/vpn-review-2026.html"},
+    # 新增 2 篇
+    {"keyword": "免費 PDF 編輯軟體評測 2026", "category": "📊 軟體評測", "filename": "review/免費PDF編輯軟體評測2026.html"},
+    {"keyword": "密碼管理工具怎麼選", "category": "📊 軟體評測", "filename": "review/密碼管理工具怎麼選.html"},
 
     # ============================================================
-    # philosophy/ - 人生哲理（17 篇）
+    # philosophy/ - 人生哲理（18 篇）
     # ============================================================
     {"keyword": "成功習慣養成", "category": "🌟 人生哲理", "filename": "philosophy/success-habits-2026.html"},
     {"keyword": "時間管理技巧", "category": "🌟 人生哲理", "filename": "philosophy/time-management-tips-2026.html"},
@@ -190,9 +206,11 @@ keywords_list = [
     {"keyword": "人生哲學經典", "category": "🌟 人生哲理", "filename": "philosophy/life-philosophy-classics-2026.html"},
     {"keyword": "數位排毒與心理健康", "category": "🌟 人生哲理", "filename": "philosophy/digital-detox-2026.html"},
     {"keyword": "工作與生活平衡實戰", "category": "🌟 人生哲理", "filename": "philosophy/work-life-balance-2026.html"},
+    # 新增 1 篇
+    {"keyword": "數位時代的專注力訓練", "category": "🌟 人生哲理", "filename": "philosophy/數位時代的專注力訓練.html"},
 
     # ============================================================
-    # trend/ - AI 趨勢（19 篇）
+    # trend/ - AI 趨勢（22 篇）
     # ============================================================
     {"keyword": "AI 工具推薦 2026", "category": "🤖 AI 趨勢", "filename": "trend/ai-tools-2026.html"},
     {"keyword": "ChatGPT 應用技巧", "category": "🤖 AI 趨勢", "filename": "trend/chatgpt-applications-2026.html"},
@@ -213,17 +231,10 @@ keywords_list = [
     {"keyword": "AI 影片剪輯工具評測", "category": "🤖 AI 趨勢", "filename": "trend/ai-video-editors-2026.html"},
     {"keyword": "AI 自動化工作流程實例", "category": "🤖 AI 趨勢", "filename": "trend/ai-workflow-automation-2026.html"},
     {"keyword": "AI 繪圖工具 2026 完整評測", "category": "🤖 AI 趨勢", "filename": "trend/ai-art-tools-review-2026.html"},
-    {"keyword": "Windows 11 省電設定完整教學 2026", "category": "💻 3C 科技教學", "filename": "tech/Windows11省電設定完整教學2026.html"},
-    {"keyword": "手機儲存空間不足怎麼清理", "category": "💻 3C 科技教學", "filename": "tech/手機儲存空間不足怎麼清理.html"},
-    {"keyword": "家用 Wi-Fi 訊號增強實用方法", "category": "💻 3C 科技教學", "filename": "tech/家用Wi-Fi訊號增強實用方法.html"},
-    {"keyword": "免費 PDF 編輯軟體評測 2026", "category": "📊 軟體評測", "filename": "review/免費PDF編輯軟體評測2026.html"},
-    {"keyword": "密碼管理工具怎麼選", "category": "📊 軟體評測", "filename": "review/密碼管理工具怎麼選.html"},
+    # 新增 3 篇
     {"keyword": "AI 筆記工具工作流程指南", "category": "🤖 AI 趨勢", "filename": "trend/AI筆記工具工作流程指南.html"},
     {"keyword": "生成式 AI 資安風險與防護", "category": "🤖 AI 趨勢", "filename": "trend/生成式AI資安風險與防護.html"},
-    {"keyword": "小宅收納規劃實戰技巧", "category": "🏠 生活小常識", "filename": "life/小宅收納規劃實戰技巧.html"},
-    {"keyword": "居家防災包準備清單", "category": "🏠 生活小常識", "filename": "life/居家防災包準備清單.html"},
-    {"keyword": "數位時代的專注力訓練", "category": "🌟 人生哲理", "filename": "philosophy/數位時代的專注力訓練.html"},
-
+    {"keyword": "AI 代理與自動化工作流程應用", "category": "🤖 AI 趨勢", "filename": "trend/ai-agent-workflow-2026.html"},
 ]
 
 # ============================================================
@@ -284,7 +295,6 @@ def run_pipeline(force_api=None, dry_run=False):
                 generate_article(item)
             except Exception as e:
                 logger.error(f"❌ 生成失敗：{item['keyword']} - {e}")
-                state_manager.mark_failed(item['filename'], str(e))
                 continue
     else:
         logger.info("\n✅ 所有文章都已存在且完整，無需生成！")

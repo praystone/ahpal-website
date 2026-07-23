@@ -1,8 +1,9 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v4.1
+# html_builder.py - HTML 建構模組 v4.2 (最終除錯版)
 # ============================================================
 # 功能：建構所有 HTML（首頁、分類頁、文章頁面）
 # 修正：統一頁頂品牌標示為可點擊超連結
+# 修復：導覽列加入隱私權政策連結
 # ============================================================
 
 # ============================================================
@@ -71,6 +72,7 @@ SITE_HEADER = '''<header class="site-header">
             <a href="/categories.html">📚 全部分類</a>
             <a href="/about.html">📖 關於我們</a>
             <a href="/contact.html">📧 聯絡我們</a>
+            <a href="/privacy-policy.html">🔒 隱私權政策</a>
             <a href="/game/" class="game-link">🎮 遊戲間</a>
         </nav>
     </div>
@@ -275,7 +277,7 @@ def create_default_index():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雅寶社區 · 頂客論壇 | AHPAL.COM</title>
-    <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 50 篇精選文章。">
+    <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 200 篇精選文章。">
     <meta name="keywords" content="科技教學,遊戲攻略,生活小常識,軟體評測,人生哲理,AI趨勢">
     {ADSENSE_CODE}
     {GA4_CODE}
@@ -579,16 +581,10 @@ def generate_category_pages():
     """生成各分類的獨立頁面（與原 ahpal_generator.py 相容）"""
     print("📄 正在生成分類頁面...")
     
-    categories = {
-        "tech": {"name": "💻 3C 科技教學", "desc": "手機、電腦、3C 產品教學與技巧"},
-        "game": {"name": "🎮 遊戲攻略", "desc": "熱門遊戲攻略、密技與推薦"},
-        "life": {"name": "🏠 生活小常識", "desc": "居家、收納、清潔、省錢生活智慧"},
-        "review": {"name": "📊 軟體評測", "desc": "免費軟體評測、工具推薦與教學"},
-        "philosophy": {"name": "🌟 人生哲理", "desc": "成功習慣、健康、職涯、人生成長"},
-        "trend": {"name": "🤖 AI 趨勢", "desc": "AI 技術趨勢、數位轉型、未來職業"}
-    }
+    # 直接使用 CATEGORIES（從 config 導入）
+    from src.config import CATEGORIES as CATEGORIES_CONFIG
     
-    for cat_id, cat_info in categories.items():
+    for cat_id, cat_info in CATEGORIES_CONFIG.items():
         page_path = os.path.join(OUTPUT_DIR, f"category-{cat_id}.html")
         
         dir_path = os.path.join(OUTPUT_DIR, cat_id)

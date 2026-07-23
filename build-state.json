@@ -1,17 +1,17 @@
 {
   "version": "1.0",
-  "last_build": "2026-07-24T01:05:25.717308",
+  "last_build": "2026-07-24T01:24:46.662342",
   "files": {
     "C:/Users/User/ahpal-static/404.html": "43e088f142052ee1fb6c859e457269ea",
     "C:/Users/User/ahpal-static/categories.html": "331940050a558c016ea260d526ee35e6",
-    "C:/Users/User/ahpal-static/category-game.html": "843794f8878196618867ac3c074e7c34",
-    "C:/Users/User/ahpal-static/category-life.html": "02508009539ddd68be908074a37c4183",
-    "C:/Users/User/ahpal-static/category-philosophy.html": "7f6d3725b133a41292e2cd2db19a1f63",
-    "C:/Users/User/ahpal-static/category-review.html": "668b7a63c03290494f3818c3df651f3b",
-    "C:/Users/User/ahpal-static/category-tech.html": "8f7d3046ce47af2ebcd97492963c1917",
-    "C:/Users/User/ahpal-static/category-trend.html": "6f9a14ddd3b7f5f25b385f72d0f36d67",
+    "C:/Users/User/ahpal-static/category-game.html": "161d15cea715a3cca5c53466b6ae48ef",
+    "C:/Users/User/ahpal-static/category-life.html": "50c234a3995e1d39cc243a930294a519",
+    "C:/Users/User/ahpal-static/category-philosophy.html": "dbbab8d9e413b0408f8206ae48023bd3",
+    "C:/Users/User/ahpal-static/category-review.html": "2484de16386ed22a39b827840ce895c4",
+    "C:/Users/User/ahpal-static/category-tech.html": "b5feeb8eadb29a1b740b5782ef6d6872",
+    "C:/Users/User/ahpal-static/category-trend.html": "c32b887e55aa870d517dc2ad3b5041a9",
     "C:/Users/User/ahpal-static/contact.html": "f4ef4668f1913092ffe07123372ca96c",
-    "C:/Users/User/ahpal-static/index.html": "2e7616f3bff57e1653d4c368f31aa56c",
+    "C:/Users/User/ahpal-static/index.html": "2a28af1050d9680c9995e094d0bf56ad",
     "C:/Users/User/ahpal-static/justice.html": "d22d45c96cc77bb851960fe5f6d5e6d8",
     "C:/Users/User/ahpal-static/memorial.html": "2dbfe8ad0203332255056cda682eaa35",
     "C:/Users/User/ahpal-static/royal_dragon_karma.html": "846ba7b62236af11b777f22cd1c323aa",
@@ -311,10 +311,15 @@
     "C:/Users/User/ahpal-static/tech/家用Wi-Fi訊號增強實用方法.html": "70ecc5692f954506d2de921b7f165bd2",
     "C:/Users/User/ahpal-static/tech/手機儲存空間不足怎麼清理.html": "787903961536f354d1af1b221007199b",
     "C:/Users/User/ahpal-static/trend/AI筆記工具工作流程指南.html": "bbca7d58c13cdc4a31b37fad250d42a0",
-    "C:/Users/User/ahpal-static/trend/生成式AI資安風險與防護.html": "a6dd58663da2be784cf5c39b69f22e51"
+    "C:/Users/User/ahpal-static/trend/生成式AI資安風險與防護.html": "a6dd58663da2be784cf5c39b69f22e51",
+    "C:/Users/User/ahpal-static/game/most-anticipated-aaa-2026.html": "3547e45cdf0d22cc20169a6df210d4f4",
+    "C:/Users/User/ahpal-static/game/ps5-pro-game-test-2026.html": "4b806e105199552a367ba5a5e9f16845",
+    "C:/Users/User/ahpal-static/game/steam-summer-sale-2026.html": "b6418c1ca7abbffbb1c113cadc6ecabe",
+    "C:/Users/User/ahpal-static/tech/laptop-cooling-pad-guide-2026.html": "22a9939f6e74e2e7147bc88c41e5732f",
+    "C:/Users/User/ahpal-static/trend/ai-agent-workflow-2026.html": "7ccc24a07cd62165c291b6720281273f"
   },
   "stats": {
-    "total": 310,
+    "total": 315,
     "changed": 0,
     "unchanged": 0
   }

@@ -79,9 +79,12 @@
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
         .footer-inner .copy { font-size: 13px; color: #718096; }
         .footer-inner .declaration { font-size: 12px; color: #FF6F61; letter-spacing: 1px; font-weight: 300; margin-top: 4px; }
-        <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+        .site-footer .footer-links { margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; }
+        .site-footer .footer-links a { color: #CBD5E0; text-decoration: none; font-size: 13px; transition: color 0.2s ease, text-decoration 0.2s ease; }
+        .site-footer .footer-links a:hover { color: #FFFFFF; text-decoration: underline; }
+        <button id="back-to-top" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}});">⬆ TOP</button>
 <style>
-    #back-to-top {
+    #back-to-top {{
         position: fixed;
         bottom: 30px;
         right: 30px;
@@ -97,12 +100,12 @@
         transition: opacity 0.3s, transform 0.3s;
         opacity: 0.7;
         z-index: 999;
-    }
-    #back-to-top:hover {
+    }}
+    #back-to-top:hover {{
         opacity: 1;
         transform: scale(1.05);
         background: #003d66;
-    }
+    }}
 </style>
     </style>
 </head>
@@ -135,12 +138,12 @@
                 <a href="/category-tech.html" class="category-card">
                     <span class="emoji">💻</span>
                     <span class="cat-name">3C 科技教學</span>
-                    <span class="cat-count">46 篇</span>
+                    <span class="cat-count">47 篇</span>
                 </a>
                 <a href="/category-game.html" class="category-card">
                     <span class="emoji">🎮</span>
                     <span class="cat-name">遊戲攻略</span>
-                    <span class="cat-count">44 篇</span>
+                    <span class="cat-count">47 篇</span>
                 </a>
                 <a href="/category-life.html" class="category-card">
                     <span class="emoji">🏠</span>
@@ -160,7 +163,7 @@
                 <a href="/category-trend.html" class="category-card">
                     <span class="emoji">🤖</span>
                     <span class="cat-name">AI 趨勢</span>
-                    <span class="cat-count">41 篇</span>
+                    <span class="cat-count">42 篇</span>
                 </a>
             </div>
 
@@ -173,51 +176,46 @@
 
             <h2 class="section-title">📌 最新文章 <small>持續更新中</small></h2>
             <ul id="article-list">
-<li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-agent-workflow-2026.html">AI 代理與自動化工作流程應用</a><span class="post-date">2026-07-24</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/ps5-pro-game-test-2026.html">PS5 Pro 遊戲效能實測與推薦</a><span class="post-date">2026-07-24</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/steam-summer-sale-2026.html">Steam 夏季特賣 2026 必買清單</a><span class="post-date">2026-07-24</span></li>
-<li><span class="category">🎮 遊戲攻略</span><a href="/game/most-anticipated-aaa-2026.html">2026 年最受期待 5 款 3A 大作</a><span class="post-date">2026-07-24</span></li>
-<li><span class="category">💻 3C 科技教學</span><a href="/tech/laptop-cooling-pad-guide-2026.html">筆電散熱墊推薦與評測 2026</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\bubble-shooter.html">泡泡射擊 - 消消樂 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\solitaire.html">接龍 - 經典紙牌遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\doodle-jump.html">塗鴉跳躍 - 向上冒險 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\pong.html">乒乓球 - 經典對戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\simon-says.html">記憶節奏 - 跟著我唸 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\solitaire.html">接龍 - 經典紙牌遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\flappy-bird.html">飛翔小鳥 - 極限反應 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\archery.html">弓箭手 - 精準射擊 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\simon-says.html">記憶節奏 - 跟著我唸 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\hangman.html">猜字遊戲 - 單字挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\math-quiz.html">數學速算 - 腦力激盪 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\tic-tac-toe.html">井字遊戲 - 經典對戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\breakout.html">打磚塊 - 經典打磚塊遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\archery.html">弓箭手 - 精準射擊 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\color-memory.html">色彩記憶 - 顏色順序挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\math-quiz.html">數學速算 - 腦力激盪 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\breakout.html">打磚塊 - 經典打磚塊遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\jigsaw-puzzle.html">拼圖挑戰 - 完成圖片 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\shooting-range.html">射擊靶場 - 瞄準挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\clicker.html">點點樂 - 快速點擊挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\colormatch.html">顏色配對 - 反應速度考驗 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\minesweeper.html">踩地雷 - 經典推理遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\wordsearch.html">文字搜尋 - 找單字挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\minesweeper.html">踩地雷 - 經典推理遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\memory.html">記憶翻牌 - 配對挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\sudoku.html">數獨 - 邏輯推理挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\snake.html">貪吃蛇 - 經典街機遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/game\tetris.html">俄羅斯方塊 - 經典方塊遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/game\2048.html">2048 - 數字合併挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\snake.html">貪吃蛇 - 經典街機遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\sudoku.html">數獨 - 邏輯推理挑戰 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\tetris.html">俄羅斯方塊 - 經典方塊遊戲 - 雅寶遊戲間</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/trend\ai-agent-workflow-2026.html">AI 代理與自動化工作流程應用 – 雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\ps5-pro-game-test-2026.html">PS5 Pro 遊戲效能實測與推薦</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\steam-summer-sale-2026.html">Steam 夏季特賣 2026 必買清單｜雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/game\most-anticipated-aaa-2026.html">2026 年最受期待 5 款 3A 大作</a><span class="post-date">2026-07-24</span></li>
+                <li><span class="category">其他</span><a href="/tech\laptop-cooling-pad-guide-2026.html">2026 筆電散熱墊推薦與評測：實測降溫、靜音與攜帶性</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/contact.html">聯絡我們 | AHPAL.COM</a><span class="post-date">2026-07-24</span></li>
                 <li><span class="category">其他</span><a href="/domain-sale.html">域名出售 | ahpal.com | AHPAL.COM</a><span class="post-date">2026-07-24</span></li>
-                <li><span class="category">其他</span><a href="/tech\家用Wi-Fi訊號增強實用方法.html">家用 Wi-Fi 訊號增強實用方法 – 雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-23</span></li>
-                <li><span class="category">其他</span><a href="/tech\手機儲存空間不足怎麼清理.html">手機儲存空間不足怎麼清理？2026 年終極指南｜雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-23</span></li>
-                <li><span class="category">其他</span><a href="/trend\AI筆記工具工作流程指南.html">AI 筆記工具工作流程指南</a><span class="post-date">2026-07-23</span></li>
-                <li><span class="category">其他</span><a href="/trend\生成式AI資安風險與防護.html">生成式 AI 資安風險與防護策略完整指南｜雅寶社區 · 頂客論壇</a><span class="post-date">2026-07-23</span></li>
-                <li><span class="category">其他</span><a href="/tech\Windows11省電設定完整教學2026.html">Windows 11 省電設定完整教學 2026</a><span class="post-date">2026-07-23</span></li>
             </ul>
 
             <div class="index-section">
-                <h2 class="section-title">📖 全部分類索引 <small>共 254 篇文章</small></h2>
+                <h2 class="section-title">📖 全部分類索引 <small>共 259 篇文章</small></h2>
 
-                <div class="cat-title">💻 3C 科技教學 <span class="count">(46篇)</span></div>
+                <div class="cat-title">💻 3C 科技教學 <span class="count">(47篇)</span></div>
                 <div class="index-tag-grid" id="tag-tech">
                 </div>
 
-                <div class="cat-title">🎮 遊戲攻略 <span class="count">(44篇)</span></div>
+                <div class="cat-title">🎮 遊戲攻略 <span class="count">(47篇)</span></div>
                 <div class="index-tag-grid" id="tag-game">
                 </div>
 
@@ -233,7 +231,7 @@
                 <div class="index-tag-grid" id="tag-philosophy">
                 </div>
 
-                <div class="cat-title">🤖 AI 趨勢 <span class="count">(41篇)</span></div>
+                <div class="cat-title">🤖 AI 趨勢 <span class="count">(42篇)</span></div>
                 <div class="index-tag-grid" id="tag-trend">
                 </div>
             </div>
@@ -296,9 +294,29 @@
         </div>
     </div>
 </footer>
-    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+
 <style>
-    #back-to-top {
+    .site-footer .footer-links {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 24px;
+    }
+    .site-footer .footer-links a {
+        color: #CBD5E0;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+    .site-footer .footer-links a:hover {
+        color: #FFFFFF;
+        text-decoration: underline;
+    }
+</style>
+    <button id="back-to-top" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}});">⬆ TOP</button>
+<style>
+    #back-to-top {{
         position: fixed;
         bottom: 30px;
         right: 30px;
@@ -314,12 +332,12 @@
         transition: opacity 0.3s, transform 0.3s;
         opacity: 0.7;
         z-index: 999;
-    }
-    #back-to-top:hover {
+    }}
+    #back-to-top:hover {{
         opacity: 1;
         transform: scale(1.05);
         background: #003d66;
-    }
+    }}
 </style>
     <p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
 </body>

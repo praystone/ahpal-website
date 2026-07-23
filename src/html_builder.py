@@ -1,9 +1,11 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v4.2 (最終除錯版)
+# html_builder.py - HTML 建構模組 v4.4 (最終除錯版)
 # ============================================================
 # 功能：建構所有 HTML（首頁、分類頁、文章頁面）
 # 修正：統一頁頂品牌標示為可點擊超連結
 # 修復：導覽列加入隱私權政策連結
+# 修復：底部導航連結顏色修正（#CBD5E0 → hover #FFFFFF）
+# 修復：SITE_FOOTER 和 BACK_TO_TOP 花括號轉義（避免 .format() 衝突）
 # ============================================================
 
 # ============================================================
@@ -78,7 +80,7 @@ SITE_HEADER = '''<header class="site-header">
     </div>
 </header>'''
 
-# 頁尾
+# 頁尾（已修正底部導航連結顏色）- 使用雙花括號轉義 CSS
 SITE_FOOTER = '''<footer class="site-footer">
     <div class="footer-inner">
         <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
@@ -92,12 +94,32 @@ SITE_FOOTER = '''<footer class="site-footer">
             <a href="/sitemap.xml">📄 Sitemap</a>
         </div>
     </div>
-</footer>'''
+</footer>
 
-# 返回頂部按鈕
-BACK_TO_TOP = '''<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
 <style>
-    #back-to-top {
+    .site-footer .footer-links {{
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 24px;
+    }}
+    .site-footer .footer-links a {{
+        color: #CBD5E0;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+    }}
+    .site-footer .footer-links a:hover {{
+        color: #FFFFFF;
+        text-decoration: underline;
+    }}
+</style>'''
+
+# 返回頂部按鈕 - 使用雙花括號轉義 CSS
+BACK_TO_TOP = '''<button id="back-to-top" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}});">⬆ TOP</button>
+<style>
+    #back-to-top {{
         position: fixed;
         bottom: 30px;
         right: 30px;
@@ -113,12 +135,12 @@ BACK_TO_TOP = '''<button id="back-to-top" onclick="window.scrollTo({top: 0, beha
         transition: opacity 0.3s, transform 0.3s;
         opacity: 0.7;
         z-index: 999;
-    }
-    #back-to-top:hover {
+    }}
+    #back-to-top:hover {{
         opacity: 1;
         transform: scale(1.05);
         background: #003d66;
-    }
+    }}
 </style>'''
 
 # 返回首頁連結（頁尾用）
@@ -346,6 +368,9 @@ def create_default_index():
         .footer-inner {{ max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }}
         .footer-inner .copy {{ font-size: 13px; color: #718096; }}
         .footer-inner .declaration {{ font-size: 12px; color: #FF6F61; letter-spacing: 1px; font-weight: 300; margin-top: 4px; }}
+        .site-footer .footer-links {{ margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; }}
+        .site-footer .footer-links a {{ color: #CBD5E0; text-decoration: none; font-size: 13px; transition: color 0.2s ease, text-decoration 0.2s ease; }}
+        .site-footer .footer-links a:hover {{ color: #FFFFFF; text-decoration: underline; }}
         {BACK_TO_TOP}
     </style>
 </head>
@@ -524,6 +549,8 @@ def generate_categories_page():
         .back-link {{ display: inline-block; margin-top: 30px; color: #005A9C; text-decoration: none; }}
         .back-link:hover {{ text-decoration: underline; }}
         .footer {{ margin-top: 40px; text-align: center; color: #888; font-size: 13px; border-top: 1px solid #E2E8F0; padding-top: 20px; }}
+        .footer a {{ color: #718096; text-decoration: none; transition: color 0.2s ease; }}
+        .footer a:hover {{ color: #005A9C; text-decoration: underline; }}
         {BACK_TO_TOP}
     </style>
 </head>
@@ -557,9 +584,9 @@ def generate_categories_page():
         <div class="footer">
             &copy; {CURRENT_YEAR} 雅寶社區 · 頂客論壇 — 全部分類
             <div style="margin-top:6px;font-size:12px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
-                <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
-                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🎮 遊戲間</a>
+                <a href="/sitemap.xml">📄 Sitemap</a>
+                <a href="/">🏠 首頁</a>
+                <a href="/game/">🎮 遊戲間</a>
             </div>
         </div>
     </div>
@@ -617,7 +644,15 @@ def generate_category_pages():
         :root {{ --color-primary: #005A9C; --color-secondary: #00A86B; --color-bg: #F7F9FC; --color-card: #FFFFFF; --color-text: #1A202C; --color-text-light: #4A5568; --color-border: #E2E8F0; --shadow-card: 0 4px 12px rgba(0,0,0,0.06); --radius-card: 14px; }}
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; }}
-        {SITE_HEADER}
+        .site-header {{ background: #005A9C; color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }}
+        .header-inner {{ max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }}
+        .logo {{ font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }}
+        .logo:hover {{ color: rgba(255,255,255,0.85); }}
+        .nav-links {{ display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }}
+        .nav-links a {{ color: rgba(255,255,255,0.85); text-decoration: none; }}
+        .nav-links a:hover {{ color: white; border-bottom: 2px solid #00A86B; }}
+        .nav-links .game-link {{ background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }}
+        .nav-links .game-link:hover {{ background: rgba(255,255,255,0.25); border-bottom: none; }}
         .breadcrumb {{ max-width: 1200px; margin: 16px auto 0; padding: 0 24px; font-size: 14px; color: #718096; }}
         .breadcrumb a {{ color: var(--color-primary); text-decoration: none; }}
         .main-wrapper {{ max-width: 1200px; margin: 24px auto; padding: 0 24px; }}
@@ -634,7 +669,13 @@ def generate_category_pages():
         .article-list li a:hover {{ color: var(--color-primary); }}
         .back-link {{ display: inline-block; margin-top: 24px; color: var(--color-primary); text-decoration: none; font-weight: 500; }}
         .back-link:hover {{ text-decoration: underline; }}
-        {SITE_FOOTER}
+        .site-footer {{ background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }}
+        .footer-inner {{ max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }}
+        .footer-inner .copy {{ font-size: 13px; color: #718096; }}
+        .footer-inner .declaration {{ font-size: 12px; color: #FF6F61; letter-spacing: 1px; font-weight: 300; margin-top: 4px; }}
+        .site-footer .footer-links {{ margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; }}
+        .site-footer .footer-links a {{ color: #CBD5E0; text-decoration: none; font-size: 13px; transition: color 0.2s ease, text-decoration 0.2s ease; }}
+        .site-footer .footer-links a:hover {{ color: #FFFFFF; text-decoration: underline; }}
         {BACK_TO_TOP}
     </style>
 </head>

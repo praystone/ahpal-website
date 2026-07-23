@@ -1,189 +1,193 @@
 ﻿# ============================================================
-# api_client.py - API 呼叫模組
-# ============================================================
-# 功能：封裝 Gemini 與 DeepSeek API 呼叫
+# api_client.py - API 客戶端模組 v4.3
 # ============================================================
 
 import os
-import requests
-from datetime import datetime, timedelta
+import json
+import time
+from datetime import datetime
 from src.config import (
     DEEPSEEK_API_KEY, DEEPSEEK_API_URL, DEEPSEEK_MODEL,
     GEMINI_API_KEY, GEMINI_API_URL, GEMINI_MODEL,
-    PEAK_START, PEAK_END
+    is_peak_hour, get_recommended_api
 )
+from src.logger import get_logger
+
+logger = get_logger("api_client")
 
 # ============================================================
-# 時段判斷函數
+# API 資訊
+# ============================================================
+
+def get_current_api_info(force_api=None):
+    """
+    取得當前使用的 API 資訊
+    參數：
+        force_api: 強制使用的 API（'gemini' 或 'deepseek'）
+    回傳：
+        dict: 包含 name, model, peak, price 等資訊
+    """
+    # 決定使用哪個 API
+    if force_api:
+        api_name = force_api.lower()
+    else:
+        api_name = get_recommended_api()
+    
+    if api_name == "gemini":
+        return {
+            "name": "Gemini",
+            "model": GEMINI_MODEL,
+            "peak": is_peak_hour(),
+            "price": "免費" if not GEMINI_API_KEY else "標準",
+            "api_key": GEMINI_API_KEY
+        }
+    else:
+        return {
+            "name": "DeepSeek",
+            "model": DEEPSEEK_MODEL,
+            "peak": is_peak_hour(),
+            "price": "低",
+            "api_key": DEEPSEEK_API_KEY
+        }
+
+def call_api(prompt, force_api=None, max_retries=3):
+    """
+    呼叫 AI API（自動選擇或強制指定）
+    參數：
+        prompt: 提示詞
+        force_api: 強制使用的 API（'gemini' 或 'deepseek'）
+        max_retries: 最大重試次數
+    回傳：
+        str: API 回應內容
+    """
+    api_info = get_current_api_info(force_api=force_api)
+    api_name = api_info["name"].lower()
+    
+    logger.info(f"📡 使用 API：{api_info['name']} ({api_info['model']})")
+    
+    for attempt in range(max_retries):
+        try:
+            if api_name == "gemini":
+                result = call_gemini_api(prompt, api_info["api_key"])
+            else:
+                result = call_deepseek_api(prompt, api_info["api_key"])
+            
+            if result:
+                return result
+            
+            logger.warning(f"⚠️ API 呼叫失敗，重試 {attempt + 1}/{max_retries}")
+            time.sleep(2 ** attempt)  # 指數退避
+            
+        except Exception as e:
+            logger.error(f"❌ API 呼叫異常：{e}")
+            if attempt < max_retries - 1:
+                time.sleep(2 ** attempt)
+            else:
+                raise
+    
+    raise Exception(f"API 呼叫失敗，已重試 {max_retries} 次")
+
+def call_gemini_api(prompt, api_key):
+    """呼叫 Gemini API"""
+    import requests
+    
+    url = f"{GEMINI_API_URL}?key={api_key}"
+    
+    payload = {
+        "contents": [
+            {
+                "parts": [
+                    {"text": prompt}
+                ]
+            }
+        ],
+        "generationConfig": {
+            "temperature": 0.7,
+            "maxOutputTokens": 4096,
+            "topP": 0.95
+        }
+    }
+    
+    try:
+        response = requests.post(url, json=payload, timeout=60)
+        response.raise_for_status()
+        
+        data = response.json()
+        
+        # 解析 Gemini 回應
+        if "candidates" in data and len(data["candidates"]) > 0:
+            candidate = data["candidates"][0]
+            if "content" in candidate and "parts" in candidate["content"]:
+                parts = candidate["content"]["parts"]
+                if len(parts) > 0 and "text" in parts[0]:
+                    return parts[0]["text"]
+        
+        logger.error(f"❌ 無法解析 Gemini 回應：{json.dumps(data, ensure_ascii=False)[:500]}")
+        return None
+        
+    except requests.exceptions.RequestException as e:
+        logger.error(f"❌ Gemini API 請求失敗：{e}")
+        return None
+
+def call_deepseek_api(prompt, api_key):
+    """呼叫 DeepSeek API"""
+    import requests
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    payload = {
+        "model": DEEPSEEK_MODEL,
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
+        "max_tokens": 4096,
+        "temperature": 0.7
+    }
+    
+    try:
+        response = requests.post(DEEPSEEK_API_URL, json=payload, headers=headers, timeout=60)
+        response.raise_for_status()
+        
+        data = response.json()
+        
+        if "choices" in data and len(data["choices"]) > 0:
+            choice = data["choices"][0]
+            if "message" in choice and "content" in choice["message"]:
+                return choice["message"]["content"]
+        
+        logger.error(f"❌ 無法解析 DeepSeek 回應：{json.dumps(data, ensure_ascii=False)[:500]}")
+        return None
+        
+    except requests.exceptions.RequestException as e:
+        logger.error(f"❌ DeepSeek API 請求失敗：{e}")
+        return None
+
+# ============================================================
+# 時段相關函數（從 config 匯出）
 # ============================================================
 
 def is_peak_hour():
-    """判斷當前是否為尖峰時段"""
-    now = datetime.now()
-    hour = now.hour
-    return PEAK_START <= hour < PEAK_END
+    """檢查目前是否為尖峰時段"""
+    from src.config import is_peak_hour as config_is_peak_hour
+    return config_is_peak_hour()
 
 def get_next_off_peak_time():
-    """計算下一個離峰時段的開始時間"""
+    """取得下次離峰時段開始時間"""
+    from datetime import datetime, timedelta
     now = datetime.now()
-    hour = now.hour
     
-    if PEAK_START <= hour < PEAK_END:
-        next_start = now.replace(hour=PEAK_END, minute=0, second=0, microsecond=0)
-        if next_start <= now:
-            next_start += timedelta(days=1)
-        return next_start
+    # 尖峰時段：9:00 - 18:00
+    if 9 <= now.hour < 18:
+        # 今天 18:00
+        return now.replace(hour=18, minute=0, second=0, microsecond=0)
     else:
-        return now
-
-# ============================================================
-# API 呼叫函數
-# ============================================================
-
-def call_gemini(prompt, system_prompt=None, max_tokens=16384):
-    """呼叫 Google Gemini API（無格式限制）"""
-    if not GEMINI_API_KEY:
-        print("❌ Gemini API Key 未設定")
-        return None
-
-    full_prompt = ""
-    if system_prompt:
-        full_prompt += system_prompt + "\n\n"
-    full_prompt += prompt
-
-    headers = {"Content-Type": "application/json"}
-    payload = {
-        "contents": [{"parts": [{"text": full_prompt}]}],
-        "generationConfig": {
-            "temperature": 0.7,
-            "maxOutputTokens": max_tokens,
-            "topP": 0.9
-        }
-    }
-
-    try:
-        response = requests.post(
-            f"{GEMINI_API_URL}?key={GEMINI_API_KEY}",
-            headers=headers,
-            json=payload,
-            timeout=180
-        )
-
-        if response.status_code == 200:
-            result = response.json()
-            if "candidates" in result and len(result["candidates"]) > 0:
-                return result["candidates"][0]["content"]["parts"][0]["text"]
-            else:
-                print(f"❌ Gemini 回應異常")
-                return None
+        # 明天 18:00（如果現在是 18:00 之後）
+        if now.hour >= 18:
+            return (now + timedelta(days=1)).replace(hour=9, minute=0, second=0, microsecond=0)
         else:
-            print(f"❌ Gemini API 錯誤 ({response.status_code})")
-            return None
-    except Exception as e:
-        print(f"❌ Gemini 請求失敗: {e}")
-        return None
-
-def call_deepseek(prompt, system_prompt=None, max_tokens=16384):
-    """呼叫 DeepSeek API（無格式限制）"""
-    if not DEEPSEEK_API_KEY:
-        print("❌ DeepSeek API Key 未設定")
-        return None
-
-    messages = []
-    if system_prompt:
-        messages.append({"role": "system", "content": system_prompt})
-    messages.append({"role": "user", "content": prompt})
-
-    headers = {
-        "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-        "Content-Type": "application/json"
-    }
-
-    payload = {
-        "model": DEEPSEEK_MODEL,
-        "messages": messages,
-        "max_tokens": max_tokens,
-        "temperature": 0.7,
-        "stream": False
-    }
-
-    try:
-        response = requests.post(
-            DEEPSEEK_API_URL,
-            headers=headers,
-            json=payload,
-            timeout=180
-        )
-
-        if response.status_code == 200:
-            result = response.json()
-            return result["choices"][0]["message"]["content"]
-        else:
-            print(f"❌ DeepSeek API 錯誤 ({response.status_code})")
-            return None
-    except Exception as e:
-        print(f"❌ DeepSeek 請求失敗: {e}")
-        return None
-
-def get_force_api():
-    """從環境變數讀取強制 API 設定"""
-    force = os.environ.get("FORCE_API", "").lower()
-    if force in ["deepseek", "gemini"]:
-        return force
-    return None
-
-def call_api(prompt, system_prompt=None, max_tokens=16384):
-    """自動選擇 API 呼叫（支援環境變數強制切換）"""
-    force_api = get_force_api()
-
-    if force_api == "deepseek":
-        print("   📡 強制使用 DeepSeek")
-        return call_deepseek(prompt, system_prompt, max_tokens)
-
-    if force_api == "gemini":
-        print("   📡 強制使用 Gemini")
-        return call_gemini(prompt, system_prompt, max_tokens)
-
-    # 自動切換
-    hour = datetime.now().hour
-    if PEAK_START <= hour < PEAK_END:
-        print("   📡 使用 Gemini（尖峰時段）")
-        return call_gemini(prompt, system_prompt, max_tokens)
-    else:
-        print("   📡 使用 DeepSeek（離峰時段）")
-        return call_deepseek(prompt, system_prompt, max_tokens)
-
-def get_current_api_info():
-    """獲取當前使用的 API 資訊（包含 peak 欄位）"""
-    force = get_force_api()
-
-    if force == "deepseek":
-        return {
-            "name": "DeepSeek（強制）",
-            "model": DEEPSEEK_MODEL,
-            "price": "¥0.28/百萬 tokens",
-            "peak": False
-        }
-    if force == "gemini":
-        return {
-            "name": "Google Gemini（強制）",
-            "model": GEMINI_MODEL,
-            "price": "~$0.15/百萬 tokens",
-            "peak": True
-        }
-
-    hour = datetime.now().hour
-    if PEAK_START <= hour < PEAK_END:
-        return {
-            "name": "Google Gemini（自動）",
-            "model": GEMINI_MODEL,
-            "price": "~$0.15/百萬 tokens",
-            "peak": True
-        }
-    else:
-        return {
-            "name": "DeepSeek（自動）",
-            "model": DEEPSEEK_MODEL,
-            "price": "¥0.28/百萬 tokens",
-            "peak": False
-        }
+            # 現在是 0:00 - 9:00，今天 9:00 開始是尖峰
+            # 但我們要找的是離峰開始時間，所以是明天 18:00
+            return (now + timedelta(days=1)).replace(hour=9, minute=0, second=0, microsecond=0)

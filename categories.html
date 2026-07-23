@@ -34,9 +34,11 @@
         .back-link { display: inline-block; margin-top: 30px; color: #005A9C; text-decoration: none; }
         .back-link:hover { text-decoration: underline; }
         .footer { margin-top: 40px; text-align: center; color: #888; font-size: 13px; border-top: 1px solid #E2E8F0; padding-top: 20px; }
-        <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+        .footer a { color: #718096; text-decoration: none; transition: color 0.2s ease; }
+        .footer a:hover { color: #005A9C; text-decoration: underline; }
+        <button id="back-to-top" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}});">⬆ TOP</button>
 <style>
-    #back-to-top {
+    #back-to-top {{
         position: fixed;
         bottom: 30px;
         right: 30px;
@@ -52,12 +54,12 @@
         transition: opacity 0.3s, transform 0.3s;
         opacity: 0.7;
         z-index: 999;
-    }
-    #back-to-top:hover {
+    }}
+    #back-to-top:hover {{
         opacity: 1;
         transform: scale(1.05);
         background: #003d66;
-    }
+    }}
 </style>
     </style>
 </head>
@@ -74,14 +76,14 @@
                 <span class="emoji">💻</span>
                 <h3>💻 3C 科技教學</h3>
                 <p class="desc">手機、電腦、3C 產品教學與技巧</p>
-                <span class="count">📄 46 篇文章</span>
+                <span class="count">📄 47 篇文章</span>
             </a>
 
             <a href="/category-game.html" class="category-card">
                 <span class="emoji">🎮</span>
                 <h3>🎮 遊戲攻略</h3>
                 <p class="desc">熱門遊戲攻略、密技與推薦</p>
-                <span class="count">📄 44 篇文章</span>
+                <span class="count">📄 47 篇文章</span>
             </a>
 
             <a href="/category-life.html" class="category-card">
@@ -109,7 +111,7 @@
                 <span class="emoji">🤖</span>
                 <h3>🤖 AI 趨勢</h3>
                 <p class="desc">AI 技術趨勢、數位轉型、未來職業</p>
-                <span class="count">📄 41 篇文章</span>
+                <span class="count">📄 42 篇文章</span>
             </a>
 
         </div>
@@ -117,15 +119,15 @@
         <div class="footer">
             &copy; 2026 雅寶社區 · 頂客論壇 — 全部分類
             <div style="margin-top:6px;font-size:12px;">
-                <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
-                <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
-                <a href="/game/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🎮 遊戲間</a>
+                <a href="/sitemap.xml">📄 Sitemap</a>
+                <a href="/">🏠 首頁</a>
+                <a href="/game/">🎮 遊戲間</a>
             </div>
         </div>
     </div>
-    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+    <button id="back-to-top" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}});">⬆ TOP</button>
 <style>
-    #back-to-top {
+    #back-to-top {{
         position: fixed;
         bottom: 30px;
         right: 30px;
@@ -141,12 +143,12 @@
         transition: opacity 0.3s, transform 0.3s;
         opacity: 0.7;
         z-index: 999;
-    }
-    #back-to-top:hover {
+    }}
+    #back-to-top:hover {{
         opacity: 1;
         transform: scale(1.05);
         background: #003d66;
-    }
+    }}
 </style>
     <p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
 </body>

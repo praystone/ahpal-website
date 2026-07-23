@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 - 雅寶遊戲間 | 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="經典 2048 數字合併遊戲，在雅寶遊戲間免費玩。合併數字，挑戰 2048！">
+
+    <!-- ===== Google Analytics ===== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXGG1VTGPB');
+    </script>
+
+    <!-- ===== Google AdSense ===== -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+
+    <style>
+        /* ===== 雅寶遊戲間 統一風格 ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #fcfaf2;
+            color: #1c1c1c;
+            min-height: 100vh;
+        }
+
+        /* ===== 頂部導航 ===== */
+        .game-nav {
+            background: #005A9C;
+            color: white;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .game-nav .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        .game-nav .logo:hover { opacity: 0.85; }
+        .game-nav .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            align-items: center;
+        }
+        .game-nav .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .game-nav .nav-links a:hover { color: white; }
+        .game-nav .nav-links .back-btn {
+            background: rgba(255,255,255,0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .game-nav .nav-links .back-btn:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* ===== 主內容 ===== */
+        .game-wrapper {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid #e6ded1;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .game-header h1 {
+            font-size: 28px;
+            color: #005A9C;
+            margin-bottom: 4px;
+        }
+        .game-header .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* ===== 遊戲 iframe 嵌入 ===== */
+        .game-iframe-wrapper {
+            background: #f7f9fc;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e6ded1;
+            position: relative;
+        }
+        .game-iframe-wrapper iframe {
+            display: block;
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .game-iframe-wrapper iframe { height: 500px; }
+        }
+        @media (max-width: 500px) {
+            .game-iframe-wrapper iframe { height: 420px; }
+        }
+
+        /* ===== 遊戲說明 ===== */
+        .game-info {
+            margin-top: 30px;
+            padding: 24px;
+            background: #f7f9fc;
+            border-radius: 12px;
+            border: 1px solid #e6ded1;
+        }
+        .game-info h2 {
+            font-size: 18px;
+            color: #005A9C;
+            margin-bottom: 12px;
+        }
+        .game-info p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        .game-info ul {
+            padding-left: 20px;
+            color: #555;
+            font-size: 14px;
+            line-height: 2;
+        }
+        .game-info .how-to-play {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-top: 12px;
+            border-left: 4px solid #00A86B;
+        }
+        .game-info .how-to-play strong {
+            color: #005A9C;
+        }
+
+        /* ===== 相關遊戲推薦 ===== */
+        .related-games {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .related-games a {
+            background: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #005A9C;
+            text-decoration: none;
+            border: 1px solid #e6ded1;
+            transition: all 0.2s;
+        }
+        .related-games a:hover {
+            border-color: #005A9C;
+            background: #f0f4f9;
+        }
+
+        /* ===== 頁尾 ===== */
+        .game-footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            color: #999;
+            font-size: 13px;
+            border-top: 1px solid #e6ded1;
+            margin-top: 40px;
+        }
+        .game-footer a {
+            color: #005A9C;
+            text-decoration: none;
+        }
+        .game-footer a:hover { text-decoration: underline; }
+
+        /* ===== 返回頂部 ===== */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #005A9C;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0.7;
+            z-index: 999;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        #back-to-top:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            background: #003d66;
+        }
+
+        /* ===== 行動裝置優化 ===== */
+        @media (max-width: 600px) {
+            .game-nav .logo { font-size: 17px; }
+            .game-nav .nav-links { font-size: 12px; gap: 12px; }
+            .game-container { padding: 16px; }
+            .game-header h1 { font-size: 22px; }
+            .game-info { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 頂部導航 ===== -->
+    <nav class="game-nav">
+        <a href="/" class="logo">⚖️ 雅寶社區 · 頂客論壇</a>
+        <div class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/game/" class="back-btn">🎮 返回遊戲間</a>
+        </div>
+    </nav>
+
+    <!-- ===== 主內容 ===== -->
+    <div class="game-wrapper">
+        <div class="game-container">
+
+            <!-- 標題 -->
+            <div class="game-header">
+                <h1>🔢 2048</h1>
+                <p class="subtitle">合併數字，挑戰 2048！</p>
+            </div>
+
+            <!-- 遊戲 iframe -->
+            <div class="game-iframe-wrapper">
+                <!-- 嵌入經典 2048 遊戲 -->
+                <iframe src="/game/puzzle/2048-game.html" allowfullscreen></iframe>
+            </div>
+
+            <!-- 遊戲說明 -->
+            <div class="game-info">
+                <h2>🎯 如何玩 2048？</h2>
+                <div class="how-to-play">
+                    <p><strong>🎮 遊戲目標：</strong>合併相同數字的方塊，最終達到 <strong>2048</strong> 即可獲勝！</p>
+                    <p><strong>⌨️ 操作方法：</strong>使用鍵盤的 <strong>方向鍵（↑ ↓ ← →）</strong> 或 <strong>WASD</strong> 來移動方塊。</p>
+                    <p><strong>🧩 合併規則：</strong>當兩個相同數字的方塊碰撞時，它們會合併成一個數字相加的方塊（例如：2+2=4）。</p>
+                    <p><strong>💡 小技巧：</strong>盡量將大數字集中在角落，保留更多空間給小數字合併。</p>
+                </div>
+                <p style="margin-top:12px; font-size:14px; color:#888;">
+                    💡 如果遊戲無法載入，請檢查網路連線或重新整理頁面。
+                </p>
+            </div>
+
+            <!-- 相關遊戲 -->
+            <div class="related-games">
+                <span style="font-size:14px; color:#888; display:flex; align-items:center;">🎮 其他遊戲：</span>
+                <a href="/game/puzzle/sudoku.html">🧩 數獨</a>
+                <a href="#" style="opacity:0.5; cursor:default;">🧠 記憶配對 (即將推出)</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== 頁尾 ===== -->
+    <footer class="game-footer">
+        <p>&copy; 2026 <a href="/">雅寶社區 · 頂客論壇 (AHPAL.COM)</a> — 遊戲間</p>
+        <p style="font-size:12px; color:#bbb; margin-top:4px;">🎮 所有遊戲均為開源 HTML5 遊戲，免費提供，即開即玩。</p>
+    </footer>
+
+    <!-- ===== 返回頂部 ===== -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p></body>
+</html>

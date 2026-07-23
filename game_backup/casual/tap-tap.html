@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>點點樂 - 雅寶遊戲間</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #fcfaf2; color: #1c1c1c; min-height: 100vh; }
+        .game-nav { background: #005A9C; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 50; }
+        .game-nav .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; }
+        .game-nav .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; }
+        .game-nav .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; }
+        .game-nav .nav-links .back-btn { background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; font-weight: 500; }
+        .game-wrapper { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .game-container { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e6ded1; }
+        .game-header { text-align: center; margin-bottom: 24px; }
+        .game-header h1 { font-size: 28px; color: #005A9C; }
+        .game-header .subtitle { color: #888; font-size: 14px; }
+        .game-area { background: #f7f9fc; border-radius: 12px; padding: 20px; border: 1px solid #e6ded1; text-align: center; }
+        .game-area .info { display: flex; justify-content: space-between; margin-bottom: 16px; font-size: 16px; font-weight: bold; color: #005A9C; }
+        .game-area .tap-area { position: relative; width: 100%; max-width: 400px; height: 300px; margin: 0 auto; background: #e2e8f0; border-radius: 12px; overflow: hidden; cursor: pointer; }
+        .game-area .tap-area .target { position: absolute; border-radius: 50%; cursor: pointer; transition: transform 0.1s; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .game-area .tap-area .target:hover { transform: scale(1.1); }
+        .game-area .controls { margin-top: 16px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .game-area .controls button { padding: 10px 24px; background: #005A9C; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .game-area .controls button:hover { background: #003d66; }
+        .game-area .message { margin-top: 12px; font-size: 16px; font-weight: bold; color: #005A9C; }
+        .game-info { margin-top: 30px; padding: 24px; background: #f7f9fc; border-radius: 12px; border: 1px solid #e6ded1; }
+        .game-info h2 { font-size: 18px; color: #005A9C; margin-bottom: 12px; }
+        .game-info .how-to-play { background: white; padding: 16px 20px; border-radius: 8px; margin-top: 12px; border-left: 4px solid #00A86B; }
+        .game-info .how-to-play strong { color: #005A9C; }
+        .game-footer { text-align: center; padding: 30px 0 20px; color: #999; font-size: 13px; border-top: 1px solid #e6ded1; margin-top: 40px; }
+        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: #005A9C; color: white; border: none; padding: 12px 16px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); opacity: 0.7; z-index: 999; transition: all 0.3s; }
+        #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
+        @media (max-width: 600px) { .game-area .tap-area { height: 200px; } .game-container { padding: 16px; } }
+    </style>
+</head>
+<body>
+    <nav class="game-nav"><a href="/" class="logo">⚖️ 雅寶社區 · 頂客論壇</a><div class="nav-links"><a href="/">首頁</a><a href="/game/" class="back-btn">🎮 返回遊戲間</a></div></nav>
+    <div class="game-wrapper">
+        <div class="game-container">
+            <div class="game-header"><h1>👆 點點樂</h1><p class="subtitle">快速點擊挑戰，測試你的手速！</p></div>
+            <div class="game-area">
+                <div class="info"><span>🎯 分數：<span id="score">0</span></span><span>⏱️ 時間：<span id="timer">30</span>秒</span></div>
+                <div id="tapArea" class="tap-area"></div>
+                <div id="message" class="message"></div>
+                <div class="controls"><button onclick="initGame()">🔄 新遊戲</button></div>
+            </div>
+            <div class="game-info">
+                <h2>🎯 如何玩點點樂？</h2>
+                <div class="how-to-play">
+                    <p><strong>🎮 遊戲目標：</strong>在 30 秒內點擊盡可能多的目標！</p>
+                    <p><strong>🖱️ 操作方法：</strong>點擊出現的圓形目標，每點擊一個得一分。</p>
+                    <p><strong>💡 小技巧：</strong>目標會不斷移動，快速點擊才能拿高分！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="game-footer"><p>&copy; 2026 <a href="/">雅寶社區 · 頂客論壇 (AHPAL.COM)</a> — 遊戲間</p></footer>
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ TOP</button>
+    <script>
+        let score = 0, timeLeft = 30, gameActive = false, timerId, spawnId;
+        const emojis = ['🌟', '⭐', '🎯', '💎', '🔥', '👑', '🎈', '✨'];
+
+        function initGame() {
+            score = 0;
+            timeLeft = 30;
+            gameActive = true;
+            document.getElementById('score').textContent = score;
+            document.getElementById('timer').textContent = timeLeft;
+            document.getElementById('message').textContent = '';
+            document.getElementById('tapArea').innerHTML = '';
+
+            clearInterval(timerId);
+            clearInterval(spawnId);
+
+            timerId = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerId);
+                    clearInterval(spawnId);
+                    gameActive = false;
+                    document.getElementById('message').textContent = `⏰ 時間到！得分：${score} 分`;
+                    document.getElementById('tapArea').innerHTML = '';
+                }
+            }, 1000);
+
+            spawnId = setInterval(spawnTarget, 800);
+            spawnTarget();
+        }
+
+        function spawnTarget() {
+            if (!gameActive) return;
+            const area = document.getElementById('tapArea');
+            const rect = area.getBoundingClientRect();
+            const size = Math.min(60, rect.width / 6);
+            const x = Math.random() * (area.clientWidth - size);
+            const y = Math.random() * (area.clientHeight - size);
+            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+            const target = document.createElement('div');
+            target.className = 'target';
+            target.textContent = emoji;
+            target.style.width = size + 'px';
+            target.style.height = size + 'px';
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+            target.style.background = `hsl(${Math.random() * 360}, 70%, 50%)`;
+
+            target.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!gameActive) return;
+                score++;
+                document.getElementById('score').textContent = score;
+                target.remove();
+            });
+
+            area.appendChild(target);
+
+            // 自動消失（3秒後）
+            setTimeout(() => {
+                if (target.parentNode) target.remove();
+            }, 3000);
+        }
+
+        initGame();
+    </script>
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p></body>
+</html>

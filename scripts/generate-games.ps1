@@ -1,6 +1,12 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 遊戲生成腳本 v3.0 (完整版)
+# 雅寶社區 · 頂客論壇 - 遊戲生成腳本 v3.2
 # ============================================================
+# 版本：v3.2 (代理執行長版)
+# 功能：生成 23 款 HTML5 遊戲，自動嵌入 Giscus 討論區
+# 輸出：game/*.html (23 款遊戲)
+# Giscus：praystone/ahpal-website
+# ============================================================
+
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $ScriptDir) { $ScriptDir = Get-Location }
 
@@ -13,10 +19,45 @@ if (-not (Test-Path $OutputDir)) {
 
 Write-Host "📁 輸出目錄：$OutputDir" -ForegroundColor Cyan
 
-$GiscusRepo = "praystone/ahpal-website"
-$GiscusRepoId = "R_kgDOTbvurg"
-$GiscusCategory = "Announcements"
-$GiscusCategoryId = "DIC_kwDOTbvurs4DBhek"
+# ============================================================
+# Giscus 討論區 HTML (所有遊戲共用)
+# ============================================================
+$GiscusHTML = @'
+<div class="comments-section" style="max-width: 800px; margin: 40px auto; padding: 20px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px;">💬 留言討論</h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 12px;">分享你的遊戲心得、技巧或疑問，與其他玩家互動！</p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDONxSTxg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDONxSTxs4ClJpQ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDONxSTxg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDONxSTxs4ClJpQ"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+'@
 
 # ============================================================
 # 全部 23 款遊戲定義
@@ -298,8 +339,7 @@ const words=['APPLE','BANANA','CHERRY','GRAPE','MANGO','PEACH','PEAR','WATERMELO
 let grid, found;
 const boardEl=document.getElementById('board'), wordList=document.getElementById('wordList'), msg=document.getElementById('message');
 function init(){
-  grid=Array.from({length:8},()=>Array(8).fill('')); found=[];
-  placeWords(); fillEmpty(); renderWords(); render(); msg.textContent='點擊字母選取單字';
+  grid=Array.from({length:8},()=>Array(8).fill('')); found=[]; placeWords(); fillEmpty(); renderWords(); render(); msg.textContent='點擊字母選取單字';
 }
 function placeWords(){
   let dirs=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
@@ -922,13 +962,6 @@ function Generate-GameHTML {
             background: #005A9C;
             color: #fff;
         }
-        .comments-section {
-            max-width: 500px;
-            width: 100%;
-            margin: 20px auto;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
-        }
         .info {
             display: flex;
             justify-content: center;
@@ -1008,7 +1041,7 @@ function Generate-GameHTML {
     $headerHTML
     $fullContent
     <div class="how-to-play"><h3>🎯 玩法說明</h3><p>$Description</p></div>
-    <div class="comments-section"><h3>💬 討論與留言</h3><p>歡迎分享心得！</p></div>
+    $GiscusHTML
     $footerHTML
 </body>
 </html>
@@ -1104,7 +1137,7 @@ function Generate-GameIndex {
 # ============================================================
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "   🎮 雅寶遊戲生成 v3.0 (完整版)" -ForegroundColor Cyan
+Write-Host "   🎮 雅寶遊戲生成 v3.2 (代理執行長版)" -ForegroundColor Cyan
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "📊 共 $($newGames.Count) 款遊戲" -ForegroundColor Yellow
@@ -1120,5 +1153,6 @@ Write-Host ""
 Write-Host "============================================================" -ForegroundColor Green
 Write-Host "✅ 全部完成！" -ForegroundColor Green
 Write-Host "🎮 遊戲總數：$($newGames.Count) 款" -ForegroundColor Cyan
+Write-Host "💬 所有遊戲頁面已嵌入 Giscus 討論區" -ForegroundColor Cyan
 Write-Host "🌐 遊戲入口：https://ahpal.com/game/" -ForegroundColor Yellow
 Write-Host "============================================================" -ForegroundColor Green

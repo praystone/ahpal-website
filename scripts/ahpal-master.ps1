@@ -1,10 +1,10 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 萬能總指揮腳本 v6.8 (語法修正版)
+# 雅寶社區 · 頂客論壇 - 萬能總指揮腳本 v7.0 (語法修正版)
 # ============================================================
 # 功能：載入環境 → 備份 → 遊戲生成 → 文章生成 → Git → 部署
 # 新增：命令列參數支援 (Mode/Action)，適合排程自動執行
 # 修改：選項 [A] 強制使用 Gemini（尖峰時段也適用）
-# 修正：所有路徑問題、Join-Path 語法錯誤
+# 修正：所有路徑問題、Git upstream、API 參數、PowerShell 語法
 # ============================================================
 
 param(
@@ -41,7 +41,7 @@ Write-Host "📍 腳本目錄：$ScriptDir" -ForegroundColor Gray
 $ProjectRoot = Split-Path -Parent $ScriptDir
 Write-Host "📍 專案根目錄：$ProjectRoot" -ForegroundColor Gray
 
-# 載入環境設定（可能在 scripts 目錄或根目錄）- 修正 Join-Path 語法
+# 載入環境設定（可能在 scripts 目錄或根目錄）
 $EnvScriptCandidates = @()
 $EnvScriptCandidates += Join-Path $ScriptDir "ahpal-static.ps1"
 $EnvScriptCandidates += Join-Path $ProjectRoot "ahpal-static.ps1"
@@ -80,7 +80,7 @@ $OutputDir = $env:AHPAL_OUTPUT_DIR
 $BackupRoot = "C:\Users\User\ahpal-backup"
 
 # ============================================================
-# 腳本路徑（修正 Join-Path 語法）
+# 腳本路徑
 # ============================================================
 # main.py 可能在根目錄或 src 目錄
 $PythonScriptCandidates = @()
@@ -309,7 +309,17 @@ function Run-FullProcess {
             git add .
             $CommitMsg = "自動提交：$(Get-Date -Format 'yyyy-MM-dd HH:mm')"
             git commit -m $CommitMsg
-            git push
+            
+            # 檢查是否有 upstream，如果沒有則設定
+            $branch = git branch --show-current
+            # 修正：使用引號包圍 @{upstream}
+            $upstream = git rev-parse --abbrev-ref "@{upstream}" 2>$null
+            if (-not $upstream) {
+                Write-Host "   📌 設定 upstream 分支..." -ForegroundColor Yellow
+                git push --set-upstream origin $branch
+            } else {
+                git push
+            }
             Write-Host "✅ Git 提交與推送完成！" -ForegroundColor Green
         } else {
             Write-Host "ℹ️ 沒有變更，跳過 Git 提交" -ForegroundColor Yellow
@@ -366,7 +376,16 @@ function Run-DeployOnly {
         if ($status) {
             git add .
             git commit -m "自動提交：$(Get-Date -Format 'yyyy-MM-dd HH:mm')"
-            git push
+            
+            $branch = git branch --show-current
+            # 修正：使用引號包圍 @{upstream}
+            $upstream = git rev-parse --abbrev-ref "@{upstream}" 2>$null
+            if (-not $upstream) {
+                Write-Host "   📌 設定 upstream 分支..." -ForegroundColor Yellow
+                git push --set-upstream origin $branch
+            } else {
+                git push
+            }
         }
     } -SkipOnError -IsScheduled:$IsScheduled
     
@@ -416,7 +435,7 @@ function Show-MainMenu {
     Clear-Host
     Write-Host ""
     Write-Host "============================================================" -ForegroundColor Cyan
-    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v6.8" -ForegroundColor Green
+    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v7.0" -ForegroundColor Green
     Write-Host "============================================================" -ForegroundColor Cyan
     
     Show-SystemStatus

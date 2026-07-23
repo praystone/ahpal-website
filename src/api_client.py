@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# api_client.py - API 客戶端模組 v4.3
+# api_client.py - API 客戶端模組 v4.4
 # ============================================================
 
 import os
@@ -50,13 +50,14 @@ def get_current_api_info(force_api=None):
             "api_key": DEEPSEEK_API_KEY
         }
 
-def call_api(prompt, force_api=None, max_retries=3):
+def call_api(prompt, force_api=None, max_retries=3, max_tokens=4096):
     """
     呼叫 AI API（自動選擇或強制指定）
     參數：
         prompt: 提示詞
         force_api: 強制使用的 API（'gemini' 或 'deepseek'）
         max_retries: 最大重試次數
+        max_tokens: 最大輸出 token 數
     回傳：
         str: API 回應內容
     """
@@ -68,15 +69,15 @@ def call_api(prompt, force_api=None, max_retries=3):
     for attempt in range(max_retries):
         try:
             if api_name == "gemini":
-                result = call_gemini_api(prompt, api_info["api_key"])
+                result = call_gemini_api(prompt, api_info["api_key"], max_tokens=max_tokens)
             else:
-                result = call_deepseek_api(prompt, api_info["api_key"])
+                result = call_deepseek_api(prompt, api_info["api_key"], max_tokens=max_tokens)
             
             if result:
                 return result
             
             logger.warning(f"⚠️ API 呼叫失敗，重試 {attempt + 1}/{max_retries}")
-            time.sleep(2 ** attempt)  # 指數退避
+            time.sleep(2 ** attempt)
             
         except Exception as e:
             logger.error(f"❌ API 呼叫異常：{e}")
@@ -87,7 +88,7 @@ def call_api(prompt, force_api=None, max_retries=3):
     
     raise Exception(f"API 呼叫失敗，已重試 {max_retries} 次")
 
-def call_gemini_api(prompt, api_key):
+def call_gemini_api(prompt, api_key, max_tokens=4096):
     """呼叫 Gemini API"""
     import requests
     
@@ -103,13 +104,13 @@ def call_gemini_api(prompt, api_key):
         ],
         "generationConfig": {
             "temperature": 0.7,
-            "maxOutputTokens": 4096,
+            "maxOutputTokens": max_tokens,
             "topP": 0.95
         }
     }
     
     try:
-        response = requests.post(url, json=payload, timeout=60)
+        response = requests.post(url, json=payload, timeout=120)
         response.raise_for_status()
         
         data = response.json()
@@ -129,7 +130,7 @@ def call_gemini_api(prompt, api_key):
         logger.error(f"❌ Gemini API 請求失敗：{e}")
         return None
 
-def call_deepseek_api(prompt, api_key):
+def call_deepseek_api(prompt, api_key, max_tokens=4096):
     """呼叫 DeepSeek API"""
     import requests
     
@@ -143,12 +144,12 @@ def call_deepseek_api(prompt, api_key):
         "messages": [
             {"role": "user", "content": prompt}
         ],
-        "max_tokens": 4096,
+        "max_tokens": max_tokens,
         "temperature": 0.7
     }
     
     try:
-        response = requests.post(DEEPSEEK_API_URL, json=payload, headers=headers, timeout=60)
+        response = requests.post(DEEPSEEK_API_URL, json=payload, headers=headers, timeout=120)
         response.raise_for_status()
         
         data = response.json()
@@ -184,10 +185,9 @@ def get_next_off_peak_time():
         # 今天 18:00
         return now.replace(hour=18, minute=0, second=0, microsecond=0)
     else:
-        # 明天 18:00（如果現在是 18:00 之後）
+        # 明天 9:00（如果現在是 18:00 之後）
         if now.hour >= 18:
             return (now + timedelta(days=1)).replace(hour=9, minute=0, second=0, microsecond=0)
         else:
-            # 現在是 0:00 - 9:00，今天 9:00 開始是尖峰
-            # 但我們要找的是離峰開始時間，所以是明天 18:00
-            return (now + timedelta(days=1)).replace(hour=9, minute=0, second=0, microsecond=0)
+            # 現在是 0:00 - 9:00，今天 9:00
+            return now.replace(hour=9, minute=0, second=0, microsecond=0)

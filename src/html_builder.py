@@ -1,11 +1,12 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v4.4 (最終除錯版)
+# html_builder.py - HTML 建構模組 v4.5 (品牌連結強制修正版)
 # ============================================================
 # 功能：建構所有 HTML（首頁、分類頁、文章頁面）
 # 修正：統一頁頂品牌標示為可點擊超連結
 # 修復：導覽列加入隱私權政策連結
 # 修復：底部導航連結顏色修正（#CBD5E0 → hover #FFFFFF）
 # 修復：SITE_FOOTER 和 BACK_TO_TOP 花括號轉義（避免 .format() 衝突）
+# 修復：強制加入品牌超連結，移除 AI 生成的純文字品牌
 # ============================================================
 
 # ============================================================
@@ -192,21 +193,55 @@ def clean_ai_header(html_content):
 # ============================================================
 
 def enhance_article_html(html_content):
-    """增強文章 HTML：加入品牌標示、首頁連結、TOP按鈕"""
+    """增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕"""
     if not html_content:
         return html_content
     
     # 清理 AI 頁頂註解
     html_content = clean_ai_header(html_content)
     
-    # 1. 確保 <body> 開頭有品牌標示（可點擊的超連結）
-    if '雅寶社區 · 頂客論壇' not in html_content:
-        # 在 <body> 後插入品牌標示
-        html_content = html_content.replace('<body>', '<body>\n' + BRAND_LINK)
-        print("   ✅ 已加入品牌標示（可點擊回首頁）")
+    # ============================================================
+    # 1. 強制移除 AI 生成的純文字品牌，換成可點擊的超連結
+    # ============================================================
+    # 移除各種形式的純文字品牌標示
+    html_content = re.sub(
+        r'<p[^>]*>.*?雅寶社區\s*[·.]?\s*頂客論壇.*?</p>', 
+        '', 
+        html_content, 
+        flags=re.IGNORECASE | re.DOTALL
+    )
+    html_content = re.sub(
+        r'雅寶社區\s*[·.]?\s*頂客論壇\s*\(?AHPAL\.COM\)?', 
+        '', 
+        html_content, 
+        flags=re.IGNORECASE
+    )
+    html_content = re.sub(
+        r'<div[^>]*id=[\'"]?brand[\'"]?[^>]*>.*?</div>', 
+        '', 
+        html_content, 
+        flags=re.IGNORECASE | re.DOTALL
+    )
     
-    # 2. 確保頁尾有「返回首頁」連結（雙重保障）
-    if '返回首頁' not in html_content or 'ahpal.com' not in html_content:
+    # 移除 "雅寶社區 · 頂客論壇 (AHPAL.COM)" 開頭的純文字
+    html_content = re.sub(
+        r'^.*?雅寶社區\s*[·.]?\s*頂客論壇\s*\(?AHPAL\.COM\)?.*?\n', 
+        '', 
+        html_content, 
+        flags=re.IGNORECASE | re.MULTILINE
+    )
+    
+    # 2. 在 <body> 後插入品牌標示（強制）
+    if '<body>' in html_content:
+        html_content = html_content.replace('<body>', '<body>\n' + BRAND_LINK)
+    else:
+        html_content = BRAND_LINK + '\n' + html_content
+    print("   ✅ 已強制加入品牌標示（可點擊回首頁）")
+    
+    # ============================================================
+    # 3. 確保頁尾有「返回首頁」連結（雙重保障）
+    # ============================================================
+    if '返回首頁' not in html_content:
         html_content = html_content.replace('</body>', HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>')
         print("   ✅ 已加入返回首頁連結")
     else:
@@ -215,7 +250,9 @@ def enhance_article_html(html_content):
             html_content = html_content.replace('</body>', BACK_TO_TOP + '\n</body>')
             print("   ✅ 已加入返回頂部按鈕")
     
-    # 3. 確保 AdSense 程式碼存在
+    # ============================================================
+    # 4. 確保 AdSense 程式碼存在
+    # ============================================================
     if 'pagead2.googlesyndication.com' not in html_content:
         html_content = html_content.replace('</head>', ADSENSE_CODE + '\n' + GA4_CODE + '\n</head>')
         print("   ✅ 已加入 AdSense 程式碼")

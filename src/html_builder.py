@@ -69,6 +69,8 @@ SITE_HEADER = '''<header class="site-header">
         <nav class="nav-links">
             <a href="/">首頁</a>
             <a href="/categories.html">📚 全部分類</a>
+            <a href="/about.html">📖 關於我們</a>
+            <a href="/contact.html">📧 聯絡我們</a>
             <a href="/game/" class="game-link">🎮 遊戲間</a>
         </nav>
     </div>
@@ -78,10 +80,14 @@ SITE_HEADER = '''<header class="site-header">
 SITE_FOOTER = '''<footer class="site-footer">
     <div class="footer-inner">
         <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
-        <div style="margin-top:6px;font-size:13px;">
-            <a href="/sitemap.xml" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📄 Sitemap</a>
-            <a href="/" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">🏠 首頁</a>
-            <a href="/categories.html" style="color:#A0AEC0;text-decoration:none;margin:0 10px;">📚 全部分類</a>
+        <div class="footer-links">
+            <a href="/">🏠 首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/about.html">📖 關於我們</a>
+            <a href="/contact.html">📧 聯絡我們</a>
+            <a href="/privacy-policy.html">🔒 隱私權政策</a>
+            <a href="/terms-of-service.html">📋 服務條款</a>
+            <a href="/sitemap.xml">📄 Sitemap</a>
         </div>
     </div>
 </footer>'''
@@ -349,7 +355,7 @@ def create_default_index():
             <h1 class="hero-title">雅寶社區 <span class="highlight">·</span> 頂客論壇</h1>
             <p class="hero-sub">歲月 · 知識 · 共創</p>
             <p class="hero-desc">
-                這裡記錄了 <strong>頂客論壇</strong> 二十五年的歲月迴聲，
+                這裡記錄了 <strong>頂客論壇</strong> 二十多年的歲月迴聲，
                 並以 AI 精選 <strong>科技、遊戲、生活、軟體、哲理、AI 趨勢</strong> 六大領域的實用內容。
                 從數位工具到人生成長，每一篇文章都經過編輯策展，為讀者提供真正有價值的資訊。
             </p>
@@ -397,7 +403,6 @@ def create_default_index():
             <h2 class="section-title">📌 最新文章 <small>持續更新中</small></h2>
             <ul id="article-list">
 '''
-
     for article in latest_articles:
         category = article['category']
         title = article['title'][:60] + '...' if len(article['title']) > 60 else article['title']
@@ -407,9 +412,8 @@ def create_default_index():
     html_content += f'''            </ul>
 
             <div class="index-section">
-                <h2 class="section-title">📖 全部分類索引 <small>共 {total_count}+ 篇文章</small></h2>
+                <h2 class="section-title">📖 全部分類索引 <small>共 {total_count} 篇文章</small></h2>
 '''
-
     for cat_dir, cat_name in category_dirs.items():
         cat_articles = category_articles.get(cat_dir, [])[:20]
         html_content += f'''
@@ -431,6 +435,7 @@ def create_default_index():
             <div class="widget">
                 <div class="widget-title">⚖️ 關於本站</div>
                 <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。從歲月記憶到知識共創，我們相信：<strong>誠實守信，是文明社會永恆的基石。</strong></p>
+                <p style="margin-top:8px;"><a href="/about.html" style="color:#005A9C;font-weight:500;">📖 了解更多 →</a></p>
             </div>
 
             <div class="widget">
@@ -461,6 +466,8 @@ def create_default_index():
                     <a href="/category-trend.html">🤖 AI</a>
                     <a href="/game/">🎮 遊戲間</a>
                     <a href="/categories.html">📚 全部分類</a>
+                    <a href="/about.html">📖 關於我們</a>
+                    <a href="/contact.html">📧 聯絡我們</a>
                 </div>
             </div>
         </aside>
@@ -524,7 +531,7 @@ def generate_categories_page():
             <h1>📚 全部分類</h1>
             <a href="/">🏠 返回首頁</a>
         </div>
-        <p class="subtitle">六大知識領域，超過 110 篇精選文章，讓你一次掌握。</p>
+        <p class="subtitle">六大知識領域，超過 200 篇精選文章，讓你一次掌握。</p>
         <div class="category-grid">
 '''
 
@@ -642,7 +649,7 @@ def generate_category_pages():
 
     <div class="main-wrapper">
         <div class="content-card">
-            <h1 class="hero-title">{cat_info['name'].split(' ')[0]} {cat_info['name']}</h1>
+            <h1 class="hero-title">{cat_info['name']}</h1>
             <p class="hero-sub">{cat_info['desc']}</p>
             <p class="hero-desc">共 {len(articles)} 篇文章</p>
 
@@ -671,5 +678,3 @@ def generate_category_pages():
         print(f"   ✅ 生成分類頁面：category-{cat_id}.html（{len(articles)} 篇文章）")
     
     print("✅ 所有分類頁面生成完畢！")
-
-

@@ -10,9 +10,8 @@ __pycache__/
 .env
 data/client_secret.json
 js/client_secret_*.json
-videos/output/
+videos/
 *.mp4
 *.wav
 *.png
-
 audio/

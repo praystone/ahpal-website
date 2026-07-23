@@ -177,7 +177,17 @@ foreach ($item in $NewItems) {
     Write-Host "   ✅ $($item.keyword) → $filename" -ForegroundColor Green
 }
 
-$InsertPoint = $Content.LastIndexOf("]")
+$KeywordListStart = $Content.IndexOf("keywords_list = [")
+if ($KeywordListStart -lt 0) {
+    throw "找不到 keywords_list，已停止寫入以保護 main.py"
+}
+
+# 只尋找 keywords_list 的結尾，不可使用全檔最後一個 ]，否則可能插入 argparse 等其他區塊。
+$InsertPoint = $Content.IndexOf("`n]", $KeywordListStart)
+if ($InsertPoint -lt 0) {
+    throw "找不到 keywords_list 的結尾，已停止寫入以保護 main.py"
+}
+
 $NewContent = $Content.Insert($InsertPoint, "`n" + ($NewEntries -join "`n") + "`n")
 
 # ============================================================

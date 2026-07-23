@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHPAL 影音自動化產線通盤企劃與細部規劃</title>
+    <style>
+        /* ============================================================
+           全域樣式
+           ============================================================ */
+        :root {
+            --color-primary: #005A9C;
+            --color-secondary: #00A86B;
+            --color-accent: #FF6F61;
+            --color-bg: #F7F9FC;
+            --color-card: #FFFFFF;
+            --color-text: #1A202C;
+            --color-text-light: #4A5568;
+            --color-border: #E2E8F0;
+            --color-code-bg: #EDF2F7;
+            --color-warning: #DD6B20;
+            --color-danger: #E53E3E;
+            --color-success: #38A169;
+            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --radius-card: 14px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            --font-mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-stack);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.8;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .card {
+            background: var(--color-card);
+            padding: 36px 40px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 24px;
+            border: 1px solid var(--color-border);
+        }
+
+        @media (max-width: 640px) { .card { padding: 24px 18px; } }
+
+        /* ============================================================
+           頁首
+           ============================================================ */
+        .header {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            border-bottom: 3px solid var(--color-primary);
+            margin-bottom: 30px;
+        }
+
+        .header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        .header .logo span { color: var(--color-secondary); }
+
+        .header .subtitle {
+            font-size: 16px;
+            color: var(--color-text-light);
+            margin-top: 4px;
+        }
+
+        .header .version {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .header .status-badge {
+            display: inline-block;
+            background: var(--color-warning);
+            color: white;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        h1 { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin: 28px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin: 20px 0 10px 0;
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-light);
+            margin: 16px 0 8px 0;
+        }
+
+        /* ============================================================
+           目錄
+           ============================================================ */
+        .toc {
+            background: var(--color-bg);
+            border-radius: 12px;
+            padding: 20px 24px;
+            border: 1px solid var(--color-border);
+            margin-bottom: 24px;
+        }
+
+        .toc h3 { margin-top: 0; color: var(--color-primary); border-bottom: none; }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 4px 20px;
+        }
+
+        .toc ul li::before {
+            content: "▸ ";
+            color: var(--color-secondary);
+            font-weight: 700;
+        }
+
+        .toc ul li a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .toc ul li a:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+           表格
+           ============================================================ */
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        table th, table td {
+            padding: 10px 14px;
+            border: 1px solid var(--color-border);
+            text-align: left;
+        }
+
+        table th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) { background: var(--color-bg); }
+        table tr:hover { background: #EBF8FF; }
+
+        /* ============================================================
+           提示框
+           ============================================================ */
+        .tip {
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 12px 0 16px 0;
+            border-left: 4px solid;
+        }
+
+        .tip.info { background: #EBF8FF; border-color: #3182CE; color: #2B6CB0; }
+        .tip.success { background: #F0FFF4; border-color: #38A169; color: #276749; }
+        .tip.warning { background: #FFFAF0; border-color: #DD6B20; color: #9C4221; }
+        .tip.danger { background: #FFF5F5; border-color: #E53E3E; color: #9B2C2C; }
+
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+
+        /* ============================================================
+           標籤與徽章
+           ============================================================ */
+        .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.primary { background: var(--color-primary); color: white; }
+        .badge.success { background: var(--color-success); color: white; }
+        .badge.warning { background: var(--color-warning); color: white; }
+        .badge.danger { background: var(--color-danger); color: white; }
+        .badge.accent { background: var(--color-accent); color: white; }
+
+        /* ============================================================
+           程式碼區塊
+           ============================================================ */
+        .code-block {
+            background: var(--color-code-bg);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0 16px 0;
+            overflow-x: auto;
+            border: 1px solid var(--color-border);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .inline-code {
+            background: var(--color-code-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            border: 1px solid var(--color-border);
+        }
+
+        /* ============================================================
+           架構圖
+           ============================================================ */
+        .architecture {
+            background: var(--color-code-bg);
+            border-radius: 10px;
+            padding: 24px 30px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 2.2;
+            border: 1px solid var(--color-border);
+            margin: 12px 0 16px 0;
+            text-align: center;
+        }
+
+        .architecture .box {
+            display: inline-block;
+            padding: 8px 20px;
+            background: white;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .architecture .box.green { border-color: var(--color-secondary); color: var(--color-secondary); }
+        .architecture .box.accent { border-color: var(--color-accent); color: var(--color-accent); }
+
+        .architecture .arrow { color: #A0AEC0; font-size: 20px; }
+        .architecture .line { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+        /* ============================================================
+           簽核區
+           ============================================================ */
+        .signature-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid var(--color-border);
+        }
+
+        .signature-box {
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            text-align: center;
+            background: var(--color-bg);
+        }
+
+        .signature-box .role { font-size: 14px; color: var(--color-text-light); font-weight: 600; }
+        .signature-box .name { font-size: 18px; font-weight: 700; color: var(--color-text); margin: 4px 0; }
+        .signature-box .date { font-size: 13px; color: #A0AEC0; }
+        .signature-box .line { width: 80%; height: 2px; background: var(--color-border); margin: 12px auto 6px auto; }
+
+        .signature-box .status-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .signature-box .status-badge.pending { background: #FEFCBF; color: #975A16; }
+
+        /* ============================================================
+           響應式
+           ============================================================ */
+        @media (max-width: 768px) {
+            .header .logo { font-size: 22px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            .toc ul { grid-template-columns: 1fr; }
+            table th, table td { padding: 6px 10px; font-size: 13px; }
+            .signature-area { grid-template-columns: 1fr; gap: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .card { padding: 16px 14px; }
+            h1 { font-size: 22px; }
+        }
+
+        /* ============================================================
+           列印樣式
+           ============================================================ */
+        @media print {
+            body { background: white; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+            .header { border-bottom-color: #333; }
+            .tip { border: 1px solid #ddd; border-left: 4px solid #666; }
+            .code-block { border: 1px solid #ddd; background: #f9f9f9; }
+            .toc ul { grid-template-columns: 1fr 1fr; }
+            .signature-area { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
+        <div class="subtitle">AHPAL 影音自動化產線 — 通盤企劃與細部規劃</div>
+        <div class="version">📌 版本 v1.0 · 2026 年 7 月 23 日</div>
+        <div class="status-badge">⏳ 第一階段：技術驗證完成 · 待配額重置</div>
+    </div>
+
+    <!-- ============================================================
+    目錄
+    ============================================================ -->
+    <div class="card">
+        <h2>📖 目錄</h2>
+        <div class="toc">
+            <ul>
+                <li><a href="#section-executive-summary">1. 執行摘要</a></li>
+                <li><a href="#section-strategic-objective">2. 戰略目標</a></li>
+                <li><a href="#section-current-status">3. 當前狀態</a></li>
+                <li><a href="#section-architecture">4. 系統架構</a></li>
+                <li><a href="#section-workflow">5. 自動化流程</a></li>
+                <li><a href="#section-pipeline-script">6. 管線腳本設計</a></li>
+                <li><a href="#section-technology-stack">7. 技術棧</a></li>
+                <li><a href="#section-roadmap">8. 執行時程</a></li>
+                <li><a href="#section-risk-management">9. 風險管理</a></li>
+                <li><a href="#section-success-criteria">10. 驗收標準</a></li>
+                <li><a href="#section-future-expansion">11. 未來擴充</a></li>
+                <li><a href="#section-glossary">12. 術語表</a></li>
+                <li><a href="#section-checklist">13. 執行檢查清單</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    1. 執行摘要
+    ============================================================ -->
+    <section id="section-executive-summary">
+        <div class="card">
+            <h2>1. 執行摘要</h2>
+
+            <p>本企劃旨在為 <strong>雅寶社區 · 頂客論壇 (AHPAL.COM)</strong> 建置一套完整的 <strong>影音自動化產線</strong>，將現有的文字內容（HTML 文章）透過 <strong>Google Gemini Notebook</strong> 自動生成高品質音訊播客，並部署至 Cloudflare Pages，最終與現有的 YouTube 上傳管線整合，實現「文章 → 音訊 → 影音 → 發布」的全自動化內容產出閉環。</p>
+
+            <div class="tip success">
+                <div class="tip-title">🎯 核心價值</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li><strong>用戶停留時間 (Dwell Time) 提升</strong>：音訊內容能顯著延長訪客在網站上的停留時間，對 SEO 與 AdSense 審核有直接正面影響。</li>
+                    <li><strong>內容再利用 (Content Repurposing)</strong>：將既有文章轉化為影音格式，觸及聽眾與影片觀眾，擴大內容影響力。</li>
+                    <li><strong>全自動化閉環</strong>：從文章生成到音訊產出再到 YouTube 發布，全程無需人工干預。</li>
+                    <li><strong>成本效益</strong>：使用 NotebookLM 免費額度，以極低成本實現高品質音訊生成。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    2. 戰略目標
+    ============================================================ -->
+    <section id="section-strategic-objective">
+        <div class="card">
+            <h2>2. 戰略目標</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>階段</th><th>目標</th><th>關鍵成果 (KR)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge primary">第一階段</span></td>
+                            <td>技術驗證</td>
+                            <td>成功生成 3 篇不同分類文章的 Podcast 音訊</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge success">第二階段</span></td>
+                            <td>管線建置</td>
+                            <td>完成 <code>youtube-pipeline.ps1</code> 腳本並通過全流程測試</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge warning">第三階段</span></td>
+                            <td>整合部署</td>
+                            <td>音訊自動嵌入文章、部署至 Cloudflare、上傳 YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge accent">第四階段</span></td>
+                            <td>全面量產</td>
+                            <td>每周自動生成 5-10 篇影音內容，穩定發布</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    3. 當前狀態
+    ============================================================ -->
+    <section id="section-current-status">
+        <div class="card">
+            <h2>3. 當前狀態</h2>
+
+            <h3>3.1 已完成項目</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>項目</th><th>狀態</th><th>說明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>notebooklm</code> CLI 安裝</td>
+                            <td><span class="badge success">✅ 完成</span></td>
+                            <td>已安裝並完成認證 (30 個 Cookies)</td>
+                        </tr>
+                        <tr>
+                            <td>Google 帳戶認證</td>
+                            <td><span class="badge success">✅ 完成</span></td>
+                            <td>帳號 <code>praystone@gmail.com</code> 授權正常</td>
+                        </tr>
+                        <tr>
+                            <td>Notebook 建立與切換</td>
+                            <td><span class="badge success">✅ 完成</span></td>
+                            <td>測試 Notebook ID: <code>9844f371-... </code></td>
+                        </tr>
+                        <tr>
+                            <td>來源新增 (管道傳遞)</td>
+                            <td><span class="badge success">✅ 完成</span></td>
+                            <td>使用 <code>Get-Content -Raw | source add</code></td>
+                        </tr>
+                        <tr>
+                            <td>音訊生成觸發</td>
+                            <td><span class="badge warning">⚠️ 受限</span></td>
+                            <td>Google 速率限制 (每日配額已用完)</td>
+                        </tr>
+                        <tr>
+                            <td>音訊下載</td>
+                            <td><span class="badge warning">⚠️ 待驗證</span></td>
+                            <td>需等待配額重置後驗證 <code>download audio -a</code></td>
+                        </tr>
+                        <tr>
+                            <td>YouTube 上傳管線</td>
+                            <td><span class="badge success">✅ 完成</span></td>
+                            <td>既有 <code>batch-upload-throttled.ps1</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.2 待解決問題</h3>
+
+            <div class="tip warning">
+                <div class="tip-title">⚠️ 當前阻礙</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li><strong>Google NotebookLM 速率限制</strong>：免費版每日語音摘要生成次數有限，需等待 24 小時重置。</li>
+                    <li><strong>來源內容格式</strong>：HTML 原始碼內含特殊字符，需使用管道傳遞 (Pipe) 避免命令列解析錯誤。</li>
+                    <li><strong>下載指令語法</strong>：已確認正確語法為 <code>notebooklm download audio -a &lt;ID&gt; &lt;OUTPUT_PATH&gt;</code>。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    4. 系統架構
+    ============================================================ -->
+    <section id="section-architecture">
+        <div class="card">
+            <h2>4. 系統架構</h2>
+
+            <h3>4.1 整體架構圖</h3>
+
+            <div class="architecture">
+                <div class="line">
+                    <span class="box">📄 AHPAL 文章</span>
+                    <span class="arrow">→</span>
+                    <span class="box green">🔄 自動化管線<br>(youtube-pipeline.ps1)</span>
+                    <span class="arrow">→</span>
+                    <span class="box accent">🎧 音訊播客</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">│</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">├─</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">notebooklm use</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">設定 Notebook 上下文</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">├─</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">source add</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">新增文章內容</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">├─</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">generate audio</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">觸發 AI 生成</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">├─</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">artifact wait</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">等待任務完成</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">└─</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">download audio</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">下載音訊檔案</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">│</span>
+                </div>
+                <div class="line">
+                    <span class="box green">☁️ Cloudflare Pages</span>
+                    <span class="arrow">→</span>
+                    <span class="box accent">🌐 https://www.ahpal.com/audio/</span>
+                </div>
+                <div class="line">
+                    <span class="box green">🎬 YouTube</span>
+                    <span class="arrow">→</span>
+                    <span class="box accent">📺 AHPAL 頻道</span>
+                </div>
+            </div>
+
+            <h3>4.2 技術架構</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>層級</th><th>元件</th><th>技術</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>觸發層</td>
+                            <td>排程任務</td>
+                            <td>Windows Task Scheduler</td>
+                        </tr>
+                        <tr>
+                            <td>編排層</td>
+                            <td>總指揮腳本</td>
+                            <td><code>ahpal-master.ps1</code> (PowerShell)</td>
+                        </tr>
+                        <tr>
+                            <td>影音生成層</td>
+                            <td>AI 音訊引擎</td>
+                            <td><code>notebooklm</code> CLI (Google Gemini)</td>
+                        </tr>
+                        <tr>
+                            <td>儲存層</td>
+                            <td>靜態檔案</td>
+                            <td><code>ahpal-static/audio/</code></td>
+                        </tr>
+                        <tr>
+                            <td>發布層</td>
+                            <td>CDN 託管</td>
+                            <td>Cloudflare Pages</td>
+                        </tr>
+                        <tr>
+                            <td>影音發布層</td>
+                            <td>YouTube 上傳</td>
+                            <td><code>batch-upload-throttled.ps1</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    5. 自動化流程
+    ============================================================ -->
+    <section id="section-workflow">
+        <div class="card">
+            <h2>5. 自動化流程</h2>
+
+            <h3>5.1 完整流程圖</h3>
+
+            <div class="code-block" style="font-family: var(--font-mono); font-size: 13px; line-height: 1.8;">
+┌─────────────────────────────────────────────────────────────────┐
+│                     AHPAL 影音自動化產線                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  步驟 1：觸發 (排程/手動)                             │    │
+│  │  執行：.\scripts\youtube-pipeline.ps1                 │    │
+│  └─────────────────────┬───────────────────────────────────┘    │
+│                        │                                       │
+│                        ▼                                       │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  步驟 2：設定 Notebook 上下文                         │    │
+│  │  指令：notebooklm use &lt;NOTEBOOK_ID&gt;               │    │
+│  └─────────────────────┬───────────────────────────────────┘    │
+│                        │                                       │
+│                        ▼                                       │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  步驟 3：新增文章來源                                  │    │
+│  │  指令：Get-Content &lt;ARTICLE&gt; -Raw |              │    │
+│  │        notebooklm source add --type text --title ...  │    │
+│  └─────────────────────┬───────────────────────────────────┘    │
+│                        │                                       │
+│                        ▼                                       │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  步驟 4：觸發音訊生成                                  │    │
+│  │  指令：notebooklm generate audio                       │    │
+│  │  輸出：取得 ARTIFACT_ID                                │    │
+│  └─────────────────────┬───────────────────────────────────┘    │
+│                        │                                       │
+│                        ▼                                       │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  步驟 5：等待生成完成                                  │    │
+│  │  指令：notebooklm artifact wait &lt;ARTIFACT_ID&gt;       │    │
+│  └─────────────────────┬───────────────────────────────────┘    │
+│                        │                                       │
+│                        ▼                                       │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  步驟 6：下載音訊檔案                                  │    │
+│  │  指令：notebooklm download audio -a &lt;ID&gt; audio/ │    │
+│  └─────────────────────┬───────────────────────────────────┘    │
+│                        │                                       │
+│                        ▼                                       │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  步驟 7：部署至 Cloudflare Pages                      │    │
+│  │  指令：.\scripts\ahpal-master.ps1 → [6]               │    │
+│  └─────────────────────┬───────────────────────────────────┘    │
+│                        │                                       │
+│                        ▼                                       │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  步驟 8：上傳至 YouTube (可選)                        │    │
+│  │  指令：.\scripts\batch-upload-throttled.ps1           │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+            </div>
+
+            <h3>5.2 指令速查表</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>步驟</th><th>指令</th><th>說明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>切換目錄</td>
+                            <td><code>cd C:\Users\User\ahpal-static</code></td>
+                            <td>進入專案根目錄</td>
+                        </tr>
+                        <tr>
+                            <td>設定 Notebook</td>
+                            <td><code>notebooklm use "9844f371-..."</code></td>
+                            <td>設定當前 Notebook</td>
+                        </tr>
+                        <tr>
+                            <td>新增來源</td>
+                            <td><code>Get-Content "tech\文章.html" -Raw | notebooklm source add --type text --title "標題"</code></td>
+                            <td>管道傳遞避免解析錯誤</td>
+                        </tr>
+                        <tr>
+                            <td>觸發生成</td>
+                            <td><code>notebooklm generate audio</code></td>
+                            <td>啟動音訊生成任務</td>
+                        </tr>
+                        <tr>
+                            <td>等待完成</td>
+                            <td><code>notebooklm artifact wait &lt;ID&gt;</code></td>
+                            <td>阻塞式等待任務完成</td>
+                        </tr>
+                        <tr>
+                            <td>確認狀態</td>
+                            <td><code>notebooklm artifact get &lt;ID&gt; --json</code></td>
+                            <td>取得任務詳細狀態</td>
+                        </tr>
+                        <tr>
+                            <td>下載音訊</td>
+                            <td><code>notebooklm download audio -a &lt;ID&gt; audio\podcast.wav</code></td>
+                            <td>下載二進位音訊檔案</td>
+                        </tr>
+                        <tr>
+                            <td>部署網站</td>
+                            <td><code>.\scripts\ahpal-master.ps1 → [6]</code></td>
+                            <td>部署至 Cloudflare Pages</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    6. 管線腳本設計
+    ============================================================ -->
+    <section id="section-pipeline-script">
+        <div class="card">
+            <h2>6. 管線腳本設計</h2>
+
+            <h3>6.1 完整腳本 <code>youtube-pipeline.ps1</code></h3>
+
+            <div class="code-block">
+# ============================================================
+# AHPAL 影音自動化管線 (youtube-pipeline.ps1) v1.0
+# ============================================================
+param (
+    [string]$NotebookId = "9844f371-19ba-4f10-aa33-8dc7b40a41f8",
+    [string]$ArticlePath = "C:\Users\User\ahpal-static\tech\3d-printer-guide-2026.html",
+    [string]$OutputDir = "C:\Users\User\ahpal-static\audio",
+    [string]$OutputFilename = "podcast.wav"
+)
+
+Write-Host "🦞 AHPAL 影音自動化管線啟動" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Gray
+
+# 1. 設定 Notebook 上下文
+Write-Host "🤖 [1/5] 設定 Notebook 上下文..."
+notebooklm use $NotebookId
+
+# 2. 讀取文章內容並新增來源
+Write-Host "📄 [2/5] 讀取文章內容..."
+if (-not (Test-Path $ArticlePath)) {
+    Write-Host "❌ 找不到文章檔案：$ArticlePath" -ForegroundColor Red
+    exit 1
+}
+
+$fileName = [System.IO.Path]::GetFileNameWithoutExtension($ArticlePath)
+$title = $fileName -replace "-", " "
+
+Write-Host "📤 新增來源至 Notebook：$title"
+Get-Content $ArticlePath -Raw -Encoding UTF8 | notebooklm source add --type text --title $title
+
+# 3. 觸發音訊生成
+Write-Host "🎧 [3/5] 觸發音訊生成..."
+$jobOutput = notebooklm generate audio
+$jobId = ($jobOutput -split ": ")[1].Trim()
+Write-Host "📌 任務 ID：$jobId"
+
+# 4. 等待生成完成
+Write-Host "⏳ [4/5] 等待生成完成..."
+notebooklm artifact wait $jobId
+
+# 5. 確認狀態
+Write-Host "📊 確認任務狀態..."
+$status = notebooklm artifact get $jobId --json
+Write-Host $status
+
+# 6. 下載音訊檔案
+Write-Host "📥 [5/5] 下載音訊檔案..."
+New-Item -ItemType Directory -Path $OutputDir -Force | Out-Null
+$outputFile = Join-Path $OutputDir $OutputFilename
+notebooklm download audio -a $jobId $outputFile
+
+Write-Host ""
+Write-Host "✅ 影音自動化管線執行完畢！" -ForegroundColor Green
+Write-Host "📌 音訊檔案：$outputFile" -ForegroundColor Gray
+Write-Host "📌 下一步：執行 .\scripts\ahpal-master.ps1 選擇 [6] 部署" -ForegroundColor Yellow
+            </div>
+
+            <h3>6.2 參數說明</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>參數</th><th>預設值</th><th>說明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>NotebookId</code></td>
+                            <td><code>9844f371-19ba-4f10-aa33-8dc7b40a41f8</code></td>
+                            <td>AHPAL 影音測試 Notebook ID</td>
+                        </tr>
+                        <tr>
+                            <td><code>ArticlePath</code></td>
+                            <td><code>tech\3d-printer-guide-2026.html</code></td>
+                            <td>要轉換的文章路徑</td>
+                        </tr>
+                        <tr>
+                            <td><code>OutputDir</code></td>
+                            <td><code>C:\Users\User\ahpal-static\audio</code></td>
+                            <td>音訊輸出目錄</td>
+                        </tr>
+                        <tr>
+                            <td><code>OutputFilename</code></td>
+                            <td><code>podcast.wav</code></td>
+                            <td>音訊檔名</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    7. 技術棧
+    ============================================================ -->
+    <section id="section-technology-stack">
+        <div class="card">
+            <h2>7. 技術棧</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>元件</th><th>技術</th><th>用途</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>編排語言</td>
+                            <td><span class="inline-code">PowerShell 5.1</span></td>
+                            <td>控制流程、整合各元件</td>
+                        </tr>
+                        <tr>
+                            <td>AI 音訊引擎</td>
+                            <td><span class="inline-code">Google Gemini Notebook (notebooklm-py)</span></td>
+                            <td>文章轉 Podcast 音訊生成</td>
+                        </tr>
+                        <tr>
+                            <td>CDN 託管</td>
+                            <td><span class="inline-code">Cloudflare Pages</span></td>
+                            <td>靜態檔案託管、全球 CDN</td>
+                        </tr>
+                        <tr>
+                            <td>版本控制</td>
+                            <td><span class="inline-code">Git + GitHub</span></td>
+                            <td>原始碼與內容版本管理</td>
+                        </tr>
+                        <tr>
+                            <td>部署工具</td>
+                            <td><span class="inline-code">Wrangler CLI</span></td>
+                            <td>Cloudflare Pages 部署</td>
+                        </tr>
+                        <tr>
+                            <td>影音發布</td>
+                            <td><span class="inline-code">YouTube API</span></td>
+                            <td>影片上傳與管理</td>
+                        </tr>
+                        <tr>
+                            <td>認證機制</td>
+                            <td><span class="inline-code">OAuth 2.0 / Cookie</span></td>
+                            <td>Google 服務認證</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip info">
+                <div class="tip-title">📌 依賴條件</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li><strong>Python 3.10+</strong>：安裝 <code>notebooklm-py</code> 所需環境</li>
+                    <li><strong>Node.js</strong>：執行 Wrangler CLI</li>
+                    <li><strong>Google 帳戶</strong>：啟用兩步驟驗證 + 應用程式密碼</li>
+                    <li><strong>Git</strong>：版本控制</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    8. 執行時程
+    ============================================================ -->
+    <section id="section-roadmap">
+        <div class="card">
+            <h2>8. 執行時程</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>階段</th><th>任務</th><th>預計完成</th><th>狀態</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3"><span class="badge primary">第一階段</span></td>
+                            <td>安裝 <code>notebooklm-py</code> 與認證</td>
+                            <td>2026-07-23</td>
+                            <td><span class="badge success">✅ 完成</span></td>
+                        </tr>
+                        <tr>
+                            <td>測試來源新增與 AI 問答</td>
+                            <td>2026-07-23</td>
+                            <td><span class="badge success">✅ 完成</span></td>
+                        </tr>
+                        <tr>
+                            <td>觸發音訊生成與下載驗證</td>
+                            <td>2026-07-24</td>
+                            <td><span class="badge warning">⏳ 待配額重置</span></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3"><span class="badge success">第二階段</span></td>
+                            <td>撰寫 <code>youtube-pipeline.ps1</code></td>
+                            <td>2026-07-24</td>
+                            <td><span class="badge warning">⏳ 進行中</span></td>
+                        </tr>
+                        <tr>
+                            <td>全流程整合測試</td>
+                            <td>2026-07-25</td>
+                            <td><span class="badge warning">⏳ 待執行</span></td>
+                        </tr>
+                        <tr>
+                            <td>錯誤處理與重試機制</td>
+                            <td>2026-07-26</td>
+                            <td><span class="badge warning">⏳ 待執行</span></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><span class="badge warning">第三階段</span></td>
+                            <td>音訊自動嵌入文章 HTML</td>
+                            <td>2026-07-27</td>
+                            <td><span class="badge warning">⏳ 待執行</span></td>
+                        </tr>
+                        <tr>
+                            <td>YouTube 上傳整合</td>
+                            <td>2026-07-28</td>
+                            <td><span class="badge warning">⏳ 待執行</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge accent">第四階段</span></td>
+                            <td>每周自動量產 5-10 篇影音</td>
+                            <td>2026-08-01 起</td>
+                            <td><span class="badge warning">⏳ 待執行</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    9. 風險管理
+    ============================================================ -->
+    <section id="section-risk-management">
+        <div class="card">
+            <h2>9. 風險管理</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>風險</th><th>影響</th><th>應對策略</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Google 速率限制</td>
+                            <td>高</td>
+                            <td>分散生成時段、使用付費方案、排程錯峰</td>
+                        </tr>
+                        <tr>
+                            <td>Cookie 過期</td>
+                            <td>中</td>
+                            <td>定期執行 <code>notebooklm login</code> 更新憑證</td>
+                        </tr>
+                        <tr>
+                            <td>音訊品質不達標</td>
+                            <td>中</td>
+                            <td>調整來源內容結構、使用自訂提示詞</td>
+                        </tr>
+                        <tr>
+                            <td>檔案路徑錯誤</td>
+                            <td>低</td>
+                            <td>使用絕對路徑、執行前檢查檔案存在</td>
+                        </tr>
+                        <tr>
+                            <td>Cloudflare 部署失敗</td>
+                            <td>低</td>
+                            <td>使用 Wrangler 本地預覽、Git 回滾</td>
+                        </tr>
+                        <tr>
+                            <td>YouTube 上傳配額用盡</td>
+                            <td>中</td>
+                            <td>已有 <code>batch-upload-throttled.ps1</code> 流量管制</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip warning">
+                <div class="tip-title">⚠️ 關鍵風險</div>
+                <p><strong>Google NotebookLM 速率限制</strong> 是最主要的風險。建議在 <code>ahpal-master.ps1</code> 中加入配額檢查邏輯，並在配額不足時自動延後至次日執行。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    10. 驗收標準
+    ============================================================ -->
+    <section id="section-success-criteria">
+        <div class="card">
+            <h2>10. 驗收標準</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>階段</th><th>驗收項目</th><th>標準</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>第一階段</td>
+                            <td>音訊生成成功</td>
+                            <td>至少 1 篇完整 Podcast 音訊檔案 (≥ 1MB)</td>
+                        </tr>
+                        <tr>
+                            <td>第二階段</td>
+                            <td>管線腳本測試通過</td>
+                            <td><code>youtube-pipeline.ps1</code> 可完整執行無錯誤</td>
+                        </tr>
+                        <tr>
+                            <td>第三階段</td>
+                            <td>音訊成功部署</td>
+                            <td><code>https://www.ahpal.com/audio/podcast.wav</code> 可正常存取</td>
+                        </tr>
+                        <tr>
+                            <td>第三階段</td>
+                            <td>YouTube 上傳成功</td>
+                            <td>影片成功發布至 AHPAL YouTube 頻道</td>
+                        </tr>
+                        <tr>
+                            <td>第四階段</td>
+                            <td>每周穩定產出</td>
+                            <td>連續 4 周每周產出 ≥ 5 篇影音內容</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip success">
+                <div class="tip-title">🎯 最終目標</div>
+                <p>在 <strong>2026 年 8 月 1 日</strong> 前完成全線整合，實現「文章發布 → 音訊生成 → 影音上線」的全自動化閉環，使 AHPAL.COM 成為具備文字、遊戲、影音三位一體內容生態的網站。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    11. 未來擴充
+    ============================================================ -->
+    <section id="section-future-expansion">
+        <div class="card">
+            <h2>11. 未來擴充</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>項目</th><th>說明</th><th>優先級</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>多語言音訊</td>
+                            <td>支援英文、日文等多語言 Podcast 生成</td>
+                            <td>中</td>
+                        </tr>
+                        <tr>
+                            <td>影片自動剪輯</td>
+                            <td>音訊 + 動態背景圖片 → 自動生成影片</td>
+                            <td>高</td>
+                        </tr>
+                        <tr>
+                            <td>Shorts 自動化</td>
+                            <td>從 Podcast 中剪輯 30-60 秒精華片段</td>
+                            <td>高</td>
+                        </tr>
+                        <tr>
+                            <td>RSS 播客串流</td>
+                            <td>建立 Podcast RSS Feed 供 Apple/Spotify 訂閱</td>
+                            <td>中</td>
+                        </tr>
+                        <tr>
+                            <td>多 Notebook 協作</td>
+                            <td>不同分類使用不同 Notebook 管理</td>
+                            <td>低</td>
+                        </tr>
+                        <tr>
+                            <td>音訊轉逐字稿</td>
+                            <td>自動生成音訊逐字稿，優化 SEO</td>
+                            <td>低</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    12. 術語表
+    ============================================================ -->
+    <section id="section-glossary">
+        <div class="card">
+            <h2>12. 術語表</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>術語</th><th>說明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="inline-code">NotebookLM</span></td>
+                            <td>Google 的 AI 筆記本工具，現更名為 Gemini Notebook</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">Artifact</span></td>
+                            <td>NotebookLM 中的產出物，如音訊、簡報、報告等</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">Rate Limit</span></td>
+                            <td>API 速率限制，Google 免費版每日有使用配額上限</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">Cookie Storage</span></td>
+                            <td>儲存登入憑證的 JSON 檔案，位於 <code>~/.notebooklm/</code></td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">Wrangler</span></td>
+                            <td>Cloudflare Pages 的 CLI 部署工具</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">Dwell Time</span></td>
+                            <td>用戶在網站上的停留時間，SEO 重要指標</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">Podcast</span></td>
+                            <td>音訊播客，本專案指由 NotebookLM 生成的對話式音訊</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    13. 執行檢查清單
+    ============================================================ -->
+    <section id="section-checklist">
+        <div class="card">
+            <h2>13. 執行檢查清單</h2>
+
+            <div class="tip success">
+                <div class="tip-title">✅ 請逐項確認</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li>☐ Python 3.10+ 已安裝並可執行 (<code>python --version</code>)</li>
+                    <li>☐ <code>notebooklm-py</code> 已安裝 (<code>pip install notebooklm-py</code>)</li>
+                    <li>☐ Google 帳戶已啟用兩步驟驗證</li>
+                    <li>☐ 已完成 <code>notebooklm login</code> 並驗證 (<code>notebooklm auth check --test</code>)</li>
+                    <li>☐ Notebook 已建立並記錄 ID (<code>notebooklm list</code>)</li>
+                    <li>☐ 測試文章存在於 <code>tech/</code> 或 <code>game/</code> 目錄中</li>
+                    <li>☐ <code>audio/</code> 目錄已建立或腳本會自動建立</li>
+                    <li>☐ 確認 Google NotebookLM 每日配額尚未用盡</li>
+                    <li>☐ 執行 <code>youtube-pipeline.ps1</code> 測試完整流程</li>
+                    <li>☐ 確認音訊檔案成功下載至 <code>audio/podcast.wav</code></li>
+                    <li>☐ 執行 <code>.\scripts\ahpal-master.ps1</code> 選擇 [6] 部署</li>
+                    <li>☐ 驗證 <code>https://www.ahpal.com/audio/podcast.wav</code> 可正常存取</li>
+                    <li>☐ 確認部署完成郵件通知已送達</li>
+                    <li>☐ 更新文章 HTML，嵌入 <code>&lt;audio&gt;</code> 標籤</li>
+                    <li>☐ 將音訊上傳至 YouTube 頻道 (可選)</li>
+                </ul>
+            </div>
+
+            <div class="tip info">
+                <div class="tip-title">📌 緊急聯絡人</div>
+                <p><strong>系統負責人：</strong>______________（LINE/手機：______________）</p>
+                <p><strong>Google Cloud 管理員：</strong>______________（信箱：______________）</p>
+                <p><strong>Cloudflare 管理員：</strong>______________（信箱：______________）</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div style="text-align:center;padding:30px 0;color:#A0AEC0;font-size:13px;border-top:1px solid var(--color-border);margin-top:20px;">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 影音自動化產線通盤企劃與細部規劃 v1.0<br>
+        文件最後更新：2026 年 7 月 23 日
+        <br><br>
+        <span style="font-size:12px;color:#718096;">
+        🦞 龍蝦總工程師 · 戰情室策劃
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

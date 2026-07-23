@@ -213,6 +213,17 @@ keywords_list = [
     {"keyword": "AI 影片剪輯工具評測", "category": "🤖 AI 趨勢", "filename": "trend/ai-video-editors-2026.html"},
     {"keyword": "AI 自動化工作流程實例", "category": "🤖 AI 趨勢", "filename": "trend/ai-workflow-automation-2026.html"},
     {"keyword": "AI 繪圖工具 2026 完整評測", "category": "🤖 AI 趨勢", "filename": "trend/ai-art-tools-review-2026.html"},
+    {"keyword": "Windows 11 省電設定完整教學 2026", "category": "💻 3C 科技教學", "filename": "tech/Windows11省電設定完整教學2026.html"},
+    {"keyword": "手機儲存空間不足怎麼清理", "category": "💻 3C 科技教學", "filename": "tech/手機儲存空間不足怎麼清理.html"},
+    {"keyword": "家用 Wi-Fi 訊號增強實用方法", "category": "💻 3C 科技教學", "filename": "tech/家用Wi-Fi訊號增強實用方法.html"},
+    {"keyword": "免費 PDF 編輯軟體評測 2026", "category": "📊 軟體評測", "filename": "review/免費PDF編輯軟體評測2026.html"},
+    {"keyword": "密碼管理工具怎麼選", "category": "📊 軟體評測", "filename": "review/密碼管理工具怎麼選.html"},
+    {"keyword": "AI 筆記工具工作流程指南", "category": "🤖 AI 趨勢", "filename": "trend/AI筆記工具工作流程指南.html"},
+    {"keyword": "生成式 AI 資安風險與防護", "category": "🤖 AI 趨勢", "filename": "trend/生成式AI資安風險與防護.html"},
+    {"keyword": "小宅收納規劃實戰技巧", "category": "🏠 生活小常識", "filename": "life/小宅收納規劃實戰技巧.html"},
+    {"keyword": "居家防災包準備清單", "category": "🏠 生活小常識", "filename": "life/居家防災包準備清單.html"},
+    {"keyword": "數位時代的專注力訓練", "category": "🌟 人生哲理", "filename": "philosophy/數位時代的專注力訓練.html"},
+
 ]
 
 # ============================================================

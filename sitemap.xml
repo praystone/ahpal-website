@@ -61,6 +61,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/docs/AHPAL組織與內容營運與技術維護紅皮書.html</loc>
+        <lastmod>2026-07-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/docs/AI交接與新進工程師接手手冊.html</loc>
         <lastmod>2026-07-20</lastmod>
         <changefreq>monthly</changefreq>
@@ -794,12 +800,6 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/life/real-estate-dispute-traps.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/life/rental-deposit-dispute-rights.html</loc>
         <lastmod>2026-07-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHPAL 組織與內容營運與技術維護紅皮書</title>
+    <style>
+        /* ============================================================
+           全域樣式
+           ============================================================ */
+        :root {
+            --primary: #8B0000;
+            --primary-light: #A52A2A;
+            --secondary: #C9A84C;
+            --gold: #D4AF37;
+            --bg: #FDF8F0;
+            --card: #FFFFFF;
+            --text: #1A1A1A;
+            --text-light: #4A4A4A;
+            --border: #D4C5A9;
+            --shadow: 0 8px 30px rgba(0,0,0,0.10);
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            --font-mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-stack);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 50px 55px;
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 640px) { .container { padding: 25px 18px; } }
+
+        /* ============================================================
+           頁首
+           ============================================================ */
+        .header {
+            text-align: center;
+            padding: 30px 0 25px 0;
+            border-bottom: 4px solid var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .header .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .header .logo span { color: var(--gold); }
+
+        .header .subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-top: 6px;
+            letter-spacing: 4px;
+        }
+
+        .header .version {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+            letter-spacing: 2px;
+        }
+
+        .header .status-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--text);
+            padding: 4px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* ============================================================
+           目錄
+           ============================================================ */
+        .toc {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 24px 30px;
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2px 20px;
+        }
+
+        .toc ul li::before {
+            content: "▸ ";
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .toc ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .toc ul li a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+           標題
+           ============================================================ */
+        h1 { font-size: 34px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 36px 0 18px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        h3 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 24px 0 12px 0;
+            padding-left: 14px;
+            border-left: 4px solid var(--gold);
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin: 16px 0 8px 0;
+        }
+
+        /* ============================================================
+           表格
+           ============================================================ */
+        .table-wrapper { overflow-x: auto; margin: 16px 0 20px 0; border-radius: 12px; border: 1px solid var(--border); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 600px;
+        }
+
+        table th, table td {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) td { background: #F9FAFC; }
+        table tr:hover td { background: #FFF8E7; }
+
+        /* ============================================================
+           提示框
+           ============================================================ */
+        .tip {
+            padding: 16px 22px;
+            border-radius: 12px;
+            margin: 14px 0 18px 0;
+            border-left: 5px solid;
+        }
+
+        .tip.info { background: #EBF8FF; border-color: #3182CE; color: #2B6CB0; }
+        .tip.success { background: #F0FFF4; border-color: #38A169; color: #276749; }
+        .tip.warning { background: #FFFAF0; border-color: #DD6B20; color: #9C4221; }
+        .tip.danger { background: #FFF5F5; border-color: #E53E3E; color: #9B2C2C; }
+        .tip.gold { background: #FFFDF0; border-color: var(--gold); color: #7A6B3A; }
+        .tip.deadcommand { background: #FFF5F5; border-color: #8B0000; color: #8B0000; border-left-width: 6px; }
+
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+
+        /* ============================================================
+           徽章
+           ============================================================ */
+        .badge {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.primary { background: var(--primary); color: white; }
+        .badge.gold { background: var(--gold); color: var(--text); }
+        .badge.success { background: #38A169; color: white; }
+        .badge.warning { background: #DD6B20; color: white; }
+        .badge.danger { background: #E53E3E; color: white; }
+        .badge.dead { background: #8B0000; color: white; }
+
+        /* ============================================================
+           程式碼
+           ============================================================ */
+        .code-block {
+            background: #1A1A2E;
+            color: #E8E8E8;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0 16px 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .inline-code {
+            background: #EDF2F7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            border: 1px solid var(--border);
+        }
+
+        /* ============================================================
+           死命令專屬樣式
+           ============================================================ */
+        .death-command {
+            border: 3px solid #8B0000;
+            background: #FFF8F8;
+            padding: 24px 28px;
+            border-radius: 14px;
+            margin: 20px 0 24px 0;
+            position: relative;
+        }
+
+        .death-command::before {
+            content: "🔴 死命令";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #8B0000;
+            color: white;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .death-command .death-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #8B0000;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .death-command ul, .death-command ol {
+            margin: 10px 0 10px 25px;
+        }
+
+        .death-command li {
+            margin-bottom: 6px;
+        }
+
+        /* ============================================================
+           簽核區
+           ============================================================ */
+        .signature-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid var(--gold);
+        }
+
+        .signature-box {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 20px 24px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .signature-box .role { font-size: 13px; color: var(--text-light); font-weight: 600; letter-spacing: 1px; }
+        .signature-box .name { font-size: 18px; font-weight: 700; color: var(--text); margin: 4px 0; }
+        .signature-box .line { width: 80%; height: 2px; background: var(--border); margin: 12px auto 6px auto; }
+        .signature-box .status-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .signature-box .status-badge.approved { background: #C6F6D5; color: #276749; }
+        .signature-box .status-badge.pending { background: #FEFCBF; color: #975A16; }
+        .signature-box .status-badge.draft { background: #E2E8F0; color: #4A5568; }
+        .signature-box .status-badge.dead { background: #8B0000; color: white; }
+
+        /* ============================================================
+           響應式
+           ============================================================ */
+        @media (max-width: 768px) {
+            .header .logo { font-size: 24px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            .toc ul { grid-template-columns: 1fr; }
+            table th, table td { padding: 8px 12px; font-size: 13px; }
+            .signature-area { grid-template-columns: 1fr; gap: 15px; }
+            .death-command { padding: 18px 16px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .container { padding: 18px 14px; }
+            h1 { font-size: 22px; }
+        }
+
+        /* ============================================================
+           列印樣式
+           ============================================================ */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: 1px solid #ddd; }
+            .header { border-bottom-color: #333; }
+            .tip { border: 1px solid #ddd; }
+            .death-command { border: 2px solid #8B0000; background: #f9f0f0; }
+            .death-command::before { background: #8B0000; color: white; }
+            .code-block { background: #f4f4f4; color: #222; }
+            .toc ul { grid-template-columns: 1fr 1fr; }
+            .signature-area { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
+        <div class="subtitle">組織與內容營運與技術維護紅皮書</div>
+        <div class="version">📌 版本 v2.0 · 董事會核定版 · 含死命令</div>
+        <div class="status-badge">✅ 即日生效 · 全員遵行</div>
+    </div>
+
+    <!-- ============================================================
+    目錄
+    ============================================================ -->
+    <div class="card">
+        <h2>📖 目錄</h2>
+        <div class="toc">
+            <ul>
+                <li><a href="#section-org">1. 組織架構</a></li>
+                <li><a href="#section-roles">2. 角色職責與權限</a></li>
+                <li><a href="#section-content">3. 內容營運計畫</a></li>
+                <li><a href="#section-tech">4. 技術維護計畫</a></li>
+                <li><a href="#section-security">5. 安全與風險管理</a></li>
+                <li><a href="#section-ops">6. 日常維運 SOP</a></li>
+                <li><a href="#section-deployment">7. 部署與發布流程</a></li>
+                <li><a href="#section-disaster">8. 災難復原計畫</a></li>
+                <li><a href="#section-compliance">9. 合規與法遵</a></li>
+                <li><a href="#section-communication">10. 溝通與回報機制</a></li>
+                <li><a href="#section-glossary">11. 術語表</a></li>
+                <li><a href="#section-acknowledgment">12. 簽核與版本紀錄</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    1. 組織架構
+    ============================================================ -->
+    <section id="section-org">
+        <div class="card">
+            <h2>1. 組織架構</h2>
+
+            <h3>1.1 最高決策層</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>角色</th><th>職稱</th><th>核心職責</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🏛️ ChatGPT</td>
+                            <td><strong>董事會執行長</strong></td>
+                            <td>擁有 PowerShell 執行權限，負責董事會決策執行、專案督導、機密檔案攔截排錯</td>
+                        </tr>
+                        <tr>
+                            <td>🦞 DeepSeek</td>
+                            <td><strong>總經理兼總工程師</strong></td>
+                            <td>擁有 PowerShell 最高權限，負責系統架構設計、自動化管線維運、技術風險管理</td>
+                        </tr>
+                        <tr>
+                            <td>🤖 Gemini</td>
+                            <td><strong>整合系統顧問</strong></td>
+                            <td>負責 AI 模型整合、API 串接策略、SEO 診斷、跨平台一致性</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip gold">
+                <div class="tip-title">👑 董事長</div>
+                <p>擁有最終決策權與資源分配權限。所有重大變更、策略調整與資源配置，均須經董事長核准後方可執行。</p>
+            </div>
+
+            <h3>1.2 協作原則</h3>
+            <ul>
+                <li>每項重要變更須同時檢視：<strong>工程可行性、系統整合影響、用戶/商業成果</strong>。</li>
+                <li>API Key、<span class="inline-code">.env</span>、帳戶憑證及個人資料<strong>不可寫入 Git、網頁或交接紀錄</strong>。</li>
+                <li>先在工作區驗證，再提出部署建議；自動化發布須有明確日誌與可回復方案。</li>
+                <li>所有生產環境變更須經 <strong>「董事會執行長」</strong> 核准。</li>
+            </ul>
+
+            <div class="tip info">
+                <div class="tip-title">📌 快速調用</div>
+                <p>在 Codex 對話中輸入：<span class="inline-code">使用 Board Website Collaboration 幫我改善這個網站的首頁設計。</span></p>
+                <p>系統將自動啟動三位角色的協同作業模式。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    2. 角色職責與權限
+    ============================================================ -->
+    <section id="section-roles">
+        <div class="card">
+            <h2>2. 角色職責與權限</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>角色</th><th>職責</th><th>PowerShell 權限</th><th>核准層級</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🦞 總經理兼總工程師</td>
+                            <td>主導系統架構、自動化管線、實作品質、交付順序、技術風險</td>
+                            <td>✅ 最高權限<br>診斷、建置、維護</td>
+                            <td>技術方案核准</td>
+                        </tr>
+                        <tr>
+                            <td>🤖 整合系統顧問</td>
+                            <td>雙 API 切換策略、SEO 診斷、資料流、跨平台一致性</td>
+                            <td>⚠️ 僅限整合設計<br>不得提交 API 金鑰</td>
+                            <td>整合方案建議</td>
+                        </tr>
+                        <tr>
+                            <td>🏛️ 董事會執行長</td>
+                            <td>決策執行、專案督導、驗收、機密檔案攔截排錯</td>
+                            <td>✅ 執行權限<br>檢查、修改、驗證</td>
+                            <td>最終核准</td>
+                        </tr>
+                        <tr>
+                            <td>👑 董事長</td>
+                            <td>最終決策、資源分配、策略方向</td>
+                            <td>🔑 最高權限</td>
+                            <td>最終決策</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip warning">
+                <div class="tip-title">⚠️ 安全界線</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li>不可繞過系統安全、平台權限或憑證保護。</li>
+                    <li>不可暴露、複製或提交 API 金鑰。</li>
+                    <li>不可將 <span class="inline-code">.env</span> 寫入 Git 或交接紀錄。</li>
+                    <li>系統與平台安全界線持續適用。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    3. 內容營運計畫
+    ============================================================ -->
+    <section id="section-content">
+        <div class="card">
+            <h2>3. 內容營運計畫</h2>
+
+            <h3>3.1 系統數據總覽（截至 2026.07.23）</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>指標</th><th>數值</th><th>狀態</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>總文章數</td><td><strong>254 篇</strong></td><td>✅ 穩定</td></tr>
+                        <tr><td>品質通過率 (≥70分)</td><td><strong>100%</strong></td><td>✅ 優良</td></tr>
+                        <tr><td>平均品質分數</td><td><strong>97 分</strong></td><td>✅ 優良</td></tr>
+                        <tr><td>遊戲數量</td><td><strong>23 款</strong></td><td>✅ 正常</td></tr>
+                        <tr><td>分類數量</td><td><strong>6 大類</strong></td><td>✅ 完整</td></tr>
+                        <tr><td>Sitemap 項目</td><td><strong>254+ 個</strong></td><td>✅ 正常</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.2 文章分類與數量目標</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>分類</th><th>目前</th><th>Q3 目標</th><th>年度目標</th><th>優先級</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>💻 3C 科技教學</td><td>46</td><td>55</td><td>70</td><td>🔴 高</td></tr>
+                        <tr><td>🎮 遊戲攻略</td><td>44</td><td>52</td><td>65</td><td>🔴 高</td></tr>
+                        <tr><td>🏠 生活小常識</td><td>44</td><td>50</td><td>60</td><td>🟡 中</td></tr>
+                        <tr><td>📊 軟體評測</td><td>43</td><td>50</td><td>60</td><td>🟡 中</td></tr>
+                        <tr><td>🌟 人生哲理</td><td>36</td><td>42</td><td>50</td><td>🟢 低</td></tr>
+                        <tr><td>🤖 AI 趨勢</td><td>41</td><td>48</td><td>55</td><td>🟡 中</td></tr>
+                        <tr><td><strong>總計</strong></td><td><strong>254</strong></td><td><strong>297</strong></td><td><strong>360</strong></td><td>—</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.3 文章品質門檻</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>指標</th><th>標準</th><th>檢查方式</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>字數</td><td>≥ 4,500 字</td><td>自動檢查</td></tr>
+                        <tr><td>H2 標題</td><td>≥ 3 個</td><td>自動檢查</td></tr>
+                        <tr><td>H3 標題</td><td>≥ 2 個</td><td>自動檢查</td></tr>
+                        <tr><td>對比表格</td><td>≥ 1 個</td><td>自動檢查</td></tr>
+                        <tr><td>FAQ 區塊</td><td>≥ 3 題</td><td>自動檢查</td></tr>
+                        <tr><td>品質分數</td><td>≥ 80 分</td><td>自動評分</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip success">
+                <div class="tip-title">✅ 品質保證機制</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li>文章生成後自動進行品質檢查</li>
+                    <li>品質分數 ≥ 80 分才允許發布</li>
+                    <li>不合格文章自動標記為待修復</li>
+                    <li>每週一執行全面品質審查</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    4. 技術維護計畫
+    ============================================================ -->
+    <section id="section-tech">
+        <div class="card">
+            <h2>4. 技術維護計畫</h2>
+
+            <h3>4.1 技術架構確認</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>元件</th><th>技術</th><th>狀態</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>總指揮</td><td>PowerShell</td><td>✅ v6.3 穩定</td></tr>
+                        <tr><td>環境設定</td><td><code>ahpal-static.ps1</code></td><td>✅ 正常</td></tr>
+                        <tr><td>內容生成引擎</td><td>Python 3 (模組化)</td><td>✅ v4.2 穩定</td></tr>
+                        <tr><td>AI 模型</td><td>Gemini 3.6 Flash / DeepSeek</td><td>✅ 雙軌切換</td></tr>
+                        <tr><td>靜態託管</td><td>Cloudflare Pages</td><td>✅ 正常</td></tr>
+                        <tr><td>版本控制</td><td>Git + GitHub</td><td>✅ 正常</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>4.2 排程維護任務</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>任務</th><th>頻率</th><th>負責人</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>執行品質檢查</td><td>每週一 09:00</td><td>總工程師</td></tr>
+                        <tr><td>執行完整備份</td><td>每週三 06:00</td><td>總工程師</td></tr>
+                        <tr><td>檢查 Git 同步</td><td>每日 08:00</td><td>執行長</td></tr>
+                        <tr><td>檢查 Cloudflare 部署</td><td>每日 08:00</td><td>執行長</td></tr>
+                        <tr><td>檢查 API 配額</td><td>每日 09:00</td><td>總工程師</td></tr>
+                        <tr><td>檢查 Gmail 通知</td><td>每日 10:00</td><td>執行長</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>4.3 自動化管線</h3>
+            <div class="code-block">
+# 完整自動化流程
+.\scripts\ahpal-master.ps1
+    ├── 步驟 0：備份 (backup-system.ps1)
+    ├── 步驟 1：生成遊戲 (generate-games.ps1)
+    ├── 步驟 2：生成文章 (src/main.py)
+    ├── 步驟 3：Git 提交與推送
+    └── 步驟 4：部署到 Cloudflare (Wrangler)
+
+# 影音自動化管線（半自動）
+.\scripts\youtube-pipeline.ps1 -ArticlePath "tech/文章.html"
+    ├── 設定 Notebook 上下文
+    ├── 新增文章來源
+    ├── 觸發音訊生成
+    ├── 等待生成完成
+    └── 下載音訊檔案
+            </div>
+
+            <div class="tip info">
+                <div class="tip-title">📌 電源管理 SOP</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li>確認筆電接上穩定電源與網路</li>
+                    <li>將「插電時」睡眠與休眠設定為「永不」</li>
+                    <li>重新啟動後驗證排程器、PowerShell 執行原則與 Gmail 通知測試</li>
+                    <li>定期檢查更新重啟、磁碟空間與網路斷線</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    5. 安全與風險管理
+    ============================================================ -->
+    <section id="section-security">
+        <div class="card">
+            <h2>5. 安全與風險管理</h2>
+
+            <h3>5.1 API 金鑰管理</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>金鑰</th><th>儲存位置</th><th>存取權限</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>GEMINI_API_KEY</code></td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
+                        <tr><td><code>DEEPSEEK_API_KEY</code></td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
+                        <tr><td><code>SMTP_PASS</code></td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
+                        <tr><td>其他憑證</td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip danger">
+                <div class="tip-title">🚨 禁止事項</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li>❌ 不得將 <span class="inline-code">.env</span> 上傳至 GitHub</li>
+                    <li>❌ 不得將 API Key 寫入日誌或交接文件</li>
+                    <li>❌ 不得將憑證暴露於任何公開管道</li>
+                    <li>❌ 不得繞過 Git 的機密檔案攔截機制</li>
+                </ul>
+            </div>
+
+            <h3>5.2 風險矩陣</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>風險</th><th>影響</th><th>應對策略</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>API 速率限制</td>
+                            <td>高</td>
+                            <td>分散生成時段、使用付費方案、排程錯峰</td>
+                        </tr>
+                        <tr>
+                            <td>Cookie 過期</td>
+                            <td>中</td>
+                            <td>定期執行 <code>notebooklm login</code></td>
+                        </tr>
+                        <tr>
+                            <td>備份損壞</td>
+                            <td>高</td>
+                            <td>每日備份、驗證備份完整性、保留黃金備份</td>
+                        </tr>
+                        <tr>
+                            <td>Git 衝突</td>
+                            <td>低</td>
+                            <td>使用 <code>git pull --rebase</code></td>
+                        </tr>
+                        <tr>
+                            <td>部署失敗</td>
+                            <td>低</td>
+                            <td>使用 Wrangler 本地預覽、Git 回滾</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    6. 日常維運 SOP
+    ============================================================ -->
+    <section id="section-ops">
+        <div class="card">
+            <h2>6. 日常維運 SOP</h2>
+
+            <h3>6.1 每日檢查清單</h3>
+            <div class="code-block">
+# 每日維運檢查
+
+# 1. 檢查網站狀態
+Invoke-WebRequest -Uri https://www.ahpal.com -Method Head
+
+# 2. 檢查 Git 同步
+git status
+git pull
+
+# 3. 檢查 API 配額
+.\scripts\check-deepseek-balance.ps1
+
+# 4. 檢查 Gmail 通知
+# 確認信箱中是否有部署報告郵件
+
+# 5. 檢查排程任務
+Get-ScheduledTask | Where-Object { $_.TaskName -like "*AHPAL*" -or $_.TaskName -like "*DeepSeek*" }
+            </div>
+
+            <h3>6.2 每週維護清單</h3>
+            <ul>
+                <li><strong>週一 09:00</strong>：執行品質檢查 (<code>.\scripts\check-articles.ps1</code>)</li>
+                <li><strong>週三 06:00</strong>：執行完整備份 (<code>.\scripts\backup-system.ps1</code>)</li>
+                <li><strong>週五 10:00</strong>：檢查 Analytics 數據與 AdSense 狀態</li>
+            </ul>
+
+            <div class="tip success">
+                <div class="tip-title">✅ 故障通報程序</div>
+                <ol style="margin:4px 0 0 20px;">
+                    <li>發現異常 → 立即截圖記錄錯誤訊息</li>
+                    <li>透過 Gmail 通知董事會執行長</li>
+                    <li>執行 <code>.\scripts\check-all.ps1</code> 進行全面檢查</li>
+                    <li>若無法立即修復，執行備份還原程序</li>
+                    <li>記錄故障原因與修復方式至日誌</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    7. 部署與發布流程
+    ============================================================ -->
+    <section id="section-deployment">
+        <div class="card">
+            <h2>7. 部署與發布流程</h2>
+
+            <h3>7.1 標準部署流程</h3>
+            <ol>
+                <li><strong>執行總指揮腳本</strong>：<code>.\scripts\ahpal-master.ps1</code></li>
+                <li><strong>選擇部署選項</strong>：<code>[1]</code> 完整流程 或 <code>[6]</code> 只做 Git + 部署</li>
+                <li><strong>等待自動化完成</strong>：備份 → 生成 → Git → 部署</li>
+                <li><strong>驗證網站</strong>：前往 https://www.ahpal.com/ 確認更新</li>
+                <li><strong>確認通知</strong>：檢查 Gmail 是否收到部署報告</li>
+            </ol>
+
+            <h3>7.2 緊急發布流程</h3>
+            <div class="code-block">
+# 僅部署（不重新生成內容）
+cd C:\Users\User\ahpal-static
+npx wrangler pages deploy . --project-name=ahpal-pages
+            </div>
+
+            <h3>7.3 部署後驗證清單</h3>
+            <ul>
+                <li>☐ 首頁可正常訪問</li>
+                <li>☐ 遊戲間可正常訪問</li>
+                <li>☐ 全部分類頁面可正常訪問</li>
+                <li>☐ Sitemap 已更新</li>
+                <li>☐ Giscus 留言區正常載入</li>
+                <li>☐ AdSense 廣告正常顯示</li>
+                <li>☐ 部署報告郵件已收到</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    8. 災難復原計畫
+    ============================================================ -->
+    <section id="section-disaster">
+        <div class="card">
+            <h2>8. 災難復原計畫</h2>
+
+            <h3>8.1 備份策略</h3>
+            <ul>
+                <li><strong>每日備份</strong>：自動備份至 <code>ahpal-backup/YYYY-MM-DD_HH-MM-SS/</code></li>
+                <li><strong>黃金備份</strong>：保留最新穩定版本至 <code>ahpal-backup/GOLDEN/</code></li>
+                <li><strong>版本控制</strong>：所有變更均透過 Git 記錄</li>
+            </ul>
+
+            <h3>8.2 災難復原 SOP</h3>
+            <div class="code-block">
+# 情境假設：網站損毀，需從備份還原
+
+# 1. 從黃金備份還原
+Copy-Item -Path "C:\Users\User\ahpal-backup\GOLDEN\*" -Destination C:\Users\User\ahpal-static -Recurse -Force
+
+# 2. 確認 index.html 正常
+Get-Item C:\Users\User\ahpal-static\index.html | Select-Object Name, Length, LastWriteTime
+
+# 3. 從備份還原 .env（如果遺失）
+Copy-Item -Path "C:\Users\User\ahpal-backup\GOLDEN\.env" -Destination C:\Users\User\ahpal-static\.env -Force
+
+# 4. 部署到 Cloudflare
+npx wrangler pages deploy "C:\Users\User\ahpal-static" --project-name=ahpal-pages
+
+# 目標：30 分鐘內恢復上線
+            </div>
+
+            <div class="tip warning">
+                <div class="tip-title">⚠️ 緊急連絡人</div>
+                <p><strong>總經理兼總工程師：</strong>______________（LINE/手機：______________）</p>
+                <p><strong>董事會執行長：</strong>______________（信箱：______________）</p>
+                <p><strong>Cloudflare 管理員：</strong>______________（信箱：______________）</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    9. 合規與法遵
+    ============================================================ -->
+    <section id="section-compliance">
+        <div class="card">
+            <h2>9. 合規與法遵</h2>
+
+            <h3>9.1 資料保護</h3>
+            <ul>
+                <li>所有 API Key 與憑證僅儲存於本地 <span class="inline-code">.env</span> 檔案</li>
+                <li><span class="inline-code">.env</span> 已加入 <span class="inline-code">.gitignore</span>，不會上傳至 GitHub</li>
+                <li>日誌檔案中不得記錄 API Key、密碼或個人資料</li>
+                <li>Cloudflare 僅部署靜態檔案，不包含敏感資訊</li>
+            </ul>
+
+            <h3>9.2 版權與內容政策</h3>
+            <ul>
+                <li>所有 AI 生成內容均為原創，無侵權疑慮</li>
+                <li>文章中引用的第三方資訊均標註來源</li>
+                <li>遊戲內容為原創 HTML5 實作</li>
+                <li>AdSense 廣告符合 Google 政策規範</li>
+            </ul>
+
+            <div class="tip success">
+                <div class="tip-title">✅ 合規確認</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li>✅ 隱私權政策已發布</li>
+                    <li>✅ 服務條款已發布</li>
+                    <li>✅ ads.txt 已部署</li>
+                    <li>✅ robots.txt 已設定</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    10. 溝通與回報機制
+    ============================================================ -->
+    <section id="section-communication">
+        <div class="card">
+            <h2>10. 溝通與回報機制</h2>
+
+            <h3>10.1 回報管道</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>類型</th><th>管道</th><th>對象</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>部署報告</td><td>Gmail HTML 通知</td><td>董事會執行長</td></tr>
+                        <tr><td>錯誤告警</td><td>Gmail 即時通知</td><td>總經理兼總工程師</td></tr>
+                        <tr><td>每日狀態</td><td>日誌檔案</td><td>全體技術團隊</td></tr>
+                        <tr><td>重大事件</td><td>Gmail + 電話</td><td>董事長</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>10.2 回報格式</h3>
+            <div class="code-block">
+# 部署報告範例
+
+🦞 AHPAL 自動部署報告
+開始時間：YYYY-MM-DD HH:MM:SS
+
+📦 部署流程
+✅ Git Pull
+✅ Cloudflare Pages 部署
+   專案：ahpal-pages
+   🔗 https://xxxxxxxx.ahpal-pages.pages.dev
+結束時間：YYYY-MM-DD HH:MM:SS
+
+部署狀態：成功
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    11. 術語表
+    ============================================================ -->
+    <section id="section-glossary">
+        <div class="card">
+            <h2>11. 術語表</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>術語</th><th>說明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="inline-code">ahpal-static</span></td><td>網站靜態檔案的輸出目錄，也是 Git 儲存庫位置</td></tr>
+                        <tr><td><span class="inline-code">src/</span></td><td>Python 原始碼目錄（9 個模組）</td></tr>
+                        <tr><td><span class="inline-code">scripts/</span></td><td>PowerShell 腳本目錄</td></tr>
+                        <tr><td><span class="inline-code">.env</span></td><td>環境變數檔案，儲存 API Key，不上傳 Git</td></tr>
+                        <tr><td><span class="inline-code">Wrangler</span></td><td>Cloudflare Pages 的 CLI 部署工具</td></tr>
+                        <tr><td><span class="inline-code">article-manifest.json</span></td><td>文章狀態追蹤檔，記錄生成狀態與品質分數</td></tr>
+                        <tr><td>尖峰時段</td><td>每日 09:00-18:00，API 費用較高</td></tr>
+                        <tr><td>離峰時段</td><td>每日 18:00-09:00，API 費用較低</td></tr>
+                        <tr><td>斷點續傳</td><td>透過 manifest.json 記錄狀態，中斷後可從中斷點繼續</td></tr>
+                        <tr><td>Dwell Time</td><td>用戶在網站上的停留時間，SEO 重要指標</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    12. 簽核與版本紀錄 + 死命令
+    ============================================================ -->
+    <section id="section-acknowledgment">
+        <div class="card">
+            <h2>12. 簽核與版本紀錄</h2>
+
+            <!-- ============================================================
+            死命令區塊
+            ============================================================ -->
+            <div class="death-command">
+                <div class="death-title">📜 董事長死命令：文章變更後強制檢查與推送規範</div>
+                <p><strong>此命令即日起生效，適用於所有工程師與 AI 代理，違者視同違反營運紀律。</strong></p>
+
+                <h4 style="margin-top:14px; color:#8B0000;">🔴 死命令：變更後之強制檢查與推送流程</h4>
+                <p>凡更改或新增任何文章後，<strong>必須</strong>依序完成以下檢查，確認無誤後方可推送與同步。此流程為強制性，不得跳過或簡化。</p>
+
+                <h4 style="margin-top:14px; color:#8B0000;">📋 強制檢查清單（推送前必做）</h4>
+
+                <p><strong>階段一：本地檔案完整性檢查</strong></p>
+                <ul>
+                    <li><strong>文章數量</strong>：<code>python src/main.py --dry-run</code> → 顯示 0 篇待生成</li>
+                    <li><strong>檔案存在</strong>：確認所有新增文章皆已生成</li>
+                    <li><strong>檔案大小</strong>：≥ 5KB（非空檔案）</li>
+                    <li><strong>首頁更新</strong>：新文章標題出現在首頁</li>
+                    <li><strong>分類頁更新</strong>：新文章出現在對應分類頁</li>
+                    <li><strong>Sitemap 更新</strong>：新文章出現在 Sitemap</li>
+                </ul>
+
+                <p><strong>階段二：內容品質檢查</strong></p>
+                <ul>
+                    <li><strong>網頁標題</strong>：標題正確顯示</li>
+                    <li><strong>品牌名稱</strong>：「雅寶社區」存在</li>
+                    <li><strong>AdSense 程式碼</strong>：<code>adsbygoogle</code> 存在</li>
+                    <li><strong>返回首頁連結</strong>：<code>ahpal.com</code> 連結存在</li>
+                    <li><strong>文章字數</strong>：≥ 5KB</li>
+                </ul>
+
+                <p><strong>階段三：Git 狀態檢查</strong></p>
+                <ul>
+                    <li><strong>無未追蹤檔案</strong>：<code>git status --porcelain</code> 僅顯示預期變更</li>
+                    <li><strong>無機密檔案</strong>：不應出現 <code>.env</code></li>
+                    <li><strong>無大型檔案</strong>：不應出現 <code>audio/</code>（已排除）</li>
+                </ul>
+
+                <h4 style="margin-top:14px; color:#8B0000;">🚀 強制執行指令</h4>
+                <div class="code-block">
+# 一鍵執行所有檢查
+.\scripts\preflight-check.ps1
+
+# 僅檢查 Git 狀態
+git status
+
+# 僅檢查文章數量
+python src/main.py --dry-run
+                </div>
+
+                <h4 style="margin-top:14px; color:#8B0000;">📌 強制紀錄要求</h4>
+                <p>每次推送前，須在提交訊息中註明檢查結果：</p>
+                <div class="code-block">
+git commit -m "新增/修改文章： [文章標題] — 檢查通過（文章數：XXX 篇，品質：OK）"
+                </div>
+
+                <h4 style="margin-top:14px; color:#8B0000;">⚠️ 違反命令之後果</h4>
+                <ul>
+                    <li><strong>跳過檢查直接推送</strong> → 視同違反營運紀律，需立即修正</li>
+                    <li><strong>推送損壞內容</strong> → 立即從備份還原，並重新執行檢查流程</li>
+                    <li><strong>重複違規</strong> → 將被記錄於技術維護報告中，並追究責任</li>
+                </ul>
+
+                <div style="margin-top:14px; padding:12px 16px; background:#8B0000; color:white; border-radius:8px; text-align:center; font-weight:700; letter-spacing:2px;">
+                    ⚠️ 此命令已錄入紅皮書，作為永久性強制規範。違者視同違反營運紀律。
+                </div>
+            </div>
+
+            <!-- ============================================================
+            版本紀錄
+            ============================================================ -->
+            <h3>12.1 版本紀錄</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>版本</th><th>日期</th><th>變更內容</th><th>作者</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>v2.0</td><td>2026-07-23</td><td>新增「董事長死命令」章節，強制檢查與推送規範</td><td>總經理兼總工程師</td></tr>
+                        <tr><td>v1.0</td><td>2026-07-23</td><td>初版發布，完整組織架構與營運計畫</td><td>總經理兼總工程師</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ============================================================
+            簽核區
+            ============================================================ -->
+            <div class="signature-area">
+                <div class="signature-box">
+                    <div class="role">📌 撰寫</div>
+                    <div class="name">總經理兼總工程師</div>
+                    <div class="line"></div>
+                    <span class="status-badge approved">✅ 已簽核</span>
+                </div>
+                <div class="signature-box">
+                    <div class="role">✅ 核定</div>
+                    <div class="name">董事會執行長</div>
+                    <div class="line"></div>
+                    <span class="status-badge approved">✅ 已簽核</span>
+                </div>
+                <div class="signature-box">
+                    <div class="role">👑 核准</div>
+                    <div class="name">董事長</div>
+                    <div class="line"></div>
+                    <span class="status-badge dead">🔴 已簽核（死命令）</span>
+                </div>
+            </div>
+
+            <div class="tip gold">
+                <div class="tip-title">📋 文件生效</div>
+                <p>本紅皮書自 <strong>2026 年 7 月 23 日</strong> 起生效，全體團隊應確實遵守。</p>
+                <p>「董事長死命令」為最高指導原則，任何違反行為將被記錄並追究責任。</p>
+                <p>如有未盡事宜，由董事會執行長召集會議修訂之。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div style="text-align:center;padding:30px 0 10px 0;color:#A0AEC0;font-size:13px;border-top:2px solid var(--border);margin-top:20px;">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 組織與內容營運與技術維護紅皮書 v2.0<br>
+        文件最後更新：2026 年 7 月 23 日
+        <br><br>
+        <span style="font-size:12px;color:#718096;">
+        🦞 龍蝦總工程師 · 🤖 Gemini 顧問 · 🏛️ ChatGPT 執行長 · 👑 董事會 共同制定
+        </span>
+        <br><br>
+        <span style="font-size:12px;color:#8B0000;font-weight:700;">
+        🔴 內含董事長死命令：變更後強制檢查與推送規範
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

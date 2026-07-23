@@ -56,12 +56,12 @@ def check_api_keys():
     return True, []
 
 # ============================================================
-# 關鍵字清單（所有文章來源）- 含 Q3 新增 20 篇
+# 關鍵字清單（所有文章來源）- 含 Q3 + Q4 新增 40 篇
 # ============================================================
 
 keywords_list = [
     # ============================================================
-    # tech/ - 3C 科技教學（20 篇）
+    # tech/ - 3C 科技教學（25 篇）
     # ============================================================
     {"keyword": "摺疊手機購買指南 2026", "category": "💻 3C 科技教學", "filename": "tech/folding-phone-buying-guide-2026.html"},
     {"keyword": "5G 手機選購 2026", "category": "💻 3C 科技教學", "filename": "tech/5g-phone-guide-2026.html"},
@@ -83,9 +83,15 @@ keywords_list = [
     {"keyword": "行動固態硬碟推薦", "category": "💻 3C 科技教學", "filename": "tech/portable-ssd-guide-2026.html"},
     {"keyword": "無線充電盤選購", "category": "💻 3C 科技教學", "filename": "tech/wireless-charger-guide-2026.html"},
     {"keyword": "2026 智慧家庭生態系選購指南", "category": "💻 3C 科技教學", "filename": "tech/smart-home-ecosystem-2026.html"},
+    # Q4 新增 5 篇
+    {"keyword": "2026 摺疊手機選購指南", "category": "💻 3C 科技教學", "filename": "tech/folding-phone-guide-2026.html"},
+    {"keyword": "AI 筆電 vs 傳統筆電 2026 評測", "category": "💻 3C 科技教學", "filename": "tech/ai-laptop-vs-traditional-2026.html"},
+    {"keyword": "智慧手錶健康監測功能比較", "category": "💻 3C 科技教學", "filename": "tech/smartwatch-health-comparison-2026.html"},
+    {"keyword": "2026 真無線藍牙耳機推薦", "category": "💻 3C 科技教學", "filename": "tech/tws-earbuds-guide-2026.html"},
+    {"keyword": "電競螢幕 2026 採購指南", "category": "💻 3C 科技教學", "filename": "tech/gaming-monitor-2026-guide.html"},
 
     # ============================================================
-    # game/ - 遊戲攻略（12 篇）
+    # game/ - 遊戲攻略（17 篇）
     # ============================================================
     {"keyword": "2026 最夯 5 款獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/best-indie-games-2026.html"},
     {"keyword": "2026 年最佳 RPG Top 5", "category": "🎮 遊戲攻略", "filename": "game/best-rpg-2026.html"},
@@ -99,9 +105,15 @@ keywords_list = [
     {"keyword": "Steam Deck 最佳設定指南", "category": "🎮 遊戲攻略", "filename": "game/steam-deck-guide-2026.html"},
     {"keyword": "10 款 Roguelite 獨立遊戲評比", "category": "🎮 遊戲攻略", "filename": "game/roguelite-games-2026.html"},
     {"keyword": "2026 多人合作獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/co-op-games-2026.html"},
+    # Q4 新增 5 篇
+    {"keyword": "2026 最夯 5 款獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/indie-games-2026.html"},
+    {"keyword": "2026 年最佳 RPG Top 5", "category": "🎮 遊戲攻略", "filename": "game/best-rpg-2026.html"},
+    {"keyword": "2026 最耐玩 Switch 遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/best-switch-games-2026.html"},
+    {"keyword": "艾爾登法環 DLC 全 Boss 攻略", "category": "🎮 遊戲攻略", "filename": "game/elden-ring-dlc-boss-guide.html"},
+    {"keyword": "2026 免費 PC 射擊遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/free-shooter-games-2026.html"},
 
     # ============================================================
-    # life/ - 生活小常識（18 篇）
+    # life/ - 生活小常識（23 篇）
     # ============================================================
     {"keyword": "居家收納技巧 2026", "category": "🏠 生活小常識", "filename": "life/home-organization-tips-2026.html"},
     {"keyword": "省錢生活智慧 2026", "category": "🏠 生活小常識", "filename": "life/money-saving-tips-2026.html"},
@@ -122,9 +134,15 @@ keywords_list = [
     {"keyword": "冰箱收納與管理技巧", "category": "🏠 生活小常識", "filename": "life/fridge-organization-guide-2026.html"},
     {"keyword": "2026 寵物用品推薦指南", "category": "🏠 生活小常識", "filename": "life/pet-supplies-guide-2026.html"},
     {"keyword": "居家收納終極指南 2026", "category": "🏠 生活小常識", "filename": "life/home-organization-ultimate-guide-2026.html"},
+    # Q4 新增 5 篇
+    {"keyword": "居家收納終極指南 2026", "category": "🏠 生活小常識", "filename": "life/home-organization-ultimate-guide-2026.html"},
+    {"keyword": "2026 寵物用品推薦指南", "category": "🏠 生活小常識", "filename": "life/pet-supplies-guide-2026.html"},
+    {"keyword": "陽台植栽入門指南", "category": "🏠 生活小常識", "filename": "life/balcony-gardening-guide-2026.html"},
+    {"keyword": "冰箱收納與管理技巧", "category": "🏠 生活小常識", "filename": "life/fridge-organization-guide-2026.html"},
+    {"keyword": "居家節能省電技巧 2026", "category": "🏠 生活小常識", "filename": "life/energy-saving-tips-2026.html"},
 
     # ============================================================
-    # review/ - 軟體評測（19 篇）
+    # review/ - 軟體評測（24 篇）
     # ============================================================
     {"keyword": "免費剪片軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/free-video-editor-2026.html"},
     {"keyword": "遠端桌面軟體比較", "category": "📊 軟體評測", "filename": "review/remote-desktop-comparison-2026.html"},
@@ -145,6 +163,12 @@ keywords_list = [
     {"keyword": "AI 簡報生成工具評測", "category": "📊 軟體評測", "filename": "review/ai-presentation-tools-2026.html"},
     {"keyword": "跨平台筆記軟體終極對決", "category": "📊 軟體評測", "filename": "review/note-apps-comparison-2026.html"},
     {"keyword": "開源 CRM 系統推薦", "category": "📊 軟體評測", "filename": "review/open-source-crm-2026.html"},
+    # Q4 新增 5 篇
+    {"keyword": "免費圖片編輯軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/free-photo-editor-2026.html"},
+    {"keyword": "AI 簡報生成工具評測", "category": "📊 軟體評測", "filename": "review/ai-presentation-tools-2026.html"},
+    {"keyword": "跨平台筆記軟體終極對決", "category": "📊 軟體評測", "filename": "review/note-apps-comparison-2026.html"},
+    {"keyword": "開源 CRM 系統推薦", "category": "📊 軟體評測", "filename": "review/open-source-crm-2026.html"},
+    {"keyword": "2026 最強 VPN 服務評測", "category": "📊 軟體評測", "filename": "review/vpn-review-2026.html"},
 
     # ============================================================
     # philosophy/ - 人生哲理（17 篇）

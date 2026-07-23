@@ -5,6 +5,7 @@
 # 支援：直接讀取 .env 檔案（不依賴 PowerShell 環境變數）
 # 更新：放寬 Gemini API Key 格式檢查（支援新格式）
 # ============================================================
+MAX_TOKENS = 4096  # 單次請求上限
 
 import os
 from datetime import datetime

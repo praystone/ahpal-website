@@ -7,7 +7,36 @@
 #       已更新為重構版 v4.0（使用 src/main.py）
 #       修正：$PythonScript 路徑指向專案根目錄
 # ============================================================
+# 在 ahpal-master.ps1 的開頭加入
 
+# ============================================================
+# DeepSeek 餘額檢查（每日首次執行時自動檢查）
+# ============================================================
+
+$BalanceCheckFile = "C:\Users\User\ahpal-static\logs\last-balance-check.txt"
+$Today = Get-Date -Format "yyyy-MM-dd"
+$LastCheck = ""
+
+if (Test-Path $BalanceCheckFile) {
+    $LastCheck = Get-Content $BalanceCheckFile -Raw
+}
+
+if ($LastCheck -ne $Today) {
+    Write-Host "📊 執行每日餘額檢查..." -ForegroundColor Yellow
+    
+    $CheckResult = .\scripts\check-deepseek-balance.ps1 -SendAlert
+    
+    if ($CheckResult -eq 1) {
+        Write-Host "⚠️ 餘額過低，請注意！" -ForegroundColor Red
+        # 可以選擇停止執行或繼續
+        # exit 1  # 若要強制停止，取消註解
+    } elseif ($CheckResult -eq 2) {
+        Write-Host "⚠️ 餘額檢查失敗，請手動確認" -ForegroundColor Yellow
+    }
+    
+    # 記錄今日已檢查
+    $Today | Out-File -FilePath $BalanceCheckFile -Encoding utf8
+}
 # ============================================================
 # 1. 環境設定（先載入 ahpal-static.ps1）
 # ============================================================

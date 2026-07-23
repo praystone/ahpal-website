@@ -1,0 +1,102 @@
+﻿param(
+    [string]$ApiKey = $env:DEEPSEEK_API_KEY,
+    [float]$Threshold = 1.0,
+    [switch]$SendAlert
+)
+
+$LogDir = "C:\Users\User\ahpal-static\logs"
+if (!(Test-Path $LogDir)) { New-Item -ItemType Directory -Path $LogDir -Force | Out-Null }
+$LogFile = Join-Path $LogDir "balance-history.txt"
+$Today = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "🦞 DeepSeek 餘額監控" -ForegroundColor Yellow
+Write-Host "========================================" -ForegroundColor Cyan
+
+if (-not $ApiKey) {
+    Write-Host "❌ 錯誤：DEEPSEEK_API_KEY 未設定" -ForegroundColor Red
+    Write-Host "💡 請先執行：.\scripts\ahpal-static.ps1" -ForegroundColor Yellow
+    exit 1
+}
+
+try {
+    $Headers = @{
+        "Authorization" = "Bearer $ApiKey"
+        "Content-Type" = "application/json"
+    }
+    
+    Write-Host "📡 正在查詢 DeepSeek 餘額..." -ForegroundColor Gray
+    $Response = Invoke-RestMethod -Uri "https://api.deepseek.com/user/balance" -Headers $Headers -Method Get -ErrorAction Stop
+    
+    $TotalBalance = if ($Response.total_balance) { $Response.total_balance } else { $Response.balance_infos[0].total_balance }
+    $Currency = if ($Response.currency) { $Response.currency } else { "CNY" }
+    
+    $LogEntry = "$Today | 餘額: ¥$TotalBalance | 幣別: $Currency"
+    Add-Content -Path $LogFile -Value $LogEntry -Encoding utf8
+    
+    Write-Host ""
+    Write-Host "📊 目前餘額：¥$TotalBalance" -ForegroundColor Green
+    Write-Host "📌 幣別：$Currency" -ForegroundColor Gray
+    Write-Host "📌 檢查時間：$Today" -ForegroundColor Gray
+    Write-Host ""
+    
+    if ($TotalBalance -lt $Threshold) {
+        Write-Host "⚠️ 警告：餘額低於門檻值 ¥$Threshold！" -ForegroundColor Red
+        Write-Host "💰 剩餘餘額：¥$TotalBalance" -ForegroundColor Yellow
+        
+        if ($SendAlert) {
+            # ============================================================
+            # 📧 SMTP 郵件告警
+            # ============================================================
+            $SmtpServer = "smtp.gmail.com"
+            $SmtpPort = 587
+            $SmtpUser = "你的Gmail帳號@gmail.com"      # ← 請修改
+            $SmtpPass = "你的應用程式密碼"              # ← 請修改（Gmail 應用程式密碼）
+            $ToEmail = "收件人信箱@gmail.com"           # ← 請修改
+            
+            $Subject = "🦞 DeepSeek 餘額告警 - 僅剩 ¥$TotalBalance"
+            $Body = @"
+DeepSeek API 餘額告警
+
+時間：$Today
+目前餘額：¥$TotalBalance
+門檻值：¥$Threshold
+建議：請立即儲值，避免 API 服務中斷！
+
+儲值連結：https://platform.deepseek.com/
+"@
+
+            try {
+                $MailParams = @{
+                    SmtpServer   = $SmtpServer
+                    Port         = $SmtpPort
+                    UseSsl       = $true
+                    Credential   = (New-Object System.Management.Automation.PSCredential($SmtpUser, (ConvertTo-SecureString $SmtpPass -AsPlainText -Force)))
+                    From         = $SmtpUser
+                    To           = $ToEmail
+                    Subject      = $Subject
+                    Body         = $Body
+                    Encoding     = [System.Text.Encoding]::UTF8
+                }
+                
+                Send-MailMessage @MailParams -ErrorAction Stop
+                Write-Host "   ✅ 郵件已發送至 $ToEmail" -ForegroundColor Green
+            } catch {
+                Write-Host "   ❌ 郵件發送失敗：$($_.Exception.Message)" -ForegroundColor Red
+                Write-Host "   💡 請檢查 SMTP 設定（帳號、密碼、寄件者）" -ForegroundColor Yellow
+            }
+        }
+        
+        Write-Host "💡 請立即儲值，避免 API 服務中斷！" -ForegroundColor Yellow
+        Write-Host "🔗 儲值連結：https://platform.deepseek.com/" -ForegroundColor Cyan
+        exit 1
+    } else {
+        Write-Host "✅ 餘額充足（¥$TotalBalance ≥ ¥$Threshold）" -ForegroundColor Green
+        exit 0
+    }
+} catch {
+    Write-Host "❌ 查詢失敗：$($_.Exception.Message)" -ForegroundColor Red
+    $ErrorLog = "$Today | ERROR: $($_.Exception.Message)"
+    Add-Content -Path $LogFile -Value $ErrorLog -Encoding utf8
+    exit 2
+}

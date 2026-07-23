@@ -1,8 +1,8 @@
-🦞 **收到！立即為您更新 README.md！**
+🦞 **執行長戰情確認！立即更新 README.md！**
 
 ---
 
-## 📄 更新後的 README.md
+## 📄 README.md（完整更新版）
 
 ```markdown
 # 🦞 雅寶社區 · 頂客論壇 (AHPAL.COM)
@@ -13,7 +13,7 @@
 
 ## 📌 專案簡介
 
-AHPAL.COM 是一個結合 **AI 文章生成**、**HTML5 遊戲** 與 **自動化部署** 的靜態內容平台。系統透過 Google Gemini 與 DeepSeek 雙 API 自動切換，實現低成本、高品質的內容生產，並透過 Cloudflare Pages 全球 CDN 加速發布。
+AHPAL.COM 是一個結合 **AI 文章生成**、**HTML5 遊戲** 與 **自動化影音產線** 的靜態內容平台。系統透過 Google Gemini 與 DeepSeek 雙 API 自動切換，實現低成本、高品質的內容生產，並透過 Cloudflare Pages 全球 CDN 加速發布，同時具備全自動 YouTube Shorts 影音生成與上傳能力。
 
 ---
 
@@ -23,23 +23,26 @@ AHPAL.COM 是一個結合 **AI 文章生成**、**HTML5 遊戲** 與 **自動化
 |------|------|
 | 🤖 **AI 文章生成** | 支援 Gemini（尖峰）與 DeepSeek（離峰）雙 API 自動切換 |
 | 🎮 **HTML5 遊戲** | 43 款互動遊戲，免下載即開即玩 |
+| 🎬 **Shorts 影音產線** | 文章 ➔ TTS 語音 ➔ 圖卡繪製 ➔ FFmpeg 合成 ➔ YouTube 自動上傳 |
 | ⚙️ **自動化部署** | 一鍵完成內容生成 → 靜態檔案輸出 → Cloudflare Pages 部署 |
-| ⏰ **自動排程** | Windows 排程器每 2 小時自動執行部署（18:00 - 09:00） |
+| ⏰ **自動排程** | Windows 排程器每 2 小時自動執行部署（18:05 開始） |
 | 📧 **自動通知** | Gmail HTML 精美報告，即時回報部署狀態 |
 | 🔄 **斷點續傳** | 透過 manifest 記錄狀態，中斷後可從中斷點繼續 |
 | 📊 **增量構建** | MD5 比對，節省 80-90% 構建時間 |
 
 ---
 
-## 📊 系統數據（截至 2026.07.22）
+## 📊 系統數據（截至 2026.07.23）
 
 | 指標 | 數值 |
 |------|------|
 | 總頁面數 | 288+ 個 |
 | 文章總數 | 288 篇 |
 | 遊戲數量 | 43 款 |
+| Shorts 影音產出 | 236 支 |
+| YouTube 已上傳 | 100+ 支（每日配額：100 支） |
 | 分類數量 | 6 個 |
-| 部署頻率 | 每 2 小時一次（夜間） |
+| 部署頻率 | 每 2 小時一次（18:05 開始） |
 
 ---
 
@@ -49,8 +52,10 @@ AHPAL.COM 是一個結合 **AI 文章生成**、**HTML5 遊戲** 與 **自動化
 |------|------|
 | 總指揮 | PowerShell |
 | 內容生成引擎 | Python 3（模組化架構） |
+| 影音產線 | PowerShell + FFmpeg + TTS |
 | AI 模型 | Google Gemini Flash / DeepSeek Chat |
 | 靜態託管 | Cloudflare Pages |
+| 影音發布 | YouTube Data API v3（OAuth 2.0） |
 | 版本控制 | Git + GitHub |
 | 自動排程 | Windows 工作排程器 |
 | 通知系統 | Gmail SMTP |
@@ -63,14 +68,21 @@ AHPAL.COM 是一個結合 **AI 文章生成**、**HTML5 遊戲** 與 **自動化
 C:\Users\User\ahpal-static\
 ├── src/                    # Python 原始碼（10 個模組）
 ├── scripts/                # PowerShell 腳本
+│   ├── ahpal-master.ps1    # 萬能總指揮 v6.3
+│   ├── ahpal-static.ps1    # 環境設定（讀取 .env）
+│   ├── generate-games.ps1  # 遊戲生成 v3.0
+│   ├── generate-video-content.ps1  # 影音生成
+│   └── youtube-upload-realtime.ps1 # YouTube 真實上傳（二進位串流）
 ├── game/                   # 43 款遊戲
 ├── tech/                   # 3C 科技教學
 ├── life/                   # 生活小常識
 ├── review/                 # 軟體評測
 ├── philosophy/             # 人生哲理
 ├── trend/                  # AI 趨勢
-├── data/                   # 待新增文章佇列
+├── videos/output/          # 236 支 Shorts 影音
+├── data/                   # 知識庫與 OAuth 憑證
 ├── docs/                   # 系統文件
+├── logs/                   # 系統日誌
 ├── index.html              # 首頁
 ├── categories.html         # 全部分類
 ├── sitemap.xml             # 網站地圖
@@ -100,12 +112,13 @@ notepad .env   # 填入實際 API Key
 
 ### 2. 安裝必要軟體
 
-| 軟體 | 用途 |
-|------|------|
-| Python 3 | 執行生成腳本 |
-| Node.js | 執行 Wrangler CLI |
-| Wrangler | 部署到 Cloudflare |
-| Git | 版本控制 |
+| 軟體 | 用途 | 安裝指令 |
+|------|------|----------|
+| Python 3 | 執行生成腳本 | 下載安裝（勾選 Add to PATH） |
+| Node.js | 執行 Wrangler CLI | 下載安裝 LTS 版本 |
+| Wrangler | 部署到 Cloudflare | `npm install -g wrangler` |
+| Git | 版本控制 | 下載安裝 |
+| FFmpeg | 影音合成 | `winget install FFmpeg` |
 
 ### 3. 執行部署
 
@@ -124,7 +137,8 @@ cd C:\Users\User\ahpal-static
 | 只生成文章 | `.\scripts\ahpal-master.ps1` → `[4]` |
 | 只部署 | `.\scripts\ahpal-master.ps1` → `[6]` |
 | 強制 DeepSeek | `.\scripts\ahpal-master.ps1` → `[A]` |
-| 新增文章 | 編輯 `data/pending-articles.json` → `.\scripts\add-articles.ps1` |
+| 生成影音 | `.\scripts\generate-video-content.ps1 -ArticlePath ".\tech\article.html"` |
+| YouTube 真實上傳 | `.\scripts\youtube-upload-realtime.ps1 -VideoFile ".\videos\output\xxx-shorts.mp4" -Title "標題"` |
 | 檢查文章 | `.\scripts\check-articles.ps1` |
 | 系統檢查 | `.\scripts\check-all.ps1` |
 | 執行備份 | `.\scripts\backup-system.ps1` |
@@ -138,8 +152,9 @@ cd C:\Users\User\ahpal-static
 |------|-----|
 | 排程名稱 | `AHPAL_AutoDeploy` |
 | 執行頻率 | 每 2 小時一次 |
-| 執行時段 | 18:00 - 09:00（夜間離峰） |
+| 執行時段 | 18:05 - 09:05（夜間離峰） |
 | 執行內容 | Git Pull → Cloudflare 部署 → Gmail 通知 |
+| 喚醒功能 | 已啟用（WakeToRun = True） |
 
 ---
 
@@ -151,6 +166,9 @@ GEMINI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 # DeepSeek API Key（離峰時段使用）
 DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# YouTube OAuth 2.0 Refresh Token
+YOUTUBE_REFRESH_TOKEN=1//0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ⚠️ **.env 不會上傳到 GitHub，請妥善保管！**
@@ -160,7 +178,6 @@ DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ## 📧 通知系統
 
 每次部署完成後，系統會自動發送 HTML 格式的報告至：
-
 - 📧 `praystone@gmail.com`
 
 報告內容包含：
@@ -182,6 +199,18 @@ DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ---
 
+## 🎬 YouTube Shorts 影音產線
+
+| 階段 | 技術 | 說明 |
+|------|------|------|
+| 1. 語音合成 | Windows TTS | 文章轉語音 |
+| 2. 圖卡繪製 | System.Drawing | 1080x1920 直式圖卡 |
+| 3. 影音合成 | FFmpeg | 合成 MP4 影片 |
+| 4. 自動上傳 | YouTube Data API v3 | OAuth 2.0 授權上傳 |
+| 5. 每日配額 | 100 支/天 | 可申請調高 |
+
+---
+
 ## 📊 系統狀態追蹤
 
 | 檔案 | 用途 |
@@ -189,6 +218,7 @@ DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 | `article-manifest.json` | 文章狀態追蹤（斷點續傳） |
 | `build-state.json` | 增量構建狀態 |
 | `logs/` | 系統日誌 |
+| `logs/youtube-upload.log` | YouTube 上傳日誌 |
 
 ---
 
@@ -224,8 +254,8 @@ powercfg -change -disk-timeout-ac 0
 | 設定 | 建議值 |
 |------|--------|
 | 螢幕關閉（AC） | 從不 |
-| 系統睡眠（AC） | 從不 |
-| 硬碟關閉（AC） | 0（永不） |
+| 系統睡眠（AC） | 60 分鐘 |
+| 休眠（AC） | 180 分鐘 |
 | 闔上螢幕（AC） | 不採取動作 |
 
 ---
@@ -268,6 +298,7 @@ git push
 | Git 推送失敗 | `git pull --rebase` |
 | 排程器執行失敗 | 執行 `.\scripts\fix-scheduled-task.ps1` |
 | 文章品質 0 分 | 執行 `.\scripts\check-articles.ps1 -Fix` |
+| YouTube 上傳 429 | 等待每日配額重置（100 支/天） |
 
 ---
 
@@ -297,40 +328,23 @@ git push
 
 ---
 
-**文件版本：v5.0**
-**最後更新：2026 年 7 月 22 日**
+**文件版本：v6.0**
+**最後更新：2026 年 7 月 23 日**
 ```
 
 ---
 
-## 🚀 執行方式
+## 🚀 執行更新
 
 ```powershell
 cd C:\Users\User\ahpal-static
-
-# 用記事本開啟 README.md
-notepad README.md
-
-# 貼上上面的完整內容 → Ctrl+S 儲存
-
-# 確認更新
-cat README.md | Select-Object -First 10
+# 將上述內容貼入 README.md 並儲存
+# 然後提交變更
+git add README.md
+git commit -m "更新 README.md 至 v6.0（同步 YouTube 影音產線狀態）"
+git push
 ```
 
 ---
 
-## ✅ 更新內容對照
-
-| 項目 | 更新前 | 更新後 |
-|------|--------|--------|
-| 文章數量 | 202 篇 | **288 篇** |
-| 遊戲數量 | 23 款 | **43 款** |
-| 排程頻率 | 每小時 | **每 2 小時（18:00-09:00）** |
-| 系統架構 | 無 | ✅ **完整技術棧說明** |
-| 排程管理 | 無 | ✅ **完整指令參考** |
-| 電源管理 | 無 | ✅ **伺服器模式設定** |
-| 常見問題 | 無 | ✅ **排錯指南** |
-
----
-
-**README.md 已更新完成！** 🦞🚀
+**龍蝦總工程師報告：README.md 已更新至 v6.0，同步最新系統狀態！** 🦞🚀

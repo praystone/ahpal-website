@@ -222,6 +222,19 @@ keywords_list = [
     {"keyword": "AI 代理與自動化工作流程應用", "category": "🤖 AI 趨勢", "filename": "trend/ai-agent-workflow-2026.html"},
     {"keyword": "2026 年大型語言模型發展趨勢", "category": "🤖 AI 趨勢", "filename": "trend/llm-trends-2026.html"},
     {"keyword": "AI 生成內容著作權與法律爭議", "category": "🤖 AI 趨勢", "filename": "trend/ai-copyright-law-2026.html"},
+    {"keyword": "2026 年最佳電競筆電推薦與評測", "category": "💻 3C 科技教學", "filename": "tech/2026年最佳電競筆電推薦與評測.html"},
+    {"keyword": "手機無線充電技術比較與選購指南", "category": "💻 3C 科技教學", "filename": "tech/手機無線充電技術比較與選購指南.html"},
+    {"keyword": "薩爾達傳說：王國之淚 全神廟攻略", "category": "🎮 遊戲攻略", "filename": "game/薩爾達傳說王國之淚全神廟攻略.html"},
+    {"keyword": "2026 年最熱門 5 款多人連線遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/2026年最熱門5款多人連線遊戲推薦.html"},
+    {"keyword": "居家甲醛去除方法與空氣淨化實測", "category": "🏠 生活小常識", "filename": "life/居家甲醛去除方法與空氣淨化實測.html"},
+    {"keyword": "2026 年節能家電選購與省電技巧", "category": "🏠 生活小常識", "filename": "life/2026年節能家電選購與省電技巧.html"},
+    {"keyword": "2026 年 5 款最佳免費防毒軟體評測", "category": "📊 軟體評測", "filename": "review/2026年5款最佳免費防毒軟體評測.html"},
+    {"keyword": "AI 圖片生成工具 Midjourney vs Stable Diffusion 比較", "category": "📊 軟體評測", "filename": "review/AI圖片生成工具MidjourneyvsStableDiffusion比較.html"},
+    {"keyword": "建立高效能習慣：原子習慣實戰指南", "category": "🌟 人生哲理", "filename": "philosophy/建立高效能習慣原子習慣實戰指南.html"},
+    {"keyword": "財務自由之路：被動收入建立完全攻略", "category": "🌟 人生哲理", "filename": "philosophy/財務自由之路被動收入建立完全攻略.html"},
+    {"keyword": "2026 年 AI 代理發展趨勢與應用", "category": "🤖 AI 趨勢", "filename": "trend/2026年AI代理發展趨勢與應用.html"},
+    {"keyword": "AI 生成內容的版權爭議與法律規範", "category": "🤖 AI 趨勢", "filename": "trend/AI生成內容的版權爭議與法律規範.html"},
+
 ]
 
 # ============================================================

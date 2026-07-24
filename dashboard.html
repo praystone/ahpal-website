@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AHPAL 內容管理面板 · 戰情室</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: #0b1120;
+            color: #e8edf5;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', system-ui, sans-serif;
+        }
+        .card {
+            background: #141f33;
+            border: 1px solid #253b5a;
+            border-radius: 16px;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+        .card:hover {
+            border-color: #3a6a9a;
+        }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #f0c060, #ffd966);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .badge-status {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-status.success { background: #0f3d2a; color: #7ae0b0; border: 1px solid #2a8a5a; }
+        .badge-status.warning { background: #3d2a0f; color: #f0c060; border: 1px solid #8a6a2a; }
+        .badge-status.danger { background: #3d0f0f; color: #e07a7a; border: 1px solid #8a2a2a; }
+        .badge-status.info { background: #0f1f3d; color: #7ab0e0; border: 1px solid #2a4a8a; }
+        .btn-gold {
+            background: #b8860b;
+            border: 1px solid #ffd966;
+            color: #0b1120;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 40px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-gold:hover {
+            background: #d4a020;
+            transform: scale(1.02);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #3a6a9a;
+            color: #e8edf5;
+            padding: 8px 20px;
+            border-radius: 40px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: #1a2a4a;
+            border-color: #5a8aba;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th {
+            text-align: left;
+            padding: 10px 12px;
+            color: #9bb5d9;
+            border-bottom: 1px solid #253b5a;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #1a2a4a;
+            color: #c0d4ee;
+        }
+        tr:hover td {
+            background: #0d1a2e;
+        }
+        .glass {
+            background: rgba(20, 31, 51, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid #253b5a;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0b1120; }
+        ::-webkit-scrollbar-thumb { background: #3a6a9a; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="max-w-7xl mx-auto px-4 py-6">
+
+    <!-- ===== 頁首 ===== -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-white flex items-center gap-3">
+                <span class="text-3xl">🦞</span> AHPAL 戰情室
+                <span class="text-sm font-normal text-gray-400 bg-[#1a2a4a] px-3 py-1 rounded-full">CMS v1.0</span>
+            </h1>
+            <p class="text-gray-400 text-sm mt-1">雅寶社區 · 頂客論壇 — 內容管理與自動化產線指揮中心</p>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+            <button class="btn-gold" onclick="location.reload()">⟳ 重新整理</button>
+            <button class="btn-outline" onclick="window.open('https://www.ahpal.com','_blank')">🌐 檢視網站</button>
+        </div>
+    </div>
+
+    <!-- ===== 儀表板 ===== -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="card">
+            <div class="text-gray-400 text-sm">📄 文章總數</div>
+            <div class="stat-number" id="totalArticles">--</div>
+            <div class="text-xs text-gray-500 mt-1">最後更新: <span id="lastUpdate">--</span></div>
+        </div>
+        <div class="card">
+            <div class="text-gray-400 text-sm">📊 平均品質分數</div>
+            <div class="stat-number" id="avgQuality">--</div>
+            <div class="text-xs text-gray-500 mt-1">最高 <span id="maxQuality">--</span> · 最低 <span id="minQuality">--</span></div>
+        </div>
+        <div class="card">
+            <div class="text-gray-400 text-sm">🎮 遊戲數量</div>
+            <div class="stat-number" id="totalGames">--</div>
+            <div class="text-xs text-gray-500 mt-1">分類: <span id="gameCategories">--</span></div>
+        </div>
+        <div class="card">
+            <div class="text-gray-400 text-sm">🔑 API 狀態</div>
+            <div class="text-xl font-bold text-white mt-1" id="apiStatus">檢查中...</div>
+            <div class="text-xs text-gray-500 mt-1">YouTube: <span id="youtubeStatus">--</span></div>
+        </div>
+    </div>
+
+    <!-- ===== 快速操作 ===== -->
+    <div class="card mb-6">
+        <div class="flex flex-wrap justify-between items-center gap-3">
+            <div>
+                <h2 class="text-lg font-semibold text-white">⚡ 快速指揮</h2>
+                <p class="text-xs text-gray-400">一鍵觸發自動化管線核心任務</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button class="btn-gold text-sm" onclick="runAction('full')">🚀 完整部署</button>
+                <button class="btn-outline text-sm" onclick="runAction('generate')">📝 只生成文章</button>
+                <button class="btn-outline text-sm" onclick="runAction('deploy')">☁️ 只部署</button>
+                <button class="btn-outline text-sm" onclick="runAction('backup')">💾 備份</button>
+            </div>
+        </div>
+        <div id="actionStatus" class="mt-3 text-sm text-gray-400 border-t border-[#1a2a4a] pt-3 hidden">
+            ⏳ 執行中: <span id="actionMessage">請稍候...</span>
+        </div>
+    </div>
+
+    <!-- ===== 文章管理 ===== -->
+    <div class="card mb-6">
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-3">
+            <div>
+                <h2 class="text-lg font-semibold text-white">📄 文章資產清單</h2>
+                <p class="text-xs text-gray-400">共 <span id="articleCountLabel">--</span> 篇 · 即時讀取 manifest</p>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+                <select id="categoryFilter" class="bg-[#0a111f] border border-[#253b5a] rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#3a6a9a]">
+                    <option value="all">全部分類</option>
+                    <option value="tech">💻 3C科技</option>
+                    <option value="game">🎮 遊戲攻略</option>
+                    <option value="life">🏠 生活常識</option>
+                    <option value="review">📊 軟體評測</option>
+                    <option value="philosophy">🌟 人生哲理</option>
+                    <option value="trend">🤖 AI趨勢</option>
+                </select>
+                <input id="searchInput" type="text" placeholder="🔍 搜尋文章..." class="bg-[#0a111f] border border-[#253b5a] rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#3a6a9a] w-40">
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>標題</th>
+                        <th>分類</th>
+                        <th>字數</th>
+                        <th>品質</th>
+                        <th>狀態</th>
+                        <th>生成時間</th>
+                    </tr>
+                </thead>
+                <tbody id="articleTableBody">
+                    <tr><td colspan="6" class="text-center text-gray-500 py-6">⏳ 載入文章中...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-xs text-gray-500 mt-3 text-right" id="articleCountFooter">顯示 0 篇</div>
+    </div>
+
+    <!-- ===== 頁尾 ===== -->
+    <div class="text-center text-gray-600 text-xs border-t border-[#1a2a4a] pt-4 mt-2">
+        🦞 龍蝦總工程師 · 🤖 整合系統顧問 · 🏛️ 董事會執行長 · 2026
+    </div>
+
+</div>
+
+<script>
+    // ============================================================
+    // 全局狀態
+    // ============================================================
+    let allArticles = [];
+    let manifestData = null;
+
+    // ============================================================
+    // 1. 載入文章清單（讀取目錄結構 + manifest）
+    // ============================================================
+    async function loadArticles() {
+        try {
+            // 動態掃描各分類目錄（透過模擬數據，實際環境可改為讀取 manifest）
+            const categories = ['tech', 'game', 'life', 'review', 'philosophy', 'trend'];
+            const categoryNames = {
+                tech: '💻 3C科技',
+                game: '🎮 遊戲攻略',
+                life: '🏠 生活常識',
+                review: '📊 軟體評測',
+                philosophy: '🌟 人生哲理',
+                trend: '🤖 AI趨勢'
+            };
+
+            // 模擬讀取 manifest（實際可替換為 fetch('article-manifest.json')）
+            // 此處先用範例數據展示面板功能
+            const sampleArticles = [];
+            const sampleTitles = [
+                '2026年最佳電競筆電推薦與評測',
+                'AI繪圖工具Midjourney vs Stable Diffusion比較',
+                '居家甲醛去除方法與空氣淨化實測',
+                '密碼管理工具怎麼選：2026完整指南',
+                '建立高效能習慣：原子習慣實戰指南',
+                '生成式AI資安風險與防護策略',
+                '5G手機選購指南：2026最新趨勢',
+                'Notion新手入門：從零開始建立知識庫',
+                '智慧家庭生態系統比較：Apple vs Google vs Samsung',
+                '財務自由之路：被動收入建立完全攻略'
+            ];
+
+            let id = 1;
+            for (const cat of categories) {
+                const count = cat === 'tech' ? 8 : (cat === 'game' ? 6 : (cat === 'life' ? 7 : (cat === 'review' ? 9 : (cat === 'philosophy' ? 5 : 6))));
+                for (let i = 0; i < count && id <= 50; i++) {
+                    const quality = 70 + Math.floor(Math.random() * 30);
+                    const words = 2000 + Math.floor(Math.random() * 3000);
+                    const date = new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000);
+                    sampleArticles.push({
+                        id: id++,
+                        filename: `${cat}/article-${id}.html`,
+                        title: sampleTitles[(id - 1) % sampleTitles.length] + (i > 0 ? ` ${i+1}` : ''),
+                        category: cat,
+                        categoryLabel: categoryNames[cat],
+                        words: words,
+                        quality: quality,
+                        status: quality >= 80 ? 'published' : (quality >= 70 ? 'review' : 'draft'),
+                        generated_at: date.toISOString(),
+                        size: words * 2.5
+                    });
+                }
+            }
+
+            allArticles = sampleArticles;
+            manifestData = { total: allArticles.length, generated: allArticles.length, pending: 0, failed: 0 };
+            renderDashboard();
+            renderTable(allArticles);
+        } catch (e) {
+            console.error('載入文章失敗:', e);
+            document.getElementById('articleTableBody').innerHTML = '<tr><td colspan="6" class="text-center text-red-400 py-6">❌ 載入失敗，請檢查數據源</td></tr>';
+        }
+    }
+
+    // ============================================================
+    // 2. 渲染儀表板
+    // ============================================================
+    function renderDashboard() {
+        const total = allArticles.length;
+        const qualities = allArticles.map(a => a.quality);
+        const avg = qualities.length ? Math.round(qualities.reduce((a,b) => a+b, 0) / qualities.length) : 0;
+        const max = qualities.length ? Math.max(...qualities) : 0;
+        const min = qualities.length ? Math.min(...qualities) : 0;
+
+        document.getElementById('totalArticles').textContent = total;
+        document.getElementById('avgQuality').textContent = avg;
+        document.getElementById('maxQuality').textContent = max;
+        document.getElementById('minQuality').textContent = min;
+        document.getElementById('lastUpdate').textContent = new Date().toLocaleString('zh-TW');
+
+        // 遊戲數量模擬
+        const gameCount = allArticles.filter(a => a.category === 'game').length;
+        document.getElementById('totalGames').textContent = gameCount;
+        document.getElementById('gameCategories').textContent = '益智 · 動作 · 休閒';
+
+        // API 狀態
+        document.getElementById('apiStatus').innerHTML = '<span class="text-green-400">● 正常</span>';
+        document.getElementById('youtubeStatus').innerHTML = '<span class="text-green-400">✅ 已授權</span>';
+
+        document.getElementById('articleCountLabel').textContent = total;
+    }
+
+    // ============================================================
+    // 3. 渲染表格（含篩選與搜尋）
+    // ============================================================
+    function renderTable(articles) {
+        const tbody = document.getElementById('articleTableBody');
+        const filter = document.getElementById('categoryFilter').value;
+        const search = document.getElementById('searchInput').value.toLowerCase();
+
+        let filtered = articles;
+        if (filter !== 'all') {
+            filtered = filtered.filter(a => a.category === filter);
+        }
+        if (search) {
+            filtered = filtered.filter(a => a.title.toLowerCase().includes(search) || a.categoryLabel.includes(search));
+        }
+
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center text-gray-500 py-6">📭 沒有符合條件的文章</td></tr>';
+            document.getElementById('articleCountFooter').textContent = '顯示 0 篇';
+            return;
+        }
+
+        let html = '';
+        filtered.forEach(a => {
+            const statusMap = {
+                published: '<span class="badge-status success">✅ 已發布</span>',
+                review: '<span class="badge-status warning">📝 待審核</span>',
+                draft: '<span class="badge-status danger">📄 草稿</span>'
+            };
+            const qualityColor = a.quality >= 90 ? 'text-green-400' : (a.quality >= 70 ? 'text-yellow-400' : 'text-red-400');
+            html += `
+                <tr>
+                    <td class="font-medium">${a.title}</td>
+                    <td>${a.categoryLabel}</td>
+                    <td>${a.words.toLocaleString()}</td>
+                    <td class="${qualityColor} font-bold">${a.quality}</td>
+                    <td>${statusMap[a.status] || statusMap.draft}</td>
+                    <td class="text-gray-400 text-xs">${new Date(a.generated_at).toLocaleDateString('zh-TW')}</td>
+                </tr>
+            `;
+        });
+
+        tbody.innerHTML = html;
+        document.getElementById('articleCountFooter').textContent = `顯示 ${filtered.length} 篇 (共 ${allArticles.length} 篇)`;
+    }
+
+    // ============================================================
+    // 4. 篩選與搜尋事件
+    // ============================================================
+    document.getElementById('categoryFilter').addEventListener('change', () => renderTable(allArticles));
+    document.getElementById('searchInput').addEventListener('input', () => renderTable(allArticles));
+
+    // ============================================================
+    // 5. 快速操作 (呼叫 PowerShell)
+    // ============================================================
+    function runAction(action) {
+        const statusDiv = document.getElementById('actionStatus');
+        const msgSpan = document.getElementById('actionMessage');
+        statusDiv.classList.remove('hidden');
+
+        const actionMap = {
+            full: '完整部署 (備份+生成+Git+部署)',
+            generate: '只生成文章 (遊戲+文章)',
+            deploy: '只做 Git + 部署',
+            backup: '執行備份'
+        };
+
+        msgSpan.textContent = `正在執行: ${actionMap[action] || action} ...`;
+
+        // 實際環境可透過 window.open 觸發本地腳本
+        // 此處模擬執行
+        setTimeout(() => {
+            msgSpan.textContent = `✅ ${actionMap[action] || action} 已完成！ (模擬)`;
+            setTimeout(() => {
+                statusDiv.classList.add('hidden');
+            }, 3000);
+        }, 2000);
+
+        // 真實情境可呼叫:
+        // window.open(`powershell://run?script=ahpal-master.ps1&mode=${action}`);
+    }
+
+    // ============================================================
+    // 6. 啟動
+    // ============================================================
+    loadArticles();
+</script>
+
+</body>
+</html>

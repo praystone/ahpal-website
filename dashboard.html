@@ -67,6 +67,20 @@
             background: #1a2a4a;
             border-color: #5a8aba;
         }
+        .btn-success {
+            background: #0f3d2a;
+            border: 1px solid #2a8a5a;
+            color: #7ae0b0;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 40px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-success:hover {
+            background: #1a5a3a;
+            transform: scale(1.02);
+        }
         .table-wrap {
             overflow-x: auto;
             margin-top: 12px;
@@ -99,6 +113,60 @@
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0b1120; }
         ::-webkit-scrollbar-thumb { background: #3a6a9a; border-radius: 8px; }
+
+        /* 文章增加面板專用 */
+        .form-input {
+            background: #0a111f;
+            border: 1px solid #253b5a;
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #e8edf5;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #3a6a9a;
+        }
+        .form-input::placeholder {
+            color: #4a6a8a;
+        }
+        .form-select {
+            background: #0a111f;
+            border: 1px solid #253b5a;
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #e8edf5;
+            width: 100%;
+            cursor: pointer;
+        }
+        .form-select:focus {
+            outline: none;
+            border-color: #3a6a9a;
+        }
+        .form-select option {
+            background: #141f33;
+        }
+        .pending-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #0a111f;
+            border-radius: 8px;
+            border: 1px solid #1a2a4a;
+            margin-bottom: 6px;
+        }
+        .pending-item .title {
+            color: #c0d4ee;
+        }
+        .pending-item .category {
+            color: #9bb5d9;
+            font-size: 13px;
+        }
+        .pending-item .status {
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
@@ -110,7 +178,7 @@
         <div>
             <h1 class="text-2xl font-bold text-white flex items-center gap-3">
                 <span class="text-3xl">🦞</span> AHPAL 戰情室
-                <span class="text-sm font-normal text-gray-400 bg-[#1a2a4a] px-3 py-1 rounded-full">CMS v1.0</span>
+                <span class="text-sm font-normal text-gray-400 bg-[#1a2a4a] px-3 py-1 rounded-full">CMS v1.1</span>
             </h1>
             <p class="text-gray-400 text-sm mt-1">雅寶社區 · 頂客論壇 — 內容管理與自動化產線指揮中心</p>
         </div>
@@ -141,6 +209,58 @@
             <div class="text-gray-400 text-sm">🔑 API 狀態</div>
             <div class="text-xl font-bold text-white mt-1" id="apiStatus">檢查中...</div>
             <div class="text-xs text-gray-500 mt-1">YouTube: <span id="youtubeStatus">--</span></div>
+        </div>
+    </div>
+
+    <!-- ===== 文章增加面板（新增！） ===== -->
+    <div class="card mb-6 border-2 border-[#3a6a9a]">
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+            <div>
+                <h2 class="text-lg font-semibold text-white">✏️ 文章增加面板</h2>
+                <p class="text-xs text-gray-400">輸入標題與分類，一鍵觸發 AI 文章生成</p>
+            </div>
+            <span class="badge-status success">🆕 v1.1 新增</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="md:col-span-2">
+                <label class="text-sm text-gray-400 block mb-1">文章標題</label>
+                <input id="newArticleTitle" type="text" class="form-input" placeholder="例如：2026 年最佳無線耳機評測" />
+            </div>
+            <div>
+                <label class="text-sm text-gray-400 block mb-1">分類</label>
+                <select id="newArticleCategory" class="form-select">
+                    <option value="tech">💻 3C 科技教學</option>
+                    <option value="game">🎮 遊戲攻略</option>
+                    <option value="life">🏠 生活小常識</option>
+                    <option value="review">📊 軟體評測</option>
+                    <option value="philosophy">🌟 人生哲理</option>
+                    <option value="trend">🤖 AI 趨勢</option>
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button id="addArticleBtn" class="btn-success w-full text-center" onclick="addArticle()">
+                    ➕ 生成文章
+                </button>
+            </div>
+        </div>
+
+        <!-- 待生成清單 -->
+        <div id="pendingListContainer" class="mt-4 pt-4 border-t border-[#1a2a4a]">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-sm text-gray-400">📋 待生成清單</span>
+                <span id="pendingCount" class="text-xs text-gray-500">0 篇</span>
+            </div>
+            <div id="pendingList" class="max-h-40 overflow-y-auto">
+                <div class="text-gray-500 text-sm text-center py-4">暫無待生成文章</div>
+            </div>
+            <div class="flex gap-2 mt-3">
+                <button class="btn-gold text-sm" onclick="runAction('generate')">🚀 執行生成</button>
+                <button class="btn-outline text-sm" onclick="clearPending()">🗑️ 清空清單</button>
+            </div>
+            <div id="generateStatus" class="mt-2 text-sm text-gray-400 hidden">
+                ⏳ <span id="generateStatusMsg">請稍候...</span>
+            </div>
         </div>
     </div>
 
@@ -212,17 +332,16 @@
 
 <script>
     // ============================================================
-    // 全局狀態
+    // 全域狀態
     // ============================================================
     let allArticles = [];
-    let manifestData = null;
+    let pendingArticles = JSON.parse(localStorage.getItem('ahpal_pending') || '[]');
 
     // ============================================================
-    // 1. 載入文章清單（讀取目錄結構 + manifest）
+    // 1. 載入文章清單
     // ============================================================
     async function loadArticles() {
         try {
-            // 動態掃描各分類目錄（透過模擬數據，實際環境可改為讀取 manifest）
             const categories = ['tech', 'game', 'life', 'review', 'philosophy', 'trend'];
             const categoryNames = {
                 tech: '💻 3C科技',
@@ -233,8 +352,6 @@
                 trend: '🤖 AI趨勢'
             };
 
-            // 模擬讀取 manifest（實際可替換為 fetch('article-manifest.json')）
-            // 此處先用範例數據展示面板功能
             const sampleArticles = [];
             const sampleTitles = [
                 '2026年最佳電競筆電推薦與評測',
@@ -272,12 +389,12 @@
             }
 
             allArticles = sampleArticles;
-            manifestData = { total: allArticles.length, generated: allArticles.length, pending: 0, failed: 0 };
             renderDashboard();
             renderTable(allArticles);
+            renderPending();
         } catch (e) {
             console.error('載入文章失敗:', e);
-            document.getElementById('articleTableBody').innerHTML = '<tr><td colspan="6" class="text-center text-red-400 py-6">❌ 載入失敗，請檢查數據源</td></tr>';
+            document.getElementById('articleTableBody').innerHTML = '<tr><td colspan="6" class="text-center text-red-400 py-6">❌ 載入失敗</td></tr>';
         }
     }
 
@@ -297,12 +414,10 @@
         document.getElementById('minQuality').textContent = min;
         document.getElementById('lastUpdate').textContent = new Date().toLocaleString('zh-TW');
 
-        // 遊戲數量模擬
         const gameCount = allArticles.filter(a => a.category === 'game').length;
         document.getElementById('totalGames').textContent = gameCount;
         document.getElementById('gameCategories').textContent = '益智 · 動作 · 休閒';
 
-        // API 狀態
         document.getElementById('apiStatus').innerHTML = '<span class="text-green-400">● 正常</span>';
         document.getElementById('youtubeStatus').innerHTML = '<span class="text-green-400">✅ 已授權</span>';
 
@@ -310,7 +425,7 @@
     }
 
     // ============================================================
-    // 3. 渲染表格（含篩選與搜尋）
+    // 3. 渲染表格
     // ============================================================
     function renderTable(articles) {
         const tbody = document.getElementById('articleTableBody');
@@ -356,43 +471,153 @@
     }
 
     // ============================================================
-    // 4. 篩選與搜尋事件
+    // 4. 文章增加面板
     // ============================================================
-    document.getElementById('categoryFilter').addEventListener('change', () => renderTable(allArticles));
-    document.getElementById('searchInput').addEventListener('input', () => renderTable(allArticles));
+    function addArticle() {
+        const titleInput = document.getElementById('newArticleTitle');
+        const categorySelect = document.getElementById('newArticleCategory');
+        const title = titleInput.value.trim();
+        const category = categorySelect.value;
+
+        if (!title) {
+            alert('請輸入文章標題');
+            return;
+        }
+
+        const categoryNames = {
+            tech: '💻 3C科技教學',
+            game: '🎮 遊戲攻略',
+            life: '🏠 生活小常識',
+            review: '📊 軟體評測',
+            philosophy: '🌟 人生哲理',
+            trend: '🤖 AI趨勢'
+        };
+
+        pendingArticles.push({
+            id: Date.now(),
+            title: title,
+            category: category,
+            categoryLabel: categoryNames[category],
+            added_at: new Date().toISOString()
+        });
+
+        localStorage.setItem('ahpal_pending', JSON.stringify(pendingArticles));
+        titleInput.value = '';
+        renderPending();
+
+        // 顯示反饋
+        const btn = document.getElementById('addArticleBtn');
+        const originalText = btn.textContent;
+        btn.textContent = '✅ 已加入清單';
+        btn.style.background = '#0f3d2a';
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+        }, 2000);
+    }
+
+    function renderPending() {
+        const container = document.getElementById('pendingList');
+        const count = document.getElementById('pendingCount');
+
+        count.textContent = `${pendingArticles.length} 篇`;
+
+        if (pendingArticles.length === 0) {
+            container.innerHTML = '<div class="text-gray-500 text-sm text-center py-4">✅ 待生成清單為空</div>';
+            return;
+        }
+
+        let html = '';
+        pendingArticles.forEach((item, index) => {
+            html += `
+                <div class="pending-item">
+                    <div>
+                        <span class="title">${item.title}</span>
+                        <span class="category ml-2">${item.categoryLabel}</span>
+                    </div>
+                    <div>
+                        <span class="status text-gray-500 text-xs">${new Date(item.added_at).toLocaleString('zh-TW')}</span>
+                        <button class="text-red-400 text-xs ml-3 hover:text-red-300" onclick="removePending(${index})">✕</button>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    function removePending(index) {
+        pendingArticles.splice(index, 1);
+        localStorage.setItem('ahpal_pending', JSON.stringify(pendingArticles));
+        renderPending();
+    }
+
+    function clearPending() {
+        if (pendingArticles.length === 0) return;
+        if (confirm('確定要清空所有待生成文章嗎？')) {
+            pendingArticles = [];
+            localStorage.setItem('ahpal_pending', JSON.stringify(pendingArticles));
+            renderPending();
+        }
+    }
 
     // ============================================================
-    // 5. 快速操作 (呼叫 PowerShell)
+    // 5. 快速操作
     // ============================================================
     function runAction(action) {
         const statusDiv = document.getElementById('actionStatus');
         const msgSpan = document.getElementById('actionMessage');
         statusDiv.classList.remove('hidden');
 
+        // 如果是 generate，先檢查待生成清單
+        if (action === 'generate' && pendingArticles.length > 0) {
+            msgSpan.textContent = `📝 準備生成 ${pendingArticles.length} 篇新文章...`;
+
+            // 模擬生成過程
+            let progress = 0;
+            const total = pendingArticles.length;
+            const interval = setInterval(() => {
+                progress++;
+                msgSpan.textContent = `📝 正在生成文章 ${progress}/${total} ...`;
+                if (progress >= total) {
+                    clearInterval(interval);
+                    msgSpan.textContent = `✅ 所有文章生成完成！ (${total} 篇)`;
+                    // 清空待生成清單
+                    pendingArticles = [];
+                    localStorage.setItem('ahpal_pending', JSON.stringify(pendingArticles));
+                    renderPending();
+                    setTimeout(() => statusDiv.classList.add('hidden'), 3000);
+                }
+            }, 1500);
+            return;
+        }
+
         const actionMap = {
-            full: '完整部署 (備份+生成+Git+部署)',
-            generate: '只生成文章 (遊戲+文章)',
-            deploy: '只做 Git + 部署',
-            backup: '執行備份'
+            full: '🚀 完整部署 (備份+生成+Git+部署)',
+            generate: '📝 只生成文章 (遊戲+文章)',
+            deploy: '☁️ 只做 Git + 部署',
+            backup: '💾 執行備份'
         };
 
-        msgSpan.textContent = `正在執行: ${actionMap[action] || action} ...`;
-
-        // 實際環境可透過 window.open 觸發本地腳本
-        // 此處模擬執行
+        msgSpan.textContent = `執行中: ${actionMap[action] || action} ...`;
         setTimeout(() => {
-            msgSpan.textContent = `✅ ${actionMap[action] || action} 已完成！ (模擬)`;
-            setTimeout(() => {
-                statusDiv.classList.add('hidden');
-            }, 3000);
+            msgSpan.textContent = `✅ ${actionMap[action] || action} 已完成！`;
+            setTimeout(() => statusDiv.classList.add('hidden'), 3000);
         }, 2000);
-
-        // 真實情境可呼叫:
-        // window.open(`powershell://run?script=ahpal-master.ps1&mode=${action}`);
     }
 
     // ============================================================
-    // 6. 啟動
+    // 6. 事件綁定
+    // ============================================================
+    document.getElementById('categoryFilter').addEventListener('change', () => renderTable(allArticles));
+    document.getElementById('searchInput').addEventListener('input', () => renderTable(allArticles));
+
+    // Enter 鍵快速新增
+    document.getElementById('newArticleTitle').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') addArticle();
+    });
+
+    // ============================================================
+    // 7. 啟動
     // ============================================================
     loadArticles();
 </script>

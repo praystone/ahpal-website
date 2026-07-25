@@ -96,6 +96,8 @@ keywords_list = [
     {"keyword": "2026 生成式 AI 企業應用趨勢 自動化客服內容生成", "category": "🤖 AI 趨勢", "filename": "trend/2026生成式AI企業應用趨勢自動化客服內容生成.html"},
     {"keyword": "GPT-5 vs Gemini 3.0 語言模型評測比較分析", "category": "🤖 AI 趨勢", "filename": "trend/GPT-5vsGemini30語言模型評測比較分析.html"},
     {"keyword": "2026 年 5 大 AI 工具推薦 提升工作效率必備", "category": "🤖 AI 趨勢", "filename": "trend/2026年5大AI工具推薦提升工作效率必備.html"},
+    {"keyword": "CMS 面板測試文章 2026", "category": "💻 3C 科技教學", "filename": "tech/CMS面板測試文章2026.html"},
+
 ]
 
 # ============================================================

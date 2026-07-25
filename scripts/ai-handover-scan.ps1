@@ -461,8 +461,13 @@ $QuickStart = @"
 【3️⃣ 完整部署】
    ⚡ .\scripts\ahpal-master.ps1 → [1]
 
-【4️⃣ 死命令檢查】
-   ⚡ .\scripts\preflight-check.ps1
+【4️⃣ 死命令與品質檢查流程】
+   ⚡ .\scripts\preflight-check.ps1  ← 推送前死命令強制檢查 (可用 -Fix)
+   ⚡ .\scripts\check-all.ps1       ← 全系統診斷與健康報告 (可用 -Report)
+
+【5️⃣ 系統架構摘要】
+   🐍 Python 模組: main.py(主控), api_client.py(API與Failover), article_generator.py(文章生成), html_builder.py(HTML樣板), quality_checker.py(品質與SEO), sitemap_builder.py(Sitemap), state_manager.py(狀態), logger.py(日誌), youtube_lm.py(影音), config.py(設定)
+   📜 PowerShell 腳本: ahpal-master.ps1(萬能選單), add-articles.ps1(JSON文章新增), preflight-check.ps1(死命令檢查), check-all.ps1(全系統檢查), youtube-pipeline.ps1(影音產線), generate-games.ps1(遊戲建構)
 
 ═══════════════════════════════════════════════════════════════════
 📋 JSON 格式範例（data/pending-articles.json）
@@ -543,14 +548,34 @@ $Report = @"
 ╚════════════════════════════════════════════════════════════════╝
 
 ═══════════════════════════════════════════════════════════════════
-1. 系統概況
+1. 系統概況與核心架構
 ═══════════════════════════════════════════════════════════════════
 
 系統名稱: 雅寶社區 · 頂客論壇 (AHPAL.COM)
 系統類型: AI 驅動的自動化內容平台
 技術棧: PowerShell + Python 3 + Cloudflare Pages + Git
-API: Google Gemini (尖峰) + DeepSeek (離峰)
+API: Google Gemini (尖峰/主要) + DeepSeek (離峰/備用)
 版本: v4.2 (模組化架構)
+
+【Python 核心模組職責說明】
+- main.py: CLI 命令解析與各模組協調調度
+- api_client.py: Gemini & DeepSeek API 連線與 Failover 重試
+- article_generator.py: 提示詞 (Prompt) 設計與內容生成
+- html_builder.py: HTML 頁面建構、模版渲染與 SEO Meta 插入
+- quality_checker.py: 文章品質指標與死命令檢查邏輯
+- sitemap_builder.py: XML Sitemap 自動維護
+- state_manager.py: 文章狀態檔 (article-manifest.json / build-state.json)
+- logger.py: 結構化日誌記錄
+- youtube_lm.py: NotebookLM 與影音產線整合
+- config.py: 全域環境變數與設定檔
+
+【品質檢查流程規範 (Quality Check Workflow)】
+1. 預行死命令檢查 (preflight-check.ps1)
+   - 目的: Git 推送與部署前必須執行的強制檢查 (檢查 HTML 完整性、描述長度、排除 game/ 遊戲頁面)
+   - 指令: .\scripts\preflight-check.ps1 [-Fix]
+2. 全系統診斷報告 (check-all.ps1)
+   - 目的: 全面檢查系統環境、API Key 狀態、文章與備份健康度
+   - 指令: .\scripts\check-all.ps1 [-Report]
 
 ═══════════════════════════════════════════════════════════════════
 2. PowerShell 腳本 ($($ScriptFiles.Count) 個)

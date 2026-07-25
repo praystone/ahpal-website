@@ -1,10 +1,10 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 遊戲生成腳本 v3.2
+# 雅寶社區 · 頂客論壇 - 遊戲生成腳本 v3.3 (Giscus 最終修正版)
 # ============================================================
-# 版本：v3.2 (代理執行長版)
+# 版本：v3.3 (董事會核定版)
 # 功能：生成 23 款 HTML5 遊戲，自動嵌入 Giscus 討論區
 # 輸出：game/*.html (23 款遊戲)
-# Giscus：praystone/ahpal-website
+# Giscus：praystone/ahpal-website / General 分類 (開放式討論)
 # ============================================================
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -20,7 +20,7 @@ if (-not (Test-Path $OutputDir)) {
 Write-Host "📁 輸出目錄：$OutputDir" -ForegroundColor Cyan
 
 # ============================================================
-# Giscus 討論區 HTML (所有遊戲共用)
+# Giscus 討論區 HTML (所有遊戲共用) - 已修正為 General 分類
 # ============================================================
 $GiscusHTML = @'
 <div class="comments-section" style="max-width: 800px; margin: 40px auto; padding: 20px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
@@ -28,9 +28,9 @@ $GiscusHTML = @'
     <p style="font-size: 14px; color: #4A5568; margin-bottom: 12px;">分享你的遊戲心得、技巧或疑問，與其他玩家互動！</p>
     <div class="giscus" 
         data-repo="praystone/ahpal-website"
-        data-repo-id="R_kgDONxSTxg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDONxSTxs4ClJpQ"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
         data-mapping="pathname"
         data-strict="0"
         data-reactions-enabled="1"
@@ -43,9 +43,9 @@ $GiscusHTML = @'
 </div>
 <script src="https://giscus.app/client.js"
     data-repo="praystone/ahpal-website"
-    data-repo-id="R_kgDONxSTxg"
-    data-category="Announcements"
-    data-category-id="DIC_kwDONxSTxs4ClJpQ"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
     data-mapping="pathname"
     data-strict="0"
     data-reactions-enabled="1"
@@ -1137,7 +1137,7 @@ function Generate-GameIndex {
 # ============================================================
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "   🎮 雅寶遊戲生成 v3.2 (代理執行長版)" -ForegroundColor Cyan
+Write-Host "   🎮 雅寶遊戲生成 v3.3 (董事會核定版)" -ForegroundColor Cyan
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "📊 共 $($newGames.Count) 款遊戲" -ForegroundColor Yellow
@@ -1153,6 +1153,6 @@ Write-Host ""
 Write-Host "============================================================" -ForegroundColor Green
 Write-Host "✅ 全部完成！" -ForegroundColor Green
 Write-Host "🎮 遊戲總數：$($newGames.Count) 款" -ForegroundColor Cyan
-Write-Host "💬 所有遊戲頁面已嵌入 Giscus 討論區" -ForegroundColor Cyan
+Write-Host "💬 所有遊戲頁面已嵌入 Giscus 討論區 (General 分類)" -ForegroundColor Cyan
 Write-Host "🌐 遊戲入口：https://ahpal.com/game/" -ForegroundColor Yellow
 Write-Host "============================================================" -ForegroundColor Green

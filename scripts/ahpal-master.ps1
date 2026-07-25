@@ -167,7 +167,7 @@ if ($IsScheduled) {
         Set-ForceAPI -Mode "deepseek"
     } else {
         Set-ForceAPI -Mode $null
-        Write-Host "🔄 自動切換模式（尖峰 Gemini / 離峰 DeepSeek）" -ForegroundColor Cyan
+        Write-Host "🔄 自動切換模式（默認 Gemini / 備援 DeepSeek）" -ForegroundColor Cyan
     }
 }
 

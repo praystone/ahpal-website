@@ -1,5 +1,5 @@
 # ============================================================
-# main.py - 主要入口模組（完整修正版 v4.1）
+# AHPAL 文章生成引擎 - main.py v4.4 (修正 force_api 傳遞)
 # ============================================================
 
 import sys
@@ -7,7 +7,7 @@ import os
 import argparse
 from pathlib import Path
 
-# 確保可以匯入 src 模組
+# 將專案根目錄加入 sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from datetime import datetime
@@ -22,34 +22,33 @@ from src.state_manager import get_state_manager
 logger = get_logger("main")
 
 # ============================================================
-# 1. 預檢檢查
+# 1. API Key 檢查
 # ============================================================
 
 def check_api_keys():
-    """檢查 API Key 是否有效，回傳 (是否通過, 錯誤訊息列表)"""
+    """檢查 API Key 是否正確設定"""
     errors = []
     warnings = []
     
-    # 檢查必要金鑰
     deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
     if not deepseek_key:
-        errors.append("DEEPSEEK_API_KEY 未設定（離峰時段需要）")
+        errors.append("DEEPSEEK_API_KEY 未設定，請檢查 .env 檔案")
     elif not deepseek_key.startswith("sk-"):
-        errors.append("DEEPSEEK_API_KEY 格式錯誤（應以 sk- 開頭）")
+        errors.append("DEEPSEEK_API_KEY 格式錯誤，應以 sk- 開頭")
     
     gemini_key = os.environ.get("GEMINI_API_KEY")
     if not gemini_key:
-        warnings.append("GEMINI_API_KEY 未設定（尖峰時段需使用）")
+        warnings.append("GEMINI_API_KEY 未設定，僅使用 DeepSeek 模式")
     
     if errors:
-        logger.error("API Key 檢查失敗")
+        logger.error("API Key 檢查失敗：")
         for err in errors:
             logger.error(f"   - {err}")
-        logger.info("💡 請在 ahpal-static.ps1 中設定 API Key")
+        logger.info("請執行 ahpal-static.ps1 設定正確的 API Key")
         return False, errors
     
     if warnings:
-        logger.warning("API Key 檢查有警告")
+        logger.warning("API Key 檢查有警告：")
         for warn in warnings:
             logger.warning(f"   - {warn}")
     
@@ -57,308 +56,156 @@ def check_api_keys():
     return True, []
 
 # ============================================================
-# 關鍵字清單（所有文章來源）- 含 12 篇新增文章
+# 2. 文章關鍵字列表 (keywords_list)
 # ============================================================
 
 keywords_list = [
-    # ============================================================
-    # tech/ - 3C 科技教學（30 篇）
-    # ============================================================
-    {"keyword": "摺疊手機購買指南 2026", "category": "💻 3C 科技教學", "filename": "tech/folding-phone-buying-guide-2026.html"},
-    {"keyword": "5G 手機選購 2026", "category": "💻 3C 科技教學", "filename": "tech/5g-phone-guide-2026.html"},
-    {"keyword": "筆電選購指南 2026", "category": "💻 3C 科技教學", "filename": "tech/laptop-buying-guide-2026.html"},
-    {"keyword": "藍牙耳機推薦 2026", "category": "💻 3C 科技教學", "filename": "tech/earbuds-guide-2026.html"},
-    {"keyword": "智慧手錶選購 2026", "category": "💻 3C 科技教學", "filename": "tech/smartwatch-guide-2026.html"},
-    {"keyword": "手機拍照技巧 2026", "category": "💻 3C 科技教學", "filename": "tech/phone-photography-tips-2026.html"},
-    {"keyword": "平板電腦比較 2026", "category": "💻 3C 科技教學", "filename": "tech/tablet-comparison-2026.html"},
-    {"keyword": "電競螢幕選購 2026", "category": "💻 3C 科技教學", "filename": "tech/gaming-monitor-guide-2026.html"},
-    {"keyword": "機械鍵盤推薦 2026", "category": "💻 3C 科技教學", "filename": "tech/mechanical-keyboard-guide-2026.html"},
-    {"keyword": "行動電源選購 2026", "category": "💻 3C 科技教學", "filename": "tech/power-bank-guide-2026.html"},
-    {"keyword": "WiFi 路由器推薦 2026", "category": "💻 3C 科技教學", "filename": "tech/wifi-router-guide-2026.html"},
-    {"keyword": "NAS 選購指南 2026", "category": "💻 3C 科技教學", "filename": "tech/nas-buying-guide-2026.html"},
-    {"keyword": "USB-C 擴充座推薦", "category": "💻 3C 科技教學", "filename": "tech/usb-c-hub-guide-2026.html"},
-    {"keyword": "3D 列印機入門", "category": "💻 3C 科技教學", "filename": "tech/3d-printer-guide-2026.html"},
-    {"keyword": "空拍機選購 2026", "category": "💻 3C 科技教學", "filename": "tech/drone-buying-guide-2026.html"},
-    {"keyword": "電動車充電樁安裝", "category": "💻 3C 科技教學", "filename": "tech/ev-charger-install-guide-2026.html"},
-    {"keyword": "電競椅選購指南 2026", "category": "💻 3C 科技教學", "filename": "tech/gaming-chair-guide-2026.html"},
-    {"keyword": "行動固態硬碟推薦", "category": "💻 3C 科技教學", "filename": "tech/portable-ssd-guide-2026.html"},
-    {"keyword": "無線充電盤選購", "category": "💻 3C 科技教學", "filename": "tech/wireless-charger-guide-2026.html"},
-    {"keyword": "2026 智慧家庭生態系選購指南", "category": "💻 3C 科技教學", "filename": "tech/smart-home-ecosystem-2026.html"},
-    {"keyword": "2026 摺疊手機選購指南", "category": "💻 3C 科技教學", "filename": "tech/folding-phone-guide-2026.html"},
-    {"keyword": "AI 筆電 vs 傳統筆電 2026 評測", "category": "💻 3C 科技教學", "filename": "tech/ai-laptop-vs-traditional-2026.html"},
-    {"keyword": "智慧手錶健康監測功能比較", "category": "💻 3C 科技教學", "filename": "tech/smartwatch-health-comparison-2026.html"},
-    {"keyword": "2026 真無線藍牙耳機推薦", "category": "💻 3C 科技教學", "filename": "tech/tws-earbuds-guide-2026.html"},
-    {"keyword": "電競螢幕 2026 採購指南", "category": "💻 3C 科技教學", "filename": "tech/gaming-monitor-2026-guide.html"},
-    {"keyword": "Windows 11 省電設定完整教學 2026", "category": "💻 3C 科技教學", "filename": "tech/Windows11省電設定完整教學2026.html"},
-    {"keyword": "手機儲存空間不足怎麼清理", "category": "💻 3C 科技教學", "filename": "tech/手機儲存空間不足怎麼清理.html"},
-    {"keyword": "家用 Wi-Fi 訊號增強實用方法", "category": "💻 3C 科技教學", "filename": "tech/家用Wi-Fi訊號增強實用方法.html"},
-    {"keyword": "AI 手機選購指南 2026", "category": "💻 3C 科技教學", "filename": "tech/ai-phone-buying-guide-2026.html"},
-    {"keyword": "筆電散熱墊推薦與評測 2026", "category": "💻 3C 科技教學", "filename": "tech/laptop-cooling-pad-guide-2026.html"},
-
-    # ============================================================
-    # game/ - 遊戲攻略（23 篇）
-    # ============================================================
-    {"keyword": "2026 最夯 5 款獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/best-indie-games-2026.html"},
-    {"keyword": "2026 年最佳 RPG Top 5", "category": "🎮 遊戲攻略", "filename": "game/best-rpg-2026.html"},
-    {"keyword": "2026 最耐玩 Switch 遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/best-switch-games-2026.html"},
-    {"keyword": "暗黑破壞神 IV 賽季 5 最強流派", "category": "🎮 遊戲攻略", "filename": "game/diablo4-season5-meta.html"},
-    {"keyword": "艾爾登法環 DLC 全 Boss 攻略", "category": "🎮 遊戲攻略", "filename": "game/elden-ring-dlc-boss-guide.html"},
-    {"keyword": "2026 免費 PC 射擊遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/free-shooter-games-2026.html"},
-    {"keyword": "原神 5.0 隱藏任務全攻略", "category": "🎮 遊戲攻略", "filename": "game/genshin-5-0-quest.html"},
-    {"keyword": "原神 5.1 新角色配隊攻略", "category": "🎮 遊戲攻略", "filename": "game/genshin-5-1-team-guide.html"},
-    {"keyword": "2026 下半年遊戲發售表", "category": "🎮 遊戲攻略", "filename": "game/upcoming-games-2026.html"},
-    {"keyword": "Steam Deck 最佳設定指南", "category": "🎮 遊戲攻略", "filename": "game/steam-deck-guide-2026.html"},
-    {"keyword": "10 款 Roguelite 獨立遊戲評比", "category": "🎮 遊戲攻略", "filename": "game/roguelite-games-2026.html"},
-    {"keyword": "2026 多人合作獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/co-op-games-2026.html"},
-    {"keyword": "2026 年最受期待 5 款 3A 大作", "category": "🎮 遊戲攻略", "filename": "game/most-anticipated-aaa-2026.html"},
-    {"keyword": "Steam 夏季特賣 2026 必買清單", "category": "🎮 遊戲攻略", "filename": "game/steam-summer-sale-2026.html"},
-    {"keyword": "PS5 Pro 遊戲效能實測與推薦", "category": "🎮 遊戲攻略", "filename": "game/ps5-pro-game-test-2026.html"},
-    {"keyword": "Xbox Game Pass 2026 必玩清單", "category": "🎮 遊戲攻略", "filename": "game/xbox-game-pass-2026.html"},
-    {"keyword": "星露谷物語 1.6 版本更新攻略", "category": "🎮 遊戲攻略", "filename": "game/stardew-valley-1-6-guide.html"},
-    {"keyword": "2026 電競滑鼠推薦與評測", "category": "🎮 遊戲攻略", "filename": "game/gaming-mouse-guide-2026.html"},
-
-    # ============================================================
-    # life/ - 生活小常識（28 篇）
-    # ============================================================
-    {"keyword": "居家收納技巧 2026", "category": "🏠 生活小常識", "filename": "life/home-organization-tips-2026.html"},
-    {"keyword": "省錢生活智慧 2026", "category": "🏠 生活小常識", "filename": "life/money-saving-tips-2026.html"},
-    {"keyword": "廚房清潔秘訣", "category": "🏠 生活小常識", "filename": "life/kitchen-cleaning-tips-2026.html"},
-    {"keyword": "衣物收納技巧", "category": "🏠 生活小常識", "filename": "life/clothing-storage-tips-2026.html"},
-    {"keyword": "家事管理 APP 推薦", "category": "🏠 生活小常識", "filename": "life/household-apps-2026.html"},
-    {"keyword": "居家節能省電技巧 2026", "category": "🏠 生活小常識", "filename": "life/energy-saving-tips-2026.html"},
-    {"keyword": "陽台種菜入門", "category": "🏠 生活小常識", "filename": "life/balcony-gardening-2026.html"},
-    {"keyword": "寵物用品推薦", "category": "🏠 生活小常識", "filename": "life/pet-supplies-guide-2026.html"},
-    {"keyword": "親子居家活動", "category": "🏠 生活小常識", "filename": "life/kids-home-activities-2026.html"},
-    {"keyword": "二手物品買賣平台", "category": "🏠 生活小常識", "filename": "life/second-hand-platforms-2026.html"},
-    {"keyword": "居家安全檢查", "category": "🏠 生活小常識", "filename": "life/home-safety-checklist-2026.html"},
-    {"keyword": "搬家打包技巧", "category": "🏠 生活小常識", "filename": "life/moving-packing-tips-2026.html"},
-    {"keyword": "掃地機器人選購", "category": "🏠 生活小常識", "filename": "life/robot-vacuum-guide-2026.html"},
-    {"keyword": "空氣清淨機推薦", "category": "🏠 生活小常識", "filename": "life/air-purifier-guide-2026.html"},
-    {"keyword": "除濕機選購指南", "category": "🏠 生活小常識", "filename": "life/dehumidifier-guide-2026.html"},
-    {"keyword": "陽台植栽入門指南", "category": "🏠 生活小常識", "filename": "life/balcony-gardening-guide-2026.html"},
-    {"keyword": "冰箱收納與管理技巧", "category": "🏠 生活小常識", "filename": "life/fridge-organization-guide-2026.html"},
-    {"keyword": "2026 寵物用品推薦指南", "category": "🏠 生活小常識", "filename": "life/pet-supplies-guide-2026.html"},
-    {"keyword": "居家收納終極指南 2026", "category": "🏠 生活小常識", "filename": "life/home-organization-ultimate-guide-2026.html"},
-    {"keyword": "小宅收納規劃實戰技巧", "category": "🏠 生活小常識", "filename": "life/小宅收納規劃實戰技巧.html"},
-    {"keyword": "居家防災包準備清單", "category": "🏠 生活小常識", "filename": "life/居家防災包準備清單.html"},
-    {"keyword": "家庭財務管理 APP 推薦 2026", "category": "🏠 生活小常識", "filename": "life/finance-apps-2026.html"},
-    {"keyword": "居家裝修省錢技巧", "category": "🏠 生活小常識", "filename": "life/home-renovation-tips-2026.html"},
-
-    # ============================================================
-    # review/ - 軟體評測（29 篇）
-    # ============================================================
-    {"keyword": "免費剪片軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/free-video-editor-2026.html"},
-    {"keyword": "遠端桌面軟體比較", "category": "📊 軟體評測", "filename": "review/remote-desktop-comparison-2026.html"},
-    {"keyword": "密碼管理軟體推薦", "category": "📊 軟體評測", "filename": "review/password-manager-2026.html"},
-    {"keyword": "雲端硬碟比較 2026", "category": "📊 軟體評測", "filename": "review/cloud-storage-comparison-2026.html"},
-    {"keyword": "PDF 編輯軟體推薦", "category": "📊 軟體評測", "filename": "review/pdf-editor-2026.html"},
-    {"keyword": "螢幕錄影軟體比較", "category": "📊 軟體評測", "filename": "review/screen-recorder-comparison-2026.html"},
-    {"keyword": "筆記軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/note-taking-apps-2026.html"},
-    {"keyword": "AI 繪圖軟體評測", "category": "📊 軟體評測", "filename": "review/ai-art-generator-review-2026.html"},
-    {"keyword": "影片下載軟體推薦", "category": "📊 軟體評測", "filename": "review/video-downloader-2026.html"},
-    {"keyword": "音樂串流平台比較", "category": "📊 軟體評測", "filename": "review/music-streaming-comparison-2026.html"},
-    {"keyword": "VPN 服務推薦 2026", "category": "📊 軟體評測", "filename": "review/vpn-service-review-2026.html"},
-    {"keyword": "防毒軟體比較 2026", "category": "📊 軟體評測", "filename": "review/antivirus-comparison-2026.html"},
-    {"keyword": "檔案同步工具推薦", "category": "📊 軟體評測", "filename": "review/file-sync-tools-2026.html"},
-    {"keyword": "開源軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/open-source-software-2026.html"},
-    {"keyword": "AI 寫作工具評測", "category": "📊 軟體評測", "filename": "review/ai-writing-tools-review-2026.html"},
-    {"keyword": "免費圖片編輯軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/free-photo-editor-2026.html"},
-    {"keyword": "AI 簡報生成工具評測", "category": "📊 軟體評測", "filename": "review/ai-presentation-tools-2026.html"},
-    {"keyword": "跨平台筆記軟體終極對決", "category": "📊 軟體評測", "filename": "review/note-apps-comparison-2026.html"},
-    {"keyword": "開源 CRM 系統推薦", "category": "📊 軟體評測", "filename": "review/open-source-crm-2026.html"},
-    {"keyword": "2026 最強 VPN 服務評測", "category": "📊 軟體評測", "filename": "review/vpn-review-2026.html"},
-    {"keyword": "免費 PDF 編輯軟體評測 2026", "category": "📊 軟體評測", "filename": "review/免費PDF編輯軟體評測2026.html"},
-    {"keyword": "密碼管理工具怎麼選", "category": "📊 軟體評測", "filename": "review/密碼管理工具怎麼選.html"},
-    {"keyword": "2026 年最佳專案管理工具評測", "category": "📊 軟體評測", "filename": "review/project-management-tools-2026.html"},
-    {"keyword": "開源影片剪輯軟體推薦 2026", "category": "📊 軟體評測", "filename": "review/open-source-video-editors-2026.html"},
-
-    # ============================================================
-    # philosophy/ - 人生哲理（19 篇）
-    # ============================================================
-    {"keyword": "成功習慣養成", "category": "🌟 人生哲理", "filename": "philosophy/success-habits-2026.html"},
-    {"keyword": "時間管理技巧", "category": "🌟 人生哲理", "filename": "philosophy/time-management-tips-2026.html"},
-    {"keyword": "職涯規劃指南", "category": "🌟 人生哲理", "filename": "philosophy/career-planning-guide-2026.html"},
-    {"keyword": "情緒管理方法", "category": "🌟 人生哲理", "filename": "philosophy/emotional-management-2026.html"},
-    {"keyword": "健康生活習慣", "category": "🌟 人生哲理", "filename": "philosophy/healthy-lifestyle-habits-2026.html"},
-    {"keyword": "人際關係經營", "category": "🌟 人生哲理", "filename": "philosophy/relationship-building-2026.html"},
-    {"keyword": "財務自由規劃", "category": "🌟 人生哲理", "filename": "philosophy/financial-freedom-plan-2026.html"},
-    {"keyword": "學習方法優化", "category": "🌟 人生哲理", "filename": "philosophy/learning-methods-2026.html"},
-    {"keyword": "壓力紓解技巧", "category": "🌟 人生哲理", "filename": "philosophy/stress-relief-techniques-2026.html"},
-    {"keyword": "人生目標設定", "category": "🌟 人生哲理", "filename": "philosophy/goal-setting-guide-2026.html"},
-    {"keyword": "正念冥想入門", "category": "🌟 人生哲理", "filename": "philosophy/mindfulness-meditation-2026.html"},
-    {"keyword": "團隊合作技巧", "category": "🌟 人生哲理", "filename": "philosophy/teamwork-skills-2026.html"},
-    {"keyword": "領導力培養", "category": "🌟 人生哲理", "filename": "philosophy/leadership-development-2026.html"},
-    {"keyword": "創意思考方法", "category": "🌟 人生哲理", "filename": "philosophy/creative-thinking-methods-2026.html"},
-    {"keyword": "人生哲學經典", "category": "🌟 人生哲理", "filename": "philosophy/life-philosophy-classics-2026.html"},
-    {"keyword": "數位排毒與心理健康", "category": "🌟 人生哲理", "filename": "philosophy/digital-detox-2026.html"},
-    {"keyword": "工作與生活平衡實戰", "category": "🌟 人生哲理", "filename": "philosophy/work-life-balance-2026.html"},
-    {"keyword": "數位時代的專注力訓練", "category": "🌟 人生哲理", "filename": "philosophy/數位時代的專注力訓練.html"},
-    {"keyword": "逆境中的成長思維", "category": "🌟 人生哲理", "filename": "philosophy/growth-mindset-adversity-2026.html"},
-
-    # ============================================================
-    # trend/ - AI 趨勢（24 篇）
-    # ============================================================
-    {"keyword": "AI 工具推薦 2026", "category": "🤖 AI 趨勢", "filename": "trend/ai-tools-2026.html"},
-    {"keyword": "ChatGPT 應用技巧", "category": "🤖 AI 趨勢", "filename": "trend/chatgpt-applications-2026.html"},
-    {"keyword": "AI 繪圖工具比較", "category": "🤖 AI 趨勢", "filename": "trend/ai-art-tools-comparison-2026.html"},
-    {"keyword": "數位轉型策略", "category": "🤖 AI 趨勢", "filename": "trend/digital-transformation-strategy-2026.html"},
-    {"keyword": "AI 未來趨勢預測", "category": "🤖 AI 趨勢", "filename": "trend/ai-future-trends-2026.html"},
-    {"keyword": "AI 自動化工具", "category": "🤖 AI 趨勢", "filename": "trend/ai-automation-tools-2026.html"},
-    {"keyword": "AI 行銷應用案例", "category": "🤖 AI 趨勢", "filename": "trend/ai-marketing-cases-2026.html"},
-    {"keyword": "AI 數據分析工具", "category": "🤖 AI 趨勢", "filename": "trend/ai-data-analysis-tools-2026.html"},
-    {"keyword": "AI 客服系統比較", "category": "🤖 AI 趨勢", "filename": "trend/ai-customer-service-2026.html"},
-    {"keyword": "AI 人才培養趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-talent-development-2026.html"},
-    {"keyword": "AI 倫理與法規", "category": "🤖 AI 趨勢", "filename": "trend/ai-ethics-regulations-2026.html"},
-    {"keyword": "AI 金融應用趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-finance-applications-2026.html"},
-    {"keyword": "AI 醫療應用趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-healthcare-applications-2026.html"},
-    {"keyword": "AI 教育應用趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-education-applications-2026.html"},
-    {"keyword": "AI 新創公司推薦", "category": "🤖 AI 趨勢", "filename": "trend/ai-startups-2026.html"},
-    {"keyword": "開源 AI 模型 2026 趨勢", "category": "🤖 AI 趨勢", "filename": "trend/open-source-ai-2026.html"},
-    {"keyword": "AI 影片剪輯工具評測", "category": "🤖 AI 趨勢", "filename": "trend/ai-video-editors-2026.html"},
-    {"keyword": "AI 自動化工作流程實例", "category": "🤖 AI 趨勢", "filename": "trend/ai-workflow-automation-2026.html"},
-    {"keyword": "AI 繪圖工具 2026 完整評測", "category": "🤖 AI 趨勢", "filename": "trend/ai-art-tools-review-2026.html"},
-    {"keyword": "AI 筆記工具工作流程指南", "category": "🤖 AI 趨勢", "filename": "trend/AI筆記工具工作流程指南.html"},
-    {"keyword": "生成式 AI 資安風險與防護", "category": "🤖 AI 趨勢", "filename": "trend/生成式AI資安風險與防護.html"},
+    # tech/ - 3C 科技教學
+    {"keyword": "2026 年最佳電競筆電推薦與評測", "category": "💻 3C 科技教學", "filename": "tech/best-gaming-laptops-2026.html"},
+    {"keyword": "AI 繪圖工具 Midjourney vs Stable Diffusion 比較", "category": "💻 3C 科技教學", "filename": "tech/ai-art-tools-comparison-2026.html"},
+    {"keyword": "2026 年 5G 手機選購指南", "category": "💻 3C 科技教學", "filename": "tech/5g-phone-guide-2026.html"},
+    {"keyword": "2026 旗艦摺疊手機選購指南 三星華為谷歌對比", "category": "💻 3C 科技教學", "filename": "tech/2026旗艦摺疊手機選購指南三星華為谷歌對比.html"},
+    {"keyword": "Wi-Fi 7 路由器完整評測 速度延遲覆蓋範圍實測", "category": "💻 3C 科技教學", "filename": "tech/Wi-Fi7路由器完整評測速度延遲覆蓋範圍實測.html"},
+    {"keyword": "品質日誌測試文章 2026", "category": "💻 3C 科技教學", "filename": "tech/品質日誌測試文章2026.html"},
+    {"keyword": "Gemini 效能測試文章 2026", "category": "💻 3C 科技教學", "filename": "tech/Gemini效能測試文章2026.html"},
+    {"keyword": "2026 年智慧家庭生態系統完整指南 Apple Google Samsung 對比", "category": "💻 3C 科技教學", "filename": "tech/2026年智慧家庭生態系統完整指南AppleGoogleSamsung對比.html"},
+    {"keyword": "家用 NAS 完整選購指南 2026 年最值得買的型號", "category": "💻 3C 科技教學", "filename": "tech/家用NAS完整選購指南2026年最值得買的型號.html"},
+    # game/ - 遊戲攻略
+    {"keyword": "魔物獵人荒野 太刀新手進階連招技巧攻略", "category": "🎮 遊戲攻略", "filename": "game/魔物獵人荒野太刀新手進階連招技巧攻略.html"},
+    {"keyword": "GTA 6 搶先體驗心得 地圖載具任務系統解析", "category": "🎮 遊戲攻略", "filename": "game/GTA6搶先體驗心得地圖載具任務系統解析.html"},
+    # life/ - 生活小常識
+    {"keyword": "居家甲醛去除方法與空氣淨化實測", "category": "🏠 生活小常識", "filename": "life/home-formaldehyde-removal-guide.html"},
+    {"keyword": "居家收納改造 小空間最大化利用的 10 個秘訣", "category": "🏠 生活小常識", "filename": "life/居家收納改造小空間最大化利用的10個秘訣.html"},
+    {"keyword": "超簡單 30 分鐘快速料理 上班族必學省時晚餐食譜", "category": "🏠 生活小常識", "filename": "life/超簡單30分鐘快速料理上班族必學省時晚餐食譜.html"},
+    {"keyword": "居家安全監控系統選購指南 2026 年最推薦方案", "category": "🏠 生活小常識", "filename": "life/居家安全監控系統選購指南2026年最推薦方案.html"},
+    # review/ - 軟體評測
+    {"keyword": "密碼管理工具怎麼選：2026 完整指南", "category": "📊 軟體評測", "filename": "review/password-manager-guide-2026.html"},
+    {"keyword": "Notion 新手入門：從零開始建立知識庫", "category": "📊 軟體評測", "filename": "review/notion-beginner-guide.html"},
+    {"keyword": "2026 平價 Android 平板對比 小米聯想三星誰最超值", "category": "📊 軟體評測", "filename": "review/2026平價Android平板對比小米聯想三星誰最超值.html"},
+    {"keyword": "Notion vs Obsidian vs Anytype 筆記軟體終極對決", "category": "📊 軟體評測", "filename": "review/NotionvsObsidianvsAnytype筆記軟體終極對決.html"},
+    {"keyword": "2026 年免費防毒軟體評測 5 款實測對比", "category": "📊 軟體評測", "filename": "review/2026年免費防毒軟體評測5款實測對比.html"},
+    # philosophy/ - 人生哲理
+    {"keyword": "建立高效能習慣：原子習慣實戰指南", "category": "🌟 人生哲理", "filename": "philosophy/atomic-habits-guide-2026.html"},
+    {"keyword": "財務自由之路：被動收入建立完全攻略", "category": "🌟 人生哲理", "filename": "philosophy/passive-income-guide-2026.html"},
+    {"keyword": "原子習慣 如何用微小改變打造長期競爭力", "category": "🌟 人生哲理", "filename": "philosophy/原子習慣如何用微小改變打造長期競爭力.html"},
+    {"keyword": "成長型思維 vs 固定型思維 決定人生成敗的關鍵心態", "category": "🌟 人生哲理", "filename": "philosophy/成長型思維vs固定型思維決定人生成敗的關鍵心態.html"},
+    {"keyword": "冥想入門指南 每天 10 分鐘提升專注力與情緒管理", "category": "🌟 人生哲理", "filename": "philosophy/冥想入門指南每天10分鐘提升專注力與情緒管理.html"},
+    # trend/ - AI 趨勢
+    {"keyword": "生成式 AI 資安風險與防護策略", "category": "🤖 AI 趨勢", "filename": "trend/generative-ai-security-2026.html"},
     {"keyword": "AI 代理與自動化工作流程應用", "category": "🤖 AI 趨勢", "filename": "trend/ai-agent-workflow-2026.html"},
-    {"keyword": "2026 年大型語言模型發展趨勢", "category": "🤖 AI 趨勢", "filename": "trend/llm-trends-2026.html"},
-    {"keyword": "AI 生成內容著作權與法律爭議", "category": "🤖 AI 趨勢", "filename": "trend/ai-copyright-law-2026.html"},
-    {"keyword": "2026 年最佳電競筆電推薦與評測", "category": "💻 3C 科技教學", "filename": "tech/2026年最佳電競筆電推薦與評測.html"},
-    {"keyword": "手機無線充電技術比較與選購指南", "category": "💻 3C 科技教學", "filename": "tech/手機無線充電技術比較與選購指南.html"},
-    {"keyword": "薩爾達傳說：王國之淚 全神廟攻略", "category": "🎮 遊戲攻略", "filename": "game/薩爾達傳說王國之淚全神廟攻略.html"},
-    {"keyword": "2026 年最熱門 5 款多人連線遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/2026年最熱門5款多人連線遊戲推薦.html"},
-    {"keyword": "居家甲醛去除方法與空氣淨化實測", "category": "🏠 生活小常識", "filename": "life/居家甲醛去除方法與空氣淨化實測.html"},
-    {"keyword": "2026 年節能家電選購與省電技巧", "category": "🏠 生活小常識", "filename": "life/2026年節能家電選購與省電技巧.html"},
-    {"keyword": "2026 年 5 款最佳免費防毒軟體評測", "category": "📊 軟體評測", "filename": "review/2026年5款最佳免費防毒軟體評測.html"},
-    {"keyword": "AI 圖片生成工具 Midjourney vs Stable Diffusion 比較", "category": "📊 軟體評測", "filename": "review/AI圖片生成工具MidjourneyvsStableDiffusion比較.html"},
-    {"keyword": "建立高效能習慣：原子習慣實戰指南", "category": "🌟 人生哲理", "filename": "philosophy/建立高效能習慣原子習慣實戰指南.html"},
-    {"keyword": "財務自由之路：被動收入建立完全攻略", "category": "🌟 人生哲理", "filename": "philosophy/財務自由之路被動收入建立完全攻略.html"},
-    {"keyword": "2026 年 AI 代理發展趨勢與應用", "category": "🤖 AI 趨勢", "filename": "trend/2026年AI代理發展趨勢與應用.html"},
-    {"keyword": "AI 生成內容的版權爭議與法律規範", "category": "🤖 AI 趨勢", "filename": "trend/AI生成內容的版權爭議與法律規範.html"},
-
+    {"keyword": "2026 生成式 AI 企業應用趨勢 自動化客服內容生成", "category": "🤖 AI 趨勢", "filename": "trend/2026生成式AI企業應用趨勢自動化客服內容生成.html"},
+    {"keyword": "GPT-5 vs Gemini 3.0 語言模型評測比較分析", "category": "🤖 AI 趨勢", "filename": "trend/GPT-5vsGemini30語言模型評測比較分析.html"},
+    {"keyword": "2026 年 5 大 AI 工具推薦 提升工作效率必備", "category": "🤖 AI 趨勢", "filename": "trend/2026年5大AI工具推薦提升工作效率必備.html"},
 ]
 
 # ============================================================
-# 2. 輔助函數：獲取待生成文章
+# 3. 獲取待生成文章列表
 # ============================================================
 
 def get_pending_articles():
-    """
-    獲取待生成的文章列表
-    檢查實際檔案是否存在
-    """
     pending = []
     output_dir = os.environ.get("AHPAL_OUTPUT_DIR", "C:\\Users\\User\\ahpal-static")
     
     for item in keywords_list:
         filename = item["filename"]
         file_path = Path(output_dir) / filename
-        
-        # 如果檔案不存在，加入待生成清單
         if not file_path.exists():
             pending.append(item)
     
     return pending
 
 # ============================================================
-# 3. 主管道執行函數
+# 4. 執行文章生成管線 (修正：正確傳遞 force_api)
 # ============================================================
 
 def run_pipeline(force_api=None, dry_run=False):
-    """執行完整文章生成管道"""
     logger.info("=" * 70)
-    logger.info(f"🚀 AHPAL.COM 重構版 v4.1 - {CURRENT_YEAR}")
+    logger.info(f"🦞 AHPAL.COM 文章生成引擎 v4.4 - {CURRENT_YEAR}")
     logger.info(f"📅 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info("=" * 70)
     
-    # 預檢檢查
     passed, errors = check_api_keys()
     if not passed:
-        logger.error("⚠️ 請修正 API Key 後重新執行")
+        logger.error("❌ 請修正 API Key 後重新執行")
         return None
     
-    # 顯示當前設定
     if force_api:
-        logger.info(f"🔧 強制模式：{force_api.upper()}")
+        logger.info(f"🔧 強制使用 API：{force_api.upper()}")
         os.environ["FORCE_API"] = force_api
     else:
-        logger.info("🔄 自動切換模式")
+        logger.info("🔄 默認模式：Gemini 優先（備援 DeepSeek）")
         os.environ.pop("FORCE_API", None)
     
-    # 取得 API 資訊
-    api_info = get_current_api_info()
+    # 🔧 將 force_api 傳遞給 get_current_api_info
+    api_info = get_current_api_info(force_api=force_api)
     logger.info(f"📡 當前 API：{api_info['name']}")
-    logger.info(f"   ├─ 模型：{api_info['model']}")
-    logger.info(f"   ├─ 時段：{'🔴 尖峰' if api_info['peak'] else '🟢 離峰'}")
-    logger.info(f"   └─ 價格：{api_info['price']}")
+    logger.info(f"   🤖 模型：{api_info['model']}")
+    logger.info(f"   ⏰ 時段：{'尖峰' if api_info['peak'] else '離峰'}")
+    logger.info(f"   💰 價格：{api_info['price']}")
     
     if not force_api and is_peak_hour():
         next_time = get_next_off_peak_time()
-        logger.info(f"⏰ 將在 {next_time.strftime('%H:%M')} 自動切換到 DeepSeek（離峰）")
-        logger.info("   💡 按 [A] 強制 DeepSeek 可立即切換")
+        logger.info(f"💡 將於 {next_time.strftime('%H:%M')} 自動切換至 DeepSeek，節省成本")
+        logger.info("   💡 可按 [A] 強制使用 DeepSeek 立即執行")
     
-    # 獲取待生成文章
     pending_articles = get_pending_articles()
     
     if dry_run:
-        logger.info(f"\n📋 待生成文章：{len(pending_articles)} 篇")
+        logger.info(f"\n📋 待生成文章清單 ({len(pending_articles)} 篇)：")
         for item in pending_articles:
             logger.info(f"   - {item['keyword']} ({item['category']})")
         return len(pending_articles)
     
-    # 初始化頁面
-    logger.info("📄 初始化頁面...")
+    logger.info("📄 建立首頁與分類頁...")
     create_default_index()
     generate_categories_page()
     
     if pending_articles:
-        logger.info(f"\n📝 需要生成 {len(pending_articles)} 篇文章\n")
-        
+        logger.info(f"\n📝 開始生成 {len(pending_articles)} 篇文章...")
         for idx, item in enumerate(pending_articles, 1):
-            logger.info(f"\n--- 進度：{idx}/{len(pending_articles)} ---")
+            logger.info(f"\n--- 進度 {idx}/{len(pending_articles)} ---")
             try:
-                generate_article(item)
+                # 🔧 關鍵修正：將 force_api 傳遞給 generate_article
+                generate_article(item, force_api=force_api)
             except Exception as e:
                 logger.error(f"❌ 生成失敗：{item['keyword']} - {e}")
                 continue
     else:
-        logger.info("\n✅ 所有文章都已存在且完整，無需生成！")
+        logger.info("\n✅ 所有文章已存在，無需生成")
     
-    # 更新分類頁面和 Sitemap
-    logger.info("📄 更新分類頁面與 Sitemap...")
+    logger.info("📂 更新分類頁與 Sitemap...")
     generate_category_pages()
     all_existing_html = scan_all_html_files()
     update_sitemap()
     
-    # 顯示摘要
     logger.info("\n" + "=" * 70)
-    logger.info("🏁 所有文章生成、分類頁面、Sitemap 更新完畢！")
+    logger.info("✅ 文章生成流程完成！")
     logger.info(f"📊 總文章數：{len(all_existing_html)} 篇")
-    logger.info("📌 下一步：執行 npx wrangler pages deploy")
+    logger.info("📌 請執行 npx wrangler pages deploy 部署至 Cloudflare")
     logger.info("=" * 70)
     
     return len(all_existing_html)
 
 # ============================================================
-# 4. 主程式入口
+# 5. 主程式入口
 # ============================================================
 
 def main():
-    """主要入口（支援命令列參數）"""
     parser = argparse.ArgumentParser(description='AHPAL 文章生成引擎')
-    parser.add_argument('--force', choices=['deepseek', 'gemini'], help='強制使用指定 API')
-    parser.add_argument('--dry-run', action='store_true', help='僅顯示待生成文章，不執行')
-    parser.add_argument('--reset', action='store_true', help='重置狀態檔（清除所有生成紀錄）')
+    parser.add_argument('--force', choices=['deepseek', 'gemini'], help='強制使用指定的 API')
+    parser.add_argument('--dry-run', action='store_true', help='僅顯示待生成清單，不實際生成')
+    parser.add_argument('--reset', action='store_true', help='重置文章狀態檔案')
     
     args = parser.parse_args()
     
     if args.reset:
-        logger.warning("⚠️ 重置狀態檔...")
+        logger.warning("⚠️ 重置文章狀態...")
         try:
             state_manager = get_state_manager()
             state_manager.reset()
-            logger.info("✅ 狀態檔已重置")
+            logger.info("✅ 文章狀態已重置")
         except Exception as e:
-            logger.warning(f"⚠️ 無法重置狀態檔：{e}")
+            logger.warning(f"⚠️ 重置失敗：{e}")
         return
     
     run_pipeline(args.force, args.dry_run)

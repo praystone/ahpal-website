@@ -1,9 +1,9 @@
 ﻿# ============================================================
-# AI 交接專用 - 完整系統掃描與備份腳本 v3.1
+# AI 交接專用 - 完整系統掃描與備份腳本 v3.2
 # 用途：掃描所有關鍵檔案、生成分析報告、複製到交接目錄
-# 創建時間：2026-07-24
-# 修正：輸出目錄改為 ahpal-AI-archive
-# 新增：包含 preflight-check.ps1、youtube_lm.py
+# 創建時間：2026-07-25
+# 新增：START-HERE.txt 快速上手指引
+# 新增：分析報告中強調 data/pending-articles.json 新增文章機制
 # ============================================================
 
 # 設定執行原則
@@ -38,7 +38,7 @@ function Write-ColorOutput {
 # 2. 建立交接目錄
 # ============================================================
 Write-ColorOutput "`n========================================" "Cyan"
-Write-ColorOutput "  🤖 AI 系統交接 - 完整掃描與備份 v3.1" "Cyan"
+Write-ColorOutput "  🤖 AI 系統交接 - 完整掃描與備份 v3.2" "Cyan"
 Write-ColorOutput "========================================`n" "Cyan"
 
 Write-ColorOutput "📁 建立交接目錄..." "Yellow"
@@ -81,13 +81,13 @@ $ScriptFiles = @(
     "config.ps1",
     "add-articles.ps1",
     "ai-handover-scan.ps1",
-    "preflight-check.ps1",          # 🆕 死命令檢查
-    "youtube-pipeline.ps1",          # 🆕 影音管線
-    "youtube-upload-realtime.ps1",   # 🆕 YouTube 上傳
-    "batch-upload-throttled.ps1",    # 🆕 批量上傳
-    "check-deepseek-balance.ps1",    # 🆕 餘額檢查
-    "check-quota.ps1",               # 🆕 配額檢查
-    "manage-schedules.ps1"           # 🆕 排程管理
+    "preflight-check.ps1",
+    "youtube-pipeline.ps1",
+    "youtube-upload-realtime.ps1",
+    "batch-upload-throttled.ps1",
+    "check-deepseek-balance.ps1",
+    "check-quota.ps1",
+    "manage-schedules.ps1"
 )
 
 $ScriptReport = @()
@@ -115,7 +115,7 @@ foreach ($script in $ScriptFiles) {
 }
 
 # ============================================================
-# 4. 掃描與複製 - Python 模組（包含 youtube_lm.py）
+# 4. 掃描與複製 - Python 模組
 # ============================================================
 Write-ColorOutput "`n🐍 掃描 Python 模組..." "Yellow"
 
@@ -131,7 +131,7 @@ $PythonModules = @(
     "sitemap_builder.py",
     "state_manager.py",
     "logger.py",
-    "youtube_lm.py"          # 🆕 YT+LM 整合
+    "youtube_lm.py"
 )
 
 $PythonReport = @()
@@ -432,7 +432,95 @@ if (Test-Path $DocsDir) {
 }
 
 # ============================================================
-# 12. 生成完整分析報告
+# 11.5 建立 START-HERE.txt（新 AI 快速上手）
+# ============================================================
+Write-ColorOutput "`n📌 建立快速上手指引..." "Yellow"
+
+$QuickStartPath = "$HandoverDir\START-HERE.txt"
+$QuickStart = @"
+╔════════════════════════════════════════════════════════════════╗
+║  🚀 新 AI 工程師 / 系統接手者，請先讀我！                   ║
+║  雅寶社區 · 頂客論壇 (AHPAL.COM)                            ║
+║  交接時間: $Timestamp                                        ║
+╚════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════
+📌 你必須知道的最重要工具
+═══════════════════════════════════════════════════════════════════
+
+【1️⃣ 新增文章（批次自動化）】
+   📁 data/pending-articles.json  ← 在這裡定義新文章（JSON 格式）
+   ⚡ scripts/add-articles.ps1    ← 執行這個腳本
+   📖 詳見：09-分析報告/系統分析報告-*.txt 中的「自動化工具亮點」
+
+   ✅ 優點：不需要手動編輯 main.py、批次新增、自動備份
+
+【2️⃣ 生成文章】
+   ⚡ python src/main.py --force deepseek
+
+【3️⃣ 完整部署】
+   ⚡ .\scripts\ahpal-master.ps1 → [1]
+
+【4️⃣ 死命令檢查】
+   ⚡ .\scripts\preflight-check.ps1
+
+═══════════════════════════════════════════════════════════════════
+📋 JSON 格式範例（data/pending-articles.json）
+═══════════════════════════════════════════════════════════════════
+
+[
+    {
+        "keyword": "2026 年最新 AI 工具推薦",
+        "category": "🤖 AI 趨勢"
+    },
+    {
+        "keyword": "居家收納終極指南",
+        "category": "🏠 生活小常識"
+    }
+]
+
+═══════════════════════════════════════════════════════════════════
+🔐 安全提醒
+═══════════════════════════════════════════════════════════════════
+
+⚠️ 此交接檔案包含系統架構和程式碼，不包含實際 API Key
+⚠️ 需自行建立 .env 檔案並填入 API Key
+⚠️ 建議交接完成後變更所有 API Key
+
+═══════════════════════════════════════════════════════════════════
+📂 交接目錄結構
+═══════════════════════════════════════════════════════════════════
+
+$HandoverDir/
+├── 01-系統架構與文件/       ← 系統文件
+├── 02-原始碼-PowerShell腳本/ ← PowerShell 腳本
+├── 03-原始碼-Python模組/     ← Python 核心模組
+├── 04-環境設定與API/         ← .env.template 與設定
+├── 05-網站內容-文章/         ← 所有文章（HTML）
+├── 06-網站內容-遊戲/         ← 遊戲檔案
+├── 07-狀態與日誌/            ← manifest.json
+├── 08-備份檔案/              ← 備份摘要
+├── 09-分析報告/              ← ⭐ 完整系統分析報告
+├── 10-自動化工具/            ← ⭐ data/pending-articles.json
+└── 11-資料與設定/
+
+═══════════════════════════════════════════════════════════════════
+📌 優先閱讀
+═══════════════════════════════════════════════════════════════════
+
+1. 09-分析報告/系統分析報告-$Timestamp.txt  ← 完整系統分析
+2. 交接檔案清單.txt                        ← 所有檔案說明
+3. 10-自動化工具/data/pending-articles.json ← 新增文章範例
+
+💡 重點：新增文章「不要手動改 main.py」！用 data/pending-articles.json + add-articles.ps1 就對了！
+
+═══════════════════════════════════════════════════════════════════
+"@
+$QuickStart | Out-File $QuickStartPath -Encoding UTF8
+Write-ColorOutput "   ✅ 快速上手指引已建立: START-HERE.txt" "Green"
+
+# ============================================================
+# 12. 生成完整分析報告（含自動化工具亮點）
 # ============================================================
 Write-ColorOutput "`n📋 生成完整分析報告..." "Yellow"
 
@@ -440,6 +528,9 @@ $ReportPath = "$HandoverDir\09-分析報告\系統分析報告-$Timestamp.txt"
 
 $TotalSizeMB = [math]::Round($TotalSize / 1MB, 2)
 $GameCount = if (Test-Path $GameDir) { (Get-ChildItem $GameDir -Filter "*.html").Count } else { 0 }
+
+# 檢查 data/pending-articles.json 是否存在（用於報告）
+$PendingExists = Test-Path "$ProjectRoot\data\pending-articles.json"
 
 $Report = @"
 ╔════════════════════════════════════════════════════════════════╗
@@ -510,7 +601,54 @@ $Report += @"
 共用資源: assets/ (CSS/JS)
 
 ═══════════════════════════════════════════════════════════════════
-6. 安全性檢查
+6. 🚀 自動化工具亮點：新增文章（AI 工程師必讀！）
+═══════════════════════════════════════════════════════════════════
+
+本系統提供一套「JSON 驅動」的文章新增機制，讓 AI 工程師能批次新增文章，
+無需手動編輯程式碼。這是 AHPAL 內容營運的核心生產力工具。
+
+📌 工具位置：
+   - 待新增清單：data/pending-articles.json ($(if ($PendingExists) { '✅ 存在' } else { '⚠️ 不存在（請建立）' }))
+   - 執行腳本：scripts/add-articles.ps1 ✅
+
+📋 使用流程（4 步驟）：
+   1. 編輯 data/pending-articles.json
+   2. 加入新文章關鍵字與分類（支援 Emoji）
+   3. 執行 .\scripts\add-articles.ps1
+   4. 腳本自動備份 main.py → 插入新文章 → 清空清單
+   5. 執行 python src/main.py --force deepseek 生成文章
+
+📝 JSON 格式範例：
+[
+    {
+        "keyword": "2026 年最新 AI 工具推薦",
+        "category": "🤖 AI 趨勢"
+    },
+    {
+        "keyword": "居家收納終極指南",
+        "category": "🏠 生活小常識"
+    }
+]
+
+✅ 優點：
+   - 不需要手動編輯 main.py（避免語法錯誤）
+   - 批次新增，一次可加多篇
+   - 自動備份 main.py（安全可靠）
+   - 自動產生檔案名稱（符合分類目錄結構）
+   - 支援 6 大分類對應（Emoji + 目錄自動產生）
+
+🔗 分類對照表：
+   💻 3C 科技教學 → tech/
+   🎮 遊戲攻略 → game/
+   🏠 生活小常識 → life/
+   📊 軟體評測 → review/
+   🌟 人生哲理 → philosophy/
+   🤖 AI 趨勢 → trend/
+
+⚠️ 注意：請勿手動編輯 main.py 的 keywords_list！使用本工具更安全！
+
+═══════════════════════════════════════════════════════════════════
+7. 安全性檢查
 ═══════════════════════════════════════════════════════════════════
 
 ✅ .env 已在 .gitignore 中 (不追蹤)
@@ -519,7 +657,7 @@ $Report += @"
 ⚠️ 建議：交接完成後請變更所有 API Key
 
 ═══════════════════════════════════════════════════════════════════
-7. 快速指令參考
+8. 快速指令參考
 ═══════════════════════════════════════════════════════════════════
 
 完整部署: cd $ProjectRoot; .\scripts\ahpal-master.ps1 → [1]
@@ -529,6 +667,7 @@ $Report += @"
 死命令檢查: .\scripts\preflight-check.ps1
 系統檢查: .\scripts\check-all.ps1 -Report
 執行備份: .\scripts\backup-system.ps1 -Compress
+新增文章: 編輯 data/pending-articles.json → .\scripts\add-articles.ps1 ⭐
 
 ═══════════════════════════════════════════════════════════════════
 ⚠️ 重要提醒
@@ -542,14 +681,14 @@ $Report += @"
 ═══════════════════════════════════════════════════════════════════
 
 報告產生時間: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
-報告版本: v3.1
+報告版本: v3.2 (新增自動化工具亮點章節)
 "@
 
 $Report | Out-File $ReportPath -Encoding UTF8
 Write-ColorOutput "   ✅ 分析報告已建立: $ReportPath" "Green"
 
 # ============================================================
-# 13. 建立交接檔案清單
+# 13. 建立交接檔案清單（含星號標註）
 # ============================================================
 Write-ColorOutput "`n📋 建立交接檔案清單..." "Yellow"
 
@@ -559,17 +698,84 @@ $FileList = @"
 ║           AI 系統交接 - 檔案清單與說明                        ║
 ║           雅寶社區 · 頂客論壇 (AHPAL.COM)                    ║
 ║           交接時間: $Timestamp                                ║
-║           版本: v3.1 (2026-07-24)                            ║
+║           版本: v3.2 (2026-07-25)                            ║
 ╚════════════════════════════════════════════════════════════════╝
 
 📁 交接目錄:
 $HandoverDir
 
 📌 優先閱讀:
-1. 09-分析報告/系統分析報告-$Timestamp.txt
-2. 交接檔案清單.txt
+1. START-HERE.txt                          ← 🚀 新 AI 工程師快速上手
+2. 09-分析報告/系統分析報告-$Timestamp.txt  ← 完整系統分析
+3. 交接檔案清單.txt                        ← 本檔案
 
-🔐 安全提醒:
+═══════════════════════════════════════════════════════════════════
+📁 目錄結構
+═══════════════════════════════════════════════════════════════════
+
+$HandoverDir/
+│
+├── START-HERE.txt                         ← 🚀 新 AI 工程師快速上手
+│
+├── 📁 01-系統架構與文件/
+│   └── docs/                              ← 技術文件庫
+│
+├── 📁 02-原始碼-PowerShell腳本/
+│   ├── ahpal-master.ps1                   ← 萬能總指揮
+│   ├── add-articles.ps1                   ← ⭐ 新增文章（JSON 驅動）
+│   ├── preflight-check.ps1                ← 死命令檢查
+│   └── ... (其他 13 個腳本)
+│
+├── 📁 03-原始碼-Python模組/
+│   └── (10 個 Python 模組)
+│
+├── 📁 04-環境設定與API/
+│   ├── .env.template                      ← 複製為 .env
+│   └── ads.txt                            ← AdSense 授權
+│
+├── 📁 05-網站內容-文章/
+│   ├── game/                              ← 🎮 遊戲攻略
+│   ├── tech/                              ← 💻 3C 科技教學
+│   ├── life/                              ← 🏠 生活小常識
+│   ├── review/                            ← 📊 軟體評測
+│   ├── philosophy/                        ← 🌟 人生哲理
+│   └── trend/                             ← 🤖 AI 趨勢
+│
+├── 📁 06-網站內容-遊戲/
+│   └── (23 款 HTML5 遊戲 + assets/)
+│
+├── 📁 07-狀態與日誌/
+│   └── article-manifest.json              ← 文章狀態追蹤
+│
+├── 📁 08-備份檔案/
+│   └── backup-summary.txt
+│
+├── 📁 09-分析報告/
+│   └── 系統分析報告-$Timestamp.txt        ← ⭐ 完整分析報告
+│
+├── 📁 10-自動化工具/
+│   ├── data/
+│   │   └── pending-articles.json          ← ⭐ 新增文章（JSON 驅動）
+│   └── backups/                           ← main.py 自動備份
+│
+└── 📁 11-資料與設定/
+
+═══════════════════════════════════════════════════════════════════
+⭐ 重點工具（務必熟悉）
+═══════════════════════════════════════════════════════════════════
+
+1. data/pending-articles.json     → 定義新文章（JSON 格式）
+2. scripts/add-articles.ps1       → 執行新增文章（自動備份）
+3. scripts/ahpal-master.ps1       → 萬能總指揮（完整部署）
+4. scripts/preflight-check.ps1    → 死命令檢查（推送前必做）
+
+💡 新增文章標準流程：
+   編輯 data/pending-articles.json → .\scripts\add-articles.ps1 → python src/main.py --force deepseek
+
+═══════════════════════════════════════════════════════════════════
+🔐 安全提醒
+═══════════════════════════════════════════════════════════════════
+
 - 此交接檔案不包含實際 API Key
 - 需自行建立 .env 檔案
 - 建議交接完成後變更所有 API Key
@@ -612,6 +818,7 @@ Write-ColorOutput "   📁 $HandoverDir" "White"
 Write-ColorOutput "   📦 $ZipPath" "White"
 
 Write-ColorOutput "`n📌 請新進工程師優先閱讀:" "Yellow"
+Write-ColorOutput "   📄 $HandoverDir\START-HERE.txt  ← 🚀 快速上手" "White"
 Write-ColorOutput "   📄 $HandoverDir\09-分析報告\系統分析報告-$Timestamp.txt" "White"
 Write-ColorOutput "   📄 $HandoverDir\交接檔案清單.txt" "White"
 

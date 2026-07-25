@@ -1,13 +1,15 @@
 ﻿# ============================================================
-# quality_checker.py - 文章品質檢查模組 v2.0
+# quality_checker.py - 文章品質檢查模組 v3.0
 # ============================================================
 # 功能：檢查文章品質（字數、H1、H2、表格、FAQ、品牌連結）
-# 修正：加入 H1 標題檢查，確保 SEO 完整性
-# 修正：評分標準優化，總分 100 分
+# 修正：加入品質報告寫入日誌功能
 # ============================================================
 
 import re
 from src.config import MIN_WORDS, MIN_HEADINGS
+from src.logger import get_logger
+
+logger = get_logger("quality_checker")
 
 def check_article_quality(html_content, keyword):
     """
@@ -119,6 +121,25 @@ def check_article_quality(html_content, keyword):
     # 是否通過（60 分以上通過）
     passed = score >= 60
 
+    # ============================================================
+    # 🔍 將品質報告寫入日誌
+    # ============================================================
+    log_message = (
+        f"\n📊 品質報告：{keyword}\n"
+        f"   └─ 分數：{score}/100\n"
+        f"   └─ 字數：{word_count} 字\n"
+        f"   └─ H1 標題：{h1_count} 個 {'✅' if h1_count >= 1 else '❌'}\n"
+        f"   └─ H2 標題：{h2_count} 個\n"
+        f"   └─ 表格：{'✅' if has_table else '❌'}\n"
+        f"   └─ FAQ：{'✅' if has_faq else '❌'}\n"
+        f"   └─ 結果：{'✅ 通過' if passed else '⚠️ 待改善'}"
+    )
+    logger.info(log_message)
+
+    # 若有警告，也記錄到日誌
+    if not passed:
+        logger.warning(f"⚠️ 文章品質待改善：{keyword}（分數：{score}/100）")
+
     return {
         "passed": passed,
         "score": score,
@@ -126,7 +147,7 @@ def check_article_quality(html_content, keyword):
         "h1_count": h1_count,
         "h2_count": h2_count,
         "h3_count": h3_count,
-        "has_h1": h1_count >= 1,      # 供外部快速判斷
+        "has_h1": h1_count >= 1,
         "has_table": has_table,
         "has_faq": has_faq,
         "has_list": has_list,

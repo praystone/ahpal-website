@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.ahpal.com/</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-tech.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-game.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-life.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-review.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-philosophy.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-trend.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -51,6 +51,12 @@
     <url>
         <loc>https://www.ahpal.com/contact.html</loc>
         <lastmod>2026-07-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/dashboard.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -74,7 +80,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/docs/打一份AI交接與新進工程師交接手冊.html</loc>
-        <lastmod>2026-07-23</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -87,6 +93,12 @@
     <url>
         <loc>https://www.ahpal.com/docs/附件二：系統全面規劃與技術細節升級報告.html</loc>
         <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/雅寶CMS規劃與AI交接技術維護白皮書.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -218,25 +230,19 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/game/2048.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/game/action/breakout.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/action/runner.html</loc>
-        <lastmod>2026-07-18</lastmod>
+        <loc>https://www.ahpal.com/game/GTA6搶先體驗心得地圖載具任務系統解析.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/archery.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -259,74 +265,50 @@
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/game/brain/memory.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/brain/word-search.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
         <loc>https://www.ahpal.com/game/breakout.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/bubble-shooter.html</loc>
-        <lastmod>2026-07-24</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/casual/color-match.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/casual/tap-tap.html</loc>
-        <lastmod>2026-07-18</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/clicker.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/co-op-games-2026.html</loc>
-        <lastmod>2026-07-22</lastmod>
+        <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/color-memory.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/colormatch.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/diablo4-season5-meta.html</loc>
-        <lastmod>2026-07-21</lastmod>
+        <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/doodle-jump.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -338,7 +320,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/game/flappy-bird.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -368,37 +350,37 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/game/hangman.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/indie-games-2026.html</loc>
-        <lastmod>2026-07-23</lastmod>
+        <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/jigsaw-puzzle.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/math-quiz.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/memory.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/minesweeper.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -410,7 +392,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/game/most-anticipated-games-2026.html</loc>
-        <lastmod>2026-07-21</lastmod>
+        <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -422,7 +404,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/game/pong.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -439,68 +421,32 @@
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/game/puzzle/2048-game.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/puzzle/2048.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/puzzle/minesweeper.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/puzzle/sudoku-game.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/puzzle/sudoku.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/game/puzzle/tetris.html</loc>
-        <lastmod>2026-07-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
         <loc>https://www.ahpal.com/game/roguelite-games-2026.html</loc>
-        <lastmod>2026-07-22</lastmod>
+        <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/shooting-range.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/simon-says.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/snake.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/solitaire.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -518,7 +464,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/game/steam-deck-guide-2026.html</loc>
-        <lastmod>2026-07-22</lastmod>
+        <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -530,19 +476,19 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/game/sudoku.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/tetris.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/tic-tac-toe.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -554,13 +500,13 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/game/upcoming-games-2026.html</loc>
-        <lastmod>2026-07-22</lastmod>
+        <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/game/wordsearch.html</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -585,6 +531,84 @@
     <url>
         <loc>https://www.ahpal.com/game/薩爾達傳說王國之淚全神廟攻略.html</loc>
         <lastmod>2026-07-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game/魔物獵人荒野太刀新手進階連招技巧攻略.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/action/breakout.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/action/runner.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/brain/memory.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/brain/word-search.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/casual/color-match.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/casual/tap-tap.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/puzzle/2048-game.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/puzzle/2048.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/puzzle/minesweeper.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/puzzle/sudoku-game.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/puzzle/sudoku.html</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/game_backup/puzzle/tetris.html</loc>
+        <lastmod>2026-07-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -681,6 +705,12 @@
     <url>
         <loc>https://www.ahpal.com/life/home-feng-shui-tips.html</loc>
         <lastmod>2026-07-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/life/home-formaldehyde-removal-guide.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -865,6 +895,18 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/life/居家安全監控系統選購指南2026年最推薦方案.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/life/居家收納改造小空間最大化利用的10個秘訣.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/life/居家甲醛去除方法與空氣淨化實測.html</loc>
         <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
@@ -873,6 +915,12 @@
     <url>
         <loc>https://www.ahpal.com/life/居家防災包準備清單.html</loc>
         <lastmod>2026-07-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/life/超簡單30分鐘快速料理上班族必學省時晚餐食譜.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -891,6 +939,12 @@
     <url>
         <loc>https://www.ahpal.com/philosophy/ai-future-trends-2027.html</loc>
         <lastmod>2026-07-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/atomic-habits-guide-2026.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1033,6 +1087,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/philosophy/passive-income-guide-2026.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/philosophy/passive-income-methods-2026.html</loc>
         <lastmod>2026-07-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1093,8 +1153,26 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/philosophy/冥想入門指南每天10分鐘提升專注力與情緒管理.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/原子習慣如何用微小改變打造長期競爭力.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/philosophy/建立高效能習慣原子習慣實戰指南.html</loc>
         <lastmod>2026-07-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/成長型思維vs固定型思維決定人生成敗的關鍵心態.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1117,14 +1195,32 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/review/2026平價Android平板對比小米聯想三星誰最超值.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/review/2026年5款最佳免費防毒軟體評測.html</loc>
         <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/review/2026年免費防毒軟體評測5款實測對比.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/review/AI圖片生成工具MidjourneyvsStableDiffusion比較.html</loc>
         <lastmod>2026-07-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/review/NotionvsObsidianvsAnytype筆記軟體終極對決.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1327,6 +1423,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/review/password-manager-guide-2026.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/review/pdf-editor-2026.html</loc>
         <lastmod>2026-07-20</lastmod>
         <changefreq>monthly</changefreq>
@@ -1399,8 +1501,20 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/tech/2026年智慧家庭生態系統完整指南AppleGoogleSamsung對比.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/tech/2026年最佳電競筆電推薦與評測.html</loc>
         <lastmod>2026-07-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/tech/2026旗艦摺疊手機選購指南三星華為谷歌對比.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1417,8 +1531,32 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/tech/Gemini效能測試文章2026.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/tech/Wi-Fi7路由器完整評測速度延遲覆蓋範圍實測.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/tech/Windows11省電設定完整教學2026.html</loc>
         <lastmod>2026-07-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/tech/ai-art-tools-comparison-2026.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/tech/ai-drawing-tools-2026.html</loc>
+        <lastmod>2026-07-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1675,6 +1813,18 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/tech/品質日誌測試文章2026.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/tech/家用NAS完整選購指南2026年最值得買的型號.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/tech/家用Wi-Fi訊號增強實用方法.html</loc>
         <lastmod>2026-07-23</lastmod>
         <changefreq>monthly</changefreq>
@@ -1711,8 +1861,20 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/trend/2026年5大AI工具推薦提升工作效率必備.html</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/trend/2026年AI代理發展趨勢與應用.html</loc>
         <lastmod>2026-07-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/trend/2026生成式AI企業應用趨勢自動化客服內容生成.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1725,6 +1887,12 @@
     <url>
         <loc>https://www.ahpal.com/trend/AI筆記工具工作流程指南.html</loc>
         <lastmod>2026-07-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/trend/GPT-5vsGemini30語言模型評測比較分析.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1923,6 +2091,12 @@
     <url>
         <loc>https://www.ahpal.com/trend/digital-transformation-trends-2026.html</loc>
         <lastmod>2026-07-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/trend/generative-ai-security-2026.html</loc>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>

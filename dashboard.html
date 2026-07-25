@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8" />
@@ -566,7 +566,6 @@
         const msgSpan = document.getElementById('actionMessage');
         statusDiv.classList.remove('hidden');
 
-        // 如果是 generate，觸發橋接服務
         if (action === 'generate' && pendingArticles.length > 0) {
             msgSpan.textContent = `📤 正在傳送 ${pendingArticles.length} 篇文章至橋接服務...`;
 
@@ -587,7 +586,7 @@
             .then(response => response.json())
             .then(result => {
                 if (result.status === 'ok') {
-                    msgSpan.textContent = `✅ 成功！${result.total} 篇文章已加入生成佇列`;
+                    msgSpan.textContent = `✅ 成功！${result.total} 篇文章已生成`;
                     pendingArticles = [];
                     localStorage.setItem('ahpal_pending', JSON.stringify(pendingArticles));
                     renderPending();
@@ -604,14 +603,12 @@
             return;
         }
 
-        // 其他動作（full, deploy, backup）保持模擬
         const actionMap = {
             full: '🚀 完整部署 (備份+生成+Git+部署)',
             generate: '📝 只生成文章 (遊戲+文章)',
             deploy: '☁️ 只做 Git + 部署',
             backup: '💾 執行備份'
         };
-
         msgSpan.textContent = `執行中: ${actionMap[action] || action} ...`;
         setTimeout(() => {
             msgSpan.textContent = `✅ ${actionMap[action] || action} 已完成！`;

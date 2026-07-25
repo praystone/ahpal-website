@@ -1,9 +1,7 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # ============================================================
-# AHPAL 面板橋接服務 v1.0
-# 功能：接收面板指令 → 寫入 pending-articles.json → 觸發 PowerShell
-# 作者：龍蝦總工程師（DeepSeek）
+# AHPAL 面板橋接服務 v1.1
 # ============================================================
 
 import http.server
@@ -12,88 +10,75 @@ import subprocess
 import os
 import sys
 import time
-from pathlib import Path
 
-# 設定
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+
 PORT = 8888
 PENDING_FILE = "pending-articles.json"
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-SCRIPT_PATH = os.path.join(PROJECT_ROOT, "scripts", "process-pending.ps1")
+SCRIPT_PATH = os.path.join(PROJECT_ROOT, "scripts", "add-articles.ps1")
 
 class AHPALBridgeHandler(http.server.SimpleHTTPRequestHandler):
-    """處理面板傳來的請求"""
-
     def do_OPTIONS(self):
-        """處理 CORS 預檢請求"""
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
 
-    def do_GET(self):
-        """處理 GET 請求：回報服務狀態"""
-        if self.path == "/status":
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.end_headers()
-            status = {
-                "status": "online",
-                "version": "1.0",
-                "pending_file_exists": os.path.exists(PENDING_FILE),
-                "script_exists": os.path.exists(SCRIPT_PATH)
-            }
-            self.wfile.write(json.dumps(status, ensure_ascii=False).encode('utf-8'))
-        else:
-            self.send_response(404)
-            self.end_headers()
-
     def do_POST(self):
-        """處理 POST 請求：接收文章資料並觸發生成"""
         if self.path == "/trigger":
             try:
-                # 1. 讀取請求內容
                 content_length = int(self.headers.get('Content-Length', 0))
                 post_data = self.rfile.read(content_length).decode('utf-8')
                 data = json.loads(post_data)
-
-                # 2. 驗證資料
                 articles = data.get('articles', [])
+
                 if not articles:
                     self._send_response(400, {"status": "error", "message": "沒有文章資料"})
                     return
 
-                # 3. 寫入 pending-articles.json
-                pending_data = {
-                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-                    "total": len(articles),
-                    "articles": articles
-                }
+                print(f"📥 收到 {len(articles)} 篇文章")
 
-                pending_path = os.path.join(PROJECT_ROOT, PENDING_FILE)
+                formatted_articles = []
+                for a in articles:
+                    title = a.get('title') or a.get('keyword', '')
+                    category = a.get('categoryLabel') or a.get('category', '')
+                    formatted_articles.append({
+                        "keyword": title,
+                        "title": title,
+                        "category": category
+                    })
+
+                pending_path = os.path.join(PROJECT_ROOT, "data", PENDING_FILE)
                 with open(pending_path, 'w', encoding='utf-8') as f:
-                    json.dump(pending_data, f, ensure_ascii=False, indent=2)
+                    json.dump(formatted_articles, f, ensure_ascii=False, indent=2)
+                print(f"✅ 已寫入 data/pending-articles.json")
 
-                # 4. 觸發 PowerShell 橋接腳本
+                # 執行 add-articles.ps1
+                print(f"▶️ 執行 add-articles.ps1")
                 result = subprocess.run([
                     "powershell.exe",
                     "-ExecutionPolicy", "Bypass",
                     "-File", SCRIPT_PATH
-                ], capture_output=True, text=True, cwd=PROJECT_ROOT)
+                ], input="y\n", capture_output=True, text=True, encoding="utf-8", errors="ignore", cwd=PROJECT_ROOT)
 
-                # 5. 回應結果
+                # 執行文章生成
+                print(f"▶️ 執行文章生成")
+                gen_result = subprocess.run([
+                    "python", "-X", "utf8", "src/main.py"
+                ], capture_output=True, text=True, encoding="utf-8", errors="ignore", cwd=PROJECT_ROOT)
+
                 response = {
                     "status": "ok",
                     "total": len(articles),
-                    "message": "文章已加入生成佇列",
-                    "powershell_output": result.stdout,
-                    "powershell_error": result.stderr if result.stderr else None
+                    "message": "文章已成功生成",
+                    "add_output": result.stdout[-500:] if result.stdout else "",
+                    "gen_output": gen_result.stdout[-500:] if gen_result.stdout else ""
                 }
                 self._send_response(200, response)
 
-            except json.JSONDecodeError as e:
-                self._send_response(400, {"status": "error", "message": f"JSON 格式錯誤: {str(e)}"})
             except Exception as e:
                 self._send_response(500, {"status": "error", "message": str(e)})
         else:
@@ -101,7 +86,6 @@ class AHPALBridgeHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
 
     def _send_response(self, code, data):
-        """發送 JSON 回應"""
         self.send_response(code)
         self.send_header('Content-Type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
@@ -109,35 +93,15 @@ class AHPALBridgeHandler(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps(data, ensure_ascii=False).encode('utf-8'))
 
 def main():
-    """啟動服務"""
-    print("🦞 AHPAL 面板橋接服務 v1.0")
-    print("========================================")
-    print(f"📂 專案目錄: {PROJECT_ROOT}")
-    print(f"📄 腳本路徑: {SCRIPT_PATH}")
-    print(f"📋 待生成檔案: {os.path.join(PROJECT_ROOT, PENDING_FILE)}")
-    print("========================================")
-
-    # 檢查腳本是否存在
-    if not os.path.exists(SCRIPT_PATH):
-        print("⚠️ 警告: process-pending.ps1 不存在，請先建立橋接腳本")
-    else:
-        print("✅ 橋接腳本已就位")
-
+    print("🦞 AHPAL 面板橋接服務 v1.1")
     print(f"🌐 服務啟動中... http://localhost:{PORT}")
-    print("📌 請在面板中設定 API 地址為: http://localhost:8888/trigger")
     print("📌 按 Ctrl+C 停止服務")
-    print("========================================")
-
     try:
-        handler = AHPALBridgeHandler
-        httpd = http.server.HTTPServer(("", PORT), handler)
+        httpd = http.server.HTTPServer(("", PORT), AHPALBridgeHandler)
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("\n🛑 服務已停止")
         sys.exit(0)
-    except Exception as e:
-        print(f"❌ 啟動失敗: {e}")
-        sys.exit(1)
 
 if __name__ == "__main__":
     main()

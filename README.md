@@ -1,417 +1,271 @@
-我來幫你更新 Git 相關的 `.md` 文件，包括 `README.md` 和新增 `HANDOVER.md` 到 Git 追蹤。
+我看到您貼的是舊的 README.md 內容（7月24日的版本）。現在我幫您把 **最新的完整 README.md** 更新到 AI 檔案館，包含今天的 367 篇文章狀態。
 
 ---
 
-## 📝 更新 `README.md`
-
-請將以下內容儲存為 `C:\Users\User\ahpal-static\README.md`：
-
-```markdown
-# 🏠 雅寶社區 · 頂客論壇 (AHPAL.COM)
-
-> 歲月 · 知識 · 共創 — 二十多年的歲月迴聲，AI 精選六大領域實用內容。
-
----
-
-## 📖 專案簡介
-
-雅寶社區 · 頂客論壇是一個結合 **3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢** 六大領域的知識型網站。透過 AI 輔助生成高品質文章，提供讀者真正有價值的資訊。
-
----
-
-## 🏗️ 專案結構
-
-```
-ahpal-static/
-├── scripts/                    # PowerShell 腳本
-│   ├── ahpal-master.ps1        # 萬能總指揮（主入口）
-│   ├── ahpal-static.ps1        # 環境設定
-│   ├── generate-games.ps1      # 遊戲生成
-│   └── backup-system.ps1       # 備份系統
-│
-├── src/                        # Python 原始碼
-│   ├── main.py                 # 主程式入口
-│   ├── config.py               # 設定管理
-│   ├── api_client.py           # API 客戶端
-│   ├── article_generator.py    # 文章生成核心
-│   ├── html_builder.py         # HTML 建構
-│   ├── quality_checker.py      # 品質檢查
-│   ├── sitemap_builder.py      # Sitemap 建構
-│   └── state_manager.py        # 狀態管理
-│
-├── ahpal-static/               # 網站輸出目錄
-│   ├── index.html              # 首頁
-│   ├── categories.html         # 全部分類
-│   ├── tech/                   # 3C 科技教學 (47篇)
-│   ├── game/                   # 遊戲攻略 (47篇 + 23款遊戲)
-│   ├── life/                   # 生活小常識 (44篇)
-│   ├── review/                 # 軟體評測 (43篇)
-│   ├── philosophy/             # 人生哲理 (36篇)
-│   └── trend/                  # AI 趨勢 (42篇)
-│
-├── .env                        # 環境變數 (API Key)
-├── .env.template               # 環境變數範本
-└── README.md                   # 本文件
-```
-
----
-
-## 🚀 快速啟動
-
-### 1. 環境設定
+## 📝 完整更新 README.md
 
 ```powershell
-# 複製環境變數範本
-Copy-Item .env.template .env
+# 切換到 AI 檔案館
+cd C:\Users\User\ahpal-AI-archive
 
-# 編輯 .env，填入 API Key
-# GEMINI_API_KEY=你的Gemini金鑰
-# DEEPSEEK_API_KEY=sk-你的DeepSeek金鑰
-```
+# 獲取最新狀態
+$today = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+$articleCount = (Get-ChildItem C:\Users\User\ahpal-static -Recurse -Filter "*.html" | Measure-Object).Count
+$zipCount = (Get-ChildItem -Filter "*.zip" | Measure-Object).Count
+$totalSize = [math]::Round((Get-ChildItem -Filter "*.zip" | Measure-Object -Property Length -Sum).Sum / 1GB, 2)
 
-### 2. 執行主程式
+# 寫入完整的 README.md
+@"
+# 🏛️ AHPAL AI 檔案館
 
-```powershell
-cd scripts
-.\ahpal-master.ps1
-```
-
-### 3. 選單功能
-
-| 選項 | 功能 |
-|------|------|
-| `[1]` | 完整流程 (備份 + 生成 + Git + 部署) |
-| `[2]` | 快速更新 (跳過備份) |
-| `[4]` | 只生成文章 |
-| `[6]` | 只做 Git + 部署 |
-| `[A]` | 強制使用 Gemini |
-| `[D]` | 強制使用 DeepSeek |
-
-### 4. 排程自動執行
-
-```powershell
-.\ahpal-master.ps1 -Mode deepseek -Action full
-.\ahpal-master.ps1 -Mode gemini -Action generate
-.\ahpal-master.ps1 -Action deploy
-```
+> 雅寶社區 · 頂客論壇 — 完整備份與交接檔案館
 
 ---
 
-## 🤖 API 切換邏輯
-
-| 時段 | 自動模式 | 說明 |
-|------|---------|------|
-| 09:00-18:00 | Gemini | 尖峰時段，Gemini 免費 |
-| 18:00-09:00 | DeepSeek | 離峰時段，DeepSeek 成本低 |
-
----
-
-## 📊 品質標準
-
-| 評分項目 | 分數 |
-|---------|------|
-| H1 標題 | 20 分 |
-| H2 標題 | 25 分 |
-| 字數 (≥1200) | 25 分 |
-| 表格 | 10 分 |
-| FAQ | 10 分 |
-| 清單 | 5 分 |
-| 品牌連結 | 5 分 |
-| **總分** | **100 分** |
-| **通過門檻** | **≥60 分** |
-
----
-
-## 🔧 故障排除
-
-### API Key 無效
-```powershell
-cat .env
-# 確認 GEMINI_API_KEY 和 DEEPSEEK_API_KEY 正確
-```
-
-### Git 推送失敗
-```powershell
-git push --set-upstream origin master
-```
-
-### Cloudflare 部署失敗
-```powershell
-npx wrangler pages deploy ahpal-static --project-name=ahpal-pages
-```
-
----
-
-## 📈 目前成果
-
-| 項目 | 數量 |
-|------|------|
-| 文章總數 | 264+ 篇 |
-| 遊戲數量 | 23 款 |
-| 分類 | 6 大領域 |
-| 品質分數 | 75-80/100 |
-| 平均字數 | 2500-5000 字 |
-
----
-
-## 🔗 連結
-
-| 環境 | 網址 |
-|------|------|
-| 正式網站 | https://www.ahpal.com/ |
-| Cloudflare Pages | https://4441c6bd.ahpal-pages.pages.dev |
-| 遊戲間 | https://www.ahpal.com/game/ |
-
----
-
-## 📝 版本資訊
+## 📋 檔案館資訊
 
 | 項目 | 內容 |
 |------|------|
-| 當前版本 | v4.1 |
-| 最後更新 | 2026-07-24 |
-| 維護者 | 雅寶社區 · 頂客論壇 |
+| 檔案館位置 | C:\Users\User\ahpal-AI-archive |
+| 建立日期 | 2026-07-24 |
+| 最後更新 | $today |
+| 專案版本 | v4.4 |
+| 文章總數 | **$articleCount 篇** |
+| 備份總數 | $zipCount 個 ZIP 檔案 |
+| 備份總大小 | $totalSize GB |
 
 ---
 
-## 📄 授權
+## 📁 目錄結構
 
-本專案為雅寶社區 · 頂客論壇所有，保留所有權利。
+```
+ahpal-AI-archive/
+├── README.md                          # 📄 本文件（檔案館總覽）
+├── HANDOVER.md                        # 📄 AI 交接文件
+│
+├── ahpal-static-stable-*.zip          # 📦 穩定版完整備份 (最新)
+├── ahpal-static-stable-*-README.txt   # 📝 備份說明
+│
+├── ahpal-backup-*.zip                 # 📦 歷史備份
+├── ahpal-backup-*/                    # 📂 解壓縮備份目錄
+│
+├── ai交接-*.zip                       # 📦 AI 交接文件包
+└── ai交接-*/                          # 📂 AI 交接文件目錄
 ```
 
 ---
 
-## 📝 更新 `HANDOVER.md`
+## 📦 備份檔案詳細清單
 
-將以下內容儲存為 `C:\Users\User\ahpal-static\HANDOVER.md`（同時複製到備份檔案館）：
+### 穩定版備份（最新）
+| 檔案 | 大小 | 日期 | 說明 |
+|------|------|------|------|
+| ahpal-static-stable-20260726-021748.zip | 29.5 MB | 2026-07-26 | ✅ 最新穩定版 (367 篇文章) |
 
-```markdown
-# 📋 AHPAL.COM 專案交接文件
-
-> 給下一位維護者 / AI 的完整交接手冊
-
----
-
-## 📌 基本資訊
-
-| 項目 | 內容 |
-|------|------|
-| 專案名稱 | 雅寶社區 · 頂客論壇 (AHPAL.COM) |
-| 專案路徑 | `C:\Users\User\ahpal-static` |
-| 備份檔案館 | `C:\Users\User\ahpal-archive` |
-| 網站網址 | https://www.ahpal.com/ |
+### 歷史備份
+| 檔案 | 大小 | 日期 | 說明 |
+|------|------|------|------|
+| ahpal-backup-20260724_035140.zip | 4.4 MB | 2026-07-24 | 初始完整備份 |
+| ai交接-2026-07-24_06-02-23.zip | 4.8 MB | 2026-07-24 | AI 交接文件 v1 |
+| ai交接-2026-07-25_05-40-06.zip | 6.8 MB | 2026-07-25 | AI 交接文件 v2 |
+| ai交接-2026-07-25_06-25-05.zip | 6.9 MB | 2026-07-25 | AI 交接文件 v3 |
+| ai交接-2026-07-25_10-26-24.zip | 6.4 MB | 2026-07-25 | AI 交接文件 v4 |
 
 ---
 
-## 🏗️ 專案結構
+## 📂 備份目錄詳情
 
+### ahpal-backup-20260724_035140/
 ```
-ahpal-static/
-├── scripts/          # PowerShell 腳本 (主控台)
-├── src/              # Python 原始碼 (核心引擎)
-├── ahpal-static/     # 🌐 網站輸出 (264+ 文章 + 23 遊戲)
-├── .env              # 🔑 API Key (重要！)
-└── build-state.json  # 構建狀態
-```
-
----
-
-## 🚀 快速啟動指令
-
-```powershell
-# 進入專案
-cd C:\Users\User\ahpal-static\scripts
-
-# 執行主程式（互動式選單）
-.\ahpal-master.ps1
-
-# 排程自動執行
-.\ahpal-master.ps1 -Mode deepseek -Action full
-.\ahpal-master.ps1 -Mode gemini -Action generate
-.\ahpal-master.ps1 -Action deploy
+├── src/                    # Python 原始碼 (8 個檔案)
+├── scripts/                # PowerShell 腳本 (7+ 個檔案)
+├── ahpal-static/           # 網站輸出目錄
+│   ├── index.html          # 首頁
+│   ├── categories.html     # 分類入口
+│   ├── sitemap.xml         # 網站地圖
+│   ├── category-*.html     # 6 個分類頁面
+│   ├── tech/               # 3C 科技教學 (59 篇)
+│   ├── game/               # 遊戲攻略 + 遊戲 (52 篇)
+│   ├── life/               # 生活小常識 (51 篇)
+│   ├── review/             # 軟體評測 (51 篇)
+│   ├── philosophy/         # 人生哲理 (44 篇)
+│   └── trend/              # AI 趨勢 (50 篇)
+├── docs/                   # 技術文檔 (6 個 .md 檔案)
+├── logs/                   # 日誌檔案
+├── .env.template           # 環境變數範本
+└── HANDOVER.md             # 交接文件
 ```
 
 ---
 
-## 🎮 選單功能
+## 🚀 還原指南
 
-| 選項 | 功能 |
-|------|------|
-| `[1]` | 完整流程 (備份 + 生成 + Git + 部署) |
-| `[2]` | 快速更新 (跳過備份) |
-| `[3]` | 只生成遊戲 (不耗 API) |
-| `[4]` | 只生成文章 |
-| `[5]` | 只做備份 |
-| `[6]` | 只做 Git + 部署 |
-| `[7]` | 檢查文章狀態 |
-| `[8]` | 查看系統狀態 |
-| `[A]` | 強制使用 Gemini |
-| `[D]` | 強制使用 DeepSeek |
-| `[B]` | 恢復自動切換模式 |
-
----
-
-## 🐍 Python 模組說明
-
-| 模組 | 功能 | 重要函數 |
-|------|------|----------|
-| `main.py` | 主入口 | `run_pipeline()` |
-| `config.py` | 設定管理 | `get_api_key()`, `is_peak_hour()` |
-| `api_client.py` | API 客戶端 | `call_api()`, `get_current_api_info()` |
-| `article_generator.py` | 文章生成 | `generate_article()`, `text_to_html()` |
-| `html_builder.py` | HTML 建構 | `build_article_html()` |
-| `quality_checker.py` | 品質檢查 | `check_article_quality()` |
-| `sitemap_builder.py` | Sitemap | `update_sitemap()` |
-| `state_manager.py` | 狀態管理 | `get_pending_articles()` |
-
----
-
-## 🤖 API 設定
-
-### 環境變數 (.env)
-
-```
-GEMINI_API_KEY=你的Gemini金鑰
-DEEPSEEK_API_KEY=sk-你的DeepSeek金鑰
-```
-
-### API 切換邏輯
-
-| 時段 | 自動模式 |
-|------|---------|
-| 09:00-18:00 | Gemini (免費) |
-| 18:00-09:00 | DeepSeek (低成本) |
-
----
-
-## 🔧 故障排除
-
-### 1. 找不到 main.py
-
-```powershell
-# 檢查檔案
-ls C:\Users\User\ahpal-static\src\main.py
-
-# 如果不存在，從備份還原
-Copy-Item "C:\Users\User\ahpal-archive\ahpal-backup-*\src\main.py" "C:\Users\User\ahpal-static\src\"
-```
-
-### 2. API Key 無效
-
-```powershell
-# 檢查 .env
-cat C:\Users\User\ahpal-static\.env
-
-# 重新設定
-notepad C:\Users\User\ahpal-static\.env
-```
-
-### 3. Git 推送失敗
-
-```powershell
-cd C:\Users\User\ahpal-static
-git push --set-upstream origin master
-```
-
-### 4. Cloudflare 部署失敗
-
-```powershell
-cd C:\Users\User\ahpal-static
-npx wrangler pages deploy . --project-name=ahpal-pages
-```
-
----
-
-## 🏛️ 災難復原
-
-### 從備份檔案館還原
-
+### 還原完整專案
 ```powershell
 # 1. 解壓縮最新備份
-Expand-Archive -Path "C:\Users\User\ahpal-archive\ahpal-backup-*.zip" -DestinationPath "C:\Users\User\" -Force
+Expand-Archive -Path "C:\Users\User\ahpal-AI-archive\ahpal-static-stable-*.zip" -DestinationPath "C:\Users\User\" -Force
 
-# 2. 還原 API Key
-Copy-Item "C:\Users\User\ahpal-archive\ahpal-backup-*\ahpal-static\.env" "C:\Users\User\ahpal-static\.env" -Force
-
-# 3. 開始執行
-cd C:\Users\User\ahpal-static\scripts
-.\ahpal-master.ps1
-```
-
-### 備份檔案館位置
-
-```
-C:\Users\User\ahpal-archive\
-├── ahpal-backup-YYYYMMDD_HHMMSS.zip
-└── ahpal-backup-YYYYMMDD_HHMMSS\
-```
-
----
-
-## 📊 目前成果
-
-| 項目 | 數量 |
-|------|------|
-| 文章總數 | 264+ 篇 |
-| 遊戲數量 | 23 款 |
-| 分類 | 6 大領域 |
-| 品質分數 | 75-80/100 |
-
----
-
-## 🔗 重要連結
-
-| 環境 | 網址 |
-|------|------|
-| 正式網站 | https://www.ahpal.com/ |
-| Cloudflare Pages | https://4441c6bd.ahpal-pages.pages.dev |
-| 遊戲間 | https://www.ahpal.com/game/ |
-
----
-
-## 📝 版本資訊
-
-| 項目 | 內容 |
-|------|------|
-| 當前版本 | v4.1 |
-| 最後更新 | 2026-07-24 |
-| 維護者 | 雅寶社區 · 頂客論壇 |
-
----
-
-*交接文件版本：v1.0*
-*建立時間：2026-07-24*
-```
-
----
-
-## 📦 Git 提交更新
-
-```powershell
+# 2. 進入目錄
 cd C:\Users\User\ahpal-static
 
-# 加入新檔案
-git add README.md
-git add HANDOVER.md
+# 3. 還原環境設定
+Copy-Item .env.template .env
+notepad .env  # 填入 API Keys
 
-# 查看狀態
-git status
+# 4. 測試執行
+python src/main.py --dry-run
+```
 
-# 提交
-git commit -m "📝 更新 README.md 和新增 HANDOVER.md 交接文件"
+### 還原特定檔案
+```powershell
+# 從備份中提取特定檔案
+$zip = "C:\Users\User\ahpal-AI-archive\ahpal-static-stable-*.zip"
+$file = "src/main.py"
+$temp = "C:\Users\User\temp"
 
-# 推送
-git push
+Expand-Archive -Path $zip -DestinationPath $temp -Force
+Copy-Item "$temp\ahpal-static\$file" -Destination "C:\Users\User\ahpal-static\$file" -Force
+Remove-Item $temp -Recurse -Force
+```
+
+### 還原整個分類目錄
+```powershell
+# 還原 tech 目錄
+$zip = "C:\Users\User\ahpal-AI-archive\ahpal-static-stable-*.zip"
+$temp = "C:\Users\User\temp"
+
+Expand-Archive -Path $zip -DestinationPath $temp -Force
+Copy-Item "$temp\ahpal-static\tech\*" -Destination "C:\Users\User\ahpal-static\tech\" -Recurse -Force
+Remove-Item $temp -Recurse -Force
 ```
 
 ---
 
-## ✅ 完成
+## 🔄 備份流程
 
-| 檔案 | 狀態 |
+### 自動備份（透過 ahpal-master）
+```powershell
+cd C:\Users\User\ahpal-static\scripts
+.\ahpal-master.ps1
+# 選擇 [1] 完整流程（含備份）
+```
+
+### 手動備份
+```powershell
+cd C:\Users\User\ahpal-static
+.\scripts\backup-to-archive.ps1
+```
+
+### 備份內容
+每次備份包含：
+- ✅ 所有 Python 原始碼 (src/)
+- ✅ 所有 PowerShell 腳本 (scripts/)
+- ✅ 所有文章 HTML (367 篇)
+- ✅ 所有遊戲檔案 (52 款)
+- ✅ 分類頁面 (6 個)
+- ✅ 設定檔 (.env.template, .gitignore)
+- ✅ 技術文檔 (docs/)
+- ✅ 交接文件 (HANDOVER.md)
+
+---
+
+## 📊 檔案館統計
+
+| 統計項目 | 數量 |
+|----------|------|
+| ZIP 備份總數 | $zipCount 個 |
+| 備份總大小 | $totalSize GB |
+| 文檔數量 | $(Get-ChildItem -Filter "*.md" | Measure-Object).Count 個 |
+| 目錄數量 | $(Get-ChildItem -Directory | Measure-Object).Count 個 |
+
+### 各分類文章數
+| 分類 | 文章數 |
+|------|--------|
+| tech (3C科技教學) | $(Get-ChildItem C:\Users\User\ahpal-static\tech -Filter *.html 2>$null | Measure-Object).Count 篇 |
+| game (遊戲攻略) | $(Get-ChildItem C:\Users\User\ahpal-static\game -Filter *.html 2>$null | Measure-Object).Count 篇 |
+| life (生活小常識) | $(Get-ChildItem C:\Users\User\ahpal-static\life -Filter *.html 2>$null | Measure-Object).Count 篇 |
+| review (軟體評測) | $(Get-ChildItem C:\Users\User\ahpal-static\review -Filter *.html 2>$null | Measure-Object).Count 篇 |
+| philosophy (人生哲理) | $(Get-ChildItem C:\Users\User\ahpal-static\philosophy -Filter *.html 2>$null | Measure-Object).Count 篇 |
+| trend (AI趨勢) | $(Get-ChildItem C:\Users\User\ahpal-static\trend -Filter *.html 2>$null | Measure-Object).Count 篇 |
+| **總計** | **$articleCount 篇** |
+
+---
+
+## 🔐 安全提醒
+
+| 項目 | 狀態 | 說明 |
+|------|------|------|
+| 檔案館權限 | 🔒 僅限本機存取 | 位於使用者目錄 |
+| 備份加密 | ⚠️ 建議啟用 | 可使用 BitLocker |
+| 敏感檔案 | ⚠️ 不應備份 | .env / client_secret.json |
+| 雲端備份 | ⚠️ 建議額外備份 | 外部硬碟或雲端 |
+
+---
+
+## 📝 維護記錄
+
+| 日期 | 操作 | 說明 |
+|------|------|------|
+| $today | 📝 文件更新 | 更新 README.md 和 HANDOVER.md |
+| 2026-07-26 | 📦 備份 | 穩定版備份 (367 篇文章) |
+| 2026-07-25 | 📦 備份 | AI 交接文件更新 (4 個版本) |
+| 2026-07-24 | 🏛️ 建立 | AI 檔案館初始化 |
+
+---
+
+## 🔗 相關連結
+
+| 連結 | 說明 |
 |------|------|
-| `README.md` | ✅ 已更新 |
-| `HANDOVER.md` | ✅ 已新增 |
-| Git 提交 | ✅ 已完成 |
+| C:\Users\User\ahpal-static | 主要工作目錄 |
+| C:\Users\User\ahpal-AI-archive | 📂 本檔案館 |
+| https://github.com/praystone/ahpal-website | GitHub 倉庫 |
+| https://www.ahpal.com/ | 正式網站 |
+| https://main.ahpal-pages.pages.dev | Cloudflare 部署 |
 
-現在你的專案有完整的文件說明，未來 AI 交接時可以直接閱讀 `HANDOVER.md` 快速上手！
+---
+
+## 📞 聯絡資訊
+
+- **維護團隊**：AHPAL 開發團隊
+- **檔案館管理**：本機系統管理員
+- **問題回報**：透過 GitHub Issues
+
+---
+
+*📄 文件版本：v2.0*
+*🔄 最後更新：$today*
+*🏛️ 檔案館狀態：✅ 正常運作*
+*📊 文章總數：$articleCount 篇*
+"@ | Out-File -FilePath C:\Users\User\ahpal-AI-archive\README.md -Encoding utf8
+
+Write-Host ""
+Write-Host "============================================================" -ForegroundColor Green
+Write-Host "  ✅ README.md 已完整更新！" -ForegroundColor Green
+Write-Host "============================================================" -ForegroundColor Green
+Write-Host ""
+Write-Host "📊 更新內容：" -ForegroundColor Cyan
+Write-Host "   ├─ 日期：$today" -ForegroundColor Gray
+Write-Host "   ├─ 文章總數：$articleCount 篇" -ForegroundColor Gray
+Write-Host "   ├─ 備份總數：$zipCount 個 ZIP" -ForegroundColor Gray
+Write-Host "   └─ 備份總大小：$totalSize GB" -ForegroundColor Gray
+Write-Host ""
+```
+
+---
+
+## 📋 更新完成後的 README.md 包含
+
+| 章節 | 內容 |
+|------|------|
+| 檔案館資訊 | 位置、日期、文章數、版本 |
+| 目錄結構 | 完整檔案樹 |
+| 備份清單 | 所有 ZIP 檔案詳細列表 |
+| 還原指南 | 完整還原、特定檔案、分類目錄 |
+| 備份流程 | 自動/手動備份方式 |
+| 統計資料 | 各分類文章數、總大小 |
+| 安全提醒 | 權限、加密、敏感檔案 |
+| 維護記錄 | 所有操作歷史 |
+| 相關連結 | 工作目錄、GitHub、網站 |
+
+現在 README.md 已經是完整的最新版本了！🎉

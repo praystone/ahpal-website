@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 系統交接與新進工程師接手手冊 — 雅寶社區 · 頂客論壇</title>
+    <style>
+        /* ============================================================
+           全域樣式
+           ============================================================ */
+        :root {
+            --color-primary: #005A9C;
+            --color-secondary: #00A86B;
+            --color-accent: #FF6F61;
+            --color-bg: #F7F9FC;
+            --color-card: #FFFFFF;
+            --color-text: #1A202C;
+            --color-text-light: #4A5568;
+            --color-border: #E2E8F0;
+            --color-code-bg: #EDF2F7;
+            --color-warning: #DD6B20;
+            --color-danger: #E53E3E;
+            --color-success: #38A169;
+            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --radius-card: 14px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            --font-mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-stack); background: var(--color-bg); color: var(--color-text); line-height: 1.8; font-size: 16px; -webkit-font-smoothing: antialiased; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .card { background: var(--color-card); padding: 36px 40px; border-radius: var(--radius-card); box-shadow: var(--shadow-card); margin-bottom: 24px; border: 1px solid var(--color-border); }
+        @media (max-width: 640px) { .card { padding: 24px 18px; } }
+
+        .header { text-align: center; padding: 40px 0 20px 0; border-bottom: 3px solid var(--color-primary); margin-bottom: 30px; }
+        .header .logo { font-size: 28px; font-weight: 700; color: var(--color-primary); }
+        .header .logo span { color: var(--color-secondary); }
+        .header .subtitle { font-size: 16px; color: var(--color-text-light); margin-top: 4px; }
+        .header .version { display: inline-block; background: var(--color-primary); color: white; padding: 2px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 8px; }
+        .header .status-badge { display: inline-block; background: var(--color-success); color: white; padding: 4px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-top: 12px; }
+
+        h1 { font-size: 32px; font-weight: 700; color: var(--color-text); margin-bottom: 4px; }
+        h2 { font-size: 24px; font-weight: 700; color: var(--color-primary); margin: 28px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid var(--color-border); }
+        h3 { font-size: 18px; font-weight: 700; color: var(--color-text); margin: 20px 0 10px 0; }
+        h4 { font-size: 16px; font-weight: 600; color: var(--color-text-light); margin: 16px 0 8px 0; }
+
+        .toc { background: var(--color-bg); border-radius: 12px; padding: 20px 24px; border: 1px solid var(--color-border); margin-bottom: 24px; }
+        .toc h3 { margin-top: 0; color: var(--color-primary); border-bottom: none; }
+        .toc ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 4px 20px; }
+        .toc ul li::before { content: "▸ "; color: var(--color-secondary); font-weight: 700; }
+        .toc ul li a { color: var(--color-text); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .toc ul li a:hover { color: var(--color-primary); text-decoration: underline; }
+
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th, table td { padding: 10px 14px; border: 1px solid var(--color-border); text-align: left; }
+        table th { background: var(--color-primary); color: white; font-weight: 600; }
+        table tr:nth-child(even) { background: var(--color-bg); }
+        table tr:hover { background: #EBF8FF; }
+
+        .tip { padding: 16px 20px; border-radius: 10px; margin: 12px 0 16px 0; border-left: 4px solid; }
+        .tip.info { background: #EBF8FF; border-color: #3182CE; color: #2B6CB0; }
+        .tip.success { background: #F0FFF4; border-color: #38A169; color: #276749; }
+        .tip.warning { background: #FFFAF0; border-color: #DD6B20; color: #9C4221; }
+        .tip.danger { background: #FFF5F5; border-color: #E53E3E; color: #9B2C2C; }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+
+        .code-block { background: var(--color-code-bg); border-radius: 10px; padding: 16px 20px; margin: 12px 0 16px 0; overflow-x: auto; border: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 14px; line-height: 1.7; white-space: pre-wrap; word-break: break-all; }
+        .inline-code { background: var(--color-code-bg); padding: 2px 8px; border-radius: 4px; font-family: var(--font-mono); font-size: 14px; border: 1px solid var(--color-border); }
+
+        .workflow-highlight { background: #f0f7ff; border-radius: 12px; padding: 20px 24px; border-left: 6px solid #005A9C; margin: 16px 0; }
+        .workflow-highlight .step { display: inline-block; background: #005A9C; color: white; padding: 2px 14px; border-radius: 30px; font-size: 13px; font-weight: 700; margin-right: 8px; }
+
+        .pipeline-flow { background: #f8fafc; border-radius: 12px; padding: 24px 30px; border: 1px solid var(--color-border); margin: 16px 0; text-align: center; font-family: var(--font-mono); font-size: 14px; line-height: 2.2; }
+        .pipeline-flow .box { display: inline-block; padding: 6px 18px; background: white; border: 2px solid var(--color-primary); border-radius: 8px; font-weight: 600; color: var(--color-primary); }
+        .pipeline-flow .box.green { border-color: var(--color-secondary); color: var(--color-secondary); }
+        .pipeline-flow .box.accent { border-color: var(--color-accent); color: var(--color-accent); }
+        .pipeline-flow .arrow { color: #A0AEC0; font-size: 18px; }
+
+        .signature-area { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 30px; padding-top: 30px; border-top: 2px solid var(--color-border); }
+        .signature-box { border: 1px solid var(--color-border); border-radius: 10px; padding: 20px 24px; text-align: center; background: var(--color-bg); }
+        .signature-box .role { font-size: 14px; color: var(--color-text-light); font-weight: 600; }
+        .signature-box .name { font-size: 18px; font-weight: 700; color: var(--color-text); margin: 4px 0; }
+        .signature-box .date { font-size: 13px; color: #A0AEC0; }
+        .signature-box .line { width: 80%; height: 2px; background: var(--color-border); margin: 12px auto 6px auto; }
+        .signature-box .status-badge { display: inline-block; padding: 4px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; margin-top: 8px; }
+        .signature-box .status-badge.approved { background: #C6F6D5; color: #276749; }
+
+        /* 脚注提示 */
+        .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 12px 0; font-size: 13px; }
+        .legend .tag { display: inline-block; padding: 2px 12px; border-radius: 12px; font-weight: 700; }
+        .tag-gold { background: #F6E05E; color: #744210; }
+        .tag-green { background: #C6F6D5; color: #22543D; }
+        .tag-red { background: #FED7D7; color: #9B2C2C; }
+        .tag-blue { background: #BEE3F8; color: #2A4365; }
+
+        @media (max-width: 768px) {
+            .header .logo { font-size: 22px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            .toc ul { grid-template-columns: 1fr; }
+            table th, table td { padding: 6px 10px; font-size: 13px; }
+            .signature-area { grid-template-columns: 1fr; gap: 16px; }
+        }
+        @media (max-width: 480px) { body { padding: 12px; } .card { padding: 16px 14px; } h1 { font-size: 22px; } }
+        @media print {
+            body { background: white; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+            .header { border-bottom-color: #333; }
+            .tip { border: 1px solid #ddd; border-left: 4px solid #666; }
+            .code-block { border: 1px solid #ddd; background: #f9f9f9; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
+        <div class="subtitle">AI 系統交接與新進工程師接手手冊</div>
+        <div class="version">📌 版本 v11.0 · 董事會協作版 · 2026 年 7 月 30 日</div>
+        <div class="status-badge">✅ 生產環境就緒 · 323 篇文章 · 影音產線已打通</div>
+    </div>
+
+    <!-- ============================================================
+    目錄
+    ============================================================ -->
+    <div class="card">
+        <h2>📖 目錄</h2>
+        <div class="toc">
+            <ul>
+                <li><a href="#section-overview">1. 系統概述</a></li>
+                <li><a href="#section-architecture">2. 技術架構</a></li>
+                <li><a href="#section-scripts">2.5 ⭐ 核心腳本功能總覽</a></li>
+                <li><a href="#section-directory">3. 目錄結構</a></li>
+                <li><a href="#section-firstday">4. 第一天：環境設定</a></li>
+                <li><a href="#section-add-articles">5. ⭐ 新增文章（JSON 驅動）</a></li>
+                <li><a href="#section-workflow">6. 日常工作流程</a></li>
+                <li><a href="#section-deploy">7. 部署與上線</a></li>
+                <li><a href="#section-shorts">8. 🎬 影音自動化產線</a></li>
+                <li><a href="#section-troubleshooting">9. 常見問題排錯</a></li>
+                <li><a href="#section-cheatsheet">10. 快速指令參考</a></li>
+                <li><a href="#section-checklist">11. 新進工程師檢查清單</a></li>
+                <li><a href="#section-archive">12. AI 檔案館</a></li>
+                <li><a href="#section-strategy">13. 🎯 戰略決策記錄</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    1. 系統概述
+    ============================================================ -->
+    <section id="section-overview">
+        <div class="card">
+            <h2>1. 系統概述</h2>
+            <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 是一個 <strong>AI 驅動的自動化內容平台</strong>，結合：</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>模組</th><th>說明</th></tr></thead>
+                    <tbody>
+                        <tr><td>🤖 AI 文章生成</td><td>支援 Google Gemini（尖峰）與 DeepSeek（離峰）雙 API 自動切換</td></tr>
+                        <tr><td>🎮 HTML5 遊戲</td><td>52 款互動遊戲，免下載即開即玩</td></tr>
+                        <tr><td>🎬 影音自動化產線</td><td>文章 → NotebookLM → YouTube Shorts 全自動流程</td></tr>
+                        <tr><td>⚙️ 自動化部署</td><td>一鍵完成內容生成 → 靜態檔案輸出 → Cloudflare 部署</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>1.1 系統數據（截至 2026.07.30）</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>指標</th><th>數值</th></tr></thead>
+                    <tbody>
+                        <tr><td>總文章數</td><td><strong>323 篇</strong></td></tr>
+                        <tr><td>遊戲數量</td><td><strong>52 款</strong></td></tr>
+                        <tr><td>分類數量</td><td><strong>6 大類</strong></td></tr>
+                        <tr><td>核心 PowerShell 腳本</td><td><strong>26 個</strong></td></tr>
+                        <tr><td>YouTube 影音產線</td><td><strong>✅ 已打通</strong></td></tr>
+                        <tr><td>Google Drive 備份</td><td><strong>✅ Rclone 同步已整合</strong></td></tr>
+                        <tr><td>Git 分支</td><td><strong>main</strong></td></tr>
+                        <tr><td>Cloudflare Pages 限制</td><td><strong>25 MiB/檔案</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    2. 技術架構
+    ============================================================ -->
+    <section id="section-architecture">
+        <div class="card">
+            <h2>2. 技術架構</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>元件</th><th>技術</th></tr></thead>
+                    <tbody>
+                        <tr><td>總指揮</td><td>PowerShell (ahpal-master.ps1)</td></tr>
+                        <tr><td>內容生成引擎</td><td>Python 3 (src/ 模組化)</td></tr>
+                        <tr><td>AI 模型</td><td>Gemini Flash / DeepSeek v4-pro</td></tr>
+                        <tr><td>影音引擎</td><td>NotebookLM / Gemini + TTS</td></tr>
+                        <tr><td>影音發布</td><td>YouTube Data API v3</td></tr>
+                        <tr><td>靜態託管</td><td>Cloudflare Pages</td></tr>
+                        <tr><td>版本控制</td><td>Git + GitHub (main 分支)</td></tr>
+                        <tr><td>備份系統</td><td>AI 檔案館 + Rclone 雲端同步</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    2.5 ⭐ 核心腳本功能總覽 (New!)
+    ============================================================ -->
+    <section id="section-scripts">
+        <div class="card" style="border: 2px solid var(--color-accent);">
+            <h2 style="border-bottom-color: var(--color-accent);">2.5 ⭐ 核心腳本功能總覽</h2>
+            
+            <div class="tip success">
+                <div class="tip-title">📌 這份列表是 AHPAL 系統運作的核心</div>
+                <p>所有腳本位於 <code>C:\Users\User\ahpal-static\scripts\</code>，共 26 個 PowerShell 腳本。</p>
+            </div>
+
+            <div class="legend">
+                <span><span class="tag tag-gold">⭐ 黃金腳本</span> 日常高頻使用</span>
+                <span><span class="tag tag-red">🔴 死命令</span> 推送前強制檢查</span>
+                <span><span class="tag tag-green">✅ 推薦</span> 建議優先熟悉</span>
+                <span><span class="tag tag-blue">🆘 救援</span> 系統崩潰時使用</span>
+            </div>
+
+            <h3>📜 總指揮 (1 個)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>ahpal-master.ps1</code></td><td><strong>萬能總指揮</strong> — 整合備份、生成、Git、部署、SEO 驗證的互動選單</td><td><span class="tag tag-gold">⭐ 黃金</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>📝 文章管理 (5 個)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>add-articles.ps1</code></td><td><strong>JSON 驅動新增文章</strong> — 編輯 JSON → 自動備份 main.py → 插入新文章 → 清空清單</td><td><span class="tag tag-gold">⭐ 黃金</span></td></tr>
+                        <tr><td><code>process-pending.ps1</code></td><td>處理待生成文章，讀取 pending-articles.json 並寫入 main.py</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>check-articles.ps1</code></td><td>檢查文章數量、大小、品牌名稱、API 錯誤標記，可自動刪除異常檔案</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
+                        <tr><td><code>check-all.ps1</code></td><td><strong>全面系統檢查</strong> — 文章 + 遊戲 + 分類頁面 + Sitemap，含品質評分 (≥60 分)</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
+                        <tr><td><code>preflight-check.ps1</code></td><td><strong>🔴 死命令強制檢查</strong> — 推送前檢查 HTML 結構、品牌名稱、AdSense、H1/H2、表格、FAQ</td><td><span class="tag tag-red">🔴 死命令</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>🎮 遊戲生成 (1 個)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>generate-games.ps1</code></td><td><strong>52 款 HTML5 遊戲生成</strong> — 內嵌 Giscus 討論區，包含 2048、貪吃蛇、俄羅斯方塊等</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>🎬 影音自動化產線 (4 個)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>youtube-pipeline.ps1</code></td><td><strong>NotebookLM 音訊生成</strong> — 文章 → 純文字 → NotebookLM → 音訊輸出</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>youtube-upload-realtime.ps1</code></td><td><strong>YouTube 即時上傳</strong> — 使用 OAuth 2.0 上傳 Shorts 影片</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>batch-upload-throttled.ps1</code></td><td><strong>流量管制批次上傳</strong> — 每日上限 85 支 Shorts，避免 API 配額超限</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>video-finalize.ps1</code></td><td><strong>FFmpeg 影音後製</strong> — 合軌、浮水印、TTS 旁白</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>💾 備份與同步 (5 個)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>backup-system.ps1</code></td><td><strong>系統完整備份</strong> — 備份腳本、Python 原始碼、網站檔案、文章清單</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
+                        <tr><td><code>backup-golden.ps1</code></td><td><strong>黃金版本備份</strong> — 建立整站優良備份 (ahpal-整站優良備份-*.zip)</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
+                        <tr><td><code>backup-to-archive.ps1</code></td><td>備份到 AI 檔案館 (ahpal-static-stable-*.zip)</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
+                        <tr><td><code>backup-videos-to-gdrive.ps1</code></td><td><strong>Google Drive 影音備份</strong> — 寫入實體快取，繞過虛擬磁碟限制</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>sync-to-gdrive.ps1</code> *NEW*</td><td><strong>Rclone 統一雲端同步</strong> — 文章/腳本/影音全自動同步至 ahpalke@gmail.com</td><td><span class="tag tag-gold">⭐ 黃金</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>🔍 品質與監控 (3 個)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>validate-seo.ps1</code></td><td><strong>SEO 驗證</strong> — 檢查 robots.txt、ads.txt、sitemap.xml 完整性</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>check-deepseek-balance.ps1</code></td><td><strong>DeepSeek 餘額監控</strong> — 低於門檻值時發送郵件告警</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>check-quota.ps1</code></td><td><strong>YouTube 配額監控</strong> — 檢查每日上傳數量 (上限 80 支)</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>☁️ 部署與環境 (3 個)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>deploy.ps1</code></td><td>Cloudflare Pages 部署 (含 Git 提交)</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>generate-and-deploy.ps1</code></td><td>文章生成 + 自動部署一鍵完成</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>ahpal-static.ps1</code></td><td>環境設定載入 (從 .env 讀取 API Key)</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>📋 排程與交接 (3 個)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>manage-schedules.ps1</code></td><td>Windows 排程任務管理 (啟用/停用/刪除/重建)</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
+                        <tr><td><code>ai-handover-scan.ps1</code></td><td><strong>AI 交接完整掃描</strong> — 產生系統分析報告、壓縮交接檔案</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
+                        <tr><td><code>clean-and-push.ps1</code></td><td>Git 歷史清理 (移除敏感檔案後重新推送)</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip warning">
+                <div class="tip-title">🆘 救援腳本快速指引</div>
+                <ul>
+                    <li><strong>系統崩潰</strong>：執行 <code>.\scripts\backup-golden.ps1</code> 建立黃金備份，再從 AI 檔案館還原</li>
+                    <li><strong>文章遺失</strong>：執行 <code>.\scripts\backup-system.ps1</code> 還原最近備份</li>
+                    <li><strong>Git 推送失敗</strong>：執行 <code>.\scripts\clean-and-push.ps1</code> 清理歷史</li>
+                    <li><strong>品質檢查失敗</strong>：執行 <code>.\scripts\preflight-check.ps1 -Fix</code> 自動修復</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    3. 目錄結構
+    ============================================================ -->
+    <section id="section-directory">
+        <div class="card">
+            <h2>3. 目錄結構</h2>
+            <div class="code-block">
+📁 C:\Users\User\ahpal-static\
+├── 📁 src/                    ← Python 原始碼 (main.py, config.py, api_client.py...)
+├── 📁 scripts/                ← ⭐ 26 個 PowerShell 腳本 (詳見 2.5 節)
+│   ├── ahpal-master.ps1       ← 萬能總指揮
+│   ├── add-articles.ps1       ← ⭐ JSON 驅動新增文章
+│   ├── sync-to-gdrive.ps1     ← ⭐ Rclone 雲端同步
+│   └── ...
+├── 📁 data/                   ← ⭐ 文章新增清單存放處
+│   └── pending-articles.json  ← ⭐ 待新增文章 JSON
+├── 📁 ahpal-AI-archive/       ← AI 檔案館（備份）
+│   ├── 優良備份/              ← ⭐ 黃金版本備份
+│   └── videos/                ← 🎬 影音歸檔
+├── 📁 game/                   ← 52 款遊戲
+├── 📁 tech/ life/ review/ philosophy/ trend/ ← 文章分類目錄
+├── .env                       ← ⚠️ API Key（不上傳 Git）
+└── index.html                 ← 首頁
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    4. 第一天：環境設定
+    ============================================================ -->
+    <section id="section-firstday">
+        <div class="card">
+            <h2>4. 第一天：環境設定</h2>
+
+            <h3>4.1 必備軟體</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>軟體</th><th>用途</th><th>安裝指令</th></tr></thead>
+                    <tbody>
+                        <tr><td>Python 3</td><td>執行生成腳本</td><td><a href="https://www.python.org/downloads/" target="_blank">下載安裝</a></td></tr>
+                        <tr><td>Node.js</td><td>執行 Wrangler CLI</td><td><a href="https://nodejs.org/" target="_blank">下載安裝</a></td></tr>
+                        <tr><td>Wrangler</td><td>部署到 Cloudflare</td><td><span class="inline-code">npm install -g wrangler</span></td></tr>
+                        <tr><td>Git</td><td>版本控制</td><td><a href="https://git-scm.com/download/win" target="_blank">下載安裝</a></td></tr>
+                        <tr><td>Rclone</td><td>Google Drive 同步</td><td>執行 <code>.\scripts\sync-to-gdrive.ps1</code> 自動下載</td></tr>
+                        <tr><td>DeepSeek API Key</td><td>離峰時段文章生成</td><td><a href="https://platform.deepseek.com/" target="_blank">取得金鑰</a></td></tr>
+                        <tr><td>Gemini API Key</td><td>尖峰時段文章生成</td><td><a href="https://aistudio.google.com/apikey" target="_blank">取得金鑰</a></td></tr>
+                        <tr><td>YouTube OAuth 憑證</td><td>YouTube API 上傳</td><td>存為 <code>data/client_secret.json</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>4.2 建立 .env 檔案</h3>
+            <div class="code-block">
+cd C:\Users\User\ahpal-static
+Copy-Item .env.template .env
+notepad .env
+            </div>
+            <p>.env 內容範例：</p>
+            <div class="code-block">
+GEMINI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+YOUTUBE_REFRESH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            </div>
+            <div class="tip warning">
+                <div class="tip-title">⚠️ 重要</div>
+                <p><span class="inline-code">.env</span> 已在 <span class="inline-code">.gitignore</span> 中，<strong>不會上傳到 GitHub</strong>。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    5. ⭐ 新增文章（JSON 驅動）
+    ============================================================ -->
+    <section id="section-add-articles">
+        <div class="card" style="border: 2px solid var(--color-primary);">
+            <h2 style="border-bottom-color: var(--color-accent);">5. ⭐ 新增文章（JSON 驅動）</h2>
+
+            <div class="tip success">
+                <div class="tip-title">🎯 這是 AHPAL 內容營運的核心生產力工具</div>
+                <p>你不需要手動編輯 <code>main.py</code>！只要編輯 JSON，執行腳本，AI 就會為你生成文章。</p>
+            </div>
+
+            <h3>步驟 1：編輯 <code>data/pending-articles.json</code></h3>
+            <div class="code-block">
+[
+    {
+        "keyword": "2026 年最新 AI 工具推薦",
+        "category": "🤖 AI 趨勢"
+    },
+    {
+        "keyword": "居家收納終極指南：小空間變大秘訣",
+        "category": "🏠 生活小常識"
+    }
+]
+            </div>
+
+            <h3>步驟 2：執行轉換腳本</h3>
+            <div class="code-block">
+cd C:\Users\User\ahpal-static
+.\scripts\add-articles.ps1
+            </div>
+
+            <h3>步驟 3：執行文章生成</h3>
+            <div class="code-block">
+python src/main.py --force deepseek
+            </div>
+
+            <div class="workflow-highlight">
+                <span class="step">📌 完整流程</span>
+                <strong>編輯 JSON → 執行 add-articles.ps1 → python src/main.py --force deepseek</strong>
+                <p style="margin-top:8px;color:#4A5568;">✅ 不需要手動編輯 main.py！JSON 驅動，安全又快速。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    6. 日常工作流程
+    ============================================================ -->
+    <section id="section-workflow">
+        <div class="card">
+            <h2>6. 日常工作流程</h2>
+
+            <h3>6.1 標準作業流程</h3>
+            <div class="code-block">
+cd C:\Users\User\ahpal-static
+.\scripts\ahpal-master.ps1
+            </div>
+            <p>選擇 <code>[1]</code> 完整流程（備份 + 生成 + Git + 部署）</p>
+
+            <h3>6.2 常用 PowerShell 快速指令</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>指令</th><th>功能</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>ahpal</code></td><td>切換到專案目錄</td></tr>
+                        <tr><td><code>ahpal-gen</code></td><td>生成文章 + 自動部署</td></tr>
+                        <tr><td><code>ahpal-deploy</code></td><td>只部署（不生成）</td></tr>
+                        <tr><td><code>ahpal-status</code></td><td>查看 Git 狀態</td></tr>
+                        <tr><td><code>ahpal-sync</code></td><td>同步至 Google Drive (Rclone)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    7. 部署與上線
+    ============================================================ -->
+    <section id="section-deploy">
+        <div class="card">
+            <h2>7. 部署與上線</h2>
+
+            <h3>7.1 自動部署（推薦）</h3>
+            <div class="code-block">
+ahpal-gen
+            </div>
+
+            <h3>7.2 手動部署</h3>
+            <div class="code-block">
+npx wrangler pages deploy . --project-name=ahpal-pages
+            </div>
+
+            <h3>7.3 部署後驗證清單</h3>
+            <ul>
+                <li>☐ 首頁可正常訪問（<code>https://www.ahpal.com/</code>）</li>
+                <li>☐ 遊戲間可正常訪問（<code>https://www.ahpal.com/game/</code>）</li>
+                <li>☐ Sitemap 已更新（<code>sitemap.xml</code>）</li>
+                <li>☐ robots.txt 已更新（含 Cloudflare 管理區塊）</li>
+                <li>☐ ads.txt 已更新（僅含 AdSense 宣告）</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    8. 🎬 影音自動化產線
+    ============================================================ -->
+    <section id="section-shorts">
+        <div class="card" style="border: 2px solid var(--color-accent);">
+            <h2 style="border-bottom-color: var(--color-accent);">8. 🎬 影音自動化產線（YouTube Shorts）</h2>
+
+            <div class="tip success">
+                <div class="tip-title">🎯 已打通！文章 → 影音 → YouTube 全自動化</div>
+                <p>AHPAL 的文章現在可以自動轉換為 YouTube Shorts 影音內容。</p>
+                <p><strong>重要決策：</strong>影音檔案不存放於 Cloudflare Pages（單一檔案限制 25 MiB），統一存放於 <strong>YouTube 與 AI 檔案館</strong>。</p>
+            </div>
+
+            <h3>8.1 產線流程圖</h3>
+            <div class="pipeline-flow">
+                <div class="line">
+                    <span class="box">📄 AHPAL 文章</span>
+                    <span class="arrow">→</span>
+                    <span class="box green">🔄 純文字轉換</span>
+                    <span class="arrow">→</span>
+                    <span class="box accent">🎧 NotebookLM 語音</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">└─</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">📥 下載音訊</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">🎬 YouTube 上傳</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">✅ 發布完成</span>
+                </div>
+            </div>
+
+            <h3>8.2 執行影音產線</h3>
+            <div class="code-block">
+# 完整產線 (文章 → 音訊 → YouTube)
+.\scripts\youtube-pipeline.ps1 -ArticlePath "tech\文章.html"
+.\scripts\youtube-upload-realtime.ps1 -VideoFile "audio\podcast.wav" -Title "標題"
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    9. 常見問題排錯
+    ============================================================ -->
+    <section id="section-troubleshooting">
+        <div class="card">
+            <h2>9. 常見問題排錯</h2>
+
+            <h4>❌ Gemini API 429 Too Many Requests</h4>
+            <div class="tip warning">
+                <div class="tip-title">解決方法</div>
+                <div class="code-block">python src/main.py --force deepseek</div>
+            </div>
+
+            <h4>❌ Cloudflare Pages 部署失敗（413 Payload Too Large）</h4>
+            <div class="tip warning">
+                <div class="tip-title">原因</div>
+                <p>單一檔案超過 25 MiB 限制。</p>
+                <div class="tip-title">解決方法</div>
+                <ul>
+                    <li>影音檔案上傳至 YouTube，不存放於 Pages</li>
+                    <li>檢查 <code>videos/</code> 目錄是否有大型檔案</li>
+                </ul>
+            </div>
+
+            <h4>❌ Google Drive 備份失敗</h4>
+            <div class="tip warning">
+                <div class="tip-title">解決方法</div>
+                <div class="code-block">.\scripts\sync-to-gdrive.ps1 -Task videos</div>
+                <p>使用 Rclone 統一同步工具，繞過虛擬磁碟限制。</p>
+            </div>
+
+            <h4>❌ 死命令檢查失敗</h4>
+            <div class="tip warning">
+                <div class="tip-title">解決方法</div>
+                <div class="code-block">.\scripts\preflight-check.ps1 -Fix</div>
+                <p>自動修復可修復的問題（如檔案過小、缺少品牌名稱等）。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    10. 快速指令參考
+    ============================================================ -->
+    <section id="section-cheatsheet">
+        <div class="card">
+            <h2>10. 快速指令參考</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>用途</th><th>指令</th></tr></thead>
+                    <tbody>
+                        <tr><td>⭐ 新增文章</td><td>編輯 <code>data/pending-articles.json</code> → <code>.\scripts\add-articles.ps1</code> → <code>python src/main.py --force deepseek</code></td></tr>
+                        <tr><td>完整部署</td><td><code>.\scripts\ahpal-master.ps1</code> → [1]</td></tr>
+                        <tr><td>死命令檢查</td><td><code>.\scripts\preflight-check.ps1</code></td></tr>
+                        <tr><td>死命令檢查+修復</td><td><code>.\scripts\preflight-check.ps1 -Fix</code></td></tr>
+                        <tr><td>全面系統檢查</td><td><code>.\scripts\check-all.ps1</code></td></tr>
+                        <tr><td>☁️ 雲端同步 (全部)</td><td><code>.\scripts\sync-to-gdrive.ps1</code></td></tr>
+                        <tr><td>☁️ 雲端同步 (僅文章)</td><td><code>.\scripts\sync-to-gdrive.ps1 -Task articles</code></td></tr>
+                        <tr><td>☁️ 雲端同步 (僅影音)</td><td><code>.\scripts\sync-to-gdrive.ps1 -Task videos</code></td></tr>
+                        <tr><td>☁️ 雲端同步 (預覽)</td><td><code>.\scripts\sync-to-gdrive.ps1 -DryRun</code></td></tr>
+                        <tr><td>📦 黃金備份</td><td><code>.\scripts\backup-golden.ps1</code></td></tr>
+                        <tr><td>🎬 YouTube 上傳</td><td><code>.\scripts\youtube-upload-realtime.ps1 -VideoFile "檔案" -Title "標題"</code></td></tr>
+                        <tr><td>🆘 緊急還原</td><td>從 AI 檔案館解壓縮 <code>ahpal-static-stable-*.zip</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    11. 新進工程師檢查清單
+    ============================================================ -->
+    <section id="section-checklist">
+        <div class="card">
+            <h2>11. 新進工程師檢查清單</h2>
+
+            <div class="tip success">
+                <div class="tip-title">✅ 請逐項確認</div>
+                <ul>
+                    <li>☐ 取得 GitHub 儲存庫權限（<code>praystone/ahpal-website</code>）</li>
+                    <li>☐ 取得 Cloudflare Pages 專案權限（<code>ahpal-pages</code>）</li>
+                    <li>☐ 取得 DeepSeek API Key</li>
+                    <li>☐ 取得 Gemini API Key</li>
+                    <li>☐ 取得 YouTube OAuth 憑證</li>
+                    <li>☐ 確認 Git 儲存庫位置：<code>C:\Users\User\ahpal-static\</code></li>
+                    <li>☐ 完成環境設定：建立 <code>.env</code> 並填入 API Key</li>
+                    <li>☐ 測試執行 <code>.\scripts\ahpal-master.ps1</code> 成功</li>
+                    <li>☐ 確認 <code>data/pending-articles.json</code> 存在</li>
+                    <li>☐ 確認 <code>.\scripts\add-articles.ps1</code> 可執行</li>
+                    <li>☐ 確認 <code>.\scripts\sync-to-gdrive.ps1</code> 可執行</li>
+                    <li>☐ 確認 <code>.\scripts\preflight-check.ps1</code> 可執行</li>
+                    <li>☐ 熟悉 JSON 驅動新增文章流程</li>
+                    <li>☐ 了解影音自動化產線流程</li>
+                    <li>☐ 了解 Cloudflare Pages 25MiB 限制</li>
+                    <li>☐ 了解雙 API 切換機制</li>
+                    <li>☐ 了解 <code>.env</code> 安全機制（不上傳 GitHub）</li>
+                    <li>☐ 知道 AI 檔案館位置：<code>C:\Users\User\ahpal-AI-archive</code></li>
+                    <li>☐ 已閱讀 <strong>2.5 核心腳本功能總覽</strong></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    12. AI 檔案館
+    ============================================================ -->
+    <section id="section-archive">
+        <div class="card">
+            <h2>12. AI 檔案館</h2>
+
+            <p>AI 檔案館是 AHPAL 專案的<b>完整備份系統</b>，用於版本還原和 AI 交接。</p>
+
+            <h3>12.1 檔案館位置</h3>
+            <div class="code-block">C:\Users\User\ahpal-AI-archive\</div>
+
+            <h3>12.2 檔案館內容</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>檔案/目錄</th><th>說明</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>優良備份/</code></td><td>✅ 黃金版本（永久乾淨備份）</td></tr>
+                        <tr><td><code>ahpal-static-stable-*.zip</code></td><td>✅ 最新穩定版備份</td></tr>
+                        <tr><td><code>videos/</code></td><td>🎬 影音備份</td></tr>
+                        <tr><td><code>ai交接-*.zip</code></td><td>AI 交接完整掃描</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>12.3 還原方式</h3>
+            <div class="code-block">
+# 還原完整專案
+Expand-Archive -Path "C:\Users\User\ahpal-AI-archive\ahpal-static-stable-*.zip" -DestinationPath "C:\Users\User\" -Force
+
+# 還原單一檔案（黃金版本）
+Copy-Item "C:\Users\User\ahpal-AI-archive\優良備份\檔案.html" "game\目標檔案.html" -Force
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    13. 🎯 戰略決策記錄
+    ============================================================ -->
+    <section id="section-strategy">
+        <div class="card" style="border: 2px solid var(--color-accent);">
+            <h2 style="border-bottom-color: var(--color-accent);">13. 🎯 戰略決策記錄</h2>
+
+            <div class="tip success">
+                <div class="tip-title">📋 決策記錄（2026-07-30）</div>
+            </div>
+
+            <h3>13.1 雲端同步策略</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>決策</th><th>內容</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>工具</strong></td><td>使用 Rclone 統一管理所有雲端同步任務</td></tr>
+                        <tr><td><strong>目標帳戶</strong></td><td>ahpalke@gmail.com (專屬備份帳戶)</td></tr>
+                        <tr><td><strong>同步內容</strong></td><td>文章 (優良備份) + 腳本 (scripts/) + 影音 (videos/)</td></tr>
+                        <tr><td><strong>同步頻率</strong></td><td>每日自動 (可透過 Windows 排程器設定)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>13.2 影音檔案存放策略</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>決策</th><th>內容</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>問題</strong></td><td>Cloudflare Pages 單一檔案限制 25 MiB</td></tr>
+                        <tr><td><strong>決策</strong></td><td>影音檔案不存放於 Pages，改為 YouTube + AI 檔案館</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip info">
+                <div class="tip-title">📌 戰略原則</div>
+                <ul>
+                    <li><strong>Pages 只放靜態檔案</strong>：HTML、CSS、JS、圖片（< 25MB）</li>
+                    <li><strong>影音放 YouTube</strong>：無檔案大小限制，最佳分發平台</li>
+                    <li><strong>備份放 AI 檔案館 + Google Drive</strong>：雙重保障</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    簽核區
+    ============================================================ -->
+    <div class="card">
+        <h2>📋 簽核記錄</h2>
+        <div class="signature-area">
+            <div class="signature-box">
+                <div class="role">📌 提案人</div>
+                <div class="name">龍蝦總工程師</div>
+                <div class="line"></div>
+                <span class="status-badge approved">✅ 已簽核</span>
+            </div>
+            <div class="signature-box">
+                <div class="role">✅ 核准</div>
+                <div class="name">董事長</div>
+                <div class="line"></div>
+                <span class="status-badge approved">✅ 已簽核</span>
+            </div>
+            <div class="signature-box">
+                <div class="role">📋 技術確認</div>
+                <div class="name">戰情室顧問</div>
+                <div class="line"></div>
+                <span class="status-badge approved">✅ 已確認</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div style="text-align:center;padding:30px 0;color:#A0AEC0;font-size:13px;border-top:1px solid var(--color-border);margin-top:20px;">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — AI 系統交接與新進工程師接手手冊 v11.0<br>
+        文件最後更新：2026 年 7 月 30 日 ｜ 文章總數：323 篇 ｜ 核心腳本：26 個
+        <br><br>
+        <span style="font-size:12px;color:#718096;">
+        🦞 龍蝦總工程師 · 🤖 Gemini 顧問 · 🏛️ ChatGPT 執行長 · 👑 董事會 共同制定
+        </span>
+        <br>
+        <span style="font-size:12px;color:#00A86B;">
+        🎬 影音自動化產線已打通 ✅ ｜ 📦 Pages 已輕量化 ✅ ｜ ☁️ Rclone 雲端同步已整合 ✅
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>頁面不存在 - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="您尋找的頁面不存在或已被移除，請返回首頁繼續瀏覽。">
+    <style>
+        :root {
+            --color-primary: #005A9C;
+            --color-secondary: #00A86B;
+            --color-bg: #F7F9FC;
+            --color-text: #1A202C;
+            --color-text-light: #4A5568;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .emoji {
+            font-size: 72px;
+            display: block;
+            margin-bottom: 16px;
+        }
+        h1 {
+            font-size: 28px;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+        p {
+            color: var(--color-text-light);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #003d66;
+        }
+        .links {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .links a {
+            color: var(--color-text-light);
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .links a:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="emoji">🔍</span>
+        <h1>頁面找不到</h1>
+        <p>您尋找的頁面可能已經被移除、名稱變更，或暫時無法使用。</p>
+        <a href="/" class="btn">🏠 返回首頁</a>
+        <div class="links">
+            <a href="/category-tech.html">💻 3C</a>
+            <a href="/category-game.html">🎮 遊戲</a>
+            <a href="/category-life.html">🏠 生活</a>
+            <a href="/category-review.html">📊 評測</a>
+            <a href="/category-philosophy.html">🌟 哲理</a>
+            <a href="/category-trend.html">🤖 AI</a>
+        </div>
+    </div>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        opacity: 0.7;
+        z-index: 999;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button></body>
+</html>

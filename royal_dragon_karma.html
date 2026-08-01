@@ -1,0 +1,709 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== SEO 基礎 ===== -->
+    <title>皇家尊龍社區法治紀實 | 公義史錄 | 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="皇家尊龍社區法治紀實 — 十五年因果史錄與司法判決解析。深入剖析社區共有物返還、詐害債權撤銷等法律案例。">
+    <meta name="keywords" content="皇家尊龍社區,社區法治,共有物返還,詐害債權,民法第244條,公義史錄">
+    <link rel="canonical" href="https://ahpal.com/royal_dragon_karma.html">
+
+    <!-- ===== Open Graph (社群分享) ===== -->
+    <meta property="og:title" content="皇家尊龍社區法治紀實 | 公義史錄">
+    <meta property="og:description" content="十五年因果史錄與司法判決解析 — 惡意規避債務與詐害債權的真實法律案例。">
+    <meta property="og:url" content="https://ahpal.com/royal_dragon_karma.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="雅寶社區 · 頂客論壇">
+
+    <!-- ===== Google Analytics ===== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXGG1VTGPB');
+    </script>
+
+    <!-- ===== Google AdSense ===== -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+
+    <!-- ===== Google Fonts ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- ===== Tailwind CSS CDN ===== -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Noto Serif TC', 'serif'],
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        wa: {
+                            bg: '#fcfaf2',
+                            ink: '#1c1c1c',
+                            gray: '#595959',
+                            red: '#8a1c14',
+                            gold: '#b89047',
+                            line: '#e6ded1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ===== Lucide Icons ===== -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            background-color: #fcfaf2;
+            color: #1c1c1c;
+            font-family: 'Noto Sans TC', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .japanese-border {
+            border-image: linear-gradient(to right, #8a1c14, #b89047, #8a1c14) 1;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #fcfaf2; }
+        ::-webkit-scrollbar-thumb { background: #e6ded1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b89047; }
+        .footer-link { transition: color 0.3s ease; }
+        .footer-link:hover { color: #b89047; }
+
+        /* ===== 返回頂部按鈕 ===== */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #005A9C;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0.7;
+            z-index: 999;
+        }
+        #back-to-top:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            background: #003d66;
+        }
+
+        /* ===== 時間軸動畫 ===== */
+        #timeline-content {
+            transition: opacity 0.3s ease;
+        }
+        .year-btn.active {
+            color: #8a1c14;
+            border-bottom-color: #8a1c14;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================ -->
+    <!-- 頂部導覽列 -->
+    <!-- ============================================================ -->
+    <nav class="sticky top-0 z-50 bg-wa-bg/90 backdrop-blur-md border-b border-wa-line transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 h-16 md:h-20 flex justify-between items-center">
+            <a href="/" class="font-serif text-lg md:text-2xl font-bold tracking-wider text-wa-red hover:text-wa-gold transition-colors">
+                AHPAL.COM
+            </a>
+
+            <div class="hidden md:flex items-center space-x-5 text-[11px] tracking-widest text-wa-gray">
+                <span class="text-wa-red font-medium border-b-2 border-wa-red pb-0.5">公義史錄</span>
+                <span class="text-wa-line">|</span>
+                <a href="/" class="hover:text-wa-red transition-colors">首頁</a>
+                <a href="/memorial.html" class="hover:text-wa-red transition-colors">歲月迴聲</a>
+                <a href="/contact.html" class="hover:text-wa-red transition-colors">聯絡我們</a>
+                <a href="/category-tech.html" class="hover:text-wa-red transition-colors">知識分類</a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden text-wa-ink focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-wa-bg border-b border-wa-line px-6 py-4 space-y-3 text-sm text-center">
+            <a href="/" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">首頁</a>
+            <a href="/memorial.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">歲月迴聲</a>
+            <a href="/royal_dragon_karma.html" class="block py-2 text-wa-red font-medium">公義史錄</a>
+            <a href="/contact.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">聯絡我們</a>
+            <a href="/category-tech.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">知識分類</a>
+        </div>
+    </nav>
+
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- ============================================================ -->
+    <!-- HERO 區塊 -->
+    <!-- ============================================================ -->
+    <header id="intro" class="min-h-[90vh] flex flex-col justify-center items-center px-6 relative overflow-hidden py-16">
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none flex justify-center items-center">
+            <svg class="w-[800px] h-[800px] text-wa-ink animate-spin" style="animation-duration: 200s;" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 2" />
+                <path d="M 50,5 A 45,45 0 0,0 5,50" fill="none" stroke="currentColor" stroke-width="1" />
+            </svg>
+        </div>
+
+        <div class="max-w-3xl text-center z-10 space-y-8">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 border border-wa-gold/40 rounded-full text-xs text-wa-gold tracking-widest uppercase">
+                <span class="w-1.5 h-1.5 rounded-full bg-wa-gold"></span>
+                <span>因果、法治與歲月</span>
+            </div>
+            <h1 class="font-serif text-4xl md:text-6xl font-bold tracking-loose text-wa-ink leading-tight">
+                皇家尊龍社區<br><span class="text-wa-red">公義與法治紀實</span>
+            </h1>
+            <p class="font-serif text-lg md:text-xl text-wa-gray leading-loose max-w-2xl mx-auto font-light">
+                這是一部橫跨十五年的社區法治紀實，也是一份關於惡意規避債務（民法詐害債權）與財產產權移轉的真實法律案例分析。
+            </p>
+            <div class="h-12 w-px bg-wa-gold mx-auto my-8"></div>
+            <p class="text-xs text-wa-gray tracking-widest max-w-lg mx-auto leading-relaxed">
+                「法網恢恢，疏而不漏。」當個人的算計觸碰了公共利益與司法底線，時間終將給出其最公正的答覆。
+            </p>
+            <div class="pt-6">
+                <a href="#timeline" class="inline-flex items-center space-x-2 text-sm tracking-widest text-wa-ink border-b-2 border-wa-red hover:border-wa-gold transition-colors pb-2 font-medium">
+                    <span>進入歷史卷宗</span>
+                    <i data-lucide="arrow-down-right" class="w-4 h-4 text-wa-red"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- SLIM 概念區塊 -->
+    <!-- ============================================================ -->
+    <section class="py-20 border-y border-wa-line bg-white/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 space-y-4">
+                <h2 class="font-serif text-3xl font-bold tracking-wider text-wa-ink">什麼是社區法治紀實？為何重要？</h2>
+                <p class="text-wa-gray text-sm tracking-wider">用系統化的視角，解析這場長達十五年的「因果與法律機制」</p>
+                <div class="w-12 h-1 bg-wa-red mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="bg-wa-bg p-8 border border-wa-line hover:border-wa-gold transition-all duration-300 rounded-lg group">
+                    <div class="w-12 h-12 rounded-full bg-wa-red/5 flex items-center justify-center mb-6 group-hover:bg-wa-red/10 transition-colors">
+                        <i data-lucide="shield-alert" class="w-6 h-6 text-wa-red"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-3 text-wa-ink">S · 衝突起源</h3>
+                    <p class="text-sm text-wa-gray leading-relaxed font-light">
+                        起於社區公共防空避難室之長年占用爭議。特定人將公共空間視為私有財產，埋下司法與道德衝突之導火線。
+                    </p>
+                </div>
+
+                <div class="bg-wa-bg p-8 border border-wa-line hover:border-wa-gold transition-all duration-300 rounded-lg group">
+                    <div class="w-12 h-12 rounded-full bg-wa-gold/5 flex items-center justify-center mb-6 group-hover:bg-wa-gold/10 transition-colors">
+                        <i data-lucide="gavel" class="w-6 h-6 text-wa-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-3 text-wa-ink">L · 司法抗爭</h3>
+                    <p class="text-sm text-wa-gray leading-relaxed font-light">
+                        社區管理委員會代表全體住戶提起「返還共有物」及「不當得利」等民事訴訟，展開長達數年的法規攻防與證據調查。
+                    </p>
+                </div>
+
+                <div class="bg-wa-bg p-8 border border-wa-line hover:border-wa-gold transition-all duration-300 rounded-lg group">
+                    <div class="w-12 h-12 rounded-full bg-wa-red/5 flex items-center justify-center mb-6 group-hover:bg-wa-red/10 transition-colors">
+                        <i data-lucide="refresh-cw" class="w-6 h-6 text-wa-red"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-3 text-wa-ink">I · 財產轉移</h3>
+                    <p class="text-sm text-wa-gray leading-relaxed font-light">
+                        債務人於面臨鉅額賠償判決前夕，進行多筆不動產產權移轉。此行為後續經法院審理認定構成「通謀虛偽意思表示」及「詐害債權」。
+                    </p>
+                </div>
+
+                <div class="bg-wa-bg p-8 border border-wa-line hover:border-wa-gold transition-all duration-300 rounded-lg group">
+                    <div class="w-12 h-12 rounded-full bg-wa-gold/5 flex items-center justify-center mb-6 group-hover:bg-wa-gold/10 transition-colors">
+                        <i data-lucide="scale" class="w-6 h-6 text-wa-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-3 text-wa-ink">M · 公義審判</h3>
+                    <p class="text-sm text-wa-gray leading-relaxed font-light">
+                        法院宣告移轉行為無效、強制執行撤銷。不僅財產重回扣押範圍，更在鄰里間留下「機關算盡，終歸徒然」的深刻警世教訓。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 十五年因果史錄 (時間軸) -->
+    <!-- ============================================================ -->
+    <section id="timeline" class="py-24 max-w-5xl mx-auto px-6">
+        <div class="text-center mb-20 space-y-4">
+            <span class="text-xs tracking-widest text-wa-gold uppercase font-semibold">THE CHRONICLE</span>
+            <h2 class="font-serif text-3xl md:text-4xl font-bold tracking-wider text-wa-ink">皇家尊龍社區發生了什麼？15 年完整時間軸</h2>
+            <p class="text-wa-gray text-sm max-w-md mx-auto leading-relaxed">
+                點擊年份切換，一覽從「私自強佔」到「司法撤銷移轉」的歷史歷程。
+            </p>
+        </div>
+
+        <div class="flex justify-between items-center border-b border-wa-line pb-6 mb-12 overflow-x-auto gap-4 md:gap-0">
+            <button onclick="switchYear(2011)" id="btn-2011" class="year-btn px-4 py-2 font-serif text-lg border-b-2 border-transparent text-wa-gray hover:text-wa-red transition-all duration-300 whitespace-nowrap focus:outline-none">2011年 起因</button>
+            <button onclick="switchYear(2015)" id="btn-2015" class="year-btn px-4 py-2 font-serif text-lg border-b-2 border-transparent text-wa-gray hover:text-wa-red transition-all duration-300 whitespace-nowrap focus:outline-none">2015年 纏訟</button>
+            <button onclick="switchYear(2018)" id="btn-2018" class="year-btn px-4 py-2 font-serif text-lg border-b-2 border-transparent text-wa-gray hover:text-wa-red transition-all duration-300 whitespace-nowrap focus:outline-none">2018年 移轉</button>
+            <button onclick="switchYear(2022)" id="btn-2022" class="year-btn px-4 py-2 font-serif text-lg border-b-2 border-transparent text-wa-gray hover:text-wa-red transition-all duration-300 whitespace-nowrap focus:outline-none">2022年 追擊</button>
+            <button onclick="switchYear(2026)" id="btn-2026" class="year-btn px-4 py-2 font-serif text-lg border-b-2 border-transparent text-wa-gray hover:text-wa-red transition-all duration-300 whitespace-nowrap focus:outline-none">2026年 終局</button>
+        </div>
+
+        <div id="timeline-content" class="bg-white border border-wa-line p-8 md:p-12 rounded-xl shadow-sm transition-all duration-500 hover:shadow-md min-h-[300px] flex flex-col justify-between">
+            <div id="timeline-loading" class="text-center py-12 text-wa-gray">
+                資料讀取中...
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 司法鐵證卷宗 (Accordion) -->
+    <!-- ============================================================ -->
+    <section id="dossier" class="py-24 border-t border-wa-line bg-wa-bg/30">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 space-y-4">
+                <span class="text-xs tracking-widest text-wa-red uppercase font-semibold">JUDICIAL EVIDENCE</span>
+                <h2 class="font-serif text-3xl font-bold tracking-wider text-wa-ink">惡意脫產會被撤銷嗎？法院怎麼判？</h2>
+                <p class="text-wa-gray text-sm max-w-md mx-auto">
+                    彙整歷年關鍵訴訟主旨，以客觀司法判決之事實，剖析惡意脫產行為在法律上的因果制裁。
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="border border-wa-line bg-white rounded-lg overflow-hidden transition-all duration-300">
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center hover:bg-wa-bg/40 focus:outline-none" onclick="toggleAccordion(1)">
+                        <span class="font-serif font-semibold text-base md:text-lg text-wa-ink">
+                            一、返還共有物與相當於租金之不當得利（判決確定）
+                        </span>
+                        <i id="accordion-icon-1" data-lucide="chevron-down" class="w-5 h-5 text-wa-gray transition-transform duration-300"></i>
+                    </button>
+                    <div id="accordion-content-1" class="hidden px-6 pb-6 border-t border-wa-line pt-4 bg-wa-bg/10 text-sm space-y-3 text-wa-gray leading-relaxed">
+                        <p><strong class="text-wa-ink">爭議要旨：</strong>關係人 S 某等人，長年將社區公共防空避難室（共有物）隔間並堆置雜物，並鎖上門鎖，致使其他共有人（全體住戶）無法使用該避難空間。</p>
+                        <p><strong class="text-wa-ink">法院判決要點：</strong></p>
+                        <ul class="list-disc list-inside space-y-1 pl-2">
+                            <li>被告等應將占用之防空避難室空間騰空，並將該共有物返還予全體共有人。</li>
+                            <li>被告無法律上原因受有使用該空間之利益，致全體住戶受有損害，應按其占用面積返還相當於租金之不當得利（溯及計算並加計法定遲延利息）。</li>
+                        </ul>
+                        <p class="text-xs text-wa-gold font-serif mt-2">※ 警世啟示：公共空間屬於全體住戶，以「使用者為大」之強占心態，在法律上終須付出沉重經濟代價。</p>
+                    </div>
+                </div>
+
+                <div class="border border-wa-line bg-white rounded-lg overflow-hidden transition-all duration-300">
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center hover:bg-wa-bg/40 focus:outline-none" onclick="toggleAccordion(2)">
+                        <span class="font-serif font-semibold text-base md:text-lg text-wa-ink">
+                            二、防範與反擊：債務人惡意脫產與產權轉移（撤銷之訴）
+                        </span>
+                        <i id="accordion-icon-2" data-lucide="chevron-down" class="w-5 h-5 text-wa-gray transition-transform duration-300"></i>
+                    </button>
+                    <div id="accordion-content-2" class="hidden px-6 pb-6 border-t border-wa-line pt-4 bg-wa-bg/10 text-sm space-y-3 text-wa-gray leading-relaxed">
+                        <p><strong class="text-wa-ink">爭議要旨：</strong>債務人 S 某於不當得利民事判決確定、即將面臨強制執行之際，突將名下多筆房地產贈與或低價轉讓予親屬 S 某，意圖製造「名下已無財產可供扣押」之假象。</p>
+                        <p><strong class="text-wa-ink">法院判決要點：</strong></p>
+                        <ul class="list-disc list-inside space-y-1 pl-2">
+                            <li>債務人於有債務履行義務時，將名下財產無償贈與或有償轉讓予特定關係人，且此行為已實質損及債權人之債權（即民法第 244 條「詐害債權」）。</li>
+                            <li>法院判決准許債權人（管委會）之請求，<span class="text-wa-red font-semibold">撤銷</span>該產權移轉登記行為，並回復為債務人名下所有，以供依法強制執行。</li>
+                        </ul>
+                        <p class="text-xs text-wa-gold font-serif mt-2">※ 警世啟示：意圖透過人頭或假移轉來規避司法執行，不僅徒勞無功，更可能涉及刑法第 356 條「損害債權罪」。</p>
+                    </div>
+                </div>
+
+                <div class="border border-wa-line bg-white rounded-lg overflow-hidden transition-all duration-300">
+                    <button class="w-full text-left px-6 py-5 flex justify-between items-center hover:bg-wa-bg/40 focus:outline-none" onclick="toggleAccordion(3)">
+                        <span class="font-serif font-semibold text-base md:text-lg text-wa-ink">
+                            三、第三人異議之訴與執行扣押（強制執行程序）
+                        </span>
+                        <i id="accordion-icon-3" data-lucide="chevron-down" class="w-5 h-5 text-wa-gray transition-transform duration-300"></i>
+                    </button>
+                    <div id="accordion-content-3" class="hidden px-6 pb-6 border-t border-wa-line pt-4 bg-wa-bg/10 text-sm space-y-3 text-wa-gray leading-relaxed">
+                        <p><strong class="text-wa-ink">爭議要旨：</strong>產權登記回復後，受移轉之親屬提起「第三人異議之訴」，主張財產為其個人所有，企圖阻礙法院強制拍賣。然而其抗辯理由缺乏事實基礎，顯為規避執行之延宕手段。</p>
+                        <p><strong class="text-wa-ink">法院審理與終局：</strong></p>
+                        <ul class="list-disc list-inside space-y-1 pl-2">
+                            <li>法院駁回其異議之訴，認定該產權移轉實屬通謀虛偽或逃避債務之行為。</li>
+                            <li>強制執行處繼續對該標的物進行查封、估價與拍賣程序，實踐實質公義。</li>
+                        </ul>
+                        <p class="text-xs text-wa-gold font-serif mt-2">※ 警世啟示：司法尊嚴不容透過濫訴與程序延宕加以挑釁，終局裁判前，投機終將原形畢露。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 相關司法案例 -->
+    <!-- ============================================================ -->
+    <section class="py-16 max-w-4xl mx-auto px-6">
+        <div class="text-center mb-10 space-y-4">
+            <span class="text-xs tracking-widest text-wa-gold uppercase font-semibold">RELATED CASES</span>
+            <h2 class="font-serif text-2xl md:text-3xl font-bold tracking-wider text-wa-ink">相關司法案例</h2>
+            <p class="text-wa-gray text-sm max-w-md mx-auto">
+                延伸閱讀：更多社區法治與公共工程倫理案例
+            </p>
+            <div class="w-12 h-1 bg-wa-red mx-auto mt-4"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="/category-tech.html" class="group block bg-white border border-wa-line rounded-xl p-6 hover:border-wa-gold transition-all duration-300 hover:shadow-md">
+                <div class="flex items-center gap-4">
+                    <span class="text-3xl">⚖️</span>
+                    <div>
+                        <h3 class="font-serif text-lg font-bold text-wa-ink group-hover:text-wa-red transition-colors">社區共有物糾紛案例彙整</h3>
+                        <p class="text-sm text-wa-gray mt-1">從法律觀點解析共有物返還與不當得利</p>
+                        <span class="inline-block mt-2 text-xs text-wa-gold group-hover:text-wa-red transition-colors">閱讀完整解析 →</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/category-philosophy.html" class="group block bg-white border border-wa-line rounded-xl p-6 hover:border-wa-gold transition-all duration-300 hover:shadow-md">
+                <div class="flex items-center gap-4">
+                    <span class="text-3xl">📖</span>
+                    <div>
+                        <h3 class="font-serif text-lg font-bold text-wa-ink group-hover:text-wa-red transition-colors">因果與公義 | 人生哲理選讀</h3>
+                        <p class="text-sm text-wa-gray mt-1">從社會案例反思誠信與法治的深層意義</p>
+                        <span class="inline-block mt-2 text-xs text-wa-gold group-hover:text-wa-red transition-colors">閱讀全文 →</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 警世互動測驗 (Quiz) -->
+    <!-- ============================================================ -->
+    <section id="quiz" class="py-24 bg-white">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-16 space-y-4">
+                <span class="text-xs tracking-widest text-wa-gold uppercase font-semibold">LAW & ETHICS QUIZ</span>
+                <h2 class="font-serif text-3xl font-bold tracking-wider text-wa-ink">社區共有物糾紛該怎麼處理？法律測驗</h2>
+                <p class="text-wa-gray text-sm">
+                    透過以下情境問答，檢驗您對社區共有產權與債權保障的法律知識。
+                </p>
+            </div>
+
+            <div class="border border-wa-line rounded-2xl p-8 bg-wa-bg/30 relative">
+                <div class="w-full bg-wa-line h-1 rounded-full overflow-hidden mb-8">
+                    <div id="quiz-progress" class="bg-wa-gold h-full transition-all duration-300" style="width: 33%"></div>
+                </div>
+
+                <div id="quiz-container">
+                    <h3 id="quiz-question" class="font-serif text-lg md:text-xl font-bold text-wa-ink mb-6">
+                        載入問題中...
+                    </h3>
+
+                    <div id="quiz-options" class="space-y-3">
+                    </div>
+
+                    <div id="quiz-feedback" class="mt-6 p-4 rounded-lg text-sm hidden">
+                    </div>
+
+                    <div class="mt-8 flex justify-end">
+                        <button id="quiz-next-btn" class="hidden px-6 py-2.5 bg-wa-ink text-white hover:bg-wa-gold transition-colors text-xs tracking-widest uppercase rounded focus:outline-none">
+                            下一題
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-results" class="hidden text-center py-8 space-y-6">
+                    <div class="w-16 h-16 bg-wa-gold/10 rounded-full flex items-center justify-center mx-auto text-wa-gold">
+                        <i data-lucide="award" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-wa-ink">測驗完成！</h3>
+                    <p id="quiz-score-text" class="text-wa-gray text-sm leading-relaxed max-w-md mx-auto">
+                        感謝您參與本次社會法治教材問答。
+                    </p>
+                    <button onclick="restartQuiz()" class="inline-flex items-center space-x-2 px-6 py-3 bg-wa-ink text-white hover:bg-wa-red transition-all tracking-wider text-xs uppercase rounded">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                        <span>重新挑戰</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 頁尾 -->
+    <!-- ============================================================ -->
+    <footer class="bg-wa-ink text-[#d9d9d9] py-16 border-t border-wa-gold/20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <a href="/" class="inline-flex items-center gap-3 bg-wa-gold hover:bg-wa-red text-white px-8 py-4 rounded-lg transition-all shadow-lg font-serif tracking-widest">
+                    <i data-lucide="home" class="w-5 h-5"></i> 返回首頁
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
+                <div class="md:col-span-5 space-y-4">
+                    <h4 class="font-serif text-lg font-bold tracking-widest text-white">歲月與公義</h4>
+                    <p class="text-xs text-[#a6a6a6] leading-relaxed font-light">
+                        本網站是一個基於真實社區十五年法治歷程建置的「社會法治推廣與因果教育平台」。我們相信，誠實守信、尊重公共利益是文明社會的基石。透過法律與事實的爬梳，傳遞誠信價值。
+                    </p>
+                </div>
+                <div class="md:col-span-3 space-y-4 md:pl-8">
+                    <h4 class="font-serif text-sm font-semibold tracking-widest text-white">快速導覽</h4>
+                    <ul class="text-xs space-y-2 text-[#a6a6a6]">
+                        <li><a href="#intro" class="footer-link">卷首語</a></li>
+                        <li><a href="#timeline" class="footer-link">十五年因果史錄</a></li>
+                        <li><a href="#dossier" class="footer-link">司法判決解析</a></li>
+                        <li><a href="#quiz" class="footer-link">法治互動教材</a></li>
+                        <li><a href="/contact.html" class="footer-link">聯絡我們</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-4 space-y-4">
+                    <h4 class="font-serif text-sm font-semibold tracking-widest text-wa-red">教育與研究目的及 AI 聲明</h4>
+                    <p class="text-[11px] text-[#8c8c8c] leading-relaxed font-light">
+                        本網站內容由 AI 協助生成，僅供法律知識推廣與法治教育研究參考。本站所有案例均已進行去識別化處理，旨在提升大眾對共有產權及債權保障之認識。若內容與法律實務有異，應以最新司法判決為準。本頁面內容不構成正式法律諮詢意見，讀者請以客觀法治視角閱覽。
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[11px] text-[#8c8c8c]">
+                <p>&copy; 2026 AHPAL.COM 社區公義與法治史錄. All Rights Reserved.</p>
+                <p class="mt-2 md:mt-0 tracking-widest text-wa-gold font-serif">善惡到頭終有報，只爭來早與來遲</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- 返回頂部按鈕 -->
+    <!-- ============================================================ -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+
+    <!-- ============================================================ -->
+    <!-- JavaScript 互動腳本 -->
+    <!-- ============================================================ -->
+    <script>
+        lucide.createIcons();
+
+        const timelineData = {
+            2011: {
+                title: "起因：共有物強占之始",
+                subtitle: "私欲蒙蔽，將公共避難空間據為己有",
+                description: "關係人 S 某家族無視全體住戶共有之產權，擅自將大樓防空避難室（兼停車場公共區）加裝鐵門隔開並上鎖，私自堆放私人物品。管委會多次溝通無效，發出存證信函要求限期拆除無果。此舉引發全體住戶強烈憤慨，拉開了漫長訴訟的序幕。",
+                tag: "衝突起始",
+                legal: "涉嫌違反：民法第 767 條共有物返還請求權、民法第 179 條不當得利"
+            },
+            2015: {
+                title: "纏訟：法院公正判決確定",
+                subtitle: "歷經數年審理，正義由判決書白紙黑字寫下",
+                description: "經過長期的舉證、實地測量與法庭辯論，臺灣地方法院做出最終判決：認定該避難空間為全體住戶共用，S 氏家族必須將空間騰空返還。同時，判決指出其行為受有「無法律上原因之利益」，必須支付相當於租金之不當得利與利息。判決宣告確定，具備強制執行力。",
+                tag: "正義宣告",
+                legal: "判決確定：被告應騰空並返還共有物，返還累計數十萬不當得利。"
+            },
+            2018: {
+                title: "轉移：算計與脫產的虛偽行徑",
+                subtitle: "為規避強制執行，迅速轉移名下產權",
+                description: "在判決宣告執行、資產即將面臨扣押之際，債務人 S 某隨即採取極端手段，以「贈與」及「名義買賣」方式，將名下賴以清償的不動產產權迅速辦理移轉登記給親屬。此行為意圖造成「名下空無一物」的假象，企圖使法院執行處查無財產，阻礙正義之落實。",
+                tag: "惡意規避",
+                legal: "法律攻防焦點：探討民法第 244 條「債權人撤銷權」之適用。"
+            },
+            2022: {
+                title: "追擊：法治防線的強力反擊",
+                subtitle: "管委會提起「撤銷詐害債權」訴訟勝訴",
+                description: "面對惡意脫產行為，社區管委會與律師緊密配合，主動提起撤銷詐害債權訴訟。歷經法官抽絲剝繭調查，法院最終裁定：債務人 S 某與其關係人的財產移轉行為「顯屬故意損害債權之行為」，判決該移轉登記行為撤銷，資產登記全部回復至債務人名下，重回可強制執行狀態！",
+                tag: "法網收緊",
+                legal: "判決要點：撤銷產權移轉行為，回復登記，保障原債權清償權力。"
+            },
+            2026: {
+                title: "終局：天理昭彰，投機終成空",
+                subtitle: "資產查封拍賣，現世因果的圓滿彰顯",
+                description: "歷經長達十五年的波折與鬥智，第三人異議之訴被依法駁回。法院執行處正式啟動對該回復資產的查封、鑑價與拍賣程序。S 氏家族不僅未能保住強占的非法利益，其原本擁有的家族財富亦在法網強制執行下流失，更承受了嚴重的社會聲譽損失，為鄰里及社會留下最深刻的因果與法治警鐘。",
+                tag: "因果終結",
+                legal: "強制執行：查封拍賣程序順利推動，正義得以彰顯。"
+            }
+        };
+
+        function switchYear(year) {
+            document.querySelectorAll('.year-btn').forEach(btn => {
+                btn.classList.remove('text-wa-red', 'border-wa-red', 'font-semibold');
+                btn.classList.add('text-wa-gray', 'border-transparent');
+            });
+
+            const activeBtn = document.getElementById(`btn-${year}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-wa-gray', 'border-transparent');
+                activeBtn.classList.add('text-wa-red', 'border-wa-red', 'font-semibold');
+            }
+
+            const contentDiv = document.getElementById('timeline-content');
+            contentDiv.style.opacity = 0;
+
+            setTimeout(() => {
+                const data = timelineData[year];
+                contentDiv.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <span class="text-xs font-bold tracking-widest text-wa-gold bg-wa-gold/10 px-3 py-1 rounded w-fit">${data.tag}</span>
+                            <span class="text-sm font-serif italic text-wa-gray">${year} 年紀錄</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-serif text-2xl md:text-3xl font-bold text-wa-ink">${data.title}</h3>
+                            <p class="font-serif text-md text-wa-gray font-light">${data.subtitle}</p>
+                        </div>
+                        <p class="text-sm leading-relaxed text-wa-ink font-light">${data.description}</p>
+                        <div class="pt-4 border-t border-wa-line">
+                            <p class="text-xs text-wa-red tracking-wide font-medium flex items-center space-x-1">
+                                <i data-lucide="info" class="w-3.5 h-3.5 inline"></i>
+                                <span>${data.legal}</span>
+                            </p>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+                contentDiv.style.opacity = 1;
+            }, 300);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            switchYear(2011);
+        });
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(`accordion-content-${id}`);
+            const icon = document.getElementById(`accordion-icon-${id}`);
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        const quizQuestions = [
+            {
+                question: "1. 某住戶將社區「防空避難室兼停車空間」私自隔間、上鎖堆放雜物，其行為在法律上屬於？",
+                options: [
+                    "個人自由，只要沒有妨礙他人行車就不違法",
+                    "共有物之無權占用，涉嫌侵害全體共有人之權益及不當得利",
+                    "因長年占用，自動取得該空間之所有權"
+                ],
+                correct: 1,
+                explanation: "【正確答案：選項2】防空避難空間屬大樓共有人共有，私自隔間堆物已侵害全體所有權人的權益。依據民法第 179 條及 767 條，應予騰空返還並賠償相當於租金之不當得利。"
+            },
+            {
+                question: "2. 當債務人面臨鉅額賠償判決，將名下不動產迅速「無償贈與」或「假買賣」給親屬以逃避強制執行，債權人可如何主張？",
+                options: [
+                    "自認倒楣，因登記已屬親屬名下無法追討",
+                    "直接向警方告發搶劫罪",
+                    "提起訴訟，請求法院依「民法第244條」撤銷該詐害債權行為，將財產移轉回復"
+                ],
+                correct: 2,
+                explanation: "【正確答案：選項3】我國民法第 244 條賦予債權人「撤銷訴權」。若債務人之財產轉移行為有害及債權，債權人可向法院申請撤銷該行為，令登記回復，重啟查封執行。"
+            },
+            {
+                question: "3. 意圖規避法院的「強制執行」，在判決確定後隱匿、毀壞或處分名下財產，除了民事責任外，還可能面臨什麼刑事責任？",
+                options: [
+                    "不構成刑事責任，僅屬民事債務糾紛",
+                    "刑法第 356 條「損害債權罪」，最重可處兩年有期徒刑",
+                    "刑法背信罪，處一年以下有期徒刑"
+                ],
+                correct: 1,
+                explanation: "【正確答案：選項2】刑法第 356 條規定，債務人於將受強制執行之際，意圖損害債權人之債權，而毀壞、處分或隱匿其財產者，構成損害債權罪，為刑事犯罪，且可能留下前科。"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const questionData = quizQuestions[currentQuestionIndex];
+            const qTitle = document.getElementById("quiz-question");
+            const qOptions = document.getElementById("quiz-options");
+            const feedback = document.getElementById("quiz-feedback");
+            const nextBtn = document.getElementById("quiz-next-btn");
+            const progress = document.getElementById("quiz-progress");
+
+            const progressPct = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+            progress.style.width = `${progressPct}%`;
+
+            feedback.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+
+            qTitle.textContent = questionData.question;
+
+            qOptions.innerHTML = '';
+            questionData.options.forEach((opt, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "w-full text-left px-5 py-4 border border-wa-line hover:border-wa-gold hover:bg-wa-bg rounded-lg text-sm transition-all focus:outline-none focus:ring-1 focus:ring-wa-gold option-btn";
+                btn.innerHTML = `<span class="inline-block w-6 text-wa-gold font-semibold">${idx + 1}.</span> ${opt}`;
+                btn.onclick = () => selectOption(idx);
+                qOptions.appendChild(btn);
+            });
+        }
+
+        function selectOption(index) {
+            const questionData = quizQuestions[currentQuestionIndex];
+            const feedback = document.getElementById("quiz-feedback");
+            const nextBtn = document.getElementById("quiz-next-btn");
+            const optionBtns = document.querySelectorAll(".option-btn");
+
+            optionBtns.forEach(btn => btn.disabled = true);
+
+            if (index === questionData.correct) {
+                score++;
+                feedback.className = "mt-6 p-4 rounded-lg text-sm bg-emerald-50 text-emerald-800 border border-emerald-200";
+                feedback.innerHTML = `<div class="flex items-center space-x-2 font-semibold mb-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i><span>回答正確</span></div>${questionData.explanation}`;
+                optionBtns[index].className += " border-emerald-500 bg-emerald-50/50";
+            } else {
+                feedback.className = "mt-6 p-4 rounded-lg text-sm bg-rose-50 text-rose-800 border border-rose-200";
+                feedback.innerHTML = `<div class="flex items-center space-x-2 font-semibold mb-1"><i data-lucide="alert-circle" class="w-4 h-4 text-rose-600"></i><span>回答錯誤</span></div>${questionData.explanation}`;
+                optionBtns[index].className += " border-rose-500 bg-rose-50/50";
+                optionBtns[questionData.correct].className += " border-emerald-500 bg-emerald-50/50";
+            }
+
+            lucide.createIcons();
+            feedback.classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+
+            if (currentQuestionIndex === quizQuestions.length - 1) {
+                nextBtn.textContent = "查看結果";
+            } else {
+                nextBtn.textContent = "下一題";
+            }
+        }
+
+        document.getElementById("quiz-next-btn").addEventListener("click", () => {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                document.getElementById("quiz-container").classList.add("hidden");
+                document.getElementById("quiz-results").classList.remove("hidden");
+                
+                const scoreText = document.getElementById("quiz-score-text");
+                if (score === quizQuestions.length) {
+                    scoreText.innerHTML = `恭喜您獲得滿分 <strong>3/3 分</strong>！<br>您對大樓物權法規、共有物返還以及民法防範脫產等法律常識有著極其優秀的理解。願法治精神常駐於您的日常生活之中。`;
+                } else if (score >= 1) {
+                    scoreText.innerHTML = `您獲得了 <strong>${score}/3 分</strong>！<br>答得不錯！代表您已掌握基本的共有物觀念及民法債權保障常識。深入理解法治原理，更能保證我們的合法權益不受不法侵害。`;
+                } else {
+                    scoreText.innerHTML = `您獲得了 <strong>0/3 分</strong>！<br>別灰心！這是一套高度專業的社區法治教材，相信閱覽完上方的「司法鐵證卷宗」後，您已能充分領會相關法律的精髓所在。`;
+                }
+            }
+        });
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("quiz-next-btn").textContent = "下一題";
+            document.getElementById("quiz-container").classList.remove("hidden");
+            document.getElementById("quiz-results").classList.add("hidden");
+            loadQuestion();
+        }
+
+        restartQuiz();
+    </script>
+</body>
+</html>

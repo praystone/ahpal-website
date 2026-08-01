@@ -1,0 +1,798 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXGG1VTGPB');
+    </script>
+
+    <!-- Google AdSense Auto Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="臺中道路工程貪污弊案數據儀表板 — 基於臺灣臺中地方法院 109 年度訴字第 2499 號判決書，涉及被告江旭中、劉鴻寬、侯孟志、莊志強、洪偉仁等人之詐欺與貪污罪責分析。">
+    <meta name="keywords" content="侯孟志,江旭中,沈志聖,皇家尊龍社區,龍井,109年度訴字第2499號,臺中道路工程弊案,貪污,詐欺,司法儀表板,雷效音">
+    <title>司法案例解析：臺中道路工程弊案 | 侯孟志 109年度訴字第2499號 | AHPAL.COM</title>
+
+    <!-- Chart.js 圖表庫 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Noto Serif TC', 'serif'],
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        wa: {
+                            bg: '#fcfaf2',
+                            ink: '#1c1c1c',
+                            gray: '#595959',
+                            red: '#8a1c14',
+                            gold: '#b89047',
+                            line: '#e6ded1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fcfaf2;
+            color: #1c1c1c;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .footer-link { transition: color 0.3s ease; }
+        .footer-link:hover { color: #b89047; }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 22px 15px;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0, 20, 40, 0.06);
+            text-align: center;
+            border-bottom: 4px solid #2c3e50;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 20, 40, 0.10);
+        }
+        .stat-card .stat-number {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #0b1e33;
+            line-height: 1.2;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: #4a5b6e;
+            letter-spacing: 0.5px;
+        }
+        .stat-card i {
+            font-size: 1.6rem;
+            color: #8a1c14;
+            opacity: 0.7;
+            margin-bottom: 6px;
+        }
+
+        .badge-role {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-role.public { background: #fadbd8; color: #922b21; }
+        .badge-role.contractor { background: #fde8d0; color: #a84d00; }
+        .badge-role.employee { background: #eaecee; color: #4a5b6e; }
+
+        .chart-container {
+            position: relative;
+            height: 220px;
+            margin-top: 10px;
+        }
+        .chart-container.pie-chart {
+            height: 200px;
+        }
+
+        .justice-border {
+            border-image: linear-gradient(to right, #8a1c14, #b89047, #8a1c14) 1;
+        }
+        .back-link {
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            color: #b89047;
+            transform: translateX(-4px);
+        }
+
+        /* ===== 雷效音互動模組專屬樣式 ===== */
+        .wave-bar {
+            transition: height 0.15s ease;
+        }
+        .truth-content {
+            transition: opacity 0.8s ease;
+        }
+        .btn-play {
+            transition: all 0.3s ease;
+        }
+        .btn-play:hover {
+            transform: scale(1.02);
+        }
+        .btn-play.playing {
+            background-color: #8a1c14;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #1a1a1a;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- ============================================================ -->
+    <!-- 頂部導覽列 -->
+    <!-- ============================================================ -->
+    <nav class="sticky top-0 z-50 bg-wa-bg/90 backdrop-blur-md border-b border-wa-line transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 h-16 md:h-20 flex justify-between items-center">
+            <a href="/" class="font-serif text-lg md:text-2xl font-bold tracking-wider text-wa-red hover:text-wa-gold transition-colors">
+                AHPAL.COM
+            </a>
+            <div class="hidden md:flex items-center space-x-6 text-xs tracking-widest text-wa-gray">
+                <a href="/" class="hover:text-wa-red transition-colors">首頁</a>
+                <a href="/memorial.html" class="hover:text-wa-red transition-colors">歲月迴聲</a>
+                <a href="/royal_dragon_karma.html" class="hover:text-wa-red transition-colors">公義史錄</a>
+                <a href="/farm-tech-guide.html" class="hover:text-wa-red transition-colors">知識分類</a>
+                <a href="/justice.html" class="text-wa-red font-medium border-b-2 border-wa-red pb-0.5">司法案例</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-wa-ink focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-wa-bg border-b border-wa-line px-6 py-4 space-y-3 text-sm text-center">
+            <a href="/" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">首頁</a>
+            <a href="/memorial.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">歲月迴聲</a>
+            <a href="/royal_dragon_karma.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">公義史錄</a>
+            <a href="/farm-tech-guide.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">知識分類</a>
+            <a href="/justice.html" class="block py-2 text-wa-red font-medium">司法案例</a>
+        </div>
+    </nav>
+
+    <script>
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- ============================================================ -->
+    <!-- 頁面標題區 -->
+    <!-- ============================================================ -->
+    <header class="py-10 text-center px-4 relative">
+        <div class="w-full max-w-xs mx-auto mb-6 justice-border" style="border-top: 2px solid transparent;"></div>
+
+        <div class="max-w-6xl mx-auto text-left mb-4 px-4">
+            <a href="/royal_dragon_karma.html" class="back-link inline-flex items-center gap-2 text-sm text-wa-gray hover:text-wa-gold transition-all">
+                <i class="fas fa-arrow-left"></i> 返回公義史錄
+            </a>
+        </div>
+
+        <h1 class="font-serif text-3xl md:text-5xl text-wa-ink tracking-[0.2em] md:tracking-[0.3em] font-semibold flex items-center justify-center gap-3 flex-wrap">
+            <i class="fas fa-gavel" style="color: #8a1c14;"></i>
+            臺中道路工程貪污弊案
+        </h1>
+        <div class="flex items-center justify-center gap-4 mt-3">
+            <span class="w-8 h-px bg-wa-gold"></span>
+            <span class="text-xs md:text-sm text-wa-red tracking-[0.2em] md:tracking-[0.3em] font-serif font-light whitespace-nowrap">司法數據視覺化 · 109 年度訴字第 2499 號</span>
+            <span class="w-8 h-px bg-wa-gold"></span>
+        </div>
+        <p class="text-[10px] md:text-xs text-wa-gray tracking-[0.2em] mt-4 font-serif">
+            臺灣臺中地方法院刑事判決 · 資料更新至 2026 年
+        </p>
+        <div class="w-12 h-px bg-wa-line mx-auto mt-6"></div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- 關鍵數據卡片 -->
+    <!-- ============================================================ -->
+    <section class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="stat-card">
+                <i class="fas fa-hand-holding-usd"></i>
+                <div class="stat-number">9,000</div>
+                <div class="stat-label">公務員收受不正利益（元）</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-balance-scale"></i>
+                <div class="stat-number">5 年 8 月</div>
+                <div class="stat-label">公務員江旭中 判處刑期</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-flask"></i>
+                <div class="stat-number">6 / 11</div>
+                <div class="stat-label">遭調包之鑽心試體數</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-building"></i>
+                <div class="stat-number">2</div>
+                <div class="stat-label">涉案公司（寶泰 &amp; 祥順力）</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 主要內容：表格 + 圖表 -->
+    <!-- ============================================================ -->
+    <main class="flex-grow max-w-6xl mx-auto px-4 py-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- 左欄：被告量刑總覽表 -->
+            <div class="bg-white border border-wa-line rounded-xl p-6 shadow-sm">
+                <h2 class="font-serif text-lg font-bold text-wa-ink border-b border-wa-line pb-3 mb-4 flex items-center gap-2">
+                    <i class="fas fa-users text-wa-red"></i> 被告量刑總覽
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-wa-line">
+                                <th class="text-left py-2 px-3 text-wa-gray font-medium">被告</th>
+                                <th class="text-left py-2 px-3 text-wa-gray font-medium">涉案角色</th>
+                                <th class="text-left py-2 px-3 text-wa-gray font-medium">判決結果（主刑）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-wa-line/50">
+                                <td class="py-3 px-3 font-semibold text-wa-ink">江旭中</td>
+                                <td class="py-3 px-3"><span class="badge-role public">公務員</span></td>
+                                <td class="py-3 px-3 text-wa-red font-medium">有期徒刑 5 年 8 月 · 褫奪公權 2 年</td>
+                            </tr>
+                            <tr class="border-b border-wa-line/50">
+                                <td class="py-3 px-3 font-semibold text-wa-ink">劉鴻寬</td>
+                                <td class="py-3 px-3"><span class="badge-role contractor">廠商（副總）</span></td>
+                                <td class="py-3 px-3">1 年 3 月 + 7 月（得易科）· 緩刑 2 年</td>
+                            </tr>
+                            <tr class="border-b border-wa-line/50">
+                                <td class="py-3 px-3 font-semibold text-wa-ink">侯孟志</td>
+                                <td class="py-3 px-3"><span class="badge-role contractor">廠長</span></td>
+                                <td class="py-3 px-3">1 年 1 月 + 7 月（得易科）· 緩刑 2 年</td>
+                            </tr>
+                            <tr class="border-b border-wa-line/50">
+                                <td class="py-3 px-3 font-semibold text-wa-ink">莊志強</td>
+                                <td class="py-3 px-3"><span class="badge-role contractor">承包商</span></td>
+                                <td class="py-3 px-3">1 年 1 月 + 7 月（得易科）· 緩刑 2 年</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3 font-semibold text-wa-ink">洪偉仁</td>
+                                <td class="py-3 px-3"><span class="badge-role employee">員工</span></td>
+                                <td class="py-3 px-3">1 年 + 6 月（得易科）· 緩刑 2 年</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 text-xs text-wa-gray bg-wa-bg p-3 rounded-lg border border-wa-line">
+                    <i class="fas fa-info-circle text-wa-gold"></i>
+                    侯孟志等人所涉詐欺罪，因非公務員，適用刑法詐欺罪章，均獲緩刑。
+                </div>
+            </div>
+
+            <!-- 右欄：圖表區 -->
+            <div class="bg-white border border-wa-line rounded-xl p-6 shadow-sm">
+                <h2 class="font-serif text-lg font-bold text-wa-ink border-b border-wa-line pb-3 mb-4 flex items-center gap-2">
+                    <i class="fas fa-chart-bar text-wa-gold"></i> 量刑與不法結構
+                </h2>
+
+                <div class="chart-container">
+                    <canvas id="sentenceChart"></canvas>
+                </div>
+
+                <div class="chart-container pie-chart mt-6">
+                    <canvas id="pieChart"></canvas>
+                </div>
+
+                <div class="text-[10px] text-wa-gray text-center border-t border-wa-line pt-3 mt-3">
+                    <i class="fas fa-circle text-wa-red" style="font-size: 8px;"></i> 左圖為不得易科罰金之刑期 · 右圖為本案不法結構示意
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 案例背景說明區塊 -->
+        <!-- ============================================================ -->
+        <div class="mt-8 bg-white border border-wa-line rounded-xl p-6 shadow-sm">
+            <h2 class="font-serif text-lg font-bold text-wa-ink border-b border-wa-line pb-3 mb-4 flex items-center gap-2">
+                <i class="fas fa-book-open text-wa-gold"></i> 案例背景
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-wa-gray leading-relaxed">
+                <div>
+                    <p class="font-medium text-wa-ink mb-1">📋 案由</p>
+                    <p>臺中市道路工程涉及公務員收賄、廠商詐欺及鑽心試體調包等不法情事，嚴重影響公共工程品質與政府廉潔形象。</p>
+                </div>
+                <div>
+                    <p class="font-medium text-wa-ink mb-1">⚖️ 核心爭點</p>
+                    <p>公務員江旭中於道路工程驗收期間，收受廠商不正利益，並配合廠商將不合格之鑽心試體調包，使工程通過驗收。</p>
+                </div>
+                <div>
+                    <p class="font-medium text-wa-ink mb-1">📜 判決要旨</p>
+                    <p>法院認定江旭中涉犯貪污治罪條例，判處 5 年 8 月有期徒刑；其餘涉案人員因非公務員，以詐欺罪論處，均獲緩刑。</p>
+                </div>
+            </div>
+            <div class="mt-4 text-xs text-wa-gray border-t border-wa-line pt-3">
+                <i class="fas fa-gavel text-wa-red"></i>
+                資料來源：司法院裁判書查詢系統 · 臺灣臺中地方法院 109 年度訴字第 2499 號刑事判決
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- ★ 雷效音互動模組（含 YouTube 影片嵌入） -->
+        <!-- ============================================================ -->
+        <div class="mt-8 bg-white border border-wa-line rounded-xl p-6 shadow-sm" id="雷效音">
+            <div class="text-center border-b border-wa-line pb-4 mb-5">
+                <span class="text-[10px] tracking-[0.3em] text-wa-gold uppercase" style="color: #b89047;">A Sound of Justice</span>
+                <h2 class="font-serif text-xl md:text-2xl font-bold text-wa-ink mt-1" style="color: #1c1c1c;">
+                    〈八卦陣裡的雷效音〉
+                </h2>
+                <p class="text-xs text-wa-gray mt-1" style="color: #595959;">
+                    2樓之10 · 8瓦音箱 · 馬太福音第23章
+                </p>
+            </div>
+
+            <!-- YouTube 影片嵌入 -->
+            <div class="video-wrapper">
+                <iframe 
+                    id="truthVideo"
+                    src="https://www.youtube.com/embed/lhfRGabrdGc?si=Oy_taxIPPCvjUVz6&enablejsapi=1"
+                    title="八卦陣裡的雷效音 — 天理收網"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- 音波視覺化（與影片連動） -->
+            <div class="flex justify-center items-end gap-1 h-16 mt-4 mb-4" id="waveform">
+                <div class="wave-bar w-1.5 bg-wa-gold/30 rounded-full" style="height: 8px;"></div>
+                <div class="wave-bar w-1.5 bg-wa-gold/40 rounded-full" style="height: 14px;"></div>
+                <div class="wave-bar w-1.5 bg-wa-red/50 rounded-full" style="height: 22px;"></div>
+                <div class="wave-bar w-1.5 bg-wa-gold/50 rounded-full" style="height: 28px;"></div>
+                <div class="wave-bar w-1.5 bg-wa-red/60 rounded-full" style="height: 34px;"></div>
+                <div class="wave-bar w-1.5 bg-wa-gold/50 rounded-full" style="height: 28px;"></div>
+                <div class="wave-bar w-1.5 bg-wa-red/50 rounded-full" style="height: 22px;"></div>
+                <div class="wave-bar w-1.5 bg-wa-gold/40 rounded-full" style="height: 14px;"></div>
+                <div class="wave-bar w-1.5 bg-wa-gold/30 rounded-full" style="height: 8px;"></div>
+            </div>
+
+            <!-- 播放控制按鈕 -->
+            <div class="text-center mb-4">
+                <button id="playTruthBtn" class="btn-play inline-flex items-center gap-3 bg-wa-ink hover:bg-wa-red text-white px-8 py-3 rounded-lg transition-all shadow-lg font-serif tracking-widest text-sm">
+                    <span id="playIcon">▶</span>
+                    <span id="playText">播放真相</span>
+                </button>
+            </div>
+
+            <!-- 播放後顯示的經文與案號（與影片同步出現） -->
+            <div id="truthContent" class="truth-content" style="display: none; opacity: 0;">
+
+                <!-- 馬太福音 23 章節錄 -->
+                <div class="bg-wa-bg border-l-4 border-wa-red p-4 mb-4" style="background: #fcfaf2; border-color: #8a1c14;">
+                    <p class="text-sm text-wa-ink leading-relaxed font-serif italic" style="color: #1c1c1c;">
+                        「你們這假冒為善的文士和法利賽人有禍了！因為你們好像粉飾的墳墓，外面好看，裡面卻裝滿了死人的骨頭和一切的污穢。」
+                    </p>
+                    <p class="text-xs text-wa-gray mt-2 text-right" style="color: #595959;">—— 馬太福音 23:27</p>
+                </div>
+
+                <!-- 司法鐵證連結 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <a href="/royal_dragon_karma.html#dossier" class="block border border-wa-line rounded-lg p-3 hover:border-wa-gold transition-all text-center" style="border-color: #e6ded1;">
+                        <span class="text-wa-red">⚖️</span>
+                        <span class="text-wa-ink font-medium">司法鐵證卷宗</span>
+                        <p class="text-[10px] text-wa-gray mt-1">皇家尊龍社區 · 十五年法治紀實</p>
+                    </a>
+                    <a href="/justice.html" class="block border border-wa-line rounded-lg p-3 hover:border-wa-gold transition-all text-center" style="border-color: #e6ded1;">
+                        <span class="text-wa-gold">📊</span>
+                        <span class="text-wa-ink font-medium">數據儀表板</span>
+                        <p class="text-[10px] text-wa-gray mt-1">109年度訴字第2499號 · 臺中道路工程弊案</p>
+                    </a>
+                </div>
+
+                <!-- 案號清單 -->
+                <div class="mt-4 pt-4 border-t border-wa-line text-xs text-wa-gray" style="border-color: #e6ded1; color: #595959;">
+                    <p class="font-medium text-wa-ink" style="color: #1c1c1c;">📜 相關案號</p>
+                    <ul class="mt-2 space-y-1 list-disc list-inside">
+                        <li>109年度訴字第2499號 — 江旭中、劉鴻寬、侯孟志等人貪污詐欺</li>
+                        <li>111年度交訴字第334號 — 沈志聖超速致人於死</li>
+                        <li>民法第244條 — 撤銷詐害債權訴訟</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-5 text-[10px] text-wa-gray text-center border-t border-wa-line pt-4" style="border-color: #e6ded1; color: #595959;">
+                「伸冤在我，我必報應。」—— 羅馬書 12:19
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 相關案例 -->
+        <!-- ============================================================ -->
+        <div class="mt-8 bg-wa-bg border border-wa-line rounded-xl p-6">
+            <h3 class="font-serif text-base font-bold text-wa-ink mb-3 flex items-center gap-2">
+                <i class="fas fa-link text-wa-gold"></i> 相關案例
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="/royal_dragon_karma.html" class="group block bg-white border border-wa-line rounded-xl p-4 hover:border-wa-gold transition-all duration-300 hover:shadow-md">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">🏘️</span>
+                        <div>
+                            <h4 class="font-serif text-sm font-bold text-wa-ink group-hover:text-wa-red transition-colors">皇家尊龍社區 · 公義與法治紀實</h4>
+                            <p class="text-xs text-wa-gray mt-0.5">社區共有物返還與詐害債權案例</p>
+                            <span class="inline-block mt-1 text-[10px] text-wa-gold group-hover:text-wa-red transition-colors">閱讀完整解析 →</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/memorial.html" class="group block bg-white border border-wa-line rounded-xl p-4 hover:border-wa-gold transition-all duration-300 hover:shadow-md">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">📜</span>
+                        <div>
+                            <h4 class="font-serif text-sm font-bold text-wa-ink group-hover:text-wa-red transition-colors">歲月迴聲 · 頂客論壇紀念</h4>
+                            <p class="text-xs text-wa-gray mt-0.5">社群記憶與數位轉型</p>
+                            <span class="inline-block mt-1 text-[10px] text-wa-gold group-hover:text-wa-red transition-colors">閱讀完整故事 →</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- 頁尾 -->
+    <!-- ============================================================ -->
+    <footer class="bg-wa-ink text-[#d9d9d9] py-12 border-t border-wa-gold/20 mt-8">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-8">
+                <a href="/" class="inline-flex items-center gap-3 bg-wa-gold hover:bg-wa-red text-white px-6 py-3 rounded-lg transition-all shadow-lg font-serif tracking-widest text-sm">
+                    <i class="fas fa-home"></i> 返回首頁
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-sm">
+                <div>
+                    <h4 class="font-serif text-sm font-semibold tracking-widest text-white mb-3">⚖️ 歲月與公義</h4>
+                    <p class="text-[11px] text-[#a6a6a6] leading-relaxed font-light">
+                        本案例為真實司法判決之數據視覺化呈現，旨在推廣法治教育與公共工程倫理意識。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-serif text-sm font-semibold tracking-widest text-white mb-3">📚 快速導覽</h4>
+                    <ul class="text-[11px] space-y-2 text-[#a6a6a6]">
+                        <li><a href="/royal_dragon_karma.html" class="footer-link">公義史錄</a></li>
+                        <li><a href="/justice.html" class="footer-link">司法案例解析</a></li>
+                        <li><a href="/memorial.html" class="footer-link">歲月迴聲</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-serif text-sm font-semibold tracking-widest text-wa-red mb-3">🤖 AI 聲明</h4>
+                    <p class="text-[11px] text-[#8c8c8c] leading-relaxed font-light">
+                        本頁面內容由 AI 協助生成，所有司法數據均來自公開判決書，僅供教育與研究參考。
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-[11px] text-[#8c8c8c]">
+                <p>&copy; 2026 AHPAL.COM · 司法案例數據儀表板</p>
+                <p class="mt-2 md:mt-0 tracking-widest text-wa-gold font-serif text-[10px]">法理昭彰 · 歲月見證 · 誠信為本</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- Chart.js 圖表繪製 -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            const ctxBar = document.getElementById('sentenceChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['江旭中', '劉鴻寬', '侯孟志', '莊志強', '洪偉仁'],
+                    datasets: [{
+                        label: '不得易科罰金刑期（月）',
+                        data: [68, 15, 13, 13, 12],
+                        backgroundColor: ['#8a1c14', '#b89047', '#b89047', '#b89047', '#8e9aaf'],
+                        borderRadius: 6,
+                        barThickness: 32,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let months = context.raw;
+                                    if (months >= 12) {
+                                        let years = Math.floor(months / 12);
+                                        let remainMonths = months % 12;
+                                        return years + ' 年 ' + (remainMonths > 0 ? remainMonths + ' 月' : '');
+                                    }
+                                    return months + ' 月';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 12,
+                                callback: function(value) { return value / 12 + '年'; },
+                                color: '#595959'
+                            },
+                            grid: { color: '#e6ded1' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#595959' }
+                        }
+                    }
+                }
+            });
+
+            const ctxPie = document.getElementById('pieChart').getContext('2d');
+            new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['政府損失（修繕／重驗）', '官商不法利益', '司法／行政追償成本'],
+                    datasets: [{
+                        data: [52, 28, 20],
+                        backgroundColor: ['#4a6fa5', '#b89047', '#8e9aaf'],
+                        borderWidth: 0,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 10,
+                                font: { size: 11, family: 'Noto Sans TC' },
+                                color: '#1c1c1c'
+                            }
+                        }
+                    },
+                    cutout: '60%',
+                }
+            });
+        })();
+    </script>
+
+    <!-- ============================================================ -->
+    <!-- 雷效音互動模組 JavaScript（YouTube 播放器控制） -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            const btn = document.getElementById('playTruthBtn');
+            const icon = document.getElementById('playIcon');
+            const text = document.getElementById('playText');
+            const content = document.getElementById('truthContent');
+            const waveform = document.getElementById('waveform');
+            const iframe = document.getElementById('truthVideo');
+            let isPlaying = false;
+            let animationId = null;
+
+            // 取得 YouTube 播放器 API
+            let player = null;
+            let playerReady = false;
+
+            function getPlayer() {
+                if (typeof YT !== 'undefined' && YT.Player) {
+                    if (!player && iframe) {
+                        player = new YT.Player(iframe, {
+                            events: {
+                                'onReady': function() { 
+                                    console.log('YouTube 播放器已就緒');
+                                    playerReady = true;
+                                },
+                                'onStateChange': function(event) {
+                                    if (event.data === YT.PlayerState.ENDED) {
+                                        stopPlayback();
+                                    }
+                                    if (event.data === YT.PlayerState.PLAYING) {
+                                        // 確保播放時音波是啟動狀態
+                                        if (isPlaying && !animationId) {
+                                            animateWave();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    return player;
+                }
+                return null;
+            }
+
+            // 載入 YouTube IFrame API
+            function loadYouTubeAPI() {
+                return new Promise((resolve) => {
+                    if (typeof YT !== 'undefined' && YT.Player) {
+                        resolve();
+                        return;
+                    }
+                    const tag = document.createElement('script');
+                    tag.src = 'https://www.youtube.com/iframe_api';
+                    const firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                    window.onYouTubeIframeAPIReady = function() {
+                        resolve();
+                    };
+                });
+            }
+
+            // 音波動畫
+            function animateWave() {
+                const bars = waveform.querySelectorAll('.wave-bar');
+                bars.forEach((bar) => {
+                    const randomHeight = Math.floor(Math.random() * 30) + 6;
+                    bar.style.height = randomHeight + 'px';
+                });
+                if (isPlaying) {
+                    animationId = requestAnimationFrame(animateWave);
+                }
+            }
+
+            // 開始播放
+            async function startPlayback() {
+                isPlaying = true;
+                icon.textContent = '⏹';
+                text.textContent = '停止播放';
+                btn.classList.add('playing');
+
+                content.style.display = 'block';
+                requestAnimationFrame(() => {
+                    content.style.opacity = '1';
+                });
+
+                animateWave();
+
+                try {
+                    await loadYouTubeAPI();
+                    const p = getPlayer();
+                    if (p && playerReady) {
+                        p.playVideo();
+                    } else {
+                        // 若播放器尚未就緒，使用 iframe src 方式觸發
+                        if (iframe) {
+                            const currentSrc = iframe.src;
+                            if (!currentSrc.includes('autoplay=1')) {
+                                iframe.src = currentSrc + '&autoplay=1';
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.warn('YouTube 播放器載入失敗:', e);
+                    if (iframe) {
+                        const currentSrc = iframe.src;
+                        if (!currentSrc.includes('autoplay=1')) {
+                            iframe.src = currentSrc + '&autoplay=1';
+                        }
+                    }
+                }
+            }
+
+            // 停止播放
+            function stopPlayback() {
+                isPlaying = false;
+                icon.textContent = '▶';
+                text.textContent = '播放真相';
+                btn.classList.remove('playing');
+
+                try {
+                    const p = getPlayer();
+                    if (p && playerReady) {
+                        p.pauseVideo();
+                    }
+                } catch (e) {}
+
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+
+                const bars = waveform.querySelectorAll('.wave-bar');
+                const defaultHeights = [8, 14, 22, 28, 34, 28, 22, 14, 8];
+                bars.forEach((bar, index) => {
+                    bar.style.height = defaultHeights[index] + 'px';
+                });
+
+                content.style.opacity = '0';
+                setTimeout(() => {
+                    if (!isPlaying) {
+                        content.style.display = 'none';
+                    }
+                }, 800);
+            }
+
+            // 按鈕點擊事件
+            btn.addEventListener('click', function() {
+                if (!isPlaying) {
+                    startPlayback();
+                } else {
+                    stopPlayback();
+                }
+            });
+
+            // 預先載入 YouTube API
+            if (iframe) {
+                loadYouTubeAPI().catch(() => {});
+            }
+
+            // 頁面卸載時清理
+            window.addEventListener('beforeunload', function() {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+                try {
+                    const p = getPlayer();
+                    if (p && playerReady) {
+                        p.destroy();
+                    }
+                } catch (e) {}
+            });
+
+        })();
+    </script>
+
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        opacity: 0.7;
+        z-index: 999;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button></body>
+</html>

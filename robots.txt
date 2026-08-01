@@ -1,0 +1,73 @@
+# ============================================================
+# robots.txt - 雅寶社區 · 頂客論壇 (AHPAL.COM)
+# 最後更新：2026-07-31
+# ============================================================
+# 注意：Cloudflare 會自動在部署時於頂部與底部添加管理區塊
+# 此處僅保留核心規則，避免內容重複
+# ============================================================
+
+# --- 一般規則 ---
+User-agent: *
+Allow: /
+Disallow: /logs/
+Disallow: /audio/
+Disallow: /backups/
+Disallow: /data/
+Disallow: /output/
+Disallow: /videos/
+Disallow: /game_backup/
+Disallow: /farm/
+
+# 允許 Google 完整抓取
+User-agent: Googlebot
+Allow: /
+Allow: /game/
+Allow: /tech/
+Allow: /life/
+Allow: /review/
+Allow: /philosophy/
+Allow: /trend/
+Allow: /travel/
+Allow: /docs/
+Allow: /js/
+Disallow: /logs/
+Disallow: /audio/
+Disallow: /backups/
+Disallow: /data/
+Disallow: /output/
+Disallow: /videos/
+
+# 允許 Bing 完整抓取
+User-agent: bingbot
+Allow: /
+Allow: /game/
+Allow: /tech/
+Allow: /life/
+Allow: /review/
+Allow: /philosophy/
+Allow: /trend/
+Disallow: /logs/
+Disallow: /audio/
+Disallow: /backups/
+Disallow: /data/
+Disallow: /output/
+Disallow: /videos/
+
+# 允許 Yahoo 完整抓取
+User-agent: Slurp
+Allow: /
+Allow: /game/
+Allow: /tech/
+Allow: /life/
+Allow: /review/
+Allow: /philosophy/
+Allow: /trend/
+Disallow: /logs/
+Disallow: /audio/
+Disallow: /backups/
+Disallow: /data/
+Disallow: /output/
+Disallow: /videos/
+
+# Sitemap 位置
+Sitemap: https://www.ahpal.com/sitemap.xml

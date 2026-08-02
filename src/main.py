@@ -132,6 +132,12 @@ keywords_list = [
     {"keyword": "2026 年最佳 AI 繪圖工具推薦 TOP 5", "category": "🤖 AI 趨勢", "filename": "trend/2026年最佳AI繪圖工具推薦TOP5.html"},
     {"keyword": "2026 年最新居家收納技巧大全", "category": "🏠 生活小常識", "filename": "life/2026年最新居家收納技巧大全.html"},
 
+    {"keyword": "2026 年高效工作法：5 個科學驗證的專注力策略", "category": "💻 3C 科技教學", "filename": "tech/2026年高效工作法5個科學驗證的專注力策略.html"},
+    {"keyword": "在數位噪音中保持清醒——一位老編輯的 30 年注意力管理手記", "category": "🌟 人生哲理", "filename": "philosophy/在數位噪音中保持清醒一位老編輯的30年注意力管理手記.html"},
+
+    {"keyword": "2026 年知識變現完整攻略：從0到1打造你的數位產品｜創業者必讀", "category": "📊 軟體評測", "filename": "review/2026年知識變現完整攻略從0到1打造你的數位產品創業者必讀.html"},
+    {"keyword": "普通人也能懂的AI時代生存指南：不被取代的5個核心能力｜深度分析", "category": "🤖 AI 趨勢", "filename": "trend/普通人也能懂的AI時代生存指南不被取代的5個核心能力深度分析.html"},
+
 ]
 
 # ============================================================

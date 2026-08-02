@@ -88,13 +88,13 @@
         .signature-box .status-badge { display: inline-block; padding: 4px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; margin-top: 8px; }
         .signature-box .status-badge.approved { background: #C6F6D5; color: #276749; }
 
-        /* 脚注提示 */
         .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 12px 0; font-size: 13px; }
         .legend .tag { display: inline-block; padding: 2px 12px; border-radius: 12px; font-weight: 700; }
         .tag-gold { background: #F6E05E; color: #744210; }
         .tag-green { background: #C6F6D5; color: #22543D; }
         .tag-red { background: #FED7D7; color: #9B2C2C; }
         .tag-blue { background: #BEE3F8; color: #2A4365; }
+        .tag-backup { background: #9B59B6; color: white; }
 
         @media (max-width: 768px) {
             .header .logo { font-size: 22px; }
@@ -124,8 +124,8 @@
     <div class="header">
         <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
         <div class="subtitle">AI 系統交接與新進工程師接手手冊</div>
-        <div class="version">📌 版本 v11.0 · 董事會協作版 · 2026 年 7 月 30 日</div>
-        <div class="status-badge">✅ 生產環境就緒 · 323 篇文章 · 影音產線已打通</div>
+        <div class="version">📌 版本 v11.2 · CLEAR 原則版 · 2026 年 8 月 2 日</div>
+        <div class="status-badge">✅ 生產環境就緒 · 390+ 篇文章 · 影音產線已打通</div>
     </div>
 
     <!-- ============================================================
@@ -144,11 +144,12 @@
                 <li><a href="#section-workflow">6. 日常工作流程</a></li>
                 <li><a href="#section-deploy">7. 部署與上線</a></li>
                 <li><a href="#section-shorts">8. 🎬 影音自動化產線</a></li>
-                <li><a href="#section-troubleshooting">9. 常見問題排錯</a></li>
-                <li><a href="#section-cheatsheet">10. 快速指令參考</a></li>
-                <li><a href="#section-checklist">11. 新進工程師檢查清單</a></li>
-                <li><a href="#section-archive">12. AI 檔案館</a></li>
-                <li><a href="#section-strategy">13. 🎯 戰略決策記錄</a></li>
+                <li><a href="#section-backup">9. 💾 備份與雲端同步</a></li>
+                <li><a href="#section-troubleshooting">10. 常見問題排錯</a></li>
+                <li><a href="#section-cheatsheet">11. 快速指令參考</a></li>
+                <li><a href="#section-checklist">12. 新進工程師檢查清單</a></li>
+                <li><a href="#section-archive">13. AI 檔案館</a></li>
+                <li><a href="#section-strategy">14. 🎯 戰略決策記錄</a></li>
             </ul>
         </div>
     </div>
@@ -168,16 +169,17 @@
                         <tr><td>🎮 HTML5 遊戲</td><td>52 款互動遊戲，免下載即開即玩</td></tr>
                         <tr><td>🎬 影音自動化產線</td><td>文章 → NotebookLM → YouTube Shorts 全自動流程</td></tr>
                         <tr><td>⚙️ 自動化部署</td><td>一鍵完成內容生成 → 靜態檔案輸出 → Cloudflare 部署</td></tr>
+                        <tr><td>☁️ 雲端備份</td><td>Rclone 自動同步至 Google Drive (ahpalke@gmail.com)</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>1.1 系統數據（截至 2026.07.30）</h3>
+            <h3>1.1 系統數據（截至 2026.08.02）</h3>
             <div class="table-wrapper">
                 <table>
                     <thead><tr><th>指標</th><th>數值</th></tr></thead>
                     <tbody>
-                        <tr><td>總文章數</td><td><strong>323 篇</strong></td></tr>
+                        <tr><td>總文章數</td><td><strong>390+ 篇</strong></td></tr>
                         <tr><td>遊戲數量</td><td><strong>52 款</strong></td></tr>
                         <tr><td>分類數量</td><td><strong>6 大類</strong></td></tr>
                         <tr><td>核心 PowerShell 腳本</td><td><strong>26 個</strong></td></tr>
@@ -216,12 +218,12 @@
     </section>
 
     <!-- ============================================================
-    2.5 ⭐ 核心腳本功能總覽 (New!)
+    2.5 ⭐ 核心腳本功能總覽
     ============================================================ -->
     <section id="section-scripts">
         <div class="card" style="border: 2px solid var(--color-accent);">
             <h2 style="border-bottom-color: var(--color-accent);">2.5 ⭐ 核心腳本功能總覽</h2>
-            
+
             <div class="tip success">
                 <div class="tip-title">📌 這份列表是 AHPAL 系統運作的核心</div>
                 <p>所有腳本位於 <code>C:\Users\User\ahpal-static\scripts\</code>，共 26 個 PowerShell 腳本。</p>
@@ -232,6 +234,7 @@
                 <span><span class="tag tag-red">🔴 死命令</span> 推送前強制檢查</span>
                 <span><span class="tag tag-green">✅ 推薦</span> 建議優先熟悉</span>
                 <span><span class="tag tag-blue">🆘 救援</span> 系統崩潰時使用</span>
+                <span><span class="tag tag-backup">💾 備份</span> 備份與同步專用</span>
             </div>
 
             <h3>📜 總指揮 (1 個)</h3>
@@ -286,11 +289,11 @@
                 <table>
                     <thead><tr><th>腳本</th><th>功能</th><th>標籤</th></tr></thead>
                     <tbody>
-                        <tr><td><code>backup-system.ps1</code></td><td><strong>系統完整備份</strong> — 備份腳本、Python 原始碼、網站檔案、文章清單</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
-                        <tr><td><code>backup-golden.ps1</code></td><td><strong>黃金版本備份</strong> — 建立整站優良備份 (ahpal-整站優良備份-*.zip)</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
-                        <tr><td><code>backup-to-archive.ps1</code></td><td>備份到 AI 檔案館 (ahpal-static-stable-*.zip)</td><td><span class="tag tag-blue">🆘 救援</span></td></tr>
-                        <tr><td><code>backup-videos-to-gdrive.ps1</code></td><td><strong>Google Drive 影音備份</strong> — 寫入實體快取，繞過虛擬磁碟限制</td><td><span class="tag tag-green">✅ 推薦</span></td></tr>
-                        <tr><td><code>sync-to-gdrive.ps1</code> *NEW*</td><td><strong>Rclone 統一雲端同步</strong> — 文章/腳本/影音全自動同步至 ahpalke@gmail.com</td><td><span class="tag tag-gold">⭐ 黃金</span></td></tr>
+                        <tr><td><code>backup-system.ps1</code></td><td><strong>系統完整備份</strong> — 備份腳本、Python 原始碼、網站檔案、文章清單</td><td><span class="tag tag-backup">💾 備份</span></td></tr>
+                        <tr><td><code>backup-golden.ps1</code></td><td><strong>⭐ 黃金版本備份</strong> — 建立整站優良備份（每日建議執行）</td><td><span class="tag tag-gold">⭐ 黃金</span></td></tr>
+                        <tr><td><code>backup-to-archive.ps1</code></td><td>快速備份到 AI 檔案館 (ahpal-static-stable-*.zip)</td><td><span class="tag tag-backup">💾 備份</span></td></tr>
+                        <tr><td><code>backup-videos-to-gdrive.ps1</code></td><td><strong>Google Drive 影音備份</strong> — 寫入實體快取，繞過虛擬磁碟限制</td><td><span class="tag tag-backup">💾 備份</span></td></tr>
+                        <tr><td><code>sync-to-gdrive.ps1</code></td><td><strong>⭐ Rclone 統一雲端同步</strong> — 文章/腳本/影音全自動同步至 ahpalke@gmail.com</td><td><span class="tag tag-gold">⭐ 黃金</span></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -351,19 +354,16 @@
             <h2>3. 目錄結構</h2>
             <div class="code-block">
 📁 C:\Users\User\ahpal-static\
-├── 📁 src/                    ← Python 原始碼 (main.py, config.py, api_client.py...)
+├── 📁 src/                    ← Python 原始碼
 ├── 📁 scripts/                ← ⭐ 26 個 PowerShell 腳本 (詳見 2.5 節)
-│   ├── ahpal-master.ps1       ← 萬能總指揮
-│   ├── add-articles.ps1       ← ⭐ JSON 驅動新增文章
-│   ├── sync-to-gdrive.ps1     ← ⭐ Rclone 雲端同步
-│   └── ...
 ├── 📁 data/                   ← ⭐ 文章新增清單存放處
 │   └── pending-articles.json  ← ⭐ 待新增文章 JSON
 ├── 📁 ahpal-AI-archive/       ← AI 檔案館（備份）
-│   ├── 優良備份/              ← ⭐ 黃金版本備份
+│   ├── 優良備份/              ← ⭐ 黃金備份目錄
+│   ├── ahpal-static-stable-*.zip ← 穩定版備份
 │   └── videos/                ← 🎬 影音歸檔
 ├── 📁 game/                   ← 52 款遊戲
-├── 📁 tech/ life/ review/ philosophy/ trend/ ← 文章分類目錄
+├── 📁 tech/ life/ review/ philosophy/ trend/ ← 文章分類
 ├── .env                       ← ⚠️ API Key（不上傳 Git）
 └── index.html                 ← 首頁
             </div>
@@ -399,12 +399,6 @@
 cd C:\Users\User\ahpal-static
 Copy-Item .env.template .env
 notepad .env
-            </div>
-            <p>.env 內容範例：</p>
-            <div class="code-block">
-GEMINI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-YOUTUBE_REFRESH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
             </div>
             <div class="tip warning">
                 <div class="tip-title">⚠️ 重要</div>
@@ -482,6 +476,8 @@ cd C:\Users\User\ahpal-static
                         <tr><td><code>ahpal-deploy</code></td><td>只部署（不生成）</td></tr>
                         <tr><td><code>ahpal-status</code></td><td>查看 Git 狀態</td></tr>
                         <tr><td><code>ahpal-sync</code></td><td>同步至 Google Drive (Rclone)</td></tr>
+                        <tr><td><code>ahpal-check</code></td><td>執行死命令檢查</td></tr>
+                        <tr><td><code>ahpal-backup</code></td><td>執行黃金備份</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -554,15 +550,109 @@ npx wrangler pages deploy . --project-name=ahpal-pages
 .\scripts\youtube-pipeline.ps1 -ArticlePath "tech\文章.html"
 .\scripts\youtube-upload-realtime.ps1 -VideoFile "audio\podcast.wav" -Title "標題"
             </div>
+
+            <h3>8.3 雲端同步（備份至 Google Drive）</h3>
+            <div class="code-block">
+# 同步影音至 Google Drive (ahpalke@gmail.com)
+.\scripts\sync-to-gdrive.ps1 -Task videos
+            </div>
         </div>
     </section>
 
     <!-- ============================================================
-    9. 常見問題排錯
+    9. 💾 備份與雲端同步（新章節）
+    ============================================================ -->
+    <section id="section-backup">
+        <div class="card" style="border: 2px solid var(--color-secondary);">
+            <h2 style="border-bottom-color: var(--color-secondary);">9. 💾 備份與雲端同步</h2>
+
+            <div class="tip success">
+                <div class="tip-title">📌 備份策略：本地 + 雲端 雙重保障</div>
+                <ul>
+                    <li><strong>本地備份</strong>：AI 檔案館 (<code>C:\Users\User\ahpal-AI-archive\</code>)</li>
+                    <li><strong>雲端備份</strong>：Google Drive (ahpalke@gmail.com) 使用 Rclone 同步</li>
+                </ul>
+            </div>
+
+            <h3>9.1 備份腳本對應表</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>備份層級</th><th>本地（AI 檔案館）</th><th>雲端（Google Drive）</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>整站黃金備份</strong></td><td><code>.\scripts\backup-golden.ps1</code></td><td><code>.\scripts\sync-to-gdrive.ps1</code></td></tr>
+                        <tr><td><strong>系統完整備份</strong></td><td><code>.\scripts\backup-system.ps1</code></td><td><code>.\scripts\sync-to-gdrive.ps1</code></td></tr>
+                        <tr><td><strong>文章備份</strong></td><td><code>.\scripts\backup-to-archive.ps1</code></td><td><code>.\scripts\sync-to-gdrive.ps1 -Task articles</code></td></tr>
+                        <tr><td><strong>影音備份</strong></td><td><code>.\scripts\backup-videos-to-gdrive.ps1</code></td><td><code>.\scripts\sync-to-gdrive.ps1 -Task videos</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>9.2 日常備份指令</h3>
+            <div class="code-block">
+# 黃金備份（整站）— 每日建議執行
+.\scripts\backup-golden.ps1
+
+# 雲端同步（全部）— 每日建議執行
+.\scripts\sync-to-gdrive.ps1
+
+# 雲端同步（僅文章）
+.\scripts\sync-to-gdrive.ps1 -Task articles
+
+# 雲端同步（僅影音）
+.\scripts\sync-to-gdrive.ps1 -Task videos
+
+# 雲端同步（預覽模式，不實際上傳）
+.\scripts\sync-to-gdrive.ps1 -DryRun
+
+# 系統完整備份（含壓縮）
+.\scripts\backup-system.ps1 -Compress
+            </div>
+
+            <h3>9.3 備份檔案位置</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>備份類型</th><th>本地位置</th><th>雲端位置</th></tr></thead>
+                    <tbody>
+                        <tr><td>整站黃金備份</td><td><code>C:\Users\User\ahpal-AI-archive\優良備份\</code></td><td><code>ahpalke_drive:/AHPAL_文章_優良備份</code></td></tr>
+                        <tr><td>系統穩定版</td><td><code>C:\Users\User\ahpal-AI-archive\ahpal-static-stable-*.zip</code></td><td><code>ahpalke_drive:/AHPAL_文章_優良備份</code></td></tr>
+                        <tr><td>影音檔案</td><td><code>C:\Users\User\ahpal-AI-archive\videos\</code></td><td><code>ahpalke_drive:/AHPAL_影音備份</code></td></tr>
+                        <tr><td>腳本備份</td><td><code>C:\Users\User\ahpal-static\scripts\</code></td><td><code>ahpalke_drive:/AHPAL_腳本</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>9.4 Rclone 同步詳細指令</h3>
+            <div class="code-block">
+# 檢視同步任務
+.\scripts\sync-to-gdrive.ps1 -Task all
+
+# 僅同步文章
+.\scripts\sync-to-gdrive.ps1 -Task articles
+
+# 僅同步影音
+.\scripts\sync-to-gdrive.ps1 -Task videos
+
+# 僅同步腳本
+.\scripts\sync-to-gdrive.ps1 -Task scripts
+
+# 預覽（不實際上傳）
+.\scripts\sync-to-gdrive.ps1 -DryRun
+            </div>
+
+            <div class="tip warning">
+                <div class="tip-title">⚠️ Rclone 配置</div>
+                <p>首次使用需執行 <code>.\scripts\sync-to-gdrive.ps1</code>，腳本會自動偵測並引導完成 <strong>ahpalke_drive</strong> 的 OAuth 授權。</p>
+                <p>目標帳戶：<strong>ahpalke@gmail.com</strong>（專屬備份帳戶）</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    10. 常見問題排錯
     ============================================================ -->
     <section id="section-troubleshooting">
         <div class="card">
-            <h2>9. 常見問題排錯</h2>
+            <h2>10. 常見問題排錯</h2>
 
             <h4>❌ Gemini API 429 Too Many Requests</h4>
             <div class="tip warning">
@@ -594,15 +684,29 @@ npx wrangler pages deploy . --project-name=ahpal-pages
                 <div class="code-block">.\scripts\preflight-check.ps1 -Fix</div>
                 <p>自動修復可修復的問題（如檔案過小、缺少品牌名稱等）。</p>
             </div>
+
+            <h4>❌ BFG Repo-Cleaner 清理 Git 歷史</h4>
+            <div class="tip warning">
+                <div class="tip-title">用途</div>
+                <p>清理 Git 歷史中的大檔案或敏感檔案（已用於清除 114.84 MB 的 .pack 檔案）。</p>
+                <div class="tip-title">指令</div>
+                <div class="code-block">java -jar C:\tools\bfg.jar --strip-blobs-bigger-than 100M --no-blob-protection</div>
+                <div class="tip-title">前置條件</div>
+                <ul>
+                    <li>已安裝 Java（Eclipse Temurin 21）</li>
+                    <li>BFG Jar 檔案位於 <code>C:\tools\bfg.jar</code></li>
+                    <li>執行後需執行 <code>git reflog expire --expire=now --all</code> 與 <code>git gc --prune=now --aggressive</code></li>
+                </ul>
+            </div>
         </div>
     </section>
 
     <!-- ============================================================
-    10. 快速指令參考
+    11. 快速指令參考
     ============================================================ -->
     <section id="section-cheatsheet">
         <div class="card">
-            <h2>10. 快速指令參考</h2>
+            <h2>11. 快速指令參考</h2>
             <div class="table-wrapper">
                 <table>
                     <thead><tr><th>用途</th><th>指令</th></tr></thead>
@@ -612,13 +716,14 @@ npx wrangler pages deploy . --project-name=ahpal-pages
                         <tr><td>死命令檢查</td><td><code>.\scripts\preflight-check.ps1</code></td></tr>
                         <tr><td>死命令檢查+修復</td><td><code>.\scripts\preflight-check.ps1 -Fix</code></td></tr>
                         <tr><td>全面系統檢查</td><td><code>.\scripts\check-all.ps1</code></td></tr>
+                        <tr><td>📦 黃金備份</td><td><code>.\scripts\backup-golden.ps1</code></td></tr>
                         <tr><td>☁️ 雲端同步 (全部)</td><td><code>.\scripts\sync-to-gdrive.ps1</code></td></tr>
                         <tr><td>☁️ 雲端同步 (僅文章)</td><td><code>.\scripts\sync-to-gdrive.ps1 -Task articles</code></td></tr>
                         <tr><td>☁️ 雲端同步 (僅影音)</td><td><code>.\scripts\sync-to-gdrive.ps1 -Task videos</code></td></tr>
                         <tr><td>☁️ 雲端同步 (預覽)</td><td><code>.\scripts\sync-to-gdrive.ps1 -DryRun</code></td></tr>
-                        <tr><td>📦 黃金備份</td><td><code>.\scripts\backup-golden.ps1</code></td></tr>
                         <tr><td>🎬 YouTube 上傳</td><td><code>.\scripts\youtube-upload-realtime.ps1 -VideoFile "檔案" -Title "標題"</code></td></tr>
                         <tr><td>🆘 緊急還原</td><td>從 AI 檔案館解壓縮 <code>ahpal-static-stable-*.zip</code></td></tr>
+                        <tr><td>🧹 BFG 清理大檔案</td><td><code>java -jar C:\tools\bfg.jar --strip-blobs-bigger-than 100M --no-blob-protection</code></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -626,11 +731,11 @@ npx wrangler pages deploy . --project-name=ahpal-pages
     </section>
 
     <!-- ============================================================
-    11. 新進工程師檢查清單
+    12. 新進工程師檢查清單
     ============================================================ -->
     <section id="section-checklist">
         <div class="card">
-            <h2>11. 新進工程師檢查清單</h2>
+            <h2>12. 新進工程師檢查清單</h2>
 
             <div class="tip success">
                 <div class="tip-title">✅ 請逐項確認</div>
@@ -647,6 +752,7 @@ npx wrangler pages deploy . --project-name=ahpal-pages
                     <li>☐ 確認 <code>.\scripts\add-articles.ps1</code> 可執行</li>
                     <li>☐ 確認 <code>.\scripts\sync-to-gdrive.ps1</code> 可執行</li>
                     <li>☐ 確認 <code>.\scripts\preflight-check.ps1</code> 可執行</li>
+                    <li>☐ 確認 <code>.\scripts\backup-golden.ps1</code> 可執行</li>
                     <li>☐ 熟悉 JSON 驅動新增文章流程</li>
                     <li>☐ 了解影音自動化產線流程</li>
                     <li>☐ 了解 Cloudflare Pages 25MiB 限制</li>
@@ -654,24 +760,26 @@ npx wrangler pages deploy . --project-name=ahpal-pages
                     <li>☐ 了解 <code>.env</code> 安全機制（不上傳 GitHub）</li>
                     <li>☐ 知道 AI 檔案館位置：<code>C:\Users\User\ahpal-AI-archive</code></li>
                     <li>☐ 已閱讀 <strong>2.5 核心腳本功能總覽</strong></li>
+                    <li>☐ 已熟悉備份與雲端同步流程（第 9 章）</li>
+                    <li>☐ 已熟悉 BFG Repo-Cleaner 操作（常見問題 10.5）</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <!-- ============================================================
-    12. AI 檔案館
+    13. AI 檔案館
     ============================================================ -->
     <section id="section-archive">
         <div class="card">
-            <h2>12. AI 檔案館</h2>
+            <h2>13. AI 檔案館</h2>
 
             <p>AI 檔案館是 AHPAL 專案的<b>完整備份系統</b>，用於版本還原和 AI 交接。</p>
 
-            <h3>12.1 檔案館位置</h3>
+            <h3>13.1 檔案館位置</h3>
             <div class="code-block">C:\Users\User\ahpal-AI-archive\</div>
 
-            <h3>12.2 檔案館內容</h3>
+            <h3>13.2 檔案館內容</h3>
             <div class="table-wrapper">
                 <table>
                     <thead><tr><th>檔案/目錄</th><th>說明</th></tr></thead>
@@ -684,48 +792,51 @@ npx wrangler pages deploy . --project-name=ahpal-pages
                 </table>
             </div>
 
-            <h3>12.3 還原方式</h3>
+            <h3>13.3 還原方式</h3>
             <div class="code-block">
 # 還原完整專案
 Expand-Archive -Path "C:\Users\User\ahpal-AI-archive\ahpal-static-stable-*.zip" -DestinationPath "C:\Users\User\" -Force
 
-# 還原單一檔案（黃金版本）
+# 還原單一檔案（從黃金備份）
 Copy-Item "C:\Users\User\ahpal-AI-archive\優良備份\檔案.html" "game\目標檔案.html" -Force
+
+# 還原影音檔案
+Copy-Item "C:\Users\User\ahpal-AI-archive\videos\*" "videos\" -Force
             </div>
         </div>
     </section>
 
     <!-- ============================================================
-    13. 🎯 戰略決策記錄
+    14. 🎯 戰略決策記錄
     ============================================================ -->
     <section id="section-strategy">
         <div class="card" style="border: 2px solid var(--color-accent);">
-            <h2 style="border-bottom-color: var(--color-accent);">13. 🎯 戰略決策記錄</h2>
+            <h2 style="border-bottom-color: var(--color-accent);">14. 🎯 戰略決策記錄</h2>
 
             <div class="tip success">
-                <div class="tip-title">📋 決策記錄（2026-07-30）</div>
+                <div class="tip-title">📋 決策記錄（2026-08-02）</div>
             </div>
 
-            <h3>13.1 雲端同步策略</h3>
+            <h3>14.1 雲端同步策略</h3>
             <div class="table-wrapper">
                 <table>
                     <thead><tr><th>決策</th><th>內容</th></tr></thead>
                     <tbody>
                         <tr><td><strong>工具</strong></td><td>使用 Rclone 統一管理所有雲端同步任務</td></tr>
                         <tr><td><strong>目標帳戶</strong></td><td>ahpalke@gmail.com (專屬備份帳戶)</td></tr>
-                        <tr><td><strong>同步內容</strong></td><td>文章 (優良備份) + 腳本 (scripts/) + 影音 (videos/)</td></tr>
-                        <tr><td><strong>同步頻率</strong></td><td>每日自動 (可透過 Windows 排程器設定)</td></tr>
+                        <tr><td><strong>同步內容</strong></td><td>整站黃金備份 + 腳本 (scripts/) + 影音 (videos/)</td></tr>
+                        <tr><td><strong>同步指令</strong></td><td><code>.\scripts\sync-to-gdrive.ps1</code></td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>13.2 影音檔案存放策略</h3>
+            <h3>14.2 影音檔案存放策略</h3>
             <div class="table-wrapper">
                 <table>
                     <thead><tr><th>決策</th><th>內容</th></tr></thead>
                     <tbody>
                         <tr><td><strong>問題</strong></td><td>Cloudflare Pages 單一檔案限制 25 MiB</td></tr>
-                        <tr><td><strong>決策</strong></td><td>影音檔案不存放於 Pages，改為 YouTube + AI 檔案館</td></tr>
+                        <tr><td><strong>決策</strong></td><td>影音檔案不存放於 Pages，改為 YouTube + AI 檔案館 + Google Drive</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -772,8 +883,8 @@ Copy-Item "C:\Users\User\ahpal-AI-archive\優良備份\檔案.html" "game\目標
     頁尾
     ============================================================ -->
     <div style="text-align:center;padding:30px 0;color:#A0AEC0;font-size:13px;border-top:1px solid var(--color-border);margin-top:20px;">
-        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — AI 系統交接與新進工程師接手手冊 v11.0<br>
-        文件最後更新：2026 年 7 月 30 日 ｜ 文章總數：323 篇 ｜ 核心腳本：26 個
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — AI 系統交接與新進工程師接手手冊 v11.2<br>
+        文件最後更新：2026 年 8 月 2 日 ｜ 文章總數：390+ 篇 ｜ 核心腳本：26 個
         <br><br>
         <span style="font-size:12px;color:#718096;">
         🦞 龍蝦總工程師 · 🤖 Gemini 顧問 · 🏛️ ChatGPT 執行長 · 👑 董事會 共同制定
@@ -781,6 +892,14 @@ Copy-Item "C:\Users\User\ahpal-AI-archive\優良備份\檔案.html" "game\目標
         <br>
         <span style="font-size:12px;color:#00A86B;">
         🎬 影音自動化產線已打通 ✅ ｜ 📦 Pages 已輕量化 ✅ ｜ ☁️ Rclone 雲端同步已整合 ✅
+        </span>
+        <br>
+        <span style="font-size:12px;color:#9B59B6;">
+        💾 本地備份 + 雲端同步 雙重保障 ✅
+        </span>
+        <br>
+        <span style="font-size:12px;color:#718096;">
+        🧹 BFG Repo-Cleaner 已納入維護工具鏈
         </span>
     </div>
 

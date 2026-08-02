@@ -1,9 +1,10 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v4.7 (黃金樣板整合版)
+# html_builder.py - HTML 建構模組 v4.8 (統一 CSS 版)
 # ============================================================
 # 功能：建構所有 HTML（首頁、分類頁、文章頁面）
 # 修正：統一頁頂品牌標示為可點擊超連結
 # 新增：文章底部「相關文章推薦」區塊（黃金樣板風格）
+# 新增：統一引用 /style/main.css（取代內嵌 CSS）
 # 修復：導覽列加入隱私權政策連結
 # 修復：底部導航連結顏色修正（#CBD5E0 → hover #FFFFFF）
 # 修復：SITE_FOOTER 和 BACK_TO_TOP 花括號轉義（避免 .format() 衝突）
@@ -181,6 +182,11 @@ GA4_CODE = f'''<script async src="https://www.googletagmanager.com/gtag/js?id={G
 </script>'''
 
 # ============================================================
+# 🆕 統一 CSS 連結（所有新文章共用）
+# ============================================================
+UNIFIED_CSS_LINK = '<link rel="stylesheet" href="/style/main.css">'
+
+# ============================================================
 # 清理 AI 頁頂註解文字
 # ============================================================
 
@@ -207,16 +213,44 @@ def clean_ai_header(html_content):
     return html_content
 
 # ============================================================
-# 文章 HTML 增強（統一加入品牌、首頁連結、TOP按鈕、相關文章）
+# 文章 HTML 增強（統一品牌、首頁連結、TOP、相關文章、統一CSS）
 # ============================================================
 
 def enhance_article_html(html_content):
-    """增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦"""
+    """增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦、統一CSS"""
     if not html_content:
         return html_content
     
     # 清理 AI 頁頂註解
     html_content = clean_ai_header(html_content)
+    
+    # ============================================================
+    # 0. 🆕 在 <head> 中插入統一 CSS 連結（取代內嵌 CSS）
+    # ============================================================
+    # 移除原有的內嵌 <style> 區塊（如果存在）
+    html_content = re.sub(
+        r'<style>.*?</style>',
+        '',
+        html_content,
+        flags=re.IGNORECASE | re.DOTALL
+    )
+    
+    # 移除原有的 <link> 標籤中的 main.css（如果存在）
+    html_content = re.sub(
+        r'<link[^>]*main\.css[^>]*>',
+        '',
+        html_content,
+        flags=re.IGNORECASE
+    )
+    
+    # 插入統一 CSS 連結
+    if '<head>' in html_content:
+        # 檢查是否已有 main.css 連結
+        if 'main.css' not in html_content:
+            html_content = html_content.replace('<head>', '<head>\n    ' + UNIFIED_CSS_LINK)
+            print("   ✅ 已加入統一 CSS 連結")
+    else:
+        html_content = UNIFIED_CSS_LINK + '\n' + html_content
     
     # ============================================================
     # 1. 強制移除 AI 生成的純文字品牌，換成可點擊的超連結
@@ -259,16 +293,13 @@ def enhance_article_html(html_content):
     # ============================================================
     # 3. 確保頁尾有「相關文章推薦」、「返回首頁」連結、返回頂部按鈕
     # ============================================================
-    # 🆕 先檢查是否已有「相關文章推薦」區塊
     if '相關文章推薦' not in html_content:
-        # 插入相關文章推薦區塊 + 返回首頁 + 返回頂部
         html_content = html_content.replace(
             '</body>', 
             RELATED_ARTICLES_BLOCK + '\n' + HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>'
         )
         print("   ✅ 已加入相關文章推薦區塊 + 返回首頁 + 返回頂部按鈕")
     else:
-        # 如果已有相關文章，確保返回首頁和返回頂部存在
         if '返回首頁' not in html_content:
             html_content = html_content.replace('</body>', HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>')
             print("   ✅ 已加入返回首頁連結")
@@ -334,7 +365,6 @@ def create_default_index():
             if f.endswith(".html") and f not in EXCLUDED_FILES:
                 if not f.startswith("category-"):
                     rel_path = os.path.relpath(os.path.join(root, f), OUTPUT_DIR)
-                    # 統一使用 / 作為路徑分隔符（解決分類判斷失敗問題）
                     rel_path = rel_path.replace('\\', '/')
                     cat_key = "其他"
                     for cat_dir, cat_name in category_dirs.items():
@@ -359,11 +389,9 @@ def create_default_index():
                         "mtime": mtime
                     })
     
-    # 按修改時間排序（最新在前）
     all_articles.sort(key=lambda x: x["mtime"], reverse=True)
     latest_articles = all_articles[:30]
     
-    # 分類文章（用於索引區）
     category_articles = {}
     for cat_dir in category_dirs.keys():
         cat_articles = [a for a in all_articles if a["filename"].startswith(cat_dir + "/")]
@@ -684,7 +712,6 @@ def generate_category_pages():
     """生成各分類的獨立頁面（與原 ahpal_generator.py 相容）"""
     print("📄 正在生成分類頁面...")
     
-    # 直接使用 CATEGORIES（從 config 導入）
     from src.config import CATEGORIES as CATEGORIES_CONFIG
     
     for cat_id, cat_info in CATEGORIES_CONFIG.items():

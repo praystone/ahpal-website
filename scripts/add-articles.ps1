@@ -1,9 +1,12 @@
 ﻿# ============================================================
-# add-articles.ps1 - 自動新增文章腳本 v2.1
+# add-articles.ps1 - 自動新增文章腳本 v2.2 (編碼修復版)
 # ============================================================
 # 功能：從 JSON 檔案讀取關鍵字，自動新增到 main.py
 # 強化：UTF-8 無 BOM、特殊字元過濾、自動備份
 # 修正：PowerShell 5.1 相容性（.Trim() 取代 -trim）
+# 修正：強制 UTF-8 無 BOM 寫入 pending-articles.json
+# 新增：JSON 編碼自動偵測與修復
+# 新增：檔案名稱重複檢查
 # 使用方法：.\add-articles.ps1
 # ============================================================
 
@@ -23,8 +26,34 @@ function Write-UTF8NoBOM {
     [System.IO.File]::WriteAllText($Path, $Content, $utf8)
 }
 
+# 讀取 JSON（自動偵測編碼）
+function Read-JsonFile {
+    param([string]$Path)
+    
+    # 嘗試 UTF-8
+    try {
+        $content = Get-Content -Path $Path -Raw -Encoding UTF8 -ErrorAction Stop
+        return $content | ConvertFrom-Json
+    } catch {
+        # 嘗試 Big5（ANSI）
+        try {
+            $content = Get-Content -Path $Path -Raw -Encoding Default -ErrorAction Stop
+            return $content | ConvertFrom-Json
+        } catch {
+            # 嘗試讀取為純文字後強制轉換
+            try {
+                $bytes = [System.IO.File]::ReadAllBytes($Path)
+                $content = [System.Text.Encoding]::UTF8.GetString($bytes)
+                return $content | ConvertFrom-Json
+            } catch {
+                throw "無法讀取 JSON 檔案，請確認編碼是否為 UTF-8"
+            }
+        }
+    }
+}
+
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "  📝 自動新增文章工具 v2.1 (龍蝦總工程師強化版)" -ForegroundColor Green
+Write-Host "  📝 自動新增文章工具 v2.2 (編碼修復版)" -ForegroundColor Green
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -45,14 +74,14 @@ if (-not (Test-Path $PendingFile)) {
 }
 
 # ============================================================
-# 2. 讀取並驗證 JSON
+# 2. 讀取並驗證 JSON（自動偵測編碼）
 # ============================================================
 try {
-    $PendingRaw = Get-Content $PendingFile -Raw -Encoding UTF8
-    $Pending = $PendingRaw | ConvertFrom-Json
+    $Pending = Read-JsonFile -Path $PendingFile
 } catch {
-    Write-Host "❌ JSON 格式錯誤！請檢查 pending-articles.json" -ForegroundColor Red
-    Write-Host "   錯誤訊息：$($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "❌ JSON 讀取失敗：$($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "   請確認 pending-articles.json 為 UTF-8 編碼" -ForegroundColor Yellow
+    Write-Host "   修復方式：用 Notepad++ 或 VS Code 另存為 UTF-8 無 BOM" -ForegroundColor Yellow
     Read-Host "按 Enter 鍵結束"
     exit 1
 }
@@ -133,6 +162,9 @@ foreach ($item in $Pending) {
 
 if ($NewItems.Count -eq 0) {
     Write-Host "✅ 所有文章都已存在，無需新增" -ForegroundColor Green
+    # 清空 pending-articles.json（UTF-8 無 BOM）
+    Write-UTF8NoBOM -Path $PendingFile -Content "[]"
+    Write-Host "   ✅ pending-articles.json 已清空" -ForegroundColor Green
     Read-Host "按 Enter 鍵結束"
     exit 0
 }
@@ -161,14 +193,46 @@ function Get-SafeFilename {
     $safeName = $safeName -replace '\s+', '-'
     # 去掉連續的中線
     $safeName = $safeName -replace '-+', '-'
-    # 去掉前後中線（修正：使用 .Trim() 方法）
+    # 去掉前後中線
     $safeName = $safeName.Trim('-')
+    
+    # 如果檔案名稱為空，使用時間戳
+    if ([string]::IsNullOrEmpty($safeName)) {
+        $safeName = "article-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+    }
     
     return "$catDir/$safeName.html"
 }
 
 # ============================================================
-# 8. 插入新關鍵字到 keywords_list
+# 8. 檢查檔案名稱是否已存在（避免覆蓋）
+# ============================================================
+$ExistingFiles = @()
+$FilesToCheck = $NewItems | ForEach-Object { 
+    Get-SafeFilename -Keyword $_.keyword -Category $_.category 
+}
+foreach ($f in $FilesToCheck) {
+    $fullPath = Join-Path $ProjectRoot $f
+    if (Test-Path $fullPath) {
+        $ExistingFiles += $f
+    }
+}
+
+if ($ExistingFiles.Count -gt 0) {
+    Write-Host "   ⚠️ 以下檔案已存在，將被覆蓋：" -ForegroundColor Yellow
+    foreach ($f in $ExistingFiles) {
+        Write-Host "      - $f" -ForegroundColor Gray
+    }
+    $overwriteConfirm = Read-Host "是否繼續？(y/n)"
+    if ($overwriteConfirm -ne "y") {
+        Write-Host "已取消操作" -ForegroundColor Yellow
+        Read-Host "按 Enter 鍵結束"
+        exit 0
+    }
+}
+
+# ============================================================
+# 9. 插入新關鍵字到 keywords_list
 # ============================================================
 $NewEntries = @()
 foreach ($item in $NewItems) {
@@ -191,21 +255,19 @@ if ($InsertPoint -lt 0) {
 $NewContent = $Content.Insert($InsertPoint, "`n" + ($NewEntries -join "`n") + "`n")
 
 # ============================================================
-# 9. 寫回 main.py（UTF-8 無 BOM）
+# 10. 寫回 main.py（UTF-8 無 BOM）
 # ============================================================
 Write-UTF8NoBOM -Path $MainPy -Content $NewContent
 Write-Host "   ✅ main.py 已更新（UTF-8 無 BOM）" -ForegroundColor Green
 
 # ============================================================
-# 10. 清空 pending-articles.json（UTF-8 無 BOM）
+# 11. 清空 pending-articles.json（UTF-8 無 BOM）
 # ============================================================
-$Empty = @()
-$EmptyJson = $Empty | ConvertTo-Json -Depth 10
-Write-UTF8NoBOM -Path $PendingFile -Content $EmptyJson
-Write-Host "   ✅ pending-articles.json 已清空" -ForegroundColor Green
+Write-UTF8NoBOM -Path $PendingFile -Content "[]"
+Write-Host "   ✅ pending-articles.json 已清空（UTF-8 無 BOM）" -ForegroundColor Green
 
 # ============================================================
-# 11. 完成摘要
+# 12. 完成摘要
 # ============================================================
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Green
@@ -215,7 +277,8 @@ Write-Host ""
 Write-Host "📊 摘要：" -ForegroundColor Yellow
 Write-Host "   ├─ 新增文章：$($NewItems.Count) 篇" -ForegroundColor Cyan
 Write-Host "   ├─ 跳過（已存在）：$SkippedCount 篇" -ForegroundColor Gray
-Write-Host "   └─ 備份位置：$BackupPath" -ForegroundColor Gray
+Write-Host "   ├─ 備份位置：$BackupPath" -ForegroundColor Gray
+Write-Host "   └─ 編碼：UTF-8 無 BOM ✅" -ForegroundColor Green
 Write-Host ""
 Write-Host "📌 下一步：" -ForegroundColor Yellow
 Write-Host "   python src\main.py --force deepseek" -ForegroundColor White

@@ -1,9 +1,10 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 萬能總指揮 v7.1
+# 雅寶社區 · 頂客論壇 - 萬能總指揮 v7.2
 # ============================================================
-# 功能：備份、生成遊戲、生成文章、Git 提交、Cloudflare 部署、SEO 驗證
+# 功能：備份、處理待新增文章、生成遊戲、生成文章、Git 提交、Cloudflare 部署、SEO 驗證
 # 支援命令列參數：.\ahpal-master.ps1 -Action full|quick|games|articles|backup|deploy|check|status|seo
 # 支援強制 API：.\ahpal-master.ps1 -ForceApi gemini|deepseek|auto
+# 更新 v7.2：自動執行 add-articles.ps1 處理 pending-articles.json
 # ============================================================
 
 param(
@@ -33,6 +34,44 @@ if (Test-Path ".env") {
         if ($_ -match '^([^=]+)=(.*)$') {
             [Environment]::SetEnvironmentVariable($matches[1], $matches[2])
         }
+    }
+}
+
+# ============================================================
+# 輔助函數：檢查並處理待新增文章
+# ============================================================
+function Invoke-ProcessPending {
+    param([string]$StepName = "檢查待新增文章")
+    
+    $PendingFile = Join-Path $ProjectRoot "data\pending-articles.json"
+    
+    # 檢查檔案是否存在
+    if (-not (Test-Path $PendingFile)) {
+        Write-Host "   ℹ️ 沒有待新增文章檔案" -ForegroundColor Gray
+        return $false
+    }
+    
+    # 檢查檔案是否為空
+    $Content = Get-Content $PendingFile -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
+    if ([string]::IsNullOrWhiteSpace($Content) -or $Content -eq "[]") {
+        Write-Host "   ℹ️ 待新增文章清單為空" -ForegroundColor Gray
+        return $false
+    }
+    
+    # 嘗試解析 JSON
+    try {
+        $Pending = $Content | ConvertFrom-Json
+        $count = $Pending.Count
+        if ($count -eq 0) {
+            Write-Host "   ℹ️ 待新增文章清單為空" -ForegroundColor Gray
+            return $false
+        }
+        Write-Host "   📋 發現 $count 篇待新增文章，執行 add-articles.ps1..." -ForegroundColor Yellow
+        & "$ScriptDir\add-articles.ps1"
+        return $true
+    } catch {
+        Write-Host "   ⚠️ pending-articles.json 格式有誤，跳過處理" -ForegroundColor Yellow
+        return $false
     }
 }
 
@@ -68,12 +107,10 @@ function Invoke-SeoValidation {
             $allPass = $false
         }
 
-        # 🔧 優化：檢查 Cloudflare Managed 區塊（自動添加）或本地手動添加的 AI 爬蟲規則
         if ($robots -match "Cloudflare Managed|GPTBot|ClaudeBot") {
             Write-Host "   ✅ AI 爬蟲封鎖：已設定 (Cloudflare 自動管理)" -ForegroundColor Green
         } else {
             Write-Host "   ⚠️ AI 爬蟲封鎖：未設定（Cloudflare 部署後會自動添加）" -ForegroundColor Yellow
-            # 不將此項設為失敗，因為 Cloudflare 會自動添加
         }
 
         try {
@@ -200,30 +237,44 @@ function Invoke-SeoValidation {
 }
 
 # ============================================================
-# 2. 核心功能函數（直接實作，避免遞迴呼叫）
+# 2. 核心功能函數（已整合 add-articles.ps1）
 # ============================================================
+
+# 🆕 輔助函數：獲取文章數量（排除遊戲和特殊頁面）
+function Get-ArticleCount {
+    $count = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { 
+        $_.DirectoryName -notmatch "game" -and 
+        $_.Name -notmatch "index|categories|dashboard|about|contact|privacy|terms|404|memorial|royal"
+    } | Measure-Object).Count
+    return $count
+}
+
 function Invoke-FullPipeline {
     Write-Host ""
-    Write-Host "▶️ 執行完整流程 (備份 + 生成 + Git + 部署)..." -ForegroundColor Cyan
+    Write-Host "▶️ 執行完整流程 (備份 + 處理待新增 + 生成 + Git + 部署)..." -ForegroundColor Cyan
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
     
     # 1. 備份
-    Write-Host "   [1/4] 執行備份..." -ForegroundColor Yellow
+    Write-Host "   [1/5] 執行備份..." -ForegroundColor Yellow
     & "$ScriptDir\backup-system.ps1" -Compress
     
-    # 2. 生成文章
-    Write-Host "   [2/4] 生成文章..." -ForegroundColor Yellow
+    # 🆕 2. 處理待新增文章
+    Write-Host "   [2/5] 處理待新增文章..." -ForegroundColor Yellow
+    Invoke-ProcessPending
+    
+    # 3. 生成文章
+    Write-Host "   [3/5] 生成文章..." -ForegroundColor Yellow
     python src/main.py --force deepseek
     
-    # 3. Git 提交
-    Write-Host "   [3/4] Git 提交..." -ForegroundColor Yellow
+    # 4. Git 提交
+    Write-Host "   [4/5] Git 提交..." -ForegroundColor Yellow
     git add .
-    $articleCount = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.DirectoryName -notmatch "game" -and $_.Name -notmatch "index|categories" } | Measure-Object).Count
+    $articleCount = Get-ArticleCount
     git commit -m "🔄 完整更新 (總數: $articleCount 篇) | $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git push origin main
     
-    # 4. 部署
-    Write-Host "   [4/4] 部署到 Cloudflare..." -ForegroundColor Yellow
+    # 5. 部署
+    Write-Host "   [5/5] 部署到 Cloudflare..." -ForegroundColor Yellow
     npx wrangler pages deploy . --project-name=ahpal-pages
     
     Write-Host "✅ 完整流程執行完畢！" -ForegroundColor Green
@@ -234,19 +285,23 @@ function Invoke-QuickUpdate {
     Write-Host "▶️ 執行快速更新 (跳過備份)..." -ForegroundColor Cyan
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
     
-    # 1. 生成文章
-    Write-Host "   [1/3] 生成文章..." -ForegroundColor Yellow
+    # 🆕 1. 處理待新增文章
+    Write-Host "   [1/4] 處理待新增文章..." -ForegroundColor Yellow
+    Invoke-ProcessPending
+    
+    # 2. 生成文章
+    Write-Host "   [2/4] 生成文章..." -ForegroundColor Yellow
     python src/main.py --force deepseek
     
-    # 2. Git 提交
-    Write-Host "   [2/3] Git 提交..." -ForegroundColor Yellow
+    # 3. Git 提交
+    Write-Host "   [3/4] Git 提交..." -ForegroundColor Yellow
     git add .
-    $articleCount = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.DirectoryName -notmatch "game" -and $_.Name -notmatch "index|categories" } | Measure-Object).Count
+    $articleCount = Get-ArticleCount
     git commit -m "🔄 快速更新 (總數: $articleCount 篇) | $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git push origin main
     
-    # 3. 部署
-    Write-Host "   [3/3] 部署到 Cloudflare..." -ForegroundColor Yellow
+    # 4. 部署
+    Write-Host "   [4/4] 部署到 Cloudflare..." -ForegroundColor Yellow
     npx wrangler pages deploy . --project-name=ahpal-pages
     
     Write-Host "✅ 快速更新執行完畢！" -ForegroundColor Green
@@ -265,11 +320,15 @@ function Invoke-GenerateArticles {
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
     
     # 1. 生成遊戲
-    Write-Host "   [1/2] 生成遊戲..." -ForegroundColor Yellow
+    Write-Host "   [1/3] 生成遊戲..." -ForegroundColor Yellow
     & "$ScriptDir\generate-games.ps1"
     
-    # 2. 生成文章
-    Write-Host "   [2/2] 生成文章..." -ForegroundColor Yellow
+    # 🆕 2. 處理待新增文章
+    Write-Host "   [2/3] 處理待新增文章..." -ForegroundColor Yellow
+    Invoke-ProcessPending
+    
+    # 3. 生成文章
+    Write-Host "   [3/3] 生成文章..." -ForegroundColor Yellow
     python src/main.py --force deepseek
     
     Write-Host "✅ 文章生成完畢！請手動執行部署" -ForegroundColor Green
@@ -293,7 +352,7 @@ function Invoke-GitAndDeploy {
     if ($hasChanges -gt 0) {
         Write-Host "   [1/3] 發現 $hasChanges 個檔案變更，提交中..." -ForegroundColor Yellow
         git add .
-        $articleCount = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.DirectoryName -notmatch "game" -and $_.Name -notmatch "index|categories" } | Measure-Object).Count
+        $articleCount = Get-ArticleCount
         git commit -m "🔄 更新文章 (總數: $articleCount 篇) | $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     } else {
         Write-Host "   [1/3] 無變更，跳過提交" -ForegroundColor Yellow
@@ -310,15 +369,12 @@ function Invoke-GitAndDeploy {
     Write-Host "✅ Git + 部署執行完畢！" -ForegroundColor Green
 }
 
-# 改為：
 function Invoke-CheckArticles {
     Write-Host ""
     Write-Host "▶️ 檢查文章狀態..." -ForegroundColor Cyan
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
     & "$ScriptDir\check-all.ps1" -Report
 }
-# (名稱相同，但 check-all.ps1 已包含所有功能)
-
 
 function Invoke-SystemStatus {
     Write-Host ""
@@ -326,7 +382,7 @@ function Invoke-SystemStatus {
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
     
     # 文章統計
-    $articleCount = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.DirectoryName -notmatch "game" -and $_.Name -notmatch "index|categories|dashboard|about|contact|privacy|terms" } | Measure-Object).Count
+    $articleCount = Get-ArticleCount
     Write-Host "   📝 文章總數：$articleCount 篇" -ForegroundColor Cyan
     
     # 遊戲統計
@@ -381,23 +437,37 @@ function Set-ForceApi {
 function Show-MainMenu {
     Clear-Host
     Write-Host "============================================================" -ForegroundColor Cyan
-    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v7.1" -ForegroundColor Cyan
+    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v7.2" -ForegroundColor Cyan
     Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "📊 系統狀態：" -ForegroundColor Yellow
     
-    $articleCount = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.DirectoryName -notmatch "game" -and $_.Name -notmatch "index|categories|dashboard|about|contact|privacy|terms" } | Measure-Object).Count
+    $articleCount = Get-ArticleCount
     $gameCount = (Get-ChildItem game -Filter "*.html" -ErrorAction SilentlyContinue | Measure-Object).Count
     
     Write-Host "   📝 文章總數：$articleCount 篇" -ForegroundColor Cyan
     Write-Host "   🎮 遊戲數量：$gameCount 款" -ForegroundColor Cyan
+    
+    # 🆕 檢查是否有待新增文章
+    $PendingFile = Join-Path $ProjectRoot "data\pending-articles.json"
+    if (Test-Path $PendingFile) {
+        try {
+            $Content = Get-Content $PendingFile -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
+            if (-not [string]::IsNullOrWhiteSpace($Content) -and $Content -ne "[]") {
+                $Pending = $Content | ConvertFrom-Json -ErrorAction SilentlyContinue
+                if ($Pending -and $Pending.Count -gt 0) {
+                    Write-Host "   📋 待新增文章：$($Pending.Count) 篇 ⚠️" -ForegroundColor Yellow
+                }
+            }
+        } catch {}
+    }
     Write-Host ""
     Write-Host "📋 請選擇要執行的操作：" -ForegroundColor Yellow
     Write-Host ""
-    Write-Host "   [1] 完整流程 (備份 + 生成 + Git + 部署)"
-    Write-Host "   [2] 快速更新 (跳過備份)"
+    Write-Host "   [1] 完整流程 (備份 + 處理待新增 + 生成 + Git + 部署)"
+    Write-Host "   [2] 快速更新 (處理待新增 + 生成 + Git + 部署)"
     Write-Host "   [3] 只生成遊戲 (不耗 API，快速)"
-    Write-Host "   [4] 只生成文章 (遊戲 + 文章，不部署)"
+    Write-Host "   [4] 只生成文章 (遊戲 + 處理待新增 + 文章，不部署)"
     Write-Host "   [5] 只做備份 (不生成、不部署)"
     Write-Host "   [6] 只做 Git + 部署 (不生成)"
     Write-Host "   [7] 檢查文章狀態"
@@ -436,7 +506,7 @@ function Show-MainMenu {
 # ============================================================
 if ($Action) {
     # 命令列模式
-    Write-Host "🦞 AHPAL 萬能總指揮 v7.1 (命令列模式)" -ForegroundColor Cyan
+    Write-Host "🦞 AHPAL 萬能總指揮 v7.2 (命令列模式)" -ForegroundColor Cyan
     Write-Host "   Action: $Action" -ForegroundColor Gray
     
     switch ($Action) {

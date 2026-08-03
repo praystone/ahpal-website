@@ -153,6 +153,13 @@ keywords_list = [
     {"keyword": "撒迦利亞書第 7-8 章解析：真實的禁食與耶路撒冷的復興（中英對照）", "category": "🌟 人生哲理", "filename": "philosophy/撒迦利亞書第7-8章解析真實的禁食與耶路撒冷的復興中英對照.html"},
     {"keyword": "撒迦利亞書第 9-10 章解析：審判列國與錫安君王的降臨（中英對照）", "category": "🌟 人生哲理", "filename": "philosophy/撒迦利亞書第9-10章解析審判列國與錫安君王的降臨中英對照.html"},
 
+    {"keyword": "冥想入門指南每天10分鐘提升專注力與情緒管理", "category": "🌟 人生哲理", "filename": "philosophy/meditation-guide-10-minutes.html"},
+    {"keyword": "原子習慣如何用微小改變打造長期競爭力", "category": "🌟 人生哲理", "filename": "philosophy/atomic-habits-guide.html"},
+    {"keyword": "成長型思維vs固定型思維決定人生成敗的關鍵心態", "category": "🌟 人生哲理", "filename": "philosophy/growth-mindset-vs-fixed-mindset.html"},
+    {"keyword": "數位時代的專注力訓練方法與實踐指南", "category": "🌟 人生哲理", "filename": "philosophy/digital-focus-training-guide.html"},
+    {"keyword": "財務自由之路被動收入建立完全攻略", "category": "🌟 人生哲理", "filename": "philosophy/financial-freedom-passive-income-guide.html"},
+    {"keyword": "正念冥想減壓技巧與日常練習方法", "category": "🌟 人生哲理", "filename": "philosophy/mindfulness-stress-reduction-guide.html"},
+
 ]
 
 # ============================================================

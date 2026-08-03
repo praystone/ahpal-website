@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -442,15 +442,5 @@
     }}
 </style>
     <p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
-<!-- ===== 雅寶社區-頂客論壇 站內搜尋 ===== -->
-<div style="text-align: center; padding: 25px 20px 15px 20px; border-top: 2px solid #e9ecef; margin-top: 30px; background: #f8f9fa;">
-    <p style="font-size: 15px; font-weight: 600; color: #005A9C; margin-bottom: 12px;">🔍 站內搜尋</p>
-    <div style="max-width: 500px; margin: 0 auto;">
-        <script async src="https://cse.google.com/cse.js?cx=940a30ae4765c4e72"></script>
-        <div class="gcse-search"></div>
-    </div>
-</div>
-
 </body>
 </html>
-

@@ -310,12 +310,15 @@ function Invoke-GitAndDeploy {
     Write-Host "✅ Git + 部署執行完畢！" -ForegroundColor Green
 }
 
+# 改為：
 function Invoke-CheckArticles {
     Write-Host ""
     Write-Host "▶️ 檢查文章狀態..." -ForegroundColor Cyan
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
     & "$ScriptDir\check-all.ps1" -Report
 }
+# (名稱相同，但 check-all.ps1 已包含所有功能)
+
 
 function Invoke-SystemStatus {
     Write-Host ""

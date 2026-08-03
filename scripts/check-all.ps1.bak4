@@ -82,12 +82,12 @@ foreach ($dirName in $CategoryDirs.Keys) {
         $sizeKB = [math]::Round($f.Length / 1KB, 2)
         $isAbnormal = $f.Length -lt 5120
         $hasBrand = $false
-        $HasApiError = @()
+        $hasApiError = $false
         
         try {
             $content = Get-Content -Path $f.FullName -Encoding UTF8 -Raw -ErrorAction SilentlyContinue
             if ($content -match "雅寶社區") { $hasBrand = $true }
-            if ($content -match "429|503|RESOURCE_EXHAUSTED|unavailable|暫時無法") { $HasApiError = @() }
+            if ($content -match "429|503|RESOURCE_EXHAUSTED|unavailable|暫時無法") { $hasApiError = $true }
         } catch {
             $hasBrand = $false
         }
@@ -152,7 +152,7 @@ foreach ($dirName in $CategoryDirs.Keys) {
         if (-not $hasBrand) { [void]$MissingBrand.Add($article) }
         # ✅ 修復：使用 .Add() 方法
         if ($hasApiError) { 
-            $HasApiError += $article.Name
+            [void]$HasApiError.Add($article.Name)
         }
         if ($article.IsLowQuality) { [void]$LowQualityFiles.Add($article) }
     }

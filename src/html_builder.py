@@ -1,18 +1,16 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v4.9 (黃金 Header 強制插入版)
+# html_builder.py - HTML 建構模組 v5.0 (標題去重優化版)
 # ============================================================
 # 功能：建構所有 HTML（首頁、分類頁、文章頁面）
 # 修正：統一頁頂品牌標示為可點擊超連結
 # 新增：文章底部「相關文章推薦」區塊（黃金樣板風格）
 # 新增：統一引用 /style/main.css（取代內嵌 CSS）
 # 新增：強制插入黃金樣板 Header（含發表時間、更新日期、編輯）
+# 修復：標題重複問題（移除原有的 h1，僅保留 Header 中的 h1）
+# 修復：分類標籤自動提取邏輯
 # 修復：導覽列加入隱私權政策連結
-# 修復：底部導航連結顏色修正（#CBD5E0 → hover #FFFFFF）
-# 修復：SITE_FOOTER 和 BACK_TO_TOP 花括號轉義（避免 .format() 衝突）
-# 修復：強制加入品牌超連結，移除 AI 生成的純文字品牌
-# 修復：文章掃描路徑統一為 /（解決分類判斷失敗問題）
-# 修復：過濾 index111.html 等測試檔案
-# 修復：文章連結路徑使用正斜線 /
+# 修復：底部導航連結顏色修正
+# 修復：SITE_FOOTER 和 BACK_TO_TOP 花括號轉義
 # ============================================================
 
 # ============================================================
@@ -23,37 +21,31 @@ import hashlib
 import json
 from pathlib import Path
 
-# 狀態檔案路徑
 STATE_FILE = Path(__file__).parent.parent / "build-state.json"
 
 def get_file_hash(filepath):
-    """計算檔案的 MD5 雜湊值"""
     if not Path(filepath).exists():
         return None
     with open(filepath, 'rb') as f:
         return hashlib.md5(f.read()).hexdigest()
 
 def load_build_state():
-    """載入上次構建狀態"""
     if STATE_FILE.exists():
         with open(STATE_FILE, 'r', encoding='utf-8') as f:
             return json.load(f)
     return {"files": {}}
 
 def save_build_state(state):
-    """儲存構建狀態"""
     with open(STATE_FILE, 'w', encoding='utf-8') as f:
         json.dump(state, f, indent=2, ensure_ascii=False)
 
 def needs_rebuild(filepath, current_hash):
-    """檢查檔案是否需要重新構建"""
     state = load_build_state()
     file_key = str(filepath).replace("\\", "/")
     previous_hash = state["files"].get(file_key)
     return previous_hash != current_hash
 
 def mark_built(filepath, hash_value):
-    """標記檔案已構建"""
     state = load_build_state()
     file_key = str(filepath).replace("\\", "/")
     state["files"][file_key] = hash_value
@@ -72,7 +64,6 @@ from src.config import (
 # 通用頁面元件
 # ============================================================
 
-# 頁頂品牌標示（統一為可點擊超連結）
 SITE_HEADER = '''<header class="site-header">
     <div class="header-inner">
         <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
@@ -87,7 +78,6 @@ SITE_HEADER = '''<header class="site-header">
     </div>
 </header>'''
 
-# 頁尾（已修正底部導航連結顏色）- 使用雙花括號轉義 CSS
 SITE_FOOTER = '''<footer class="site-footer">
     <div class="footer-inner">
         <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
@@ -123,7 +113,6 @@ SITE_FOOTER = '''<footer class="site-footer">
     }}
 </style>'''
 
-# 返回頂部按鈕 - 使用雙花括號轉義 CSS
 BACK_TO_TOP = '''<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
 <style>
     #back-to-top {{
@@ -150,15 +139,10 @@ BACK_TO_TOP = '''<button id="back-to-top" onclick="window.scrollTo({top: 0, beha
     }}
 </style>'''
 
-# 返回首頁連結（頁尾用）
 HOME_LINK = '<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>'
 
-# 品牌標示（頁頂用，可點擊）- 已包含超連結
 BRAND_LINK = '<p style="font-size:14px; color:#666; text-align:center; margin:10px 0;"><a href="/" style="color:#005A9C; text-decoration:none; font-weight:bold;">🏠 雅寶社區 · 頂客論壇 (AHPAL.COM)</a></p>'
 
-# ============================================================
-# 🆕 黃金樣板 - 相關文章推薦區塊（頁尾用）
-# ============================================================
 RELATED_ARTICLES_BLOCK = '''
 <div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
     <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
@@ -170,10 +154,7 @@ RELATED_ARTICLES_BLOCK = '''
 </div>
 '''
 
-# AdSense 程式碼
 ADSENSE_CODE = f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>'
-
-# GA4 程式碼
 GA4_CODE = f'''<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -182,13 +163,10 @@ GA4_CODE = f'''<script async src="https://www.googletagmanager.com/gtag/js?id={G
     gtag('config', '{GA4_ID}');
 </script>'''
 
-# ============================================================
-# 🆕 統一 CSS 連結（所有新文章共用）
-# ============================================================
 UNIFIED_CSS_LINK = '<link rel="stylesheet" href="/style/main.css">'
 
 # ============================================================
-# 🆕 黃金樣板 Header 範本（含發表時間、更新日期、編輯）
+# 黃金樣板 Header 範本
 # ============================================================
 GOLDEN_HEADER_TEMPLATE = f'''<header>
     <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
@@ -202,11 +180,22 @@ GOLDEN_HEADER_TEMPLATE = f'''<header>
 </header>'''
 
 # ============================================================
+# 分類 Emoji 映射（用於自動提取）
+# ============================================================
+CATEGORY_EMOJI_MAP = {
+    "💻": "💻 3C 科技教學",
+    "🎮": "🎮 遊戲攻略",
+    "🏠": "🏠 生活小常識",
+    "📊": "📊 軟體評測",
+    "🌟": "🌟 人生哲理",
+    "🤖": "🤖 AI 趨勢"
+}
+
+# ============================================================
 # 清理 AI 頁頂註解文字
 # ============================================================
 
 def clean_ai_header(html_content):
-    """移除 AI 在頁頂留下的對話註解文字"""
     if not html_content:
         return html_content
     
@@ -228,7 +217,7 @@ def clean_ai_header(html_content):
     return html_content
 
 # ============================================================
-# 文章 HTML 增強（統一品牌、首頁連結、TOP、相關文章、統一CSS、黃金Header）
+# 文章 HTML 增強（核心功能）
 # ============================================================
 
 def enhance_article_html(html_content):
@@ -240,25 +229,11 @@ def enhance_article_html(html_content):
     html_content = clean_ai_header(html_content)
     
     # ============================================================
-    # 0. 🆕 在 <head> 中插入統一 CSS 連結（取代內嵌 CSS）
+    # 0. 在 <head> 中插入統一 CSS 連結
     # ============================================================
-    # 移除原有的內嵌 <style> 區塊（如果存在）
-    html_content = re.sub(
-        r'<style>.*?</style>',
-        '',
-        html_content,
-        flags=re.IGNORECASE | re.DOTALL
-    )
+    html_content = re.sub(r'<style>.*?</style>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
+    html_content = re.sub(r'<link[^>]*main\.css[^>]*>', '', html_content, flags=re.IGNORECASE)
     
-    # 移除原有的 <link> 標籤中的 main.css（如果存在）
-    html_content = re.sub(
-        r'<link[^>]*main\.css[^>]*>',
-        '',
-        html_content,
-        flags=re.IGNORECASE
-    )
-    
-    # 插入統一 CSS 連結
     if '<head>' in html_content:
         if 'main.css' not in html_content:
             html_content = html_content.replace('<head>', '<head>\n    ' + UNIFIED_CSS_LINK)
@@ -267,67 +242,52 @@ def enhance_article_html(html_content):
         html_content = UNIFIED_CSS_LINK + '\n' + html_content
     
     # ============================================================
-    # 1. 強制移除 AI 生成的純文字品牌，換成可點擊的超連結
+    # 1. 提取標題與分類（在移除之前先提取）
     # ============================================================
-    html_content = re.sub(
-        r'<p[^>]*>.*?雅寶社區\s*[·.]?\s*頂客論壇.*?</p>', 
-        '', 
-        html_content, 
-        flags=re.IGNORECASE | re.DOTALL
-    )
-    html_content = re.sub(
-        r'雅寶社區\s*[·.]?\s*頂客論壇\s*\(?AHPAL\.COM\)?', 
-        '', 
-        html_content, 
-        flags=re.IGNORECASE
-    )
-    html_content = re.sub(
-        r'<div[^>]*id=[\'"]?brand[\'"]?[^>]*>.*?</div>', 
-        '', 
-        html_content, 
-        flags=re.IGNORECASE | re.DOTALL
-    )
-    html_content = re.sub(
-        r'^.*?雅寶社區\s*[·.]?\s*頂客論壇\s*\(?AHPAL\.COM\)?.*?\n', 
-        '',
-        html_content,
-        flags=re.IGNORECASE | re.MULTILINE
-    )
+    # 提取標題
+    title_match = re.search(r'<h1[^>]*>(.*?)</h1>', html_content, re.IGNORECASE | re.DOTALL)
+    title = title_match.group(1).strip() if title_match else "文章標題"
+    # 清理標題中的多餘文字
+    title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', title)
+    title = title.strip()
     
-    # ============================================================
-    # 2. 🆕 強制插入黃金樣板 Header（含發表時間、更新日期、編輯）
-    # ============================================================
-    # 檢查是否已有 <header> 標籤
-    if '<header' not in html_content:
-        # 提取標題與分類
-        title_match = re.search(r'<h1[^>]*>(.*?)</h1>', html_content, re.IGNORECASE | re.DOTALL)
-        title = title_match.group(1).strip() if title_match else "文章標題"
-        
-        category_match = re.search(r'<span[^>]*class=[\'"]?post-category[\'"]?[^>]*>(.*?)</span>', html_content, re.IGNORECASE | re.DOTALL)
-        category = category_match.group(1).strip() if category_match else "🌟 人生哲理"
-        
-        # 生成黃金 Header
-        golden_header = GOLDEN_HEADER_TEMPLATE.replace('{title}', title).replace('{category}', category)
-        
-        # 在 <body> 之後插入 Header
-        if '<body>' in html_content:
-            html_content = html_content.replace('<body>', '<body>\n' + golden_header)
-            print("   ✅ 已插入黃金樣板 Header（含發表時間、更新日期、編輯）")
-        else:
-            html_content = golden_header + '\n' + html_content
-            print("   ✅ 已插入黃金樣板 Header（含發表時間、更新日期、編輯）")
+    # 提取分類
+    category = "🌟 人生哲理"  # 預設
+    category_match = re.search(r'<span[^>]*class=[\'"]?post-category[\'"]?[^>]*>(.*?)</span>', html_content, re.IGNORECASE | re.DOTALL)
+    if category_match:
+        category = category_match.group(1).strip()
     else:
-        # 如果已有 Header，檢查是否包含「發表時間」，若無則補上
-        if '發表時間' not in html_content:
-            meta_info = f'<div class="meta-info">發表時間：{CURRENT_DATE_STR} | 更新日期：{CURRENT_DATE_STR} | 編輯：雅寶社區編輯團隊</div>'
-            html_content = html_content.replace('</header>', meta_info + '\n</header>')
-            print("   ✅ 已補上發表時間、更新日期、編輯資訊")
+        # 嘗試從關鍵字匹配分類
+        for emoji, cat_name in CATEGORY_EMOJI_MAP.items():
+            if emoji in html_content:
+                category = cat_name
+                break
     
     # ============================================================
-    # 3. 在 <body> 後插入品牌標示（強制，使用可點擊的超連結）
+    # 2. 移除原有的 <h1> 標籤（避免重複）
+    # ============================================================
+    # 移除所有 h1 標籤
+    html_content = re.sub(r'<h1[^>]*>.*?</h1>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
+    
+    # 移除原有的 <header> 區塊（如果存在）
+    html_content = re.sub(r'<header>.*?</header>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
+    
+    # ============================================================
+    # 3. 強制插入黃金樣板 Header
+    # ============================================================
+    golden_header = GOLDEN_HEADER_TEMPLATE.replace('{title}', title).replace('{category}', category)
+    
+    if '<body>' in html_content:
+        html_content = html_content.replace('<body>', '<body>\n' + golden_header)
+        print(f"   ✅ 已插入黃金樣板 Header（標題：{title[:30]}...）")
+    else:
+        html_content = golden_header + '\n' + html_content
+        print("   ✅ 已插入黃金樣板 Header")
+    
+    # ============================================================
+    # 4. 品牌標示（避免重複）
     # ============================================================
     if '<body>' in html_content:
-        # 避免重複插入（如果已經有 BRAND_LINK 則跳過）
         if '雅寶社區 · 頂客論壇 (AHPAL.COM)' not in html_content or '<a href="/"' not in html_content:
             html_content = html_content.replace('<body>', '<body>\n' + BRAND_LINK)
             print("   ✅ 已強制加入品牌標示（可點擊回首頁）")
@@ -336,7 +296,7 @@ def enhance_article_html(html_content):
         print("   ✅ 已強制加入品牌標示（可點擊回首頁）")
     
     # ============================================================
-    # 4. 確保頁尾有「相關文章推薦」、「返回首頁」連結、返回頂部按鈕
+    # 5. 確保頁尾元件完整
     # ============================================================
     if '相關文章推薦' not in html_content:
         html_content = html_content.replace(
@@ -353,7 +313,7 @@ def enhance_article_html(html_content):
             print("   ✅ 已加入返回頂部按鈕")
     
     # ============================================================
-    # 5. 確保 AdSense 程式碼存在
+    # 6. 確保 AdSense 程式碼存在
     # ============================================================
     if 'pagead2.googlesyndication.com' not in html_content:
         html_content = html_content.replace('</head>', ADSENSE_CODE + '\n' + GA4_CODE + '\n</head>')
@@ -366,7 +326,6 @@ def enhance_article_html(html_content):
 # ============================================================
 
 def build_article_html(keyword, category, raw_html):
-    """建構完整的文章 HTML（對外介面）"""
     return enhance_article_html(raw_html)
 
 # ============================================================

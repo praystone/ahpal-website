@@ -1,8 +1,16 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 全面系統檢查腳本 v3.2
+# 雅寶社區 · 頂客論壇 - 全面系統檢查腳本 v3.0
 # ============================================================
-# 功能：檢查文章、遊戲、分類頁面、Sitemap、首頁
-# 修復：強制型別宣告解決中文檔名型別轉換錯誤
+# 功能：
+#   1. 檢查所有文章檔案（大小、品牌、品質）
+#   2. 檢查所有遊戲檔案
+#   3. 檢查分類頁面
+#   4. 檢查 Sitemap
+#   5. 檢查首頁
+#   6. 產生完整檢查報告
+#   7. 🆕 刪除品質未達標文章（<60分）
+#   8. 🆕 修復 $HasApiError += $article 語法錯誤
+#   9. 🆕 排除 game/ 目錄的品質檢查（遊戲頁面不適用）
 # ============================================================
 
 param(
@@ -18,12 +26,12 @@ $ReportFile = "C:\Users\User\ahpal-full-check-report.txt"
 $DateStr = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "   📊 雅寶社區 · 頂客論壇 - 全面系統檢查工具 v3.2" -ForegroundColor Green
+Write-Host "   📊 雅寶社區 · 頂客論壇 - 全面系統檢查工具 v3.0" -ForegroundColor Green
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "📁 輸出目錄：$OutputDir" -ForegroundColor Cyan
 Write-Host "📅 檢查時間：$DateStr" -ForegroundColor Cyan
-if ($DryRun) { Write-Host "🔍 預覽模式" -ForegroundColor Yellow }
+if ($DryRun) { Write-Host "🔍 預覽模式：只顯示，不實際刪除" -ForegroundColor Yellow }
 Write-Host ""
 
 if (-not (Test-Path $OutputDir)) {
@@ -37,11 +45,13 @@ if (-not (Test-Path $OutputDir)) {
 Write-Host "🔍 正在掃描所有文章..." -ForegroundColor Yellow
 Write-Host ""
 
-$AllArticles = New-Object System.Collections.ArrayList
-$AbnormalFiles = New-Object System.Collections.ArrayList
-$MissingBrand = New-Object System.Collections.ArrayList
-$HasApiError = New-Object System.Collections.ArrayList   # ✅ 強制 ArrayList
-$LowQualityFiles = New-Object System.Collections.ArrayList
+$AllArticles = @()
+$AbnormalFiles = @()
+$MissingBrand = @()
+if ($hasApiError) { 
+    $HasApiError += $article.Name 
+}
+$LowQualityFiles = @()
 $TotalSize = 0
 $TotalArticles = 0
 
@@ -82,12 +92,12 @@ foreach ($dirName in $CategoryDirs.Keys) {
         $sizeKB = [math]::Round($f.Length / 1KB, 2)
         $isAbnormal = $f.Length -lt 5120
         $hasBrand = $false
-        $HasApiError = @()
+        $hasApiError = $false
         
         try {
             $content = Get-Content -Path $f.FullName -Encoding UTF8 -Raw -ErrorAction SilentlyContinue
             if ($content -match "雅寶社區") { $hasBrand = $true }
-            if ($content -match "429|503|RESOURCE_EXHAUSTED|unavailable|暫時無法") { $HasApiError = @() }
+            if ($content -match "429|503|RESOURCE_EXHAUSTED|unavailable|暫時無法") { $hasApiError = $true }
         } catch {
             $hasBrand = $false
         }
@@ -141,20 +151,21 @@ foreach ($dirName in $CategoryDirs.Keys) {
                 $article.IsLowQuality = (-not $article.Passed)
             } catch {}
         } elseif ($article.IsGame) {
+            # 🆕 遊戲頁面自動滿分
             $article.Score = 100
             $article.Passed = $true
             $article.IsLowQuality = $false
         }
         
-        [void]$AllArticles.Add($article)
+        $AllArticles += $article
         
-        if ($isAbnormal) { [void]$AbnormalFiles.Add($article) }
-        if (-not $hasBrand) { [void]$MissingBrand.Add($article) }
-        # ✅ 修復：使用 .Add() 方法
+        if ($isAbnormal) { $AbnormalFiles += $article }
+        if (-not $hasBrand) { $MissingBrand += $article }
         if ($hasApiError) { 
-            $HasApiError += $article.Name
+            # 🆕 修復：使用 $article.Name 而非 $article 物件
+            $HasApiError += $article.Name 
         }
-        if ($article.IsLowQuality) { [void]$LowQualityFiles.Add($article) }
+        if ($article.IsLowQuality) { $LowQualityFiles += $article }
     }
 }
 
@@ -230,15 +241,16 @@ Write-Host "📂 各目錄統計：" -ForegroundColor Cyan
 foreach ($dirName in $CategoryDirs.Keys) {
     $stat = $DirStats[$dirName]
     if ($stat) {
-        Write-Host "   ✅ $dirName : $($stat.Count) 篇, $($stat.SizeKB) KB" -ForegroundColor White
+        $status = if ($stat.Count -gt 0) { "✅" } else { "⚠️" }
+        Write-Host "   $status $dirName : $($stat.Count) 篇, $($stat.SizeKB) KB" -ForegroundColor $(if ($stat.Count -gt 0) {'White'} else {'Yellow'})
     }
 }
 
 if ($LowQualityFiles.Count -gt 0) {
     Write-Host ""
     Write-Host "❌ 品質未達標文章清單 (<60分)：" -ForegroundColor Red
-    foreach ($item in $LowQualityFiles) {
-        Write-Host "   📄 $($item.RelativePath) (分數：$($item.Score)/100)" -ForegroundColor Red
+    $LowQualityFiles | Sort-Object Score | ForEach-Object {
+        Write-Host "   📄 $($_.RelativePath) (分數：$($_.Score)/100)" -ForegroundColor Red
     }
 }
 
@@ -295,7 +307,7 @@ if ($Report) {
     
     $ReportContent = @"
 ============================================================
-雅寶社區 · 頂客論壇 - 全面系統檢查報告 v3.2
+雅寶社區 · 頂客論壇 - 全面系統檢查報告 v3.0
 ============================================================
 檢查時間：$DateStr
 輸出目錄：$OutputDir

@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.ahpal.com/</loc>
-        <lastmod>2026-08-03</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-tech.html</loc>
-        <lastmod>2026-08-03</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-game.html</loc>
-        <lastmod>2026-08-03</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-life.html</loc>
-        <lastmod>2026-08-03</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-review.html</loc>
-        <lastmod>2026-08-03</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-philosophy.html</loc>
-        <lastmod>2026-08-03</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-trend.html</loc>
-        <lastmod>2026-08-03</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -80,7 +80,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/docs/打一份AI交接與新進工程師交接手冊.html</loc>
-        <lastmod>2026-08-02</lastmod>
+        <lastmod>2026-08-03</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1142,13 +1142,31 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/philosophy/meditation-benefits.html</loc>
-        <lastmod>2026-07-16</lastmod>
+        <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/mindful-eating-guide.html</loc>
+        <lastmod>2026-08-03</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/philosophy/mindfulness-meditation-2026.html</loc>
         <lastmod>2026-07-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/minimalism-and-happiness.html</loc>
+        <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/minimalism-inner-peace-guide.html</loc>
+        <lastmod>2026-08-03</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1226,7 +1244,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/philosophy/冥想入門指南每天10分鐘提升專注力與情緒管理.html</loc>
-        <lastmod>2026-07-25</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1274,6 +1292,30 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/philosophy/撒迦利亞書第12章解析耶路撒冷的救贖與列國的審判中英對照.html</loc>
+        <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/撒迦利亞書第1章解析呼召悔改與八個異象的開端中英對照.html</loc>
+        <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/撒迦利亞書第2-6章解析準繩金燈台與四輛戰車的異象中英對照.html</loc>
+        <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/撒迦利亞書第7-8章解析真實的禁食與耶路撒冷的復興中英對照.html</loc>
+        <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/撒迦利亞書第9-10章解析審判列國與錫安君王的降臨中英對照.html</loc>
         <lastmod>2026-08-03</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

@@ -1,1 +1,32 @@
-[]
+[
+    {
+        "keyword": "冥想入門指南每天10分鐘提升專注力與情緒管理",
+        "category": "🌟 人生哲理",
+        "filename": "philosophy/meditation-guide-10-minutes.html"
+    },
+    {
+        "keyword": "原子習慣如何用微小改變打造長期競爭力",
+        "category": "🌟 人生哲理",
+        "filename": "philosophy/atomic-habits-guide.html"
+    },
+    {
+        "keyword": "成長型思維vs固定型思維決定人生成敗的關鍵心態",
+        "category": "🌟 人生哲理",
+        "filename": "philosophy/growth-mindset-vs-fixed-mindset.html"
+    },
+    {
+        "keyword": "數位時代的專注力訓練方法與實踐指南",
+        "category": "🌟 人生哲理",
+        "filename": "philosophy/digital-focus-training-guide.html"
+    },
+    {
+        "keyword": "財務自由之路被動收入建立完全攻略",
+        "category": "🌟 人生哲理",
+        "filename": "philosophy/financial-freedom-passive-income-guide.html"
+    },
+    {
+        "keyword": "正念冥想減壓技巧與日常練習方法",
+        "category": "🌟 人生哲理",
+        "filename": "philosophy/mindfulness-stress-reduction-guide.html"
+    }
+]

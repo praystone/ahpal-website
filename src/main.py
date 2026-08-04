@@ -160,6 +160,19 @@ keywords_list = [
     {"keyword": "財務自由之路被動收入建立完全攻略", "category": "🌟 人生哲理", "filename": "philosophy/financial-freedom-passive-income-guide.html"},
     {"keyword": "正念冥想減壓技巧與日常練習方法", "category": "🌟 人生哲理", "filename": "philosophy/mindfulness-stress-reduction-guide.html"},
 
+    {"keyword": "2026 年 Thunderbolt 5 完全解析：速度、應用與選購指南", "category": "💻 3C 科技教學", "filename": "tech/2026年Thunderbolt5完全解析速度應用與選購指南.html"},
+    {"keyword": "Windows 11 2026 更新實測：新功能與效能表現", "category": "💻 3C 科技教學", "filename": "tech/Windows112026更新實測新功能與效能表現.html"},
+    {"keyword": "2026 年最受期待的 10 款獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/2026年最受期待的10款獨立遊戲推薦.html"},
+    {"keyword": "2026 年遊戲 PC 性價比最高的配置組合攻略", "category": "🎮 遊戲攻略", "filename": "game/2026年遊戲PC性價比最高的配置組合攻略.html"},
+    {"keyword": "2026 年智慧家庭中樞選購指南：Apple Home vs Google Home vs Amazon Alexa", "category": "🏠 生活小常識", "filename": "life/2026年智慧家庭中樞選購指南AppleHomevsGoogleHomevsAmazonAlexa.html"},
+    {"keyword": "2026 年颱風季防災準備清單：必備物資與應變計畫", "category": "🏠 生活小常識", "filename": "life/2026年颱風季防災準備清單必備物資與應變計畫.html"},
+    {"keyword": "2026 年最佳免費 DNS 服務評測：速度、隱私與安全性對比", "category": "📊 軟體評測", "filename": "review/2026年最佳免費DNS服務評測速度隱私與安全性對比.html"},
+    {"keyword": "2026 年跨平台剪貼簿工具評測：效率提升神器", "category": "📊 軟體評測", "filename": "review/2026年跨平台剪貼簿工具評測效率提升神器.html"},
+    {"keyword": "2026 年職場生存指南：AI 時代的不可替代能力", "category": "🌟 人生哲理", "filename": "philosophy/2026年職場生存指南AI時代的不可替代能力.html"},
+    {"keyword": "一年讀完 52 本書：建立閱讀習慣的科學方法與實戰策略", "category": "🌟 人生哲理", "filename": "philosophy/一年讀完52本書建立閱讀習慣的科學方法與實戰策略.html"},
+    {"keyword": "2026 年 AI 代理全面解析：應用場景與未來趨勢", "category": "🤖 AI 趨勢", "filename": "trend/2026年AI代理全面解析應用場景與未來趨勢.html"},
+    {"keyword": "2026 年開源 AI 模型盤點：Llama 4、DeepSeek-V4 與其他強者對決", "category": "🤖 AI 趨勢", "filename": "trend/2026年開源AI模型盤點Llama4DeepSeek-V4與其他強者對決.html"},
+
 ]
 
 # ============================================================

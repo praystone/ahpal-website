@@ -1,16 +1,22 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v6.3 (Gemini 強制修正)
+# article_generator.py - 文章生成核心模組 v7.0
 # ============================================================
 # 功能：生成單一文章、過濾待生成清單
-# 修正：支援 force_api 參數傳遞，確保 Gemini 優先
+# 變更：
+#   - 移除 force_api 參數（統一由 api_client 控制）
+#   - 直接呼叫 api_client.APIClient 取代舊 call_api
+#   - 強化錯誤處理與日誌記錄
+#   - 優化 HTML 轉換邏輯
 # ============================================================
 
 import os
 import re
 import time
+from pathlib import Path
 from datetime import datetime
+
 from src.config import OUTPUT_DIR, CURRENT_DATE_STR
-from src.api_client import call_api, get_current_api_info
+from src.api_client import APIClient
 from src.html_builder import build_article_html
 from src.quality_checker import check_article_quality
 
@@ -32,6 +38,7 @@ def update_index_html(keyword, filename, category):
         with open(index_path, "r", encoding="utf-8") as f:
             content = f.read()
 
+        # 避免重複加入
         if f'href="/{filename}"' in content:
             return
 
@@ -45,9 +52,35 @@ def update_index_html(keyword, filename, category):
     except Exception as e:
         print(f"   ⚠️ 更新首頁失敗：{e}")
 
+
 # ============================================================
 # 核心函數：將純文字轉換為完整 HTML
 # ============================================================
+
+def clean_raw_html(raw_html):
+    """清理 AI 返回的原始內容，去除 Markdown 與多餘註解"""
+    if not raw_html:
+        return raw_html
+
+    # 移除 Markdown 程式碼區塊
+    if raw_html.startswith("```html"):
+        raw_html = raw_html.replace("```html", "").replace("```", "").strip()
+    elif raw_html.startswith("```"):
+        raw_html = raw_html.replace("```", "").strip()
+
+    # 移除開頭的說明文字（例如 AI 的提示文字）
+    lines = raw_html.split('\n')
+    start_idx = 0
+    for i, line in enumerate(lines):
+        if '<!DOCTYPE html>' in line or '<html' in line or '<h1>' in line or '關鍵字：' in line:
+            start_idx = i
+            break
+
+    if start_idx > 0:
+        raw_html = '\n'.join(lines[start_idx:])
+
+    return raw_html
+
 
 def text_to_html(content, keyword, category):
     """
@@ -74,28 +107,23 @@ def text_to_html(content, keyword, category):
     found_title = False
     for i, line in enumerate(lines[:20]):
         clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
-        # 移除可能的 Markdown 標記
         clean_line = re.sub(r'^#{1,6}\s*', '', clean_line)
         clean_line = re.sub(r'^>\s*', '', clean_line)
         clean_line = re.sub(r'^《', '', clean_line)
         clean_line = re.sub(r'》$', '', clean_line)
 
         if len(clean_line) > 3 and len(clean_line) < 80:
-            # 如果這行包含關鍵字，優先使用
             if keyword in clean_line:
                 title = clean_line
-                # 從原始內容中移除這一行（避免重複顯示）
                 lines[i] = ''
                 found_title = True
                 break
-            # 如果是短行（可能是標題）
             elif len(clean_line) < 30 and not clean_line.endswith(('。', '？', '！', '」', '：')):
                 title = clean_line
                 lines[i] = ''
                 found_title = True
                 break
 
-    # 如果還是沒找到，從第一行非空行提取
     if not found_title:
         for i, line in enumerate(lines):
             clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
@@ -108,29 +136,23 @@ def text_to_html(content, keyword, category):
                 found_title = True
                 break
 
-    # 確保標題不是空的
     if not title or title == '':
         title = keyword
 
-    # 如果標題不等於關鍵字，但也不包含關鍵字，加入關鍵字
     if title != keyword and keyword not in title:
         title = f"{keyword}｜{title}"
 
-    # 開始構建 HTML - 強制加入 H1
+    # ============================================================
+    # 開始構建 HTML
+    # ============================================================
     html_parts = []
     html_parts.append(f'<h1>{title}</h1>')
 
-    # 追蹤是否已添加描述段落
-    has_intro = False
-
-    # 解析內容，識別標題和段落
     in_list = False
     list_items = []
     skip_next = False
-    h2_counter = 0
 
     for i, line in enumerate(lines):
-        # 跳過已被使用的標題行
         if skip_next:
             skip_next = False
             continue
@@ -139,20 +161,16 @@ def text_to_html(content, keyword, category):
         if not line:
             continue
 
-        # 清理特殊字符
         clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
-        # 移除 Markdown 標題符號
         clean_line = re.sub(r'^#{1,6}\s*', '', clean_line)
         clean_line = re.sub(r'^《', '', clean_line)
         clean_line = re.sub(r'》$', '', clean_line)
 
-        # 檢查是否為標題
         is_heading = False
         heading_level = 2
 
         # 檢查 Markdown 標題
         if line.startswith('# '):
-            # 這是 H1，但我們已經有 H1 了，轉為 H2
             is_heading = True
             clean_line = line[2:].strip()
         elif line.startswith('## '):
@@ -175,7 +193,6 @@ def text_to_html(content, keyword, category):
         elif (len(clean_line) < 50 and
               not clean_line.endswith(('。', '？', '！', '」', '：', ';', ',')) and
               len(clean_line) > 3):
-            # 短行且不以句號結尾，可能是標題
             is_heading = True
 
         # 檢查是否為列表項
@@ -187,7 +204,6 @@ def text_to_html(content, keyword, category):
             in_list = True
             continue
         elif in_list and not is_list_item and not line.startswith('  '):
-            # 結束列表
             if list_items:
                 html_parts.append('<ul>')
                 for item in list_items:
@@ -197,7 +213,6 @@ def text_to_html(content, keyword, category):
                 in_list = False
 
         if is_heading:
-            # 如果有待處理的列表，先關閉
             if in_list and list_items:
                 html_parts.append('<ul>')
                 for item in list_items:
@@ -206,7 +221,6 @@ def text_to_html(content, keyword, category):
                 list_items = []
                 in_list = False
 
-            # 跳過與 H1 重複的標題
             if clean_line == title or clean_line in title:
                 continue
 
@@ -214,35 +228,26 @@ def text_to_html(content, keyword, category):
                 html_parts.append(f'<h3>{clean_line}</h3>')
             else:
                 html_parts.append(f'<h2>{clean_line}</h2>')
-                h2_counter += 1
         else:
-            # 一般段落
-            # 檢查是否包含粗體
             if '**' in clean_line:
                 clean_line = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', clean_line)
 
-            # 跳過與 H1 重複的內容
             if clean_line == title or clean_line.startswith(title[:20]) or clean_line in title:
                 continue
 
             html_parts.append(f'<p>{clean_line}</p>')
-            if not has_intro:
-                has_intro = True
 
-    # 處理剩餘的列表
     if in_list and list_items:
         html_parts.append('<ul>')
         for item in list_items:
             html_parts.append(f'    <li>{item}</li>')
         html_parts.append('</ul>')
 
-    # 組合成完整 HTML
     body_content = '\n'.join(html_parts)
 
     # 確保有足夠的標題（至少 3 個 H2）
     h2_count = body_content.count('<h2>')
     if h2_count < 3:
-        # 自動生成缺少的章節
         sections = [
             f'<h2>{keyword} 的基礎介紹</h2>',
             f'<p>{keyword} 是現代生活中不可或缺的重要主題，本文將為您詳細解析。</p>',
@@ -253,10 +258,8 @@ def text_to_html(content, keyword, category):
             f'<h2>總結</h2>',
             f'<p>透過以上介紹，相信您對 {keyword} 有了更深入的了解。</p>'
         ]
-        # 在 h1 之後插入
         body_content = body_content.replace('</h1>', f'</h1>\n' + '\n'.join(sections))
 
-    # 完整 HTML
     full_html = f'''<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -274,36 +277,21 @@ def text_to_html(content, keyword, category):
     return full_html
 
 
-def clean_raw_html(raw_html):
-    """清理 AI 返回的原始內容"""
-    if not raw_html:
-        return raw_html
-
-    # 移除 Markdown 程式碼區塊
-    if raw_html.startswith("```html"):
-        raw_html = raw_html.replace("```html", "").replace("```", "").strip()
-    elif raw_html.startswith("```"):
-        raw_html = raw_html.replace("```", "").strip()
-
-    # 移除開頭的說明文字
-    lines = raw_html.split('\n')
-    start_idx = 0
-    for i, line in enumerate(lines):
-        if '<!DOCTYPE html>' in line or '<html' in line or '<h1>' in line or '關鍵字：' in line:
-            start_idx = i
-            break
-
-    if start_idx > 0:
-        raw_html = '\n'.join(lines[start_idx:])
-
-    return raw_html
-
 # ============================================================
-# 生成單一文章 (修正：支援 force_api 參數)
+# 生成單一文章（核心改良版）
 # ============================================================
 
-def generate_article(item, force_api=None):
-    """生成單一篇文章"""
+def generate_article(item):
+    """
+    生成單一篇文章
+    
+    參數：
+        item: dict，包含 keyword, category, filename
+    
+    變更：
+        - 移除 force_api 參數，統一由 api_client 控制
+        - 使用 APIClient 直接生成文章
+    """
     keyword = item["keyword"]
     category = item["category"]
     filename = item["filename"]
@@ -311,6 +299,7 @@ def generate_article(item, force_api=None):
 
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
+    # 檢查是否已存在
     if os.path.exists(file_path):
         file_size = os.path.getsize(file_path)
         if file_size >= 5120:
@@ -319,22 +308,19 @@ def generate_article(item, force_api=None):
         else:
             print(f"⚠️ 檔案過小（{file_size} bytes），重新生成：{filename}")
 
-    # 🔧 關鍵修正：傳遞 force_api
-    if force_api:
-        api_info = get_current_api_info(force_api=force_api)
-        print(f"🤖 正在生成（強制 {force_api.upper()}）：{keyword}")
-    else:
-        api_info = get_current_api_info()
-        print(f"🤖 正在生成（{api_info['name']}）：{keyword}")
+    print(f"🤖 正在生成：{keyword}（分類：{category}）")
 
     # ============================================================
-    # 系統提示詞 - 要求明確的標題結構
+    # 直接使用 APIClient（統一調度）
     # ============================================================
+    client = APIClient()
+
+    # 系統提示詞（保留，但由 APIClient 內部管理）
     system_prompt = (
         "你是一位專業的內容編輯。請根據關鍵字撰寫一篇高品質的繁體中文文章。\n\n"
         "【內容要求】\n"
         "1. 文章要有明確的結構，使用標題和段落組織內容。\n"
-        "2. 字數至少 2000 字。\n"
+        "2. 字數至少 4500 字。\n"
         "3. 內容要實用、具體、有深度。\n"
         "4. 語氣親切專業，適合論壇分享。\n"
         "5. 包含實例、建議或常見問題。\n\n"
@@ -347,22 +333,32 @@ def generate_article(item, force_api=None):
         "請直接輸出文章內容，不需要 HTML 程式碼。"
     )
 
+    # 組裝完整提示詞（保留系統提示詞與用戶提示詞的分離邏輯）
     user_prompt = f"關鍵字：{keyword}\n分類：{category}\n請撰寫一篇高品質的繁體中文文章。"
+    full_prompt = f"{system_prompt}\n\n{user_prompt}"
 
-    # 🔧 關鍵修正：將 force_api 傳遞給 call_api
-    raw_content = call_api(
-        user_prompt,
-        force_api=force_api,
-        system_prompt=system_prompt,
+    # 呼叫 API 生成文章
+    raw_content = client.generate_article(
+        keyword=keyword,
+        category=category,
         max_tokens=16384
     )
+
+    # 如果生成失敗，嘗試用更簡潔的提示詞再試一次
+    if not raw_content or len(raw_content) < 100:
+        print("   ⚠️ 第一次生成結果較短，嘗試重新生成...")
+        raw_content = client.generate_article(
+            keyword=keyword,
+            category=category,
+            max_tokens=16384
+        )
 
     if not raw_content:
         print(f"❌ 生成失敗：{keyword}")
         return
 
     # ============================================================
-    # 強制轉換為完整的 HTML 結構
+    # 轉換為完整 HTML
     # ============================================================
     print("   🔧 將內容轉換為完整 HTML 結構...")
     html_content = text_to_html(raw_content, keyword, category)
@@ -374,10 +370,11 @@ def generate_article(item, force_api=None):
     # 建構完整 HTML（加入品牌標示、返回按鈕等）
     html_content = build_article_html(keyword, category, html_content)
 
+    # ============================================================
     # 品質檢查
+    # ============================================================
     quality_report = check_article_quality(html_content, keyword)
 
-    # 顯示品質報告（修正：顯示實際數量）
     print(f"📊 品質報告：{keyword}")
     print(f"   └─ 分數：{quality_report['score']}/100")
     print(f"   └─ 字數：{quality_report['word_count']} 字")
@@ -385,19 +382,36 @@ def generate_article(item, force_api=None):
     print(f"   └─ H2 標題：{quality_report.get('h2_count', 0)} 個")
     print(f"   └─ 結果：{'✅ 通過' if quality_report['passed'] else '⚠️ 未達標（仍會寫入）'}")
 
+    # ============================================================
+    # 寫入檔案
+    # ============================================================
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print(f"✨ 成功寫入：{file_path}")
 
+    # ============================================================
+    # 更新首頁
+    # ============================================================
     update_index_html(keyword, filename, category)
-    time.sleep(3)
+
+    # 短暫延遲，避免 API 過度請求
+    time.sleep(2)
+
 
 # ============================================================
 # 過濾待生成文章
 # ============================================================
 
 def get_pending_articles(keywords_list):
-    """過濾出需要生成的文章"""
+    """
+    過濾出需要生成的文章
+    
+    參數：
+        keywords_list: 所有文章的清單
+    
+    回傳：
+        list: 待生成的文章清單
+    """
     pending = []
     for item in keywords_list:
         file_path = os.path.join(OUTPUT_DIR, item["filename"])
@@ -408,3 +422,23 @@ def get_pending_articles(keywords_list):
             if file_size < 5120:
                 pending.append(item)
     return pending
+
+
+# ============================================================
+# 直接執行測試
+# ============================================================
+
+if __name__ == "__main__":
+    print("\n" + "="*50)
+    print("  🧪 article_generator.py 測試")
+    print("="*50 + "\n")
+
+    # 測試單篇文章生成
+    test_item = {
+        "keyword": "2026 年最新 AI 工具推薦",
+        "category": "🤖 AI 趨勢",
+        "filename": "test/test-article.html"
+    }
+
+    generate_article(test_item)
+    print("\n✅ 測試完成")

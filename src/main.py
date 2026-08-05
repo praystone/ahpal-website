@@ -1,5 +1,11 @@
 # ============================================================
-# AHPAL 文章生成引擎 - main.py v4.4 (修正 force_api 傳遞)
+# AHPAL 文章生成引擎 - main.py v5.0
+# ============================================================
+# 變更：
+#   - 移除 force_api 參數傳遞（統一由 api_client 管理）
+#   - 簡化 API 資訊顯示
+#   - 優化錯誤處理
+#   - 移除已棄用的時段切換邏輯
 # ============================================================
 
 import sys
@@ -38,7 +44,7 @@ def check_api_keys():
     
     gemini_key = os.environ.get("GEMINI_API_KEY")
     if not gemini_key:
-        warnings.append("GEMINI_API_KEY 未設定，僅使用 DeepSeek 模式")
+        warnings.append("GEMINI_API_KEY 未設定，僅使用 DeepSeek 模式（生圖功能將受限）")
     
     if errors:
         logger.error("API Key 檢查失敗：")
@@ -48,9 +54,8 @@ def check_api_keys():
         return False, errors
     
     if warnings:
-        logger.warning("API Key 檢查有警告：")
         for warn in warnings:
-            logger.warning(f"   - {warn}")
+            logger.warning(f"⚠️ {warn}")
     
     logger.info("✅ API Key 檢查通過")
     return True, []
@@ -98,13 +103,9 @@ keywords_list = [
     {"keyword": "GPT-5 vs Gemini 3.0 語言模型評測比較分析", "category": "🤖 AI 趨勢", "filename": "trend/GPT-5vsGemini30語言模型評測比較分析.html"},
     {"keyword": "2026 年 5 大 AI 工具推薦 提升工作效率必備", "category": "🤖 AI 趨勢", "filename": "trend/2026年5大AI工具推薦提升工作效率必備.html"},
     {"keyword": "CMS 面板測試文章 2026", "category": "💻 3C 科技教學", "filename": "tech/CMS面板測試文章2026.html"},
-
     {"keyword": "2026 年 7 月 Antigravity 系統驗證測試文章", "category": "💻 3C 科技教學", "filename": "tech/2026年7月Antigravity系統驗證測試文章.html"},
-
-
     {"keyword": "2026 年最佳 DAW 數位音樂工作站入門指南", "category": "📊 軟體評測", "filename": "review/2026年最佳DAW數位音樂工作站入門指南.html"},
     {"keyword": "2026 年免費雲端筆記工具完整評測", "category": "📊 軟體評測", "filename": "review/2026年免費雲端筆記工具完整評測.html"},
-
     {"keyword": "2026 年最佳免費 AI 繪圖工具完整評測", "category": "🤖 AI 趨勢", "filename": "trend/2026年最佳免費AI繪圖工具完整評測.html"},
     {"keyword": "Windows 11 隱藏版實用快捷鍵大全", "category": "💻 3C 科技教學", "filename": "tech/Windows11隱藏版實用快捷鍵大全.html"},
     {"keyword": "居家辦公室佈置指南：提升工作效率的 10 個秘訣", "category": "🏠 生活小常識", "filename": "life/居家辦公室佈置指南提升工作效率的10個秘訣.html"},
@@ -115,7 +116,6 @@ keywords_list = [
     {"keyword": "超簡單室內植栽照顧指南：新手也能養活", "category": "🏠 生活小常識", "filename": "life/超簡單室內植栽照顧指南新手也能養活.html"},
     {"keyword": "Notion 與 Obsidian 對決：哪個更適合你？", "category": "📊 軟體評測", "filename": "review/Notion與Obsidian對決哪個更適合你.html"},
     {"keyword": "每天 10 分鐘冥想：改變人生的習慣", "category": "🌟 人生哲理", "filename": "philosophy/每天10分鐘冥想改變人生的習慣.html"},
-
     {"keyword": "2026 年最佳獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/2026年最佳獨立遊戲推薦.html"},
     {"keyword": "2026 年最佳 RPG 遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/2026年最佳RPG遊戲推薦.html"},
     {"keyword": "2026 年免費射擊遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/2026年免費射擊遊戲推薦.html"},
@@ -128,38 +128,28 @@ keywords_list = [
     {"keyword": "2026 年最佳獨立遊戲必玩清單", "category": "🎮 遊戲攻略", "filename": "game/2026年最佳獨立遊戲必玩清單.html"},
     {"keyword": "2026 年最期待遊戲發售表", "category": "🎮 遊戲攻略", "filename": "game/2026年最期待遊戲發售表.html"},
     {"keyword": "2026 年最佳射擊遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/2026年最佳射擊遊戲推薦.html"},
-
     {"keyword": "2026 年最佳 AI 繪圖工具推薦 TOP 5", "category": "🤖 AI 趨勢", "filename": "trend/2026年最佳AI繪圖工具推薦TOP5.html"},
     {"keyword": "2026 年最新居家收納技巧大全", "category": "🏠 生活小常識", "filename": "life/2026年最新居家收納技巧大全.html"},
-
     {"keyword": "2026 年高效工作法：5 個科學驗證的專注力策略", "category": "💻 3C 科技教學", "filename": "tech/2026年高效工作法5個科學驗證的專注力策略.html"},
     {"keyword": "在數位噪音中保持清醒——一位老編輯的 30 年注意力管理手記", "category": "🌟 人生哲理", "filename": "philosophy/在數位噪音中保持清醒一位老編輯的30年注意力管理手記.html"},
-
     {"keyword": "2026 年知識變現完整攻略：從0到1打造你的數位產品｜創業者必讀", "category": "📊 軟體評測", "filename": "review/2026年知識變現完整攻略從0到1打造你的數位產品創業者必讀.html"},
     {"keyword": "普通人也能懂的AI時代生存指南：不被取代的5個核心能力｜深度分析", "category": "🤖 AI 趨勢", "filename": "trend/普通人也能懂的AI時代生存指南不被取代的5個核心能力深度分析.html"},
-
     {"keyword": "撒迦利亞書第 12 章解析：耶路撒冷的救贖與列國的審判（中英對照）", "category": "🌟 人生哲理", "filename": "philosophy/撒迦利亞書第12章解析耶路撒冷的救贖與列國的審判中英對照.html"},
-
     {"keyword": "2026 年高效工作法：5 個科學驗證的專注力策略｜完整實戰指南", "category": "💻 3C 科技教學", "filename": "tech/2026年高效工作法5個科學驗證的專注力策略完整實戰指南.html"},
     {"keyword": "從破碎到修復：一個平凡家庭的財務重建筆記｜真實故事", "category": "🌟 人生哲理", "filename": "philosophy/從破碎到修復一個平凡家庭的財務重建筆記真實故事.html"},
-
     {"keyword": "尋找內心平靜的極簡生活哲學：在喧囂世界中安頓心靈的指引", "category": "🌟 人生哲理", "filename": "philosophy/尋找內心平靜的極簡生活哲學在喧囂世界中安頓心靈的指引.html"},
     {"keyword": "正念飲食全攻略：如何透過專注飲食吃出健康與心靈自由", "category": "🌟 人生哲理", "filename": "philosophy/正念飲食全攻略如何透過專注飲食吃出健康與心靈自由.html"},
     {"keyword": "極簡主義與幸福的辯證關係：擁有的越少，為什麼反而越快樂？", "category": "🌟 人生哲理", "filename": "philosophy/極簡主義與幸福的辯證關係擁有的越少為什麼反而越快樂.html"},
-
     {"keyword": "撒迦利亞書第 1 章解析：呼召悔改與八個異象的開端（中英對照）", "category": "🌟 人生哲理", "filename": "philosophy/撒迦利亞書第1章解析呼召悔改與八個異象的開端中英對照.html"},
     {"keyword": "撒迦利亞書第 2-6 章解析：準繩、金燈台與四輛戰車的異象（中英對照）", "category": "🌟 人生哲理", "filename": "philosophy/撒迦利亞書第2-6章解析準繩金燈台與四輛戰車的異象中英對照.html"},
-
     {"keyword": "撒迦利亞書第 7-8 章解析：真實的禁食與耶路撒冷的復興（中英對照）", "category": "🌟 人生哲理", "filename": "philosophy/撒迦利亞書第7-8章解析真實的禁食與耶路撒冷的復興中英對照.html"},
     {"keyword": "撒迦利亞書第 9-10 章解析：審判列國與錫安君王的降臨（中英對照）", "category": "🌟 人生哲理", "filename": "philosophy/撒迦利亞書第9-10章解析審判列國與錫安君王的降臨中英對照.html"},
-
     {"keyword": "冥想入門指南每天10分鐘提升專注力與情緒管理", "category": "🌟 人生哲理", "filename": "philosophy/meditation-guide-10-minutes.html"},
     {"keyword": "原子習慣如何用微小改變打造長期競爭力", "category": "🌟 人生哲理", "filename": "philosophy/atomic-habits-guide.html"},
     {"keyword": "成長型思維vs固定型思維決定人生成敗的關鍵心態", "category": "🌟 人生哲理", "filename": "philosophy/growth-mindset-vs-fixed-mindset.html"},
     {"keyword": "數位時代的專注力訓練方法與實踐指南", "category": "🌟 人生哲理", "filename": "philosophy/digital-focus-training-guide.html"},
     {"keyword": "財務自由之路被動收入建立完全攻略", "category": "🌟 人生哲理", "filename": "philosophy/financial-freedom-passive-income-guide.html"},
     {"keyword": "正念冥想減壓技巧與日常練習方法", "category": "🌟 人生哲理", "filename": "philosophy/mindfulness-stress-reduction-guide.html"},
-
     {"keyword": "2026 年 Thunderbolt 5 完全解析：速度、應用與選購指南", "category": "💻 3C 科技教學", "filename": "tech/2026年Thunderbolt5完全解析速度應用與選購指南.html"},
     {"keyword": "Windows 11 2026 更新實測：新功能與效能表現", "category": "💻 3C 科技教學", "filename": "tech/Windows112026更新實測新功能與效能表現.html"},
     {"keyword": "2026 年最受期待的 10 款獨立遊戲推薦", "category": "🎮 遊戲攻略", "filename": "game/2026年最受期待的10款獨立遊戲推薦.html"},
@@ -172,7 +162,8 @@ keywords_list = [
     {"keyword": "一年讀完 52 本書：建立閱讀習慣的科學方法與實戰策略", "category": "🌟 人生哲理", "filename": "philosophy/一年讀完52本書建立閱讀習慣的科學方法與實戰策略.html"},
     {"keyword": "2026 年 AI 代理全面解析：應用場景與未來趨勢", "category": "🤖 AI 趨勢", "filename": "trend/2026年AI代理全面解析應用場景與未來趨勢.html"},
     {"keyword": "2026 年開源 AI 模型盤點：Llama 4、DeepSeek-V4 與其他強者對決", "category": "🤖 AI 趨勢", "filename": "trend/2026年開源AI模型盤點Llama4DeepSeek-V4與其他強者對決.html"},
-
+    {"keyword": "2026 年 MacBook Neo 購買指南：M5 晶片、規格與價格完整解析", "category": "💻 3C 科技教學", "filename": "tech/macbook-neo-buying-guide-2026.html"},
+    {"keyword": "2026 年 AI 生成圖片版權爭議與法律規範完整指南", "category": "🤖 AI 趨勢", "filename": "trend/ai-image-copyright-law-2026.html"},
 ]
 
 # ============================================================
@@ -180,6 +171,7 @@ keywords_list = [
 # ============================================================
 
 def get_pending_articles():
+    """取得所有待生成的文章"""
     pending = []
     output_dir = os.environ.get("AHPAL_OUTPUT_DIR", "C:\\Users\\User\\ahpal-static")
     
@@ -188,43 +180,41 @@ def get_pending_articles():
         file_path = Path(output_dir) / filename
         if not file_path.exists():
             pending.append(item)
+        else:
+            # 檢查檔案是否過小（可能損壞）
+            try:
+                if file_path.stat().st_size < 5120:
+                    pending.append(item)
+            except:
+                pending.append(item)
     
     return pending
 
 # ============================================================
-# 4. 執行文章生成管線 (修正：正確傳遞 force_api)
+# 4. 執行文章生成管線
 # ============================================================
 
 def run_pipeline(force_api=None, dry_run=False):
+    """執行文章生成管線"""
     logger.info("=" * 70)
-    logger.info(f"🦞 AHPAL.COM 文章生成引擎 v4.4 - {CURRENT_YEAR}")
+    logger.info(f"🦞 AHPAL.COM 文章生成引擎 v5.0 - {CURRENT_YEAR}")
     logger.info(f"📅 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info("=" * 70)
     
+    # 1. 檢查 API Key
     passed, errors = check_api_keys()
     if not passed:
         logger.error("❌ 請修正 API Key 後重新執行")
         return None
     
-    if force_api:
-        logger.info(f"🔧 強制使用 API：{force_api.upper()}")
-        os.environ["FORCE_API"] = force_api
-    else:
-        logger.info("🔄 默認模式：Gemini 優先（備援 DeepSeek）")
-        os.environ.pop("FORCE_API", None)
-    
-    # 🔧 將 force_api 傳遞給 get_current_api_info
+    # 2. 顯示 API 資訊
     api_info = get_current_api_info(force_api=force_api)
-    logger.info(f"📡 當前 API：{api_info['name']}")
-    logger.info(f"   🤖 模型：{api_info['model']}")
-    logger.info(f"   ⏰ 時段：{'尖峰' if api_info['peak'] else '離峰'}")
-    logger.info(f"   💰 價格：{api_info['price']}")
+    logger.info(f"📡 當前 API：{api_info.get('name', 'DeepSeek Flash')}")
+    logger.info(f"   🤖 模型：{api_info.get('model', 'deepseek-v4-flash')}")
+    logger.info(f"   ⏰ 時段：{'尖峰' if api_info.get('peak', False) else '離峰'}")
+    logger.info(f"   💰 價格：{api_info.get('price', '低')}")
     
-    if not force_api and is_peak_hour():
-        next_time = get_next_off_peak_time()
-        logger.info(f"💡 將於 {next_time.strftime('%H:%M')} 自動切換至 DeepSeek，節省成本")
-        logger.info("   💡 可按 [A] 強制使用 DeepSeek 立即執行")
-    
+    # 3. 取得待生成文章
     pending_articles = get_pending_articles()
     
     if dry_run:
@@ -233,28 +223,32 @@ def run_pipeline(force_api=None, dry_run=False):
             logger.info(f"   - {item['keyword']} ({item['category']})")
         return len(pending_articles)
     
+    # 4. 建立首頁與分類頁
     logger.info("📄 建立首頁與分類頁...")
     create_default_index()
     generate_categories_page()
     
+    # 5. 生成文章
     if pending_articles:
         logger.info(f"\n📝 開始生成 {len(pending_articles)} 篇文章...")
         for idx, item in enumerate(pending_articles, 1):
             logger.info(f"\n--- 進度 {idx}/{len(pending_articles)} ---")
             try:
-                # 🔧 關鍵修正：將 force_api 傳遞給 generate_article
-                generate_article(item, force_api=force_api)
+                # ✅ 直接呼叫 generate_article（已由 api_client 統一管理）
+                generate_article(item)
             except Exception as e:
                 logger.error(f"❌ 生成失敗：{item['keyword']} - {e}")
                 continue
     else:
         logger.info("\n✅ 所有文章已存在，無需生成")
     
+    # 6. 更新分類頁與 Sitemap
     logger.info("📂 更新分類頁與 Sitemap...")
     generate_category_pages()
     all_existing_html = scan_all_html_files()
     update_sitemap()
     
+    # 7. 完成
     logger.info("\n" + "=" * 70)
     logger.info("✅ 文章生成流程完成！")
     logger.info(f"📊 總文章數：{len(all_existing_html)} 篇")
@@ -268,8 +262,8 @@ def run_pipeline(force_api=None, dry_run=False):
 # ============================================================
 
 def main():
-    parser = argparse.ArgumentParser(description='AHPAL 文章生成引擎')
-    parser.add_argument('--force', choices=['deepseek', 'gemini'], help='強制使用指定的 API')
+    parser = argparse.ArgumentParser(description='AHPAL 文章生成引擎 v5.0')
+    parser.add_argument('--force', choices=['deepseek', 'gemini'], help='強制使用指定的 API（已棄用，僅供向後相容）')
     parser.add_argument('--dry-run', action='store_true', help='僅顯示待生成清單，不實際生成')
     parser.add_argument('--reset', action='store_true', help='重置文章狀態檔案')
     
@@ -285,7 +279,8 @@ def main():
             logger.warning(f"⚠️ 重置失敗：{e}")
         return
     
-    run_pipeline(args.force, args.dry_run)
+    # 忽略 force 參數，統一由 api_client 管理
+    run_pipeline(dry_run=args.dry_run)
 
 if __name__ == "__main__":
     main()

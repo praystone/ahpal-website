@@ -125,8 +125,8 @@
     <div class="header">
         <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
         <div class="subtitle">AI 系統交接與新進工程師接手手冊</div>
-        <div class="version">📌 版本 v13.0 · 2026 年 8 月 6 日</div>
-        <div class="status-badge">✅ 生產環境就緒 · 430+ 篇文章 · API 統一調度完成</div>
+        <div class="version">📌 版本 v14.0 · 2026 年 8 月 6 日</div>
+        <div class="status-badge">✅ 生產環境就緒 · 434 篇文章 · 文+圖全自動產線</div>
     </div>
 
     <!-- ============================================================
@@ -137,7 +137,7 @@
         <div class="toc">
             <ul>
                 <li><a href="#section-overview">1. 系統概述</a></li>
-                <li><a href="#section-architecture">2. 技術架構（v13.0 更新）</a></li>
+                <li><a href="#section-architecture">2. 技術架構（v14.0 更新）</a></li>
                 <li><a href="#section-scripts">2.5 ⭐ 核心腳本功能總覽</a></li>
                 <li><a href="#section-directory">3. 目錄結構</a></li>
                 <li><a href="#section-firstday">4. 第一天：環境設定</a></li>
@@ -145,6 +145,7 @@
                 <li><a href="#section-add-articles">5. ⭐ 新增文章（JSON 驅動）</a></li>
                 <li><a href="#section-workflow">6. 日常工作流程</a></li>
                 <li><a href="#section-deploy">7. 部署與上線</a></li>
+                <li><a href="#section-image-integration">7.5 🖼️ 文章自動配圖系統</a></li>
                 <li><a href="#section-shorts">8. 🎬 影音自動化產線</a></li>
                 <li><a href="#section-backup">9. 💾 備份與雲端同步</a></li>
                 <li><a href="#section-troubleshooting">10. 常見問題排錯</a></li>
@@ -171,7 +172,7 @@
                         <tr><td>🤖 AI 文章生成</td><td><strong>統一使用 DeepSeek Flash</strong>（成本僅 Pro 的 1/3）</td></tr>
                         <tr><td>🎮 HTML5 遊戲</td><td>64 款互動遊戲，免下載即開即玩</td></tr>
                         <tr><td>🎬 影音自動化產線</td><td>文章 → NotebookLM → YouTube Shorts 全自動流程</td></tr>
-                        <tr><td>🖼️ AI 配圖生成</td><td>Gemini 3.1 Flash Image — 文章自動生成配圖（SEO 加分）</td></tr>
+                        <tr><td>🖼️ AI 配圖生成</td><td><strong>Pollinations AI</strong>（免費、免 API Key、自動嵌入文章）</td></tr>
                         <tr><td>⚙️ 自動化部署</td><td>一鍵完成內容生成 → 靜態檔案輸出 → Cloudflare 部署</td></tr>
                         <tr><td>☁️ 雲端備份</td><td>Rclone 自動同步至 Google Drive (ahpalke@gmail.com)</td></tr>
                     </tbody>
@@ -183,12 +184,12 @@
                 <table>
                     <thead><tr><th>指標</th><th>數值</th></tr></thead>
                     <tbody>
-                        <tr><td>總文章數</td><td><strong>430 篇</strong> ✅</td></tr>
+                        <tr><td>總文章數</td><td><strong>434 篇</strong> ✅</td></tr>
                         <tr><td>遊戲數量</td><td><strong>64 款</strong></td></tr>
                         <tr><td>分類數量</td><td><strong>6 大類</strong></td></tr>
                         <tr><td>核心 PowerShell 腳本</td><td><strong>18 個</strong>（已精簡）</td></tr>
-                        <tr><td>Sitemap URL</td><td><strong>437 個</strong></td></tr>
-                        <tr><td>平均品質分數</td><td><strong>82.6 分</strong></td></tr>
+                        <tr><td>Sitemap URL</td><td><strong>441 個</strong></td></tr>
+                        <tr><td>平均品質分數</td><td><strong>82.4 分</strong></td></tr>
                         <tr><td>品質未達標</td><td><strong>0 篇</strong> ✅</td></tr>
                     </tbody>
                 </table>
@@ -201,7 +202,7 @@
     ============================================================ -->
     <section id="section-architecture">
         <div class="card">
-            <h2>2. 技術架構（v13.0 更新）</h2>
+            <h2>2. 技術架構（v14.0 更新）</h2>
             <div class="table-wrapper">
                 <table>
                     <thead><tr><th>元件</th><th>技術</th></tr></thead>
@@ -209,7 +210,7 @@
                         <tr><td>總指揮</td><td>PowerShell (ahpal-master.ps1 v7.2)</td></tr>
                         <tr><td>內容生成引擎</td><td>Python 3 (src/ 模組化)</td></tr>
                         <tr><td>AI 文章模型</td><td><strong>DeepSeek Flash</strong>（統一調度）</td></tr>
-                        <tr><td>AI 配圖模型</td><td><strong>Gemini 3.1 Flash Image</strong>（統一調度）</td></tr>
+                        <tr><td>AI 配圖模型</td><td><strong>Pollinations AI</strong>（免費、免 API Key）</td></tr>
                         <tr><td>API 調度中心</td><td><code>api_client.py</code>（唯一入口）</td></tr>
                         <tr><td>影音引擎</td><td>NotebookLM / Gemini + TTS</td></tr>
                         <tr><td>靜態託管</td><td>Cloudflare Pages</td></tr>
@@ -220,12 +221,12 @@
             </div>
 
             <div class="tip success">
-                <div class="tip-title">✅ v13.0 重要更新：API 統一調度</div>
+                <div class="tip-title">✅ v14.0 重要更新：Pollinations AI 配圖整合</div>
                 <ul style="margin:4px 0 0 20px;">
-                    <li>所有 AI 呼叫統一由 <code>api_client.py</code> 調度</li>
-                    <li><strong>生文固定使用 DeepSeek Flash</strong>（成本降至 Pro 的 1/3）</li>
-                    <li><strong>生圖固定使用 Gemini 3.1 Flash Image</strong>（SEO 配圖專用）</li>
-                    <li><code>config.py</code> 已標記為過渡期，僅供向後相容</li>
+                    <li><strong>配圖完全免費</strong>：無需 API Key，無配額限制</li>
+                    <li><strong>自動嵌入文章</strong>：圖片自動插入第一個段落之後</li>
+                    <li><strong>穩定可靠</strong>：使用 `image.pollinations.ai/prompt/` 端點</li>
+                    <li><strong>文章總數</strong>：434 篇（含 3 篇新文章）</li>
                 </ul>
             </div>
         </div>
@@ -351,17 +352,18 @@
             <h2>3. 目錄結構</h2>
             <div class="code-block">
 📁 C:\Users\User\ahpal-static\
-├── 📁 src/                    ← Python 原始碼（11 個模組）
+├── 📁 src/                    ← Python 原始碼（12 個模組）
 │   ├── api_client.py          ← ⭐ 唯一 API 調度中心（v3.2）
-│   ├── article_generator.py   ← 文章生成核心（v7.0）
-│   ├── main.py                ← 入口（v5.0）
+│   ├── article_generator.py   ← 文章生成核心（v7.2，含配圖整合）
+│   ├── model_router.py        ← 🖼️ Pollinations AI 生圖路由（v2.3）
+│   ├── main.py                ← 入口（v5.1）
 │   └── config.py              ← 過渡期設定（將棄用）
 ├── 📁 scripts/                ← ⭐ 18 個 PowerShell 腳本
 ├── 📁 data/                   ← ⭐ 文章新增清單存放處
 │   └── pending-articles.json  ← ⭐ 待新增文章 JSON
 ├── 📁 ahpal-AI-archive/       ← AI 檔案館（備份）
 ├── 📁 game/                   ← 64 款遊戲
-├── 📁 images/                 ← 🖼️ AI 生成配圖目錄
+├── 📁 images/                 ← 🖼️ Pollinations AI 生成配圖目錄
 ├── 📁 tech/ life/ review/ philosophy/ trend/ ← 文章分類
 ├── .env                       ← ⚠️ API Key（不上傳 Git）
 └── index.html                 ← 首頁
@@ -387,7 +389,7 @@
                         <tr><td>Git</td><td>版本控制</td><td><a href="https://git-scm.com/download/win" target="_blank">下載安裝</a></td></tr>
                         <tr><td>Rclone</td><td>Google Drive 同步</td><td>執行 <code>.\scripts\sync-to-gdrive.ps1</code> 自動下載</td></tr>
                         <tr><td>DeepSeek API Key</td><td>文章生成</td><td><a href="https://platform.deepseek.com/" target="_blank">取得金鑰</a></td></tr>
-                        <tr><td>Gemini API Key</td><td>配圖生成</td><td><a href="https://aistudio.google.com/apikey" target="_blank">取得金鑰</a></td></tr>
+                        <tr><td>Pollinations AI</td><td>配圖生成</td><td><strong>無需 API Key</strong>，完全免費</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -397,14 +399,14 @@
 cd C:\Users\User\ahpal-static
 Copy-Item .env.template .env
 notepad .env
-# 填入 GEMINI_API_KEY=AIzaSy...
 # 填入 DEEPSEEK_API_KEY=sk-...
+# Pollinations AI 不需要 API Key
             </div>
         </div>
     </section>
 
     <!-- ============================================================
-    4.5 🚀 API 統一調度架構（重要！）
+    4.5 🚀 API 統一調度架構
     ============================================================ -->
     <section id="section-api-unified">
         <div class="card" style="border: 2px solid var(--color-secondary);">
@@ -414,29 +416,20 @@ notepad .env
                 <div class="tip-title">📌 所有 AI 呼叫統一由 <code>api_client.py</code> 調度</div>
                 <ul style="margin:4px 0 0 20px;">
                     <li><strong>生文：</strong>DeepSeek Flash（固定）</li>
-                    <li><strong>生圖：</strong>Gemini 3.1 Flash Image（固定）</li>
+                    <li><strong>生圖：</strong>Pollinations AI（免費、免 Key、自動嵌入）</li>
                     <li><strong>不需要手動切換 API</strong> — 系統自動決定</li>
                 </ul>
             </div>
 
             <div class="code-block">
-# api_client.py 核心架構
-class APIClient:
-    def __init__(self):
-        self.deepseek_model = "deepseek-v4-flash"    # 固定 Flash
-        self.gemini_model = "gemini-3.1-flash-image" # 固定生圖
+# 生圖端點（已驗證）
+https://image.pollinations.ai/prompt/{prompt}?width=1024&height=1024&nologo=true
 
-    def generate_article(self, keyword, category):
-        """使用 DeepSeek Flash 生成文章"""
-        ...
-
-    def generate_image(self, prompt, filename):
-        """使用 Gemini 3.1 Flash Image 生成配圖"""
-        ...
-
-    def generate_article_with_images(self, keyword, category):
-        """一鍵生成文章 + 配圖"""
-        ...
+# 生圖流程
+1. DeepSeek Flash 生成文章內容
+2. Pollinations AI 生成配圖
+3. 圖片自動嵌入文章第一個 &lt;p&gt; 之後
+4. 品質檢查通過後寫入檔案
             </div>
 
             <div class="tip warning">
@@ -466,14 +459,9 @@ class APIClient:
             <div class="code-block">
 [
     {
-        "keyword": "2026 年 MacBook Neo 購買指南",
-        "category": "💻 3C 科技教學",
-        "filename": "tech/macbook-neo-buying-guide-2026.html"
-    },
-    {
-        "keyword": "AI 生成圖片版權爭議與法律規範",
-        "category": "🤖 AI 趨勢",
-        "filename": "trend/ai-image-copyright-law-2026.html"
+        "keyword": "2026 年最新居家智慧裝置選購指南",
+        "category": "🏠 生活小常識",
+        "filename": "life/smart-home-devices-guide-2026.html"
     }
 ]
             </div>
@@ -482,8 +470,8 @@ class APIClient:
                 <div class="tip-title">📌 檔名規則</div>
                 <p>所有新文章<strong>必須使用英文檔名</strong>，避免編碼與 URL 亂碼問題。</p>
                 <ul style="margin:4px 0 0 20px;">
-                    <li>✅ 範例：<code>macbook-neo-buying-guide-2026.html</code></li>
-                    <li>❌ 避免：<code>2026年MacBook購買指南.html</code></li>
+                    <li>✅ 範例：<code>smart-home-devices-guide-2026.html</code></li>
+                    <li>❌ 避免：<code>2026年居家智慧裝置.html</code></li>
                 </ul>
             </div>
 
@@ -552,14 +540,338 @@ npx wrangler pages deploy . --project-name=ahpal-pages
                 <li>☐ 首頁可正常訪問（<code>https://www.ahpal.com/</code>）</li>
                 <li>☐ 遊戲間可正常訪問（<code>https://www.ahpal.com/game/</code>）</li>
                 <li>☐ Sitemap 已更新（<code>sitemap.xml</code>）</li>
+                <li>☐ 新文章配圖是否正常顯示</li>
             </ul>
         </div>
     </section>
 
     <!-- ============================================================
-    8-14. 影音、備份、排錯、指令、檢查清單、檔案館、戰略決策、更新紀錄
+    7.5 🖼️ 文章自動配圖系統
     ============================================================ -->
-    <!-- 此處保留與之前版本相同，避免篇幅過長，核心資訊已完整呈現 -->
+    <section id="section-image-integration">
+        <div class="card" style="border: 2px solid var(--color-accent);">
+            <h2 style="border-bottom-color: var(--color-accent);">7.5 🖼️ 文章自動配圖系統</h2>
+
+            <div class="tip success">
+                <div class="tip-title">🎯 Pollinations AI 配圖流程</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li><strong>完全免費</strong>：無需 API Key，無配額限制</li>
+                    <li><strong>自動觸發</strong>：每篇文章生成時自動產生配圖</li>
+                    <li><strong>自動嵌入</strong>：圖片插入文章第一個段落之後</li>
+                    <li><strong>穩定端點</strong>：<code>image.pollinations.ai/prompt/</code></li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+# 配圖生成流程（article_generator.py v7.2）
+def generate_and_embed_image(html_content, keyword):
+    1. 使用文章標題作為生圖提示詞
+    2. 呼叫 Pollinations AI 生成圖片
+    3. 圖片儲存至 images/ 目錄
+    4. 自動嵌入文章第一個 &lt;p&gt; 之後
+    5. 品質報告顯示「配圖：✅ 已生成」
+            </div>
+
+            <div class="tip warning">
+                <div class="tip-title">📌 驗證配圖</div>
+                <ul style="margin:4px 0 0 20px;">
+                    <li>檢查 <code>images/</code> 目錄是否有新圖片</li>
+                    <li>檢查文章 HTML 是否包含 <code>&lt;img&gt;</code> 標籤</li>
+                    <li>品質報告應顯示「配圖：✅ 已生成」</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    8. 影音自動化產線
+    ============================================================ -->
+    <section id="section-shorts">
+        <div class="card" style="border: 2px solid var(--color-accent);">
+            <h2 style="border-bottom-color: var(--color-accent);">8. 🎬 影音自動化產線（YouTube Shorts）</h2>
+
+            <div class="tip success">
+                <div class="tip-title">🎯 已打通！文章 → 影音 → YouTube 全自動化</div>
+                <p><strong>重要決策：</strong>影音檔案不存放於 Cloudflare Pages（單一檔案限制 25 MiB），統一存放於 <strong>YouTube 與 AI 檔案館</strong>。</p>
+            </div>
+
+            <h3>8.1 產線流程圖</h3>
+            <div class="pipeline-flow">
+                <div class="line">
+                    <span class="box">📄 AHPAL 文章</span>
+                    <span class="arrow">→</span>
+                    <span class="box green">🔄 純文字轉換</span>
+                    <span class="arrow">→</span>
+                    <span class="box accent">🎧 NotebookLM 語音</span>
+                </div>
+                <div class="line">
+                    <span class="arrow">└─</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">📥 下載音訊</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">🎬 YouTube 上傳</span>
+                    <span class="arrow">→</span>
+                    <span class="box" style="font-size:12px;padding:4px 14px;">✅ 發布完成</span>
+                </div>
+            </div>
+
+            <h3>8.2 執行影音產線</h3>
+            <div class="code-block">
+# 完整產線 (文章 → 音訊 → YouTube)
+.\scripts\youtube-pipeline.ps1 -ArticlePath "tech\文章.html"
+.\scripts\youtube-upload-realtime.ps1 -VideoFile "audio\podcast.wav" -Title "標題"
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    9. 💾 備份與雲端同步
+    ============================================================ -->
+    <section id="section-backup">
+        <div class="card" style="border: 2px solid var(--color-secondary);">
+            <h2 style="border-bottom-color: var(--color-secondary);">9. 💾 備份與雲端同步</h2>
+
+            <div class="tip success">
+                <div class="tip-title">📌 備份策略：本地 + 雲端 雙重保障</div>
+                <ul>
+                    <li><strong>本地備份</strong>：AI 檔案館 + <code>ahpal-backup/</code></li>
+                    <li><strong>雲端備份</strong>：Google Drive (ahpalke@gmail.com) 使用 Rclone 同步</li>
+                </ul>
+            </div>
+
+            <h3>9.1 日常備份指令</h3>
+            <div class="code-block">
+# 完整備份（含壓縮）— 每日建議執行
+.\scripts\backup-system.ps1 -Compress
+
+# 雲端同步（全部）
+.\scripts\sync-to-gdrive.ps1
+
+# 雲端同步（僅文章）
+.\scripts\sync-to-gdrive.ps1 -Task articles
+
+# 雲端同步（僅影音）
+.\scripts\sync-to-gdrive.ps1 -Task videos
+
+# 預覽模式（不實際上傳）
+.\scripts\sync-to-gdrive.ps1 -DryRun
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    10. 常見問題排錯
+    ============================================================ -->
+    <section id="section-troubleshooting">
+        <div class="card">
+            <h2>10. 常見問題排錯</h2>
+
+            <h4>❌ MASTER 不生成文章（顯示「所有文章已存在」）</h4>
+            <div class="tip warning">
+                <div class="tip-title">原因</div>
+                <p><code>main.py</code> 判斷所有文章都已存在，無待新增文章。</p>
+                <div class="tip-title">解決方法</div>
+                <ul>
+                    <li>確認 <code>data/pending-articles.json</code> 有內容</li>
+                    <li>執行 <code>.\scripts\add-articles.ps1</code> 手動處理</li>
+                    <li>或使用 MASTER v7.2 的自動處理功能</li>
+                </ul>
+            </div>
+
+            <h4>❌ Pollinations AI 配圖生成失敗</h4>
+            <div class="tip warning">
+                <div class="tip-title">原因</div>
+                <p>Pollinations AI 服務暫時不穩定，或網路連線問題。</p>
+                <div class="tip-title">解決方法</div>
+                <ul>
+                    <li>確認網路連線正常</li>
+                    <li>檢查端點：<code>https://image.pollinations.ai/prompt/</code></li>
+                    <li>配圖失敗不影響文章生成（僅警告）</li>
+                </ul>
+            </div>
+
+            <h4>❌ Gemini API 429 Too Many Requests</h4>
+            <div class="tip warning">
+                <div class="tip-title">解決方法</div>
+                <p>目前配圖已改用 Pollinations AI，<strong>不再依賴 Gemini 配額</strong>。</p>
+            </div>
+
+            <h4>❌ Cloudflare Pages 部署失敗（413 Payload Too Large）</h4>
+            <div class="tip warning">
+                <div class="tip-title">原因</div>
+                <p>單一檔案超過 25 MiB 限制。</p>
+                <div class="tip-title">解決方法</div>
+                <ul>
+                    <li>影音檔案上傳至 YouTube，不存放於 Pages</li>
+                    <li>檢查 <code>videos/</code> 目錄是否有大型檔案</li>
+                </ul>
+            </div>
+
+            <h4>❌ 死命令檢查失敗</h4>
+            <div class="tip warning">
+                <div class="tip-title">解決方法</div>
+                <div class="code-block">.\scripts\preflight-check.ps1 -Fix</div>
+                <p>自動修復可修復的問題（如檔案過小、缺少品牌名稱等）。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    11. 快速指令參考
+    ============================================================ -->
+    <section id="section-cheatsheet">
+        <div class="card">
+            <h2>11. 快速指令參考</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>用途</th><th>指令</th></tr></thead>
+                    <tbody>
+                        <tr><td>⭐ 新增文章</td><td>編輯 <code>data/pending-articles.json</code> → <code>.\scripts\ahpal-master.ps1</code> → [1]</td></tr>
+                        <tr><td>完整部署</td><td><code>.\scripts\ahpal-master.ps1</code> → [1]</td></tr>
+                        <tr><td>快速更新</td><td><code>.\scripts\ahpal-master.ps1</code> → [2]</td></tr>
+                        <tr><td>死命令檢查</td><td><code>.\scripts\preflight-check.ps1</code></td></tr>
+                        <tr><td>死命令檢查+修復</td><td><code>.\scripts\preflight-check.ps1 -Fix</code></td></tr>
+                        <tr><td>全面系統檢查</td><td><code>.\scripts\check-all.ps1 -Report</code></td></tr>
+                        <tr><td>📦 備份</td><td><code>.\scripts\backup-system.ps1 -Compress</code></td></tr>
+                        <tr><td>☁️ 雲端同步</td><td><code>.\scripts\sync-to-gdrive.ps1</code></td></tr>
+                        <tr><td>🎬 YouTube 上傳</td><td><code>.\scripts\youtube-upload-realtime.ps1 -VideoFile "檔案" -Title "標題"</code></td></tr>
+                        <tr><td>🆘 緊急還原</td><td>從 AI 檔案館解壓縮 <code>ahpal-static-stable-*.zip</code></td></tr>
+                        <tr><td>🔍 找 API 錯誤</td><td><code>findstr /s /i /m "429 503 RESOURCE_EXHAUSTED" *.html</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    12. 新進工程師檢查清單
+    ============================================================ -->
+    <section id="section-checklist">
+        <div class="card">
+            <h2>12. 新進工程師檢查清單</h2>
+
+            <div class="tip success">
+                <div class="tip-title">✅ 請逐項確認</div>
+                <ul>
+                    <li>☐ 取得 GitHub 儲存庫權限（<code>praystone/ahpal-website</code>）</li>
+                    <li>☐ 取得 Cloudflare Pages 專案權限（<code>ahpal-pages</code>）</li>
+                    <li>☐ 取得 DeepSeek API Key</li>
+                    <li>☐ 確認 Git 儲存庫位置：<code>C:\Users\User\ahpal-static\</code></li>
+                    <li>☐ 完成環境設定：建立 <code>.env</code> 並填入 API Key</li>
+                    <li>☐ 測試執行 <code>.\scripts\ahpal-master.ps1</code> 成功</li>
+                    <li>☐ 確認 <code>data/pending-articles.json</code> 存在</li>
+                    <li>☐ 熟悉 JSON 驅動新增文章流程（第 5 章）</li>
+                    <li>☐ 了解 MASTER v7.2 自動處理待新增文章功能</li>
+                    <li>☐ 了解 Pollinations AI 配圖系統（第 7.5 章）</li>
+                    <li>☐ 了解影音自動化產線流程</li>
+                    <li>☐ 了解 Cloudflare Pages 25MiB 限制</li>
+                    <li>☐ 了解 <code>.env</code> 安全機制（不上傳 Git）</li>
+                    <li>☐ 知道 AI 檔案館位置：<code>C:\Users\User\ahpal-AI-archive</code></li>
+                    <li>☐ 已閱讀 <strong>2.5 核心腳本功能總覽（18 個）</strong></li>
+                    <li>☐ 已熟悉備份與雲端同步流程（第 9 章）</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    13. AI 檔案館
+    ============================================================ -->
+    <section id="section-archive">
+        <div class="card">
+            <h2>13. AI 檔案館</h2>
+
+            <p>AI 檔案館是 AHPAL 專案的<b>完整備份系統</b>，用於版本還原和 AI 交接。</p>
+
+            <h3>13.1 檔案館位置</h3>
+            <div class="code-block">C:\Users\User\ahpal-AI-archive\</div>
+
+            <h3>13.2 檔案館內容</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>檔案/目錄</th><th>說明</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>優良備份/</code></td><td>✅ 黃金版本（永久乾淨備份）</td></tr>
+                        <tr><td><code>ahpal-static-stable-*.zip</code></td><td>✅ 最新穩定版備份</td></tr>
+                        <tr><td><code>videos/</code></td><td>🎬 影音備份</td></tr>
+                        <tr><td><code>ai交接-*.zip</code></td><td>AI 交接完整掃描</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    14. 🎯 戰略決策記錄
+    ============================================================ -->
+    <section id="section-strategy">
+        <div class="card" style="border: 2px solid var(--color-accent);">
+            <h2 style="border-bottom-color: var(--color-accent);">14. 🎯 戰略決策記錄</h2>
+
+            <div class="tip gold">
+                <div class="tip-title">📋 決策記錄（2026-08-06）</div>
+            </div>
+
+            <h3>14.1 Pollinations AI 配圖整合</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>決策</th><th>內容</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>問題</strong></td><td>Gemini 配額用完，生圖功能受限</td></tr>
+                        <tr><td><strong>解決方案</strong></td><td>改用 Pollinations AI（完全免費）</td></tr>
+                        <tr><td><strong>端點</strong></td><td><code>image.pollinations.ai/prompt/</code></td></tr>
+                        <tr><td><strong>結果</strong></td><td>✅ 穩定生圖，自動嵌入文章</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>14.2 文章數量成長</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>時間</th><th>文章數</th><th>新增</th></tr></thead>
+                    <tbody>
+                        <tr><td>2026-08-06 開始</td><td>430 篇</td><td>—</td></tr>
+                        <tr><td>MacBook Neo 購買指南</td><td>432 篇</td><td>+2</td></tr>
+                        <tr><td>加密貨幣投資指南</td><td>433 篇</td><td>+1</td></tr>
+                        <tr><td>居家智慧裝置指南</td><td><strong>434 篇</strong></td><td>+1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>14.3 品質檢查優化</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>決策</th><th>內容</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>遊戲排除</strong></td><td>quality_checker.py 自動辨識遊戲頁面，給予 100 分</td></tr>
+                        <tr><td><strong>陣列修復</strong></td><td>$HasApiError 強制宣告為 ArrayList</td></tr>
+                        <tr><td><strong>結果</strong></td><td>品質未達標 24 → 0 篇 ✅</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    15. 📋 更新紀錄（v14.0）
+    ============================================================ -->
+    <section id="section-update-log">
+        <div class="card">
+            <h2>15. 📋 更新紀錄</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>版本</th><th>日期</th><th>變更內容</th></tr></thead>
+                    <tbody>
+                        <tr><td>v14.0</td><td>2026-08-06</td><td>🎉 Pollinations AI 配圖整合、434 篇文章、自動嵌入完成</td></tr>
+                        <tr><td>v13.0</td><td>2026-08-06</td><td>API 統一調度、DeepSeek Flash 固定、腳本精簡</td></tr>
+                        <tr><td>v12.0</td><td>2026-08-04</td><td>腳本精簡至 18 個、MASTER v7.2、品質檢查修復</td></tr>
+                        <tr><td>v11.3</td><td>2026-08-03</td><td>影音產線打通、Rclone 雲端同步整合</td></tr>
+                        <tr><td>v4.2</td><td>2026-07-20</td><td>Python 模組化重構</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
     <!-- ============================================================
     簽核區
@@ -592,8 +904,8 @@ npx wrangler pages deploy . --project-name=ahpal-pages
     頁尾
     ============================================================ -->
     <div style="text-align:center;padding:30px 0;color:#A0AEC0;font-size:13px;border-top:1px solid var(--color-border);margin-top:20px;">
-        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — AI 系統交接與新進工程師接手手冊 v13.0<br>
-        文件最後更新：2026 年 8 月 6 日 ｜ 文章總數：430 篇 ｜ 核心腳本：18 個
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — AI 系統交接與新進工程師接手手冊 v14.0<br>
+        文件最後更新：2026 年 8 月 6 日 ｜ 文章總數：434 篇 ｜ 核心腳本：18 個
         <br><br>
         <span style="font-size:12px;color:#718096;">
         🦞 龍蝦總工程師 · 🤖 Gemini 顧問 · 🏛️ ChatGPT 執行長 · 👑 董事會 共同制定
@@ -608,7 +920,7 @@ npx wrangler pages deploy . --project-name=ahpal-pages
         </span>
         <br>
         <span style="font-size:12px;color:#D4AF37;">
-        🖼️ Gemini 3.1 Flash Image 配圖生成已整合 ✅
+        🖼️ Pollinations AI 配圖已整合 ✅ ｜ 📝 434 篇文章 ✅
         </span>
     </div>
 

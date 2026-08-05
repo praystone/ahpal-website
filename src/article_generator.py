@@ -1,16 +1,10 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v7.2
+# article_generator.py - 文章生成核心模組 v7.3
 # ============================================================
-# 功能：
-#   - 生成單一文章（DeepSeek Flash）
-#   - 🆕 自動為文章生成配圖（Pollinations AI）
-#   - 過濾待生成清單
-#   - 品質檢查
-#   - 更新首頁
-# 變更：
-#   - 修復 re 模組重複導入問題
-#   - 確保 HTML 結構完整
-#   - 優化配圖嵌入邏輯
+# 修復：
+#   - 強制使用繁體中文（正體中文）
+#   - 圖片響應式大小（max-width:100%）
+#   - 優化圖片 alt 文本長度
 # ============================================================
 
 import os
@@ -255,7 +249,6 @@ def text_to_html(content, keyword, category):
         ]
         body_content = body_content.replace('</h1>', f'</h1>\n' + '\n'.join(sections))
 
-    # 🆕 確保 HTML 結構完整
     full_html = f'''<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -288,7 +281,6 @@ def generate_and_embed_image(html_content, keyword):
         
         # 使用文章標題作為生圖提示詞
         image_prompt = f"{keyword} 示意圖，清晰專業風格，適合網頁文章配圖"
-        # 🔧 修復：使用 re.sub 移除特殊字元（re 已在頂部導入）
         safe_filename = re.sub(r'[\\/*?:"<>|]', '', keyword)[:50]
         
         result = router.generate_image_pollinations(
@@ -299,15 +291,22 @@ def generate_and_embed_image(html_content, keyword):
         )
         
         if result.get("img_tag"):
-            # 🔧 修復：直接使用頂部導入的 re，不再重複導入
+            # 🔧 修復：響應式圖片，加上圓角和間距
+            img_tag = result["img_tag"]
+            # 修改圖片標籤為響應式
+            responsive_img = img_tag.replace(
+                'width="800"',
+                'style="max-width:100%;height:auto;width:100%;max-width:800px;border-radius:8px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);"'
+            )
+            
+            # 將圖片插入到第一個 <p> 標籤之後
             first_p_match = re.search(r'<p>', html_content)
             if first_p_match:
                 insert_pos = first_p_match.end()
-                html_content = html_content[:insert_pos] + '\n' + result["img_tag"] + '\n' + html_content[insert_pos:]
+                html_content = html_content[:insert_pos] + '\n' + responsive_img + '\n' + html_content[insert_pos:]
                 print(f"   ✅ 配圖已插入文章：{result['filepath']}")
             else:
-                # 如果沒有 <p> 標籤，插入到 <body> 之後
-                html_content = html_content.replace('<body>', f'<body>\n{result["img_tag"]}')
+                html_content = html_content.replace('<body>', f'<body>\n{responsive_img}')
                 print(f"   ⚠️ 未找到 <p> 標籤，配圖插入在文章開頭")
             return html_content, True
         else:
@@ -458,11 +457,11 @@ def get_pending_articles(keywords_list):
 
 if __name__ == "__main__":
     print("\n" + "="*50)
-    print("  🧪 article_generator.py v7.2 測試")
+    print("  🧪 article_generator.py v7.3 測試（繁體中文 + 響應式圖片）")
     print("="*50 + "\n")
 
     test_item = {
-        "keyword": "2026 年最新 AI 工具推薦",
+        "keyword": "2026 年最新 AI 工具推薦（繁體測試）",
         "category": "🤖 AI 趨勢",
         "filename": "test/test-article.html"
     }

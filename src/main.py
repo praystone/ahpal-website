@@ -170,6 +170,8 @@ keywords_list = [
 
     {"keyword": "2026 年最新居家智慧裝置選購指南：從入門到進階的完整攻略", "category": "🏠 生活小常識", "filename": "life/smart-home-devices-guide-2026.html"},
 
+    {"keyword": "2026 年開源軟體推薦：完全免費、替代付費軟體的終極指南", "category": "📊 軟體評測", "filename": "review/open-source-software-guide-2026.html"},
+
 ]
 
 # ============================================================

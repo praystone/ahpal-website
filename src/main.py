@@ -174,6 +174,8 @@ keywords_list = [
 
     {"keyword": "2026 年最佳免費防毒軟體完整評測：效能、防護與隱私全面對比", "category": "📊 軟體評測", "filename": "review/best-free-antivirus-2026.html"},
 
+    {"keyword": "如何在數位時代保持內心平靜：正念與專注力的科學實踐指南", "category": "🌟 人生哲理", "filename": "philosophy/mindfulness-digital-age-guide-2026.html"},
+
 ]
 
 # ============================================================

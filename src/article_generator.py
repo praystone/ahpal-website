@@ -1,17 +1,19 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v7.4
+# article_generator.py - 文章生成核心模組 v7.5
 # ============================================================
 # 修復：
 #   - 強制使用繁體中文（正體中文）
 #   - 圖片響應式大小（max-width:100%）
 #   - 優化圖片 alt 文本長度
-#   - 🆕 智慧配圖：從文章內容提取具體主題，讓圖片與內文相關
-#   - 🆕 多重策略：H2標題 → 開頭段落 → 文章標題（備案）
+#   - 🆕 智慧配圖 v3.0：URL 編碼、16:9 橫圖、</p> 插入
+#   - 🆕 多重 Fallback：H2 → 開頭段落 → 英文備案
+#   - 🆕 特殊符號過濾，避免 Pollinations 解析失敗
 # ============================================================
 
 import os
 import re
 import time
+import urllib.parse
 from pathlib import Path
 from datetime import datetime
 
@@ -270,50 +272,125 @@ def text_to_html(content, keyword, category):
 
 
 # ============================================================
-# 🖼️ 智慧配圖系統 v2.0 - 讓圖片「讀懂」文章
+# 🖼️ 智慧配圖系統 v3.0 - 穩定版
 # ============================================================
+
+def _extract_clean_prompt(html_content, keyword):
+    """
+    從文章內容提取乾淨、安全的生圖提示詞
+    修復：過濾特殊符號、URL 編碼、16:9 橫圖、英文備案
+    """
+    # ---- 策略 1：提取第一個 H2 標題 ----
+    h2_match = re.search(r'<h2[^>]*>(.*?)</h2>', html_content, re.IGNORECASE | re.DOTALL)
+    if h2_match:
+        clean_h2 = re.sub(r'<[^>]+>', '', h2_match.group(1)).strip()
+        # 過濾特殊符號，只保留中英文、數字、空白
+        clean_h2 = re.sub(r'[^\w\s\u4e00-\u9fa5]', '', clean_h2)
+        if clean_h2 and len(clean_h2) > 5:
+            # 限制長度，避免 URL 過長
+            if len(clean_h2) > 40:
+                clean_h2 = clean_h2[:40] + "..."
+            return f"{keyword} {clean_h2} 示意圖"
+    
+    # ---- 策略 2：提取開頭段落的前 60 個字 ----
+    first_p = re.search(r'<p>(.*?)</p>', html_content, re.IGNORECASE | re.DOTALL)
+    if first_p:
+        p_text = re.sub(r'<[^>]+>', '', first_p.group(1)).strip()
+        p_text = re.sub(r'[^\w\s\u4e00-\u9fa5]', '', p_text)
+        if p_text and len(p_text) > 10:
+            if len(p_text) > 60:
+                p_text = p_text[:60] + "..."
+            return f"{keyword} {p_text} 示意圖"
+    
+    # ---- 策略 3：英文備案（當中文解析失敗時） ----
+    # 提取關鍵字的英文翻譯（簡化版）
+    english_keywords = {
+        "防毒軟體": "antivirus software",
+        "開源軟體": "open source software",
+        "免費": "free",
+        "評測": "review",
+        "指南": "guide",
+        "推薦": "recommendation",
+        "完整": "complete",
+        "對比": "comparison",
+        "效能": "performance",
+        "隱私": "privacy"
+    }
+    eng_prompt = ""
+    for zh, en in english_keywords.items():
+        if zh in keyword:
+            eng_prompt += f"{en} "
+    if eng_prompt:
+        return f"{eng_prompt}illustration technology concept"
+    
+    # ---- 策略 4：最終備案 ----
+    return f"technology software illustration concept"
+
 
 def generate_and_embed_image(html_content, keyword):
     """
-    使用 Pollinations AI 生成配圖，並嵌入到文章的第一個 <p> 之後
-    智慧版 v2.0：從文章內容提取具體主題，讓圖片與內文相關
+    使用 Pollinations AI 生成配圖，並嵌入文章
+    修復 v3.0：
+        - URL 編碼安全（urllib.parse.quote）
+        - 16:9 橫圖比例（文章配圖視覺效果最佳）
+        - 使用 </p> 匹配（解決帶屬性標籤問題）
+        - 多重插入備案
     """
     print("   🖼️ 正在生成配圖（Pollinations AI）...")
     
     try:
         router = ModelRouter()
         
-        # ============================================================
-        # 1. 從文章內容提取「真正的主題」
-        # ============================================================
-        image_prompt = _extract_image_prompt(html_content, keyword)
-        print(f"   📝 生圖提示詞：{image_prompt[:60]}...")
+        # 1. 提取乾淨的提示詞
+        raw_prompt = _extract_clean_prompt(html_content, keyword)
+        # URL 編碼（確保中英文特殊字元都被正確編碼）
+        encoded_prompt = urllib.parse.quote(raw_prompt)
+        print(f"   📝 生圖提示詞（編碼後）：{encoded_prompt[:60]}...")
         
         safe_filename = re.sub(r'[\\/*?:"<>|]', '', keyword)[:50]
         
+        # 2. 生成圖片（16:9 橫圖，文章配圖視覺最佳）
         result = router.generate_image_pollinations(
-            prompt=image_prompt,
+            prompt=encoded_prompt,      # 傳入已編碼的提示詞
             filename=f"article_{safe_filename}",
             width=1024,
-            height=1024
+            height=576                 # 16:9 比例
         )
         
         if result.get("img_tag"):
             # 響應式圖片
             responsive_img = _make_responsive_image(result["img_tag"])
             
-            # 插入到第一個 <p> 之後
-            first_p_match = re.search(r'<p>', html_content)
-            if first_p_match:
-                insert_pos = first_p_match.end()
-                html_content = html_content[:insert_pos] + '\n' + responsive_img + '\n' + html_content[insert_pos:]
-                print(f"   ✅ 配圖已插入文章：{result['filepath']}")
+            # ---- 3. 插入圖片（使用 </p> 匹配） ----
+            # 策略 A：插入在第一個 </p> 之後（支援帶屬性的 <p> 標籤）
+            p_close_match = re.search(r'</p>', html_content, re.IGNORECASE)
+            if p_close_match:
+                pos = p_close_match.end()
+                html_content = html_content[:pos] + '\n' + responsive_img + '\n' + html_content[pos:]
+                print(f"   ✅ 配圖已插入文章第一個段落之後")
             else:
-                html_content = html_content.replace('<body>', f'<body>\n{responsive_img}')
-                print(f"   ⚠️ 未找到 <p> 標籤，配圖插入在文章開頭")
+                # 策略 B：插入在第一個 <h2> 之前
+                h2_match = re.search(r'<h2', html_content, re.IGNORECASE)
+                if h2_match:
+                    pos = h2_match.start()
+                    html_content = html_content[:pos] + responsive_img + '\n' + html_content[pos:]
+                    print(f"   ✅ 配圖已插入文章第一個 H2 之前")
+                else:
+                    # 策略 C：插入在 <body> 之後
+                    body_match = re.search(r'<body[^>]*>', html_content, re.IGNORECASE)
+                    if body_match:
+                        pos = body_match.end()
+                        html_content = html_content[:pos] + '\n' + responsive_img + '\n' + html_content[pos:]
+                        print(f"   ✅ 配圖已插入文章 body 開頭")
+                    else:
+                        # 策略 D：直接插入在開頭
+                        html_content = responsive_img + '\n' + html_content
+                        print(f"   ✅ 配圖已插入文章開頭")
+            
             return html_content, True
         else:
-            print(f"   ⚠️ 配圖生成失敗：{result.get('error', '未知錯誤')}")
+            error_msg = result.get('error', 'API 無回應') if result else '無回傳內容'
+            print(f"   ⚠️ 配圖生成失敗：{error_msg}")
             return html_content, False
             
     except Exception as e:
@@ -321,49 +398,16 @@ def generate_and_embed_image(html_content, keyword):
         return html_content, False
 
 
-def _extract_image_prompt(html_content, keyword):
-    """
-    從文章內容中提取最適合生圖的提示詞
-    策略：優先使用第一個 H2 → 否則使用文章開頭段落 → 最後才用標題
-    """
-    # ---- 策略 1：提取第一個 H2 標題（最相關） ----
-    h2_match = re.search(r'<h2[^>]*>(.*?)</h2>', html_content, re.IGNORECASE | re.DOTALL)
-    if h2_match:
-        h2_text = re.sub(r'<[^>]+>', '', h2_match.group(1)).strip()
-        # 清理過長的 H2（取前 40 字）
-        if len(h2_text) > 40:
-            h2_text = h2_text[:40] + "..."
-        # 確保提示詞包含關鍵字
-        if keyword not in h2_text:
-            return f"{h2_text}，與 {keyword} 相關的示意圖"
-        return f"{h2_text}，示意圖"
-    
-    # ---- 策略 2：提取文章開頭段落的前 60 個字 ----
-    first_p = re.search(r'<p>(.*?)</p>', html_content, re.IGNORECASE | re.DOTALL)
-    if first_p:
-        p_text = re.sub(r'<[^>]+>', '', first_p.group(1)).strip()
-        # 取前 60 個字作為上下文
-        if len(p_text) > 60:
-            p_text = p_text[:60] + "..."
-        # 確保提示詞包含關鍵字
-        if keyword not in p_text:
-            return f"{p_text}，與 {keyword} 相關的示意圖"
-        return f"{p_text}，示意圖"
-    
-    # ---- 策略 3：最終備案 ----
-    return f"{keyword}，概念示意圖，清晰專業"
-
-
 def _make_responsive_image(img_tag):
-    """將圖片標籤轉為響應式"""
+    """將圖片標籤轉為響應式（16:9 橫圖專用）"""
     return img_tag.replace(
         'width="800"',
-        'style="max-width:100%;height:auto;width:100%;max-width:800px;border-radius:8px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);"'
+        'style="max-width:100%;height:auto;width:100%;max-width:800px;border-radius:8px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);aspect-ratio:16/9;object-fit:cover;"'
     )
 
 
 # ============================================================
-# 生成單一文章（核心改良版 + 智慧配圖）
+# 生成單一文章（核心改良版 + 智慧配圖 v3.0）
 # ============================================================
 
 def generate_article(item):
@@ -377,7 +421,7 @@ def generate_article(item):
         1. 檢查檔案是否已存在
         2. 使用 APIClient 生成文章
         3. 轉換為完整 HTML
-        4. 🆕 生成 Pollinations AI 配圖並嵌入文章（智慧版）
+        4. 🆕 生成 Pollinations AI 配圖並嵌入文章（v3.0 穩定版）
         5. 品質檢查
         6. 寫入檔案
         7. 更新首頁
@@ -436,7 +480,7 @@ def generate_article(item):
     html_content = build_article_html(keyword, category, html_content)
 
     # ============================================================
-    # 3. 🆕 生成配圖並嵌入文章（Pollinations AI - 智慧版）
+    # 3. 🆕 生成配圖並嵌入文章（Pollinations AI - v3.0 穩定版）
     # ============================================================
     html_content, image_generated = generate_and_embed_image(html_content, keyword)
 
@@ -501,7 +545,7 @@ def get_pending_articles(keywords_list):
 
 if __name__ == "__main__":
     print("\n" + "="*50)
-    print("  🧪 article_generator.py v7.4 測試（智慧配圖版）")
+    print("  🧪 article_generator.py v7.5 測試（智慧配圖 v3.0）")
     print("="*50 + "\n")
 
     test_item = {

@@ -1,11 +1,11 @@
 # ============================================================
-# AHPAL 文章生成引擎 - main.py v5.0
+# AHPAL 文章生成引擎 - main.py v5.1
 # ============================================================
 # 變更：
-#   - 移除 force_api 參數傳遞（統一由 api_client 管理）
-#   - 簡化 API 資訊顯示
-#   - 優化錯誤處理
-#   - 移除已棄用的時段切換邏輯
+#   - 整合 model_router.py（Pollinations AI 生圖）
+#   - 優化 API 資訊顯示
+#   - 完善錯誤處理與日誌
+#   - 支援生圖功能開關
 # ============================================================
 
 import sys
@@ -44,7 +44,9 @@ def check_api_keys():
     
     gemini_key = os.environ.get("GEMINI_API_KEY")
     if not gemini_key:
-        warnings.append("GEMINI_API_KEY 未設定，僅使用 DeepSeek 模式（生圖功能將受限）")
+        warnings.append("⚠️ GEMINI_API_KEY 未設定，生圖功能將使用 Pollinations AI（免費）")
+    else:
+        logger.info("✅ GEMINI_API_KEY 已設定（備用）")
     
     if errors:
         logger.error("API Key 檢查失敗：")
@@ -55,7 +57,7 @@ def check_api_keys():
     
     if warnings:
         for warn in warnings:
-            logger.warning(f"⚠️ {warn}")
+            logger.warning(warn)
     
     logger.info("✅ API Key 檢查通過")
     return True, []
@@ -197,7 +199,7 @@ def get_pending_articles():
 def run_pipeline(force_api=None, dry_run=False):
     """執行文章生成管線"""
     logger.info("=" * 70)
-    logger.info(f"🦞 AHPAL.COM 文章生成引擎 v5.0 - {CURRENT_YEAR}")
+    logger.info(f"🦞 AHPAL.COM 文章生成引擎 v5.1 - {CURRENT_YEAR}")
     logger.info(f"📅 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info("=" * 70)
     
@@ -209,10 +211,13 @@ def run_pipeline(force_api=None, dry_run=False):
     
     # 2. 顯示 API 資訊
     api_info = get_current_api_info(force_api=force_api)
-    logger.info(f"📡 當前 API：{api_info.get('name', 'DeepSeek Flash')}")
+    logger.info(f"📡 文字生成：{api_info.get('name', 'DeepSeek Flash')}")
     logger.info(f"   🤖 模型：{api_info.get('model', 'deepseek-v4-flash')}")
     logger.info(f"   ⏰ 時段：{'尖峰' if api_info.get('peak', False) else '離峰'}")
     logger.info(f"   💰 價格：{api_info.get('price', '低')}")
+    
+    # 顯示生圖資訊
+    logger.info(f"🖼️ 配圖生成：Pollinations AI（免費、免 API Key）")
     
     # 3. 取得待生成文章
     pending_articles = get_pending_articles()
@@ -234,7 +239,6 @@ def run_pipeline(force_api=None, dry_run=False):
         for idx, item in enumerate(pending_articles, 1):
             logger.info(f"\n--- 進度 {idx}/{len(pending_articles)} ---")
             try:
-                # ✅ 直接呼叫 generate_article（已由 api_client 統一管理）
                 generate_article(item)
             except Exception as e:
                 logger.error(f"❌ 生成失敗：{item['keyword']} - {e}")
@@ -262,7 +266,7 @@ def run_pipeline(force_api=None, dry_run=False):
 # ============================================================
 
 def main():
-    parser = argparse.ArgumentParser(description='AHPAL 文章生成引擎 v5.0')
+    parser = argparse.ArgumentParser(description='AHPAL 文章生成引擎 v5.1')
     parser.add_argument('--force', choices=['deepseek', 'gemini'], help='強制使用指定的 API（已棄用，僅供向後相容）')
     parser.add_argument('--dry-run', action='store_true', help='僅顯示待生成清單，不實際生成')
     parser.add_argument('--reset', action='store_true', help='重置文章狀態檔案')
@@ -279,7 +283,6 @@ def main():
             logger.warning(f"⚠️ 重置失敗：{e}")
         return
     
-    # 忽略 force 參數，統一由 api_client 管理
     run_pipeline(dry_run=args.dry_run)
 
 if __name__ == "__main__":

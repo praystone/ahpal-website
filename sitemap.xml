@@ -86,7 +86,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/docs/打一份AI交接與新進工程師交接手冊.html</loc>
-        <lastmod>2026-08-04</lastmod>
+        <lastmod>2026-08-06</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -2137,6 +2137,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/tech/macbook-neo-buying-guide-2026.html</loc>
+        <lastmod>2026-08-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/tech/mechanical-keyboard-guide-2026.html</loc>
         <lastmod>2026-07-20</lastmod>
         <changefreq>monthly</changefreq>
@@ -2463,6 +2469,12 @@
     <url>
         <loc>https://www.ahpal.com/trend/ai-healthcare-trends-2026.html</loc>
         <lastmod>2026-07-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/trend/ai-image-copyright-law-2026.html</loc>
+        <lastmod>2026-08-06</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>

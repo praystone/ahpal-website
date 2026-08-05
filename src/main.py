@@ -166,6 +166,10 @@ keywords_list = [
     {"keyword": "2026 年開源 AI 模型盤點：Llama 4、DeepSeek-V4 與其他強者對決", "category": "🤖 AI 趨勢", "filename": "trend/2026年開源AI模型盤點Llama4DeepSeek-V4與其他強者對決.html"},
     {"keyword": "2026 年 MacBook Neo 購買指南：M5 晶片、規格與價格完整解析", "category": "💻 3C 科技教學", "filename": "tech/macbook-neo-buying-guide-2026.html"},
     {"keyword": "2026 年 AI 生成圖片版權爭議與法律規範完整指南", "category": "🤖 AI 趨勢", "filename": "trend/ai-image-copyright-law-2026.html"},
+    {"keyword": "2026 年最值得投資的 5 款加密貨幣：比特幣、以太坊與新興幣種完整分析", "category": "🤖 AI 趨勢", "filename": "trend/crypto-investment-guide-2026.html"},
+
+    {"keyword": "2026 年最新居家智慧裝置選購指南：從入門到進階的完整攻略", "category": "🏠 生活小常識", "filename": "life/smart-home-devices-guide-2026.html"},
+
 ]
 
 # ============================================================

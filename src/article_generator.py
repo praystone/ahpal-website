@@ -1,12 +1,16 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v7.0
+# article_generator.py - 文章生成核心模組 v7.2
 # ============================================================
-# 功能：生成單一文章、過濾待生成清單
+# 功能：
+#   - 生成單一文章（DeepSeek Flash）
+#   - 🆕 自動為文章生成配圖（Pollinations AI）
+#   - 過濾待生成清單
+#   - 品質檢查
+#   - 更新首頁
 # 變更：
-#   - 移除 force_api 參數（統一由 api_client 控制）
-#   - 直接呼叫 api_client.APIClient 取代舊 call_api
-#   - 強化錯誤處理與日誌記錄
-#   - 優化 HTML 轉換邏輯
+#   - 修復 re 模組重複導入問題
+#   - 確保 HTML 結構完整
+#   - 優化配圖嵌入邏輯
 # ============================================================
 
 import os
@@ -19,6 +23,7 @@ from src.config import OUTPUT_DIR, CURRENT_DATE_STR
 from src.api_client import APIClient
 from src.html_builder import build_article_html
 from src.quality_checker import check_article_quality
+from src.model_router import ModelRouter
 
 # ============================================================
 # 更新首頁
@@ -38,7 +43,6 @@ def update_index_html(keyword, filename, category):
         with open(index_path, "r", encoding="utf-8") as f:
             content = f.read()
 
-        # 避免重複加入
         if f'href="/{filename}"' in content:
             return
 
@@ -62,13 +66,11 @@ def clean_raw_html(raw_html):
     if not raw_html:
         return raw_html
 
-    # 移除 Markdown 程式碼區塊
     if raw_html.startswith("```html"):
         raw_html = raw_html.replace("```html", "").replace("```", "").strip()
     elif raw_html.startswith("```"):
         raw_html = raw_html.replace("```", "").strip()
 
-    # 移除開頭的說明文字（例如 AI 的提示文字）
     lines = raw_html.split('\n')
     start_idx = 0
     for i, line in enumerate(lines):
@@ -91,10 +93,7 @@ def text_to_html(content, keyword, category):
     if not content:
         return None
 
-    # 清理 Markdown 標記
     content = clean_raw_html(content)
-
-    # 分割行
     lines = content.split('\n')
 
     # ============================================================
@@ -103,7 +102,6 @@ def text_to_html(content, keyword, category):
     title = keyword
     description = f"{keyword} - 雅寶社區 · 頂客論壇"
 
-    # 先從前 20 行尋找合適的標題（擴大搜尋範圍）
     found_title = False
     for i, line in enumerate(lines[:20]):
         clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
@@ -169,7 +167,6 @@ def text_to_html(content, keyword, category):
         is_heading = False
         heading_level = 2
 
-        # 檢查 Markdown 標題
         if line.startswith('# '):
             is_heading = True
             clean_line = line[2:].strip()
@@ -195,7 +192,6 @@ def text_to_html(content, keyword, category):
               len(clean_line) > 3):
             is_heading = True
 
-        # 檢查是否為列表項
         is_list_item = line.startswith('- ') or line.startswith('* ') or line.startswith('• ') or line.startswith('  - ')
 
         if is_list_item:
@@ -245,7 +241,6 @@ def text_to_html(content, keyword, category):
 
     body_content = '\n'.join(html_parts)
 
-    # 確保有足夠的標題（至少 3 個 H2）
     h2_count = body_content.count('<h2>')
     if h2_count < 3:
         sections = [
@@ -260,6 +255,7 @@ def text_to_html(content, keyword, category):
         ]
         body_content = body_content.replace('</h1>', f'</h1>\n' + '\n'.join(sections))
 
+    # 🆕 確保 HTML 結構完整
     full_html = f'''<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -278,19 +274,70 @@ def text_to_html(content, keyword, category):
 
 
 # ============================================================
-# 生成單一文章（核心改良版）
+# 🖼️ 為文章生成配圖（Pollinations AI）
+# ============================================================
+
+def generate_and_embed_image(html_content, keyword):
+    """
+    使用 Pollinations AI 生成配圖，並嵌入到文章的第一個 <p> 之後
+    """
+    print("   🖼️ 正在生成配圖（Pollinations AI）...")
+    
+    try:
+        router = ModelRouter()
+        
+        # 使用文章標題作為生圖提示詞
+        image_prompt = f"{keyword} 示意圖，清晰專業風格，適合網頁文章配圖"
+        # 🔧 修復：使用 re.sub 移除特殊字元（re 已在頂部導入）
+        safe_filename = re.sub(r'[\\/*?:"<>|]', '', keyword)[:50]
+        
+        result = router.generate_image_pollinations(
+            prompt=image_prompt,
+            filename=f"article_{safe_filename}",
+            width=1024,
+            height=1024
+        )
+        
+        if result.get("img_tag"):
+            # 🔧 修復：直接使用頂部導入的 re，不再重複導入
+            first_p_match = re.search(r'<p>', html_content)
+            if first_p_match:
+                insert_pos = first_p_match.end()
+                html_content = html_content[:insert_pos] + '\n' + result["img_tag"] + '\n' + html_content[insert_pos:]
+                print(f"   ✅ 配圖已插入文章：{result['filepath']}")
+            else:
+                # 如果沒有 <p> 標籤，插入到 <body> 之後
+                html_content = html_content.replace('<body>', f'<body>\n{result["img_tag"]}')
+                print(f"   ⚠️ 未找到 <p> 標籤，配圖插入在文章開頭")
+            return html_content, True
+        else:
+            print(f"   ⚠️ 配圖生成失敗：{result.get('error', '未知錯誤')}")
+            return html_content, False
+            
+    except Exception as e:
+        print(f"   ⚠️ 配圖生成異常：{e}")
+        return html_content, False
+
+
+# ============================================================
+# 生成單一文章（核心改良版 + 配圖）
 # ============================================================
 
 def generate_article(item):
     """
-    生成單一篇文章
+    生成單一篇文章，並自動生成配圖
     
     參數：
         item: dict，包含 keyword, category, filename
     
-    變更：
-        - 移除 force_api 參數，統一由 api_client 控制
-        - 使用 APIClient 直接生成文章
+    流程：
+        1. 檢查檔案是否已存在
+        2. 使用 APIClient 生成文章
+        3. 轉換為完整 HTML
+        4. 🆕 生成 Pollinations AI 配圖並嵌入文章
+        5. 品質檢查
+        6. 寫入檔案
+        7. 更新首頁
     """
     keyword = item["keyword"]
     category = item["category"]
@@ -311,40 +358,15 @@ def generate_article(item):
     print(f"🤖 正在生成：{keyword}（分類：{category}）")
 
     # ============================================================
-    # 直接使用 APIClient（統一調度）
+    # 1. 使用 APIClient 生成文章
     # ============================================================
     client = APIClient()
-
-    # 系統提示詞（保留，但由 APIClient 內部管理）
-    system_prompt = (
-        "你是一位專業的內容編輯。請根據關鍵字撰寫一篇高品質的繁體中文文章。\n\n"
-        "【內容要求】\n"
-        "1. 文章要有明確的結構，使用標題和段落組織內容。\n"
-        "2. 字數至少 4500 字。\n"
-        "3. 內容要實用、具體、有深度。\n"
-        "4. 語氣親切專業，適合論壇分享。\n"
-        "5. 包含實例、建議或常見問題。\n\n"
-        "【格式要求】\n"
-        "1. 第一行請寫出文章的主要標題（作為 H1）。\n"
-        "2. 使用 ## 標示主要章節標題（H2）。\n"
-        "3. 使用 ### 標示次要標題（H3）。\n"
-        "4. 使用 - 標示列表項目。\n"
-        "5. 使用 **粗體** 強調重點。\n\n"
-        "請直接輸出文章內容，不需要 HTML 程式碼。"
-    )
-
-    # 組裝完整提示詞（保留系統提示詞與用戶提示詞的分離邏輯）
-    user_prompt = f"關鍵字：{keyword}\n分類：{category}\n請撰寫一篇高品質的繁體中文文章。"
-    full_prompt = f"{system_prompt}\n\n{user_prompt}"
-
-    # 呼叫 API 生成文章
     raw_content = client.generate_article(
         keyword=keyword,
         category=category,
         max_tokens=16384
     )
 
-    # 如果生成失敗，嘗試用更簡潔的提示詞再試一次
     if not raw_content or len(raw_content) < 100:
         print("   ⚠️ 第一次生成結果較短，嘗試重新生成...")
         raw_content = client.generate_article(
@@ -358,7 +380,7 @@ def generate_article(item):
         return
 
     # ============================================================
-    # 轉換為完整 HTML
+    # 2. 轉換為完整 HTML
     # ============================================================
     print("   🔧 將內容轉換為完整 HTML 結構...")
     html_content = text_to_html(raw_content, keyword, category)
@@ -371,7 +393,12 @@ def generate_article(item):
     html_content = build_article_html(keyword, category, html_content)
 
     # ============================================================
-    # 品質檢查
+    # 3. 🆕 生成配圖並嵌入文章（Pollinations AI）
+    # ============================================================
+    html_content, image_generated = generate_and_embed_image(html_content, keyword)
+
+    # ============================================================
+    # 4. 品質檢查
     # ============================================================
     quality_report = check_article_quality(html_content, keyword)
 
@@ -380,17 +407,18 @@ def generate_article(item):
     print(f"   └─ 字數：{quality_report['word_count']} 字")
     print(f"   └─ H1 標題：{quality_report.get('h1_count', 0)} 個 {'✅' if quality_report.get('h1_count', 0) >= 1 else '❌ 無'}")
     print(f"   └─ H2 標題：{quality_report.get('h2_count', 0)} 個")
+    print(f"   └─ 配圖：{'✅ 已生成' if image_generated else '⚠️ 未生成'}")
     print(f"   └─ 結果：{'✅ 通過' if quality_report['passed'] else '⚠️ 未達標（仍會寫入）'}")
 
     # ============================================================
-    # 寫入檔案
+    # 5. 寫入檔案
     # ============================================================
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print(f"✨ 成功寫入：{file_path}")
 
     # ============================================================
-    # 更新首頁
+    # 6. 更新首頁
     # ============================================================
     update_index_html(keyword, filename, category)
 
@@ -430,10 +458,9 @@ def get_pending_articles(keywords_list):
 
 if __name__ == "__main__":
     print("\n" + "="*50)
-    print("  🧪 article_generator.py 測試")
+    print("  🧪 article_generator.py v7.2 測試")
     print("="*50 + "\n")
 
-    # 測試單篇文章生成
     test_item = {
         "keyword": "2026 年最新 AI 工具推薦",
         "category": "🤖 AI 趨勢",

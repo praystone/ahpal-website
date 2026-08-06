@@ -176,6 +176,20 @@ keywords_list = [
 
     {"keyword": "如何在數位時代保持內心平靜：正念與專注力的科學實踐指南", "category": "🌟 人生哲理", "filename": "philosophy/mindfulness-digital-age-guide-2026.html"},
 
+    {"keyword": "2026 年 Thunderbolt 5 完整解析：速度、應用與選購指南", "category": "💻 3C 科技教學", "filename": "tech/thunderbolt-5-guide-2026.html"},
+
+    {"keyword": "2026 年 Wi-Fi 7 路由器選購指南：速度、覆蓋與價格完整分析", "category": "💻 3C 科技教學", "filename": "tech/wi-fi-7-router-guide-2026.html"},
+    {"keyword": "2026 年最佳多人連線遊戲推薦：與朋友同樂的 10 款必玩之作", "category": "🎮 遊戲攻略", "filename": "game/best-multiplayer-games-2026.html"},
+    {"keyword": "2026 年居家節能省電全攻略：電費帳單輕鬆砍半的 15 個實用技巧", "category": "🏠 生活小常識", "filename": "life/energy-saving-guide-2026.html"},
+    {"keyword": "2026 年最佳筆記軟體全面對比：Notion、Obsidian、Logseq 與其他 5 款深度評測", "category": "📊 軟體評測", "filename": "review/best-note-taking-apps-2026.html"},
+    {"keyword": "2026 年建立成長型思維的 7 個日常練習：從固定心態到無限可能的轉變指南", "category": "🌟 人生哲理", "filename": "philosophy/growth-mindset-daily-practice-2026.html"},
+    {"keyword": "2026 年 AI 代理全面解析：從自動化客服到自主決策的未來趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-agent-complete-guide-2026.html"},
+
+    {"keyword": "2026 年小宅改造術：5 招打破空間限制，打造高效收納與舒適生活", "category": "🏠 生活小常識", "filename": "life/small-space-renovation-2026.html"},
+    {"keyword": "2026 年最佳 AI 寫作助手全面評測：ChatGPT、Claude、Gemini 與其他 6 款深度比較", "category": "📊 軟體評測", "filename": "review/ai-writing-assistant-2026.html"},
+    {"keyword": "2026 年告別拖延症的科學方法：從心理學到行為設計的完整實踐指南", "category": "🌟 人生哲理", "filename": "philosophy/stop-procrastination-guide-2026.html"},
+    {"keyword": "2026 年 AI 監管政策全球盤點：歐盟、美國、中國與台灣的法規發展趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-regulation-2026.html"},
+
 ]
 
 # ============================================================

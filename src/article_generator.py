@@ -1,13 +1,11 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v7.5
+# article_generator.py - 文章生成核心模組 v7.6
 # ============================================================
 # 修復：
-#   - 強制使用繁體中文（正體中文）
-#   - 圖片響應式大小（max-width:100%）
-#   - 優化圖片 alt 文本長度
-#   - 🆕 智慧配圖 v3.0：URL 編碼、16:9 橫圖、</p> 插入
-#   - 🆕 多重 Fallback：H2 → 開頭段落 → 英文備案
-#   - 🆕 特殊符號過濾，避免 Pollinations 解析失敗
+#   - 🔧 CSS 圖片變形：加入 object-fit:cover + aspect-ratio:16/9
+#   - 🔧 圖文不符：改用英文視覺提示詞 + 分類風格映射
+#   - 🔧 抽象概念翻譯：建立關鍵字詞庫，將中文主題轉為具體英文視覺描述
+#   - 🔧 輸出品質提升：加入專業風格關鍵字（flat vector, clean, professional）
 # ============================================================
 
 import os
@@ -272,118 +270,126 @@ def text_to_html(content, keyword, category):
 
 
 # ============================================================
-# 🖼️ 智慧配圖系統 v3.0 - 穩定版
+# 🖼️ 智慧配圖系統 v3.1 - 專業版（v7.6）
 # ============================================================
 
-def _extract_clean_prompt(html_content, keyword):
+# ---- 分類視覺風格映射 ----
+CATEGORY_VISUALS = {
+    "🌟 人生哲理": "a person meditating peacefully in a modern minimalist room, digital detox concept, laptop on desk, soft natural lighting, calm serene atmosphere",
+    "💻 3C 科技教學": "modern workspace with laptop, smartphone, tablet, clean technology gadgets on wooden desk, minimal background",
+    "📊 軟體評測": "computer screen showing data visualization dashboard, sleek software interface, modern office setup, blue and white color scheme",
+    "🏠 生活小常識": "cozy home interior with organized spaces, warm lighting, comfortable living room, bright daylight",
+    "🎮 遊戲攻略": "gaming setup with RGB keyboard, gaming monitor, headset, vibrant neon lighting, esports style",
+    "🤖 AI 趨勢": "artificial intelligence concept, digital brain, futuristic tech network, glowing circuit board, cyan and blue lights"
+}
+
+# ---- 風格關鍵字 ----
+STYLE_SUFFIX = "vector illustration, clean line art, minimal corporate editorial style, soft color palette, professional design, crisp details, 8k"
+
+def _build_english_visual_prompt(keyword, category):
     """
-    從文章內容提取乾淨、安全的生圖提示詞
-    修復：過濾特殊符號、URL 編碼、16:9 橫圖、英文備案
+    將主題轉化為適合 AI 生圖的英文視覺提示詞
+    核心修復：抽象中文 → 具體英文視覺描述
     """
-    # ---- 策略 1：提取第一個 H2 標題 ----
-    h2_match = re.search(r'<h2[^>]*>(.*?)</h2>', html_content, re.IGNORECASE | re.DOTALL)
-    if h2_match:
-        clean_h2 = re.sub(r'<[^>]+>', '', h2_match.group(1)).strip()
-        # 過濾特殊符號，只保留中英文、數字、空白
-        clean_h2 = re.sub(r'[^\w\s\u4e00-\u9fa5]', '', clean_h2)
-        if clean_h2 and len(clean_h2) > 5:
-            # 限制長度，避免 URL 過長
-            if len(clean_h2) > 40:
-                clean_h2 = clean_h2[:40] + "..."
-            return f"{keyword} {clean_h2} 示意圖"
+    # 1. 優先使用分類對應的視覺場景
+    base_visual = CATEGORY_VISUALS.get(category)
+    if not base_visual:
+        base_visual = f"concept visualization for {keyword}, modern professional setting"
     
-    # ---- 策略 2：提取開頭段落的前 60 個字 ----
-    first_p = re.search(r'<p>(.*?)</p>', html_content, re.IGNORECASE | re.DOTALL)
-    if first_p:
-        p_text = re.sub(r'<[^>]+>', '', first_p.group(1)).strip()
-        p_text = re.sub(r'[^\w\s\u4e00-\u9fa5]', '', p_text)
-        if p_text and len(p_text) > 10:
-            if len(p_text) > 60:
-                p_text = p_text[:60] + "..."
-            return f"{keyword} {p_text} 示意圖"
+    # 2. 特殊關鍵字強化（針對文章主題增加細節）
+    keyword_hints = []
     
-    # ---- 策略 3：英文備案（當中文解析失敗時） ----
-    # 提取關鍵字的英文翻譯（簡化版）
-    english_keywords = {
-        "防毒軟體": "antivirus software",
-        "開源軟體": "open source software",
-        "免費": "free",
-        "評測": "review",
-        "指南": "guide",
-        "推薦": "recommendation",
-        "完整": "complete",
-        "對比": "comparison",
-        "效能": "performance",
-        "隱私": "privacy"
-    }
-    eng_prompt = ""
-    for zh, en in english_keywords.items():
-        if zh in keyword:
-            eng_prompt += f"{en} "
-    if eng_prompt:
-        return f"{eng_prompt}illustration technology concept"
+    # 人生哲理類特殊處理
+    if "正念" in keyword or "平靜" in keyword or "專注" in keyword:
+        keyword_hints.append("meditation, calmness, focus, mindfulness")
+    if "數位" in keyword or "科技" in keyword:
+        keyword_hints.append("digital device screen, technology interface")
+    if "壓力" in keyword or "焦慮" in keyword:
+        keyword_hints.append("stress relief, peaceful environment")
     
-    # ---- 策略 4：最終備案 ----
-    return f"technology software illustration concept"
+    # 3C/科技類特殊處理
+    if "評測" in keyword or "比較" in keyword:
+        keyword_hints.append("product comparison chart, side by side view")
+    if "教學" in keyword or "指南" in keyword:
+        keyword_hints.append("instructional step by step guide style")
+    
+    # 4. 組裝最終提示詞
+    full_prompt = base_visual
+    if keyword_hints:
+        full_prompt += f", {', '.join(keyword_hints)}"
+    full_prompt += f", {STYLE_SUFFIX}"
+    
+    return full_prompt
 
 
-def generate_and_embed_image(html_content, keyword):
+def _make_responsive_image(img_tag):
+    """
+    將圖片標籤轉為響應式，並防止變形
+    修復：加入 aspect-ratio:16/9 + object-fit:cover
+    """
+    return img_tag.replace(
+        'width="800"',
+        'style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);"'
+    )
+
+
+def generate_and_embed_image(html_content, keyword, category):
     """
     使用 Pollinations AI 生成配圖，並嵌入文章
-    修復 v3.0：
-        - URL 編碼安全（urllib.parse.quote）
-        - 16:9 橫圖比例（文章配圖視覺效果最佳）
-        - 使用 </p> 匹配（解決帶屬性標籤問題）
-        - 多重插入備案
+    v3.1 專業版：
+        - 英文視覺提示詞（解決圖文不符）
+        - 分類風格映射（確保風格一致）
+        - 防止變形 CSS（aspect-ratio + object-fit）
+        - 16:9 橫圖比例（文章配圖視覺最佳）
     """
     print("   🖼️ 正在生成配圖（Pollinations AI）...")
     
     try:
         router = ModelRouter()
         
-        # 1. 提取乾淨的提示詞
-        raw_prompt = _extract_clean_prompt(html_content, keyword)
-        # URL 編碼（確保中英文特殊字元都被正確編碼）
-        encoded_prompt = urllib.parse.quote(raw_prompt)
-        print(f"   📝 生圖提示詞（編碼後）：{encoded_prompt[:60]}...")
+        # ---- 1. 建構專業英文提示詞 ----
+        visual_prompt = _build_english_visual_prompt(keyword, category)
+        # 限制長度，避免 URL 過長（Pollinations 建議 < 200 字符）
+        if len(visual_prompt) > 180:
+            visual_prompt = visual_prompt[:180]
+        
+        # URL 編碼
+        encoded_prompt = urllib.parse.quote(visual_prompt)
+        print(f"   📝 生圖提示詞（英文）：{visual_prompt[:80]}...")
         
         safe_filename = re.sub(r'[\\/*?:"<>|]', '', keyword)[:50]
         
-        # 2. 生成圖片（16:9 橫圖，文章配圖視覺最佳）
+        # ---- 2. 生成圖片（16:9 橫圖） ----
         result = router.generate_image_pollinations(
-            prompt=encoded_prompt,      # 傳入已編碼的提示詞
+            prompt=encoded_prompt,
             filename=f"article_{safe_filename}",
             width=1024,
-            height=576                 # 16:9 比例
+            height=576
         )
         
         if result.get("img_tag"):
-            # 響應式圖片
+            # 響應式圖片（防止變形）
             responsive_img = _make_responsive_image(result["img_tag"])
             
             # ---- 3. 插入圖片（使用 </p> 匹配） ----
-            # 策略 A：插入在第一個 </p> 之後（支援帶屬性的 <p> 標籤）
             p_close_match = re.search(r'</p>', html_content, re.IGNORECASE)
             if p_close_match:
                 pos = p_close_match.end()
                 html_content = html_content[:pos] + '\n' + responsive_img + '\n' + html_content[pos:]
                 print(f"   ✅ 配圖已插入文章第一個段落之後")
             else:
-                # 策略 B：插入在第一個 <h2> 之前
                 h2_match = re.search(r'<h2', html_content, re.IGNORECASE)
                 if h2_match:
                     pos = h2_match.start()
                     html_content = html_content[:pos] + responsive_img + '\n' + html_content[pos:]
                     print(f"   ✅ 配圖已插入文章第一個 H2 之前")
                 else:
-                    # 策略 C：插入在 <body> 之後
                     body_match = re.search(r'<body[^>]*>', html_content, re.IGNORECASE)
                     if body_match:
                         pos = body_match.end()
                         html_content = html_content[:pos] + '\n' + responsive_img + '\n' + html_content[pos:]
                         print(f"   ✅ 配圖已插入文章 body 開頭")
                     else:
-                        # 策略 D：直接插入在開頭
                         html_content = responsive_img + '\n' + html_content
                         print(f"   ✅ 配圖已插入文章開頭")
             
@@ -398,16 +404,8 @@ def generate_and_embed_image(html_content, keyword):
         return html_content, False
 
 
-def _make_responsive_image(img_tag):
-    """將圖片標籤轉為響應式（16:9 橫圖專用）"""
-    return img_tag.replace(
-        'width="800"',
-        'style="max-width:100%;height:auto;width:100%;max-width:800px;border-radius:8px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);aspect-ratio:16/9;object-fit:cover;"'
-    )
-
-
 # ============================================================
-# 生成單一文章（核心改良版 + 智慧配圖 v3.0）
+# 生成單一文章（核心改良版 + 專業配圖 v7.6）
 # ============================================================
 
 def generate_article(item):
@@ -421,7 +419,7 @@ def generate_article(item):
         1. 檢查檔案是否已存在
         2. 使用 APIClient 生成文章
         3. 轉換為完整 HTML
-        4. 🆕 生成 Pollinations AI 配圖並嵌入文章（v3.0 穩定版）
+        4. 🆕 生成專業配圖（英文提示詞 + 分類風格映射）
         5. 品質檢查
         6. 寫入檔案
         7. 更新首頁
@@ -480,9 +478,9 @@ def generate_article(item):
     html_content = build_article_html(keyword, category, html_content)
 
     # ============================================================
-    # 3. 🆕 生成配圖並嵌入文章（Pollinations AI - v3.0 穩定版）
+    # 3. 🆕 生成專業配圖（傳入 category 用於風格映射）
     # ============================================================
-    html_content, image_generated = generate_and_embed_image(html_content, keyword)
+    html_content, image_generated = generate_and_embed_image(html_content, keyword, category)
 
     # ============================================================
     # 4. 品質檢查
@@ -545,12 +543,12 @@ def get_pending_articles(keywords_list):
 
 if __name__ == "__main__":
     print("\n" + "="*50)
-    print("  🧪 article_generator.py v7.5 測試（智慧配圖 v3.0）")
+    print("  🧪 article_generator.py v7.6 測試（專業配圖版）")
     print("="*50 + "\n")
 
     test_item = {
-        "keyword": "2026 年最新 AI 工具推薦（繁體測試）",
-        "category": "🤖 AI 趨勢",
+        "keyword": "如何在數位時代保持內心平靜：正念與專注力的科學實踐指南",
+        "category": "🌟 人生哲理",
         "filename": "test/test-article.html"
     }
 

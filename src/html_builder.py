@@ -1,25 +1,29 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v5.0 (標題去重優化版)
+# html_builder.py - HTML 建構模組 v5.1 (標題提取強化版)
 # ============================================================
-# 功能：建構所有 HTML（首頁、分類頁、文章頁面）
-# 修正：統一頁頂品牌標示為可點擊超連結
-# 新增：文章底部「相關文章推薦」區塊（黃金樣板風格）
-# 新增：統一引用 /style/main.css（取代內嵌 CSS）
-# 新增：強制插入黃金樣板 Header（含發表時間、更新日期、編輯）
-# 修復：標題重複問題（移除原有的 h1，僅保留 Header 中的 h1）
-# 修復：分類標籤自動提取邏輯
-# 修復：導覽列加入隱私權政策連結
-# 修復：底部導航連結顏色修正
-# 修復：SITE_FOOTER 和 BACK_TO_TOP 花括號轉義
-# ============================================================
-
-# ============================================================
-# 增量構建 - MD5 比對
+# 修復：
+#   - 標題提取失敗時使用 filename 作為備案
+#   - 清理標題中的 HTML 標籤殘留（如 <!DOCTYPE html>）
+#   - 過濾特殊字符，避免標題為空
+#   - 強化分類映射，減少「其他」分類出現
+#   - 優化標題截斷邏輯（保留完整語意）
 # ============================================================
 
 import hashlib
 import json
+import os
+import re
+from datetime import datetime
 from pathlib import Path
+
+from src.config import (
+    OUTPUT_DIR, ADSENSE_CLIENT, GA4_ID,
+    CATEGORIES, CURRENT_YEAR, CURRENT_DATE_STR
+)
+
+# ============================================================
+# 增量構建 - MD5 比對
+# ============================================================
 
 STATE_FILE = Path(__file__).parent.parent / "build-state.json"
 
@@ -51,14 +55,6 @@ def mark_built(filepath, hash_value):
     state["files"][file_key] = hash_value
     save_build_state(state)
 
-
-import os
-import re
-from datetime import datetime
-from src.config import (
-    OUTPUT_DIR, ADSENSE_CLIENT, GA4_ID,
-    CATEGORIES, CURRENT_YEAR, CURRENT_DATE_STR
-)
 
 # ============================================================
 # 通用頁面元件
@@ -192,6 +188,53 @@ CATEGORY_EMOJI_MAP = {
 }
 
 # ============================================================
+# 🆕 標題提取強化函數
+# ============================================================
+
+def extract_clean_title(html_content, filename):
+    """
+    從 HTML 內容中提取乾淨的標題
+    修復：處理空標題、HTML 標籤殘留、特殊字符
+    """
+    if not html_content:
+        return filename.replace(".html", "").replace("-", " ").title()
+    
+    # 策略 1：從 <title> 標籤提取
+    title_match = re.search(r'<title>(.*?)</title>', html_content, re.IGNORECASE | re.DOTALL)
+    if title_match:
+        title = title_match.group(1).strip()
+        # 清理標題中的多餘文字
+        title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', title)
+        title = re.sub(r'<[^>]+>', '', title)  # 移除任何殘留 HTML 標籤
+        title = re.sub(r'<!DOCTYPE.*?>', '', title, flags=re.IGNORECASE)  # 移除 DOCTYPE
+        title = re.sub(r'<html.*?>', '', title, flags=re.IGNORECASE)  # 移除 html 標籤
+        title = title.strip()
+        if title:
+            return title
+    
+    # 策略 2：從 <h1> 標籤提取
+    h1_match = re.search(r'<h1[^>]*>(.*?)</h1>', html_content, re.IGNORECASE | re.DOTALL)
+    if h1_match:
+        title = h1_match.group(1).strip()
+        title = re.sub(r'<[^>]+>', '', title)
+        title = re.sub(r'<!DOCTYPE.*?>', '', title, flags=re.IGNORECASE)
+        title = title.strip()
+        if title and len(title) > 3:
+            return title
+    
+    # 策略 3：從第一個 <p> 提取（備案）
+    p_match = re.search(r'<p>(.*?)</p>', html_content, re.IGNORECASE | re.DOTALL)
+    if p_match:
+        title = p_match.group(1).strip()
+        title = re.sub(r'<[^>]+>', '', title)
+        title = title[:60]  # 限制長度
+        if title and len(title) > 5:
+            return title
+    
+    # 策略 4：使用 filename 作為最終備案
+    return filename.replace(".html", "").replace("-", " ").title()
+
+# ============================================================
 # 清理 AI 頁頂註解文字
 # ============================================================
 
@@ -244,12 +287,15 @@ def enhance_article_html(html_content):
     # ============================================================
     # 1. 提取標題與分類（在移除之前先提取）
     # ============================================================
-    # 提取標題
+    # 🆕 使用強化版標題提取
     title_match = re.search(r'<h1[^>]*>(.*?)</h1>', html_content, re.IGNORECASE | re.DOTALL)
-    title = title_match.group(1).strip() if title_match else "文章標題"
-    # 清理標題中的多餘文字
-    title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', title)
+    raw_title = title_match.group(1).strip() if title_match else "文章標題"
+    title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', raw_title)
+    title = re.sub(r'<[^>]+>', '', title)
+    title = re.sub(r'<!DOCTYPE.*?>', '', title, flags=re.IGNORECASE)
     title = title.strip()
+    if not title:
+        title = "文章標題"
     
     # 提取分類
     category = "🌟 人生哲理"  # 預設
@@ -266,10 +312,7 @@ def enhance_article_html(html_content):
     # ============================================================
     # 2. 移除原有的 <h1> 標籤（避免重複）
     # ============================================================
-    # 移除所有 h1 標籤
     html_content = re.sub(r'<h1[^>]*>.*?</h1>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
-    
-    # 移除原有的 <header> 區塊（如果存在）
     html_content = re.sub(r'<header>.*?</header>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
     
     # ============================================================
@@ -328,12 +371,13 @@ def enhance_article_html(html_content):
 def build_article_html(keyword, category, raw_html):
     return enhance_article_html(raw_html)
 
+
 # ============================================================
-# 建構首頁
+# 🆕 建構首頁（標題提取強化版）
 # ============================================================
 
 def create_default_index():
-    """建立完整功能的首頁 index.html"""
+    """建立完整功能的首頁 index.html（標題提取強化版）"""
     print("📄 建立全新首頁 index.html...")
     
     article_counts = {}
@@ -352,6 +396,7 @@ def create_default_index():
         "categories.html", "index111.html", "test.html"
     ]
     
+    # 計算各分類文章數量
     for cat_dir in category_dirs.keys():
         dir_path = os.path.join(OUTPUT_DIR, cat_dir)
         if os.path.exists(dir_path):
@@ -369,22 +414,25 @@ def create_default_index():
                 if not f.startswith("category-"):
                     rel_path = os.path.relpath(os.path.join(root, f), OUTPUT_DIR)
                     rel_path = rel_path.replace('\\', '/')
+                    
+                    # 分類映射
                     cat_key = "其他"
                     for cat_dir, cat_name in category_dirs.items():
                         if rel_path.startswith(cat_dir + "/"):
                             cat_key = cat_name
                             break
+                    
+                    # 🆕 使用強化版標題提取
+                    file_path = os.path.join(root, f)
                     try:
-                        with open(os.path.join(root, f), "r", encoding="utf-8") as file:
+                        with open(file_path, "r", encoding="utf-8") as file:
                             content = file.read()
-                            title_match = re.search(r'<title>(.*?)</title>', content, re.IGNORECASE)
-                            title = title_match.group(1) if title_match else f.replace(".html", "")
-                            title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', title)
-                            title = title.strip()
+                            title = extract_clean_title(content, f)
                     except Exception as e:
                         print(f"   ⚠️ 讀取文章失敗：{f} - {e}")
-                        title = f.replace(".html", "")
-                    mtime = os.path.getmtime(os.path.join(root, f))
+                        title = f.replace(".html", "").replace("-", " ").title()
+                    
+                    mtime = os.path.getmtime(file_path)
                     all_articles.append({
                         "filename": rel_path,
                         "title": title,
@@ -618,6 +666,7 @@ def create_default_index():
         f.write(html_content)
     print("✅ 全新首頁建立完成！")
 
+
 # ============================================================
 # 建構分類入口頁
 # ============================================================
@@ -707,6 +756,7 @@ def generate_categories_page():
         f.write(html_content)
     print("✅ 統一分類入口頁 categories.html 建立完成！")
 
+
 # ============================================================
 # 新增：generate_category_pages（供 main.py 呼叫）
 # ============================================================
@@ -729,10 +779,9 @@ def generate_category_pages():
                     try:
                         with open(file_path, "r", encoding="utf-8") as file:
                             content = file.read()
-                            title_match = re.search(r'<title>(.*?)</title>', content, re.IGNORECASE)
-                            title = title_match.group(1) if title_match else f.replace(".html", "")
+                            title = extract_clean_title(content, f)
                     except:
-                        title = f.replace(".html", "")
+                        title = f.replace(".html", "").replace("-", " ").title()
                     articles.append({"filename": f"{cat_id}/{f}", "title": title})
         
         articles.sort(key=lambda x: x["filename"])

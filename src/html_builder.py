@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v6.1
+# html_builder.py - HTML 建構模組 v6.2
 # ============================================================
 # 修復：
 #   - 標題提取失敗時使用 filename 作為備案
@@ -11,6 +11,8 @@
 #   - 🆕 Giscus 自動嵌入所有文章頁面
 #   - 🆕 加入「🎵 音樂創作」分類映射
 #   - 🆕 強化分類提取邏輯，支援 emoji 前綴匹配
+#   - 🆕 排除 docs/ 目錄，避免文件檔案出現在首頁
+#   - 🆕 加入 Google 自訂搜尋（CSE）到首頁底部
 # ============================================================
 
 import hashlib
@@ -165,6 +167,16 @@ GA4_CODE = f'''<script async src="https://www.googletagmanager.com/gtag/js?id={G
 
 UNIFIED_CSS_LINK = '<link rel="stylesheet" href="/style/main.css">'
 
+# 🆕 Google 自訂搜尋（CSE）
+GOOGLE_CSE = '''
+<div class="google-search" style="max-width: 800px; margin: 20px auto; padding: 16px; background: #F7F9FC; border-radius: 12px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px;">🔍 站內搜尋</h3>
+    <p style="font-size: 13px; color: #4A5568; margin-bottom: 12px;">搜尋雅寶社區 · 頂客論壇的所有文章</p>
+    <script async src="https://cse.google.com/cse.js?cx=940a30ae4765c4e72"></script>
+    <div class="gcse-search"></div>
+</div>
+'''
+
 # ============================================================
 # 黃金樣板 Header 範本
 # ============================================================
@@ -236,7 +248,7 @@ CATEGORY_EMOJI_MAP = {
     "📊": "📊 軟體評測",
     "🌟": "🌟 人生哲理",
     "🤖": "🤖 AI 趨勢",
-    "🎵": "🎵 音樂創作",  # 🆕 加入音樂分類
+    "🎵": "🎵 音樂創作",
 }
 
 # ============================================================
@@ -257,9 +269,9 @@ def extract_clean_title(html_content, filename):
         title = title_match.group(1).strip()
         # 清理標題中的多餘文字
         title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', title)
-        title = re.sub(r'<[^>]+>', '', title)  # 移除任何殘留 HTML 標籤
-        title = re.sub(r'<!DOCTYPE.*?>', '', title, flags=re.IGNORECASE)  # 移除 DOCTYPE
-        title = re.sub(r'<html.*?>', '', title, flags=re.IGNORECASE)  # 移除 html 標籤
+        title = re.sub(r'<[^>]+>', '', title)
+        title = re.sub(r'<!DOCTYPE.*?>', '', title, flags=re.IGNORECASE)
+        title = re.sub(r'<html.*?>', '', title, flags=re.IGNORECASE)
         title = title.strip()
         if title:
             return title
@@ -279,7 +291,7 @@ def extract_clean_title(html_content, filename):
     if p_match:
         title = p_match.group(1).strip()
         title = re.sub(r'<[^>]+>', '', title)
-        title = title[:60]  # 限制長度
+        title = title[:60]
         if title and len(title) > 5:
             return title
     
@@ -463,7 +475,7 @@ def build_article_html(keyword, category, raw_html):
 
 
 # ============================================================
-# 🆕 建構首頁（標題提取強化版）
+# 🆕 建構首頁（標題提取強化版 + 排除 docs/ + 加入 CSE）
 # ============================================================
 
 def create_default_index():
@@ -478,13 +490,20 @@ def create_default_index():
         "review": "📊 軟體評測",
         "philosophy": "🌟 人生哲理",
         "trend": "🤖 AI 趨勢",
-        "music": "🎵 音樂創作",  # 🆕 加入音樂分類
+        "music": "🎵 音樂創作",
     }
     
     EXCLUDED_FILES = [
         "index.html", "404.html", "memorial.html", 
         "royal_dragon_karma.html", "search-results.html", 
         "categories.html", "index111.html", "test.html"
+    ]
+    
+    # 🆕 排除的目錄（docs/ 不再出現在首頁）
+    EXCLUDED_DIRS = [
+        "docs", "backups", "logs", "images", 
+        "scripts", "src", "data", "test", "__pycache__",
+        "ahpal-AI-archive", "ahpal-backup"
     ]
     
     # 計算各分類文章數量
@@ -500,16 +519,26 @@ def create_default_index():
     
     all_articles = []
     for root, dirs, files in os.walk(OUTPUT_DIR):
+        # 🆕 檢查是否在排除目錄中
+        rel_path = os.path.relpath(root, OUTPUT_DIR)
+        should_skip = False
+        for excluded in EXCLUDED_DIRS:
+            if rel_path == excluded or rel_path.startswith(excluded + os.sep):
+                should_skip = True
+                break
+        if should_skip:
+            continue
+        
         for f in files:
             if f.endswith(".html") and f not in EXCLUDED_FILES:
                 if not f.startswith("category-"):
-                    rel_path = os.path.relpath(os.path.join(root, f), OUTPUT_DIR)
-                    rel_path = rel_path.replace('\\', '/')
+                    rel_path_file = os.path.relpath(os.path.join(root, f), OUTPUT_DIR)
+                    rel_path_file = rel_path_file.replace('\\', '/')
                     
                     # 分類映射
                     cat_key = "其他"
                     for cat_dir, cat_name in category_dirs.items():
-                        if rel_path.startswith(cat_dir + "/"):
+                        if rel_path_file.startswith(cat_dir + "/"):
                             cat_key = cat_name
                             break
                     
@@ -525,7 +554,7 @@ def create_default_index():
                     
                     mtime = os.path.getmtime(file_path)
                     all_articles.append({
-                        "filename": rel_path,
+                        "filename": rel_path_file,
                         "title": title,
                         "category": cat_key,
                         "mtime": mtime

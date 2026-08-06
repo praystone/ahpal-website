@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v5.1 (標題提取強化版)
+# html_builder.py - HTML 建構模組 v6.0
 # ============================================================
 # 修復：
 #   - 標題提取失敗時使用 filename 作為備案
@@ -7,6 +7,8 @@
 #   - 過濾特殊字符，避免標題為空
 #   - 強化分類映射，減少「其他」分類出現
 #   - 優化標題截斷邏輯（保留完整語意）
+#   - 🆕 新增 Giscus 留言區塊（文章底部）
+#   - 🆕 Giscus 自動嵌入所有文章頁面
 # ============================================================
 
 import hashlib
@@ -176,6 +178,53 @@ GOLDEN_HEADER_TEMPLATE = f'''<header>
 </header>'''
 
 # ============================================================
+# 🆕 Giscus 留言區塊（與遊戲頁面一致）
+# ============================================================
+GISCUS_COMMENT = '''
+<!-- ============================================================
+     Giscus 留言系統
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+'''
+
+# ============================================================
 # 分類 Emoji 映射（用於自動提取）
 # ============================================================
 CATEGORY_EMOJI_MAP = {
@@ -260,11 +309,11 @@ def clean_ai_header(html_content):
     return html_content
 
 # ============================================================
-# 文章 HTML 增強（核心功能）
+# 文章 HTML 增強（核心功能 + Giscus）
 # ============================================================
 
 def enhance_article_html(html_content):
-    """增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦、統一CSS、黃金Header"""
+    """增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦、統一CSS、黃金Header、Giscus留言"""
     if not html_content:
         return html_content
     
@@ -342,12 +391,22 @@ def enhance_article_html(html_content):
     # 5. 確保頁尾元件完整
     # ============================================================
     if '相關文章推薦' not in html_content:
+        # 如果沒有相關文章，加入完整區塊
         html_content = html_content.replace(
             '</body>', 
-            RELATED_ARTICLES_BLOCK + '\n' + HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>'
+            RELATED_ARTICLES_BLOCK + '\n' + GISCUS_COMMENT + '\n' + HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>'
         )
-        print("   ✅ 已加入相關文章推薦區塊 + 返回首頁 + 返回頂部按鈕")
+        print("   ✅ 已加入相關文章推薦區塊 + Giscus 留言 + 返回首頁 + 返回頂部按鈕")
     else:
+        # 在相關文章之後插入 Giscus
+        if 'giscus-wrapper' not in html_content:
+            html_content = html_content.replace(
+                RELATED_ARTICLES_BLOCK,
+                RELATED_ARTICLES_BLOCK + '\n' + GISCUS_COMMENT
+            )
+            print("   ✅ 已加入 Giscus 留言區塊（在相關文章之後）")
+        
+        # 確保 HOME_LINK 和 BACK_TO_TOP 存在
         if '返回首頁' not in html_content:
             html_content = html_content.replace('</body>', HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>')
             print("   ✅ 已加入返回首頁連結")

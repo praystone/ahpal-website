@@ -190,6 +190,8 @@ keywords_list = [
     {"keyword": "2026 年告別拖延症的科學方法：從心理學到行為設計的完整實踐指南", "category": "🌟 人生哲理", "filename": "philosophy/stop-procrastination-guide-2026.html"},
     {"keyword": "2026 年 AI 監管政策全球盤點：歐盟、美國、中國與台灣的法規發展趨勢", "category": "🤖 AI 趨勢", "filename": "trend/ai-regulation-2026.html"},
 
+    {"keyword": "2026 年極簡生活實踐指南：斷捨離、數位排毒與心靈自由的完整攻略", "category": "🌟 人生哲理", "filename": "philosophy/minimalism-guide-2026.html"},
+
 ]
 
 # ============================================================

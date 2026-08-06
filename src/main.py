@@ -192,6 +192,8 @@ keywords_list = [
 
     {"keyword": "2026 年極簡生活實踐指南：斷捨離、數位排毒與心靈自由的完整攻略", "category": "🌟 人生哲理", "filename": "philosophy/minimalism-guide-2026.html"},
 
+    {"keyword": "望春風 Lo-fi 翻唱 歌詞 台羅拼音 解析", "category": "🎵 台語音樂", "filename": "music/bang-chhun-hong-embed.html"},
+
 ]
 
 # ============================================================

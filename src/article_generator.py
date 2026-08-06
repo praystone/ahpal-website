@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v7.7
+# article_generator.py - 文章生成核心模組 v7.8
 # ============================================================
 # 修復：
 #   - 🔧 CSS 圖片變形：加入 object-fit:cover + aspect-ratio:16/9
@@ -7,6 +7,8 @@
 #   - 🔧 抽象概念翻譯：建立關鍵字詞庫，將中文主題轉為具體英文視覺描述
 #   - 🔧 輸出品質提升：加入專業風格關鍵字（flat vector, clean, professional）
 #   - 🆕 YouTube 影片嵌入：支援 video_id 自動嵌入文章開頭
+#   - 🆕 text_to_html 跳過 HTML 標籤，避免結構錯亂
+#   - 🆕 支援 content_type 區分文章類型
 # ============================================================
 
 import os
@@ -111,6 +113,7 @@ def text_to_html(content, keyword, category):
     將 AI 生成的純文字內容轉換為完整的 HTML 結構
     自動識別標題、段落、列表
     強制生成 H1 標題
+    🆕 跳過已有的 HTML 標籤，避免結構錯亂
     """
     if not content:
         return None
@@ -179,6 +182,22 @@ def text_to_html(content, keyword, category):
 
         line = line.strip()
         if not line:
+            continue
+
+        # 🆕 跳過明顯的 HTML 標籤行（避免結構錯亂）
+        html_tags_to_skip = [
+            '<html', '</html>', '<head', '</head>', 
+            '<body', '</body>', '<!DOCTYPE', 
+            '<meta', '<link', '<script', '<title', '</title>',
+            '<header', '</header>', '<article', '</article>',
+            '<footer', '</footer>', '<main', '</main>'
+        ]
+        should_skip = False
+        for tag in html_tags_to_skip:
+            if line.lower().startswith(tag.lower()):
+                should_skip = True
+                break
+        if should_skip:
             continue
 
         clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
@@ -430,7 +449,7 @@ def generate_and_embed_image(html_content, keyword, category):
 
 
 # ============================================================
-# 🆕 生成單一文章（加入 YouTube 嵌入支援）
+# 🆕 生成單一文章（加入 YouTube 嵌入支援，修正順序）
 # ============================================================
 
 def generate_article(item):
@@ -444,16 +463,17 @@ def generate_article(item):
         1. 檢查檔案是否已存在
         2. 使用 APIClient 生成文章
         3. 轉換為完整 HTML
-        4. 🆕 如果有 video_id，嵌入 YouTube 影片
-        5. 生成專業配圖（英文提示詞 + 分類風格映射）
-        6. 品質檢查
-        7. 寫入檔案
-        8. 更新首頁
+        4. 建構完整品牌 HTML (build_article_html)
+        5. 🆕 如果有 video_id，在文章開頭嵌入 YouTube 影片（置頂）
+        6. 生成專業配圖
+        7. 品質檢查
+        8. 寫入檔案
+        9. 更新首頁
     """
     keyword = item["keyword"]
     category = item["category"]
     filename = item["filename"]
-    video_id = item.get("video_id", "")  # 🆕 讀取 video_id（如果有的話）
+    video_id = item.get("video_id", "")
     file_path = os.path.join(OUTPUT_DIR, filename)
 
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
@@ -502,27 +522,28 @@ def generate_article(item):
         return
 
     # ============================================================
-    # 3. 🆕 如果有 video_id，在文章開頭嵌入 YouTube 影片
+    # 3. 建構完整品牌 HTML
+    # ============================================================
+    html_content = build_article_html(keyword, category, html_content)
+
+    # ============================================================
+    # 4. 如果有 video_id，在文章開頭嵌入 YouTube 影片（置頂）
     # ============================================================
     if video_id:
         youtube_embed = create_youtube_embed(video_id)
-        # 在 <body> 之後、文章內容之前插入
         if '<body>' in html_content:
-            html_content = html_content.replace('<body>', f'<body>\n{youtube_embed}')
+            html_content = html_content.replace('<body>', f'<body>\n{youtube_embed}', 1)
         else:
             html_content = youtube_embed + html_content
         print(f"   ✅ 已嵌入 YouTube 影片：{video_id}")
 
-    # 建構完整 HTML（加入品牌標示、返回按鈕等）
-    html_content = build_article_html(keyword, category, html_content)
-
     # ============================================================
-    # 4. 生成專業配圖（傳入 category 用於風格映射）
+    # 5. 生成專業配圖
     # ============================================================
     html_content, image_generated = generate_and_embed_image(html_content, keyword, category)
 
     # ============================================================
-    # 5. 品質檢查
+    # 6. 品質檢查
     # ============================================================
     quality_report = check_article_quality(html_content, keyword)
 
@@ -535,14 +556,14 @@ def generate_article(item):
     print(f"   └─ 結果：{'✅ 通過' if quality_report['passed'] else '⚠️ 未達標（仍會寫入）'}")
 
     # ============================================================
-    # 6. 寫入檔案
+    # 7. 寫入檔案
     # ============================================================
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print(f"✨ 成功寫入：{file_path}")
 
     # ============================================================
-    # 7. 更新首頁
+    # 8. 更新首頁
     # ============================================================
     update_index_html(keyword, filename, category)
 
@@ -582,14 +603,14 @@ def get_pending_articles(keywords_list):
 
 if __name__ == "__main__":
     print("\n" + "="*50)
-    print("  🧪 article_generator.py v7.7 測試（YouTube 嵌入版）")
+    print("  🧪 article_generator.py v7.8 測試（YouTube 嵌入修正版）")
     print("="*50 + "\n")
 
     test_item = {
         "keyword": "望春風 Lo-fi 翻唱 歌詞 台羅拼音 解析",
-        "category": "🎵 台語音樂",
-        "filename": "test/test-song.html",
-        "video_id": "RMam6RpUzNI"
+        "category": "🎵 音樂創作",
+        "filename": "test/test-song-v78.html",
+        "video_id": "A9Zw-QHEOqQ"
     }
 
     generate_article(test_item)

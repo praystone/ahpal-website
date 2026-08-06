@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v6.0
+# html_builder.py - HTML 建構模組 v6.1
 # ============================================================
 # 修復：
 #   - 標題提取失敗時使用 filename 作為備案
@@ -9,6 +9,8 @@
 #   - 優化標題截斷邏輯（保留完整語意）
 #   - 🆕 新增 Giscus 留言區塊（文章底部）
 #   - 🆕 Giscus 自動嵌入所有文章頁面
+#   - 🆕 加入「🎵 音樂創作」分類映射
+#   - 🆕 強化分類提取邏輯，支援 emoji 前綴匹配
 # ============================================================
 
 import hashlib
@@ -225,7 +227,7 @@ GISCUS_COMMENT = '''
 '''
 
 # ============================================================
-# 分類 Emoji 映射（用於自動提取）
+# 🆕 分類 Emoji 映射（完整版）
 # ============================================================
 CATEGORY_EMOJI_MAP = {
     "💻": "💻 3C 科技教學",
@@ -233,7 +235,8 @@ CATEGORY_EMOJI_MAP = {
     "🏠": "🏠 生活小常識",
     "📊": "📊 軟體評測",
     "🌟": "🌟 人生哲理",
-    "🤖": "🤖 AI 趨勢"
+    "🤖": "🤖 AI 趨勢",
+    "🎵": "🎵 音樂創作",  # 🆕 加入音樂分類
 }
 
 # ============================================================
@@ -309,6 +312,43 @@ def clean_ai_header(html_content):
     return html_content
 
 # ============================================================
+# 🆕 分類提取輔助函數
+# ============================================================
+
+def extract_category_from_content(html_content):
+    """
+    從文章內容中提取分類
+    優先從 emoji 映射，否則從關鍵字判斷
+    """
+    # 方法 1：從 post-category 標籤提取
+    category_match = re.search(r'<span[^>]*class=[\'"]?post-category[\'"]?[^>]*>(.*?)</span>', html_content, re.IGNORECASE | re.DOTALL)
+    if category_match:
+        return category_match.group(1).strip()
+    
+    # 方法 2：從 emoji 映射
+    for emoji, cat_name in CATEGORY_EMOJI_MAP.items():
+        if emoji in html_content:
+            return cat_name
+    
+    # 方法 3：從關鍵字判斷
+    if "音樂" in html_content or "歌曲" in html_content or "歌詞" in html_content:
+        return "🎵 音樂創作"
+    if "AI" in html_content or "人工智慧" in html_content:
+        return "🤖 AI 趨勢"
+    if "遊戲" in html_content:
+        return "🎮 遊戲攻略"
+    if "科技" in html_content or "3C" in html_content or "手機" in html_content:
+        return "💻 3C 科技教學"
+    if "生活" in html_content or "居家" in html_content or "收納" in html_content:
+        return "🏠 生活小常識"
+    if "評測" in html_content or "比較" in html_content or "軟體" in html_content:
+        return "📊 軟體評測"
+    if "人生" in html_content or "哲理" in html_content or "成長" in html_content:
+        return "🌟 人生哲理"
+    
+    return "🌟 人生哲理"  # 預設
+
+# ============================================================
 # 文章 HTML 增強（核心功能 + Giscus）
 # ============================================================
 
@@ -346,17 +386,8 @@ def enhance_article_html(html_content):
     if not title:
         title = "文章標題"
     
-    # 提取分類
-    category = "🌟 人生哲理"  # 預設
-    category_match = re.search(r'<span[^>]*class=[\'"]?post-category[\'"]?[^>]*>(.*?)</span>', html_content, re.IGNORECASE | re.DOTALL)
-    if category_match:
-        category = category_match.group(1).strip()
-    else:
-        # 嘗試從關鍵字匹配分類
-        for emoji, cat_name in CATEGORY_EMOJI_MAP.items():
-            if emoji in html_content:
-                category = cat_name
-                break
+    # 🆕 使用強化版分類提取
+    category = extract_category_from_content(html_content)
     
     # ============================================================
     # 2. 移除原有的 <h1> 標籤（避免重複）
@@ -446,7 +477,8 @@ def create_default_index():
         "life": "🏠 生活小常識",
         "review": "📊 軟體評測",
         "philosophy": "🌟 人生哲理",
-        "trend": "🤖 AI 趨勢"
+        "trend": "🤖 AI 趨勢",
+        "music": "🎵 音樂創作",  # 🆕 加入音樂分類
     }
     
     EXCLUDED_FILES = [
@@ -514,7 +546,7 @@ def create_default_index():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雅寶社區 · 頂客論壇 | AHPAL.COM</title>
     <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 200 篇精選文章。">
-    <meta name="keywords" content="科技教學,遊戲攻略,生活小常識,軟體評測,人生哲理,AI趨勢">
+    <meta name="keywords" content="科技教學,遊戲攻略,生活小常識,軟體評測,人生哲理,AI趨勢,音樂創作">
     {ADSENSE_CODE}
     {GA4_CODE}
     <style>
@@ -537,7 +569,7 @@ def create_default_index():
         .hero-title .highlight {{ color: #00A86B; }}
         .hero-sub {{ font-size: 14px; color: #718096; letter-spacing: 2px; margin-bottom: 12px; font-weight: 300; }}
         .hero-desc {{ font-size: 15px; color: #4A5568; line-height: 1.9; }}
-        .category-grid {{ display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin: 28px 0 32px 0; }}
+        .category-grid {{ display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; margin: 28px 0 32px 0; }}
         @media (max-width: 768px) {{ .category-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
         @media (max-width: 480px) {{ .category-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
         .category-card {{ display: block; background: #F7F9FC; padding: 18px 12px; border-radius: 14px; text-decoration: none; text-align: center; border: 1px solid #E2E8F0; transition: all 0.25s ease; }}
@@ -597,7 +629,7 @@ def create_default_index():
             <p class="hero-sub">歲月 · 知識 · 共創</p>
             <p class="hero-desc">
                 這裡記錄了 <strong>頂客論壇</strong> 二十多年的歲月迴聲，
-                並以 AI 精選 <strong>科技、遊戲、生活、軟體、哲理、AI 趨勢</strong> 六大領域的實用內容。
+                並以 AI 精選 <strong>科技、遊戲、生活、軟體、哲理、AI 趨勢、音樂創作</strong> 七大領域的實用內容。
                 從數位工具到人生成長，每一篇文章都經過編輯策展，為讀者提供真正有價值的資訊。
             </p>
 
@@ -631,6 +663,11 @@ def create_default_index():
                     <span class="emoji">🤖</span>
                     <span class="cat-name">AI 趨勢</span>
                     <span class="cat-count">{article_counts.get('trend', 0)} 篇</span>
+                </a>
+                <a href="/category-music.html" class="category-card">
+                    <span class="emoji">🎵</span>
+                    <span class="cat-name">音樂創作</span>
+                    <span class="cat-count">{article_counts.get('music', 0)} 篇</span>
                 </a>
             </div>
 
@@ -705,6 +742,7 @@ def create_default_index():
                     <a href="/category-review.html">📊 評測</a>
                     <a href="/category-philosophy.html">🌟 哲理</a>
                     <a href="/category-trend.html">🤖 AI</a>
+                    <a href="/category-music.html">🎵 音樂</a>
                     <a href="/game/">🎮 遊戲間</a>
                     <a href="/categories.html">📚 全部分類</a>
                     <a href="/about.html">📖 關於我們</a>
@@ -740,7 +778,7 @@ def generate_categories_page():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📚 全部分類 - 雅寶社區 · 頂客論壇</title>
-    <meta name="description" content="雅寶社區 · 頂客論壇 — 六大知識分類總覽。">
+    <meta name="description" content="雅寶社區 · 頂客論壇 — 七大知識分類總覽。">
     {ADSENSE_CODE}
     {GA4_CODE}
     <style>
@@ -752,7 +790,7 @@ def generate_categories_page():
         .header a {{ color: #005A9C; text-decoration: none; font-weight: 500; }}
         .header a:hover {{ text-decoration: underline; }}
         .subtitle {{ color: #4A5568; margin-bottom: 28px; font-size: 15px; }}
-        .category-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }}
+        .category-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }}
         @media (max-width: 768px) {{ .category-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
         @media (max-width: 480px) {{ .category-grid {{ grid-template-columns: 1fr; }} }}
         .category-card {{ background: white; border-radius: 14px; padding: 24px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #E2E8F0; text-decoration: none; color: inherit; transition: all 0.25s ease; }}
@@ -775,7 +813,7 @@ def generate_categories_page():
             <h1>📚 全部分類</h1>
             <a href="/">🏠 返回首頁</a>
         </div>
-        <p class="subtitle">六大知識領域，超過 200 篇精選文章，讓你一次掌握。</p>
+        <p class="subtitle">七大知識領域，超過 400 篇精選文章，讓你一次掌握。</p>
         <div class="category-grid">
 '''
 

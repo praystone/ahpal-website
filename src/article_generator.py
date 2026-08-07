@@ -1,20 +1,21 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v7.8
+# article_generator.py - 文章生成核心模組 v8.1
 # ============================================================
-# 修復：
-#   - 🔧 CSS 圖片變形：加入 object-fit:cover + aspect-ratio:16/9
-#   - 🔧 圖文不符：改用英文視覺提示詞 + 分類風格映射
-#   - 🔧 抽象概念翻譯：建立關鍵字詞庫，將中文主題轉為具體英文視覺描述
-#   - 🔧 輸出品質提升：加入專業風格關鍵字（flat vector, clean, professional）
-#   - 🆕 YouTube 影片嵌入：支援 video_id 自動嵌入文章開頭
-#   - 🆕 text_to_html 跳過 HTML 標籤，避免結構錯亂
-#   - 🆕 支援 content_type 區分文章類型
+# 修復與優化 (v8.1)：
+#   - 🔧 強化 text_to_html 清單識別（純文字編號清單）
+#   - 🔧 將 _build_article_prompt 改為公開方法
+#   - 🔧 優化 H1 標題提取與品質報告邏輯
+#   - 🔧 配圖失敗時加入備用方案（重新生成一次）
+#   - 🆕 加入檔案日誌記錄（除錯用）
+#   - 🆕 優化重試與降級邏輯，減少重複程式碼
+#   - 🆕 支援從環境變數啟用 Responses API 偵錯模式
 # ============================================================
 
 import os
 import re
 import time
 import urllib.parse
+import logging
 from pathlib import Path
 from datetime import datetime
 
@@ -23,7 +24,10 @@ from src.api_client import APIClient
 from src.html_builder import build_article_html
 from src.quality_checker import check_article_quality
 from src.model_router import ModelRouter
+from src.logger import get_logger
 
+# 取得日誌器
+logger = get_logger("article_generator")
 
 # ============================================================
 # 🆕 YouTube 嵌入函數
@@ -35,7 +39,7 @@ def create_youtube_embed(video_id):
     """
     if not video_id:
         return ""
-    
+
     return f'''
 <div class="youtube-embed" style="margin:20px 0;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
     <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
@@ -56,6 +60,7 @@ def create_youtube_embed(video_id):
 def update_index_html(keyword, filename, category):
     """快速更新首頁的文章列表"""
     print(f"📊 更新首頁：{keyword}")
+    logger.info(f"更新首頁：{keyword} -> {filename}")
 
     index_path = os.path.join(OUTPUT_DIR, "index.html")
     if not os.path.exists(index_path):
@@ -68,6 +73,7 @@ def update_index_html(keyword, filename, category):
             content = f.read()
 
         if f'href="/{filename}"' in content:
+            logger.debug(f"文章已存在於首頁：{filename}")
             return
 
         new_item = f'<li><span class="category">{category}</span><a href="/{filename}">{keyword}</a><span class="post-date">{datetime.now().strftime("%Y-%m-%d")}</span></li>\n'
@@ -77,7 +83,11 @@ def update_index_html(keyword, filename, category):
             content = content.replace(target, target + new_item)
             with open(index_path, "w", encoding="utf-8") as f:
                 f.write(content)
+            logger.info(f"首頁已更新：{keyword}")
+        else:
+            logger.warning(f"無法找到文章列表目標位置：{filename}")
     except Exception as e:
+        logger.error(f"更新首頁失敗：{e}")
         print(f"   ⚠️ 更新首頁失敗：{e}")
 
 
@@ -114,6 +124,7 @@ def text_to_html(content, keyword, category):
     自動識別標題、段落、列表
     強制生成 H1 標題
     🆕 跳過已有的 HTML 標籤，避免結構錯亂
+    🆕 強化清單識別：支援純文字編號清單
     """
     if not content:
         return None
@@ -172,7 +183,9 @@ def text_to_html(content, keyword, category):
     html_parts.append(f'<h1>{title}</h1>')
 
     in_list = False
+    in_ordered_list = False
     list_items = []
+    ordered_items = []
     skip_next = False
 
     for i, line in enumerate(lines):
@@ -182,12 +195,27 @@ def text_to_html(content, keyword, category):
 
         line = line.strip()
         if not line:
+            # 空行時，如果正在清單中，結尾清單
+            if in_list and list_items:
+                html_parts.append('<ul>')
+                for item in list_items:
+                    html_parts.append(f'    <li>{item}</li>')
+                html_parts.append('</ul>')
+                list_items = []
+                in_list = False
+            if in_ordered_list and ordered_items:
+                html_parts.append('<ol>')
+                for item in ordered_items:
+                    html_parts.append(f'    <li>{item}</li>')
+                html_parts.append('</ol>')
+                ordered_items = []
+                in_ordered_list = False
             continue
 
         # 🆕 跳過明顯的 HTML 標籤行（避免結構錯亂）
         html_tags_to_skip = [
-            '<html', '</html>', '<head', '</head>', 
-            '<body', '</body>', '<!DOCTYPE', 
+            '<html', '</html>', '<head', '</head>',
+            '<body', '</body>', '<!DOCTYPE',
             '<meta', '<link', '<script', '<title', '</title>',
             '<header', '</header>', '<article', '</article>',
             '<footer', '</footer>', '<main', '</main>'
@@ -208,6 +236,7 @@ def text_to_html(content, keyword, category):
         is_heading = False
         heading_level = 2
 
+        # 檢查是否為標題
         if line.startswith('# '):
             is_heading = True
             clean_line = line[2:].strip()
@@ -233,23 +262,32 @@ def text_to_html(content, keyword, category):
               len(clean_line) > 3):
             is_heading = True
 
-        is_list_item = line.startswith('- ') or line.startswith('* ') or line.startswith('• ') or line.startswith('  - ')
+        # 🆕 檢查是否為清單項目（支援更多格式）
+        is_unordered_item = line.startswith('- ') or line.startswith('* ') or line.startswith('• ') or line.startswith('  - ')
+        is_ordered_item = bool(re.match(r'^\d+[.、)）]\s', line))
 
-        if is_list_item:
+        # 🆕 如果行內容匹配「數字. 文字」，也視為有序清單
+        if not is_ordered_item:
+            is_ordered_item = bool(re.match(r'^\d+[.、)）]\s+', line))
+
+        # 處理清單
+        if is_unordered_item:
             item_text = re.sub(r'^[\-\*\•]\s*', '', line).strip()
+            # 如果之前有有序清單，先關閉
+            if in_ordered_list and ordered_items:
+                html_parts.append('<ol>')
+                for item in ordered_items:
+                    html_parts.append(f'    <li>{item}</li>')
+                html_parts.append('</ol>')
+                ordered_items = []
+                in_ordered_list = False
             list_items.append(item_text)
             in_list = True
             continue
-        elif in_list and not is_list_item and not line.startswith('  '):
-            if list_items:
-                html_parts.append('<ul>')
-                for item in list_items:
-                    html_parts.append(f'    <li>{item}</li>')
-                html_parts.append('</ul>')
-                list_items = []
-                in_list = False
 
-        if is_heading:
+        if is_ordered_item:
+            item_text = re.sub(r'^\d+[.、)）]\s*', '', line).strip()
+            # 如果之前有無序清單，先關閉
             if in_list and list_items:
                 html_parts.append('<ul>')
                 for item in list_items:
@@ -257,7 +295,29 @@ def text_to_html(content, keyword, category):
                 html_parts.append('</ul>')
                 list_items = []
                 in_list = False
+            ordered_items.append(item_text)
+            in_ordered_list = True
+            continue
 
+        # 🆕 如果遇到非清單行但正在清單中，關閉清單
+        if in_list and list_items and not is_unordered_item:
+            html_parts.append('<ul>')
+            for item in list_items:
+                html_parts.append(f'    <li>{item}</li>')
+            html_parts.append('</ul>')
+            list_items = []
+            in_list = False
+
+        if in_ordered_list and ordered_items and not is_ordered_item:
+            html_parts.append('<ol>')
+            for item in ordered_items:
+                html_parts.append(f'    <li>{item}</li>')
+            html_parts.append('</ol>')
+            ordered_items = []
+            in_ordered_list = False
+
+        # 處理標題
+        if is_heading:
             if clean_line == title or clean_line in title:
                 continue
 
@@ -266,22 +326,32 @@ def text_to_html(content, keyword, category):
             else:
                 html_parts.append(f'<h2>{clean_line}</h2>')
         else:
+            # 處理粗體
             if '**' in clean_line:
                 clean_line = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', clean_line)
 
+            # 跳過重複標題
             if clean_line == title or clean_line.startswith(title[:20]) or clean_line in title:
                 continue
 
             html_parts.append(f'<p>{clean_line}</p>')
 
+    # 處理未關閉的清單
     if in_list and list_items:
         html_parts.append('<ul>')
         for item in list_items:
             html_parts.append(f'    <li>{item}</li>')
         html_parts.append('</ul>')
 
+    if in_ordered_list and ordered_items:
+        html_parts.append('<ol>')
+        for item in ordered_items:
+            html_parts.append(f'    <li>{item}</li>')
+        html_parts.append('</ol>')
+
     body_content = '\n'.join(html_parts)
 
+    # 確保至少有 H2
     h2_count = body_content.count('<h2>')
     if h2_count < 3:
         sections = [
@@ -314,7 +384,7 @@ def text_to_html(content, keyword, category):
 
 
 # ============================================================
-# 🖼️ 智慧配圖系統 v3.1 - 專業版（v7.6）
+# 🖼️ 智慧配圖系統 v3.2 - 強化版
 # ============================================================
 
 # ---- 分類視覺風格映射 ----
@@ -324,7 +394,8 @@ CATEGORY_VISUALS = {
     "📊 軟體評測": "computer screen showing data visualization dashboard, sleek software interface, modern office setup, blue and white color scheme",
     "🏠 生活小常識": "cozy home interior with organized spaces, warm lighting, comfortable living room, bright daylight",
     "🎮 遊戲攻略": "gaming setup with RGB keyboard, gaming monitor, headset, vibrant neon lighting, esports style",
-    "🤖 AI 趨勢": "artificial intelligence concept, digital brain, futuristic tech network, glowing circuit board, cyan and blue lights"
+    "🤖 AI 趨勢": "artificial intelligence concept, digital brain, futuristic tech network, glowing circuit board, cyan and blue lights",
+    "🎵 音樂創作": "musical instruments, vinyl record, warm studio lighting, creative atmosphere, music production"  # 🆕 新增
 }
 
 # ---- 風格關鍵字 ----
@@ -339,10 +410,10 @@ def _build_english_visual_prompt(keyword, category):
     base_visual = CATEGORY_VISUALS.get(category)
     if not base_visual:
         base_visual = f"concept visualization for {keyword}, modern professional setting"
-    
+
     # 2. 特殊關鍵字強化（針對文章主題增加細節）
     keyword_hints = []
-    
+
     # 人生哲理類特殊處理
     if "正念" in keyword or "平靜" in keyword or "專注" in keyword:
         keyword_hints.append("meditation, calmness, focus, mindfulness")
@@ -350,19 +421,23 @@ def _build_english_visual_prompt(keyword, category):
         keyword_hints.append("digital device screen, technology interface")
     if "壓力" in keyword or "焦慮" in keyword:
         keyword_hints.append("stress relief, peaceful environment")
-    
+
     # 3C/科技類特殊處理
     if "評測" in keyword or "比較" in keyword:
         keyword_hints.append("product comparison chart, side by side view")
     if "教學" in keyword or "指南" in keyword:
         keyword_hints.append("instructional step by step guide style")
-    
+
+    # NAS 特殊處理
+    if "NAS" in keyword or "雲端" in keyword or "儲存" in keyword:
+        keyword_hints.append("network attached storage device, data server, cloud storage concept")
+
     # 4. 組裝最終提示詞
     full_prompt = base_visual
     if keyword_hints:
         full_prompt += f", {', '.join(keyword_hints)}"
     full_prompt += f", {STYLE_SUFFIX}"
-    
+
     return full_prompt
 
 
@@ -377,32 +452,30 @@ def _make_responsive_image(img_tag):
     )
 
 
-def generate_and_embed_image(html_content, keyword, category):
+def generate_and_embed_image(html_content, keyword, category, retry_count=1):
     """
     使用 Pollinations AI 生成配圖，並嵌入文章
-    v3.1 專業版：
-        - 英文視覺提示詞（解決圖文不符）
-        - 分類風格映射（確保風格一致）
-        - 防止變形 CSS（aspect-ratio + object-fit）
-        - 16:9 橫圖比例（文章配圖視覺最佳）
+    v3.2：加入重試機制與備用方案
     """
     print("   🖼️ 正在生成配圖（Pollinations AI）...")
-    
+    logger.info(f"生成配圖：{keyword}")
+
     try:
         router = ModelRouter()
-        
+
         # ---- 1. 建構專業英文提示詞 ----
         visual_prompt = _build_english_visual_prompt(keyword, category)
         # 限制長度，避免 URL 過長（Pollinations 建議 < 200 字符）
         if len(visual_prompt) > 180:
             visual_prompt = visual_prompt[:180]
-        
+
         # URL 編碼
         encoded_prompt = urllib.parse.quote(visual_prompt)
         print(f"   📝 生圖提示詞（英文）：{visual_prompt[:80]}...")
-        
+        logger.debug(f"生圖提示詞：{visual_prompt}")
+
         safe_filename = re.sub(r'[\\/*?:"<>|]', '', keyword)[:50]
-        
+
         # ---- 2. 生成圖片（16:9 橫圖） ----
         result = router.generate_image_pollinations(
             prompt=encoded_prompt,
@@ -410,12 +483,12 @@ def generate_and_embed_image(html_content, keyword, category):
             width=1024,
             height=576
         )
-        
+
         if result.get("img_tag"):
             # 響應式圖片（防止變形）
             responsive_img = _make_responsive_image(result["img_tag"])
-            
-            # ---- 3. 插入圖片（使用 </p> 匹配） ----
+
+            # ---- 3. 插入圖片 ----
             p_close_match = re.search(r'</p>', html_content, re.IGNORECASE)
             if p_close_match:
                 pos = p_close_match.end()
@@ -436,32 +509,50 @@ def generate_and_embed_image(html_content, keyword, category):
                     else:
                         html_content = responsive_img + '\n' + html_content
                         print(f"   ✅ 配圖已插入文章開頭")
-            
+
+            logger.info(f"配圖生成成功：{keyword}")
             return html_content, True
+
         else:
             error_msg = result.get('error', 'API 無回應') if result else '無回傳內容'
             print(f"   ⚠️ 配圖生成失敗：{error_msg}")
+            logger.warning(f"配圖生成失敗 (嘗試 {retry_count})：{error_msg}")
+
+            # 🆕 重試機制
+            if retry_count < 3:
+                print(f"   🔄 3 秒後重試... (第 {retry_count + 1} 次)")
+                time.sleep(3)
+                return generate_and_embed_image(html_content, keyword, category, retry_count + 1)
+
             return html_content, False
-            
+
     except Exception as e:
         print(f"   ⚠️ 配圖生成異常：{e}")
+        logger.error(f"配圖生成異常：{e}")
         return html_content, False
 
 
 # ============================================================
-# 🆕 生成單一文章（加入 YouTube 嵌入支援，修正順序）
+# 🆕 生成單一文章（加入 Responses API 支援）
 # ============================================================
 
 def generate_article(item):
     """
     生成單一篇文章，並自動生成配圖，並支援 YouTube 影片嵌入
-    
+
     參數：
-        item: dict，包含 keyword, category, filename, video_id (可選)
-    
+        item: dict，包含：
+            - keyword: 文章關鍵字
+            - category: 文章分類
+            - filename: 輸出路徑
+            - video_id: YouTube 影片 ID（可選）
+            - use_responses_api: 是否使用 Responses API（可選，預設 False）
+            - enable_reasoning: 是否啟用思維鏈（可選，預設 False）
+            - enable_search: 是否啟用網頁搜尋（可選，預設 False）
+
     流程：
         1. 檢查檔案是否已存在
-        2. 使用 APIClient 生成文章
+        2. 使用 APIClient 生成文章（支援 Chat API / Responses API）
         3. 轉換為完整 HTML
         4. 建構完整品牌 HTML (build_article_html)
         5. 🆕 如果有 video_id，在文章開頭嵌入 YouTube 影片（置頂）
@@ -474,6 +565,12 @@ def generate_article(item):
     category = item["category"]
     filename = item["filename"]
     video_id = item.get("video_id", "")
+
+    # 🆕 從 JSON 讀取 Responses API 設定
+    use_responses_api = item.get("use_responses_api", False)
+    enable_reasoning = item.get("enable_reasoning", False)
+    enable_search = item.get("enable_search", False)
+
     file_path = os.path.join(OUTPUT_DIR, filename)
 
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
@@ -483,32 +580,80 @@ def generate_article(item):
         file_size = os.path.getsize(file_path)
         if file_size >= 5120:
             print(f"⏩ 跳過：{filename} 已存在（{file_size} bytes）")
+            logger.info(f"跳過已存在文章：{filename} ({file_size} bytes)")
             return
         else:
             print(f"⚠️ 檔案過小（{file_size} bytes），重新生成：{filename}")
+            logger.warning(f"檔案過小，重新生成：{filename} ({file_size} bytes)")
 
-    print(f"🤖 正在生成：{keyword}（分類：{category}）")
+    api_label = "Responses API" if use_responses_api else "Chat API"
+    if use_responses_api:
+        features = []
+        if enable_reasoning:
+            features.append("🧠 Reasoning")
+        if enable_search:
+            features.append("🌐 Web Search")
+        feature_str = f" ({', '.join(features)})" if features else ""
+        print(f"🤖 正在生成：{keyword}（分類：{category}）[API: {api_label}{feature_str}]")
+    else:
+        print(f"🤖 正在生成：{keyword}（分類：{category}）[API: {api_label}]")
+
+    logger.info(f"開始生成文章：{keyword} (API: {api_label}, Reasoning: {enable_reasoning}, Search: {enable_search})")
 
     # ============================================================
-    # 1. 使用 APIClient 生成文章
+    # 1. 使用 APIClient 生成文章（支援雙 API）
     # ============================================================
     client = APIClient()
-    raw_content = client.generate_article(
-        keyword=keyword,
-        category=category,
-        max_tokens=16384
-    )
+    raw_content = None
+    generation_attempts = 0
+    max_attempts = 2
 
-    if not raw_content or len(raw_content) < 100:
-        print("   ⚠️ 第一次生成結果較短，嘗試重新生成...")
-        raw_content = client.generate_article(
-            keyword=keyword,
-            category=category,
-            max_tokens=16384
-        )
+    while generation_attempts < max_attempts:
+        generation_attempts += 1
+        try:
+            if use_responses_api:
+                # 🆕 使用公開方法取得提示詞
+                prompt = client.build_article_prompt(keyword, category)
+                raw_content = client.generate_with_responses_api(
+                    prompt=prompt,
+                    instructions="你是專業的繁體中文內容創作者，擅長 SEO 友善文章。",
+                    enable_reasoning=enable_reasoning,
+                    enable_search=enable_search,
+                    max_tokens=16384,
+                    keyword=keyword,
+                    category=category
+                )
+            else:
+                raw_content = client.generate_article(
+                    keyword=keyword,
+                    category=category,
+                    max_tokens=16384
+                )
+
+            if raw_content and len(raw_content) >= 100:
+                break
+
+            print(f"   ⚠️ 生成結果較短 ({len(raw_content) if raw_content else 0} 字)，嘗試重新生成...")
+            logger.warning(f"生成結果較短 ({len(raw_content) if raw_content else 0} 字)，重試 {generation_attempts}/{max_attempts}")
+
+            # 降級到 Chat API
+            if use_responses_api and generation_attempts == 1:
+                print("   🔄 降級到 Chat API 重新生成...")
+                logger.info("降級到 Chat API")
+                use_responses_api = False
+                continue
+
+        except Exception as e:
+            logger.error(f"生成異常 (嘗試 {generation_attempts}/{max_attempts})：{e}")
+            print(f"   ⚠️ 生成異常：{e}")
+            if generation_attempts >= max_attempts:
+                raw_content = None
+                break
+            time.sleep(2)
 
     if not raw_content:
         print(f"❌ 生成失敗：{keyword}")
+        logger.error(f"文章生成失敗：{keyword}")
         return
 
     # ============================================================
@@ -519,6 +664,7 @@ def generate_article(item):
 
     if not html_content:
         print(f"❌ HTML 轉換失敗：{keyword}")
+        logger.error(f"HTML 轉換失敗：{keyword}")
         return
 
     # ============================================================
@@ -536,6 +682,7 @@ def generate_article(item):
         else:
             html_content = youtube_embed + html_content
         print(f"   ✅ 已嵌入 YouTube 影片：{video_id}")
+        logger.info(f"已嵌入 YouTube 影片：{video_id}")
 
     # ============================================================
     # 5. 生成專業配圖
@@ -553,7 +700,14 @@ def generate_article(item):
     print(f"   └─ H1 標題：{quality_report.get('h1_count', 0)} 個 {'✅' if quality_report.get('h1_count', 0) >= 1 else '❌ 無'}")
     print(f"   └─ H2 標題：{quality_report.get('h2_count', 0)} 個")
     print(f"   └─ 配圖：{'✅ 已生成' if image_generated else '⚠️ 未生成'}")
+    print(f"   └─ API：{'Responses' if item.get('use_responses_api', False) else 'Chat'}")
+    if item.get('enable_reasoning', False):
+        print(f"   └─ 思維鏈：✅ 已啟用")
+    if item.get('enable_search', False):
+        print(f"   └─ 網頁搜尋：✅ 已啟用")
     print(f"   └─ 結果：{'✅ 通過' if quality_report['passed'] else '⚠️ 未達標（仍會寫入）'}")
+
+    logger.info(f"品質報告：{keyword} 分數 {quality_report['score']}/100，通過 {quality_report['passed']}")
 
     # ============================================================
     # 7. 寫入檔案
@@ -561,6 +715,7 @@ def generate_article(item):
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print(f"✨ 成功寫入：{file_path}")
+    logger.info(f"文章已寫入：{file_path}")
 
     # ============================================================
     # 8. 更新首頁
@@ -578,10 +733,10 @@ def generate_article(item):
 def get_pending_articles(keywords_list):
     """
     過濾出需要生成的文章
-    
+
     參數：
         keywords_list: 所有文章的清單
-    
+
     回傳：
         list: 待生成的文章清單
     """
@@ -603,15 +758,43 @@ def get_pending_articles(keywords_list):
 
 if __name__ == "__main__":
     print("\n" + "="*50)
-    print("  🧪 article_generator.py v7.8 測試（YouTube 嵌入修正版）")
+    print("  🧪 article_generator.py v8.1 測試（Debug 完善版）")
     print("="*50 + "\n")
 
-    test_item = {
-        "keyword": "望春風 Lo-fi 翻唱 歌詞 台羅拼音 解析",
-        "category": "🎵 音樂創作",
-        "filename": "test/test-song-v78.html",
-        "video_id": "A9Zw-QHEOqQ"
+    # 測試 1：傳統 Chat API
+    print("📝 測試 1：Chat API")
+    test_item_1 = {
+        "keyword": "2026 年 AI 趨勢簡介",
+        "category": "🤖 AI 趨勢",
+        "filename": "test/test-chat-api-v81.html",
+        "use_responses_api": False
     }
+    generate_article(test_item_1)
 
-    generate_article(test_item)
+    # 測試 2：Responses API + Reasoning
+    print("\n📝 測試 2：Responses API + Reasoning")
+    test_item_2 = {
+        "keyword": "2026 年 AI 趨勢深度分析（含思維鏈）",
+        "category": "🤖 AI 趨勢",
+        "filename": "test/test-responses-reasoning-v81.html",
+        "use_responses_api": True,
+        "enable_reasoning": True,
+        "enable_search": False
+    }
+    generate_article(test_item_2)
+
+    # 測試 3：清單識別測試（純文字編號清單）
+    print("\n📝 測試 3：純文字清單識別")
+    test_content = """
+    以下是 NAS 選購的 5 個關鍵步驟：
+    1. 確定預算與需求
+    2. 選擇硬碟槽位數量
+    3. 比較處理器效能
+    4. 確認記憶體容量
+    5. 檢查網路連接埠規格
+    """
+    result = text_to_html(test_content, "NAS 選購步驟", "💻 3C 科技教學")
+    print("   轉換結果（前 200 字）：")
+    print(f"   {result[:200]}...")
+
     print("\n✅ 測試完成")

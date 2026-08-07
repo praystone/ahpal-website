@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 系統交接與新進工程師接手手冊 — 雅寶社區 · 頂客論壇</title>
+    <style>
+        /* ============================================================
+           全域樣式
+           ============================================================ */
+        :root {
+            --color-primary: #005A9C;
+            --color-secondary: #00A86B;
+            --color-accent: #FF6F61;
+            --color-bg: #F7F9FC;
+            --color-card: #FFFFFF;
+            --color-text: #1A202C;
+            --color-text-light: #4A5568;
+            --color-border: #E2E8F0;
+            --color-code-bg: #EDF2F7;
+            --color-warning: #DD6B20;
+            --color-danger: #E53E3E;
+            --color-success: #38A169;
+            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --radius-card: 14px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            --font-mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.8;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--color-card);
+            padding: 36px 40px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 24px;
+            border: 1px solid var(--color-border);
+        }
+
+        @media (max-width: 640px) {
+            .card {
+                padding: 24px 18px;
+            }
+        }
+
+        /* ============================================================
+           頁首
+           ============================================================ */
+        .header {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            border-bottom: 3px solid var(--color-primary);
+            margin-bottom: 30px;
+        }
+
+        .header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .header .logo span {
+            color: var(--color-secondary);
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            color: var(--color-text-light);
+            margin-top: 4px;
+        }
+
+        .header .version {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .header .status-badge {
+            display: inline-block;
+            background: var(--color-success);
+            color: white;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin: 28px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin: 20px 0 10px 0;
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-light);
+            margin: 16px 0 8px 0;
+        }
+
+        /* ============================================================
+           目錄
+           ============================================================ */
+        .toc {
+            background: var(--color-bg);
+            border-radius: 12px;
+            padding: 20px 24px;
+            border: 1px solid var(--color-border);
+            margin-bottom: 24px;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--color-primary);
+            border-bottom: none;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 4px 20px;
+        }
+
+        .toc ul li::before {
+            content: "▸ ";
+            color: var(--color-secondary);
+            font-weight: 700;
+        }
+
+        .toc ul li a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .toc ul li a:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+           表格
+           ============================================================ */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 12px 0 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        table th,
+        table td {
+            padding: 10px 14px;
+            border: 1px solid var(--color-border);
+            text-align: left;
+        }
+
+        table th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background: var(--color-bg);
+        }
+
+        table tr:hover {
+            background: #EBF8FF;
+        }
+
+        /* ============================================================
+           提示框
+           ============================================================ */
+        .tip {
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 12px 0 16px 0;
+            border-left: 4px solid;
+        }
+
+        .tip.info {
+            background: #EBF8FF;
+            border-color: #3182CE;
+            color: #2B6CB0;
+        }
+
+        .tip.success {
+            background: #F0FFF4;
+            border-color: #38A169;
+            color: #276749;
+        }
+
+        .tip.warning {
+            background: #FFFAF0;
+            border-color: #DD6B20;
+            color: #9C4221;
+        }
+
+        .tip.danger {
+            background: #FFF5F5;
+            border-color: #E53E3E;
+            color: #9B2C2C;
+        }
+
+        .tip .tip-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        /* ============================================================
+           標籤與徽章
+           ============================================================ */
+        .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .badge.success {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .badge.warning {
+            background: var(--color-warning);
+            color: white;
+        }
+
+        .badge.danger {
+            background: var(--color-danger);
+            color: white;
+        }
+
+        .badge.accent {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        /* ============================================================
+           程式碼區塊
+           ============================================================ */
+        .code-block {
+            background: var(--color-code-bg);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0 16px 0;
+            overflow-x: auto;
+            border: 1px solid var(--color-border);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .inline-code {
+            background: var(--color-code-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            border: 1px solid var(--color-border);
+        }
+
+        /* ============================================================
+           架構圖
+           ============================================================ */
+        .architecture {
+            background: var(--color-code-bg);
+            border-radius: 10px;
+            padding: 24px 30px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 2.2;
+            border: 1px solid var(--color-border);
+            margin: 12px 0 16px 0;
+            text-align: center;
+        }
+
+        .architecture .box {
+            display: inline-block;
+            padding: 8px 20px;
+            background: white;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .architecture .box.green {
+            border-color: var(--color-secondary);
+            color: var(--color-secondary);
+        }
+
+        .architecture .arrow {
+            color: #A0AEC0;
+            font-size: 20px;
+        }
+
+        .architecture .line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           簽核區
+           ============================================================ */
+        .signature-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid var(--color-border);
+        }
+
+        .signature-box {
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            text-align: center;
+            background: var(--color-bg);
+        }
+
+        .signature-box .role {
+            font-size: 14px;
+            color: var(--color-text-light);
+            font-weight: 600;
+        }
+
+        .signature-box .name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin: 4px 0;
+        }
+
+        .signature-box .date {
+            font-size: 13px;
+            color: #A0AEC0;
+        }
+
+        .signature-box .line {
+            width: 80%;
+            height: 2px;
+            background: var(--color-border);
+            margin: 12px auto 6px auto;
+        }
+
+        .signature-box .status-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .signature-box .status-badge.approved {
+            background: #C6F6D5;
+            color: #276749;
+        }
+
+        .signature-box .status-badge.pending {
+            background: #FEFCBF;
+            color: #975A16;
+        }
+
+        /* ============================================================
+           響應式
+           ============================================================ */
+        @media (max-width: 768px) {
+            .header .logo {
+                font-size: 22px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            .toc ul {
+                grid-template-columns: 1fr;
+            }
+            table th,
+            table td {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+            .signature-area {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+        }
+
+        /* ============================================================
+           列印樣式
+           ============================================================ */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+            .header {
+                border-bottom-color: #333;
+            }
+            .tip {
+                border: 1px solid #ddd;
+                border-left: 4px solid #666;
+            }
+            .code-block {
+                border: 1px solid #ddd;
+                background: #f9f9f9;
+            }
+            .toc ul {
+                grid-template-columns: 1fr 1fr;
+            }
+            .signature-area {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ============================================================
+        頁首
+        ============================================================ -->
+        <div class="header">
+            <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
+            <div class="subtitle">AI 系統交接與新進工程師接手手冊</div>
+            <div class="version">📌 版本 v4.2 · 2026 年 7 月 20 日</div>
+            <div class="status-badge">✅ 優化完成 · 生產環境就緒</div>
+        </div>
+
+        <!-- ============================================================
+        目錄
+        ============================================================ -->
+        <div class="card">
+            <h2>📖 目錄</h2>
+            <div class="toc">
+                <ul>
+                    <li><a href="#section-overview">1. 系統概述</a></li>
+                    <li><a href="#section-architecture">2. 技術架構</a></li>
+                    <li><a href="#section-directory">3. 目錄結構</a></li>
+                    <li><a href="#section-firstday">4. 第一天：環境設定</a></li>
+                    <li><a href="#section-files">5. 核心檔案說明</a></li>
+                    <li><a href="#section-workflow">6. 日常工作流程</a></li>
+                    <li><a href="#section-add-articles">7. 新增文章</a></li>
+                    <li><a href="#section-add-games">8. 新增遊戲</a></li>
+                    <li><a href="#section-deploy">9. 部署與上線</a></li>
+                    <li><a href="#section-state-management">10. 狀態管理與斷點續傳</a></li>
+                    <li><a href="#section-troubleshooting">11. 常見問題排錯</a></li>
+                    <li><a href="#section-backup">12. 備份與還原</a></li>
+                    <li><a href="#section-git">13. Git 版本控制</a></li>
+                    <li><a href="#section-dual-api">14. 雙 API 自動切換機制</a></li>
+                    <li><a href="#section-env">15. 環境變數與 .env 設定</a></li>
+                    <li><a href="#section-qa">16. 常見問答 (FAQ)</a></li>
+                    <li><a href="#section-cheatsheet">17. 快速指令參考</a></li>
+                    <li><a href="#section-glossary">18. 術語表</a></li>
+                    <li><a href="#section-checklist">19. 新進工程師交接檢查清單</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        1. 系統概述
+        ============================================================ -->
+        <section id="section-overview">
+            <div class="card">
+                <h2>1. 系統概述</h2>
+
+                <h3>1.1 系統定位</h3>
+                <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 是一個 <strong>AI 驅動的自動化內容平台</strong>，結合：</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>模組</th><th>說明</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>🤖 AI 文章生成</td><td>支援 Google Gemini（尖峰）與 DeepSeek（離峰）雙 API 自動切換</td></tr>
+                            <tr><td>🎮 HTML5 遊戲</td><td>23 款互動遊戲，免下載即開即玩</td></tr>
+                            <tr><td>⚙️ 自動化部署</td><td>一鍵完成內容生成 → 靜態檔案輸出 → Cloudflare 部署</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>1.2 系統數據（截至 2026.07.20）</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>指標</th><th>數值</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>總頁面數（Sitemap）</td><td><strong>202+ 個</strong></td></tr>
+                            <tr><td>文章總數</td><td><strong>202 篇</strong></td></tr>
+                            <tr><td>純遊戲數量</td><td><strong>23 款</strong></td></tr>
+                            <tr><td>遊戲攻略文章</td><td><strong>15 篇</strong></td></tr>
+                            <tr><td>分類數量</td><td><strong>6 個</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tip success">
+                    <div class="tip-title">✅ 系統核心優勢</div>
+                    <ul style="margin:4px 0 0 20px;">
+                        <li><strong>一鍵完成</strong>：新增內容 → 生成 HTML → 部署上線</li>
+                        <li><strong>自動化</strong>：首頁、分類頁、Sitemap 自動更新</li>
+                        <li><strong>雙 API 備援</strong>：尖峰 Gemini / 離峰 DeepSeek 自動切換，確保穩定與成本最佳化</li>
+                        <li><strong>品質保證</strong>：自動檢查字數、標題結構、表格、FAQ，品質分數 100/100</li>
+                        <li><strong>狀態追蹤</strong>：透過 manifest.json 記錄每篇文章狀態，支援斷點續傳</li>
+                        <li><strong>模組化架構</strong>：v4.2 已重構為 9 個獨立模組，易於維護與擴充</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        2. 技術架構
+        ============================================================ -->
+        <section id="section-architecture">
+            <div class="card">
+                <h2>2. 技術架構</h2>
+
+                <h3>2.1 技術棧</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>元件</th><th>技術</th><th>用途</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>總指揮</td><td><span class="inline-code">PowerShell</span></td><td>控制流程、設定環境變數、協調各元件</td></tr>
+                            <tr><td>環境設定</td><td><span class="inline-code">ahpal-static.ps1</span></td><td>設定 API Key 與輸出目錄（從 .env 讀取）</td></tr>
+                            <tr><td>內容生成引擎</td><td><span class="inline-code">Python 3</span>（模組化）</td><td>呼叫雙 API、生成文章 HTML、更新 Sitemap</td></tr>
+                            <tr><td>AI 模型</td><td><span class="inline-code">Google Gemini Flash</span> / <span class="inline-code">DeepSeek Chat</span></td><td>根據關鍵字生成高品質繁體中文文章</td></tr>
+                            <tr><td>靜態網站託管</td><td><span class="inline-code">Cloudflare Pages</span></td><td>CDN 加速、免費 SSL、無限流量</td></tr>
+                            <tr><td>版本控制</td><td><span class="inline-code">Git + GitHub</span></td><td>原始碼備份、版本管理、自動部署</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2.2 系統架構流程圖</h3>
+                <div class="architecture">
+                    <div class="line">
+                        <span class="box">👤 編輯者</span>
+                        <span class="arrow">→</span>
+                        <span class="box green">📄 ahpal-master.ps1</span>
+                    </div>
+                    <div class="line">
+                        <span class="arrow">│</span>
+                    </div>
+                    <div class="line">
+                        <span class="box" style="font-size:12px;padding:4px 14px;">1. 備份</span>
+                        <span class="arrow">→</span>
+                        <span class="box" style="font-size:12px;padding:4px 14px;">2. 生成遊戲</span>
+                        <span class="arrow">→</span>
+                        <span class="box" style="font-size:12px;padding:4px 14px;">3. 生成文章</span>
+                        <span class="arrow">→</span>
+                        <span class="box" style="font-size:12px;padding:4px 14px;">4. Git 提交</span>
+                        <span class="arrow">→</span>
+                        <span class="box" style="font-size:12px;padding:4px 14px;">5. 部署</span>
+                    </div>
+                    <div class="line">
+                        <span class="arrow">│</span>
+                    </div>
+                    <div class="line">
+                        <span class="arrow">├─</span>
+                        <span class="box green" style="font-size:12px;padding:4px 14px;">generate-games.ps1</span>
+                        <span class="arrow">→</span>
+                        <span class="box" style="font-size:12px;padding:4px 14px;">🎮 23 款遊戲 + 15 篇攻略</span>
+                    </div>
+                    <div class="line">
+                        <span class="arrow">├─</span>
+                        <span class="box green" style="font-size:12px;padding:4px 14px;">src/main.py</span>
+                        <span class="arrow">→</span>
+                        <span class="box" style="font-size:12px;padding:4px 14px;">📄 202 篇文章</span>
+                    </div>
+                    <div class="line">
+                        <span class="arrow">└─</span>
+                        <span class="box green" style="font-size:12px;padding:4px 14px;">Git Push</span>
+                        <span class="arrow">→</span>
+                        <span class="box" style="font-size:12px;padding:4px 14px;">☁️ Cloudflare</span>
+                        <span class="arrow">→</span>
+                        <span class="box" style="border-color:#FF6F61;color:#FF6F61;">🌐 https://www.ahpal.com</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        3. 目錄結構（修正：包含 scripts/、src/、.env）
+        ============================================================ -->
+        <section id="section-directory">
+            <div class="card">
+                <h2>3. 目錄結構</h2>
+
+                <h3>3.1 工作目錄</h3>
+                <p>主要工作目錄：<span class="inline-code">C:\Users\User\</span></p>
+
+                <div class="code-block" style="font-family: var(--font-mono); font-size: 13px; line-height: 1.8;">
+📁 C:\Users\User\
+│
+├── 📁 ahpal-static\              ← 網站輸出目錄（Git 儲存庫位置）
+│   ├── 📁 src\                   ← Python 原始碼（v4.2 模組化）✅ 已加入 Git
+│   │   ├── __init__.py
+│   │   ├── main.py               ← 主要入口
+│   │   ├── config.py             ← 設定管理
+│   │   ├── api_client.py         ← API 呼叫層（含容錯切換）
+│   │   ├── article_generator.py  ← 文章生成核心
+│   │   ├── html_builder.py       ← HTML 建構器
+│   │   ├── quality_checker.py    ← 品質檢查
+│   │   ├── sitemap_builder.py    ← Sitemap 產生器
+│   │   ├── state_manager.py      ← 狀態管理（斷點續傳）
+│   │   └── logger.py             ← 日誌管理
+│   ├── 📁 scripts\               ← PowerShell 腳本 ✅ 已加入 Git
+│   │   ├── ahpal-master.ps1      ← 萬能總指揮腳本 v6.3
+│   │   ├── ahpal-static.ps1      ← 環境設定檔（讀取 .env）
+│   │   ├── generate-games.ps1    ← 遊戲生成腳本 v2.0
+│   │   ├── backup-system.ps1     ← 備份腳本
+│   │   ├── check-articles.ps1    ← 文章檢查腳本
+│   │   ├── check-all.ps1         ← 全面系統檢查
+│   │   └── config.ps1            ← 備用設定檔
+│   ├── 📁 game\                  ← 23 款遊戲 + 15 篇攻略
+│   ├── 📁 tech\                  ← 16 篇文章
+│   ├── 📁 life\                  ← 15 篇文章
+│   ├── 📁 review\                ← 23 篇文章
+│   ├── 📁 philosophy\            ← 18 篇文章
+│   ├── 📁 trend\                 ← 20 篇文章
+│   ├── index.html                ← 首頁
+│   ├── categories.html           ← 全部分類
+│   ├── sitemap.xml               ← 網站地圖
+│   ├── README.md                 ← 專案說明 ✅ 已加入 Git
+│   ├── .env.template             ← 環境變數範本 ✅ 已加入 Git
+│   ├── .env                      ← 實際 API Key ❌ 不上傳（.gitignore）
+│   └── .gitignore                ← Git 忽略規則 ✅ 已加入 Git
+│
+├── 📁 src\                       ← 原始 src/（開發用，已複製到 ahpal-static/）
+├── 📁 docs\                      ← 技術文件
+├── 📁 logs\                      ← 日誌目錄（自動產生）
+├── 📁 ahpal-backup\              ← 備份目錄（自動產生）
+│
+├── ahpal-master.ps1              ← 總指揮腳本（原始位置，已複製到 scripts/）
+├── ahpal-static.ps1              ← 環境設定（原始位置，已複製到 scripts/）
+├── generate-games.ps1            ← 遊戲生成（原始位置，已複製到 scripts/）
+├── backup-system.ps1             ← 備份腳本（原始位置，已複製到 scripts/）
+├── check-articles.ps1            ← 文章檢查（原始位置，已複製到 scripts/）
+├── check-all.ps1                 ← 系統檢查（原始位置，已複製到 scripts/）
+└── config.ps1                    ← 備用設定（原始位置，已複製到 scripts/）
+                </div>
+
+                <div class="tip warning">
+                    <div class="tip-title">⚠️ 重要：Git 儲存庫位置</div>
+                    <p>Git 儲存庫位於 <span class="inline-code">C:\Users\User\ahpal-static\</span>，<strong>不是</strong> <span class="inline-code">C:\Users\User\</span>。</p>
+                    <p>所有需要上傳的檔案都應在 <span class="inline-code">ahpal-static/</span> 目錄中。</p>
+                </div>
+
+                <div class="tip success">
+                    <div class="tip-title">✅ 已上傳到 GitHub 的內容</div>
+                    <ul style="margin:4px 0 0 20px;">
+                        <li>📁 <strong>src/</strong> — 9 個 Python 模組（v4.2 架構）</li>
+                        <li>📁 <strong>scripts/</strong> — 7 個 PowerShell 腳本</li>
+                        <li>📄 <strong>README.md</strong> — 完整專案說明</li>
+                        <li>📄 <strong>.env.template</strong> — 環境變數範本</li>
+                        <li>📄 <strong>.gitignore</strong> — Git 忽略規則</li>
+                        <li>📁 <strong>game/</strong> — 23 款遊戲</li>
+                        <li>📁 <strong>tech/, life/, review/, philosophy/, trend/</strong> — 202 篇文章</li>
+                        <li>📄 <strong>index.html, categories.html, sitemap.xml</strong> — 核心頁面</li>
+                    </ul>
+                </div>
+
+                <div class="tip danger">
+                    <div class="tip-title">🔒 不會上傳的內容</div>
+                    <ul style="margin:4px 0 0 20px;">
+                        <li>❌ <strong>.env</strong> — 包含實際 API Key，已在 .gitignore 中排除</li>
+                        <li>❌ <strong>logs/</strong> — 日誌檔案</li>
+                        <li>❌ <strong>ahpal-backup/</strong> — 備份檔案</li>
+                        <li>❌ <strong>__pycache__/</strong> — Python 快取</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        4. 第一天：環境設定（新增 .env 說明）
+        ============================================================ -->
+        <section id="section-firstday">
+            <div class="card">
+                <h2>4. 第一天：環境設定</h2>
+
+                <h3>4.1 必備軟體</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>軟體</th><th>用途</th><th>安裝指令</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Python 3</td><td>執行生成腳本</td><td><a href="https://www.python.org/downloads/" target="_blank">下載安裝</a></td></tr>
+                            <tr><td>Node.js</td><td>執行 Wrangler CLI</td><td><a href="https://nodejs.org/" target="_blank">下載安裝</a></td></tr>
+                            <tr><td>Wrangler</td><td>部署到 Cloudflare</td><td><span class="inline-code">npm install -g wrangler</span></td></tr>
+                            <tr><td>Git</td><td>版本控制</td><td><a href="https://git-scm.com/download/win" target="_blank">下載安裝</a></td></tr>
+                            <tr><td>Google Gemini API Key</td><td>尖峰時段文章生成</td><td><a href="https://aistudio.google.com/apikey" target="_blank">取得金鑰</a>（格式：<code>AIzaSy...</code>）</td></tr>
+                            <tr><td>DeepSeek API Key</td><td>離峰時段文章生成</td><td><a href="https://platform.deepseek.com/" target="_blank">取得金鑰</a>（格式：<code>sk-...</code>）</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>4.2 環境設定步驟</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>安裝 Python 3</strong>
+                        <p>下載並安裝 Python 3.10 或更新版本。安裝時請勾選「Add Python to PATH」。</p>
+                    </li>
+                    <li>
+                        <strong>安裝 Node.js 和 Wrangler</strong>
+                        <div class="code-block">
+npm install -g wrangler
+npx wrangler login
+                        </div>
+                    </li>
+                    <li>
+                        <strong>安裝 Git</strong>
+                        <p>下載安裝後，設定使用者資訊：</p>
+                        <div class="code-block">
+git config --global user.name "你的GitHub使用者名稱"
+git config --global user.email "你的GitHub信箱"
+                        </div>
+                    </li>
+                    <li>
+                        <strong>取得 API Key</strong>
+                        <p>分別前往 Google AI Studio 和 DeepSeek 平台取得 API Key。</p>
+                    </li>
+                    <li>
+                        <strong>建立 .env 檔案（重要！）</strong>
+                        <p>複製 <span class="inline-code">.env.template</span> 為 <span class="inline-code">.env</span>，填入實際 API Key：</p>
+                        <div class="code-block">
+# 在 C:\Users\User\ahpal-static 目錄下執行
+Copy-Item .env.template .env
+notepad .env
+                        </div>
+                        <p>.env 檔案內容範例：</p>
+                        <div class="code-block">
+GEMINI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                        </div>
+                        <div class="tip warning">
+                            <div class="tip-title">⚠️ 重要：.env 不會上傳</div>
+                            <p><span class="inline-code">.env</span> 已在 <span class="inline-code">.gitignore</span> 中，<strong>不會上傳到 GitHub，也不會部署到 Cloudflare</strong>。</p>
+                            <p>API Key 只存在於您的本地電腦中。</p>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>測試執行</strong>
+                        <div class="code-block">
+cd C:\Users\User\ahpal-static
+.\scripts\ahpal-master.ps1
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="tip success">
+                    <div class="tip-title">✅ 完成檢查清單</div>
+                    <ul style="margin:4px 0 0 20px;">
+                        <li>☐ Python 3 已安裝並可執行 (<span class="inline-code">python --version</span>)</li>
+                        <li>☐ Node.js 已安裝並可執行 (<span class="inline-code">node --version</span>)</li>
+                        <li>☐ Wrangler 已安裝並登入 (<span class="inline-code">npx wrangler whoami</span>)</li>
+                        <li>☐ Git 已安裝並設定 (<span class="inline-code">git --version</span>)</li>
+                        <li>☐ Gemini 與 DeepSeek API Key 已取得</li>
+                        <li>☐ <span class="inline-code">.env</span> 檔案已建立並填入實際 Key</li>
+                        <li>☐ 執行 <span class="inline-code">.\scripts\ahpal-master.ps1</span> 成功</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        5. 核心檔案說明
+        ============================================================ -->
+        <section id="section-files">
+            <div class="card">
+                <h2>5. 核心檔案說明</h2>
+
+                <h3>5.1 ahpal-master.ps1 — 萬能總指揮 v6.3</h3>
+                <p>位置：<span class="inline-code">C:\Users\User\ahpal-static\scripts\ahpal-master.ps1</span></p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>功能</th><th>說明</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>環境載入</td><td>自動呼叫 <code>ahpal-static.ps1</code> 載入 API Key 與路徑</td></tr>
+                            <tr><td>備份</td><td>執行 <code>backup-system.ps1</code></td></tr>
+                            <tr><td>遊戲生成</td><td>執行 <code>generate-games.ps1</code></td></tr>
+                            <tr><td>文章生成</td><td>執行 <code>src/main.py</code>（自動切換 Gemini / DeepSeek）</td></tr>
+                            <tr><td>Git 提交</td><td>自動提交並推送到 GitHub</td></tr>
+                            <tr><td>部署</td><td>部署到 Cloudflare Pages</td></tr>
+                            <tr><td>強制 API 切換</td><td>選單按 <code>[A]</code> 強制 DeepSeek，按 <code>[B]</code> 恢復自動切換</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tip success">
+                    <div class="tip-title">🎯 日常最常用</div>
+                    <p><span class="inline-code">cd C:\Users\User\ahpal-static; .\scripts\ahpal-master.ps1</span></p>
+                </div>
+
+                <h3>5.2 src/ — Python 模組（v4.2 優化）</h3>
+                <p>位置：<span class="inline-code">C:\Users\User\ahpal-static\src\</span></p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>模組</th><th>功能</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>main.py</code></td><td>主要入口，支援 <code>run_pipeline()</code>、<code>--dry-run</code>、<code>--force</code> 參數</td></tr>
+                            <tr><td><code>config.py</code></td><td>管理所有設定（API Key、路徑、時段）</td></tr>
+                            <tr><td><code>api_client.py</code></td><td>封裝 Gemini 與 DeepSeek API 呼叫，含容錯切換與指數退避重試</td></tr>
+                            <tr><td><code>article_generator.py</code></td><td>文章生成主流程，整合狀態管理</td></tr>
+                            <tr><td><code>html_builder.py</code></td><td>建構所有 HTML（首頁、分類頁、文章）</td></tr>
+                            <tr><td><code>quality_checker.py</code></td><td>文章品質檢查與評分</td></tr>
+                            <tr><td><code>sitemap_builder.py</code></td><td>產生 Sitemap</td></tr>
+                            <tr><td><code>state_manager.py</code></td><td>🆕 文章狀態追蹤，支援斷點續傳</td></tr>
+                            <tr><td><code>logger.py</code></td><td>🆕 統一日誌管理（檔案 + 控制台）</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        6. 日常工作流程
+        ============================================================ -->
+        <section id="section-workflow">
+            <div class="card">
+                <h2>6. 日常工作流程</h2>
+
+                <h3>6.1 標準作業流程</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>確認工作目錄</strong>
+                        <div class="code-block">cd C:\Users\User\ahpal-static</div>
+                    </li>
+                    <li>
+                        <strong>執行萬能總指揮</strong>
+                        <div class="code-block">.\scripts\ahpal-master.ps1</div>
+                        <p>此指令會自動完成：環境載入 → 備份 → 遊戲生成 → 文章生成 → Git 提交 → 部署上線</p>
+                    </li>
+                    <li>
+                        <strong>驗證網站</strong>
+                        <p>前往 <a href="https://www.ahpal.com" target="_blank">https://www.ahpal.com</a> 確認更新是否成功。</p>
+                    </li>
+                </ol>
+
+                <h3>6.2 常用參數與選單</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>選項</th><th>說明</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="inline-code">[1]</span></td><td>完整流程（備份 + 生成 + Git + 部署）</td></tr>
+                            <tr><td><span class="inline-code">[2]</span></td><td>快速更新（跳過備份）</td></tr>
+                            <tr><td><span class="inline-code">[3]</span></td><td>只生成遊戲（不耗 API，快速）</td></tr>
+                            <tr><td><span class="inline-code">[4]</span></td><td>只生成文章（遊戲 + 文章，不部署）</td></tr>
+                            <tr><td><span class="inline-code">[5]</span></td><td>只做備份（不生成、不部署）</td></tr>
+                            <tr><td><span class="inline-code">[6]</span></td><td>只做 Git + 部署（不生成）</td></tr>
+                            <tr><td><span class="inline-code">[7]</span></td><td>檢查文章狀態</td></tr>
+                            <tr><td><span class="inline-code">[A]</span></td><td>🔧 強制使用 DeepSeek（尖峰時段也適用）</td></tr>
+                            <tr><td><span class="inline-code">[B]</span></td><td>🔄 恢復自動切換模式</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        7. 新增文章
+        ============================================================ -->
+        <section id="section-add-articles">
+            <div class="card">
+                <h2>7. 新增文章操作指南</h2>
+
+                <h3>7.1 步驟</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>編輯 <span class="inline-code">src/main.py</span></strong>
+                        <p>用編輯器開啟 <span class="inline-code">C:\Users\User\ahpal-static\src\main.py</span></p>
+                    </li>
+                    <li>
+                        <strong>找到 <span class="inline-code">keywords_list</span> 陣列</strong>
+                        <p>在對應分類的最後一個元素後面加入（注意逗號）：</p>
+                        <div class="code-block">
+    # === tech/ - 新增 1 篇 ===
+    {"keyword": "文章標題", "category": "💻 3C 科技教學", "filename": "tech/檔案名稱.html"},
+                        </div>
+                    </li>
+                    <li>
+                        <strong>儲存檔案，執行部署</strong>
+                        <div class="code-block">cd C:\Users\User\ahpal-static; .\scripts\ahpal-master.ps1</div>
+                    </li>
+                </ol>
+
+                <h3>7.2 分類對照表</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>分類名稱</th><th>category 值</th><th>目錄</th><th>文章數量</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>💻 3C 科技教學</td><td><span class="inline-code">"💻 3C 科技教學"</span></td><td><span class="inline-code">tech/</span></td><td>16 篇</td></tr>
+                            <tr><td>🎮 遊戲攻略</td><td><span class="inline-code">"🎮 遊戲攻略"</span></td><td><span class="inline-code">game/</span></td><td>15 篇</td></tr>
+                            <tr><td>🏠 生活小常識</td><td><span class="inline-code">"🏠 生活小常識"</span></td><td><span class="inline-code">life/</span></td><td>15 篇</td></tr>
+                            <tr><td>📊 軟體評測</td><td><span class="inline-code">"📊 軟體評測"</span></td><td><span class="inline-code">review/</span></td><td>23 篇</td></tr>
+                            <tr><td>🌟 人生哲理</td><td><span class="inline-code">"🌟 人生哲理"</span></td><td><span class="inline-code">philosophy/</span></td><td>18 篇</td></tr>
+                            <tr><td>🤖 AI 趨勢</td><td><span class="inline-code">"🤖 AI 趨勢"</span></td><td><span class="inline-code">trend/</span></td><td>20 篇</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tip warning">
+                    <div class="tip-title">⚠️ 注意</div>
+                    <p><span class="inline-code">category</span> 值必須包含 emoji，否則分類頁面無法正確歸類。</p>
+                </div>
+
+                <div class="tip info">
+                    <div class="tip-title">💡 斷點續傳說明</div>
+                    <p>新增文章後，執行 <code>.\scripts\ahpal-master.ps1</code> 會自動比對 <code>article-manifest.json</code>，只生成新增的文章，不會重新生成已存在的文章。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        8. 新增遊戲
+        ============================================================ -->
+        <section id="section-add-games">
+            <div class="card">
+                <h2>8. 新增遊戲操作指南</h2>
+
+                <h3>8.1 步驟</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>編輯 <span class="inline-code">scripts/generate-games.ps1</span></strong>
+                        <p>用編輯器開啟 <span class="inline-code">C:\Users\User\ahpal-static\scripts\generate-games.ps1</span></p>
+                    </li>
+                    <li>
+                        <strong>在 <span class="inline-code">$newGames</span> 陣列中新增遊戲資訊</strong>
+                        <div class="code-block">
+    @{
+        name     = "game-name"      # 遊戲代號（唯一）
+        title    = "遊戲顯示標題"
+        filename = "game/檔案名稱.html"
+        description = "遊戲簡短描述"
+        category = "益智解謎"        # 益智解謎 / 腦力訓練 / 休閒放鬆 / 動作反應
+    },
+                        </div>
+                    </li>
+                    <li>
+                        <strong>在 <span class="inline-code">switch ($GameName)</span> 中加入遊戲的完整 HTML</strong>
+                        <p>約在函數的 <code>$gameContent</code> 區塊中，加入新的 <span class="inline-code">case</span> 區塊，包含完整的遊戲 HTML。</p>
+                    </li>
+                    <li>
+                        <strong>儲存檔案，執行部署</strong>
+                        <div class="code-block">cd C:\Users\User\ahpal-static; .\scripts\ahpal-master.ps1</div>
+                    </li>
+                </ol>
+
+                <h3>8.2 遊戲分類對照表</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>分類</th><th>圖示</th><th>現有遊戲</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>益智解謎</td><td>🧩</td><td>2048、數獨、踩地雷、俄羅斯方塊、拼圖挑戰、井字遊戲、接龍、泡泡射擊</td></tr>
+                            <tr><td>腦力訓練</td><td>🧠</td><td>記憶翻牌、文字搜尋、色彩記憶、數學速算、猜字遊戲、記憶節奏</td></tr>
+                            <tr><td>休閒放鬆</td><td>🎯</td><td>顏色配對、點點樂</td></tr>
+                            <tr><td>動作反應</td><td>⚡</td><td>貪吃蛇、打磚塊、射擊靶場、弓箭手、飛翔小鳥、塗鴉跳躍、乒乓球</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        9. 部署與上線
+        ============================================================ -->
+        <section id="section-deploy">
+            <div class="card">
+                <h2>9. 部署與上線</h2>
+
+                <h3>9.1 自動部署（推薦）</h3>
+                <div class="code-block">
+cd C:\Users\User\ahpal-static
+.\scripts\ahpal-master.ps1
+                </div>
+
+                <h3>9.2 僅手動部署（不重新生成內容）</h3>
+                <div class="code-block">
+npx wrangler pages deploy "C:\Users\User\ahpal-static" --project-name=ahpal-pages
+                </div>
+
+                <h3>9.3 僅生成文章不部署</h3>
+                <div class="code-block">
+cd C:\Users\User\ahpal-static
+.\scripts\ahpal-master.ps1
+# 選擇 [4] 只生成文章
+                </div>
+
+                <h3>9.4 部署後驗證清單</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>頁面</th><th>網址</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>首頁</td><td><a href="https://www.ahpal.com/" target="_blank">https://www.ahpal.com/</a></td></tr>
+                            <tr><td>遊戲間</td><td><a href="https://www.ahpal.com/game/" target="_blank">https://www.ahpal.com/game/</a></td></tr>
+                            <tr><td>全部分類</td><td><a href="https://www.ahpal.com/categories.html" target="_blank">https://www.ahpal.com/categories.html</a></td></tr>
+                            <tr><td>Sitemap</td><td><a href="https://www.ahpal.com/sitemap.xml" target="_blank">https://www.ahpal.com/sitemap.xml</a></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        10. 狀態管理與斷點續傳
+        ============================================================ -->
+        <section id="section-state-management">
+            <div class="card">
+                <h2>10. 狀態管理與斷點續傳</h2>
+
+                <h3>10.1 什麼是 article-manifest.json？</h3>
+                <p><span class="inline-code">article-manifest.json</span> 是 v4.2 新增的狀態追蹤檔，位於 <span class="inline-code">ahpal-static/</span> 目錄中，記錄每篇文章的生成狀態。</p>
+
+                <div class="code-block">
+{
+  "version": "1.0",
+  "articles": {
+    "tech/folding-phone-buying-guide-2026.html": {
+      "hash": "a1b2c3d4e5f6...",
+      "quality": 100,
+      "generated_at": "2026-07-20T00:15:30",
+      "size": 7427
+    }
+  },
+  "stats": {
+    "total": 202,
+    "generated": 202,
+    "pending": 0,
+    "failed": 0
+  },
+  "last_updated": "2026-07-20T00:25:00"
+}
+                </div>
+
+                <h3>10.2 斷點續傳如何運作？</h3>
+                <ul style="margin: 8px 0 0 20px;">
+                    <li><strong>比對哈希值</strong>：每次執行時，計算每個檔案的 MD5 哈希值，與 manifest 中的紀錄比對</li>
+                    <li><strong>跳過已生成</strong>：若哈希值匹配且檔案大小 ≥ 5KB，則跳過該文章</li>
+                    <li><strong>只生成新增/異常文章</strong>：只生成新文章或已損壞的檔案</li>
+                    <li><strong>狀態統計</strong>：顯示總計、已生成、待生成、失敗數量</li>
+                </ul>
+
+                <h3>10.3 常用操作</h3>
+                <div class="code-block">
+# 查看狀態摘要
+cd C:\Users\User\ahpal-static
+python src/main.py --dry-run
+
+# 重置狀態檔（強制重新生成所有文章）
+python src/main.py --reset
+
+# 強制使用 DeepSeek 生成
+python src/main.py --force deepseek
+                </div>
+
+                <div class="tip success">
+                    <div class="tip-title">✅ 斷點續傳的效益</div>
+                    <ul style="margin:4px 0 0 20px;">
+                        <li><strong>節省時間</strong>：不重複生成已存在的文章</li>
+                        <li><strong>節省 API 成本</strong>：只生成真正需要的文章</li>
+                        <li><strong>任務可中斷</strong>：中斷後重新執行會從中斷點繼續</li>
+                        <li><strong>品質追蹤</strong>：記錄每篇文章的品質分數</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        11. 常見問題排錯
+        ============================================================ -->
+        <section id="section-troubleshooting">
+            <div class="card">
+                <h2>11. 常見問題排錯</h2>
+
+                <h4>❌ 401 Unauthorized（Gemini）</h4>
+                <div class="tip danger">
+                    <div class="tip-title">原因</div>
+                    <p>Gemini API Key 無效或已過期。</p>
+                    <div class="tip-title" style="margin-top:8px;">解決方法</div>
+                    <ol style="margin:4px 0 0 20px;">
+                        <li>前往 <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a> 取得新 Key（格式：<code>AIzaSy...</code>）</li>
+                        <li>更新 <span class="inline-code">ahpal-static/.env</span> 中的 <code>GEMINI_API_KEY</code></li>
+                        <li>或按 <code>[A]</code> 強制切換到 DeepSeek</li>
+                    </ol>
+                </div>
+
+                <h4>❌ 429 RESOURCE_EXHAUSTED（Gemini 配額用完）</h4>
+                <div class="tip warning">
+                    <div class="tip-title">原因</div>
+                    <p>Gemini API 免費配額已用完。</p>
+                    <div class="tip-title" style="margin-top:8px;">解決方法</div>
+                    <p>按 <code>[A]</code> 強制切換到 DeepSeek，或等待次日配額重置。系統已內建容錯切換機制，會自動重試。</p>
+                </div>
+
+                <h4>❌ Insufficient Balance（DeepSeek 餘額不足）</h4>
+                <div class="tip warning">
+                    <div class="tip-title">原因</div>
+                    <p>DeepSeek API 帳戶餘額不足。</p>
+                    <div class="tip-title" style="margin-top:8px;">解決方法</div>
+                    <p>前往 <a href="https://platform.deepseek.com/" target="_blank">DeepSeek 平台</a> 充值，¥10 可生成約 1000 篇文章。</p>
+                </div>
+
+                <h4>❌ .env 檔案不存在</h4>
+                <div class="tip warning">
+                    <div class="tip-title">原因</div>
+                    <p>未建立 <span class="inline-code">.env</span> 檔案，或檔案不在正確位置。</p>
+                    <div class="tip-title" style="margin-top:8px;">解決方法</div>
+                    <div class="code-block">
+cd C:\Users\User\ahpal-static
+Copy-Item .env.template .env
+notepad .env   # 填入實際 API Key
+                    </div>
+                </div>
+
+                <h4>❌ .env 被 Git 追蹤（不應該發生）</h4>
+                <div class="tip danger">
+                    <div class="tip-title">原因</div>
+                    <p><span class="inline-code">.env</span> 不應該被 Git 追蹤，因為包含敏感資訊。</p>
+                    <div class="tip-title" style="margin-top:8px;">解決方法</div>
+                    <div class="code-block">
+cd C:\Users\User\ahpal-static
+git rm --cached .env
+echo ".env" >> .gitignore
+git add .gitignore
+git commit -m "移除 .env 追蹤"
+                    </div>
+                </div>
+
+                <h4>❌ 文章品質 0 分（字數不足）</h4>
+                <div class="tip warning">
+                    <div class="tip-title">原因</div>
+                    <p>AI 生成時因 API 問題產生不完整的內容（< 5KB）。</p>
+                    <div class="tip-title" style="margin-top:8px;">解決方法</div>
+                    <div class="code-block">
+cd C:\Users\User\ahpal-static
+.\scripts\check-articles.ps1
+.\scripts\check-articles.ps1 -Fix
+.\scripts\ahpal-master.ps1
+# 選擇 [4] 只生成文章
+                    </div>
+                </div>
+
+                <h4>❌ Git 推送失敗（rejected）</h4>
+                <div class="tip warning">
+                    <div class="tip-title">原因</div>
+                    <p>遠端儲存庫有新的提交，與本地不同步。</p>
+                    <div class="tip-title" style="margin-top:8px;">解決方法</div>
+                    <div class="code-block">
+cd C:\Users\User\ahpal-static
+git pull --rebase
+git push
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        12. 備份與還原
+        ============================================================ -->
+        <section id="section-backup">
+            <div class="card">
+                <h2>12. 備份與還原</h2>
+
+                <h3>12.1 執行備份</h3>
+                <div class="code-block">
+cd C:\Users\User\ahpal-static
+.\scripts\backup-system.ps1
+                </div>
+                <p>備份會自動建立帶時間戳記的資料夾：<span class="inline-code">C:\Users\User\ahpal-backup-YYYY-MM-DD_HH-MM-SS\</span></p>
+
+                <h3>12.2 手動備份</h3>
+                <div class="code-block">
+# 建立備份資料夾
+$BackupDir = "C:\Users\User\ahpal-backup-$(Get-Date -Format 'yyyy-MM-dd_HH-mm-ss')"
+New-Item -ItemType Directory -Path $BackupDir -Force
+
+# 複製網站檔案
+Copy-Item -Path "C:\Users\User\ahpal-static" -Destination "$BackupDir\ahpal-static-local" -Recurse -Force
+
+# 複製腳本檔案
+Copy-Item -Path "C:\Users\User\ahpal-static\scripts" -Destination "$BackupDir\scripts\" -Recurse -Force
+Copy-Item -Path "C:\Users\User\ahpal-static\src" -Destination "$BackupDir\src\" -Recurse -Force
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        13. Git 版本控制
+        ============================================================ -->
+        <section id="section-git">
+            <div class="card">
+                <h2>13. Git 版本控制</h2>
+
+                <h3>13.1 GitHub 儲存庫</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>項目</th><th>說明</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>儲存庫位址</td><td><code>https://github.com/praystone/ahpal-website</code></td></tr>
+                            <tr><td>主要分支</td><td><code>master</code></td></tr>
+                            <tr><td>Git 儲存庫位置</td><td><code>C:\Users\User\ahpal-static\</code></td></tr>
+                            <tr><td>自動部署</td><td>推送到 <code>master</code> 會自動觸發 Cloudflare 部署</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tip warning">
+                    <div class="tip-title">⚠️ 重要：Git 儲存庫位置</div>
+                    <p>Git 儲存庫在 <span class="inline-code">C:\Users\User\ahpal-static\</span>，<strong>不要在</strong> <span class="inline-code">C:\Users\User\</span> 執行 Git 指令。</p>
+                </div>
+
+                <h3>13.2 日常 Git 操作</h3>
+                <div class="code-block">
+cd C:\Users\User\ahpal-static
+
+# 查看當前狀態
+git status
+
+# 加入所有變更
+git add .
+
+# 提交變更
+git commit -m "修改說明"
+
+# 推送到 GitHub
+git push
+
+# 拉取最新版本
+git pull
+
+# 解決衝突時使用 rebase
+git pull --rebase
+                </div>
+
+                <div class="tip success">
+                    <div class="tip-title">✅ 自動部署流程</div>
+                    <p>每次 <code>git push</code> 後，Cloudflare Pages 會自動從 GitHub 拉取最新版本並部署，無需手動操作。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        14. 雙 API 自動切換機制
+        ============================================================ -->
+        <section id="section-dual-api">
+            <div class="card">
+                <h2>14. 雙 API 自動切換機制</h2>
+
+                <p>系統支援 Google Gemini 與 DeepSeek 雙 API 自動切換，確保穩定與成本最佳化。</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>時段</th><th>API</th><th>價格</th><th>說明</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>尖峰時段（09:00-18:00）</td><td>Google Gemini</td><td>約 $0.15/百萬 tokens</td><td>速度穩定，不受高峰影響</td></tr>
+                            <tr><td>離峰時段（18:00-09:00）</td><td>DeepSeek</td><td>約 ¥0.28/百萬 tokens</td><td>成本低，速度快</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>14.1 容錯切換（Failover）</h3>
+                <p>v4.2 新增容錯機制：</p>
+                <ul style="margin: 8px 0 0 20px;">
+                    <li><strong>異常捕獲</strong>：當 Gemini 發生 API 錯誤時，自動切換到 DeepSeek</li>
+                    <li><strong>指數退避重試</strong>：失敗後等待 2、4、8 秒後重試</li>
+                    <li><strong>強制切換</strong>：在 <span class="inline-code">ahpal-master.ps1</span> 選單中按 <code>[A]</code> 強制使用 DeepSeek</li>
+                </ul>
+
+                <div class="tip success">
+                    <div class="tip-title">🎯 最佳實務</div>
+                    <p>尖峰時段若 Gemini 配額不足，系統會自動切換至 DeepSeek，確保生成任務不中斷。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        15. 環境變數與 .env 設定（新增章節）
+        ============================================================ -->
+        <section id="section-env">
+            <div class="card">
+                <h2>15. 環境變數與 .env 設定</h2>
+
+                <h3>15.1 什麼是 .env？</h3>
+                <p><span class="inline-code">.env</span> 是環境變數檔案，用於儲存 API Key 等敏感資訊。</p>
+
+                <div class="tip warning">
+                    <div class="tip-title">⚠️ 重要安全說明</div>
+                    <ul style="margin:4px 0 0 20px;">
+                        <li>✅ <strong>.env 不會上傳到 GitHub</strong>（已在 .gitignore 中）</li>
+                        <li>✅ <strong>.env 不會部署到 Cloudflare</strong>（只部署靜態檔案）</li>
+                        <li>✅ <strong>API Key 只存在於您的本地電腦</strong></li>
+                        <li>✅ <strong>其他人看不到您的 API Key</strong></li>
+                    </ul>
+                </div>
+
+                <h3>15.2 .env 檔案位置</h3>
+                <div class="code-block">
+C:\Users\User\ahpal-static\.env
+                </div>
+
+                <h3>15.3 .env 檔案內容範例</h3>
+                <div class="code-block">
+# Google Gemini API Key（尖峰時段使用）
+# 請至 https://aistudio.google.com/apikey 取得
+GEMINI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+# DeepSeek API Key（離峰時段使用）
+# 請至 https://platform.deepseek.com/ 取得
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                </div>
+
+                <h3>15.4 如何建立 .env</h3>
+                <div class="code-block">
+cd C:\Users\User\ahpal-static
+Copy-Item .env.template .env
+notepad .env   # 填入實際 API Key 後儲存
+                </div>
+
+                <h3>15.5 驗證 .env 是否正確</h3>
+                <div class="code-block">
+cd C:\Users\User\ahpal-static
+# 執行環境設定腳本，會顯示 API Key 狀態
+.\scripts\ahpal-static.ps1
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        16. 常見問答 (FAQ)
+        ============================================================ -->
+        <section id="section-qa">
+            <div class="card">
+                <h2>16. 常見問答 (FAQ)</h2>
+
+                <h4>Q1：如何確認 API Key 是否正確？</h4>
+                <div class="tip info">
+                    <p>執行 <span class="inline-code">.\scripts\ahpal-static.ps1</span> 查看環境狀態摘要，會顯示 API Key 格式是否正確。</p>
+                </div>
+
+                <h4>Q2：文章生成到一半卡住了怎麼辦？</h4>
+                <div class="tip info">
+                    <p>按 <code>Ctrl + C</code> 中斷，檢查 <span class="inline-code">.env</span> 中的 API Key 是否有效。系統支援斷點續傳，重新執行會從中斷點繼續。</p>
+                </div>
+
+                <h4>Q3：如何只重新生成某幾篇文章？</h4>
+                <div class="tip info">
+                    <p>刪除對應的 HTML 檔案，然後執行 <span class="inline-code">.\scripts\ahpal-master.ps1</span> 選擇 <code>[4]</code>，腳本會自動重新生成被刪除的文章。</p>
+                </div>
+
+                <h4>Q4：網站更新後沒有看到變化？</h4>
+                <div class="tip info">
+                    <p>清除瀏覽器快取（<code>Ctrl + Shift + R</code>），或檢查 Cloudflare Pages 部署是否成功。</p>
+                </div>
+
+                <h4>Q5：如何查看目前網站的文章總數？</h4>
+                <div class="tip info">
+                    <div class="code-block">
+cd C:\Users\User\ahpal-static
+.\scripts\check-articles.ps1
+.\scripts\check-all.ps1
+python src/main.py --dry-run
+                    </div>
+                </div>
+
+                <h4>Q6：.env 檔案需要上傳到 GitHub 嗎？</h4>
+                <div class="tip danger">
+                    <p><strong>❌ 絕對不要！</strong> <span class="inline-code">.env</span> 包含 API Key，已在 <span class="inline-code">.gitignore</span> 中排除。請確認 <code>git status</code> 不會顯示 <code>.env</code>。</p>
+                </div>
+
+                <h4>Q7：DeepSeek 餘額怎麼查？</h4>
+                <div class="tip info">
+                    <p>前往 <a href="https://platform.deepseek.com/" target="_blank">DeepSeek 平台</a> → 用量資訊，可看到剩餘餘額和消費金額。</p>
+                </div>
+
+                <h4>Q8：什麼是 article-manifest.json？</h4>
+                <div class="tip info">
+                    <p>文章狀態追蹤檔，記錄每篇文章的生成狀態，支援斷點續傳。位於 <span class="inline-code">ahpal-static/article-manifest.json</span>。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        17. 快速指令參考
+        ============================================================ -->
+        <section id="section-cheatsheet">
+            <div class="card">
+                <h2>17. 快速指令參考</h2>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>用途</th><th>指令</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>一鍵完整部署</td>
+                                <td><span class="inline-code">cd C:\Users\User\ahpal-static; .\scripts\ahpal-master.ps1</span></td>
+                            </tr>
+                            <tr>
+                                <td>只生成文章（不部署）</td>
+                                <td><span class="inline-code">.\scripts\ahpal-master.ps1</span> → <code>[4]</code></td>
+                            </tr>
+                            <tr>
+                                <td>只部署（不生成）</td>
+                                <td><span class="inline-code">.\scripts\ahpal-master.ps1</span> → <code>[6]</code></td>
+                            </tr>
+                            <tr>
+                                <td>強制使用 DeepSeek</td>
+                                <td><span class="inline-code">.\scripts\ahpal-master.ps1</span> → <code>[A]</code></td>
+                            </tr>
+                            <tr>
+                                <td>檢查文章狀態</td>
+                                <td><span class="inline-code">.\scripts\check-articles.ps1</span></td>
+                            </tr>
+                            <tr>
+                                <td>全面系統檢查</td>
+                                <td><span class="inline-code">.\scripts\check-all.ps1</span></td>
+                            </tr>
+                            <tr>
+                                <td>執行備份</td>
+                                <td><span class="inline-code">.\scripts\backup-system.ps1</span></td>
+                            </tr>
+                            <tr>
+                                <td>Git 提交與推送</td>
+                                <td><span class="inline-code">git add .; git commit -m "說明"; git push</span></td>
+                            </tr>
+                            <tr>
+                                <td>Git 同步（解決衝突）</td>
+                                <td><span class="inline-code">git pull --rebase</span></td>
+                            </tr>
+                            <tr>
+                                <td>手動部署</td>
+                                <td><span class="inline-code">npx wrangler pages deploy "C:\Users\User\ahpal-static" --project-name=ahpal-pages</span></td>
+                            </tr>
+                            <tr>
+                                <td>查看輸出目錄</td>
+                                <td><span class="inline-code">dir C:\Users\User\ahpal-static</span></td>
+                            </tr>
+                            <tr>
+                                <td>查看狀態摘要</td>
+                                <td><span class="inline-code">python src/main.py --dry-run</span></td>
+                            </tr>
+                            <tr>
+                                <td>重置狀態檔</td>
+                                <td><span class="inline-code">python src/main.py --reset</span></td>
+                            </tr>
+                            <tr>
+                                <td>強制 DeepSeek 生成</td>
+                                <td><span class="inline-code">python src/main.py --force deepseek</span></td>
+                            </tr>
+                            <tr>
+                                <td>建立 .env</td>
+                                <td><span class="inline-code">Copy-Item .env.template .env; notepad .env</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        18. 術語表
+        ============================================================ -->
+        <section id="section-glossary">
+            <div class="card">
+                <h2>18. 術語表</h2>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>術語</th><th>說明</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="inline-code">keywords_list</span></td>
+                                <td>Python 腳本中的文章清單，是所有內容的來源</td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">$newGames</span></td>
+                                <td>PowerShell 中定義的新增遊戲陣列</td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">GEMINI_API_KEY</span></td>
+                                <td>Google Gemini API 的認證金鑰（格式：<span class="inline-code">AIzaSy...</span>）</td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">DEEPSEEK_API_KEY</span></td>
+                                <td>DeepSeek API 的認證金鑰（格式：<span class="inline-code">sk-...</span>）</td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">.env</span></td>
+                                <td>環境變數檔案，儲存 API Key，<strong>不會上傳到 GitHub</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">ahpal-static</span></td>
+                                <td>網站靜態檔案的輸出目錄，也是 <strong>Git 儲存庫位置</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">src/</span></td>
+                                <td>v4.2 重構後的 Python 原始碼目錄（9 個模組），位於 ahpal-static/ 中</td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">scripts/</span></td>
+                                <td>PowerShell 腳本目錄，位於 ahpal-static/ 中</td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">article-manifest.json</span></td>
+                                <td>文章狀態追蹤檔，記錄生成狀態與品質分數</td>
+                            </tr>
+                            <tr>
+                                <td><span class="inline-code">Wrangler</span></td>
+                                <td>Cloudflare Pages 的 CLI 部署工具</td>
+                            </tr>
+                            <tr>
+                                <td>尖峰時段</td>
+                                <td>每日 09:00-18:00（北京時間），API 費用較高</td>
+                            </tr>
+                            <tr>
+                                <td>離峰時段</td>
+                                <td>每日 18:00-09:00（北京時間），API 費用較低</td>
+                            </tr>
+                            <tr>
+                                <td>斷點續傳</td>
+                                <td>透過 manifest.json 記錄狀態，中斷後可從中斷點繼續</td>
+                            </tr>
+                            <tr>
+                                <td>Giscus</td>
+                                <td>以 GitHub Discussions 為後端的留言系統</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        19. 新進工程師交接檢查清單
+        ============================================================ -->
+        <section id="section-checklist">
+            <div class="card">
+                <h2>19. 新進工程師交接檢查清單</h2>
+
+                <div class="tip success">
+                    <div class="tip-title">✅ 請逐項確認</div>
+                    <ul style="margin:4px 0 0 20px;">
+                        <li>☐ 取得 GitHub 儲存庫權限（<code>praystone/ahpal-website</code>）</li>
+                        <li>☐ 取得 Cloudflare Pages 專案權限（<code>ahpal-pages</code>）</li>
+                        <li>☐ 取得 Google Gemini API Key（<a href="https://aistudio.google.com/apikey" target="_blank">取得連結</a>）</li>
+                        <li>☐ 取得 DeepSeek API Key（<a href="https://platform.deepseek.com/" target="_blank">取得連結</a>）</li>
+                        <li>☐ 確認 Git 儲存庫位置：<span class="inline-code">C:\Users\User\ahpal-static\</span></li>
+                        <li>☐ 完成環境設定：建立 <span class="inline-code">.env</span> 並填入 API Key</li>
+                        <li>☐ 測試執行 <span class="inline-code">.\scripts\ahpal-master.ps1</span> 成功</li>
+                        <li>☐ 確認 .env 未被 Git 追蹤（<code>git status</code> 不顯示 .env）</li>
+                        <li>☐ 確認網站 <a href="https://www.ahpal.com" target="_blank">https://www.ahpal.com</a> 可正常訪問</li>
+                        <li>☐ 確認遊戲間 <a href="https://www.ahpal.com/game" target="_blank">https://www.ahpal.com/game</a> 可正常訪問</li>
+                        <li>☐ 確認遊戲留言區（Giscus）正常載入</li>
+                        <li>☐ 熟悉文章新增流程（<span class="inline-code">src/main.py</span> 中編輯 <code>keywords_list</code>）</li>
+                        <li>☐ 熟悉遊戲新增流程（<span class="inline-code">scripts/generate-games.ps1</span> 中編輯 <code>$newGames</code>）</li>
+                        <li>☐ 熟悉備份與還原流程</li>
+                        <li>☐ 閱讀完整手冊，了解雙 API 切換機制</li>
+                        <li>☐ 了解 v4.2 模組化架構（<span class="inline-code">src/</span> 目錄）</li>
+                        <li>☐ 了解斷點續傳機制（<span class="inline-code">article-manifest.json</span>）</li>
+                        <li>☐ 了解容錯切換（API Failover）機制</li>
+                        <li>☐ 了解 Git 衝突解決方式（<span class="inline-code">git pull --rebase</span>）</li>
+                        <li>☐ 了解 <span class="inline-code">.env</span> 安全機制（不上傳 GitHub / Cloudflare）</li>
+                    </ul>
+                </div>
+
+                <div class="tip info">
+                    <div class="tip-title">📌 緊急聯絡人</div>
+                    <p style="color: #4a5568;">請填寫實際聯絡人資訊：</p>
+                    <p><strong>系統負責人：</strong>______________（LINE/手機：______________）</p>
+                    <p><strong>GitHub 管理員：</strong>______________（信箱：______________）</p>
+                    <p><strong>Cloudflare 管理員：</strong>______________（信箱：______________）</p>
+                    <p style="margin-top: 8px; font-size: 13px; color: #a0aec0;">⚠️ 請在交接時填寫實際聯絡人，避免新人找不到人協助。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        頁尾
+        ============================================================ -->
+        <div style="text-align:center;padding:30px 0;color:#A0AEC0;font-size:13px;border-top:1px solid var(--color-border);margin-top:20px;">
+            &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — AI 系統交接與新進工程師接手手冊 v4.2<br>
+            文件最後更新：2026 年 7 月 20 日
+            <br><br>
+            <span style="font-size:12px;color:#718096;">
+            ✅ 本手冊已完整修正：包含 .env 安全設定、Git 儲存庫位置、scripts/ 目錄、完整目錄結構
+            </span>
+        </div>
+
+    </div>
+
+</body>
+</html>

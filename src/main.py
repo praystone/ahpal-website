@@ -215,6 +215,9 @@ keywords_list = [
     {"keyword": "2026 年最新科技趨勢", "category": "🤖 AI 趨勢", "filename": "trend/tech-trends-2026.html"},
     {"keyword": "望春風 Lo-fi 翻唱 解析", "category": "🎵 音樂創作", "filename": "music/bang-chhun-hong.html", "content_type": "song", "video_id": "A9Zw-QHEOqQ"},
 
+    {"keyword": "孤獨六講 蔣勳 深度書評 孤獨美學 解析", "category": "🌟 人生哲理", "filename": "philosophy/loneliness-six-lectures-review.html"},
+    {"keyword": "2026 年 NAS 家庭雲端儲存 選購指南 推薦", "category": "💻 3C 科技教學", "filename": "tech/nas-buying-guide-2026.html"},
+
 ]
 
 # ============================================================

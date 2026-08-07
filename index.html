@@ -6,6 +6,7 @@
     <title>雅寶社區 · 頂客論壇 | AHPAL.COM</title>
     <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 200 篇精選文章。">
     <meta name="keywords" content="科技教學,遊戲攻略,生活小常識,軟體評測,人生哲理,AI趨勢,音樂創作">
+    <link rel="stylesheet" href="/style/main.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
 <script>
@@ -14,100 +15,6 @@
     gtag('js', new Date());
     gtag('config', 'G-XXGG1VTGPB');
 </script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #F7F9FC; color: #1A202C; line-height: 1.8; font-size: 16px; }
-        .site-header { background: #005A9C; color: white; padding: 12px 0; position: sticky; top: 0; z-index: 50; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .logo { font-size: 20px; font-weight: 700; color: white; text-decoration: none; letter-spacing: 0.5px; }
-        .logo:hover { color: rgba(255,255,255,0.85); }
-        .nav-links { display: flex; gap: 20px; font-size: 14px; align-items: center; flex-wrap: wrap; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; }
-        .nav-links a:hover { color: white; border-bottom: 2px solid #00A86B; }
-        .nav-links .game-link { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-weight: 500; }
-        .nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
-        .main-wrapper { max-width: 1200px; margin: 28px auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 300px; gap: 30px; align-items: start; }
-        @media (max-width: 992px) { .main-wrapper { grid-template-columns: 1fr; } }
-        .content-card { background: white; padding: 36px 40px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-        @media (max-width: 640px) { .content-card { padding: 24px 18px; } }
-        .hero-title { font-size: 30px; font-weight: 700; color: #1A202C; margin-bottom: 2px; line-height: 1.3; }
-        .hero-title .highlight { color: #00A86B; }
-        .hero-sub { font-size: 14px; color: #718096; letter-spacing: 2px; margin-bottom: 12px; font-weight: 300; }
-        .hero-desc { font-size: 15px; color: #4A5568; line-height: 1.9; }
-        .category-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; margin: 28px 0 32px 0; }
-        @media (max-width: 768px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 480px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
-        .category-card { display: block; background: #F7F9FC; padding: 18px 12px; border-radius: 14px; text-decoration: none; text-align: center; border: 1px solid #E2E8F0; transition: all 0.25s ease; }
-        .category-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.10); border-color: #00A86B; }
-        .category-card .emoji { font-size: 28px; display: block; margin-bottom: 4px; }
-        .category-card .cat-name { font-size: 13px; font-weight: 600; color: #1A202C; }
-        .category-card .cat-count { font-size: 11px; color: #718096; display: block; margin-top: 2px; }
-        .game-entry-card { display: block; background: linear-gradient(135deg, #005A9C 0%, #003d66 100%); color: white; padding: 20px 16px; border-radius: 14px; text-decoration: none; text-align: center; margin: 20px 0 32px 0; }
-        .game-entry-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.10); }
-        .game-entry-card .emoji { font-size: 36px; display: block; margin-bottom: 6px; }
-        .game-entry-card .title { font-size: 18px; font-weight: 700; }
-        .game-entry-card .desc { font-size: 13px; opacity: 0.8; margin-top: 2px; }
-        .game-entry-card .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 2px 14px; border-radius: 20px; font-size: 11px; margin-top: 6px; }
-        .section-title { font-size: 20px; font-weight: 700; color: #1A202C; margin: 0 0 16px 0; }
-        .section-title small { font-weight: 400; font-size: 14px; color: #718096; margin-left: 10px; }
-        #article-list { list-style: none; padding: 0; margin: 0 0 32px 0; }
-        #article-list li { background: white; padding: 14px 18px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 8px; display: flex; align-items: center; gap: 12px; border: 1px solid #E2E8F0; transition: all 0.2s; }
-        #article-list li:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.10); border-color: #00A86B; }
-        #article-list li .category { background: #005A9C; color: white; font-size: 11px; font-weight: 600; padding: 2px 12px; border-radius: 20px; white-space: nowrap; }
-        #article-list li a { flex: 1; color: #1A202C; text-decoration: none; font-size: 15px; font-weight: 500; }
-        #article-list li a:hover { color: #005A9C; }
-        #article-list li .post-date { font-size: 12px; color: #718096; white-space: nowrap; }
-        @media (max-width: 600px) { #article-list li { flex-wrap: wrap; padding: 12px 14px; } #article-list li a { font-size: 14px; } }
-        .index-section { margin: 24px 0 8px 0; }
-        .index-section .cat-title { font-size: 14px; font-weight: 600; color: #1A202C; border-left: 3px solid #00A86B; padding-left: 12px; margin: 18px 0 10px 0; display: flex; align-items: center; gap: 10px; }
-        .index-section .cat-title .count { font-size: 12px; font-weight: 400; color: #718096; }
-        .index-tag-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-        .index-tag { background: white; padding: 6px 16px; border-radius: 20px; font-size: 13px; color: #4A5568; text-decoration: none; border: 1px solid #E2E8F0; transition: all 0.2s; }
-        .index-tag:hover { border-color: #00A86B; color: #1A202C; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .sidebar { display: flex; flex-direction: column; gap: 24px; }
-        .sidebar .widget { background: white; padding: 24px 20px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; }
-        .sidebar .widget-title { font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 14px; border-bottom: 2px solid #005A9C; padding-bottom: 8px; }
-        .sidebar .widget p { font-size: 14px; color: #4A5568; line-height: 1.7; }
-        .sidebar .widget ul { list-style: none; padding: 0; margin: 0; }
-        .sidebar .widget ul li { margin-bottom: 6px; font-size: 14px; }
-        .sidebar .widget ul li a { color: #4A5568; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .sidebar .widget ul li a:hover { color: #005A9C; }
-        .sidebar .widget .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
-        .sidebar .widget .tag-cloud a { background: #F7F9FC; padding: 4px 12px; border-radius: 20px; font-size: 12px; color: #4A5568; text-decoration: none; border: 1px solid #E2E8F0; }
-        .sidebar .widget .tag-cloud a:hover { border-color: #00A86B; color: #1A202C; }
-        .site-footer { background: #2D3748; color: #A0AEC0; padding: 40px 0 28px 0; margin-top: 40px; font-size: 14px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
-        .footer-inner .copy { font-size: 13px; color: #718096; }
-        .footer-inner .declaration { font-size: 12px; color: #FF6F61; letter-spacing: 1px; font-weight: 300; margin-top: 4px; }
-        .site-footer .footer-links { margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; }
-        .site-footer .footer-links a { color: #CBD5E0; text-decoration: none; font-size: 13px; transition: color 0.2s ease, text-decoration 0.2s ease; }
-        .site-footer .footer-links a:hover { color: #FFFFFF; text-decoration: underline; }
-        <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
-<style>
-    #back-to-top {{
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: #005A9C;
-        color: white;
-        border: none;
-        padding: 12px 16px;
-        border-radius: 50px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: opacity 0.3s, transform 0.3s;
-        opacity: 0.7;
-        z-index: 999;
-    }}
-    #back-to-top:hover {{
-        opacity: 1;
-        transform: scale(1.05);
-        background: #003d66;
-    }}
-</style>
-    </style>
 </head>
 <body>
     <header class="site-header">
@@ -158,7 +65,7 @@
                 <a href="/category-philosophy.html" class="category-card">
                     <span class="emoji">🌟</span>
                     <span class="cat-name">人生哲理</span>
-                    <span class="cat-count">73 篇</span>
+                    <span class="cat-count">74 篇</span>
                 </a>
                 <a href="/category-trend.html" class="category-card">
                     <span class="emoji">🤖</span>
@@ -168,7 +75,7 @@
                 <a href="/category-music.html" class="category-card">
                     <span class="emoji">🎵</span>
                     <span class="cat-name">音樂創作</span>
-                    <span class="cat-count">3 篇</span>
+                    <span class="cat-count">4 篇</span>
                 </a>
             </div>
 
@@ -181,8 +88,9 @@
 
             <h2 class="section-title">📌 最新文章 <small>持續更新中</small></h2>
             <ul id="article-list">
-<li><span class="category">🎵 音樂創作</span><a href="/music/打工人心酸語錄.html">打工人心酸語錄 原創歌曲 迷因改編</a><span class="post-date">2026-08-08</span></li>
-<li><span class="category">🌟 人生哲理</span><a href="/philosophy/one-hundred-years-of-solitude-review.html">百年孤寂 馬奎斯 深度書評 魔幻現實主義 解析</a><span class="post-date">2026-08-08</span></li>
+<li><span class="category">🎵 音樂創作</span><a href="/music/test-lyrics-style.html">望春風 Lo-fi 翻唱 解析</a><span class="post-date">2026-08-08</span></li>
+                <li><span class="category">🎵 音樂創作</span><a href="/music/打工人心酸語錄.html">打工人心酸語錄 原創歌曲 迷因改編｜</a><span class="post-date">2026-08-08</span></li>
+                <li><span class="category">🌟 人生哲理</span><a href="/philosophy/one-hundred-years-of-solitude-review.html">百年孤寂 馬奎斯 深度書評 魔幻現實主義 解析｜</a><span class="post-date">2026-08-08</span></li>
                 <li><span class="category">🌟 人生哲理</span><a href="/philosophy/loneliness-six-lectures-review.html">孤獨六講 蔣勳 深度書評 孤獨美學 解析｜</a><span class="post-date">2026-08-07</span></li>
                 <li><span class="category">🎵 音樂創作</span><a href="/music/bang-chhun-hong.html">望春風 Lo-fi 翻唱 解析：當1933年的呢喃，撞上千禧年後的耳語</a><span class="post-date">2026-08-07</span></li>
                 <li><span class="category">🤖 AI 趨勢</span><a href="/trend/tech-trends-2026.html">2026 年最新科技趨勢｜自主智能體如何重塑白領工作流</a><span class="post-date">2026-08-07</span></li>
@@ -203,7 +111,7 @@
                 <li><span class="category">🌟 人生哲理</span><a href="/philosophy/mindfulness-digital-age-guide-2026.html">如何在數位時代保持內心平靜：正念與專注力的科學實踐指南｜</a><span class="post-date">2026-08-06</span></li>
                 <li><span class="category">📊 軟體評測</span><a href="/review/best-free-antivirus-2026.html">2026 年最佳免費防毒軟體完整評測：效能、防護與隱私全面對比</a><span class="post-date">2026-08-06</span></li>
                 <li><span class="category">📊 軟體評測</span><a href="/review/open-source-software-guide-2026.html">2026 年開源軟體推薦：完全免費、替代付費軟體的終極指南</a><span class="post-date">2026-08-06</span></li>
-                <li><span class="category">🏠 生活小常識</span><a href="/life/smart-home-devices-guide-2026.html">2026 年最新居家智慧裝置選購指南：從入門到進階的完整攻略｜</a><span class="post-date">2026-08-06</span></li>
+                <li><span class="category">🏠 生活小常識</span><a href="/life/smart-home-devices-guide-2026.html">2026年最新居家智慧装置选购指南：从入门到进阶的完整攻略</a><span class="post-date">2026-08-06</span></li>
                 <li><span class="category">🤖 AI 趨勢</span><a href="/trend/crypto-investment-guide-2026.html">2026 年最值得投資的 5 款加密貨幣：比特幣、以太坊與新興幣種完整分析</a><span class="post-date">2026-08-06</span></li>
                 <li><span class="category">🤖 AI 趨勢</span><a href="/trend/ai-image-copyright-law-2026.html">2026 年 AI 生成圖片版權爭議與法律規範完整指南：創作人、品牌主與一般使用者都該懂的法律生存守則</a><span class="post-date">2026-08-06</span></li>
                 <li><span class="category">💻 3C 科技教學</span><a href="/tech/macbook-neo-buying-guide-2026.html">2026 年 MacBook Neo 購買指南：M5 晶片、規格與價格完整解析</a><span class="post-date">2026-08-06</span></li>
@@ -211,12 +119,10 @@
                 <li><span class="category">🤖 AI 趨勢</span><a href="/trend/2026年AI代理全面解析應用場景與未來趨勢.html">2026 年 AI 代理全面解析：應用場景與未來趨勢</a><span class="post-date">2026-08-05</span></li>
                 <li><span class="category">🌟 人生哲理</span><a href="/philosophy/一年讀完52本書建立閱讀習慣的科學方法與實戰策略.html">一年讀完 52 本書：建立閱讀習慣的科學方法與實戰策略</a><span class="post-date">2026-08-05</span></li>
                 <li><span class="category">🌟 人生哲理</span><a href="/philosophy/2026年職場生存指南AI時代的不可替代能力.html">2026 年職場生存指南：AI 時代的不可替代能力</a><span class="post-date">2026-08-05</span></li>
-                <li><span class="category">📊 軟體評測</span><a href="/review/2026年跨平台剪貼簿工具評測效率提升神器.html">2026 年跨平台剪貼簿工具評測：效率提升神器</a><span class="post-date">2026-08-05</span></li>
-                <li><span class="category">📊 軟體評測</span><a href="/review/2026年最佳免費DNS服務評測速度隱私與安全性對比.html">2026 年最佳免費 DNS 服務評測：速度、隱私與安全性對比</a><span class="post-date">2026-08-04</span></li>
             </ul>
 
             <div class="index-section">
-                <h2 class="section-title">📖 全部分類索引 <small>共 406 篇文章</small></h2>
+                <h2 class="section-title">📖 全部分類索引 <small>共 408 篇文章</small></h2>
 
                 <div class="cat-title">💻 3C 科技教學 <span class="count">(68篇)</span></div>
                 <div class="index-tag-grid" id="tag-tech">
@@ -262,7 +168,7 @@
                 <div class="index-tag-grid" id="tag-life">
                     <a href="/life/small-space-renovation-2026.html" class="index-tag">2026 年小宅改造術：5 招打破空間限制，打造高效收納與舒...</a>
                     <a href="/life/energy-saving-guide-2026.html" class="index-tag">2026 年居家節能省電全攻略：電費帳單輕鬆砍半的 15 個...</a>
-                    <a href="/life/smart-home-devices-guide-2026.html" class="index-tag">2026 年最新居家智慧裝置選購指南：從入門到進階的完整攻略...</a>
+                    <a href="/life/smart-home-devices-guide-2026.html" class="index-tag">2026年最新居家智慧装置选购指南：从入门到进阶的完整攻略</a>
                     <a href="/life/2026年颱風季防災準備清單必備物資與應變計畫.html" class="index-tag">2026 年颱風季防災準備清單：必備物資與應變計畫｜核心觀念...</a>
                     <a href="/life/2026年智慧家庭中樞選購指南AppleHomevsGoogleHomevsAmazonAlexa.html" class="index-tag">2026 年智慧家庭中樞選購指南：Apple Home vs...</a>
                     <a href="/life/2026年最新居家收納技巧大全.html" class="index-tag">2026 年最新居家收納技巧大全</a>
@@ -286,20 +192,21 @@
                     <a href="/review/open-source-software-guide-2026.html" class="index-tag">2026 年開源軟體推薦：完全免費、替代付費軟體的終極指南</a>
                     <a href="/review/2026年跨平台剪貼簿工具評測效率提升神器.html" class="index-tag">2026 年跨平台剪貼簿工具評測：效率提升神器</a>
                     <a href="/review/2026年最佳免費DNS服務評測速度隱私與安全性對比.html" class="index-tag">2026 年最佳免費 DNS 服務評測：速度、隱私與安全性對...</a>
-                    <a href="/review/VPNA2026.html" class="index-tag">VPN 服務比較 2026 年度評測</a>
-                    <a href="/review/PDFsn2026.html" class="index-tag">PDF 編輯軟體比較 2026</a>
-                    <a href="/review/OnM2026.html" class="index-tag">2026 年最佳螢幕錄影軟體推薦</a>
-                    <a href="/review/Mzu.html" class="index-tag">開源專案管理工具推薦</a>
-                    <a href="/review/ERPtP.html" class="index-tag">開源 ERP 系統推薦與評測</a>
-                    <a href="/review/DAWsnJ.html" class="index-tag">DAW 音樂製作軟體入門推薦</a>
-                    <a href="/review/AIu2026.html" class="index-tag">AI 簡報生成工具評測 2026</a>
-                    <a href="/review/AIgUP.html" class="index-tag">AI 寫作助手評測與比較</a>
-                    <a href="/review/2026wA.html" class="index-tag">2026 年最佳雲端硬碟服務推薦</a>
+                    <a href="/review/VPNA2026.html" class="index-tag">VPN AȤ 2026 ~׵｜2026年VPN服務商年度評比...</a>
+                    <a href="/review/PDFsn2026.html" class="index-tag">PDF sn 2026｜引言：數位時代的檔案瘦身美學</a>
+                    <a href="/review/OnM2026.html" class="index-tag">On׷M 2026｜1. 勞保年金改革方向</a>
+                    <a href="/review/Mzu.html" class="index-tag">}M׺޲zu｜有效壓力管理：專家教你10個實用技巧，找回生活...</a>
+                    <a href="/review/ERPtP.html" class="index-tag">} ERP tα˻P｜雲端ERP系統評選與導入完全指南：打造...</a>
+                    <a href="/review/DAWsnJ.html" class="index-tag">DAW ֻs@nJ｜DAW 的核心功能包含了：**</a>
+                    <a href="/review/AIu2026.html" class="index-tag">AI ²ͦu 2026｜前言：2026年，AI不再是未來式，...</a>
+                    <a href="/review/AIgUP.html" class="index-tag">AI g@UP｜一、前言：當你的寫作助手變成隱私間諜</a>
+                    <a href="/review/2026wA.html" class="index-tag">2026 ~̨ζݵwЪAȤ｜2026年最佳雲端硬碟服務推薦：...</a>
                     <span class="index-tag" style="background:#e2e8f0;color:#4a5568;">+5 篇</span>
                 </div>
 
-                <div class="cat-title">🌟 人生哲理 <span class="count">(73篇)</span></div>
+                <div class="cat-title">🌟 人生哲理 <span class="count">(74篇)</span></div>
                 <div class="index-tag-grid" id="tag-philosophy">
+                    <a href="/philosophy/one-hundred-years-of-solitude-review.html" class="index-tag">百年孤寂 馬奎斯 深度書評 魔幻現實主義 解析｜</a>
                     <a href="/philosophy/loneliness-six-lectures-review.html" class="index-tag">孤獨六講 蔣勳 深度書評 孤獨美學 解析｜</a>
                     <a href="/philosophy/minimalism-guide-2026.html" class="index-tag">2026 年極簡生活實踐指南：斷捨離、數位排毒與心靈自由的完...</a>
                     <a href="/philosophy/stop-procrastination-guide-2026.html" class="index-tag">2026 年告別拖延症的科學方法：從心理學到行為設計的完整實...</a>
@@ -314,7 +221,6 @@
                     <a href="/philosophy/atomic-habits-guide.html" class="index-tag">原子習慣如何用微小改變打造長期競爭力｜原子習慣：如何用微小改...</a>
                     <a href="/philosophy/meditation-guide-10-minutes.html" class="index-tag">冥想入門指南每天10分鐘提升專注力與情緒管理｜冥想入門指南：...</a>
                     <a href="/philosophy/冥想入門指南每天10分鐘提升專注力與情緒管理.html" class="index-tag">冥想入門指南 每天 10 分鐘提升專注力與情緒管理｜冥想入門...</a>
-                    <a href="/philosophy/撒迦利亞書第9-10章解析審判列國與錫安君王的降臨中英對照.html" class="index-tag">撒迦利亞書第 9-10 章解析：審判列國與錫安君王的降臨（中...</a>
                     <span class="index-tag" style="background:#e2e8f0;color:#4a5568;">+5 篇</span>
                 </div>
 
@@ -338,13 +244,24 @@
                     <span class="index-tag" style="background:#e2e8f0;color:#4a5568;">+5 篇</span>
                 </div>
 
-                <div class="cat-title">🎵 音樂創作 <span class="count">(3篇)</span></div>
+                <div class="cat-title">🎵 音樂創作 <span class="count">(4篇)</span></div>
                 <div class="index-tag-grid" id="tag-music">
+                    <a href="/music/打工人心酸語錄.html" class="index-tag">打工人心酸語錄 原創歌曲 迷因改編｜</a>
                     <a href="/music/bang-chhun-hong.html" class="index-tag">望春風 Lo-fi 翻唱 解析：當1933年的呢喃，撞上千禧...</a>
                     <a href="/music/bang-chhun-hong-embed.html" class="index-tag">望春風 Lo-fi 翻唱 歌詞 台羅拼音 解析｜H1：望春風...</a>
                     <a href="/music/bang-chhun-hong-embed111.html" class="index-tag">望春風 Lo-fi 翻唱 歌詞 台羅拼音 解析｜</a>
                 </div>
             </div>
+
+            <!-- 🆕 Google 自訂搜尋 -->
+            
+<div class="google-search" style="max-width: 800px; margin: 20px auto; padding: 16px; background: #F7F9FC; border-radius: 12px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px;">🔍 站內搜尋</h3>
+    <p style="font-size: 13px; color: #4A5568; margin-bottom: 12px;">搜尋雅寶社區 · 頂客論壇的所有文章</p>
+    <script async src="https://cse.google.com/cse.js?cx=940a30ae4765c4e72"></script>
+    <div class="gcse-search"></div>
+</div>
+
 
         </div>
 

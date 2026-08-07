@@ -783,7 +783,10 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
     # ============================================================
     # 1. 提取標題與分類
     # ============================================================
-    title_match = re.search(r'<h1[^>]*>(.*?)</h1>', html_content, re.IGNORECASE | re.DOTALL)
+    if keyword and len(keyword.strip()) > 0:
+        title = keyword.strip()
+    else:
+        title_match = re.search(r'<h1[^>]*>(.*?)</h1>', html_content, re.IGNORECASE | re.DOTALL)
     raw_title = title_match.group(1).strip() if title_match else "文章標題"
     title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', raw_title)
     title = re.sub(r'<[^>]+>', '', title)
@@ -792,7 +795,10 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
     if not title:
         title = "文章標題"
 
-    category = extract_category_from_content(html_content)
+    if category:
+        final_category = category
+    else:
+        final_category = extract_category_from_content(html_content)
 
     # ============================================================
     # 2. 移除原有的 <h1> 標籤（避免重複）
@@ -803,7 +809,7 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
     # ============================================================
     # 3. 強制插入黃金樣板 Header
     # ============================================================
-    golden_header = GOLDEN_HEADER_TEMPLATE.replace('{title}', title).replace('{category}', category)
+    golden_header = GOLDEN_HEADER_TEMPLATE.replace('{title}', title).replace('{category}', final_category)
 
     if '<body>' in html_content:
         html_content = html_content.replace('<body>', '<body>\n' + golden_header)

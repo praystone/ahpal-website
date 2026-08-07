@@ -1,11 +1,13 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v8.2
+# article_generator.py - 文章生成核心模組 v8.3
 # ============================================================
-# 修復與優化 (v8.2)：
+# 修復與優化 (v8.3)：
+#   - 🔧 強化 text_to_html 內容邊界偵測
+#   - 🔧 自動過濾 CSS 程式碼區塊
+#   - 🔧 優先使用 AI 生成的標題
+#   - 🔧 防止 CSS 選擇器被誤判為 H2 標題
 #   - 🔧 配圖分類映射新增「🎵 音樂創作」支援
 #   - 🔧 同步 config.py 分類名稱變更
-#   - 🔧 測試區塊改用 `if __name__ == "__main__"` 保護
-#   - 🔧 text_to_html 強化 H2 標題內 HTML 標籤清理
 # ============================================================
 
 import os
@@ -87,7 +89,7 @@ def update_index_html(keyword, filename, category):
 
 
 # ============================================================
-# 核心函數：將純文字轉換為完整 HTML
+# 清理 AI 原始內容
 # ============================================================
 
 def clean_raw_html(raw_html):
@@ -113,14 +115,20 @@ def clean_raw_html(raw_html):
     return raw_html
 
 
+# ============================================================
+# 核心函數：將純文字轉換為完整 HTML (v8.3 強化版)
+# ============================================================
+
 def text_to_html(content, keyword, category):
     """
     將 AI 生成的純文字內容轉換為完整的 HTML 結構
     自動識別標題、段落、列表
     強制生成 H1 標題
-    🆕 跳過已有的 HTML 標籤，避免結構錯亂
+    🆕 強化內容邊界偵測：跳過 CSS 程式碼、HTML 標籤宣告
+    🆕 優先使用 AI 生成的 H1 標題
     🆕 強化清單識別：支援純文字編號清單
-    🆕 清理 H2 標題中的 HTML 標籤殘留
+    🆕 清理標題中的 HTML 標籤殘留
+    🆕 防止 CSS 選擇器被誤判為 H2 標題
     """
     if not content:
         return None
@@ -129,46 +137,175 @@ def text_to_html(content, keyword, category):
     lines = content.split('\n')
 
     # ============================================================
-    # 強制提取 H1 標題（優先使用關鍵字）
+    # 🆕 強化：偵測並跳過 CSS 程式碼區塊
+    # ============================================================
+    css_patterns = [
+        r'^[a-zA-Z\-_]+\s*\{',           # CSS 選擇器
+        r'^font-family:',
+        r'^line-height:',
+        r'^color:',
+        r'^max-width:',
+        r'^margin:',
+        r'^padding:',
+        r'^background-',
+        r'^display:',
+        r'^text-align:',
+        r'^border-',
+        r'^font-size:',
+        r'^font-weight:',
+        r'^@media',
+        r'^\.',
+        r'^#',
+        r'^[a-zA-Z\-_]+\s*\{',           # 任何 CSS 選擇器
+    ]
+
+    # 過濾掉 CSS 程式碼行
+    filtered_lines = []
+    in_css_block = False
+
+    for line in lines:
+        line_stripped = line.strip()
+        if not line_stripped:
+            filtered_lines.append(line)
+            continue
+
+        # 檢查 CSS 區塊開始
+        if re.search(r'^[a-zA-Z\-_\.#]+\s*\{', line_stripped):
+            in_css_block = True
+            continue
+
+        # 檢查 CSS 區塊結束
+        if line_stripped == '}' or line_stripped.endswith('}'):
+            in_css_block = False
+            continue
+
+        # 如果在 CSS 區塊內，跳過
+        if in_css_block:
+            continue
+
+        # 檢查是否為 CSS 屬性
+        is_css = False
+        for pattern in css_patterns:
+            if re.search(pattern, line_stripped, re.IGNORECASE):
+                is_css = True
+                break
+
+        # 檢查是否為 CSS 註解
+        if line_stripped.startswith('/*') or line_stripped.startswith('*'):
+            is_css = True
+
+        # 檢查是否為 CSS 屬性（含冒號）
+        if ':' in line_stripped and '{' not in line_stripped and '}' not in line_stripped:
+            parts = line_stripped.split(':', 1)
+            if len(parts) == 2:
+                prop = parts[0].strip()
+                css_props = ['font', 'color', 'margin', 'padding', 'border', 'background',
+                            'display', 'width', 'height', 'max', 'min', 'line', 'text',
+                            'vertical', 'position', 'top', 'bottom', 'left', 'right',
+                            'z-index', 'opacity', 'overflow', 'box', 'transform', 'transition',
+                            'flex', 'grid', 'align', 'justify', 'gap', 'float', 'clear',
+                            'list', 'table', 'content', 'cursor', 'pointer', 'hover',
+                            'outline', 'visibility', 'white-space', 'word', 'letter',
+                            'text-decoration', 'text-transform', 'vertical-align']
+                if any(prop.startswith(p) for p in css_props):
+                    is_css = True
+
+        if not is_css:
+            filtered_lines.append(line)
+
+    lines = filtered_lines
+
+    # ============================================================
+    # 🆕 強化：偵測真正的內容起始位置
+    # ============================================================
+    start_idx = 0
+    found_content_start = False
+
+    for i, line in enumerate(lines):
+        line_stripped = line.strip()
+        if not line_stripped:
+            continue
+
+        # 跳過明顯的 HTML 標籤宣告
+        if line_stripped.startswith('<!DOCTYPE') or line_stripped.startswith('<html'):
+            continue
+        if line_stripped.startswith('<head') or line_stripped.startswith('<body'):
+            continue
+        if line_stripped.startswith('<header') or line_stripped.startswith('<footer'):
+            continue
+        if line_stripped.startswith('<div') or line_stripped.startswith('<section'):
+            continue
+
+        # 偵測真實內容開始：標題、段落、列表標記
+        content_indicators = [
+            r'^[#*⃣]\s*',           # Markdown 標題
+            r'^[一二三四五六七八九十\d]+[、.．]\s*',  # 編號標題
+            r'^[A-Za-z\u4e00-\u9fa5]',  # 中文或英文開頭
+            r'^<h[1-6]',            # HTML 標題標籤
+            r'^<p>',                # HTML 段落標籤
+            r'^<ul>',               # HTML 列表
+            r'^<ol>',               # HTML 有序列表
+            r'^<blockquote',        # HTML 引用
+        ]
+
+        for indicator in content_indicators:
+            if re.search(indicator, line_stripped):
+                start_idx = i
+                found_content_start = True
+                break
+
+        if found_content_start:
+            break
+
+    # 如果沒有找到內容起始，從第一個非空行開始
+    if not found_content_start:
+        for i, line in enumerate(lines):
+            if line.strip():
+                start_idx = i
+                break
+
+    lines = lines[start_idx:] if start_idx < len(lines) else lines
+
+    # ============================================================
+    # 強制提取 H1 標題（優先使用 AI 生成的標題）
     # ============================================================
     title = keyword
     description = f"{keyword} - 雅寶社區 · 頂客論壇"
-
     found_title = False
-    for i, line in enumerate(lines[:20]):
+
+    # 🆕 優先從 AI 內容中提取 H1 標題
+    for i, line in enumerate(lines[:30]):
         clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
         clean_line = re.sub(r'^#{1,6}\s*', '', clean_line)
         clean_line = re.sub(r'^>\s*', '', clean_line)
-        clean_line = re.sub(r'^《', '', clean_line)
-        clean_line = re.sub(r'》$', '', clean_line)
 
+        # 檢查是否為有效的標題（長度適中，不是 CSS 或程式碼）
         if len(clean_line) > 3 and len(clean_line) < 80:
-            if keyword in clean_line:
-                title = clean_line
-                lines[i] = ''
-                found_title = True
-                break
-            elif len(clean_line) < 30 and not clean_line.endswith(('。', '？', '！', '」', '：')):
-                title = clean_line
-                lines[i] = ''
-                found_title = True
-                break
+            # 跳過 CSS 選擇器
+            if re.match(r'^[a-zA-Z\-_\.#]+\s*\{', clean_line):
+                continue
+            # 跳過純數字或符號
+            if re.match(r'^[\d\s\.]+$', clean_line):
+                continue
+            # 跳過 CSS 屬性
+            if ':' in clean_line and '{' not in clean_line:
+                continue
+            # 跳過以 CSS 屬性開頭的行
+            css_props_start = ['font', 'color', 'margin', 'padding', 'border', 'background',
+                              'display', 'width', 'height', 'text', 'line', 'vertical']
+            if any(clean_line.startswith(p) for p in css_props_start):
+                continue
 
+            title = clean_line
+            lines[i] = ''
+            found_title = True
+            break
+
+    # 如果沒找到合適的標題，使用 keyword
     if not found_title:
-        for i, line in enumerate(lines):
-            clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
-            clean_line = re.sub(r'^#{1,6}\s*', '', clean_line)
-            clean_line = re.sub(r'^《', '', clean_line)
-            clean_line = re.sub(r'》$', '', clean_line)
-            if len(clean_line) > 5 and len(clean_line) < 60:
-                title = clean_line
-                lines[i] = ''
-                found_title = True
-                break
-
-    if not title or title == '':
         title = keyword
 
+    # 確保標題不包含 keyword 重複（如果 keyword 已包含在標題中）
     if title != keyword and keyword not in title:
         title = f"{keyword}｜{title}"
 
@@ -213,7 +350,8 @@ def text_to_html(content, keyword, category):
             '<body', '</body>', '<!DOCTYPE',
             '<meta', '<link', '<script', '<title', '</title>',
             '<header', '</header>', '<article', '</article>',
-            '<footer', '</footer>', '<main', '</main>'
+            '<footer', '</footer>', '<main', '</main>',
+            '<style', '</style>'
         ]
         should_skip = False
         for tag in html_tags_to_skip:
@@ -255,7 +393,11 @@ def text_to_html(content, keyword, category):
         elif (len(clean_line) < 50 and
               not clean_line.endswith(('。', '？', '！', '」', '：', ';', ',')) and
               len(clean_line) > 3):
-            is_heading = True
+            # 🆕 跳過 CSS 選擇器
+            if not re.match(r'^[a-zA-Z\-_\.#]+\s*\{', clean_line):
+                # 🆕 跳過 CSS 屬性
+                if not any(clean_line.startswith(p) for p in ['font', 'color', 'margin', 'padding', 'border', 'background', 'display', 'width', 'height', 'text', 'line']):
+                    is_heading = True
 
         # 檢查是否為清單項目
         is_unordered_item = line.startswith('- ') or line.startswith('* ') or line.startswith('• ') or line.startswith('  - ')
@@ -310,7 +452,7 @@ def text_to_html(content, keyword, category):
             if clean_line == title or clean_line in title:
                 continue
 
-            # 🆕 清理標題中的 HTML 標籤殘留
+            # 清理標題中的 HTML 標籤殘留
             clean_line = re.sub(r'<[^>]+>', '', clean_line).strip()
 
             if heading_level == 3:
@@ -383,8 +525,8 @@ CATEGORY_VISUALS = {
     "🏠 生活小常識": "cozy home interior with organized spaces, warm lighting, comfortable living room, bright daylight",
     "🎮 遊戲攻略": "gaming setup with RGB keyboard, gaming monitor, headset, vibrant neon lighting, esports style",
     "🤖 AI 趨勢": "artificial intelligence concept, digital brain, futuristic tech network, glowing circuit board, cyan and blue lights",
-    "🎵 音樂創作": "musical instruments, vinyl record, warm studio lighting, creative atmosphere, music production",  # ✅ 已同步
-    "🎵 台語音樂": "musical instruments, vinyl record, warm studio lighting, creative atmosphere, music production",  # 🆕 向後相容
+    "🎵 音樂創作": "musical instruments, vinyl record, warm studio lighting, creative atmosphere, music production",
+    "🎵 台語音樂": "musical instruments, vinyl record, warm studio lighting, creative atmosphere, music production",
 }
 
 STYLE_SUFFIX = "vector illustration, clean line art, minimal corporate editorial style, soft color palette, professional design, crisp details, 8k"
@@ -659,7 +801,7 @@ def get_pending_articles(keywords_list):
 
 if __name__ == "__main__":
     print("\n" + "=" * 50)
-    print("  🧪 article_generator.py v8.2 測試")
+    print("  🧪 article_generator.py v8.3 測試")
     print("=" * 50 + "\n")
 
     # 測試 1：Chat API
@@ -667,7 +809,7 @@ if __name__ == "__main__":
     test_item_1 = {
         "keyword": "2026 年 AI 趨勢簡介",
         "category": "🤖 AI 趨勢",
-        "filename": "test/test-chat-api-v82.html",
+        "filename": "test/test-chat-api-v83.html",
         "use_responses_api": False
     }
     generate_article(test_item_1)
@@ -677,7 +819,7 @@ if __name__ == "__main__":
     test_item_2 = {
         "keyword": "2026 年 AI 趨勢深度分析（含思維鏈）",
         "category": "🤖 AI 趨勢",
-        "filename": "test/test-responses-reasoning-v82.html",
+        "filename": "test/test-responses-reasoning-v83.html",
         "use_responses_api": True,
         "enable_reasoning": True,
         "enable_search": False

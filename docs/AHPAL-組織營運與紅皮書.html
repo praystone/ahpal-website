@@ -255,7 +255,7 @@
         }
 
         .death-command::before {
-            content: "🔴 死命令";
+            content: "🔴 董事長死命令";
             position: absolute;
             top: -12px;
             left: 20px;
@@ -375,7 +375,7 @@
     <div class="header">
         <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
         <div class="subtitle">組織營運與紅皮書</div>
-        <div class="version">📌 版本 v2.0 · 董事會核定版 · 含死命令</div>
+        <div class="version">📌 版本 v2.1 · 董事會核定版 · 含死命令</div>
         <div class="status-badge">✅ 即日生效 · 全員遵行</div>
     </div>
 
@@ -386,6 +386,7 @@
         <h2>📖 目錄</h2>
         <div class="toc">
             <ul>
+                <li><a href="#section-dead-command-filename">🔴 董事長死命令 — 文章檔名強制使用英文</a></li>
                 <li><a href="#section-org">1. 組織架構</a></li>
                 <li><a href="#section-roles">2. 角色職責與權限</a></li>
                 <li><a href="#section-content">3. 內容營運計畫</a></li>
@@ -401,6 +402,45 @@
             </ul>
         </div>
     </div>
+
+    <!-- ============================================================
+    董事長死命令 — 文章檔名強制使用英文
+    ============================================================ -->
+    <section id="section-dead-command-filename">
+        <div class="card">
+            <div class="death-command">
+                <div class="death-title">📜 董事長死命令：文章檔名強制使用英文</div>
+                <p><strong>生效日期：2026 年 8 月 8 日 ｜ 適用範圍：所有新增文章</strong></p>
+
+                <h4 style="margin-top:14px; color:#8B0000;">🔴 死命令內容</h4>
+                <p>自即日起，所有新增文章的檔名（filename）<strong>必須為英文（含數字、中線），不得包含中文或其他非 ASCII 字元。</strong></p>
+                <p>違者視同違反營運紀律，需立即修正。</p>
+
+                <h4 style="margin-top:14px; color:#8B0000;">📋 強制規範</h4>
+                <ul>
+                    <li><strong>正確範例</strong>：<code>worker-blues-original-song.html</code></li>
+                    <li><strong>錯誤範例</strong>：<code>打工人心酸語錄.html</code>（含中文）</li>
+                    <li><strong>自動轉換</strong>：<code>meme-to-song.ps1</code> 已內建強制英文轉換邏輯</li>
+                </ul>
+
+                <h4 style="margin-top:14px; color:#8B0000;">🚀 強制執行指令</h4>
+                <div class="code-block">
+# 檢查是否有中文檔名
+Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.Name -match '[\u4e00-\u9fa5]' }
+
+# 手動重新命名
+Move-Item "music\打工人心酸語錄.html" "music\worker-blues-original-song.html"
+                </div>
+
+                <h4 style="margin-top:14px; color:#8B0000;">⚠️ 不咎既往</h4>
+                <p>2026 年 8 月 8 日之前已生成的檔案（如 <code>music/打工人心酸語錄.html</code>）維持原樣，不予追究。</p>
+
+                <div style="margin-top:14px; padding:12px 16px; background:#8B0000; color:white; border-radius:8px; text-align:center; font-weight:700; letter-spacing:2px;">
+                    ⚠️ 此命令已錄入紅皮書，作為永久性強制規範。違者視同違反營運紀律。
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ============================================================
     1. 組織架構
@@ -516,14 +556,14 @@
         <div class="card">
             <h2>3. 內容營運計畫</h2>
 
-            <h3>3.1 系統數據總覽（截至 2026-08-07）</h3>
+            <h3>3.1 系統數據總覽（截至 2026-08-08）</h3>
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr><th>指標</th><th>數值</th><th>狀態</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>總文章數</td><td><strong>453 篇</strong></td><td>✅ 量產達成</td></tr>
+                        <tr><td>總文章數</td><td><strong>455 篇</strong></td><td>✅ 量產達成</td></tr>
                         <tr><td>配圖成功率</td><td><strong>100%</strong></td><td>✅ 穩定</td></tr>
                         <tr><td>品質未達標</td><td><strong>0 篇</strong></td><td>✅ 完美</td></tr>
                         <tr><td>平均品質分數</td><td><strong>82.4 分</strong></td><td>✅ 優良</td></tr>
@@ -546,8 +586,8 @@
                         <tr><td>📊 軟體評測</td><td>77</td><td>85</td><td>100</td><td>🟡 中</td></tr>
                         <tr><td>🌟 人生哲理</td><td>72</td><td>80</td><td>95</td><td>🟢 低</td></tr>
                         <tr><td>🤖 AI 趨勢</td><td>61</td><td>70</td><td>85</td><td>🟡 中</td></tr>
-                        <tr><td>🎵 音樂創作</td><td>51</td><td>10</td><td>20</td><td>🟢 低</td></tr>
-                        <tr><td><strong>總計</strong></td><td><strong>453</strong></td><td><strong>468</strong></td><td><strong>570</strong></td><td>—</td></tr>
+                        <tr><td>🎵 音樂創作</td><td>53</td><td>10</td><td>20</td><td>🟢 低</td></tr>
+                        <tr><td><strong>總計</strong></td><td><strong>455</strong></td><td><strong>468</strong></td><td><strong>570</strong></td><td>—</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -598,7 +638,7 @@
                         <tr><td>總指揮</td><td>PowerShell (ahpal-master.ps1)</td><td>✅ v7.2 穩定</td></tr>
                         <tr><td>環境設定</td><td><code>ahpal-static.ps1</code></td><td>✅ 正常</td></tr>
                         <tr><td>內容生成引擎</td><td>Python 3 (模組化)</td><td>✅ v5.2 穩定</td></tr>
-                        <tr><td>AI 文章模型</td><td>DeepSeek Flash</td><td>✅ 固定</td></tr>
+                        <tr><td>AI 文章模型</td><td>DeepSeek Flash + Responses API</td><td>✅ 固定</td></tr>
                         <tr><td>AI 配圖模型</td><td>Pollinations AI</td><td>✅ 免費、免 API Key</td></tr>
                         <tr><td>靜態託管</td><td>Cloudflare Pages</td><td>✅ 正常</td></tr>
                         <tr><td>版本控制</td><td>Git + GitHub (main)</td><td>✅ 正常</td></tr>
@@ -632,6 +672,13 @@
     ├── 步驟 3：生成文章 (src/main.py)
     ├── 步驟 4：Git 提交與推送
     └── 步驟 5：部署到 Cloudflare (Wrangler)
+
+# 迷因轉歌曲自動化
+.\scripts\meme-to-song.ps1 -Meme "主題" -Source "來源" -Force
+    ├── 步驟 1：產生英文檔名
+    ├── 步驟 2：寫入 JSON 待產清單
+    ├── 步驟 3：生成音樂文章 (Responses API + Reasoning)
+    └── 步驟 4：更新 main.py 與清空 JSON
 
 # 影音自動化管線
 .\scripts\youtube-pipeline.ps1 -ArticlePath "tech/文章.html"
@@ -670,6 +717,7 @@
                     <tbody>
                         <tr><td><code>DEEPSEEK_API_KEY</code></td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
                         <tr><td><code>GEMINI_API_KEY</code></td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
+                        <tr><td><code>SUNO_API_KEY</code></td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
                         <tr><td>其他憑證</td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
                     </tbody>
                 </table>
@@ -938,6 +986,8 @@ npx wrangler pages deploy "C:\Users\User\ahpal-static" --project-name=ahpal-page
                         <tr><td><span class="inline-code">scripts/</span></td><td>PowerShell 腳本目錄</td></tr>
                         <tr><td><span class="inline-code">.env</span></td><td>環境變數檔案，儲存 API Key，不上傳 Git</td></tr>
                         <tr><td><span class="inline-code">Wrangler</span></td><td>Cloudflare Pages 的 CLI 部署工具</td></tr>
+                        <tr><td><span class="inline-code">Responses API</span></td><td>DeepSeek 新一代 API，支援 Reasoning（思維鏈）</td></tr>
+                        <tr><td>Reasoning</td><td>思維鏈功能，讓 AI 展示推理過程，提升文章品質</td></tr>
                         <tr><td><span class="inline-code">article-manifest.json</span></td><td>文章狀態追蹤檔，記錄生成狀態與品質分數</td></tr>
                         <tr><td>斷點續傳</td><td>透過 manifest.json 記錄狀態，中斷後可從中斷點繼續</td></tr>
                         <tr><td>Dwell Time</td><td>用戶在網站上的停留時間，SEO 重要指標</td></tr>
@@ -974,6 +1024,7 @@ npx wrangler pages deploy "C:\Users\User\ahpal-static" --project-name=ahpal-page
                     <li><strong>首頁更新</strong>：新文章標題出現在首頁</li>
                     <li><strong>分類頁更新</strong>：新文章出現在對應分類頁</li>
                     <li><strong>Sitemap 更新</strong>：新文章出現在 Sitemap</li>
+                    <li><strong>檔名規範</strong>：所有新文章檔名必須為英文</li>
                 </ul>
 
                 <p><strong>階段二：內容品質檢查</strong></p>
@@ -997,6 +1048,9 @@ npx wrangler pages deploy "C:\Users\User\ahpal-static" --project-name=ahpal-page
 # 一鍵執行所有檢查
 .\scripts\preflight-check.ps1
 
+# 檢查中文檔名
+Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.Name -match '[\u4e00-\u9fa5]' }
+
 # 僅檢查 Git 狀態
 git status
 
@@ -1007,7 +1061,7 @@ python src/main.py --dry-run
                 <h4 style="margin-top:14px; color:#8B0000;">📌 強制紀錄要求</h4>
                 <p>每次推送前，須在提交訊息中註明檢查結果：</p>
                 <div class="code-block">
-git commit -m "新增/修改文章： [文章標題] — 檢查通過（文章數：XXX 篇，品質：OK）"
+git commit -m "新增/修改文章： [文章標題] — 檢查通過（文章數：XXX 篇，品質：OK，檔名：英文）"
                 </div>
 
                 <h4 style="margin-top:14px; color:#8B0000;">⚠️ 違反命令之後果</h4>
@@ -1032,6 +1086,7 @@ git commit -m "新增/修改文章： [文章標題] — 檢查通過（文章�
                         <tr><th>版本</th><th>日期</th><th>變更內容</th><th>作者</th></tr>
                     </thead>
                     <tbody>
+                        <tr><td>v2.1</td><td>2026-08-08</td><td>新增董事長死命令：文章檔名強制使用英文</td><td>總經理兼總工程師</td></tr>
                         <tr><td>v2.0</td><td>2026-08-07</td><td>三大件重構：整合紅皮書、營運計畫、死命令</td><td>總經理兼總工程師</td></tr>
                         <tr><td>v1.0</td><td>2026-07-23</td><td>初版發布，完整組織架構與營運計畫</td><td>總經理兼總工程師</td></tr>
                     </tbody>
@@ -1064,7 +1119,7 @@ git commit -m "新增/修改文章： [文章標題] — 檢查通過（文章�
 
             <div class="tip gold">
                 <div class="tip-title">📋 文件生效</div>
-                <p>本紅皮書自 <strong>2026 年 8 月 7 日</strong> 起生效，全體團隊應確實遵守。</p>
+                <p>本紅皮書自 <strong>2026 年 8 月 8 日</strong> 起生效，全體團隊應確實遵守。</p>
                 <p>「董事長死命令」為最高指導原則，任何違反行為將被記錄並追究責任。</p>
                 <p>如有未盡事宜，由董事會執行長召集會議修訂之。</p>
             </div>
@@ -1075,15 +1130,15 @@ git commit -m "新增/修改文章： [文章標題] — 檢查通過（文章�
     頁尾
     ============================================================ -->
     <div class="footer">
-        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 組織營運與紅皮書 v2.0<br>
-        文件最後更新：2026 年 8 月 7 日
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 組織營運與紅皮書 v2.1<br>
+        文件最後更新：2026 年 8 月 8 日
         <br><br>
         <span style="font-size:12px;color:#718096;">
         🦞 龍蝦總工程師 · 🤖 Gemini 顧問 · 🏛️ ChatGPT 執行長 · 👑 董事會 共同制定
         </span>
         <br><br>
         <span style="font-size:12px;color:#8B0000;font-weight:700;">
-        🔴 內含董事長死命令：變更後強制檢查與推送規範
+        🔴 內含董事長死命令：變更後強制檢查與推送規範 ｜ 英文檔名強制規範
         </span>
     </div>
 

@@ -76,6 +76,8 @@ keywords_list = [
     {"keyword": "百年孤寂 馬奎斯 深度書評 魔幻現實主義 解析", "category": "🌟 人生哲理", "filename": "philosophy/one-hundred-years-of-solitude-review.html"},
     {"keyword": "2026 年 機械式鍵盤 選購指南 推薦", "category": "💻 3C 科技教學", "filename": "tech/mechanical-keyboard-guide-2026.html"},
 
+    {"keyword": "打工人心酸語錄 原創歌曲 迷因改編", "category": "🎵 音樂創作", "filename": "music/打工人心酸語錄.html"},
+
 ]
 
 

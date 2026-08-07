@@ -1,52 +1,85 @@
-﻿/* ============================================================
-   AHPAL 統一全域樣式表 v1.1
-   最後更新：2026-08-08
-   用途：所有頁面共用此樣式表
+/* ============================================================
+   AHPAL 統一全域樣式表 v1.0
    ============================================================ */
 
 /* ----- 全域設定 ----- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
     background: #F7F9FC;
     color: #1A202C;
     line-height: 1.8;
     font-size: 16px;
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
 }
 
-/* ----- 頁面容器 ----- */
+/* ----- 容器與卡片 ----- */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 .content-card {
     background: #FFFFFF;
     padding: 36px 40px;
     border-radius: 14px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
     border: 1px solid #E2E8F0;
 }
 @media (max-width: 640px) { .content-card { padding: 24px 18px; } }
 
-/* ----- 文章標題區 ----- */
-header {
-    border-bottom: 2px solid #005A9C;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
+/* ----- 網站標頭 ----- */
+.site-header {
+    background: #005A9C;
+    color: white;
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+.logo:hover { color: rgba(255,255,255,0.85); }
 
-.site-title {
-    font-size: 1.2rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.nav-links {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    align-items: center;
+    flex-wrap: wrap;
 }
-.site-title a {
-    color: #666;
+.nav-links a {
+    color: rgba(255,255,255,0.85);
     text-decoration: none;
 }
-.site-title a:hover { color: #005A9C; }
+.nav-links a:hover {
+    color: white;
+    border-bottom: 2px solid #00A86B;
+}
+.nav-links .game-link {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+.nav-links .game-link:hover {
+    background: rgba(255,255,255,0.25);
+    border-bottom: none;
+}
 
+/* ----- 文章標題與中繼資訊 ----- */
 .post-category {
     display: inline-block;
     background: #00A86B;
@@ -56,7 +89,6 @@ header {
     font-size: 13px;
     font-weight: 600;
 }
-
 .meta-info {
     font-size: 14px;
     color: #718096;
@@ -85,7 +117,6 @@ h3 {
 p {
     margin-bottom: 16px;
     line-height: 1.8;
-    text-align: justify;
 }
 ul, ol {
     margin: 12px 0 16px 24px;
@@ -97,27 +128,9 @@ a {
     color: #005A9C;
     text-decoration: none;
 }
-a:hover { text-decoration: underline; }
-
-/* ----- 表格 ----- */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 30px 0;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+a:hover {
+    text-decoration: underline;
 }
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px 15px;
-    text-align: left;
-}
-th {
-    background-color: #f2f2f2;
-    color: #333;
-    font-weight: bold;
-}
-tr:nth-child(even) { background-color: #f9f9f9; }
 
 /* ----- 圖片 ----- */
 img {
@@ -145,28 +158,9 @@ img {
     border: none;
 }
 
-/* ----- FAQ 區塊 ----- */
-.faq-section {
-    background: #f0f4f8;
-    border-radius: 8px;
-    padding: 25px;
-    margin: 30px 0;
-}
-.faq-question {
-    font-weight: bold;
-    color: #2c3e50;
-    font-size: 1.1rem;
-    margin-top: 15px;
-    margin-bottom: 5px;
-}
-.faq-answer {
-    margin-bottom: 15px;
-    color: #555;
-}
-
-/* ----- 相關文章 ----- */
+/* ----- 相關文章與留言 ----- */
 .related-articles {
-    background: #fff;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
@@ -183,16 +177,14 @@ img {
     padding-left: 0;
     margin: 0;
 }
-.related-articles li {
+.related-articles ul li {
     margin-bottom: 10px;
 }
-.related-articles a {
+.related-articles ul li a {
     color: #0056b3;
     text-decoration: none;
 }
-.related-articles a:hover { text-decoration: underline; }
 
-/* ----- Giscus 留言 ----- */
 .giscus-wrapper {
     max-width: 800px;
     margin: 40px auto;
@@ -209,6 +201,39 @@ img {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+/* ----- 頁尾 ----- */
+.site-footer {
+    background: #2D3748;
+    color: #A0AEC0;
+    padding: 40px 0 28px 0;
+    margin-top: 40px;
+    font-size: 14px;
+}
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+}
+.footer-inner .copy { font-size: 13px; color: #718096; }
+.footer-links {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 24px;
+}
+.footer-links a {
+    color: #CBD5E0;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+.footer-links a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
 }
 
 /* ----- 返回頂部 ----- */
@@ -235,18 +260,59 @@ img {
     background: #003d66;
 }
 
-/* ----- 頁尾 ----- */
-footer {
-    text-align: center;
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-    font-size: 0.85rem;
-    color: #999;
+/* ----- 文章列表（首頁用） ----- */
+#article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px 0;
+}
+#article-list li {
+    background: white;
+    padding: 14px 18px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #E2E8F0;
+    transition: all 0.2s;
+}
+#article-list li:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+    border-color: #00A86B;
+}
+#article-list li .category {
+    background: #005A9C;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+#article-list li a {
+    flex: 1;
+    color: #1A202C;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+}
+#article-list li a:hover { color: #005A9C; }
+#article-list li .post-date {
+    font-size: 12px;
+    color: #718096;
+    white-space: nowrap;
 }
 
 /* ----- 響應式 ----- */
 @media (max-width: 768px) {
+    .header-inner { flex-direction: column; align-items: center; }
+    .nav-links { justify-content: center; gap: 12px; }
+    #article-list li { flex-wrap: wrap; padding: 12px 14px; }
+    #article-list li a { font-size: 14px; }
+}
+@media (max-width: 480px) {
     body { padding: 12px; }
     .content-card { padding: 16px 14px; }
     h1 { font-size: 1.6em; }

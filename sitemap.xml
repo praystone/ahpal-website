@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.ahpal.com/</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-tech.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-game.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-life.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-review.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-philosophy.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-trend.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -61,50 +61,92 @@
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL × 聯想 — 戰略合作提案.html</loc>
+        <loc>https://www.ahpal.com/docs/AHPAL-系統核心架構與技術白皮書.html</loc>
+        <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/AHPAL-組織營運與紅皮書.html</loc>
+        <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/AHPAL-自動化產線與交接手冊.html</loc>
+        <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/AI 音樂二創 — Suno 省力產線企劃書.html</loc>
+        <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/PageSpeed Insights.html</loc>
+        <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AHPAL × 聯想 — 戰略合作提案.html</loc>
         <lastmod>2026-08-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL影音自動化產線通盤企劃.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AHPAL影音自動化產線通盤企劃.html</loc>
         <lastmod>2026-07-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL組織與內容營運與技術維護紅皮書.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AHPAL組織與內容營運與技術維護紅皮書.html</loc>
         <lastmod>2026-07-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AI交接與新進工程師接手手冊.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AI交接與新進工程師接手手冊.html</loc>
         <lastmod>2026-07-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/打一份AI交接與新進工程師交接手冊.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/打一份AI交接與新進工程師交接手冊.html</loc>
         <lastmod>2026-08-06</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/附件一：內容營運與技術維護計畫書.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/附件一：內容營運與技術維護計畫書.html</loc>
         <lastmod>2026-07-21</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/附件二：系統全面規劃與技術細節升級報告.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/附件二：系統全面規劃與技術細節升級報告.html</loc>
         <lastmod>2026-07-21</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/雅寶CMS規劃與AI交接技術維護白皮書.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/附錄-AI 系統交接與新進工程師接手手冊.html</loc>
+        <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/雅寶CMS規劃與AI交接技術維護白皮書.html</loc>
         <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/數據遷移提示詞 — AI 移交專用.html</loc>
+        <lastmod>2026-08-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1243,6 +1285,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/philosophy/loneliness-six-lectures-review.html</loc>
+        <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/philosophy/luck-psychology-secrets.html</loc>
         <lastmod>2026-07-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1299,6 +1347,12 @@
     <url>
         <loc>https://www.ahpal.com/philosophy/minimalism-inner-peace-guide.html</loc>
         <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/philosophy/one-hundred-years-of-solitude-review.html</loc>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>

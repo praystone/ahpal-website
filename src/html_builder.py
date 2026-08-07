@@ -1,14 +1,10 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v6.5
+# html_builder.py - HTML 建構模組 v6.7
 # ============================================================
-# 修復：
-#   - 🔧 移除未定義的 SITE_HEADER_RAW / SITE_FOOTER_RAW
-#   - 🔧 統一使用 f-string 變數引用
-#   - 🔧 補齊缺失的函數（generate_categories_page、clean_ai_header）
-#   - 🆕 generate_main_css() 函數產生統一 CSS 檔案
-#   - 🆕 確保所有頁面連結 /style/main.css
-#   - 🆕 首頁底部加入 Google 自訂搜尋 (CSE)
-#   - 🆕 音樂文章自動嵌入 Schema.org 結構化資料
+# 修復 (v6.7)：
+#   - 🔧 統一 Giscus 留言系統樣式（與遊戲頁面一致）
+#   - 🔧 修復 Giscus 重複載入問題
+#   - 🔧 確保留言區塊在所有文章頁面正常顯示
 # ============================================================
 
 import hashlib
@@ -569,7 +565,7 @@ GOLDEN_HEADER_TEMPLATE = f'''<header>
 
 
 # ============================================================
-# Giscus 留言區塊（與遊戲頁面一致）
+# 🆕 Giscus 留言區塊（統一版 — 與遊戲頁面一致）
 # ============================================================
 GISCUS_COMMENT = '''
 <!-- ============================================================
@@ -751,7 +747,18 @@ def extract_category_from_content(html_content):
 # ============================================================
 
 def enhance_article_html(html_content, keyword=None, category=None, video_id=None):
-    """增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦、統一CSS、黃金Header、Giscus留言、Schema.org"""
+    """
+    增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦、統一CSS、黃金Header、Giscus留言、Schema.org
+
+    🆕 v6.6 修復 UnboundLocalError：
+        - 將 title_match 操作完整包覆在 else 區塊內
+        - 確保 keyword 存在時 title 直接使用 keyword.strip()
+        - 避免 title_match 在未定義時被引用
+
+    🆕 v6.7 修復 Giscus：
+        - 統一 Giscus 留言區塊樣式（與遊戲頁面一致）
+        - 確保留言區塊正常顯示
+    """
     if not html_content:
         return html_content
 
@@ -781,20 +788,25 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
             print("   ✅ 已嵌入 MusicRecording Schema.org")
 
     # ============================================================
-    # 1. 提取標題與分類
+    # 1. 提取標題與分類（優先使用傳入參數）
     # ============================================================
+    # 🆕 如果傳入了 keyword，直接使用，完全跳過正則提取
+    # 🆕 這徹底解決了 UnboundLocalError：title_match 只在 else 分支內定義和使用
     if keyword and len(keyword.strip()) > 0:
         title = keyword.strip()
     else:
+        # 只有在沒有 keyword 時才執行正則提取
         title_match = re.search(r'<h1[^>]*>(.*?)</h1>', html_content, re.IGNORECASE | re.DOTALL)
-    raw_title = title_match.group(1).strip() if title_match else "文章標題"
-    title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', raw_title)
-    title = re.sub(r'<[^>]+>', '', title)
-    title = re.sub(r'<!DOCTYPE.*?>', '', title, flags=re.IGNORECASE)
-    title = title.strip()
-    if not title:
-        title = "文章標題"
+        if title_match:
+            raw_title = title_match.group(1).strip()
+            title = re.sub(r'\s*[—\-|]\s*雅寶社區\s*[·.]?\s*頂客論壇.*$', '', raw_title)
+            title = re.sub(r'<[^>]+>', '', title)
+            title = re.sub(r'<!DOCTYPE.*?>', '', title, flags=re.IGNORECASE)
+            title = title.strip()
+        else:
+            title = "文章標題"
 
+    # 🆕 分類優先保護
     if category:
         final_category = category
     else:

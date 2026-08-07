@@ -80,6 +80,8 @@ keywords_list = [
 
     {"keyword": "四季紅 EDM 未來貝斯 改編 台羅拼音 解析", "category": "🎵 音樂創作", "filename": "music/seasonal-blossoms-edm-remix.html", "content_type": "song", "video_id": "Oqc10ueJMGA"},
 
+    {"keyword": "雨夜花 Lo-fi 抒情 改編 台羅拼音 解析", "category": "🎵 音樂創作", "filename": "music/rainy-night-flower-lo-fi-cover.html", "content_type": "song", "video_id": "HF8jjeL9UFc"},
+
 ]
 
 

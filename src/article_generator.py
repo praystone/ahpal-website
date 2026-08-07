@@ -599,7 +599,7 @@ def generate_article(item):
         logger.error(f"HTML 轉換失敗：{keyword}")
         return
 
-    html_content = build_article_html(keyword, category, html_content)
+    html_content = build_article_html(keyword=keyword, category=category, raw_html=html_content, video_id=video_id)
 
     if video_id:
         youtube_embed = create_youtube_embed(video_id)

@@ -78,6 +78,8 @@ keywords_list = [
 
     {"keyword": "打工人心酸語錄 原創歌曲 迷因改編", "category": "🎵 音樂創作", "filename": "music/打工人心酸語錄.html"},
 
+    {"keyword": "四季紅 EDM 未來貝斯 改編 台羅拼音 解析", "category": "🎵 音樂創作", "filename": "music/seasonal-blossoms-edm-remix.html", "content_type": "song", "video_id": "Oqc10ueJMGA"},
+
 ]
 
 

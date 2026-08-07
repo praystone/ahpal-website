@@ -61,20 +61,26 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/docs/2026-08-08 -0500-AHPAL 附錄與備忘錄-時間戳紀錄.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/docs/AHPAL-系統核心架構與技術白皮書.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/docs/AHPAL-組織營運與紅皮書.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/docs/AHPAL-自動化產線與交接手冊.html</loc>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1101,6 +1107,30 @@
     <url>
         <loc>https://www.ahpal.com/music/bang-chhun-hong.html</loc>
         <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/music/seasonal-blossoms-edm-remix.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/music/test-lyrics-style.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/music/test-schema-fix.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/music/打工人心酸語錄.html</loc>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>

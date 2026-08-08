@@ -1111,6 +1111,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/lifestyle/nas-remote-access-cloudflare-tunnel-tailscale.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/music/ai-music-stems-separation-daw-mixing-guide.html</loc>
         <lastmod>2026-08-08</lastmod>
         <changefreq>monthly</changefreq>
@@ -1142,6 +1148,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/music/seasonal-blossoms-edm-remix.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/music/suno-ai-taiwanese-hakka-harmony-prompt-guide.html</loc>
         <lastmod>2026-08-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

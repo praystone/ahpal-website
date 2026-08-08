@@ -1,10 +1,12 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v6.8
+# html_builder.py - HTML 建構模組 v6.9
 # ============================================================
-# 修復 (v6.8)：
-#   - 🔧 強制插入 Giscus 留言系統，消除條件式載入漏洞
-#   - 🔧 先清除舊區塊再統一插入至 </body> 前
-#   - 🔧 確保所有文章頁面 Giscus 100% 顯示
+# 修復 (v6.9)：
+#   - 🔧 徹底修復 Giscus 留言系統無法渲染問題
+#   - 🔧 不再使用正則清理 Giscus 相關元件（避免誤刪）
+#   - 🔧 強制在 </body> 前插入完整 Giscus 區塊
+#   - 🔧 確保 script 標籤與 data-* 參數完整保留
+#   - 🔧 支援雙重插入檢查，避免重複
 # ============================================================
 
 import hashlib
@@ -565,11 +567,11 @@ GOLDEN_HEADER_TEMPLATE = f'''<header>
 
 
 # ============================================================
-# 🆕 Giscus 留言區塊（統一版 — 與遊戲頁面一致）
+# 🆕 Giscus 留言區塊 v6.9（完整載入版 — 不受正則清理影響）
 # ============================================================
 GISCUS_COMMENT = '''
 <!-- ============================================================
-     Giscus 留言系統
+     Giscus 留言系統 (v6.9 完整載入版)
      ============================================================ -->
 <div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
     <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
@@ -750,10 +752,10 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
     """
     增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦、統一CSS、黃金Header、Giscus留言、Schema.org
 
-    🆕 v6.8 修復 Giscus 顯示問題：
-        - 強制在 </body> 前插入 Giscus 留言區塊
-        - 先清除舊區塊再統一插入，確保唯一性
-        - 無論文章內容如何，Giscus 皆會顯示
+    🆕 v6.9 修復 Giscus 顯示問題：
+        - 不再使用正則清理 Giscus 相關元件（避免誤刪）
+        - 強制在 </body> 前插入完整 Giscus 區塊
+        - 確保 script 標籤與 data-* 參數完整保留
     """
     if not html_content:
         return html_content
@@ -834,21 +836,23 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
         print("   ✅ 已強制加入品牌標示（可點擊回首頁）")
 
     # ============================================================
-    # 5. 🆕 v6.8：強制加入相關文章推薦 + Giscus + 返回首頁 + 返回頂部
+    # 5. 🆕 v6.9：強制加入相關文章推薦 + Giscus + 返回首頁 + 返回頂部
     # ============================================================
-    # 先清理現有的重複區塊（避免二次處理造成重複）
+    # 移除相關文章區塊（保留 Giscus 不清理）
     html_content = re.sub(r'<div class="related-articles".*?</div>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
-    html_content = re.sub(r'<div class="giscus-wrapper".*?</div>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
-    html_content = re.sub(r'<script src="https://giscus.app/client.js".*?</script>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
 
-    footer_components = RELATED_ARTICLES_BLOCK + '\n' + GISCUS_COMMENT + '\n' + HOME_LINK + '\n' + BACK_TO_TOP
+    # 檢查是否已有 Giscus（避免重複插入）
+    if 'giscus-wrapper' not in html_content and 'giscus.app/client.js' not in html_content:
+        footer_components = RELATED_ARTICLES_BLOCK + '\n' + GISCUS_COMMENT + '\n' + HOME_LINK + '\n' + BACK_TO_TOP
 
-    if '</body>' in html_content:
-        html_content = html_content.replace('</body>', footer_components + '\n</body>')
-        print("   ✅ [v6.8] 已強制插入 Giscus 留言板與頁尾元件")
+        if '</body>' in html_content:
+            html_content = html_content.replace('</body>', footer_components + '\n</body>')
+            print("   ✅ [v6.9] 已強制插入 Giscus 留言板與頁尾元件")
+        else:
+            html_content = html_content + '\n' + footer_components
+            print("   ✅ [v6.9] 已強制插入頁尾元件（無 </body> 標籤）")
     else:
-        html_content = html_content + '\n' + footer_components
-        print("   ✅ [v6.8] 已強制插入頁尾元件（無 </body> 標籤）")
+        print("   ℹ️ [v6.9] Giscus 已存在，跳過插入")
 
     # ============================================================
     # 6. 確保 AdSense 程式碼存在

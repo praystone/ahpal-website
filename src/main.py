@@ -88,6 +88,9 @@ keywords_list = [
     {"keyword": "2026 Home Assistant 跨品牌智慧家庭整合實戰：Aqara、HomeKit 與 Matter 協定全屋自動化避坑指南", "category": "🏠 生活小常識", "filename": "lifestyle/home-assistant-aqara-matter-setup.html"},
     {"keyword": "Suno / Udio 生成音樂後製拆軌指南：利用 Ultimate Vocal Remover 進行 Stems 獨立軌混音與 Mastering 實務", "category": "🎵 音樂創作", "filename": "music/ai-music-stems-separation-daw-mixing-guide.html"},
 
+    {"keyword": "2026 家用 NAS 遠端安全存取實戰：Cloudflare Tunnel 穿透與 Tailscale VPN 配置指南", "category": "🏠 生活小常識", "filename": "lifestyle/nas-remote-access-cloudflare-tunnel-tailscale.html"},
+    {"keyword": "Suno AI 台語與客語歌曲創作：多聲部和聲 Prompt 配置與混音頻段修正指南", "category": "🎵 音樂創作", "filename": "music/suno-ai-taiwanese-hakka-harmony-prompt-guide.html"},
+
 ]
 
 

@@ -1,5 +1,6 @@
 /* ============================================================
-   AHPAL 統一全域樣式表 v1.0
+   AHPAL 統一全域樣式表 v1.2 — 完整修復版
+   最後更新：2026-08-08
    ============================================================ */
 
 /* ----- 全域設定 ----- */
@@ -11,10 +12,23 @@ body {
     color: #1A202C;
     line-height: 1.8;
     font-size: 16px;
+    padding: 20px;
 }
 
-/* ----- 容器與卡片 ----- */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+/* ----- 主要佈局 (側邊欄) ----- */
+.main-wrapper {
+    max-width: 1200px;
+    margin: 28px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+    align-items: start;
+}
+@media (max-width: 992px) {
+    .main-wrapper { grid-template-columns: 1fr; }
+}
+
 .content-card {
     background: #FFFFFF;
     padding: 36px 40px;
@@ -24,6 +38,174 @@ body {
     border: 1px solid #E2E8F0;
 }
 @media (max-width: 640px) { .content-card { padding: 24px 18px; } }
+
+/* ----- 側邊欄 ----- */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.widget {
+    background: white;
+    padding: 24px 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #E2E8F0;
+}
+.widget-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1A202C;
+    margin-bottom: 14px;
+    border-bottom: 2px solid #005A9C;
+    padding-bottom: 8px;
+}
+.widget p { font-size: 14px; color: #4A5568; line-height: 1.7; }
+.widget ul { list-style: none; padding: 0; margin: 0; }
+.widget ul li { margin-bottom: 6px; font-size: 14px; }
+.widget ul li a { color: #4A5568; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.widget ul li a:hover { color: #005A9C; }
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-cloud a {
+    background: #F7F9FC;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #4A5568;
+    text-decoration: none;
+    border: 1px solid #E2E8F0;
+}
+.tag-cloud a:hover { border-color: #00A86B; color: #1A202C; }
+
+/* ----- 分類網格 ----- */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 14px;
+    margin: 28px 0 32px 0;
+}
+@media (max-width: 768px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.category-card {
+    display: block;
+    background: #F7F9FC;
+    padding: 18px 12px;
+    border-radius: 14px;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid #E2E8F0;
+    transition: all 0.25s ease;
+}
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+    border-color: #00A86B;
+}
+.category-card .emoji { font-size: 28px; display: block; margin-bottom: 4px; }
+.category-card .cat-name { font-size: 13px; font-weight: 600; color: #1A202C; }
+.category-card .cat-count { font-size: 11px; color: #718096; display: block; margin-top: 2px; }
+
+/* ----- 索引標籤網格 ----- */
+.index-section { margin: 24px 0 8px 0; }
+.index-section .cat-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1A202C;
+    border-left: 3px solid #00A86B;
+    padding-left: 12px;
+    margin: 18px 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.index-section .cat-title .count { font-size: 12px; font-weight: 400; color: #718096; }
+.index-tag-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.index-tag {
+    background: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #4A5568;
+    text-decoration: none;
+    border: 1px solid #E2E8F0;
+    transition: all 0.2s;
+}
+.index-tag:hover { border-color: #00A86B; color: #1A202C; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.index-tag[style*="background:#e2e8f0"] { cursor: default; }
+.index-tag[style*="background:#e2e8f0"]:hover { transform: none; box-shadow: none; }
+
+/* ----- 遊戲入口卡片 ----- */
+.game-entry-card {
+    display: block;
+    background: linear-gradient(135deg, #005A9C 0%, #003d66 100%);
+    color: white;
+    padding: 20px 16px;
+    border-radius: 14px;
+    text-decoration: none;
+    text-align: center;
+    margin: 20px 0 32px 0;
+}
+.game-entry-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.10); }
+.game-entry-card .emoji { font-size: 36px; display: block; margin-bottom: 6px; }
+.game-entry-card .title { font-size: 18px; font-weight: 700; }
+.game-entry-card .desc { font-size: 13px; opacity: 0.8; margin-top: 2px; }
+.game-entry-card .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    margin-top: 6px;
+}
+
+/* ----- 文章列表 ----- */
+#article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px 0;
+}
+#article-list li {
+    background: white;
+    padding: 14px 18px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #E2E8F0;
+    transition: all 0.2s;
+}
+#article-list li:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.10); border-color: #00A86B; }
+#article-list li .category {
+    background: #005A9C;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+#article-list li a { flex: 1; color: #1A202C; text-decoration: none; font-size: 15px; font-weight: 500; }
+#article-list li a:hover { color: #005A9C; }
+#article-list li .post-date { font-size: 12px; color: #718096; white-space: nowrap; }
+@media (max-width: 600px) {
+    #article-list li { flex-wrap: wrap; padding: 12px 14px; }
+    #article-list li a { font-size: 14px; }
+}
+
+/* ----- Google 自訂搜尋 ----- */
+.google-search {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 16px;
+    background: #F7F9FC;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+}
+.google-search h3 { font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px; }
+.google-search p { font-size: 13px; color: #4A5568; margin-bottom: 12px; }
 
 /* ----- 網站標頭 ----- */
 .site-header {
@@ -52,7 +234,6 @@ body {
     letter-spacing: 0.5px;
 }
 .logo:hover { color: rgba(255,255,255,0.85); }
-
 .nav-links {
     display: flex;
     gap: 20px;
@@ -60,24 +241,15 @@ body {
     align-items: center;
     flex-wrap: wrap;
 }
-.nav-links a {
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-}
-.nav-links a:hover {
-    color: white;
-    border-bottom: 2px solid #00A86B;
-}
+.nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; }
+.nav-links a:hover { color: white; border-bottom: 2px solid #00A86B; }
 .nav-links .game-link {
     background: rgba(255,255,255,0.15);
     padding: 4px 14px;
     border-radius: 20px;
     font-weight: 500;
 }
-.nav-links .game-link:hover {
-    background: rgba(255,255,255,0.25);
-    border-bottom: none;
-}
+.nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
 
 /* ----- 文章標題與中繼資訊 ----- */
 .post-category {
@@ -89,19 +261,10 @@ body {
     font-size: 13px;
     font-weight: 600;
 }
-.meta-info {
-    font-size: 14px;
-    color: #718096;
-    margin: 8px 0 16px 0;
-}
+.meta-info { font-size: 14px; color: #718096; margin: 8px 0 16px 0; }
 
 /* ----- 文章內容 ----- */
-h1 {
-    font-size: 2.2em;
-    color: #1A202C;
-    margin: 20px 0 16px 0;
-    line-height: 1.3;
-}
+h1 { font-size: 2.2em; color: #1A202C; margin: 20px 0 16px 0; line-height: 1.3; }
 h2 {
     font-size: 1.6em;
     color: #005A9C;
@@ -109,37 +272,16 @@ h2 {
     border-left: 4px solid #00A86B;
     padding-left: 16px;
 }
-h3 {
-    font-size: 1.3em;
-    color: #2D3748;
-    margin: 20px 0 10px 0;
-}
-p {
-    margin-bottom: 16px;
-    line-height: 1.8;
-}
-ul, ol {
-    margin: 12px 0 16px 24px;
-}
-li {
-    margin-bottom: 6px;
-}
-a {
-    color: #005A9C;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
+h3 { font-size: 1.3em; color: #2D3748; margin: 20px 0 10px 0; }
+p { margin-bottom: 16px; line-height: 1.8; }
+ul, ol { margin: 12px 0 16px 24px; }
+li { margin-bottom: 6px; }
+a { color: #005A9C; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 /* ----- 圖片 ----- */
-img {
-    max-width: 100%;
-    height: auto;
-}
-.article-image {
-    margin: 24px 0;
-}
+img { max-width: 100%; height: auto; }
+.article-image { margin: 24px 0; }
 .youtube-embed {
     margin: 20px 0;
     position: relative;
@@ -172,18 +314,9 @@ img {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
 }
-.related-articles ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-.related-articles ul li {
-    margin-bottom: 10px;
-}
-.related-articles ul li a {
-    color: #0056b3;
-    text-decoration: none;
-}
+.related-articles ul { list-style: none; padding-left: 0; margin: 0; }
+.related-articles ul li { margin-bottom: 10px; }
+.related-articles ul li a { color: #0056b3; text-decoration: none; }
 
 .giscus-wrapper {
     max-width: 800px;
@@ -231,10 +364,7 @@ img {
     font-size: 13px;
     transition: color 0.2s ease, text-decoration 0.2s ease;
 }
-.footer-links a:hover {
-    color: #FFFFFF;
-    text-decoration: underline;
-}
+.footer-links a:hover { color: #FFFFFF; text-decoration: underline; }
 
 /* ----- 返回頂部 ----- */
 #back-to-top {
@@ -254,65 +384,12 @@ img {
     opacity: 0.7;
     z-index: 999;
 }
-#back-to-top:hover {
-    opacity: 1;
-    transform: scale(1.05);
-    background: #003d66;
-}
+#back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
 
-/* ----- 文章列表（首頁用） ----- */
-#article-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 32px 0;
-}
-#article-list li {
-    background: white;
-    padding: 14px 18px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid #E2E8F0;
-    transition: all 0.2s;
-}
-#article-list li:hover {
-    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
-    border-color: #00A86B;
-}
-#article-list li .category {
-    background: #005A9C;
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 2px 12px;
-    border-radius: 20px;
-    white-space: nowrap;
-}
-#article-list li a {
-    flex: 1;
-    color: #1A202C;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-}
-#article-list li a:hover { color: #005A9C; }
-#article-list li .post-date {
-    font-size: 12px;
-    color: #718096;
-    white-space: nowrap;
-}
-
-/* ----- 響應式 ----- */
+/* ----- 響應式微調 ----- */
 @media (max-width: 768px) {
     .header-inner { flex-direction: column; align-items: center; }
     .nav-links { justify-content: center; gap: 12px; }
-    #article-list li { flex-wrap: wrap; padding: 12px 14px; }
-    #article-list li a { font-size: 14px; }
-}
-@media (max-width: 480px) {
     body { padding: 12px; }
     .content-card { padding: 16px 14px; }
     h1 { font-size: 1.6em; }

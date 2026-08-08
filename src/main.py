@@ -82,6 +82,12 @@ keywords_list = [
 
     {"keyword": "雨夜花 Lo-fi 抒情 改編 台羅拼音 解析", "category": "🎵 音樂創作", "filename": "music/rainy-night-flower-lo-fi-cover.html", "content_type": "song", "video_id": "HF8jjeL9UFc"},
 
+    {"keyword": "家用 NAS 相片自動備份與家庭共享實戰：擺脫 iCloud 訂閱制的完整配置指南", "category": "🏠 生活小常識", "filename": "lifestyle/nas-home-photo-backup-setup.html"},
+    {"keyword": "Suno AI 生成台語歌曲完整指南：韻腳對齊、台羅拼音輸入技巧與風格 Prompt 實務", "category": "🎵 音樂創作", "filename": "music/suno-ai-taiwanese-song-prompt-guide.html"},
+
+    {"keyword": "2026 Home Assistant 跨品牌智慧家庭整合實戰：Aqara、HomeKit 與 Matter 協定全屋自動化避坑指南", "category": "🏠 生活小常識", "filename": "lifestyle/home-assistant-aqara-matter-setup.html"},
+    {"keyword": "Suno / Udio 生成音樂後製拆軌指南：利用 Ultimate Vocal Remover 進行 Stems 獨立軌混音與 Mastering 實務", "category": "🎵 音樂創作", "filename": "music/ai-music-stems-separation-daw-mixing-guide.html"},
+
 ]
 
 

@@ -1,10 +1,10 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v6.7
+# html_builder.py - HTML 建構模組 v6.8
 # ============================================================
-# 修復 (v6.7)：
-#   - 🔧 統一 Giscus 留言系統樣式（與遊戲頁面一致）
-#   - 🔧 修復 Giscus 重複載入問題
-#   - 🔧 確保留言區塊在所有文章頁面正常顯示
+# 修復 (v6.8)：
+#   - 🔧 強制插入 Giscus 留言系統，消除條件式載入漏洞
+#   - 🔧 先清除舊區塊再統一插入至 </body> 前
+#   - 🔧 確保所有文章頁面 Giscus 100% 顯示
 # ============================================================
 
 import hashlib
@@ -743,21 +743,17 @@ def extract_category_from_content(html_content):
 
 
 # ============================================================
-# 文章 HTML 增強（核心功能 + Giscus + 統一 CSS + Schema）
+# 🆕 文章 HTML 增強（核心功能 + Giscus + 統一 CSS + Schema）
 # ============================================================
 
 def enhance_article_html(html_content, keyword=None, category=None, video_id=None):
     """
     增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦、統一CSS、黃金Header、Giscus留言、Schema.org
 
-    🆕 v6.6 修復 UnboundLocalError：
-        - 將 title_match 操作完整包覆在 else 區塊內
-        - 確保 keyword 存在時 title 直接使用 keyword.strip()
-        - 避免 title_match 在未定義時被引用
-
-    🆕 v6.7 修復 Giscus：
-        - 統一 Giscus 留言區塊樣式（與遊戲頁面一致）
-        - 確保留言區塊正常顯示
+    🆕 v6.8 修復 Giscus 顯示問題：
+        - 強制在 </body> 前插入 Giscus 留言區塊
+        - 先清除舊區塊再統一插入，確保唯一性
+        - 無論文章內容如何，Giscus 皆會顯示
     """
     if not html_content:
         return html_content
@@ -790,12 +786,9 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
     # ============================================================
     # 1. 提取標題與分類（優先使用傳入參數）
     # ============================================================
-    # 🆕 如果傳入了 keyword，直接使用，完全跳過正則提取
-    # 🆕 這徹底解決了 UnboundLocalError：title_match 只在 else 分支內定義和使用
     if keyword and len(keyword.strip()) > 0:
         title = keyword.strip()
     else:
-        # 只有在沒有 keyword 時才執行正則提取
         title_match = re.search(r'<h1[^>]*>(.*?)</h1>', html_content, re.IGNORECASE | re.DOTALL)
         if title_match:
             raw_title = title_match.group(1).strip()
@@ -806,7 +799,6 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
         else:
             title = "文章標題"
 
-    # 🆕 分類優先保護
     if category:
         final_category = category
     else:
@@ -842,28 +834,21 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
         print("   ✅ 已強制加入品牌標示（可點擊回首頁）")
 
     # ============================================================
-    # 5. 確保頁尾元件完整
+    # 5. 🆕 v6.8：強制加入相關文章推薦 + Giscus + 返回首頁 + 返回頂部
     # ============================================================
-    if '相關文章推薦' not in html_content:
-        html_content = html_content.replace(
-            '</body>',
-            RELATED_ARTICLES_BLOCK + '\n' + GISCUS_COMMENT + '\n' + HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>'
-        )
-        print("   ✅ 已加入相關文章推薦區塊 + Giscus 留言 + 返回首頁 + 返回頂部按鈕")
-    else:
-        if 'giscus-wrapper' not in html_content:
-            html_content = html_content.replace(
-                RELATED_ARTICLES_BLOCK,
-                RELATED_ARTICLES_BLOCK + '\n' + GISCUS_COMMENT
-            )
-            print("   ✅ 已加入 Giscus 留言區塊（在相關文章之後）")
+    # 先清理現有的重複區塊（避免二次處理造成重複）
+    html_content = re.sub(r'<div class="related-articles".*?</div>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
+    html_content = re.sub(r'<div class="giscus-wrapper".*?</div>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
+    html_content = re.sub(r'<script src="https://giscus.app/client.js".*?</script>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
 
-        if '返回首頁' not in html_content:
-            html_content = html_content.replace('</body>', HOME_LINK + '\n' + BACK_TO_TOP + '\n</body>')
-            print("   ✅ 已加入返回首頁連結")
-        elif 'back-to-top' not in html_content:
-            html_content = html_content.replace('</body>', BACK_TO_TOP + '\n</body>')
-            print("   ✅ 已加入返回頂部按鈕")
+    footer_components = RELATED_ARTICLES_BLOCK + '\n' + GISCUS_COMMENT + '\n' + HOME_LINK + '\n' + BACK_TO_TOP
+
+    if '</body>' in html_content:
+        html_content = html_content.replace('</body>', footer_components + '\n</body>')
+        print("   ✅ [v6.8] 已強制插入 Giscus 留言板與頁尾元件")
+    else:
+        html_content = html_content + '\n' + footer_components
+        print("   ✅ [v6.8] 已強制插入頁尾元件（無 </body> 標籤）")
 
     # ============================================================
     # 6. 確保 AdSense 程式碼存在

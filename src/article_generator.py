@@ -1,7 +1,10 @@
 ﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v8.3
+# article_generator.py - 文章生成核心模組 v8.4
 # ============================================================
-# 修復與優化 (v8.3)：
+# 修復與優化 (v8.4)：
+#   - 🔧 新增 _normalize_tables 函數，自動修正 AI 輸出的無效表格結構
+#   - 🔧 消除 <p><table>、</table></p>、</p><table>、</table><p> 等變體
+#   - 🔧 確保輸出符合標準 HTML 表格結構
 #   - 🔧 強化 text_to_html 內容邊界偵測
 #   - 🔧 自動過濾 CSS 程式碼區塊
 #   - 🔧 優先使用 AI 生成的標題
@@ -116,7 +119,36 @@ def clean_raw_html(raw_html):
 
 
 # ============================================================
-# 核心函數：將純文字轉換為完整 HTML (v8.3 強化版)
+# 🆕 表格結構標準化函數
+# ============================================================
+
+def _normalize_tables(html_content):
+    """
+    修正 AI 輸出的無效表格結構
+    將 <p><table>...</table></p> 轉換為標準 <table>...</table>
+    支援多種變體：
+        - <p><table> → <table>
+        - </table></p> → </table>
+        - </p><table> → <table>
+        - </table><p> → </table>
+    """
+    if not html_content:
+        return html_content
+
+    # 修正 <p><table> 開頭
+    html_content = re.sub(r'<p>\s*<table', '<table', html_content, flags=re.IGNORECASE)
+    # 修正 </table></p> 結尾
+    html_content = re.sub(r'</table>\s*</p>', '</table>', html_content, flags=re.IGNORECASE)
+    # 修正 </p><table 中間的無效段落
+    html_content = re.sub(r'</p>\s*<table', '<table', html_content, flags=re.IGNORECASE)
+    # 修正 </table><p> 後續無效段落
+    html_content = re.sub(r'</table>\s*<p>', '</table>', html_content, flags=re.IGNORECASE)
+
+    return html_content
+
+
+# ============================================================
+# 核心函數：將純文字轉換為完整 HTML (v8.4 強化版)
 # ============================================================
 
 def text_to_html(content, keyword, category):
@@ -129,6 +161,7 @@ def text_to_html(content, keyword, category):
     🆕 強化清單識別：支援純文字編號清單
     🆕 清理標題中的 HTML 標籤殘留
     🆕 防止 CSS 選擇器被誤判為 H2 標題
+    🆕 v8.4：返回前自動標準化表格結構
     """
     if not content:
         return None
@@ -511,6 +544,8 @@ def text_to_html(content, keyword, category):
 </body>
 </html>'''
 
+    # 🆕 v8.4：標準化表格結構（修正 AI 輸出的無效表格）
+    full_html = _normalize_tables(full_html)
     return full_html
 
 
@@ -801,7 +836,7 @@ def get_pending_articles(keywords_list):
 
 if __name__ == "__main__":
     print("\n" + "=" * 50)
-    print("  🧪 article_generator.py v8.3 測試")
+    print("  🧪 article_generator.py v8.4 測試")
     print("=" * 50 + "\n")
 
     # 測試 1：Chat API
@@ -809,7 +844,7 @@ if __name__ == "__main__":
     test_item_1 = {
         "keyword": "2026 年 AI 趨勢簡介",
         "category": "🤖 AI 趨勢",
-        "filename": "test/test-chat-api-v83.html",
+        "filename": "test/test-chat-api-v84.html",
         "use_responses_api": False
     }
     generate_article(test_item_1)
@@ -819,7 +854,7 @@ if __name__ == "__main__":
     test_item_2 = {
         "keyword": "2026 年 AI 趨勢深度分析（含思維鏈）",
         "category": "🤖 AI 趨勢",
-        "filename": "test/test-responses-reasoning-v83.html",
+        "filename": "test/test-responses-reasoning-v84.html",
         "use_responses_api": True,
         "enable_reasoning": True,
         "enable_search": False

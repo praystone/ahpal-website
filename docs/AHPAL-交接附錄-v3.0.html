@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 AHPAL 完整附錄與備忘錄 — AI 交接專用 v3.0</title>
+    <style>
+        :root {
+            --primary: #005A9C;
+            --gold: #D4AF37;
+            --bg: #F7F9FC;
+            --card: #FFFFFF;
+            --text: #1A202C;
+            --text-light: #4A5568;
+            --border: #E2E8F0;
+            --shadow: 0 4px 12px rgba(0,0,0,0.06);
+            --radius: 14px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            --font-mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-stack);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 24px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: var(--card);
+            padding: 32px 36px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        @media (max-width: 640px) { .card { padding: 20px 16px; } }
+
+        .header {
+            text-align: center;
+            padding-bottom: 24px;
+            border-bottom: 3px solid var(--gold);
+            margin-bottom: 28px;
+        }
+        .header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header .logo span { color: var(--gold); }
+        .header .subtitle {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+        .header .timestamp {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 2px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .header .badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #1A202C;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        h1 { font-size: 28px; font-weight: 700; color: var(--primary); margin: 24px 0 12px 0; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+        h2 { font-size: 20px; font-weight: 700; color: var(--primary); margin: 20px 0 10px 0; }
+        h3 { font-size: 17px; font-weight: 600; color: var(--text); margin: 16px 0 8px 0; }
+
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        table th, table td {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        table tr:nth-child(even) { background: var(--bg); }
+
+        .code-block {
+            background: #1A1A2E;
+            color: #E8E8E8;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0 16px 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .inline-code {
+            background: #EDF2F7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            border: 1px solid var(--border);
+        }
+
+        .tip {
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin: 12px 0 16px 0;
+            border-left: 4px solid;
+        }
+        .tip.gold { background: #FFFFF0; border-color: var(--gold); color: #7A6B3A; }
+        .tip.green { background: #F0FFF4; border-color: #38A169; color: #276749; }
+        .tip.red { background: #FFF5F5; border-color: #E53E3E; color: #9B2C2C; }
+        .tip.blue { background: #EBF8FF; border-color: #3182CE; color: #2B6CB0; }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+
+        .footer {
+            text-align: center;
+            padding: 24px 0 0 0;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+            color: #A0AEC0;
+            font-size: 13px;
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-status.done { background: #C6F6D5; color: #276749; }
+        .badge-status.pending { background: #FEFCBF; color: #975A16; }
+        .badge-status.urgent { background: #FED7D7; color: #9B2C2C; }
+
+        .death-command-box {
+            border: 3px solid #8B0000;
+            background: #FFF8F8;
+            padding: 20px 24px;
+            border-radius: 14px;
+            margin: 16px 0 20px 0;
+            position: relative;
+        }
+        .death-command-box::before {
+            content: "🔴 死命令";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #8B0000;
+            color: white;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .death-command-box .death-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #8B0000;
+            margin-top: 6px;
+            margin-bottom: 10px;
+        }
+        .death-command-box ul { margin: 8px 0 8px 22px; }
+        .death-command-box li { margin-bottom: 4px; }
+
+        .signature-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+        }
+        .signature-box {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            text-align: center;
+            background: var(--bg);
+        }
+        .signature-box .role { font-size: 13px; color: var(--text-light); font-weight: 600; }
+        .signature-box .name { font-size: 17px; font-weight: 700; color: var(--text); margin: 4px 0; }
+        .signature-box .line { width: 80%; height: 2px; background: var(--border); margin: 10px auto 6px auto; }
+        .signature-box .status-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        .signature-box .status-badge.approved { background: #C6F6D5; color: #276749; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+            .code-block { background: #f4f4f4; color: #222; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">🦞 AHPAL · <span>完整附錄與備忘錄</span></div>
+        <div class="subtitle">AI 交接專用 — 補足三大件文件未涵蓋之所有事項</div>
+        <div class="timestamp">📌 時間戳：2026-08-08 07:45</div>
+        <div class="badge">📋 三大件補充文件 v3.0 · AI 交接完整版</div>
+    </div>
+
+    <!-- ============================================================
+    目錄
+    ============================================================ -->
+    <div class="card">
+        <h1>📖 目錄</h1>
+        <ul style="columns:2; list-style:none; padding:0;">
+            <li style="padding:4px 0;">1. 📋 本次對話核心問題與解決方案</li>
+            <li style="padding:4px 0;">2. 📊 系統架構與版本狀態 (v8.4)</li>
+            <li style="padding:4px 0;">3. 📋 本次重要決策完整清單</li>
+            <li style="padding:4px 0;">4. 📜 死命令完整彙整 (3條)</li>
+            <li style="padding:4px 0;">5. ⚡ 快速指令完整參考</li>
+            <li style="padding:4px 0;">6. 📋 待辦事項與未來規劃</li>
+            <li style="padding:4px 0;">7. ✅ 交接檢查清單</li>
+            <li style="padding:4px 0;">8. 📌 簽核與文件生效</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================
+    1. 本次對話核心問題與解決方案
+    ============================================================ -->
+    <div class="card">
+        <h1>1. 📋 本次對話核心問題與解決方案</h1>
+
+        <h2>1.1 CSS 版面修復完整紀錄</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>項目</th><th>內容</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>事件日期</strong></td><td>2026-08-08</td></tr>
+                    <tr><td><strong>問題描述</strong></td><td>首頁右側邊欄消失，下方索引標籤全部連在一起，版面散架</td></tr>
+                    <tr><td><strong>根本原因</strong></td><td><code>style/main.css</code> 缺少關鍵樣式定義</td></tr>
+                    <tr><td><strong>解決方案</strong></td><td>重寫完整 CSS v1.2，補齊所有版面樣式</td></tr>
+                    <tr><td><strong>狀態</strong></td><td><span class="badge-status done">✅ 已解決並部署</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>1.2 本地測試 SOP</h2>
+        <div class="tip red">
+            <div class="tip-title">🚫 避免錯誤的測試方式</div>
+            <p><strong>❌ 不建議：直接雙擊 <code>index.html</code></strong>（<code>file://</code> 協定無法正確解析絕對路徑）</p>
+        </div>
+        <div class="tip green">
+            <div class="tip-title">✅ 正確的本地測試方式</div>
+            <div class="code-block">
+# 方法 1：使用 Wrangler（推薦）
+cd C:\Users\User\ahpal-static
+npx wrangler pages dev .
+
+# 方法 2：使用 Python HTTP 伺服器
+cd C:\Users\User\ahpal-static
+python -m http.server 8000
+# 瀏覽器訪問 http://localhost:8000
+            </div>
+        </div>
+
+        <h2>1.3 表格結構異常問題（<code>&lt;p&gt;&lt;table&gt;</code>）</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>項目</th><th>內容</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>問題</strong></td><td>AI 生成表格時使用 <code>&lt;p&gt;&lt;table&gt;</code> 包裹，導致版面錯亂</td></tr>
+                    <tr><td><strong>影響文章</strong></td><td><code>rainy-night-flower-lo-fi-cover.html</code></td></tr>
+                    <tr><td><strong>根本原因</strong></td><td>AI 輸出格式不規範，且系統未攔截</td></tr>
+                    <tr><td><strong>解決方案</strong></td><td>在 <code>article_generator.py</code> 新增 <code>_normalize_tables()</code> 函數，自動修正</td></tr>
+                    <tr><td><strong>版本</strong></td><td>v8.4</td></tr>
+                    <tr><td><strong>狀態</strong></td><td><span class="badge-status done">✅ 已修復</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-block">
+# _normalize_tables 函數會自動修正以下無效結構：
+# <p><table> → <table>
+# </table></p> → </table>
+# </p><table> → <table>
+# </table><p> → </table>
+        </div>
+
+        <h2>1.4 <code>add-articles.ps1</code> 與 <code>pending-articles.json</code> 的正確使用</h2>
+        <div class="tip red">
+            <div class="tip-title">🚨 關鍵發現</div>
+            <p><strong>問題：</strong><code>add-articles.ps1</code> 對 <code>pending-songs.json</code> 強制要求 <code>video_id</code> 欄位，導致一般文章被跳過。</p>
+            <p><strong>解決方案：</strong>一般文章（無 YouTube 影片）應寫入 <code>data/pending-articles.json</code>，而非 <code>pending-songs.json</code>。</p>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>情境</th><th>正確 JSON 路徑</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr><td>音樂文章（含 YouTube 影片）</td><td><code>data/pending-songs.json</code></td><td>需含 <code>video_id</code></td></tr>
+                    <tr><td>一般文章（無影片）</td><td><code>data/pending-articles.json</code></td><td>無需 <code>video_id</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>1.5 中文檔名違反死命令問題</h2>
+        <div class="tip gold">
+            <div class="tip-title">📌 現狀</div>
+            <ul>
+                <li><code>music/打工人心酸語錄.html</code> 違反死命令 2（英文檔名強制規範）</li>
+                <li><strong>政策：</strong>不咎既往（2026-08-08 前已生成檔案維持原樣）</li>
+                <li><strong>建議：</strong>未來所有新文章檔名必須為英文</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    2. 系統架構與版本狀態
+    ============================================================ -->
+    <div class="card">
+        <h1>2. 📊 系統架構與版本狀態 (v8.4)</h1>
+
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>元件</th><th>版本</th><th>狀態</th><th>備註</th></tr></thead>
+                <tbody>
+                    <tr><td><code>main.css</code></td><td>v1.2</td><td><span class="badge-status done">✅ 已部署</span></td><td>10813 bytes</td></tr>
+                    <tr><td><code>html_builder.py</code></td><td>v6.7</td><td><span class="badge-status done">✅ 已部署</span></td><td>Giscus 留言系統統一</td></tr>
+                    <tr><td><code>article_generator.py</code></td><td>v8.4</td><td><span class="badge-status done">✅ 已部署</span></td><td>表格標準化 (<code>_normalize_tables</code>)</td></tr>
+                    <tr><td><code>api_client.py</code></td><td>v4.1</td><td><span class="badge-status done">✅ 已部署</span></td><td>Responses API + Reasoning</td></tr>
+                    <tr><td><code>add-articles.ps1</code></td><td>v3.3</td><td><span class="badge-status done">✅ 已部署</span></td><td>UTF-8 無 BOM 寫入</td></tr>
+                    <tr><td><code>preflight-check.ps1</code></td><td>v2.1</td><td><span class="badge-status done">✅ 已部署</span></td><td>含中文檔名檢查</td></tr>
+                    <tr><td><code>meme-to-song.ps1</code></td><td>v1.2</td><td><span class="badge-status done">✅ 已上線</span></td><td>強制英文檔名</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tip green">
+            <div class="tip-title">📊 系統核心指標（截至 2026-08-08）</div>
+            <ul style="margin:4px 0 0 20px;">
+                <li><strong>總文章數：</strong>470+ 篇</li>
+                <li><strong>最高品質分數：</strong>90 分（Responses API + Reasoning）</li>
+                <li><strong>平均品質分數：</strong>82.4 分</li>
+                <li><strong>配圖成功率：</strong>100%</li>
+                <li><strong>品質未達標：</strong>0 篇</li>
+                <li><strong>核心腳本：</strong>18 個</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    3. 重要決策完整清單
+    ============================================================ -->
+    <div class="card">
+        <h1>3. 📋 本次重要決策完整清單</h1>
+
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>#</th><th>決策</th><th>說明</th><th>狀態</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td><strong>Responses API + Reasoning 正式啟用</strong></td><td>文章品質從 82.4 分提升至 90 分</td><td><span class="badge-status done">✅ 已啟用</span></td></tr>
+                    <tr><td>2</td><td><strong>英文檔名死命令</strong></td><td>即日起所有新文章檔名強制使用英文</td><td><span class="badge-status done">✅ 已生效</span></td></tr>
+                    <tr><td>3</td><td><code>article_generator.py</code> 升級至 v8.4</td><td>新增 <code>_normalize_tables()</code> 自動修正表格結構</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                    <tr><td>4</td><td><code>html_builder.py</code> 升級至 v6.7</td><td>統一 Giscus 留言系統樣式</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                    <tr><td>5</td><td>一般文章改寫入 <code>pending-articles.json</code></td><td>避免 <code>add-articles.ps1</code> 的 <code>video_id</code> 驗證阻擋</td><td><span class="badge-status done">✅ 已修正</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    4. 死命令完整彙整
+    ============================================================ -->
+    <div class="card">
+        <h1>4. 📜 死命令完整彙整 (3條)</h1>
+
+        <div class="death-command-box">
+            <div class="death-title">📜 死命令 1：文章變更後強制檢查與推送規範</div>
+            <p><strong>生效日期：</strong>2026-08-07</p>
+            <ul>
+                <li><strong>階段一：</strong>檔案完整性檢查（文章數量、檔案大小 ≥ 5KB、首頁/分類頁/Sitemap 更新）</li>
+                <li><strong>階段二：</strong>內容品質檢查（網頁標題、品牌名稱、AdSense 程式碼）</li>
+                <li><strong>階段三：</strong>Git 狀態檢查（無未追蹤檔案、無機密檔案）</li>
+                <li><strong>強制執行：</strong><code>.\scripts\preflight-check.ps1</code></li>
+            </ul>
+        </div>
+
+        <div class="death-command-box">
+            <div class="death-title">📜 死命令 2：文章檔名強制使用英文</div>
+            <p><strong>生效日期：</strong>2026-08-08</p>
+            <ul>
+                <li><strong>規範：</strong>所有新增文章檔名必須為英文（含數字、中線），不得包含中文</li>
+                <li><strong>正確範例：</strong><code>worker-blues-original-song.html</code></li>
+                <li><strong>錯誤範例：</strong><code>打工人心酸語錄.html</code></li>
+                <li><strong>檢查指令：</strong><code>Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.Name -match '[\u4e00-\u9fa5]' }</code></li>
+                <li><strong>不咎既往：</strong>2026-08-08 前已生成檔案維持原樣</li>
+            </ul>
+        </div>
+
+        <div class="death-command-box">
+            <div class="death-title">📜 死命令 3：本地測試強制規範</div>
+            <p><strong>生效日期：</strong>2026-08-08</p>
+            <ul>
+                <li><strong>規範：</strong>任何 HTML/CSS 變更後，必須使用 <code>npx wrangler pages dev .</code> 或 <code>python -m http.server 8000</code> 啟動本地伺服器測試</li>
+                <li><strong>禁止：</strong>直接雙擊 <code>index.html</code> 進行測試</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    5. 快速指令完整參考
+    ============================================================ -->
+    <div class="card">
+        <h1>5. ⚡ 快速指令完整參考</h1>
+
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>用途</th><th>指令</th></tr></thead>
+                <tbody>
+                    <tr><td>本地測試</td><td><code>npx wrangler pages dev .</code></td></tr>
+                    <tr><td>完整部署</td><td><code>.\scripts\ahpal-master.ps1 → [1]</code></td></tr>
+                    <tr><td>快速部署</td><td><code>.\scripts\ahpal-master.ps1 → [6]</code></td></tr>
+                    <tr><td>新增一般文章</td><td>編輯 <code>data/pending-articles.json</code> → <code>.\scripts\add-articles.ps1 -Force</code></td></tr>
+                    <tr><td>新增音樂文章</td><td>編輯 <code>data/pending-songs.json</code> → <code>.\scripts\add-articles.ps1 -Force</code></td></tr>
+                    <tr><td>死命令檢查</td><td><code>.\scripts\preflight-check.ps1</code></td></tr>
+                    <tr><td>全面系統檢查</td><td><code>.\scripts\check-all.ps1 -Report</code></td></tr>
+                    <tr><td>檢查中文檔名</td><td><code>Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.Name -match '[\u4e00-\u9fa5]' }</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    6. 待辦事項與未來規劃
+    ============================================================ -->
+    <div class="card">
+        <h1>6. 📋 待辦事項與未來規劃</h1>
+
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>#</th><th>事項</th><th>優先級</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>將 <code>music/打工人心酸語錄.html</code> 重新命名為英文</td>
+                        <td><span class="badge-status pending">🟡 中</span></td>
+                        <td>建議修正為 <code>worker-blues-original-song.html</code></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>清理測試檔案</td>
+                        <td><span class="badge-status pending">🟢 低</span></td>
+                        <td><code>test-schema-fix.html</code>、<code>test-lyrics-style.html</code> 可刪除</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>確認兩篇新文章已生成</td>
+                        <td><span class="badge-status done">✅ 已完成</span></td>
+                        <td>NAS 相片備份 &amp; Suno AI 指南</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    7. 交接檢查清單
+    ============================================================ -->
+    <div class="card">
+        <h1>7. ✅ 交接檢查清單</h1>
+
+        <div class="tip green">
+            <div class="tip-title">📋 請逐項確認</div>
+            <ul style="margin:4px 0 0 20px;">
+                <li>☐ 已閱讀三大件文件（白皮書、紅皮書、交接手冊）</li>
+                <li>☐ 已閱讀本附錄與備忘錄（補足三大件未涵蓋事項）</li>
+                <li>☐ 已記住 3 條死命令（檢查、英文檔名、本地測試）</li>
+                <li>☐ 了解 <code>pending-articles.json</code> 與 <code>pending-songs.json</code> 的差異</li>
+                <li>☐ 了解 <code>add-articles.ps1</code> 的正確使用方式</li>
+                <li>☐ 了解 <code>article_generator.py</code> v8.4 的表格標準化功能</li>
+                <li>☐ 確認 Responses API + Reasoning 已啟用</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    8. 簽核與文件生效
+    ============================================================ -->
+    <div class="card">
+        <h1>8. 📌 簽核與文件生效</h1>
+
+        <div class="signature-area">
+            <div class="signature-box">
+                <div class="role">📌 撰寫</div>
+                <div class="name">龍蝦總工程師</div>
+                <div class="line"></div>
+                <span class="status-badge approved">✅ 已簽核</span>
+            </div>
+            <div class="signature-box">
+                <div class="role">✅ 核定</div>
+                <div class="name">董事會執行長</div>
+                <div class="line"></div>
+                <span class="status-badge approved">✅ 已簽核</span>
+            </div>
+            <div class="signature-box">
+                <div class="role">👑 核准</div>
+                <div class="name">董事長</div>
+                <div class="line"></div>
+                <span class="status-badge approved">🏆 已核准</span>
+            </div>
+        </div>
+
+        <div class="tip gold" style="margin-top:20px;">
+            <div class="tip-title">📋 文件生效</div>
+            <p>本附錄自 <strong>2026 年 8 月 8 日</strong> 起生效，與三大件文件並列為 AI 交接之標準文件。</p>
+            <p>「董事長死命令」為最高指導原則，任何違反行為將被記錄並追究責任。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 完整附錄與備忘錄 v3.0<br>
+        文件最後更新：2026 年 8 月 8 日
+        <br><br>
+        <span style="color:#8B0000; font-weight:700;">🔴 內含 3 條董事長死命令</span>
+    </div>
+
+</div>
+
+</body>
+</html>

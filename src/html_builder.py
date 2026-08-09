@@ -1,12 +1,14 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v7.1
+# html_builder.py - HTML 建構模組 v7.2
 # ============================================================
-# 修復 (v7.1)：
+# 修復 (v7.2)：
 #   - 🔧 恢復 v6.2 完整首頁功能 (品牌介紹、分類索引、熱門文章)
-#   - 🔧 修正文章列表數量限制 (從 30 擴展為 100)
+#   - 🔧 修正文章列表數量限制 (從 100 恢復為 30，與 v6.2 一致)
 #   - 🔧 修正文章總數統計錯誤 (實際掃描目錄)
 #   - 🔧 保留 v7.0 CSS 靜態資產保護機制
 #   - 🔧 保留 Giscus 留言系統整合
+#   - 🔧 恢復「全部分類索引」區塊 (每個分類顯示 15 篇)
+#   - 🔧 恢復「熱門文章」區塊 (5 篇)
 # ============================================================
 
 import hashlib
@@ -1061,11 +1063,11 @@ def build_article_html(keyword, category, raw_html, video_id=None):
 
 
 # ============================================================
-# 🆕 建構首頁（v7.1 — 完整版本）
+# 🆕 建構首頁（v7.2 — 完整版本，包含全部分類索引 + 熱門文章）
 # ============================================================
 
 def create_default_index():
-    """建立完整功能的首頁 index.html（完整版 — 含品牌介紹、分類索引）"""
+    """建立完整功能的首頁 index.html（完整版 — 含品牌介紹、分類索引、熱門文章）"""
     print("📄 建立全新首頁 index.html...")
 
     # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
@@ -1149,7 +1151,7 @@ def create_default_index():
                     })
 
     all_articles.sort(key=lambda x: x["mtime"], reverse=True)
-    latest_articles = all_articles[:100]  # 顯示最新 100 篇
+    latest_articles = all_articles[:31]  # 與 v6.2 一致，約 31 篇
 
     category_articles = {}
     for cat_dir in category_dirs.keys():
@@ -1163,7 +1165,7 @@ def create_default_index():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雅寶社區 · 頂客論壇 | AHPAL.COM</title>
-    <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 400 篇精選文章。">
+    <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 200 篇精選文章。">
     <meta name="keywords" content="科技教學,遊戲攻略,生活小常識,軟體評測,人生哲理,AI趨勢,音樂創作">
     {ADSENSE_CODE}
     {GA4_CODE}
@@ -1217,6 +1219,26 @@ def create_default_index():
 '''
 
     index_html += f'''                    </ul>
+
+                    <div class="index-section">
+                        <h2 class="section-title">📖 全部分類索引 <small>共 {total_count} 篇文章</small></h2>
+'''
+
+    for cat_dir, cat_name in category_dirs.items():
+        cat_articles = category_articles.get(cat_dir, [])[:20]
+        index_html += f'''
+                        <div class="cat-title">{cat_name} <span class="count">({article_counts.get(cat_dir, 0)}篇)</span></div>
+                        <div class="index-tag-grid" id="tag-{cat_dir}">
+'''
+        for article in cat_articles[:15]:
+            title = article['title'][:30] + '...' if len(article['title']) > 30 else article['title']
+            index_html += f'                            <a href="/{article["filename"]}" class="index-tag">{title}</a>\n'
+        if len(cat_articles) > 15:
+            index_html += f'                            <span class="index-tag" style="background:#e2e8f0;color:#4a5568;">+{len(cat_articles)-15} 篇</span>\n'
+        index_html += '                        </div>\n'
+
+    index_html += f'''                    </div>
+
                     <p style="text-align:center; margin-top:20px;"><a href="/categories.html" style="color:#005A9C; font-weight:500;">📚 查看全部分類</a></p>
                 </div>
                 {GOOGLE_CSE}
@@ -1225,29 +1247,25 @@ def create_default_index():
 
         <div class="sidebar">
             <div class="widget">
-                <h3>📂 全部分類</h3>
-                <div class="category-grid" style="grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));">
-'''
-
-    for cat_dir, cat_name in category_dirs.items():
-        count = article_counts.get(cat_dir, 0)
-        icon = cat_name.split()[0] if cat_name else "📁"
-        index_html += f'''                    <a href="/category-{cat_dir}.html" class="category-card" style="padding:12px 8px;">
-                        <span class="icon" style="font-size:22px;">{icon}</span>
-                        <span class="name" style="font-size:12px;">{cat_name}</span>
-                        <span class="count" style="font-size:10px;">{count} 篇</span>
-                    </a>
-'''
-
-    index_html += f'''                </div>
+                <h3>⚖️ 關於本站</h3>
+                <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。從歲月記憶到知識共創，我們相信：<strong>誠實守信，是文明社會永恆的基石。</strong></p>
+                <p style="margin-top:8px;"><a href="/about.html" style="color:#005A9C;font-weight:500;">📖 了解更多 →</a></p>
             </div>
 
             <div class="widget">
-                <h3>📊 本站統計</h3>
+                <h3>🎮 雅寶遊戲間</h3>
+                <p style="font-size:13px; margin-bottom:12px;">閱讀之餘，放鬆一下！免下載、即開即玩。</p>
+                <a href="/game/" style="display:inline-block; background:#005A9C; color:white; padding:8px 20px; border-radius:20px; text-decoration:none; font-size:14px; font-weight:500;">🎮 進入遊戲間</a>
+            </div>
+
+            <div class="widget">
+                <h3>🔥 熱門文章</h3>
                 <ul>
-                    <li>📝 文章總數：{total_count} 篇</li>
-                    <li>📂 分類數量：{len(category_dirs)} 類</li>
-                    <li>📅 更新日期：{CURRENT_DATE_STR}</li>
+                    <li><a href="/tech/best-gaming-laptops-2026.html">2026 年 5 款最強電競筆電推薦與評測</a></li>
+                    <li><a href="/game/best-indie-games-2026.html">2026 最夯 5 款獨立遊戲推薦</a></li>
+                    <li><a href="/life/smart-home-guide-2026.html">2026 年居家智慧裝置選購指南</a></li>
+                    <li><a href="/review/best-ai-presentation-tools-2026.html">2026 年 5 款最佳 AI 簡報生成工具評測</a></li>
+                    <li><a href="/trend/ai-agent-trends-2026.html">2026 年 AI 代理人趨勢全解析</a></li>
                 </ul>
             </div>
 
@@ -1263,6 +1281,8 @@ def create_default_index():
                     <a href="/category-music.html">🎵 音樂</a>
                     <a href="/game/">🎮 遊戲間</a>
                     <a href="/categories.html">📚 全部分類</a>
+                    <a href="/about.html">📖 關於我們</a>
+                    <a href="/contact.html">📧 聯絡我們</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 ﻿/* ============================================================
-   AHPAL 統一全域樣式表 v1.2 — 完整修復版
-   最後更新：2026-08-08
+   AHPAL 統一全域樣式表 v1.3 — 側邊欄完整修復版
+   最後更新：2026-08-09
    ============================================================ */
 
 /* ----- 全域設定 ----- */
@@ -12,7 +12,6 @@ body {
     color: #1A202C;
     line-height: 1.8;
     font-size: 16px;
-    padding: 20px;
 }
 
 /* ----- 主要佈局 (側邊欄) ----- */
@@ -29,6 +28,13 @@ body {
     .main-wrapper { grid-template-columns: 1fr; }
 }
 
+/* ----- 主要內容區域 ----- */
+.main-content {
+    min-width: 0;
+}
+
+/* ----- 容器與卡片 ----- */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 .content-card {
     background: #FFFFFF;
     padding: 36px 40px;
@@ -39,34 +45,80 @@ body {
 }
 @media (max-width: 640px) { .content-card { padding: 24px 18px; } }
 
-/* ----- 側邊欄 ----- */
+/* ============================================================
+   🆕 側邊欄 (完整修復)
+   ============================================================ */
 .sidebar {
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
+
 .widget {
-    background: white;
-    padding: 24px 20px;
+    background: #FFFFFF;
+    padding: 20px 22px;
     border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     border: 1px solid #E2E8F0;
 }
-.widget-title {
+
+.widget h3,
+.widget .widget-title {
     font-size: 16px;
     font-weight: 700;
-    color: #1A202C;
-    margin-bottom: 14px;
-    border-bottom: 2px solid #005A9C;
+    color: #005A9C;
+    margin-bottom: 12px;
     padding-bottom: 8px;
+    border-bottom: 2px solid #E2E8F0;
 }
-.widget p { font-size: 14px; color: #4A5568; line-height: 1.7; }
-.widget ul { list-style: none; padding: 0; margin: 0; }
-.widget ul li { margin-bottom: 6px; font-size: 14px; }
-.widget ul li a { color: #4A5568; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.widget ul li a:hover { color: #005A9C; }
-.tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag-cloud a {
+
+.widget p {
+    font-size: 14px;
+    color: #4A5568;
+    line-height: 1.7;
+}
+
+.widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.widget ul li {
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #F0F4F8;
+    font-size: 14px;
+}
+
+.widget ul li:last-child {
+    border-bottom: none;
+}
+
+.widget ul li a {
+    color: #2D3748;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.widget ul li a:hover {
+    color: #005A9C;
+    text-decoration: underline;
+}
+
+/* ----- 側邊欄內的分類標籤 (小尺寸) ----- */
+.widget .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.widget .tag-cloud a {
     background: #F7F9FC;
     padding: 4px 12px;
     border-radius: 20px;
@@ -74,18 +126,30 @@ body {
     color: #4A5568;
     text-decoration: none;
     border: 1px solid #E2E8F0;
+    transition: all 0.2s;
 }
-.tag-cloud a:hover { border-color: #00A86B; color: #1A202C; }
 
-/* ----- 分類網格 ----- */
+.widget .tag-cloud a:hover {
+    border-color: #00A86B;
+    color: #1A202C;
+}
+
+/* ============================================================
+   🆕 分類網格 (主內容區，非側邊欄)
+   ============================================================ */
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 14px;
-    margin: 28px 0 32px 0;
+    margin: 20px 0 28px 0;
 }
-@media (max-width: 768px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 480px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
+
+@media (max-width: 768px) {
+    .category-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 480px) {
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+}
 
 .category-card {
     display: block;
@@ -97,14 +161,31 @@ body {
     border: 1px solid #E2E8F0;
     transition: all 0.25s ease;
 }
+
 .category-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.10);
     border-color: #00A86B;
 }
-.category-card .emoji { font-size: 28px; display: block; margin-bottom: 4px; }
-.category-card .cat-name { font-size: 13px; font-weight: 600; color: #1A202C; }
-.category-card .cat-count { font-size: 11px; color: #718096; display: block; margin-top: 2px; }
+
+.category-card .icon {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.category-card .name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1A202C;
+}
+
+.category-card .count {
+    font-size: 11px;
+    color: #718096;
+    display: block;
+    margin-top: 2px;
+}
 
 /* ----- 索引標籤網格 ----- */
 .index-section { margin: 24px 0 8px 0; }
@@ -132,8 +213,6 @@ body {
     transition: all 0.2s;
 }
 .index-tag:hover { border-color: #00A86B; color: #1A202C; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.index-tag[style*="background:#e2e8f0"] { cursor: default; }
-.index-tag[style*="background:#e2e8f0"]:hover { transform: none; box-shadow: none; }
 
 /* ----- 遊戲入口卡片 ----- */
 .game-entry-card {

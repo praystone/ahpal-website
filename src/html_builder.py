@@ -1,12 +1,12 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v7.0
+# html_builder.py - HTML 建構模組 v7.1
 # ============================================================
-# 修復 (v7.0)：
-#   - 🔧 將 main.css 設為靜態資產，永久停用自動覆蓋
-#   - 🔧 generate_main_css() 加入保護機制 (僅在不存在時建立)
-#   - 🔧 移除所有自動覆蓋 CSS 的呼叫
-#   - 🔧 CSS 版本升級至 v1.2 (完整側邊欄支援)
-#   - 🔧 加入 CSS 完整性檢查 (≥ 10KB)
+# 修復 (v7.1)：
+#   - 🔧 恢復 v6.2 完整首頁功能 (品牌介紹、分類索引、熱門文章)
+#   - 🔧 修正文章列表數量限制 (從 30 擴展為 100)
+#   - 🔧 修正文章總數統計錯誤 (實際掃描目錄)
+#   - 🔧 保留 v7.0 CSS 靜態資產保護機制
+#   - 🔧 保留 Giscus 留言系統整合
 # ============================================================
 
 import hashlib
@@ -89,14 +89,11 @@ def generate_main_css():
         print(f"📌 或刪除後重新執行本函數以建立新檔案")
         return css_path
     
-    # 只有 CSS 不存在時才建立
+    # 只有 CSS 不存在時才建立 (內嵌完整 CSS)
     print(f"📄 建立 main.css (v{CSS_VERSION} 完整版)")
-    
-    # ============================================================
-    # 完整 v1.2 CSS 內容 (含側邊欄)
-    # ============================================================
     css_content = """/* ============================================================
-   AHPAL 統一全域樣式表 v1.2 (完整版 — 含側邊欄)
+   AHPAL 統一全域樣式表 v1.3 — 完整修復版
+   最後更新：2026-08-09
    ============================================================ */
 
 /* ----- 全域設定 ----- */
@@ -110,24 +107,18 @@ body {
     font-size: 16px;
 }
 
-/* ============================================================
-   🆕 主要版面 — 側邊欄 Grid 佈局 (關鍵修復)
-   ============================================================ */
+/* ----- 主要佈局 (側邊欄) ----- */
 .main-wrapper {
+    max-width: 1200px;
+    margin: 28px auto;
+    padding: 0 24px;
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    align-items: start;
 }
-
-@media (max-width: 768px) {
-    .main-wrapper {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 12px;
-    }
+@media (max-width: 992px) {
+    .main-wrapper { grid-template-columns: 1fr; }
 }
 
 /* ----- 主要內容區域 ----- */
@@ -135,7 +126,21 @@ body {
     min-width: 0;
 }
 
-/* ----- 側邊欄 ----- */
+/* ----- 容器與卡片 ----- */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.content-card {
+    background: #FFFFFF;
+    padding: 36px 40px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+    border: 1px solid #E2E8F0;
+}
+@media (max-width: 640px) { .content-card { padding: 24px 18px; } }
+
+/* ============================================================
+   🆕 側邊欄 (完整修復)
+   ============================================================ */
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -150,13 +155,20 @@ body {
     border: 1px solid #E2E8F0;
 }
 
-.widget h3 {
+.widget h3,
+.widget .widget-title {
     font-size: 16px;
     font-weight: 700;
     color: #005A9C;
     margin-bottom: 12px;
     padding-bottom: 8px;
     border-bottom: 2px solid #E2E8F0;
+}
+
+.widget p {
+    font-size: 14px;
+    color: #4A5568;
+    line-height: 1.7;
 }
 
 .widget ul {
@@ -169,6 +181,7 @@ body {
     margin-bottom: 8px;
     padding: 6px 0;
     border-bottom: 1px solid #F0F4F8;
+    font-size: 14px;
 }
 
 .widget ul li:last-child {
@@ -180,6 +193,10 @@ body {
     text-decoration: none;
     font-size: 14px;
     transition: color 0.2s;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .widget ul li a:hover {
@@ -187,24 +204,55 @@ body {
     text-decoration: underline;
 }
 
-/* ----- 分類網格 (首頁用) ----- */
+/* ----- 側邊欄內的分類標籤 (小尺寸) ----- */
+.widget .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.widget .tag-cloud a {
+    background: #F7F9FC;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #4A5568;
+    text-decoration: none;
+    border: 1px solid #E2E8F0;
+    transition: all 0.2s;
+}
+
+.widget .tag-cloud a:hover {
+    border-color: #00A86B;
+    color: #1A202C;
+}
+
+/* ============================================================
+   🆕 分類網格 (主內容區，非側邊欄)
+   ============================================================ */
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 16px;
-    margin: 20px 0;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+    margin: 20px 0 28px 0;
+}
+
+@media (max-width: 768px) {
+    .category-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 480px) {
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .category-card {
-    background: #FFFFFF;
-    padding: 20px 16px;
+    display: block;
+    background: #F7F9FC;
+    padding: 18px 12px;
     border-radius: 14px;
-    text-align: center;
     text-decoration: none;
-    color: #1A202C;
+    text-align: center;
     border: 1px solid #E2E8F0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
 }
 
 .category-card:hover {
@@ -214,32 +262,122 @@ body {
 }
 
 .category-card .icon {
-    font-size: 32px;
+    font-size: 28px;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .category-card .name {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
+    color: #1A202C;
 }
 
 .category-card .count {
-    font-size: 12px;
+    font-size: 11px;
     color: #718096;
+    display: block;
+    margin-top: 2px;
 }
 
-/* ----- 容器與卡片 ----- */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-.content-card {
-    background: #FFFFFF;
-    padding: 36px 40px;
+/* ----- 索引標籤網格 ----- */
+.index-section { margin: 24px 0 8px 0; }
+.index-section .cat-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1A202C;
+    border-left: 3px solid #00A86B;
+    padding-left: 12px;
+    margin: 18px 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.index-section .cat-title .count { font-size: 12px; font-weight: 400; color: #718096; }
+.index-tag-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.index-tag {
+    background: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #4A5568;
+    text-decoration: none;
+    border: 1px solid #E2E8F0;
+    transition: all 0.2s;
+}
+.index-tag:hover { border-color: #00A86B; color: #1A202C; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+/* ----- 遊戲入口卡片 ----- */
+.game-entry-card {
+    display: block;
+    background: linear-gradient(135deg, #005A9C 0%, #003d66 100%);
+    color: white;
+    padding: 20px 16px;
     border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    margin-bottom: 24px;
+    text-decoration: none;
+    text-align: center;
+    margin: 20px 0 32px 0;
+}
+.game-entry-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.10); }
+.game-entry-card .emoji { font-size: 36px; display: block; margin-bottom: 6px; }
+.game-entry-card .title { font-size: 18px; font-weight: 700; }
+.game-entry-card .desc { font-size: 13px; opacity: 0.8; margin-top: 2px; }
+.game-entry-card .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    margin-top: 6px;
+}
+
+/* ----- 文章列表 ----- */
+#article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px 0;
+}
+#article-list li {
+    background: white;
+    padding: 14px 18px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #E2E8F0;
+    transition: all 0.2s;
+}
+#article-list li:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.10); border-color: #00A86B; }
+#article-list li .category {
+    background: #005A9C;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+#article-list li a { flex: 1; color: #1A202C; text-decoration: none; font-size: 15px; font-weight: 500; }
+#article-list li a:hover { color: #005A9C; }
+#article-list li .post-date { font-size: 12px; color: #718096; white-space: nowrap; }
+@media (max-width: 600px) {
+    #article-list li { flex-wrap: wrap; padding: 12px 14px; }
+    #article-list li a { font-size: 14px; }
+}
+
+/* ----- Google 自訂搜尋 ----- */
+.google-search {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 16px;
+    background: #F7F9FC;
+    border-radius: 12px;
     border: 1px solid #E2E8F0;
 }
-@media (max-width: 640px) { .content-card { padding: 24px 18px; } }
+.google-search h3 { font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px; }
+.google-search p { font-size: 13px; color: #4A5568; margin-bottom: 12px; }
 
 /* ----- 網站標頭 ----- */
 .site-header {
@@ -268,7 +406,6 @@ body {
     letter-spacing: 0.5px;
 }
 .logo:hover { color: rgba(255,255,255,0.85); }
-
 .nav-links {
     display: flex;
     gap: 20px;
@@ -276,24 +413,15 @@ body {
     align-items: center;
     flex-wrap: wrap;
 }
-.nav-links a {
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-}
-.nav-links a:hover {
-    color: white;
-    border-bottom: 2px solid #00A86B;
-}
+.nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; }
+.nav-links a:hover { color: white; border-bottom: 2px solid #00A86B; }
 .nav-links .game-link {
     background: rgba(255,255,255,0.15);
     padding: 4px 14px;
     border-radius: 20px;
     font-weight: 500;
 }
-.nav-links .game-link:hover {
-    background: rgba(255,255,255,0.25);
-    border-bottom: none;
-}
+.nav-links .game-link:hover { background: rgba(255,255,255,0.25); border-bottom: none; }
 
 /* ----- 文章標題與中繼資訊 ----- */
 .post-category {
@@ -305,19 +433,10 @@ body {
     font-size: 13px;
     font-weight: 600;
 }
-.meta-info {
-    font-size: 14px;
-    color: #718096;
-    margin: 8px 0 16px 0;
-}
+.meta-info { font-size: 14px; color: #718096; margin: 8px 0 16px 0; }
 
 /* ----- 文章內容 ----- */
-h1 {
-    font-size: 2.2em;
-    color: #1A202C;
-    margin: 20px 0 16px 0;
-    line-height: 1.3;
-}
+h1 { font-size: 2.2em; color: #1A202C; margin: 20px 0 16px 0; line-height: 1.3; }
 h2 {
     font-size: 1.6em;
     color: #005A9C;
@@ -325,37 +444,16 @@ h2 {
     border-left: 4px solid #00A86B;
     padding-left: 16px;
 }
-h3 {
-    font-size: 1.3em;
-    color: #2D3748;
-    margin: 20px 0 10px 0;
-}
-p {
-    margin-bottom: 16px;
-    line-height: 1.8;
-}
-ul, ol {
-    margin: 12px 0 16px 24px;
-}
-li {
-    margin-bottom: 6px;
-}
-a {
-    color: #005A9C;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
+h3 { font-size: 1.3em; color: #2D3748; margin: 20px 0 10px 0; }
+p { margin-bottom: 16px; line-height: 1.8; }
+ul, ol { margin: 12px 0 16px 24px; }
+li { margin-bottom: 6px; }
+a { color: #005A9C; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 /* ----- 圖片 ----- */
-img {
-    max-width: 100%;
-    height: auto;
-}
-.article-image {
-    margin: 24px 0;
-}
+img { max-width: 100%; height: auto; }
+.article-image { margin: 24px 0; }
 .youtube-embed {
     margin: 20px 0;
     position: relative;
@@ -388,18 +486,9 @@ img {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
 }
-.related-articles ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-.related-articles ul li {
-    margin-bottom: 10px;
-}
-.related-articles ul li a {
-    color: #0056b3;
-    text-decoration: none;
-}
+.related-articles ul { list-style: none; padding-left: 0; margin: 0; }
+.related-articles ul li { margin-bottom: 10px; }
+.related-articles ul li a { color: #0056b3; text-decoration: none; }
 
 .giscus-wrapper {
     max-width: 800px;
@@ -447,10 +536,7 @@ img {
     font-size: 13px;
     transition: color 0.2s ease, text-decoration 0.2s ease;
 }
-.footer-links a:hover {
-    color: #FFFFFF;
-    text-decoration: underline;
-}
+.footer-links a:hover { color: #FFFFFF; text-decoration: underline; }
 
 /* ----- 返回頂部 ----- */
 #back-to-top {
@@ -470,79 +556,16 @@ img {
     opacity: 0.7;
     z-index: 999;
 }
-#back-to-top:hover {
-    opacity: 1;
-    transform: scale(1.05);
-    background: #003d66;
-}
+#back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
 
-/* ----- 文章列表（首頁用） ----- */
-#article-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 32px 0;
-}
-#article-list li {
-    background: white;
-    padding: 14px 18px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid #E2E8F0;
-    transition: all 0.2s;
-}
-#article-list li:hover {
-    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
-    border-color: #00A86B;
-}
-#article-list li .category {
-    background: #005A9C;
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 2px 12px;
-    border-radius: 20px;
-    white-space: nowrap;
-}
-#article-list li a {
-    flex: 1;
-    color: #1A202C;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-}
-#article-list li a:hover { color: #005A9C; }
-#article-list li .post-date {
-    font-size: 12px;
-    color: #718096;
-    white-space: nowrap;
-}
-
-/* ----- 響應式 ----- */
+/* ----- 響應式微調 ----- */
 @media (max-width: 768px) {
     .header-inner { flex-direction: column; align-items: center; }
     .nav-links { justify-content: center; gap: 12px; }
-    #article-list li { flex-wrap: wrap; padding: 12px 14px; }
-    #article-list li a { font-size: 14px; }
-    .category-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    }
-}
-@media (max-width: 480px) {
     body { padding: 12px; }
     .content-card { padding: 16px 14px; }
     h1 { font-size: 1.6em; }
     h2 { font-size: 1.3em; }
-    .category-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    .category-card { padding: 14px 10px; }
-    .category-card .icon { font-size: 24px; }
-    .category-card .name { font-size: 12px; }
 }
 """
     
@@ -1034,20 +1057,18 @@ def build_article_html(keyword, category, raw_html, video_id=None):
 
 
 # ============================================================
-# 🆕 建構首頁（v7.0 — 不再自動生成 CSS）
+# 🆕 建構首頁（v7.1 — 完整版本）
 # ============================================================
 
 def create_default_index():
-    """建立完整功能的首頁 index.html（標題提取強化版 + CSE）"""
+    """建立完整功能的首頁 index.html（完整版 — 含品牌介紹、分類索引）"""
     print("📄 建立全新首頁 index.html...")
 
     # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
     css_path = Path(OUTPUT_DIR) / "style" / "main.css"
     if not css_path.exists():
         print(f"   ⚠️ main.css 不存在！請手動建立 style/main.css")
-        print(f"   📌 執行 generate_main_css() 可建立初始版本")
 
-    article_counts = {}
     category_dirs = {
         "tech": "💻 3C 科技教學",
         "game": "🎮 遊戲攻略",
@@ -1071,6 +1092,7 @@ def create_default_index():
     ]
 
     # 計算各分類文章數量
+    article_counts = {}
     for cat_dir in category_dirs.keys():
         dir_path = os.path.join(OUTPUT_DIR, cat_dir)
         if os.path.exists(dir_path):
@@ -1081,6 +1103,7 @@ def create_default_index():
 
     total_count = sum(article_counts.values())
 
+    # 掃描所有文章
     all_articles = []
     for root, dirs, files in os.walk(OUTPUT_DIR):
         rel_path = os.path.relpath(root, OUTPUT_DIR)
@@ -1122,7 +1145,7 @@ def create_default_index():
                     })
 
     all_articles.sort(key=lambda x: x["mtime"], reverse=True)
-    latest_articles = all_articles[:30]
+    latest_articles = all_articles[:100]  # 顯示最新 100 篇
 
     category_articles = {}
     for cat_dir in category_dirs.keys():
@@ -1135,28 +1158,58 @@ def create_default_index():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雅寶社區 · 頂客論壇 (AHPAL.COM)</title>
-    <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技、遊戲攻略、生活小常識、軟體評測、人生哲理、AI 趨勢等優質內容。">
-    {UNIFIED_CSS_LINK}
+    <title>雅寶社區 · 頂客論壇 | AHPAL.COM</title>
+    <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技教學、遊戲攻略、生活小常識、軟體評測、人生哲理與 AI 趨勢，超過 400 篇精選文章。">
+    <meta name="keywords" content="科技教學,遊戲攻略,生活小常識,軟體評測,人生哲理,AI趨勢,音樂創作">
     {ADSENSE_CODE}
     {GA4_CODE}
+    {UNIFIED_CSS_LINK}
 </head>
 <body>
     {SITE_HEADER}
+
     <div class="main-wrapper">
         <div class="main-content">
             <div class="container">
                 <div class="content-card">
-                    <h1>📚 最新文章</h1>
+                    <h1 class="hero-title">雅寶社區 <span class="highlight">·</span> 頂客論壇</h1>
+                    <p class="hero-sub">歲月 · 知識 · 共創</p>
+                    <p class="hero-desc">
+                        這裡記錄了 <strong>頂客論壇</strong> 二十多年的歲月迴聲，
+                        並以 AI 精選 <strong>科技、遊戲、生活、軟體、哲理、AI 趨勢、音樂創作</strong> 七大領域的實用內容。
+                        從數位工具到人生成長，每一篇文章都經過編輯策展，為讀者提供真正有價值的資訊。
+                    </p>
+
+                    <div class="category-grid">
+'''
+
+    for cat_dir, cat_name in category_dirs.items():
+        count = article_counts.get(cat_dir, 0)
+        icon = cat_name.split()[0] if cat_name else "📁"
+        index_html += f'''                        <a href="/category-{cat_dir}.html" class="category-card">
+                            <span class="icon">{icon}</span>
+                            <span class="name">{cat_name}</span>
+                            <span class="count">{count} 篇</span>
+                        </a>
+'''
+
+    index_html += f'''                </div>
+
+                    <a href="/game/" class="game-entry-card">
+                        <span class="emoji">🎮</span>
+                        <span class="title">雅寶遊戲間</span>
+                        <span class="desc">閱讀之餘，放鬆一下！2048、數獨，免下載即開即玩</span>
+                        <span class="badge">🎯 立即遊玩 →</span>
+                    </a>
+
+                    <h2 class="section-title">📌 最新文章 <small>持續更新中</small></h2>
                     <ul id="article-list">
 '''
 
-    for article in latest_articles[:30]:
-        index_html += f'''                        <li>
-                            <span class="category">{article['category']}</span>
-                            <a href="/{article['filename']}">{article['title']}</a>
-                            <span class="post-date">{datetime.fromtimestamp(article['mtime']).strftime('%Y-%m-%d')}</span>
-                        </li>
+    for article in latest_articles:
+        safe_title = article['title'].replace('"', '&quot;').replace('<', '&lt;').replace('>', '&gt;')
+        date = datetime.fromtimestamp(article['mtime']).strftime('%Y-%m-%d')
+        index_html += f'''                        <li><span class="category">{article['category']}</span><a href="/{article['filename']}">{safe_title}</a><span class="post-date">{date}</span></li>
 '''
 
     index_html += f'''                    </ul>
@@ -1165,24 +1218,26 @@ def create_default_index():
                 {GOOGLE_CSE}
             </div>
         </div>
+
         <div class="sidebar">
             <div class="widget">
                 <h3>📂 全部分類</h3>
-                <div class="category-grid">
+                <div class="category-grid" style="grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));">
 '''
 
     for cat_dir, cat_name in category_dirs.items():
         count = article_counts.get(cat_dir, 0)
         icon = cat_name.split()[0] if cat_name else "📁"
-        index_html += f'''                    <a href="/category-{cat_dir}.html" class="category-card">
-                        <span class="icon">{icon}</span>
-                        <span class="name">{cat_name}</span>
-                        <span class="count">{count} 篇</span>
+        index_html += f'''                    <a href="/category-{cat_dir}.html" class="category-card" style="padding:12px 8px;">
+                        <span class="icon" style="font-size:22px;">{icon}</span>
+                        <span class="name" style="font-size:12px;">{cat_name}</span>
+                        <span class="count" style="font-size:10px;">{count} 篇</span>
                     </a>
 '''
 
     index_html += f'''                </div>
             </div>
+
             <div class="widget">
                 <h3>📊 本站統計</h3>
                 <ul>
@@ -1191,9 +1246,25 @@ def create_default_index():
                     <li>📅 更新日期：{CURRENT_DATE_STR}</li>
                 </ul>
             </div>
+
+            <div class="widget">
+                <h3>🏷️ 分類標籤</h3>
+                <div class="tag-cloud">
+                    <a href="/category-tech.html">💻 3C</a>
+                    <a href="/category-game.html">🎮 遊戲</a>
+                    <a href="/category-life.html">🏠 生活</a>
+                    <a href="/category-review.html">📊 評測</a>
+                    <a href="/category-philosophy.html">🌟 哲理</a>
+                    <a href="/category-trend.html">🤖 AI</a>
+                    <a href="/category-music.html">🎵 音樂</a>
+                    <a href="/game/">🎮 遊戲間</a>
+                    <a href="/categories.html">📚 全部分類</a>
+                </div>
+            </div>
         </div>
     </div>
-    {SITE_FOOTER}
+
+    {SITE_FOOTER.format(year=CURRENT_YEAR)}
     {BACK_TO_TOP}
 </body>
 </html>
@@ -1203,12 +1274,12 @@ def create_default_index():
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(index_html)
 
-    print(f"✅ 首頁已建立：{index_path}")
+    print(f"✅ 首頁已建立：{index_path} (共 {len(latest_articles)} 篇文章)")
     return index_path
 
 
 # ============================================================
-# 🆕 建構分類入口頁（v7.0 — 不再自動生成 CSS）
+# 建構分類入口頁（v7.1 — 完整版本）
 # ============================================================
 
 def generate_categories_page():
@@ -1220,21 +1291,166 @@ def generate_categories_page():
     if not css_path.exists():
         print(f"   ⚠️ main.css 不存在！請手動建立 style/main.css")
 
-    # 此處省略詳細 HTML 生成，與 v6.4 相同
-    # 實際使用時會補齊完整分類頁面
+    from src.config import CATEGORIES as CATEGORIES_CONFIG
+
+    html_content = f'''<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 全部分類 - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="雅寶社區 · 頂客論壇 — 七大知識分類總覽。">
+    {ADSENSE_CODE}
+    {GA4_CODE}
+    {UNIFIED_CSS_LINK}
+</head>
+<body>
+    {SITE_HEADER}
+
+    <div class="main-wrapper">
+        <div class="main-content">
+            <div class="container">
+                <div class="content-card">
+                    <h1>📚 全部分類</h1>
+                    <p class="hero-desc" style="font-size:15px; color:#4A5568; margin-bottom:20px;">七大知識領域，超過 400 篇精選文章，讓你一次掌握。</p>
+                    <div class="category-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+'''
+
+    for cat_id, cat_info in CATEGORIES_CONFIG.items():
+        dir_path = os.path.join(OUTPUT_DIR, cat_id)
+        count = 0
+        if os.path.exists(dir_path):
+            count = len([f for f in os.listdir(dir_path) if f.endswith('.html')])
+        icon = cat_info['name'].split()[0] if cat_info['name'] else "📁"
+        html_content += f'''
+                        <a href="/category-{cat_id}.html" class="category-card">
+                            <span class="icon">{icon}</span>
+                            <span class="name">{cat_info['name']}</span>
+                            <span class="count">{count} 篇文章</span>
+                            <span style="font-size:12px; color:#718096; margin-top:4px; display:block;">{cat_info['desc']}</span>
+                        </a>
+'''
+
+    html_content += f'''                    </div>
+                    <p style="text-align:center; margin-top:20px;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="widget">
+                <h3>📊 本站統計</h3>
+                <ul>
+                    <li>📝 文章總數：{sum(1 for _ in Path(OUTPUT_DIR).rglob('*.html') if _.name not in ['index.html','404.html','categories.html'])} 篇</li>
+                    <li>📂 分類數量：{len(CATEGORIES_CONFIG)} 類</li>
+                    <li>📅 更新日期：{CURRENT_DATE_STR}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {SITE_FOOTER.format(year=CURRENT_YEAR)}
+    {BACK_TO_TOP}
+</body>
+</html>
+'''
+
+    with open(os.path.join(OUTPUT_DIR, "categories.html"), "w", encoding="utf-8") as f:
+        f.write(html_content)
+    print("✅ 統一分類入口頁 categories.html 建立完成！")
 
 
 # ============================================================
-# 生成各分類獨立頁面（v7.0 — 不再自動生成 CSS）
+# 生成各分類獨立頁面（v7.1 — 完整版本）
 # ============================================================
 
 def generate_category_pages():
     """生成各分類的獨立頁面（與原 ahpal_generator.py 相容）"""
     print("📄 正在生成分類頁面...")
 
+    from src.config import CATEGORIES as CATEGORIES_CONFIG
+
     # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
     css_path = Path(OUTPUT_DIR) / "style" / "main.css"
     if not css_path.exists():
         print(f"   ⚠️ main.css 不存在！請手動建立 style/main.css")
 
-    # 此處省略詳細 HTML 生成，已移除未定義的 SITE_HEADER_RAW / SITE_FOOTER_RAW
+    for cat_id, cat_info in CATEGORIES_CONFIG.items():
+        page_path = os.path.join(OUTPUT_DIR, f"category-{cat_id}.html")
+
+        dir_path = os.path.join(OUTPUT_DIR, cat_id)
+        articles = []
+        if os.path.exists(dir_path):
+            for f in os.listdir(dir_path):
+                if f.endswith('.html'):
+                    file_path = os.path.join(dir_path, f)
+                    try:
+                        with open(file_path, "r", encoding="utf-8") as file:
+                            content = file.read()
+                            title = extract_clean_title(content, f)
+                    except:
+                        title = f.replace(".html", "").replace("-", " ").title()
+                    articles.append({"filename": f"{cat_id}/{f}", "title": title})
+
+        articles.sort(key=lambda x: x["filename"])
+
+        html_content = f'''<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{cat_info['name']} - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="{cat_info['desc']} - 雅寶社區 · 頂客論壇">
+    {ADSENSE_CODE}
+    {GA4_CODE}
+    {UNIFIED_CSS_LINK}
+</head>
+<body>
+    {SITE_HEADER}
+
+    <div class="main-wrapper">
+        <div class="main-content">
+            <div class="container">
+                <div class="content-card">
+                    <h1>{cat_info['name']}</h1>
+                    <p class="hero-desc" style="font-size:15px; color:#4A5568;">{cat_info['desc']}</p>
+                    <p style="font-size:14px; color:#718096; margin-bottom:16px;">共 {len(articles)} 篇文章</p>
+
+                    <h2>📖 全部文章</h2>
+                    <ul id="article-list">
+'''
+
+        if articles:
+            for article in articles:
+                html_content += f'                        <li><a href="/{article["filename"]}">{article["title"]}</a></li>\n'
+        else:
+            html_content += '                        <li style="color:#718096;">目前尚無文章，敬請期待！</li>\n'
+
+        html_content += f'''                    </ul>
+                    <p style="text-align:center; margin-top:20px;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="widget">
+                <h3>📂 全部分類</h3>
+                <ul>
+'''
+
+        for cid, cinfo in CATEGORIES_CONFIG.items():
+            html_content += f'                    <li><a href="/category-{cid}.html">{cinfo["name"]}</a></li>\n'
+
+        html_content += f'''                </ul>
+            </div>
+        </div>
+    </div>
+
+    {SITE_FOOTER.format(year=CURRENT_YEAR)}
+    {BACK_TO_TOP}
+</body>
+</html>
+'''
+        with open(page_path, "w", encoding="utf-8") as f:
+            f.write(html_content)
+        print(f"   ✅ 生成分類頁面：category-{cat_id}.html（{len(articles)} 篇文章）")
+
+    print("✅ 所有分類頁面生成完畢！")

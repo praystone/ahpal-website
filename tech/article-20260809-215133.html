@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+    <div class="meta-info">
+        發表時間：2026 年 08 月 09 日 | 更新日期：2026 年 08 月 09 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+</h1>
+<p><p>歡迎來到雅寶社區 · 頂客論壇的科技教學專欄！如果你身處軟體開發、DevOps 或系統維運領域，那麼「容器化」絕對是近年來你無法忽視的關鍵詞。進入 2026 年，Docker 已不再只是「新潮玩具」，而是企業應用程式部署的標準基礎設施；而 Kubernetes（簡稱 K8s）則進一步成為大規模編排容器的預設平台。然而，從 Docker 的基礎概念到實際與 K8s 整合，中間存在著一道學習鴻溝，許多人往往被龐雜的觀念與 YAML 設定搞得暈頭轉向。</p>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+</p>
+<p><p>本篇文章將透過完整的實戰視角，帶你從零開始建立 Docker 容器化思維，學習撰寫 Dockerfile、使用 Docker Compose 管理多容器應用，最終成功將 Docker 應用程式部署至 Kubernetes 叢集。我們不僅會討論理論，更會提供真實可用的程式碼片段與部署範例，讓你能夠在閱讀後立即動手練習。無論你是剛接觸容器的新手，或是已熟悉 Docker 但想更進一步了解 K8s 的開發者，這份指南都能為你鋪平前進的道路。</p></p>
+<h2></h2>
+<h2>一、為什麼 2026 年你必須學會 Docker 容器化？——產業現況與核心優勢</h2>
+<p><p>在深入技術細節之前，我們先來回顧一下容器化技術在 2026 年的定位。過去十年間，雲端原生（Cloud Native）架構從口號變成了顯學，而 Docker 正是點燃這把火的關鍵角色。到了 2026 年，幾乎所有主流雲端服務商（AWS、Google Cloud、Azure）以及本地端 Kubernetes 發行版（如 Rancher、OpenShift）都將 Docker 映像檔視為標準的應用程式交付格式。這意味著，只要你的應用程式能打包成 Docker 映像檔，就能在任何符合 OCI（Open Container Initiative）標準的環境中運行。</p></p>
+<p><p>為什麼 Docker 如此重要？因為它解決了長期困擾軟體開發的「在我機器上可以跑」（It works on my machine）難題。透過容器，我們可以將應用程式與其所有相依套件、函式庫、設定檔封裝成一個獨立、可攜帶的單位，確保在任何環境下都有一致的執行結果。這不僅提升了開發與維運的效率，也大大降低了部署失敗的風險。</p></p>
+<h2>從虛擬機到容器：部署方式的演進</h2>
+<p><p>要理解 Docker 的價值，必須先回顧傳統虛擬機（Virtual Machine, VM）的運作方式。虛擬機透過 Hypervisor 模擬出完整的硬體環境，每台虛擬機都包含自己的作業系統（Guest OS），因此資源隔離性極高，但同時也消耗大量的 CPU、記憶體與儲存空間。啟動一台虛擬機往往需要數分鐘，且映像檔動輒數 GB。</p></p>
+<p><p>容器則完全不同。容器與宿主機（Host）共享核心（Kernel），只隔離應用的執行環境（包括檔案系統、網路、行程等）。因此，容器啟動時間僅需毫秒或秒級，映像檔大小可壓縮至數十 MB，單一主機上可運行的容器數量遠多於虛擬機。到了 2026 年，雖然 Firecracker、Kata Containers 等安全容器技術提供了更強隔離，但一般應用仍以標準 Docker 容器為主流。這種輕量化的特性，讓 Docker 成為微服務架構與持續部署流程的最佳載體。</p></p>
+<h2>Docker 的三大核心優勢：輕量、一致、可攜</h2>
+<h2>我們歸納出 Docker 在 2026 年仍是業界首選的三大理由：</h2>
+<h2></h2>
+<p><li><strong>輕量高效：</strong>容器共享宿主機核心，不需要模擬完整作業系統，因此在資源使用率、啟動速度和部署密度上皆有顯著優勢。對於需要快速擴縮的現代服務來說，這是不可或缺的條件。</li></p>
+<p><li><strong>環境一致性：</strong>Docker 映像檔定義了應用程式的完整運行環境，從作業系統套件、程式語言執行環境，到應用程式程式碼與設定，全部被封裝在一起。開發者在本機測試成功的映像檔，可以毫無差異地部署至測試機、正式機，終結「環境問題」的噩夢。</li></p>
+<p><li><strong>高可攜性：</strong>只要宿主機支援 Docker（或相容的 OCI 執行時期），容器就能直接運行。這意味著你可以輕鬆地將應用程式從筆電搬到資料中心，或從「地端」搬到「雲端」，完全不需要修改程式碼。</li></p>
+<h2></h2>
+<p><p>基於以上優勢，Docker 已成為 2026 年軟體工程師的核心技能之一。接下來，我們將進入實際操作，學習如何建立你的第一個容器。</p></p>
+<h2></h2>
+<h2>二、Docker 基礎入門——四大核心概念與你的第一個容器</h2>
+<p><p>在開始輸入指令之前，你必須先搞懂 Docker 的四大核心概念：映像檔（Image）、容器（Container）、Dockerfile 與 Docker Hub（或映像檔倉儲）。這四個元素構成了 Docker 日常操作的基礎。映像檔可以想像成「程式碼與環境的快照」，而容器則是「映像檔的執行實例」。Dockerfile 是「建立映像檔的配方」，Docker Hub 是「存放映像檔的倉庫」。四個概念環環相扣，缺一不可。</p></p>
+<h2>映像檔 (Image) 與容器 (Container) 完全解析</h2>
+<p><p>映像檔（Image）是一個唯讀的、不可變的檔案集合，內含建立容器所需的全部指令。你可以使用 <code>docker pull</code> 從 Docker Hub 下載別人建立的映像檔（例如 <code>nginx:latest</code>、<code>python:3.12-slim</code>），也可以透過 <code>docker build</code> 根據 Dockerfile 建立屬於自己的映像檔。映像檔採用分層架構，每一層都是唯讀的，只有最上層可以作為容器層被寫入。這種分層設計讓映像檔具有良好的快取機制——只重建變更的層，大幅加快建立速度。</p></p>
+<p><p>容器（Container）是映像檔的執行實例。當你執行 <code>docker run</code> 時，Docker 會基於映像檔建立一個可寫的容器層，並啟動其中的主程式。容器可以啟動、停止、刪除，但其自身狀態不會影響到映像檔。若要保存容器內的資料，你必須使用磁碟區（Volume）或綁定掛載（Bind Mount），這點我們稍後會詳細說明。一個映像檔能同時建立多個互相隔離的容器，這正是擴縮服務的基礎。</p></p>
+<h2>Dockerfile 撰寫實戰：建立一個 Python Web 服務</h2>
+<p><p>現在，讓我們動手建立一個簡單的 Python Flask Web 服務映像檔。首先，請在你的工作目錄中建立一個資料夾，並放入以下兩個檔案：<code>app.py</code> 與 <code>Dockerfile</code>。</p></p>
+<h2>app.py 內容如下：</h2>
+<h2>from flask import Flask</h2>
+<h2>app = Flask(__name__)</h2>
+<h2>@app.route("/")</h2>
+<h2>def hello():</h2>
+<h2>return "Hello, 2026 Docker & K8s!"</h2>
+<h2>if __name__ == "__main__":</h2>
+<h2>app.run(host="0.0.0.0", port=5000)</h2>
+<h2></h2>
+<p><p>接著，建立 <code>Dockerfile</code>，這是一個定義映像檔建立過程的腳本。一個標準的 Dockerfile 通常包含以下指令：</p></p>
+<h2># 使用官方 Python 3.12 精簡映像檔作為基底</h2>
+<h2>FROM python:3.12-slim</h2>
+<h2>WORKDIR /app</h2>
+<h2>COPY requirements.txt .</h2>
+<p>RUN pip install --no-cache-dir -r requirements.txt</p>
+<h2>COPY . .</h2>
+<h2>EXPOSE 5000</h2>
+<h2>CMD ["python", "app.py"]</h2>
+<h2></h2>
+<p><p>請記得在同目錄建立一個 <code>requirements.txt</code> 檔案，內容填入 <code>flask</code> 即可。現在，執行以下指令來建立映像檔：</p></p>
+<h2>docker build -t my-python-app:v1 .</h2>
+<h2></h2>
+<p><p>這個指令會依照 Dockerfile 的分層指令逐步建構映像檔，並標籤為 <code>my-python-app:v1</code>。完成後，透過 <code>docker images</code> 可以看到這個映像檔。</p></p>
+<h2>常用指令與容器生命週期管理</h2>
+<p><p>建立映像檔後，我們可以使用 <code>docker run</code> 啟動容器：</p></p>
+<p><pre><code>docker run -d -p 8080:5000 --name myapp my-python-app:v1</p>
+<h2></h2>
+<p><p>這個指令會以背景模式（<code>-d</code>）啟動容器，並將宿主機的 8080 連接埠對應到容器的 5000 連接埠。開啟瀏覽器造訪 <code>http://localhost:8080</code>，你應該會看到「Hello, 2026 Docker & K8s!」訊息。</p></p>
+<h2>管理容器生命週期的常用指令如下：</h2>
+<h2></h2>
+<p><li><code>docker ps</code>：列出執行中的容器，加上 <code>-a</code> 參數可顯示所有容器。</li></p>
+<p><li><code>docker stop &lt;container_id_or_name&gt;</code>：優雅地停止容器。</li></p>
+<p><li><code>docker rm &lt;container_id_or_name&gt;</code>：移除已停止的容器。</li></p>
+<p><li><code>docker logs &lt;container_id_or_name&gt;</code>：查看容器日誌，對除錯非常有用。</li></p>
+<p><li><code>docker exec -it &lt;container_id_or_name&gt; /bin/bash</code>：進入容器的互動式 shell，便於檢查內部狀態。</li></p>
+<h2></h2>
+<p><p>學會這些基礎指令後，你已經可以輕鬆地單一容器化應用程式。但真實世界的應用往往需要多個服務（例如資料庫、快取、前端網頁），此時就必須仰賴 Docker Compose 來進行多容器編排。</p></p>
+<h2></h2>
+<p><h2>三、2026 年 Docker 進階實踐——多容器架構與 Docker Compose</h2></p>
+<p><p>現代化應用程式很少只由單一服務組成。以一個典型的電商網站為例，它可能包含：提供 API 的後端服務、負責靜態檔案的前端 Nginx、儲存資料的 MySQL、加速讀取的 Redis。若手動逐一執行 <code>docker run</code>，除了指令冗長，還需要處理容器間的網路通訊與依賴順序。Docker Compose 正是為了解決這個問題而誕生，它允許你用一個 YAML 檔案定義所有服務、網路與磁碟區，並透過簡單的指令一次啟動或關閉整個應用程式堆疊。</p></p>
+<h2>使用 Docker Compose 編排 Web + DB + Redis</h2>
+<p><p>讓我們以上面提到的 Python Flask 服務為例，擴充成一個包含 Web、MySQL 與 Redis 的完整架構。首先，建立一個 <code>docker-compose.yml</code> 檔案，內容如下：</p></p>
+<h2>version: "3.9"</h2>
+<h2>services:</h2>
+<h2>web:</h2>
+<h2>build: .</h2>
+<h2>ports:</h2>
+<ul>
+    <li>"8080:5000"</li>
+</ul>
+<h2>environment:</h2>
+<ul>
+    <li>REDIS_HOST=redis</li>
+    <li>DB_HOST=mysql</li>
+</ul>
+<h2>depends_on:</h2>
+<ul>
+    <li>redis</li>
+    <li>mysql</li>
+</ul>
+<h2>redis:</h2>
+<h2>image: redis:7-alpine</h2>
+<h2>restart: always</h2>
+<h2>mysql:</h2>
+<h2>image: mysql:8.0</h2>
+<h2>restart: always</h2>
+<h2>environment:</h2>
+<h2>MYSQL_ROOT_PASSWORD: rootpass</h2>
+<h2>MYSQL_DATABASE: mydb</h2>
+<h2>MYSQL_USER: user</h2>
+<h2>MYSQL_PASSWORD: userpass</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>mysql_data:/var/lib/mysql</li>
+</ul>
+<h2>volumes:</h2>
+<h2>mysql_data:</h2>
+<h2></h2>
+<p><p>在這個組態中，我們定義了三個服務：<code>web</code> 使用目前資料夾的 Dockerfile 建立映像檔，並將宿主機的 8080 連接埠對應至容器內的 5000 連接埠；<code>redis</code> 直接使用 Docker Hub 的官方映像檔；<code>mysql</code> 同樣使用官方映像檔，並透過 <code>environment</code> 設定環境變數來初始化資料庫，同時建立一個名為 <code>mysql_data</code> 的命名磁碟區以保存資料。此外，<code>web</code> 服務中的 <code>depends_on</code> 確保 Redis 與 MySQL 服務在 Web 啟動前先被建立。</p></p>
+<p><p>現在，我們可以在 Flask 程式中加入 Redis 與 MySQL 連線邏輯（此處僅示意）：</p></p>
+<h2>import redis, pymysql, os</h2>
+<p>r = redis.Redis(host=os.getenv("REDIS_HOST", "localhost"), port=6379)</p>
+<p>conn = pymysql.connect(host=os.getenv("DB_HOST", "localhost"), user="user", password="userpass", database="mydb")</p>
+<h2></h2>
+<p><p>接著，執行 <code>docker compose up -d</code>，Docker 就會自動建立並啟動所有服務。你可以在 <code>docker compose ps</code> 中觀察各容器的狀態，用 <code>docker compose logs -f</code> 追蹤即時日誌，最後用 <code>docker compose down</code> 停止並移除整個應用程式堆疊（加上 <code>-v</code> 參數可一併刪除磁碟區）。Docker Compose 不僅讓開發環境的部屬變得極簡，也大大提升了團隊間協作的一致性。</p></p>
+<h2>環境變數、Volume 與網路設定的最佳實務</h2>
+<p><p>在撰寫 Compose 檔案時，有幾個最佳實務值得特別注意。首先是環境變數的管理：切勿在 YAML 檔案中硬編碼帳號、密碼與機密資訊，你可以使用 <code>.env</code> 檔案搭配 <code>${VAR}</code> 語法動態注入，或使用 Docker 的 secrets 功能。其次，磁碟區（Volume）必須明確宣告。如上述範例中的 <code>mysql_data</code>，它保存在宿主機的 Docker 管理目錄中，即便容器刪除，資料仍然健在。若你使用綁定掛載（例如 <code>.:/app</code>），則可以實現開發時的熱更新，但要小心權限問題。</p></p>
+<p><p>網路設定也是不可忽視的一環。Compose 會自動建立一個預設的 bridge 網路，讓服務之間透過服務名稱互相存取。這樣一來，Web 服務便可以透過主機名稱 <code>redis</code> 或 <code>mysql</code> 連線至對應容器，而無需知道它們的 IP 位址。如果你需要隔離不同專案，也可以自訂網路：</p></p>
+<h2>services:</h2>
+<h2>web:</h2>
+<h2>networks:</h2>
+<ul>
+    <li>frontend</li>
+</ul>
+<h2>redis:</h2>
+<h2>networks:</h2>
+<ul>
+    <li>backend</li>
+</ul>
+<h2>networks:</h2>
+<h2>frontend:</h2>
+<h2>backend:</h2>
+<h2></h2>
+<p><p>這種網路隔離策略能有效提升安全性，讓只該被外部存取的服務暴露在外部網路，而內部服務則鎖在私有網路。掌握了 Compose 的進階配置後，你已經具備了管理複雜服務堆疊的能力。然而，當系統規模持續成長，或者你需要在多台伺服器上執行數十個容器時，Docker Compose 的單機限制就會成為瓶頸。此時，Kubernetes 便正式登場。</p></p>
+<h2></h2>
+<p><h2>四、從 Docker 到 Kubernetes——為什麼需要 K8s？整合情境全解析</h2></p>
+<p><p>Docker Compose 適合單一主機的多容器編排，但當你需要在數十台、數百台主機上部署和管理大量服務時，Kubernetes 便是不可或缺的解決方案。Kubernetes（簡稱 K8s）是一個開源的容器編排平台，提供自動部署、擴縮、服務發現與自我修復功能。在 2026 年，K8s 已成為雲原生應用程式的標準執行環境，幾乎所有 CI/CD 流程都會整合至 K8s 叢集。理解 Docker 與 K8s 的協作機制，是每位現代開發者的必備技能。</p></p>
+<p><h3>Kubernetes 核心元件與 Pod、Service、Deployment 概念</h3></p>
+<p><p>在開始整合之前，你必須先了解 K8s 的幾個抽象概念。K8s 的最小部署單位是 <strong>Pod</strong>，它封裝一個或多個容器，並與其他 Pod 共享網路與儲存。Pod 是短暫的，它們可以被建立、銷毀、重新排程，因此你通常不會直接操作 Pod，而是透過更上層的控制器來管理。</p></p>
+<p><p><strong>Deployment</strong> 是最常用的控制器之一，它負責確保一定數量的 Pod 正在運行。你可以在 Deployment 中定義映像檔版本、環境變數、資源限制等。當你更新映像檔版本時，Deployment 會以滾動更新（Rolling Update）的方式逐步替換舊版 Pod，確保服務不中斷。</p></p>
+<p><p><strong>Service</strong> 則是一個抽象的穩定端點，它負責將流量導向一組 Pod。因為 Pod 會隨時變動，Service 提供了一個固定的 DNS 名稱與虛擬 IP，讓其他服務或外部使用者可以穩定的存取後端 Pod。Service 的類型有多種，例如 <code>ClusterIP</code>（叢集內存取）、<code>NodePort</code>（透過節點連接埠存取）、<code>LoadBalancer</code>（整合雲端負載平衡器），以及 2026 年已廣泛使用的 <code>Ingress</code> 資源。</p></p>
+<h2>將 Docker Compose 應用轉換為 K8s YAML 的實戰步驟</h2>
+<p><p>假設我們有前面建立的 Flask + Redis + MySQL 應用，現在要將它部署到 K8s。我們不需要把 Compose 檔案的語法一比一轉換，而是要按照 K8s 的資源模型重新定義。首先，建立一個 Deployment YAML 檔案來管理 Flask Web 服務：</p></p>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: web-deployment</h2>
+<h2>spec:</h2>
+<h2>replicas: 3</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: web</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: web</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: web</li>
+</ul>
+<h2>image: my-python-app:v1</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 5000</li>
+</ul>
+<h2>env:</h2>
+<ul>
+    <li>name: REDIS_HOST</li>
+</ul>
+<h2>value: redis-service</h2>
+<ul>
+    <li>name: DB_HOST</li>
+</ul>
+<h2>value: mysql-service</h2>
+<h2></h2>
+<h2>接著，建立一個 Service 來對外暴露這個 Deployment：</h2>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: web-service</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: web</h2>
+<h2>ports:</h2>
+<ul>
+    <li>protocol: TCP</li>
+</ul>
+<h2>port: 80</h2>
+<h2>targetPort: 5000</h2>
+<h2>type: LoadBalancer</h2>
+<h2></h2>
+<p><p>同樣地，Redis 與 MySQL 也需要建立各自的 Deployment 與 Service。此處的重點是，K8s 不直接管理 Docker Compose 的服務，它使用自身的資源標籤選擇器來關聯 Pod 與 Service。你可以透過 <code>kubectl apply -f</code> 逐一套用這些 YAML 檔案，使用 <code>kubectl get pods</code>、<code>kubectl get svc</code> 確認狀態。簡而言之，Docker 負責建構和管理容器映像檔，而 K8s 負責在叢集中排程和運行這些容器。</p></p>
+<p><h3>2026 年 Docker 與 K8s 整合的常用工具與趨勢（含 kind、minikube）</h3></p>
+<p><p>在 2026 年，要開始學習 K8s 變得比過去容易許多。本地開發常用的工具包括 <strong>Minikube</strong> 與 <strong>kind</strong>（Docker in Docker）。Minikube 會在單一機器上建立一個虛擬節點的完整 K8s 叢集，非常適合學習與測試。而 kind 則直接在 Docker 容器中運行 K8s 節點，啟動速度更快，也是 CI 環境中最受歡迎的工具之一。</p></p>
+<p><p>除了本地工具，Docker 整合 K8s 的另一個重要趨勢是「<strong>Kubernetes 原生容器建置</strong>」。傳統上，我們使用 Docker daemon 建立映像檔，然後推送到倉儲。但隨著 <strong>Kaniko</strong>、<strong>Buildah</strong> 與 <strong>BuildKit</strong> 的成熟，你可以在不依賴本機 Docker daemon 的情況下，直接在 K8s 叢集內部建構容器映像檔。這種方式讓 CI 流程更安全、更一致，也讓 Docker 映像檔的建立與部署完全整合在 K8s 的生態系中。</p></p>
+<p><p>另一個熱門趨勢是 <strong>Helm</strong>，它被稱為「Kubernetes 的套件管理員」。你可以將整組 K8s YAML 打包成一個 Helm Chart，並透過指令輕鬆安裝、升級或回滾應用程式。到了 2026 年，Helm 已成為企業部署標準，多數第三方軟體（如 Prometheus、GitLab）都提供官方 Helm Chart。熟練使用這些工具，將使你的 Docker-to-K8s 旅程更加順暢。</p></p>
+<h2></h2>
+<h2>五、實戰總整理——從開發到生產的完整部署流程</h2>
+<p><p>理論與實踐並行，我們已分別學習了 Docker 的基礎與進階用法，也了解了 K8s 的基本概念。現在，是時候將所有片段串聯成一個完整的現代化部署流程。本節將以一個實際的情境來展示，如何使用 GitLab CI 串接 Docker 與 K8s，實現自動化建置、測試與部署。同時，我們也會討論在生產環境中不可或缺的監控、日誌與安全性議題。</p></p>
+<p><h3>一個完整的 CI/CD 流程範例：GitLab CI + Docker + K8s</h3></p>
+<p><p>假設你有一個 Spring Boot 或 Flask 專案放在 GitLab 上，希望每次推送到 main 分支時自動觸發以下流程。第一步，我們要在專案根目錄中建立 <code>.gitlab-ci.yml</code> 檔案，定義流水線階段。常見的階段有：<code>build</code>（建立 Docker 映像檔）、<code>test</code>（執行測試）、<code>deploy</code>（部署至 K8s）。</p></p>
+<h2>stages:</h2>
+<ul>
+    <li>build</li>
+    <li>test</li>
+    <li>deploy</li>
+</ul>
+<h2>variables:</h2>
+<p>IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA</p>
+<h2>docker-build:</h2>
+<h2>stage: build</h2>
+<h2>image: docker:24</h2>
+<h2>services:</h2>
+<ul>
+    <li>docker:dind</li>
+</ul>
+<h2>script:</h2>
+<ul>
+    <li>docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY</li>
+    <li>docker build -t $IMAGE_TAG .</li>
+    <li>docker push $IMAGE_TAG</li>
+</ul>
+<h2>run-tests:</h2>
+<h2>stage: test</h2>
+<h2>before_script:</h2>
+<ul>
+    <li>docker pull $IMAGE_TAG</li>
+</ul>
+<h2>script:</h2>
+<ul>
+    <li>docker run --rm $IMAGE_TAG pytest</li>
+</ul>
+<h2>deploy-k8s:</h2>
+<h2>stage: deploy</h2>
+<h2>image: bitnami/kubectl:latest</h2>
+<h2>script:</h2>
+<ul>
+    <li>kubectl set image deployment/web-deployment web=$IMAGE_TAG</li>
+    <li>kubectl rollout status deployment/web-deployment</li>
+</ul>
+<h2>only:</h2>
+<ul>
+    <li>main</li>
+</ul>
+<h2></h2>
+<p><p>此處展示了如何運用 Docker 映像檔作為 CI 的建置介質，並透過 <code>kubectl set image</code> 直接更新 K8s Deployment 中的容器映像檔。注意，以 <code>docker:dind</code>（Docker-in-Docker）服務來建置映像檔，是過去常用的做法；在 2026 年，你也可以改用前述的 Kaniko 以避開 Docker daemon 的安全疑慮。整個流程實現了「程式碼一推送，自動建置、自動測試、自動部署」的目標，大大縮短了從提交到上線的時間。</p></p>
+<h2>監控、日誌與安全性注意事項</h2>
+<p><p>生產環境的部署不能只會跑起來，你必須掌握系統的運行狀態。在 K8s 與 Docker 的生態系中，最主流的監控方案是 <strong>Prometheus</strong> 搭配 <strong>Grafana</strong>。Prometheus 以抓取（Pull）方式收集各種指標（例如 CPU、記憶體、請求數、延遲），Grafana 則將這些指標視覺化為儀表板。透過 Container Resource Metrics（如 <code>kubectl top</code>）與自訂應用程式指標（利用 Prometheus client library），你可以即時掌握系統的健康狀況。</p></p>
+<p><p>日誌管理方面，在 2026 年的 K8s 環境中，已被 <strong>Loki</strong> 或 <strong>Elastic Stack</strong>（Elasticsearch + Logstash + Kibana）等工具深深整合。最簡單的做法是將容器日誌寫入 stdout，讓 Docker 與 K8s 將其收集到節點層級，再透過 fluentd 或 promtail 轉送到統一的日誌儲存系統。如此一來，你可以在單一介面上搜尋多個 Pod 的日誌，快速定位問題。</p></p>
+<p><p>最後，安全性是不可忽視的環節。2026 年的應用程式部署必須將安全視為內建功能，而非事後補救。以下幾個重點方向的實踐格外重要：</p></p>
+<h2></h2>
+<p><li><strong>映像檔安全掃描：</strong>在 CI 流程中整合 Trivy 或 Clair，掃描 Docker 映像檔的已知漏洞，並阻止高風險映像檔部署。</li></p>
+<p><li><strong>最低權限原則：</strong>確保容器內的使用者非 root，並設定 <code>readOnlyRootFilesystem: true</code>、<code>drop: ["ALL"]</code> 等 Kubernetes 安全上下文（Security Context）與 Pod 安全標準（Pod Security Standards）。</li></p>
+<p><li><strong>私有倉儲與機密管理：</strong>Docker 映像檔存放於私有倉儲中，並在 K8s 中使用 Secret 資源管理環境變數與憑證，避免機密資料以明文方式出現在設定檔中。</li></p>
+<p><li><strong>網路政策（NetworkPolicy）：</strong>預設拒絕所有流量，僅開放必要服務之間的連接，限制 Pod 間的網路存取範圍。</li></p>
+<h2></h2>
+<p><p>透過上述的實作與防護措施，你的 Docker 與 K8s 部署才能達到穩健、安全且可持續維運的標準。</p></p>
+<h2></h2>
+<h2>結語：掌握「容器化 + 編排」才是 2026 年的致勝關鍵</h2>
+<p><p>回顧本篇文章，我們從 Docker 的基本概念出發，了解了映像檔與容器的本質，並動手撰寫了 Dockerfile，建立自己的 Python Web 服務。接著，我們透過 Docker Compose 編排了多容器應用程式，學習了環境變數、Volume 與網路的最佳實務。最後，我們將觸角延伸至 Kubernetes，探討了 Deployment、Service 與 Helm 等核心資源，並展示了一條完整的 GitLab CI/CD 部署流程。這趟旅程不僅涵蓋了指令操作，更建立了你腦海中的容器化部署地圖。</p></p>
+<p><p>在 2026 年，只會操作 Docker 指令已經不夠，理解如何與 K8s 整合、如何在自動化流程中融入安全與監控，才是真正能為團隊與企業帶來價值的關鍵能力。這份教學指南希望能為你打下扎實的基礎，但真正的學習來自於動手實作。請開啟你的終端機，從建立第一個容器開始，逐步挑戰多容器編排，最後嘗試把應用程式搬到 K8s 叢集上吧！</p></p>
+<p><p>如果你在練習過程中有任何疑問，或想了解更進階的主題（例如 Service Mesh、GitOps 與 ArgoCD），歡迎在下方留言討論。雅寶社區 · 頂客論壇的夥伴們會很樂意協助你。祝你在 2026 年的容器化部署旅程一切順利，我們下一篇教學見！</p></p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

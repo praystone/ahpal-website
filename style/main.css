@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   AHPAL 統一全域樣式表 v1.3 — 側邊欄完整修復版
+   AHPAL 統一全域樣式表 v1.4 — 含完整手機響應
    最後更新：2026-08-09
    ============================================================ */
 
@@ -144,12 +144,6 @@ body {
     margin: 20px 0 28px 0;
 }
 
-@media (max-width: 768px) {
-    .category-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 480px) {
-    .category-grid { grid-template-columns: repeat(2, 1fr); }
-}
 
 .category-card {
     display: block;
@@ -269,10 +263,7 @@ body {
 #article-list li a { flex: 1; color: #1A202C; text-decoration: none; font-size: 15px; font-weight: 500; }
 #article-list li a:hover { color: #005A9C; }
 #article-list li .post-date { font-size: 12px; color: #718096; white-space: nowrap; }
-@media (max-width: 600px) {
-    #article-list li { flex-wrap: wrap; padding: 12px 14px; }
-    #article-list li a { font-size: 14px; }
-}
+
 
 /* ----- Google 自訂搜尋 ----- */
 .google-search {
@@ -465,12 +456,348 @@ img { max-width: 100%; height: auto; }
 }
 #back-to-top:hover { opacity: 1; transform: scale(1.05); background: #003d66; }
 
-/* ----- 響應式微調 ----- */
+/* ============================================================
+   📱 手機版響應式設計 — 完整修復
+   ============================================================ */
+
+/* ----- 平板 (≤ 768px) ----- */
 @media (max-width: 768px) {
-    .header-inner { flex-direction: column; align-items: center; }
-    .nav-links { justify-content: center; gap: 12px; }
-    body { padding: 12px; }
-    .content-card { padding: 16px 14px; }
-    h1 { font-size: 1.6em; }
-    h2 { font-size: 1.3em; }
+    .header-inner {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 12px;
+    }
+    .nav-links {
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .nav-links a {
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+    .main-wrapper {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 0 8px;
+        margin: 12px auto;
+    }
+    .content-card {
+        padding: 16px 14px;
+    }
+    h1 {
+        font-size: 1.6em;
+    }
+    h2 {
+        font-size: 1.3em;
+    }
+    #article-list li {
+        flex-wrap: wrap;
+        padding: 10px 12px;
+        gap: 8px;
+    }
+    #article-list li a {
+        font-size: 14px;
+        flex: 1 1 100%;
+        order: 1;
+    }
+    #article-list li .category {
+        font-size: 10px;
+        padding: 2px 10px;
+        order: 0;
+    }
+    #article-list li .post-date {
+        font-size: 10px;
+        order: 2;
+    }
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .category-card {
+        padding: 12px 8px;
+    }
+    .category-card .icon {
+        font-size: 22px;
+    }
+    .category-card .name {
+        font-size: 12px;
+    }
+    .category-card .count {
+        font-size: 10px;
+    }
+    .sidebar {
+        gap: 12px;
+    }
+    .widget {
+        padding: 14px 16px;
+    }
+    .widget h3 {
+        font-size: 14px;
+    }
+    .widget ul li {
+        font-size: 13px;
+        padding: 4px 0;
+    }
+    .widget .tag-cloud a {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+    .game-entry-card {
+        padding: 14px 12px;
+        margin: 12px 0 20px 0;
+    }
+    .game-entry-card .emoji {
+        font-size: 28px;
+    }
+    .game-entry-card .title {
+        font-size: 16px;
+    }
+    .game-entry-card .desc {
+        font-size: 12px;
+    }
+    .google-search {
+        padding: 12px;
+        margin: 12px auto;
+    }
+    .google-search h3 {
+        font-size: 14px;
+    }
+    .google-search p {
+        font-size: 12px;
+    }
+    .google-search form {
+        flex-direction: column;
+        gap: 6px;
+    }
+    .google-search form input[type="text"] {
+        font-size: 13px;
+        padding: 8px 12px;
+        min-width: auto;
+    }
+    .google-search form button {
+        font-size: 13px;
+        padding: 8px 16px;
+        width: 100%;
+    }
+    .footer-links {
+        gap: 8px 16px;
+    }
+    .footer-links a {
+        font-size: 12px;
+    }
+    .site-footer {
+        padding: 24px 0 16px 0;
+        margin-top: 24px;
+    }
+    #back-to-top {
+        bottom: 16px;
+        right: 16px;
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+}
+
+/* ----- 手機 (≤ 480px) ----- */
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+        font-size: 15px;
+    }
+    .main-wrapper {
+        padding: 0 6px;
+        gap: 12px;
+        margin: 8px auto;
+    }
+    .content-card {
+        padding: 12px 10px;
+        border-radius: 10px;
+    }
+    h1 {
+        font-size: 1.3em;
+        margin: 12px 0 8px 0;
+    }
+    h2 {
+        font-size: 1.1em;
+        margin: 16px 0 8px 0;
+        padding-left: 10px;
+    }
+    h3 {
+        font-size: 1em;
+    }
+    p {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .logo {
+        font-size: 17px;
+    }
+    .nav-links a {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    .nav-links .game-link {
+        padding: 2px 10px;
+        font-size: 11px;
+    }
+    #article-list li {
+        padding: 8px 10px;
+        gap: 4px;
+        border-radius: 8px;
+    }
+    #article-list li a {
+        font-size: 13px;
+        flex: 1 1 100%;
+    }
+    #article-list li .category {
+        font-size: 9px;
+        padding: 1px 8px;
+    }
+    #article-list li .post-date {
+        font-size: 9px;
+    }
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        margin: 12px 0 16px 0;
+    }
+    .category-card {
+        padding: 10px 6px;
+        border-radius: 10px;
+    }
+    .category-card .icon {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+    .category-card .name {
+        font-size: 10px;
+    }
+    .category-card .count {
+        font-size: 9px;
+    }
+    .widget {
+        padding: 10px 12px;
+        border-radius: 10px;
+    }
+    .widget h3 {
+        font-size: 13px;
+        margin-bottom: 8px;
+        padding-bottom: 4px;
+    }
+    .widget ul li {
+        font-size: 12px;
+        padding: 3px 0;
+    }
+    .widget ul li a {
+        font-size: 12px;
+    }
+    .widget .tag-cloud a {
+        font-size: 10px;
+        padding: 2px 8px;
+    }
+    .game-entry-card {
+        padding: 10px 10px;
+        border-radius: 10px;
+        margin: 8px 0 16px 0;
+    }
+    .game-entry-card .emoji {
+        font-size: 22px;
+    }
+    .game-entry-card .title {
+        font-size: 14px;
+    }
+    .game-entry-card .desc {
+        font-size: 11px;
+    }
+    .game-entry-card .badge {
+        font-size: 10px;
+        padding: 2px 10px;
+    }
+    .google-search {
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .google-search h3 {
+        font-size: 13px;
+    }
+    .google-search p {
+        font-size: 11px;
+    }
+    .google-search form input[type="text"] {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    .google-search form button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    .site-footer {
+        padding: 16px 0 12px 0;
+        margin-top: 16px;
+        font-size: 12px;
+    }
+    .footer-inner .copy {
+        font-size: 11px;
+    }
+    .footer-links a {
+        font-size: 11px;
+    }
+    #back-to-top {
+        bottom: 12px;
+        right: 12px;
+        padding: 8px 12px;
+        font-size: 12px;
+        border-radius: 30px;
+    }
+    .index-section .cat-title {
+        font-size: 12px;
+        padding-left: 8px;
+        margin: 12px 0 6px 0;
+    }
+    .index-section .cat-title .count {
+        font-size: 10px;
+    }
+    .index-tag {
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+    .index-tag-grid {
+        gap: 4px;
+    }
+}
+
+/* ----- 極小手機 (≤ 360px) ----- */
+@media (max-width: 360px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+    }
+    .category-card {
+        padding: 6px 4px;
+    }
+    .category-card .icon {
+        font-size: 14px;
+    }
+    .category-card .name {
+        font-size: 9px;
+    }
+    .category-card .count {
+        font-size: 8px;
+    }
+    #article-list li a {
+        font-size: 11px;
+    }
+    #article-list li .category {
+        font-size: 8px;
+        padding: 1px 6px;
+    }
+    #article-list li .post-date {
+        font-size: 8px;
+    }
+    .content-card {
+        padding: 8px 6px;
+    }
+    .main-wrapper {
+        padding: 0 4px;
+    }
 }

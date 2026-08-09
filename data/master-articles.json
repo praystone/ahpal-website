@@ -105,5 +105,15 @@
     {
         "keyword":  "2026 年 Vue.js 3 組合式 API 完整教學：從 setup 到 Pinia 狀態管理",
         "category":  "💻 3C 科技教學"
+    },
+    {
+        "keyword":  "2026 年 TypeScript 完整指南：從基礎到進階型別實戰",
+        "category":  "💻 3C 科技教學",
+        "filename":  "tech/typescript-complete-guide-2026.html"
+    },
+    {
+        "keyword":  "2026 年 Next.js 14 App Router 實戰：從入門到 Server Components",
+        "category":  "💻 3C 科技教學",
+        "filename":  "tech/nextjs14-app-router-guide-2026.html"
     }
 ]

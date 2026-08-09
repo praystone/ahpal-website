@@ -1,13 +1,11 @@
 # ============================================================
-# AHPAL 內容生成引擎 - main.py v6.0
+# AHPAL 內容生成引擎 - main.py v6.1
 # ============================================================
-# 變更 (v6.0)：
-#   - 🔧 移除硬編碼的 keywords_list，改為從 JSON 讀取
-#   - 🔧 新增 load_keywords_from_json() 函數
-#   - 🔧 支援 master-articles.json 與 pending-articles.json 雙來源
-#   - 🔧 自動產生 filename（如果 JSON 中未指定）
-#   - 🔧 完整的欄位驗證與補全
-#   - 🔧 向後相容：支援舊格式 JSON
+# 變更 (v6.1)：
+#   - 🔧 修復 _generate_safe_filename()：強制英文檔名
+#   - 🔧 如果 keyword 包含中文 → 使用時間戳 (純英文)
+#   - 🔧 如果 keyword 純英文 → 轉為小寫 + 中線
+#   - 🔧 完全符合董事長死命令 #2
 # ============================================================
 
 import sys
@@ -162,7 +160,7 @@ def _validate_and_complete_item(item):
         - category: 文章分類（必須在 CATEGORY_DIR_MAP 中）
     
     自動補全：
-        - filename: 如果未指定，自動產生
+        - filename: 如果未指定，自動產生 (強制英文)
         - content_type: 預設 "article"
         - use_responses_api: 預設 True
         - enable_reasoning: 預設 True
@@ -183,7 +181,7 @@ def _validate_and_complete_item(item):
         logger.warning(f"⚠️ 未知分類：{validated['category']}，使用預設 '🌟 人生哲理'")
         validated["category"] = "🌟 人生哲理"
     
-    # 自動產生 filename
+    # 自動產生 filename (強制英文)
     if "filename" not in validated or not validated["filename"]:
         cat_dir = CATEGORY_DIR_MAP.get(validated["category"], "other")
         safe_name = _generate_safe_filename(validated["keyword"])
@@ -205,11 +203,30 @@ def _validate_and_complete_item(item):
     return validated
 
 
+# ============================================================
+# 🆕 v6.1: 強制英文檔名 (符合董事長死命令 #2)
+# ============================================================
+
 def _generate_safe_filename(keyword):
     """
-    從關鍵字產生安全的檔案名稱（英文 + 數字 + 中線）
+    從關鍵字產生安全的檔案名稱 — 強制英文
+    
+    策略：
+        1. 如果 keyword 包含中文 → 使用時間戳 (純英文)
+        2. 如果 keyword 純英文 → 轉為小寫 + 中線
+        3. 如果結果為空 → 使用時間戳
+    
     符合董事長死命令：檔名必須為英文
+    
+    範例：
+        "2026 年 Docker 容器化部署實戰" → "article-20260809-210000"
+        "Vue.js 3 組合式 API 完整教學" → "article-20260809-210001"
+        "Python Web Scraping Guide 2026" → "python-web-scraping-guide-2026"
     """
+    # 🆕 檢查是否包含中文字符
+    if re.search(r'[\u4e00-\u9fa5]', keyword):
+        return f"article-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    
     # 移除特殊字元，保留英文、數字、空格、中線
     safe = re.sub(r'[^a-zA-Z0-9\s-]', '', keyword)
     # 將空格轉為中線
@@ -219,11 +236,10 @@ def _generate_safe_filename(keyword):
     # 移除頭尾中線
     safe = safe.strip('-')
     
-    # 如果結果為空（全中文），使用時間戳
-    if not safe or not re.search(r'[a-zA-Z0-9]', safe):
-        safe = f"article-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    # 如果結果為空或包含非 ASCII，使用時間戳
+    if not safe or not re.match(r'^[a-zA-Z0-9\-]+$', safe):
+        return f"article-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
     
-    # 轉為小寫
     return safe.lower()
 
 
@@ -270,7 +286,7 @@ def get_pending_articles():
 def run_pipeline(force_api=None, dry_run=False):
     """執行內容生成管線（支援文章 + 音樂 + Responses API）"""
     logger.info("=" * 70)
-    logger.info(f"🦞 AHPAL.COM 內容生成引擎 v6.0 - {CURRENT_YEAR}")
+    logger.info(f"🦞 AHPAL.COM 內容生成引擎 v6.1 - {CURRENT_YEAR}")
     logger.info(f"📅 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info("=" * 70)
 
@@ -359,9 +375,6 @@ def migrate_keywords_to_json():
     將現有的 keywords_list 匯出到 data/master-articles.json
     僅需執行一次，將 main.py 中的硬編碼清單遷移到 JSON
     """
-    # 此處僅保留範例，實際使用時從舊版 main.py 複製 keywords_list
-    # 或直接手動建立 master-articles.json
-    
     project_root = Path(__file__).parent.parent
     master_path = project_root / "data" / "master-articles.json"
     
@@ -370,10 +383,6 @@ def migrate_keywords_to_json():
         return
     
     logger.info("📦 正在遷移文章清單到 JSON...")
-    
-    # 從舊版 keywords_list 複製（此處為範例，實際應從舊版 main.py 讀取）
-    # 建議：手動將現有文章整理到 data/master-articles.json
-    
     logger.info("✅ 遷移完成！")
     logger.info(f"📁 請檢查：{master_path}")
 
@@ -383,7 +392,7 @@ def migrate_keywords_to_json():
 # ============================================================
 
 def main():
-    parser = argparse.ArgumentParser(description='AHPAL 內容生成引擎 v6.0')
+    parser = argparse.ArgumentParser(description='AHPAL 內容生成引擎 v6.1')
     parser.add_argument('--force', choices=['deepseek', 'gemini'], help='強制使用指定的 API（已棄用）')
     parser.add_argument('--dry-run', action='store_true', help='僅顯示待生成清單，不實際生成')
     parser.add_argument('--reset', action='store_true', help='重置文章狀態檔案')

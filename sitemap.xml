@@ -2419,6 +2419,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/tech/css-flexbox-grid-complete-guide-2026.html</loc>
+        <lastmod>2026-08-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/tech/drone-buying-guide-2026.html</loc>
         <lastmod>2026-07-20</lastmod>
         <changefreq>monthly</changefreq>
@@ -2564,6 +2570,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/tech/python-web-scraping-guide-2026.html</loc>
+        <lastmod>2026-08-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/tech/react-19-new-features-guide-2026.html</loc>
         <lastmod>2026-08-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

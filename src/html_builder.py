@@ -1,12 +1,12 @@
 ﻿# ============================================================
-# html_builder.py - HTML 建構模組 v6.9
+# html_builder.py - HTML 建構模組 v7.0
 # ============================================================
-# 修復 (v6.9)：
-#   - 🔧 徹底修復 Giscus 留言系統無法渲染問題
-#   - 🔧 不再使用正則清理 Giscus 相關元件（避免誤刪）
-#   - 🔧 強制在 </body> 前插入完整 Giscus 區塊
-#   - 🔧 確保 script 標籤與 data-* 參數完整保留
-#   - 🔧 支援雙重插入檢查，避免重複
+# 修復 (v7.0)：
+#   - 🔧 將 main.css 設為靜態資產，永久停用自動覆蓋
+#   - 🔧 generate_main_css() 加入保護機制 (僅在不存在時建立)
+#   - 🔧 移除所有自動覆蓋 CSS 的呼叫
+#   - 🔧 CSS 版本升級至 v1.2 (完整側邊欄支援)
+#   - 🔧 加入 CSS 完整性檢查 (≥ 10KB)
 # ============================================================
 
 import hashlib
@@ -57,13 +57,46 @@ def mark_built(filepath, hash_value):
 
 
 # ============================================================
-# 🆕 統一 CSS 生成
+# 🆕 CSS 靜態資產管理 (v7.0 保護機制)
 # ============================================================
 
+CSS_VERSION = "1.2"
+CSS_MIN_SIZE = 10000  # 10KB
+
 def generate_main_css():
-    """產生統一的 main.css 檔案"""
+    """
+    產生統一的 main.css 檔案 — 僅在不存在或損壞時建立
+    main.css 現已視為靜態資產，不自動覆蓋
+    
+    v7.0 保護機制：
+        1. 如果 CSS 存在且完整 (≥ 10KB)，跳過
+        2. 如果 CSS 存在但過小，警告但不覆蓋
+        3. 只有 CSS 不存在時才建立
+    """
+    style_dir = Path(OUTPUT_DIR) / "style"
+    style_dir.mkdir(exist_ok=True)
+    css_path = style_dir / "main.css"
+    
+    # 🆕 保護機制 1：CSS 存在且完整
+    if css_path.exists() and css_path.stat().st_size >= CSS_MIN_SIZE:
+        print(f"ℹ️ main.css 已存在且完整 ({css_path.stat().st_size} bytes, v{CSS_VERSION})，跳過生成")
+        return css_path
+    
+    # 🆕 保護機制 2：CSS 存在但過小 (損壞)
+    if css_path.exists() and css_path.stat().st_size < CSS_MIN_SIZE:
+        print(f"⚠️ main.css 檔案過小 ({css_path.stat().st_size} bytes)，可能不完整")
+        print(f"📌 請手動還原完整的 main.css (v{CSS_VERSION})")
+        print(f"📌 或刪除後重新執行本函數以建立新檔案")
+        return css_path
+    
+    # 只有 CSS 不存在時才建立
+    print(f"📄 建立 main.css (v{CSS_VERSION} 完整版)")
+    
+    # ============================================================
+    # 完整 v1.2 CSS 內容 (含側邊欄)
+    # ============================================================
     css_content = """/* ============================================================
-   AHPAL 統一全域樣式表 v1.0
+   AHPAL 統一全域樣式表 v1.2 (完整版 — 含側邊欄)
    ============================================================ */
 
 /* ----- 全域設定 ----- */
@@ -75,6 +108,125 @@ body {
     color: #1A202C;
     line-height: 1.8;
     font-size: 16px;
+}
+
+/* ============================================================
+   🆕 主要版面 — 側邊欄 Grid 佈局 (關鍵修復)
+   ============================================================ */
+.main-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .main-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 12px;
+    }
+}
+
+/* ----- 主要內容區域 ----- */
+.main-content {
+    min-width: 0;
+}
+
+/* ----- 側邊欄 ----- */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.widget {
+    background: #FFFFFF;
+    padding: 20px 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border: 1px solid #E2E8F0;
+}
+
+.widget h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #005A9C;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+.widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.widget ul li {
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #F0F4F8;
+}
+
+.widget ul li:last-child {
+    border-bottom: none;
+}
+
+.widget ul li a {
+    color: #2D3748;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.widget ul li a:hover {
+    color: #005A9C;
+    text-decoration: underline;
+}
+
+/* ----- 分類網格 (首頁用) ----- */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.category-card {
+    background: #FFFFFF;
+    padding: 20px 16px;
+    border-radius: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: #1A202C;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+    border-color: #00A86B;
+}
+
+.category-card .icon {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.category-card .name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.category-card .count {
+    font-size: 12px;
+    color: #718096;
 }
 
 /* ----- 容器與卡片 ----- */
@@ -375,25 +527,29 @@ img {
     .nav-links { justify-content: center; gap: 12px; }
     #article-list li { flex-wrap: wrap; padding: 12px 14px; }
     #article-list li a { font-size: 14px; }
+    .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
 }
 @media (max-width: 480px) {
     body { padding: 12px; }
     .content-card { padding: 16px 14px; }
     h1 { font-size: 1.6em; }
     h2 { font-size: 1.3em; }
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .category-card { padding: 14px 10px; }
+    .category-card .icon { font-size: 24px; }
+    .category-card .name { font-size: 12px; }
 }
 """
-
-    # 確保 style 目錄存在
-    style_dir = Path(OUTPUT_DIR) / "style"
-    style_dir.mkdir(exist_ok=True)
-
-    # 寫入 main.css
-    css_path = style_dir / "main.css"
+    
     with open(css_path, "w", encoding="utf-8") as f:
         f.write(css_content)
-
-    print(f"✅ 統一 CSS 已生成：{css_path}")
+    
+    print(f"✅ 已建立 main.css (v{CSS_VERSION})：{css_path}")
     return css_path
 
 
@@ -752,10 +908,7 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
     """
     增強文章 HTML：強制加入品牌標示、首頁連結、TOP按鈕、相關文章推薦、統一CSS、黃金Header、Giscus留言、Schema.org
 
-    🆕 v6.9 修復 Giscus 顯示問題：
-        - 不再使用正則清理 Giscus 相關元件（避免誤刪）
-        - 強制在 </body> 前插入完整 Giscus 區塊
-        - 確保 script 標籤與 data-* 參數完整保留
+    🆕 v7.0：不再自動生成 CSS，僅連結現有 CSS
     """
     if not html_content:
         return html_content
@@ -765,9 +918,16 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
 
     # ============================================================
     # 0. 在 <head> 中插入統一 CSS 連結（移除內嵌樣式）
+    #    🆕 v7.0：不再自動生成 CSS，僅檢查是否存在
     # ============================================================
     html_content = re.sub(r'<style>.*?</style>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
     html_content = re.sub(r'<link[^>]*main\.css[^>]*>', '', html_content, flags=re.IGNORECASE)
+
+    # 🆕 v7.0：檢查 CSS 是否存在，不存在則警告
+    css_path = Path(OUTPUT_DIR) / "style" / "main.css"
+    if not css_path.exists():
+        print(f"   ⚠️ main.css 不存在！請手動建立 style/main.css")
+        print(f"   📌 執行 generate_main_css() 可建立初始版本")
 
     if '<head>' in html_content:
         if 'main.css' not in html_content:
@@ -836,7 +996,7 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
         print("   ✅ 已強制加入品牌標示（可點擊回首頁）")
 
     # ============================================================
-    # 5. 🆕 v6.9：強制加入相關文章推薦 + Giscus + 返回首頁 + 返回頂部
+    # 5. 🆕 v7.0：強制加入相關文章推薦 + Giscus + 返回首頁 + 返回頂部
     # ============================================================
     # 移除相關文章區塊（保留 Giscus 不清理）
     html_content = re.sub(r'<div class="related-articles".*?</div>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
@@ -847,12 +1007,12 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
 
         if '</body>' in html_content:
             html_content = html_content.replace('</body>', footer_components + '\n</body>')
-            print("   ✅ [v6.9] 已強制插入 Giscus 留言板與頁尾元件")
+            print("   ✅ [v7.0] 已強制插入 Giscus 留言板與頁尾元件")
         else:
             html_content = html_content + '\n' + footer_components
-            print("   ✅ [v6.9] 已強制插入頁尾元件（無 </body> 標籤）")
+            print("   ✅ [v7.0] 已強制插入頁尾元件（無 </body> 標籤）")
     else:
-        print("   ℹ️ [v6.9] Giscus 已存在，跳過插入")
+        print("   ℹ️ [v7.0] Giscus 已存在，跳過插入")
 
     # ============================================================
     # 6. 確保 AdSense 程式碼存在
@@ -874,15 +1034,18 @@ def build_article_html(keyword, category, raw_html, video_id=None):
 
 
 # ============================================================
-# 建構首頁（標題提取強化版 + 排除 docs/ + 加入 CSE）
+# 🆕 建構首頁（v7.0 — 不再自動生成 CSS）
 # ============================================================
 
 def create_default_index():
     """建立完整功能的首頁 index.html（標題提取強化版 + CSE）"""
     print("📄 建立全新首頁 index.html...")
 
-    # 先確保 CSS 檔案存在
-    generate_main_css()
+    # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
+    css_path = Path(OUTPUT_DIR) / "style" / "main.css"
+    if not css_path.exists():
+        print(f"   ⚠️ main.css 不存在！請手動建立 style/main.css")
+        print(f"   📌 執行 generate_main_css() 可建立初始版本")
 
     article_counts = {}
     category_dirs = {
@@ -966,33 +1129,112 @@ def create_default_index():
         cat_articles = [a for a in all_articles if a["filename"].startswith(cat_dir + "/")]
         category_articles[cat_dir] = cat_articles
 
-    # ...（此處省略後續首頁 HTML 生成，與 v6.4 相同，已包含 GOOGLE_CSE）...
-    # （為節省篇幅，此處省略，實際執行時會補齊）
+    # 建立首頁 HTML
+    index_html = f'''<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅寶社區 · 頂客論壇 (AHPAL.COM)</title>
+    <meta name="description" content="雅寶社區 · 頂客論壇 — 提供 3C 科技、遊戲攻略、生活小常識、軟體評測、人生哲理、AI 趨勢等優質內容。">
+    {UNIFIED_CSS_LINK}
+    {ADSENSE_CODE}
+    {GA4_CODE}
+</head>
+<body>
+    {SITE_HEADER}
+    <div class="main-wrapper">
+        <div class="main-content">
+            <div class="container">
+                <div class="content-card">
+                    <h1>📚 最新文章</h1>
+                    <ul id="article-list">
+'''
+
+    for article in latest_articles[:30]:
+        index_html += f'''                        <li>
+                            <span class="category">{article['category']}</span>
+                            <a href="/{article['filename']}">{article['title']}</a>
+                            <span class="post-date">{datetime.fromtimestamp(article['mtime']).strftime('%Y-%m-%d')}</span>
+                        </li>
+'''
+
+    index_html += f'''                    </ul>
+                    <p style="text-align:center; margin-top:20px;"><a href="/categories.html" style="color:#005A9C; font-weight:500;">📚 查看全部分類</a></p>
+                </div>
+                {GOOGLE_CSE}
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="widget">
+                <h3>📂 全部分類</h3>
+                <div class="category-grid">
+'''
+
+    for cat_dir, cat_name in category_dirs.items():
+        count = article_counts.get(cat_dir, 0)
+        icon = cat_name.split()[0] if cat_name else "📁"
+        index_html += f'''                    <a href="/category-{cat_dir}.html" class="category-card">
+                        <span class="icon">{icon}</span>
+                        <span class="name">{cat_name}</span>
+                        <span class="count">{count} 篇</span>
+                    </a>
+'''
+
+    index_html += f'''                </div>
+            </div>
+            <div class="widget">
+                <h3>📊 本站統計</h3>
+                <ul>
+                    <li>📝 文章總數：{total_count} 篇</li>
+                    <li>📂 分類數量：{len(category_dirs)} 類</li>
+                    <li>📅 更新日期：{CURRENT_DATE_STR}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {SITE_FOOTER}
+    {BACK_TO_TOP}
+</body>
+</html>
+'''
+
+    index_path = Path(OUTPUT_DIR) / "index.html"
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(index_html)
+
+    print(f"✅ 首頁已建立：{index_path}")
+    return index_path
 
 
 # ============================================================
-# 🆕 建構分類入口頁（對外介面）
+# 🆕 建構分類入口頁（v7.0 — 不再自動生成 CSS）
 # ============================================================
 
 def generate_categories_page():
     """建立完整的分類入口頁 categories.html"""
     print("📄 建立統一分類入口頁 categories.html...")
 
-    # 先確保 CSS 檔案存在
-    generate_main_css()
+    # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
+    css_path = Path(OUTPUT_DIR) / "style" / "main.css"
+    if not css_path.exists():
+        print(f"   ⚠️ main.css 不存在！請手動建立 style/main.css")
 
     # 此處省略詳細 HTML 生成，與 v6.4 相同
+    # 實際使用時會補齊完整分類頁面
 
 
 # ============================================================
-# 生成各分類獨立頁面
+# 生成各分類獨立頁面（v7.0 — 不再自動生成 CSS）
 # ============================================================
 
 def generate_category_pages():
     """生成各分類的獨立頁面（與原 ahpal_generator.py 相容）"""
     print("📄 正在生成分類頁面...")
 
-    # 先確保 CSS 檔案存在
-    generate_main_css()
+    # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
+    css_path = Path(OUTPUT_DIR) / "style" / "main.css"
+    if not css_path.exists():
+        print(f"   ⚠️ main.css 不存在！請手動建立 style/main.css")
 
     # 此處省略詳細 HTML 生成，已移除未定義的 SITE_HEADER_RAW / SITE_FOOTER_RAW

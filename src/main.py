@@ -98,6 +98,9 @@ keywords_list = [
     {"keyword": "LLM 大型語言模型 RAG 檢索增強生成實務：向量資料庫與 LangChain 整合指南", "category": "🤖 AI 趨勢", "filename": "trend/llm-rag-langchain-guide-2026.html"},
     {"keyword": "2026 年熱門電競遊戲排行榜與射擊遊戲推薦：FPS、大逃殺、MOBA 完整攻略", "category": "🎮 遊戲攻略", "filename": "game/esports-shooter-games-ranking-2026.html"},
 
+    {"keyword": "2026 年 CSS Flexbox 與 Grid 完整教學：從基礎到響應式佈局實戰", "category": "💻 3C 科技教學", "filename": "tech/css-flexbox-grid-complete-guide-2026.html"},
+    {"keyword": "2026 年 React 19 新特性完整解析：Compiler、Server Components 與 Actions 實戰", "category": "💻 3C 科技教學", "filename": "tech/react-19-new-features-guide-2026.html"},
+
 ]
 
 

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 年 React 19 新特性完整解析：Compiler、Server Components 與 Actions 實戰｜h1, h2, h3, h4 { - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 React 19 新特性完整解析：Compiler、Server Components 與 Actions 實戰 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 React 19 新特性完整解析：Compiler、Server Components 與 Actions 實戰">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 React 19 新特性完整解析：Compiler、Server Components 與 Actions 實戰</h1>
+    <div class="meta-info">
+        發表時間：2026 年 08 月 09 日 | 更新日期：2026 年 08 月 09 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+
+<h2>pre code {</h2>
+<h2>ul, ol {</h2>
+<h2></h2>
+<h2></h2>
+<h2>💻 3C 科技教學</h2>
+<h2>React</h2>
+<h2>前端框架</h2>
+<h2>2026</h2>
+<h2></h2>
+<p><p style="color: #718096; font-size: 0.9em; margin-bottom: 2em;"></p>
+<img src="/images/article_2026 年 React 19 新特性完整解析：Compiler、Server Components.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+<h2>作者：雅寶社區前端技術組｜發佈日期：2026 年 3 月 18 日</h2>
+<h2></h2>
+<h2></h2>
+<p></p>
+<p><p></p>
+<p>React 19 自正式版發布之後，歷經了數個版本的迭代與生態系的磨合，到了 2026 年的現在，已經成為前端開發領域中不可忽視的強大力量。無論你是剛踏入 React 生態系的新手，還是擁有多年開發經驗的老手，React 19 所帶來的 <strong>Compiler（編譯器）自動記憶化</strong>、<strong>Server Components（伺服器元件）</strong> 與 <strong>Actions（動作）</strong> 三大核心變革，都將徹底重塑你撰寫應用程式的方式。</p>
+<h2></h2>
+<p><p></p>
+<p>本文將由淺入深，帶領各位讀者完整掌握 React 19 的關鍵技術。我們不僅會探討這些新特性的底層運作原理，更會透過大量的程式碼範例與實戰情境，讓你能夠直接將這些新知應用於日常開發中。準備好一起探索這個新世代了嗎？讓我們正式開始。</p>
+<h2></h2>
+<h2></h2>
+<h2>一、React 19 時代來臨：為什麼這是劃時代的版本？</h2>
+<p><p></p>
+<p>回顧 React 的發展歷程，從 16 版本的 Fiber 架構重寫，到 17 版本的逐步遷移策略，再到 18 版本導入 Concurrent Rendering（並行渲染），每一次的重大版本更新都代表了 React 團隊對於「使用者體驗」與「開發者體驗」的極致追求。而 React 19，則可以說是把過去數年來累積的技術債一次償還，並將 React 推向全新高度的關鍵版本。</p>
+<h2></h2>
+<h2>React Compiler 的革命性突破：告別手動記憶化</h2>
+<p><p></p>
+<p>在 React 19 之前，為了避免不必要的重新渲染，開發者必須手動使用 <code>useMemo</code>、<code>useCallback</code> 與 <code>React.memo</code> 來進行效能優化。這些 API 雖然強大，但也帶來了諸多問題：程式碼變得冗長、依賴陣列（dependency array）容易出錯、以及心智負擔大幅增加。React Compiler 的出現，徹底解決了這個困擾。</p>
+<h2></h2>
+<p><p></p>
+<p>React Compiler 會在「建置階段」（Build Time）自動分析你的 JavaScript 程式碼，並自動插入記憶化的邏輯。這意味著，你不再需要手動思考某個元件是否應該被 memo，也不需要費盡心思去維護那些複雜的依賴陣列。Compiler 會接管這一切，讓你的程式碼更加簡潔、直觀，同時效能也達到最佳化。</p>
+<h2></h2>
+<h2>從 React 18 到 React 19：生態系的重大轉變</h2>
+<p><p></p>
+<p>除了 Compiler 之外，React 19 也將許多原本需要第三方套件才能實現的功能，收編為官方原生支援。例如，<strong>資料取得（Data Fetching）</strong>、<strong>表單處理（Form Handling）</strong> 與 <strong>路由（Routing）</strong> 的最佳實踐，都在 React 19 中得到了統一的答案。這代表開發者不再需要為了選擇哪一個資料請求庫而煩惱，也不必在眾多表單套件之間來回比較。React 19 提供了一個更一致、更穩健的開發體驗。</p>
+<h2></h2>
+<p><p></p>
+<p>最令人興奮的是，這些新功能並非彼此孤立的技術，而是可以相互組合、協同作戰的。例如，你可以使用 <strong>Server Components</strong> 在伺服器端取得資料，再透過 <strong>Actions</strong> 處理表單提交，並使用 <code>useOptimistic</code> 提供即時的 UI 回饋。這種組合拳所帶來的開發效率與使用者體驗，是過去任何一個 React 版本都無法比擬的。</p>
+<h2></h2>
+<h2></h2>
+<h2>二、React Compiler 深入解析：自動記憶化的新紀元</h2>
+<p><p></p>
+<p>React Compiler 的誕生，象徵著 React 效能優化從「人工手動」進入「自動編譯」的時代。它不再是依靠開發者的自律與經驗，而是透過編譯器的靜態分析，從根本上杜絕效能瓶頸的產生。</p>
+<h2></h2>
+<h2>useMemo 與 useCallback 的告別？重新思考優化策略</h2>
+<p><p></p>
+<p>過去，我們常常撰寫類似以下的程式碼來避免子元件不必要的重新渲染：</p>
+<h2></h2>
+<h2>// React 18 之前的舊寫法</h2>
+<p>const MyComponent = ({ items, onItemClick }) =&gt; {</p>
+<h2>// 手動記憶化計算結果</h2>
+<h2>const filteredItems = useMemo(() =&gt; {</h2>
+<p>return items.filter(item =&gt; item.isActive);</p>
+<p>}, [items]);</p>
+<h2>// 手動記憶化回呼函式</h2>
+<h2>const handleItemClick = useCallback((id) =&gt; {</h2>
+<p>console.log('Item clicked:', id);</p>
+<p>onItemClick(id);</p>
+<p>}, [onItemClick]);</p>
+<h2>return (</h2>
+<p>&lt;ul&gt;</p>
+<h2>{filteredItems.map(item =&gt; (</h2>
+<p>&lt;li key={item.id} onClick={() =&gt; handleItemClick(item.id)}&gt;</p>
+<p>&lt;/li&gt;</p>
+<p>&lt;/ul&gt;</p>
+<p>);</p>
+<h2>};</h2>
+<p><p></p>
+<p>在 React 19 搭配 Compiler 的環境下，你只需要撰寫樸素的 JavaScript 程式碼：</p>
+<h2></h2>
+<h2>// React 19 + Compiler 的新寫法</h2>
+<p>const MyComponent = ({ items, onItemClick }) =&gt; {</p>
+<h2>// 不需要 useMemo，Compiler 會自動最佳化</h2>
+<p>const filteredItems = items.filter(item =&gt; item.isActive);</p>
+<h2>// 不需要 useCallback，Compiler 會自動處理</h2>
+<h2>const handleItemClick = (id) =&gt; {</h2>
+<p>console.log('Item clicked:', id);</p>
+<p>onItemClick(id);</p>
+<p>};</p>
+<h2>return (</h2>
+<p>&lt;ul&gt;</p>
+<h2>{filteredItems.map(item =&gt; (</h2>
+<p>&lt;li key={item.id} onClick={() =&gt; handleItemClick(item.id)}&gt;</p>
+<p>&lt;/li&gt;</p>
+<p>&lt;/ul&gt;</p>
+<p>);</p>
+<h2>};</h2>
+<p><p></p>
+<p>撰寫風格的轉變顯而易見。React Compiler 會自動判斷 <code>filteredItems</code> 是否依賴於 <code>items</code>，並在 <code>items</code> 沒有變更時，自動複用上一次的結果。同樣地，它也會自動確保 <code>handleItemClick</code> 的參考（reference）在相依值沒有改變的情況下保持穩定。</p>
+<h2></h2>
+<h2></h2>
+<p><strong>💡 編譯器小知識：</strong> React Compiler 並非只是單純地幫你把 <code>useMemo</code> 加上去，它會對整個函式內部的資料流進行「資料流分析」（Data-flow Analysis），判斷哪些變數是純粹的、哪些變數會觸發副作用，進而生成更精確、更高效的記憶化程式碼。這是傳統手動優化無法達到的精細度。</p>
+<h2></h2>
+<h2>Compiler 的運作限制與注意事項</h2>
+<p><p></p>
+<p>雖然 React Compiler 非常強大，但它並非萬能。Compiler 依賴於「規則」來進行分析，假如你的程式碼違反了 React 的規則（Rules of React），Compiler 可能無法完全最佳化，甚至可能出現意想不到的行為。以下幾點需要特別注意：</p>
+<h2></h2>
+<h2></h2>
+<p><li><strong>組件必須是純函數：</strong> 不要在渲染階段直接修改外部變數或觸發副作用（例如 <code>console.log</code> 在 Strict Mode 下仍可能被執行多次）。</li></p>
+<p><li><strong>不要改變 Hook 的呼叫順序：</strong> 這一直是 React 的鐵律，Compiler 也依賴於這個規則來分析 Hook 的依賴關係。</li></p>
+<p><li><strong>避免使用可變（Mutable）物件作為 props：</strong> 如果你在渲染期間建立了新的物件或陣列並傳遞給子元件，Compiler 可能會判斷該物件需要被記憶化，但如果物件內容是動態的，Compiler 依然能妥善處理。</li></p>
+<h2></h2>
+<p><p></p>
+<p>值得慶幸的是，React 團隊提供了嚴格的 ESLint 套件（<code>eslint-plugin-react-hooks</code>）來幫助開發者檢查是否違反了這些規則。在 2026 年的現在，這套工具已經非常成熟，幾乎所有主流的編輯器都能提供即時的錯誤提示。</p>
+<h2></h2>
+<h2></h2>
+<h2>三、React Server Components（RSC）實戰全攻略</h2>
+<p><p></p>
+<p>Server Components 是 React 19 中最具顛覆性的架構創新之一。它允許你將元件的渲染邏輯移至伺服器端執行，只有最終的 HTML 與少量的資料會傳送到客戶端。這不僅大幅降低了 JavaScript Bundle 的大小，更讓資料取得的延遲降到最低。</p>
+<h2></h2>
+<p><h3>Server Components 與 Client Components 的界線劃分</h3></p>
+<p><p></p>
+<p>看到這裡，你可能會問：「我該如何決定哪些元件使用 Server Components，哪些使用 Client Components？」這是一個非常核心的問題。原則是：<strong>凡是需要與瀏覽器互動的（例如 useState、useEffect、onClick 事件處理），就必須是 Client Components</strong>。</p>
+<h2></h2>
+<p><p></p>
+<p>實務上，你可以將「包含狀態的互動介面」與「純粹的靜態內容」明確地區分開來。舉例來說，一個電商網站的「商品評論列表」是純粹展示資料的，非常適合用 Server Components 來渲染。而「評論輸入框」因為需要維護輸入狀態與表單提交，則必須是 Client Components。</p>
+<h2></h2>
+<p><pre><code>// ProductList.server.jsx - 這是 Server Component</p>
+<h2>// 注意：檔名中的 .server 僅供標示，實際使用取決於框架設定（如 Next.js）</h2>
+<p>&lt;/div&gt;</p>
+<p>);</p>
+<h2>}</h2>
+<h2>資料獲取的新思維：直接在 Server 端取得資料，告別 Loading 地獄</h2>
+<p><p></p>
+<p>傳統的 React 應用（例如 React 18 之前的寫法），通常將資料取得放在 <code>useEffect</code> 中，這會導致以下幾個問題：</p>
+<h2></h2>
+<h2></h2>
+<h2>頁面載入時先顯示空白或佔位畫面（Skeleton），然後才顯示真實資料。</h2>
+<h2>每個元件都要各自處理自己的 Loading 狀態與錯誤狀態，邏輯繁瑣。</h2>
+<h2>由於資料請求發生在客戶端，會受到網路延遲與 CORS 的限制。</h2>
+<h2></h2>
+<p><p></p>
+<p>React 19 的 Server Components 徹底解決了這些問題。因為資料在伺服器端就已取得並渲染成 HTML，傳送到客戶端的是一個完整的頁面。使用者第一眼看到的，就是包含所有資料的最終畫面，<strong>完全沒有等待時間（First Contentful Paint 大幅提前）</strong>。</p>
+<h2></h2>
+<p><p></p>
+<p>此外，Server Components 可以搭配 <code>&lt;Suspense&gt;</code> 使用，讓你在等待某個非同步元件的同時，先在客戶端顯示一個精緻的 Loading 畫面。但這裡的 Loading 並非網路請求的等待，而是伺服器端渲染資料的等待，整體體驗更加流暢。</p>
+<h2></h2>
+<p><pre><code>// 使用 Suspense 將非同步的 Server Component 包起來</p>
+<p>&lt;/button&gt;</p>
+<h2>{state &amp;&amp; state.message &amp;&amp; (</h2>
+<p>&lt;p style={{ color: state.success ? 'green' : 'red' }}&gt;{state.message}&lt;/p&gt;</p>
+<p>&lt;/form&gt;</p>
+<p>);</p>
+<h2>}</h2>
+<h2>useOptimistic：打造流暢的樂觀更新體驗</h2>
+<p><p></p>
+<p>在社群互動（例如按讚）或即時清單（例如新增待辦事項）中，「樂觀更新」是提升使用者體驗的關鍵技巧。所謂樂觀更新，是指在伺服器尚未回應時，我們先假設請求會成功，並立即在建置 UI 上呈現更新的結果，讓使用者感覺操作「零延遲」。</p>
+<h2></h2>
+<p><p></p>
+<p>React 19 的 <code>useOptimistic</code> Hook 讓這個實踐變得異常簡單。它允許你在背景執行 Server Action 的同時，直接對既有狀態進行暫時性的修改。</p>
+<h2></h2>
+<h2>// TodoList.jsx - 樂觀更新的典範</h2>
+<p>'use client';</p>
+<h2>return (</h2>
+<p>&lt;div&gt;</p>
+<p>&lt;form action={formAction}&gt;</p>
+<p>&lt;input type="text" name="todo" required /&gt;</p>
+<p>&lt;button type="submit"&gt;新增&lt;/button&gt;</p>
+<p>&lt;/form&gt;</p>
+<p>&lt;ul&gt;</p>
+<h2>{optimisticTodos.map((todo, index) =&gt; (</h2>
+<p>&lt;li key={index} className={todo.status === 'pending' ? 'opacity-50' : ''}&gt;</p>
+<p>&lt;/li&gt;</p>
+<p>&lt;/ul&gt;</p>
+<p>&lt;/div&gt;</p>
+<p>);</p>
+<h2>}</h2>
+<p><p></p>
+<p>透過 <code>useOptimistic</code>，我們將「暫存資料」與「真實資料」的同步複雜性交由 React 處理。使用者會立即看到新的待辦事項出現在畫面上（雖然呈現半透明以標示尚未確認），而當真正的 Server Action 完成後，狀態會被無縫地替換。這種體驗，正是現代網路應用所追求的「即時感」。</p>
+<h2></h2>
+<h2></h2>
+<h2>五、React 19 的其他重大更新與實用細節</h2>
+<p><p></p>
+<p>除了上述三大支柱外，React 19 還有許多細節上的改進，讓開發過程更為順暢。這些新功能看似微小，卻能大大減輕開發者的負擔。</p>
+<h2></h2>
+<h2>use() Hook：全新的資源讀取方式</h2>
+<p><p></p>
+<p>React 19 引入了全新的 <code>use()</code> Hook，它可以用來讀取 Promise 或 Context 等資源。其最大特色在於，<code>use()</code> 可以在條件式（如 <code>if</code> 區塊）中呼叫，打破了過去 Hooks 必須在頂層呼叫的限制。</p>
+<h2></h2>
+<h2>// 使用 use() 讀取 Context，可以在條件式中呼叫</h2>
+<p>return &lt;p&gt;請先登入&lt;/p&gt;;</p>
+<h2>}</h2>
+<p><p></p>
+<p>此外，<code>use()</code> 也能直接接收 Promise，並與 <code>&lt;Suspense&gt;</code> 完美搭配，使得非同步資料的讀取更加直觀，無需再用 <code>useEffect</code> 加上一堆狀態量來處理載入流程。</p>
+<h2></h2>
+<h2>ref 作為 prop：簡化元件設計</h2>
+<p><p></p>
+<p>在傳統 React 中，如果想要在父元件中操作子元件的 DOM 節點，必須使用 <code>forwardRef</code> 將 ref 綁定到子元件內部。這導致了程式碼冗長且難以記憶。React 19 讓事情變得更簡單了。</p>
+<h2></h2>
+<p><p></p>
+<p>現在，<code>ref</code> 已經被視為一般的 prop，你可以直接透過 props 傳遞給子元件，不再需要 <code>forwardRef</code>。</p>
+<h2></h2>
+<h2>// 舊寫法（React 18）</h2>
+<p>const MyButton = React.forwardRef((props, ref) =&gt; (</p>
+<p>&lt;button ref={ref} {...props}&gt;按鈕&lt;/button&gt;</p>
+<p>));</p>
+<h2>// 新寫法（React 19） - 直接將 ref 當成 prop 接收</h2>
+<h2>function MyButton({ ref, ...props }) {</h2>
+<p>return &lt;button ref={ref} {...props}&gt;按鈕&lt;/button&gt;;</p>
+<h2>}</h2>
+<p><p></p>
+<p>這項改動大幅簡化了函式元件的簽章（signature），讓開發者能用更一致的方式處理 DOM 操作與第三方套件的整合。</p>
+<h2></h2>
+<h2>Suspense 的強化與改進</h2>
+<p><p></p>
+<p>React 19 對 Suspense 的行為進行了細緻的調整，解決了過去在伺服器端渲染（SSR）時的一些不一致問題。現在，使用 Suspense 包裹的非同步元件在伺服器端也能被正確地等待與串流（Stream），確保 HTML 中的內容是完整且正確的。這也讓 Server Components 搭配 Suspense 的組合更加穩健可靠。</p>
+<h2></h2>
+<h2></h2>
+<h2>六、實戰整合：打造一個現代化的 React 19 應用程式</h2>
+<p><p></p>
+<p>了解理論後，最重要的就是實際操作。以下我們將整合 React 19 的 Server Components、Actions、useOptimistic 與 useActionState，建立一個簡潔的「留言板」應用，讓各位讀者親身體驗新世代 React 的開發流程。</p>
+<h2></h2>
+<h2>一、專案建置與環境設定</h2>
+<p><p></p>
+<p>最快速的方法依然是透過 Next.js 或 React Router 等支援 React 19 的框架來啟動。由於 React 官方文件也推薦使用框架進行路由與資料取得，我們在此以 Next.js（假設為最新版本）為例。確保你的 <code>package.json</code> 中 React 與 Next.js 版本皆為最新版。</p>
+<h2></h2>
+<p><pre><code>npx create-next-app@latest ya-bao-board</p>
+<h2>cd ya-bao-board</h2>
+<h2>npm install react@latest next@latest</h2>
+<h2>二、結合 Server Components 與 Actions 的完整留言板</h2>
+<h2>第一步：建立資料模型與 Server Action</h2>
+<p><p></p>
+<p>我們先在 <code>app/actions.js</code> 中定義新增留言的 Server Action。</p>
+<h2></h2>
+<h2>// app/actions.js</h2>
+<p>'use server';</p>
+<p>});</p>
+<h2>}</h2>
+<p><p><strong>第二步：建立頁面與 Client Component</strong></p></p>
+<p><p></p>
+<p>頁面的主要內容是一個 Server Component，負責取得資料庫現有的留言；而表單的部分則使用 Client Component，並搭配 <code>useActionState</code> 來處理表單提交狀態。</p>
+<h2></h2>
+<h2>// app/page.jsx (Server Component)</h2>
+<p>});</p>
+<h2>return (</h2>
+<p>&lt;main style={{ padding: '20px' }}&gt;</p>
+<p>&lt;h1&gt;雅寶社群留言板&lt;/h1&gt;</p>
+<p>&lt;p&gt;這裡是社團成員的交流園地。請保持友善與禮貌。共 {messages.length} 則留言。&lt;/p&gt;</p>
+<p>&lt;ul&gt;</p>
+<h2>{messages.map((msg) =&gt; (</h2>
+<p>&lt;li key={msg.id}&gt;{msg.content}&lt;/li&gt;</p>
+<p>&lt;/ul&gt;</p>
+<p>&lt;MessageForm serverAction={createMessage} /&gt;</p>
+<p>&lt;/main&gt;</p>
+<p>);</p>
+<h2>}</h2>
+<p><pre><code>// app/MessageForm.jsx (Client Component)</p>
+<p>'use client';</p>
+<h2>required</h2>
+<p>/&gt;</p>
+<p>&lt;br /&gt;</p>
+<p>&lt;button type="submit" disabled={isPending}&gt;</p>
+<p>&lt;/button&gt;</p>
+<h2>{state &amp;&amp; (</h2>
+<p>&lt;p style={{ color: state.success ? 'green' : 'red', marginTop: '8px' }}&gt;</p>
+<p>&lt;/p&gt;</p>
+<p>&lt;/form&gt;</p>
+<p>);</p>
+<h2>}</h2>
+<p><p></p>
+<p>上述程式碼呈現了 React 19 最核心的應用模式：<strong>Server Component 用於資料取得與靜態渲染，Client Component 專注於互動性，而 Server Action 則負責處理寫入操作與商業邏輯</strong>。這樣的分工方式，讓程式碼的維護性、安全性與效能都達到了極佳的平衡。</p>
+<h2></h2>
+<h2></h2>
+<h2>七、總結與未來展望</h2>
+<p><p></p>
+<p>React 19 絕對是一次屬於框架層級的典範轉移。從 React Compiler 解放了效能優化的心智負擔、Server Components 重新定義了資料取得的架構，再到 Actions 簡化了互動行為的複雜度，這三大核心更新彼此交織，共同塑造了 2026 年乃至於未來數年 React 開發的新常態。</p>
+<h2></h2>
+<p><p></p>
+<p>作為開發者，我們必須與時俱進。擁抱 React 19 的這些新思維，不僅能為我們的應用程式帶來更卓越的使用者體驗，更能大幅提升團隊內部的開發效率。當然，沒有任何技術是完美的，React 19 的學習曲線依然存在，例如理解 Server Components 的資料流動、以及適應 Compiler 的規則約束，都需要時間與實作累積。</p>
+<h2></h2>
+<p><p></p>
+<p>在雅寶社區，我們鼓勵所有成員持續探索、交流與分享。無論你是正在嘗試遷移舊專案到 React 19，還是準備在全新專案中導入這些技術，都歡迎在下方留言區提出你的問題與獨到見解。技術的成長，總是來自於不斷的碰撞與討論。</p>
+<h2></h2>
+<p><p></p>
+<p>最後，期許各位都能善用 React 19 的強大威力，打造出更快速、更流暢、更具互動性的優秀網路應用。我們下次教學見！</p>
+<h2></h2>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* ============================================================
-   AHPAL 統一全域樣式表 v1.0
+   AHPAL 統一全域樣式表 v1.2 (完整版 — 含側邊欄)
    ============================================================ */
 
 /* ----- 全域設定 ----- */
@@ -11,6 +11,126 @@ body {
     color: #1A202C;
     line-height: 1.8;
     font-size: 16px;
+    padding: 0;
+}
+
+/* ============================================================
+   🆕 主要版面 — 側邊欄 Grid 佈局 (關鍵修復)
+   ============================================================ */
+.main-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .main-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 12px;
+    }
+}
+
+/* ----- 主要內容區域 ----- */
+.main-content {
+    min-width: 0;
+}
+
+/* ----- 側邊欄 ----- */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.widget {
+    background: #FFFFFF;
+    padding: 20px 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border: 1px solid #E2E8F0;
+}
+
+.widget h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #005A9C;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+.widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.widget ul li {
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #F0F4F8;
+}
+
+.widget ul li:last-child {
+    border-bottom: none;
+}
+
+.widget ul li a {
+    color: #2D3748;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.widget ul li a:hover {
+    color: #005A9C;
+    text-decoration: underline;
+}
+
+/* ----- 分類網格 (首頁用) ----- */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.category-card {
+    background: #FFFFFF;
+    padding: 20px 16px;
+    border-radius: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: #1A202C;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+    border-color: #00A86B;
+}
+
+.category-card .icon {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.category-card .name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.category-card .count {
+    font-size: 12px;
+    color: #718096;
 }
 
 /* ----- 容器與卡片 ----- */
@@ -311,10 +431,20 @@ img {
     .nav-links { justify-content: center; gap: 12px; }
     #article-list li { flex-wrap: wrap; padding: 12px 14px; }
     #article-list li a { font-size: 14px; }
+    .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
 }
 @media (max-width: 480px) {
     body { padding: 12px; }
     .content-card { padding: 16px 14px; }
     h1 { font-size: 1.6em; }
     h2 { font-size: 1.3em; }
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .category-card { padding: 14px 10px; }
+    .category-card .icon { font-size: 24px; }
+    .category-card .name { font-size: 12px; }
 }

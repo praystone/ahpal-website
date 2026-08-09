@@ -1,0 +1,119 @@
+[
+    {
+        "keyword":  "?曉僑摮文? 擐砍???瘛勗漲?貉? 擳劂?曉祕銝餌儔 閫??",
+        "category":  "?? 鈭箇??脩?",
+        "filename":  "philosophy/one-hundred-years-of-solitude-review.html"
+    },
+    {
+        "keyword":  "2026 撟?璈１撘???貉頃?? ?刻",
+        "category":  "? 3C 蝘??飛",
+        "filename":  "tech/mechanical-keyboard-guide-2026.html"
+    },
+    {
+        "keyword":  "?極鈭箏??貉????甇 餈瑕??寧楊",
+        "category":  "? ?單??萎?",
+        "filename":  "music/?極鈭箏??貉???html"
+    },
+    {
+        "keyword":  "?迤蝝?EDM ?芯?鞎 ?寧楊 ?啁??潮 閫??",
+        "category":  "? ?單??萎?",
+        "filename":  "music/seasonal-blossoms-edm-remix.html",
+        "content_type":  "song",
+        "video_id":  "Oqc10ueJMGA"
+    },
+    {
+        "keyword":  "?典???Lo-fi ?? ?寧楊 ?啁??潮 閫??",
+        "category":  "? ?單??萎?",
+        "filename":  "music/rainy-night-flower-lo-fi-cover.html",
+        "content_type":  "song",
+        "video_id":  "HF8jjeL9UFc"
+    },
+    {
+        "keyword":  "摰嗥 NAS ?貊??芸??遢?振摨剖鈭怠祕?堆??箄 iCloud 閮?嗥?摰?蔭??",
+        "category":  "?? ?暑撠虜霅?,
+        "filename":  "lifestyle/nas-home-photo-backup-setup.html"
+    },
+    {
+        "keyword":  "Suno AI ???啗?甇摰??嚗?喳?朣蝢?唾撓?交?撌扯?憸冽 Prompt 撖血?",
+        "category":  "? ?單??萎?",
+        "filename":  "music/suno-ai-taiwanese-song-prompt-guide.html"
+    },
+    {
+        "keyword":  "2026 Home Assistant 頝典???批振摨剜?祕?堆?Aqara?omeKit ??Matter ???典??芸??????,
+        "category":  "?? ?暑撠虜霅?,
+        "filename":  "lifestyle/home-assistant-aqara-matter-setup.html"
+    },
+    {
+        "keyword":  "Suno / Udio ???單?敺ˊ????嚗??Ultimate Vocal Remover ?脰? Stems ?函?頠毽?唾? Mastering 撖血?",
+        "category":  "? ?單??萎?",
+        "filename":  "music/ai-music-stems-separation-daw-mixing-guide.html"
+    },
+    {
+        "keyword":  "2026 摰嗥 NAS ?垢摰摮?撖行嚗loudflare Tunnel 蝛輸? Tailscale VPN ?蔭??",
+        "category":  "?? ?暑撠虜霅?,
+        "filename":  "lifestyle/nas-remote-access-cloudflare-tunnel-tailscale.html"
+    },
+    {
+        "keyword":  "Suno AI ?啗??恥隤??脣雿?憭?典???Prompt ?蔭?毽?喲畾萎耨甇????,
+        "category":  "? ?單??萎?",
+        "filename":  "music/suno-ai-taiwanese-hakka-harmony-prompt-guide.html"
+    },
+    {
+        "keyword":  "2026 撟?Python ?芸???脣祕?唳???敺?Requests ??Scrapy 摰?飛",
+        "category":  "? 3C 蝘??飛",
+        "filename":  "tech/python-web-scraping-guide-2026.html"
+    },
+    {
+        "keyword":  "Home Assistant 2026 ?箸摰嗅滬?芸????葫?具???單??銵冽撖行",
+        "category":  "?? ?暑撠虜霅?,
+        "filename":  "lifestyle/home-assistant-2026-automation-guide.html"
+    },
+    {
+        "keyword":  "?祥 AI 蝜芸?撌亙摰閰葫嚗table Diffusion?idjourney ??DALL-E 3 ?芰撩暺?頛?,
+        "category":  "?? 頠?閰葫",
+        "filename":  "review/ai-image-generators-comparison-2026.html"
+    },
+    {
+        "keyword":  "2026 撟湔?鞈?鞎⊥??嚗TF?雿董?嗉?鋡怠??嗅蝑",
+        "category":  "?? 鈭箇??脩?",
+        "filename":  "philosophy/investment-beginners-guide-2026.html"
+    },
+    {
+        "keyword":  "LLM 憭批?隤?璅∪? RAG 瑼Ｙ揣憓撥??撖血?嚗????澈??LangChain ?游???",
+        "category":  "?? AI 頞典",
+        "filename":  "trend/llm-rag-langchain-guide-2026.html"
+    },
+    {
+        "keyword":  "2026 撟渡??餌奎???璁?撠???刻嚗PS?之?捏?OBA 摰?餌",
+        "category":  "? ??餌",
+        "filename":  "game/esports-shooter-games-ranking-2026.html"
+    },
+    {
+        "keyword":  "2026 撟?CSS Flexbox ??Grid 摰?飛嚗??箇??圈??雿?撖行",
+        "category":  "? 3C 蝘??飛",
+        "filename":  "tech/css-flexbox-grid-complete-guide-2026.html"
+    },
+    {
+        "keyword":  "2026 撟?React 19 ?啁?批??渲圾??Compiler?erver Components ??Actions 撖行",
+        "category":  "? 3C 蝘??飛",
+        "filename":  "tech/react-19-new-features-guide-2026.html"
+    },
+    {
+        "keyword":  "2026 撟?Docker 摰孵?蝵脣祕?堆?敺???K8s ?游???",
+        "category":  "? 3C 蝘??飛"
+    },
+    {
+        "keyword":  "2026 撟?Vue.js 3 蝯?撘?API 摰?飛嚗? setup ??Pinia ??恣??,
+        "category":  "? 3C 蝘??飛"
+    },
+    {
+        "keyword":  "2026 撟?TypeScript 摰??嚗??箇??圈脤??撖行",
+        "category":  "? 3C 蝘??飛",
+        "filename":  "tech/typescript-complete-guide-2026.html"
+    },
+    {
+        "keyword":  "2026 撟?Next.js 14 App Router 撖行嚗??仿???Server Components",
+        "category":  "? 3C 蝘??飛",
+        "filename":  "tech/nextjs14-app-router-guide-2026.html"
+    }
+]

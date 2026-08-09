@@ -2377,6 +2377,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/tech/article-20260809-213051.html</loc>
+        <lastmod>2026-08-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/tech/best-dashcam-2026-buying-guide.html</loc>
         <lastmod>2026-07-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -2551,6 +2557,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/tech/nextjs14-app-router-guide-2026.html</loc>
+        <lastmod>2026-08-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/tech/phone-photography-tips-2026.html</loc>
         <lastmod>2026-07-20</lastmod>
         <changefreq>monthly</changefreq>
@@ -2613,6 +2625,12 @@
     <url>
         <loc>https://www.ahpal.com/tech/tws-earbuds-guide-2026.html</loc>
         <lastmod>2026-07-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/tech/typescript-complete-guide-2026.html</loc>
+        <lastmod>2026-08-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>

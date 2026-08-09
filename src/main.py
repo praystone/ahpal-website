@@ -91,6 +91,13 @@ keywords_list = [
     {"keyword": "2026 家用 NAS 遠端安全存取實戰：Cloudflare Tunnel 穿透與 Tailscale VPN 配置指南", "category": "🏠 生活小常識", "filename": "lifestyle/nas-remote-access-cloudflare-tunnel-tailscale.html"},
     {"keyword": "Suno AI 台語與客語歌曲創作：多聲部和聲 Prompt 配置與混音頻段修正指南", "category": "🎵 音樂創作", "filename": "music/suno-ai-taiwanese-hakka-harmony-prompt-guide.html"},
 
+    {"keyword": "2026 年 Python 自動化爬蟲實戰指南：從 Requests 到 Scrapy 完整教學", "category": "💻 3C 科技教學", "filename": "tech/python-web-scraping-guide-2026.html"},
+    {"keyword": "Home Assistant 2026 智慧家庭自動化：感測器、自動化腳本與儀表板實戰", "category": "🏠 生活小常識", "filename": "lifestyle/home-assistant-2026-automation-guide.html"},
+    {"keyword": "免費 AI 繪圖工具完整評測：Stable Diffusion、Midjourney 與 DALL-E 3 優缺點比較", "category": "📊 軟體評測", "filename": "review/ai-image-generators-comparison-2026.html"},
+    {"keyword": "2026 年投資理財新手入門：ETF、數位帳戶與被動收入策略", "category": "🌟 人生哲理", "filename": "philosophy/investment-beginners-guide-2026.html"},
+    {"keyword": "LLM 大型語言模型 RAG 檢索增強生成實務：向量資料庫與 LangChain 整合指南", "category": "🤖 AI 趨勢", "filename": "trend/llm-rag-langchain-guide-2026.html"},
+    {"keyword": "2026 年熱門電競遊戲排行榜與射擊遊戲推薦：FPS、大逃殺、MOBA 完整攻略", "category": "🎮 遊戲攻略", "filename": "game/esports-shooter-games-ranking-2026.html"},
+
 ]
 
 

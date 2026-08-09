@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Python 自動化爬蟲實戰指南：從 Requests 到 Scrapy 完整教學 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Python 自動化爬蟲實戰指南：從 Requests 到 Scrapy 完整教學">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Python 自動化爬蟲實戰指南：從 Requests 到 Scrapy 完整教學</h1>
+    <div class="meta-info">
+        發表時間：2026 年 08 月 09 日 | 更新日期：2026 年 08 月 09 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+</h1>
+<h2></h2>
+<p><p>各位雅寶社區・頂客論壇的朋友們，大家好！在 2026 年的今天，資料驅動的決策已成為各行各業的核心競爭力。無論是分析市場趨勢、監控競品動態、收集學術研究數據，還是建立個人化的資訊儀表板，「自動化爬蟲」都已成為 Python 開發者必備的核心技能。</p>
+<img src="/images/article_2026 年 Python 自動化爬蟲實戰指南：從 Requests 到 Scrapy 完整教學.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+</p>
+<p><p>然而，面對網路環境日益複雜、網站技術層出不窮、反爬機制愈發嚴謹的現況，單純複製貼上程式碼已無法解決實務問題。本篇 4500 字以上的純 HTML 實戰指南，將帶你深入淺出地掌握 Python 爬蟲的兩個關鍵階段：<strong>輕量級 HTTP 請求庫 Requests</strong>，以及<strong>企業級爬蟲框架 Scrapy</strong>。我們不只談語法，更著重於實務開發流程、常見反爬策略的應對，以及如何將兩者結合，打造高效且穩健的資料採集管線。</p></p>
+<p><p>準備好進入 2026 年的資料獵人世界了嗎？讓我們從基礎開始，一步步建構你的自動化爬蟲帝國！</p></p>
+<h2></h2>
+<h2></h2>
+<h2>📋 本文目錄與學習路徑</h2>
+<h2></h2>
+<p><li><a href="#section1">👉 H2：為什麼選擇 Python 做爬蟲？ — 2026 年的技術優勢</a></li></p>
+<p><li><a href="#section2">👉 H2：環境建置與第一個 Requests 爬蟲</a></p>
+<h2></h2>
+<p><li><a href="#subsection1">📌 H3：安裝與虛擬環境管理 (pip / venv)</a></li></p>
+<p><li><a href="#subsection2">📌 H3：Requests 實戰 — 發送 GET 與 POST 請求</a></li></p>
+<h2></h2>
+<h2></h2>
+<p><li><a href="#section3">👉 H2：從 Requests 進化到 Scrapy — 架構與優勢</a></p>
+<h2></h2>
+<p><li><a href="#subsection3">📌 H3：Scrapy 核心元件剖析 (Spider / Item / Pipeline)</a></li></p>
+<p><li><a href="#subsection4">📌 H3：建立第一個 Scrapy 專案與選器 (Selector) 用法</a></li></p>
+<h2></h2>
+<h2></h2>
+<p><li><a href="#section4">👉 H2：2026 反爬蟲機制終極對策 (Headers / Cookie / Proxy / 延遲)</a></li></p>
+<p><li><a href="#section5">👉 H2：實戰案例 — 從 Requests 到 Scrapy 的整合遷移</a></li></p>
+<p><li><a href="#section6">👉 H2：爬蟲倫理、法律紅線與 Robots.txt 的最後叮嚀</a></li></p>
+<h2></h2>
+<h2></h2>
+<h2></h2>
+<p><h2 id="section1">🔍 H2：為什麼選擇 Python 做爬蟲？ — 2026 年的技術優勢</h2></p>
+<p><p>在 2026 年的程式語言競技場上，Python 依然穩坐資料科學與自動化領域的龍頭寶座。對於爬蟲開發而言，Python 具備以下無可取代的優勢：</p></p>
+<p><p><strong>1. 語法簡潔，開發效率極高：</strong>Python 的語法接近自然語言，讓開發者能將 80% 的時間專注於邏輯處理而非語言細節。這在需要快速應變網站改版的反爬蟲戰爭中至關重要。</p></p>
+<p><p><strong>2. 生態系堪稱無敵：</strong>從底層的 <code>requests</code>、<code>httpx</code>，到中層的 <code>BeautifulSoup</code>、<code>lxml</code>，再到頂層的 <code>Scrapy</code>、<code>Playwright</code>、<code>Selenium</code>，Python 提供了從簡到繁的所有解決方案。這種「光譜式」的生態系讓你永遠有最合適的工具可用。</p></p>
+<p><p><strong>3. 非同步與並發支援成熟：</strong>面對大型採集任務，2026 年的 Python 已能透過 <code>asyncio</code>、<code>aiohttp</code> 以及 Scrapy 內建的異步處理機制，輕鬆實現每秒數百請求的高吞吐量。</p></p>
+<p><p><strong>4. 資料處理完美銜接：</strong>爬蟲的最終目的是取得結構化資料，而 Python 的 <code>pandas</code>、<code>numpy</code> 和 <code>polars</code> 提供了強大的資料清洗與分析能力，讓「爬取 -> 解析 -> 分析」在同一個語言中無縫串接。</p></p>
+<p><p>總結來說，無論是 2026 年還是未來數年，Python 仍然是進入自動化爬蟲領域的最佳選擇。接下來，我們將實際動手，從環境建置開始。</p></p>
+<h2></h2>
+<h2>⚙️ H2：環境建置與第一個 Requests 爬蟲</h2>
+<p><p>在 2026 年的開發環境中，虛擬環境已不僅是建議，而是維護專案依賴隔離的必要措施。我們將一步步建立一個乾淨的開發環境。</p></p>
+<h2></h2>
+<p><h3 id="subsection1">📌 H3：安裝與虛擬環境管理 (pip / venv)</h3></p>
+<p><p>首先，請確保你已安裝 Python 3.11 以上的版本（建議使用最新的穩定版 Python 3.12 或 3.13，效能與內建模組更佳）。接著，開啟終端機（Terminal）並執行以下指令：</p></p>
+<h2></h2>
+<h2>python -m venv crawler_env</h2>
+<h2>source crawler_env/bin/activate</h2>
+<h2>crawler_env\Scripts\activate.bat</h2>
+<h2>crawler_env\Scripts\Activate.ps1</h2>
+<h2></h2>
+<p><p>啟用後，終端機提示符號前方會出現 <code>(crawler_env)</code> 標記。現在，我們安裝本次所需的兩個核心套件：<code>requests</code> 和 <code>scrapy</code>。為了讓 Requests 在未來的 HTTP/2 與 HTTPS 連線上有更好的效能，我們推薦同時安裝 <code>httpx</code> 作為輔助，但主軸仍以 <code>requests</code> 示範。</p></p>
+<h2></h2>
+<h2>pip install --upgrade pip</h2>
+<h2>pip install requests beautifulsoup4 lxml</h2>
+<h2>pip install scrapy</h2>
+<h2></h2>
+<p><p>安裝完成後，可以透過 <code>python -c "import requests; print(requests.__version__)"</code> 驗證版本。這代表你的 2026 年爬蟲戰艦已正式啟航。</p></p>
+<h2></h2>
+<p><h3 id="subsection2">📌 H3：Requests 實戰 — 發送 GET 與 POST 請求</h3></p>
+<p><p><code>Requests</code> 庫以「人類可讀」的 API 聞名。讓我們以一個公開的測試 API（例如 <code>httpbin.org</code>，若無法連線則可改為其他公開測試站台）來進行操作。</p></p>
+<h2>案例：發送一道 GET 請求</h2>
+<h2></h2>
+<h2>import requests</h2>
+<h2>url = "https://httpbin.org/get"</h2>
+<h2>headers = {</h2>
+<p>"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"</p>
+<p>response = requests.get(url, params=params, headers=headers, timeout=10)</p>
+<h2>print(f"HTTP 狀態碼: {response.status_code}")</h2>
+<h2>data = response.json()</h2>
+<h2>print("伺服器收到的請求參數:", data.get("args"))</h2>
+<p>print("伺服器收到的 Headers:", data.get("headers", {}).get("User-Agent"))</p>
+<h2></h2>
+<p><p>上述程式碼展示了幾個重點：<strong>1. 設定 User-Agent</strong> 模擬真實瀏覽器，這是 2026 年最低限度的反爬對抗；<strong>2. 使用 timeout</strong> 避免請求卡死；<strong>3. 以 .json() 方法直接解析</strong>，省去手動處理字串的麻煩。</p></p>
+<h2>案例：發送 POST 表單請求</h2>
+<h2>當目標網站需要登入或提交表單時，我們需要發送 POST 請求。</h2>
+<h2></h2>
+<h2>import requests</h2>
+<h2>login_url = "https://httpbin.org/post"</h2>
+<h2>form_data = {</h2>
+<p>"username": "topguy_admin",</p>
+<h2>"password": "password123"</h2>
+<p>response = requests.post(login_url, data=form_data)</p>
+<h2>print("表單資料:", response.json().get("form"))</h2>
+<h2></h2>
+<p><p>掌握了基礎的請求發送後，我們還需要學會解析 HTML。雖然這是 <code>BeautifulSoup</code> 的強項，但在 Scrapy 中我們會使用更快的 <code>Selector</code>，這點留在後述。先來看看 Requests 與 BeautifulSoup 的經典搭配：</p></p>
+<h2></h2>
+<h2>from bs4 import BeautifulSoup</h2>
+<h2>html_doc = response.text</h2>
+<h2>soup = BeautifulSoup(html_doc, "lxml")</h2>
+<h2>title_tag = soup.select_one("h1")</h2>
+<p>print("網頁標題:", title_tag.text if title_tag else "無")</p>
+<h2></h2>
+<p><p>當我們在寶藏海灘上徒手挖掘（Requests）已經熟練後，是時候引入重裝機械（Scrapy）來進行大規模開採了。</p></p>
+<h2></h2>
+<p><h2 id="section3">🕷️ H2：從 Requests 進化到 Scrapy — 架構與優勢</h2></p>
+<p><p>若是單一或少量的資料量，Requests 綽綽有餘。然而，當你需要爬取數十萬頁的產品資料、新聞文章或社群貼文時，Requests 的同步請求架構將成為巨大的瓶頸。此時，<strong>Scrapy</strong> 便是 2026 年生產環境中的首選。</p></p>
+<p><p>Scrapy 是一個非同步的抓取框架，它為你處理了大量繁瑣的前置工作：<strong>請求排程、並發下載、資料清洗、輸出格式轉換、去重、錯誤重試</strong>……等等。你可以將它視為一台自動化的工業級織布機。</p></p>
+<h2></h2>
+<p><h3 id="subsection3">📌 H3：Scrapy 核心元件剖析 (Spider / Item / Pipeline)</h3></p>
+<h2>要駕馭 Scrapy，必須先理解其四大核心元件：</h2>
+<h2></h2>
+<p><li><strong>Spider (爬蟲)：</strong>定義了要爬取的網站、如何追蹤連結，以及如何從回應中提取資料。這是你撰寫主要邏輯的地方。</li></p>
+<p><li><strong>Item (項目)：</strong>定義資料的結構，類似於 Python 的字典，但提供更嚴謹的欄位宣告（類似 Django Model），確保輸出資料的一致性。</li></p>
+<p><li><strong>Pipeline (資料管線)：</strong>負責處理 Spider 產生的 Item。例如：清洗 HTML 標籤、驗證資料、存入資料庫（MySQL / PostgreSQL / MongoDB）或寫入 JSON / CSV 檔案。</li></p>
+<p><li><strong>Middleware (中間件)：</strong>介於引擎和下載器之間的小工具，用來處理 Request / Response 的全局性操作，例如更換 Proxy IP、設定隨機 User-Agent 池、處理 gzip 壓縮等。</li></p>
+<h2></h2>
+<p><p>比起 Requests 需要手動處理迴圈與並發，Scrapy 讓開發者只需要專注於定義「你要什麼資料」和「從哪裡取得」，其餘交給框架。</p></p>
+<h2></h2>
+<p><h3 id="subsection4">📌 H3：建立第一個 Scrapy 專案與選器 (Selector) 用法</h3></p>
+<p><p>現在，讓我們從零開始建立一個 Scrapy 專案，目標是爬取一個假想的新聞網站（以 <code>quotes.toscrape.com</code> 為例，此為經典練習網站）的標題與內容。</p></p>
+<h2>步驟一：建立專案</h2>
+<h2></h2>
+<h2>scrapy startproject topguy_crawler</h2>
+<h2>cd topguy_crawler</h2>
+<h2></h2>
+<h2>這會產生以下結構：</h2>
+<h2></h2>
+<h2>topguy_crawler/</h2>
+<h2>scrapy.cfg</h2>
+<h2>topguy_crawler/</h2>
+<h2>__init__.py</h2>
+<h2>items.py</h2>
+<h2>middlewares.py</h2>
+<h2>pipelines.py</h2>
+<h2>settings.py</h2>
+<h2>spiders/</h2>
+<h2>__init__.py</h2>
+<h2></h2>
+<h2>步驟二：定義 Item（資料結構）</h2>
+<h2>編輯 items.py，定義我們要的資料欄位：</h2>
+<h2></h2>
+<h2>import scrapy</h2>
+<h2>class NewsItem(scrapy.Item):</h2>
+<h2>title = scrapy.Field()</h2>
+<h2>author = scrapy.Field()</h2>
+<p>text = scrapy.Field()</p>
+<h2>tags = scrapy.Field()</h2>
+<h2>url = scrapy.Field()</h2>
+<h2></h2>
+<h2>步驟三：建立第一個 Spider</h2>
+<p><p>在 <code>spiders/</code> 資料夾中建立 <code>news_spider.py</code>：</p></p>
+<h2></h2>
+<h2>import scrapy</h2>
+<h2>from topguy_crawler.items import NewsItem</h2>
+<h2>class NewsSpider(scrapy.Spider):</h2>
+<h2>name = "news"</h2>
+<h2>allowed_domains = ["quotes.toscrape.com"]</h2>
+<h2>start_urls = ["http://quotes.toscrape.com/"]</h2>
+<h2>def parse(self, response):</h2>
+<p>"""</p>
+<h2>這是 Scrapy 的預設回呼函數</h2>
+<h2>使用 CSS 選擇器提取資料</h2>
+<p>"""</p>
+<h2>for quote in response.css("div.quote"):</h2>
+<h2>item = NewsItem()</h2>
+<h2>item['text'] = quote.css("span.text::text").get()</h2>
+<p>item['author'] = quote.css("small.author::text").get()</p>
+<p>item['tags'] = quote.css("div.tags a.tag::text").getall()</p>
+<h2>item['url'] = response.url</h2>
+<h2>yield item</h2>
+<p>next_page = response.css("li.next a::attr(href)").get()</p>
+<h2>if next_page:</h2>
+<h2>next_url = response.urljoin(next_page)</h2>
+<p>yield scrapy.Request(next_url, callback=self.parse)</p>
+<h2></h2>
+<p><p>這段程式碼展現了 Scrapy 的優雅：以 <code>CSS 選擇器</code>鏈結定位元素，<code>.get()</code> 取得第一個匹配項目，<code>.getall()</code> 取得所有匹配項目，並以 <code>response.urljoin</code> 處理相對路徑的連結。透過 <code>yield</code>，Scrapy 會自動管理狀態，將資料傳遞給後續的 Pipeline。</p></p>
+<h2>步驟四：設定 Pipeline 並輸出 JSON</h2>
+<p><p>編輯 <code>pipelines.py</code>，加入一個簡單的資料處理流程（例如：去除空白字元）：</p></p>
+<h2></h2>
+<h2>class CleanTextPipeline:</h2>
+<h2>def process_item(self, item, spider):</h2>
+<p>item['text'] = item['text'].strip() if item.get('text') else ''</p>
+<p>item['author'] = item['author'].strip() if item.get('author') else ''</p>
+<h2>return item</h2>
+<h2></h2>
+<p><p>接著，到 <code>settings.py</code> 中啟用此 Pipeline：</p></p>
+<h2></h2>
+<h2>ITEM_PIPELINES = {</h2>
+<p>"topguy_crawler.pipelines.CleanTextPipeline": 300,</p>
+<h2></h2>
+<h2>最後，在專案根目錄執行以下指令，Scrapy 便會以 JSON 格式輸出爬取的資料：</h2>
+<h2></h2>
+<h2>scrapy crawl news -o output.json -t json</h2>
+<h2></h2>
+<p><p>看到 <code>output.json</code> 中的結構化資料，代表你已成功駕馭 Scrapy 的基本流程。</p></p>
+<h2></h2>
+<p><h2 id="section4">🛡️ H2：2026 反爬蟲機制終極對策 (Headers / Cookie / Proxy / 延遲)</h2></p>
+<p><p>2026 年的網路世界，反爬蟲（Anti-Bot）技術已從單純的 Header 檢查，進化到 TLS 指紋辨識、Canvas 指紋、行為分析與 AI 人機驗證。但別擔心，我們仍有一套系統性的防禦突破策略。工程師的終極武器還是「偽裝成使用者」，減少伺服器負擔，並尊重規則。</p></p>
+<h2>以下四點是 2026 年你必須內建的攻防準則：</h2>
+<h2>📌 1. 身分辨識偽裝（Headers & User-Agent 池）</h2>
+<p><p>使用 <code>fake-useragent</code> 套件（請留意 2026 的套件維護狀況，應使用 <code>fake_useragent</code>）在每個請求間隨機切換瀏覽器身份。此外，也應該補齊 <code>Accept</code>、<code>Accept-Language</code>、<code>Referer</code> 等欄位，讓請求資訊看起來更像真實瀏覽器自動產生的。</p></p>
+<h2></h2>
+<h2>from fake_useragent import UserAgent</h2>
+<h2>import requests</h2>
+<h2>ua = UserAgent()</h2>
+<p>resp = requests.get("https://example.com", headers=headers)</p>
+<h2></h2>
+<h2>📌 2. Session 與 Cookie 維持</h2>
+<p><p>對於需要登入後才能瀏覽的資料，務必使用 <code>requests.Session()</code> 來持久化 Cookie，並在 Session 物件上執行 POST 登入，再進行後續 GET 操作。Scrapy 亦有內建的 <code>CookiesMiddleware</code>，預設情況下會自動處理這些細節。</p></p>
+<h2>📌 3. 代理 IP 池 (Proxy)</h2>
+<p><p>當你的請求頻率過高，IP 被網站封鎖時，代理伺服器就成為必需品。2026 年常見的解決方案包括：使用住宅代理（品質高，成本高）或動態代理池（利用 SEO 友善的 API 獲取大量短效 IP）。在 Scrapy 中，可透過自訂 <code>RetryMiddleware</code> 或在下載器中間件動態設定 <code>request.meta['proxy']</code> 來輪換 IP。</p></p>
+<h2>📌 4. 請求延遲與自動化節流 (AutoThrottle)</h2>
+<p><p>專業的爬蟲工程師不會對目標伺服器進行毀滅性打擊。Scrapy 提供了內建的 <code>AutoThrottle</code> 擴充，能自動調整請求延遲，既確保資料時效性，同時降低被偵測的風險。</p></p>
+<h2></h2>
+<h2>AUTOTHROTTLE_ENABLED = True</h2>
+<h2>AUTOTHROTTLE_START_DELAY = 1.0</h2>
+<h2>AUTOTHROTTLE_MAX_DELAY = 10.0</h2>
+<h2>AUTOTHROTTLE_TARGET_CONCURRENCY = 4.0</h2>
+<h2></h2>
+<h2></h2>
+<p><h2 id="section5">🔗 H2：實戰案例 — 從 Requests 到 Scrapy 的整合遷移</h2></p>
+<p><p>在真實世界，我們不會將兩者視為「二選一」，而是「分工合作」。以下是一個典型的 2026 年實務架構：</p></p>
+<h2></h2>
+<p><li><strong>面向 API 的快速原型：</strong>當目標網站採用 JavaScript 渲染，需要先呼叫其內部 API 時，我們常使用 <code>Requests</code> 來快速測試 API 的參數組合與 Header 需求。</li></p>
+<p><li><strong>大規模頁面爬取：</strong>一旦確認 API 或頁面結構，我們便將此邏輯移植到 Scrapy 中。Scrapy 負責調度數百個頁面的非同步下載，並透過 PipeLine 將資料清洗後存入資料庫。</li></p>
+<p><li><strong>動態內容處理（無頭瀏覽器）：</strong>面對如 React/Vue 等現代前端，2026 年的標準解法是將 Scrapy 與 <code>Playwright</code> 或 <code>Selenium</code> 整合，在 Scrapy 的 Middleware 中呼叫瀏覽器渲染，再將渲染後的 HTML Response 交回 Scrapy 解析。</li></p>
+<h2></h2>
+<p><p>舉例來說，若我們需要爬取某電商平台的搜尋結果，且該平台以 AJAX 無限滾動載入更多商品。我們的架構可能是：</p></p>
+<h2></h2>
+<h2></h2>
+<p><p>透過這種「先偵察、後強攻」的方式，我們能在 2026 年的複雜環境中，建立高效率且穩定的資料管線，這就是 Professional 與 Newbie 的差異。</p></p>
+<h2></h2>
+<p><h2 id="section6">⚖️ H2：爬蟲倫理、法律紅線與 Robots.txt 的最後叮嚀</h2></p>
+<p><p>技術的力量越大，責任就越大。在 2026 年，各國對於公開資料爬取的法律判例越來越成熟。身為頂客論壇的專業使用者，我們必須遵守以下原則：</p></p>
+<h2></h2>
+<p><li><strong>嚴格遵守 robots.txt：</strong>這不是建議，而是最低道德標準。Scrapy 透過 <code>RobotsTxtMiddleware</code> 內建支援此協議，請務必保持開啟。</li></p>
+<p><li><strong>辨識「公開」與「受保護」資料：</strong>需要登入才能查看的內容、付費內容、涉及個人隱私的資料，不應隨意爬取。僅爬取公開可見的資訊是基本紅線。</li></p>
+<p><li><strong>避免造成伺服器負擔：</strong>設定合理延遲，並將並發量控制在可負荷範圍。2026 年的工程師應該具備綠色運算 (Green Coding) 的素養。</li></p>
+<p><li><strong>尊重智慧財產權與著作權法：</strong>爬取的新聞內容、圖片、影音，不可完全複製作為商業用途。引用應註明出處，並僅取出必要資訊。</li></p>
+<h2></h2>
+<p><p>最後，2019年至2026 年間，各國法院對「資料庫保護」的判決標準漸趨嚴格。在開發任何爬蟲專案前，請務必諮詢相關法律意見，並將你的爬蟲活動控制在合法、合理、合規的範圍內。</p></p>
+<h2></h2>
+<h2></h2>
+<p><p>以上就是本期的《2026 年 Python 自動化爬蟲實戰指南》完整教學。我們從最基礎的 Requests 開始，一路攀登至企業級的 Scrapy 框架，並深入探討了反爬蟲、效能優化與法律倫理。希望這篇文章能為你在雅寶社區・頂客論壇的技術學習之路上，提供一塊穩固的踏腳石。</p></p>
+<p><p>如果你在練習過程中遇到任何問題，歡迎在底下留言討論。別忘了訂閱本論壇的技術專欄，我們下次將帶來更多關於 <strong>資料視覺化</strong> 或 <strong>Playwright 動態爬蟲</strong> 的深度教學。讓我們在 2026 年的資料浪潮中，一起優雅地前進！</p></p>
+<p>```</p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 遊戲生成腳本 v3.4 (Giscus 最終穩定版)
+# 雅寶社區 · 頂客論壇 - 遊戲生成腳本 v3.3 (Giscus 最終修正版)
 # ============================================================
-# 版本：v3.4 (董事會核定版)
+# 版本：v3.3 (董事會核定版)
 # 功能：生成 23 款 HTML5 遊戲，自動嵌入 Giscus 討論區
 # 輸出：game/*.html (23 款遊戲)
 # Giscus：praystone/ahpal-website / General 分類 (開放式討論)
@@ -20,7 +20,7 @@ if (-not (Test-Path $OutputDir)) {
 Write-Host "📁 輸出目錄：$OutputDir" -ForegroundColor Cyan
 
 # ============================================================
-# Giscus 討論區 HTML (所有遊戲共用) - General 分類
+# Giscus 討論區 HTML (所有遊戲共用) - 已修正為 General 分類
 # ============================================================
 $GiscusHTML = @'
 <div class="comments-section" style="max-width: 800px; margin: 40px auto; padding: 20px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
@@ -1137,7 +1137,7 @@ function Generate-GameIndex {
 # ============================================================
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "   🎮 雅寶遊戲生成 v3.4 (董事會核定版)" -ForegroundColor Cyan
+Write-Host "   🎮 雅寶遊戲生成 v3.3 (董事會核定版)" -ForegroundColor Cyan
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "📊 共 $($newGames.Count) 款遊戲" -ForegroundColor Yellow

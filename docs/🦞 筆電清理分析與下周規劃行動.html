@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<!-- saved from url=(0147)file:///C:/MyCloudBackup/%E7%AD%86%E9%9B%BB%E6%B8%85%E7%90%86%E5%88%86%E6%9E%90%E8%88%87%E4%B8%8B%E5%91%A8%E8%A6%8F%E5%8A%83%E8%A1%8C%E5%8B%95.html -->
+<html lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 筆電清理分析與下周規劃行動</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0b1120;
+            color: #e8edf5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft JhengHei', sans-serif;
+            line-height: 1.7;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #141f33;
+            border-radius: 18px;
+            border: 1px solid #253b5a;
+            padding: 40px 50px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+        }
+        @media (max-width: 640px) {
+            .container { padding: 24px 18px; }
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 28px;
+            border-bottom: 3px solid #D4AF37;
+            margin-bottom: 30px;
+        }
+        .header .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: #D4AF37;
+            letter-spacing: 2px;
+        }
+        .header .logo span { color: #58A6FF; }
+        .header .subtitle {
+            font-size: 16px;
+            color: #8B949E;
+            margin-top: 6px;
+        }
+        .header .badge {
+            display: inline-block;
+            background: #D4AF37;
+            color: #0D1117;
+            padding: 4px 22px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 12px;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #D4AF37;
+            margin: 30px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #30363D;
+        }
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #58A6FF;
+            margin: 24px 0 12px 0;
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #E6EDF3;
+            margin: 18px 0 8px 0;
+        }
+
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        table th, table td {
+            padding: 10px 14px;
+            border: 1px solid #30363D;
+            text-align: left;
+        }
+        table th {
+            background: #21262D;
+            color: #D4AF37;
+            font-weight: 700;
+        }
+        table tr:nth-child(even) td { background: #0D1117; }
+        table tr:hover td { background: #1C2333; }
+
+        .code-block {
+            background: #0D1117;
+            border: 1px solid #30363D;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0 16px 0;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: #E6EDF3;
+        }
+
+        .inline-code {
+            background: #21262D;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            border: 1px solid #30363D;
+            color: #F0883E;
+        }
+
+        .tip {
+            padding: 14px 20px;
+            border-radius: 10px;
+            margin: 12px 0 16px 0;
+            border-left: 4px solid;
+        }
+        .tip.gold { background: #1C1A0E; border-color: #D4AF37; color: #F0D060; }
+        .tip.green { background: #0F1E14; border-color: #3FB950; color: #7EE787; }
+        .tip.red { background: #1C0E0E; border-color: #F85149; color: #FFA198; }
+        .tip.blue { background: #0D1A2B; border-color: #58A6FF; color: #79C0FF; }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+
+        .badge-status {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-status.done { background: #0F3D2A; color: #7AE0B0; border: 1px solid #2A8A5A; }
+        .badge-status.pending { background: #3D2A0F; color: #F0C060; border: 1px solid #8A6A2A; }
+        .badge-status.urgent { background: #3D0F0F; color: #E07A7A; border: 1px solid #8A2A2A; }
+        .badge-status.info { background: #0F1F3D; color: #7AB0E0; border: 1px solid #2A4A8A; }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 640px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px 0 0 0;
+            border-top: 1px solid #30363D;
+            margin-top: 30px;
+            color: #8B949E;
+            font-size: 13px;
+        }
+        .footer .brand { color: #D4AF37; font-weight: 700; }
+
+        .hr {
+            border: none;
+            border-top: 2px solid #30363D;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">🦞 筆電清理 · <span>分析與下周規劃</span></div>
+        <div class="subtitle">2026 年 8 月 9 日 ｜ 數位整頓 × 空間釋放 × 系統優化</div>
+        <div class="badge">📋 報告版本 v1.0</div>
+    </div>
+
+    <!-- ============================================================
+    1. 整體診斷
+    ============================================================ -->
+    <h1>🔍 1. 整體診斷</h1>
+
+    <p>經完整掃描 <code>C:\Users\User\_待整理_2026-07-21\05-其他雜項\</code>，累積了 <strong>2010 年至 2026 年</strong> 的大量數位雜物，主要問題如下：</p>
+
+    <div class="grid-2">
+        <div class="tip red">
+            <div class="tip-title">🔴 Android 開發垃圾</div>
+            <p><code>.gradle/</code>、<code>AndroidStudioProjects/</code> 等，佔用數百 MB 至 GB 空間，純粹是 Gradle 快取與開發專案殘留。</p>
+        </div>
+        <div class="tip gold">
+            <div class="tip-title">🟡 重複備份</div>
+            <p><code>ahpal-backup-*</code>、<code>game-backup-*</code>、<code>ai交接-*</code> 等多個重複備份，已過時或可合併。</p>
+        </div>
+        <div class="tip blue">
+            <div class="tip-title">🔵 雲端暫存殘留</div>
+            <p><code>.wrangler/</code>（Cloudflare Pages 快取）、<code>CrossDevice/</code>（手機備份）等，佔用大量空間。</p>
+        </div>
+        <div class="tip green">
+            <div class="tip-title">🟢 可安全清理</div>
+            <p><code>src/__pycache__/</code>、<code>ahpal-diag/</code>、<code>game-backup-*</code> 等，為除錯與暫存檔案。</p>
+        </div>
+    </div>
+
+    <hr class="hr">
+
+    <!-- ============================================================
+    2. 分類清理建議
+    ============================================================ -->
+    <h1>🗂️ 2. 分類清理建議</h1>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr><th>分類</th><th>位置</th><th>建議</th><th>理由</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Android 開發垃圾</td>
+                    <td><code>.gradle/</code>, <code>AndroidStudioProjects/</code></td>
+                    <td><span class="badge-status urgent">🗑️ 可刪除</span></td>
+                    <td>如無 Android 開發需求，可全數刪除</td>
+                </tr>
+                <tr>
+                    <td>重複備份</td>
+                    <td><code>ahpal-backup-*</code>, <code>game-backup-*</code></td>
+                    <td><span class="badge-status pending">⚠️ 確認後刪</span></td>
+                    <td>已過時，建議確認後清理</td>
+                </tr>
+                <tr>
+                    <td>AI 交接檔案</td>
+                    <td><code>ai交接-*</code></td>
+                    <td><span class="badge-status pending">⚠️ 確認後刪</span></td>
+                    <td>可能為重要文件，先檢查再刪</td>
+                </tr>
+                <tr>
+                    <td>手機備份</td>
+                    <td><code>CrossDevice/</code></td>
+                    <td><span class="badge-status pending">⚠️ 確認後刪</span></td>
+                    <td>確認資料已安全後可刪</td>
+                </tr>
+                <tr>
+                    <td>雲端快取</td>
+                    <td><code>.wrangler/</code></td>
+                    <td><span class="badge-status urgent">🗑️ 可刪除</span></td>
+                    <td>Cloudflare Pages 本地快取</td>
+                </tr>
+                <tr>
+                    <td>Python 快取</td>
+                    <td><code>src/__pycache__/</code></td>
+                    <td><span class="badge-status urgent">🗑️ 可刪除</span></td>
+                    <td>Python 編譯快取，無需保留</td>
+                </tr>
+                <tr>
+                    <td>除錯檔案</td>
+                    <td><code>ahpal-diag/</code></td>
+                    <td><span class="badge-status urgent">🗑️ 可刪除</span></td>
+                    <td>診斷用檔案，已完成使命</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="hr">
+
+    <!-- ============================================================
+    3. 執行步驟
+    ============================================================ -->
+    <h1>🛠️ 3. 執行步驟</h1>
+
+    <p>請依序執行以下指令，完整清理筆電雜項。</p>
+
+    <h2>步驟 1：刪除 Android 開發垃圾</h2>
+    <div class="code-block">
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\AndroidStudioProjects" -Recurse -Force
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\.gradle" -Recurse -Force
+</div>
+
+    <h2>步驟 2：刪除雲端與 Python 快取</h2>
+    <div class="code-block">
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\.wrangler" -Recurse -Force
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\src\__pycache__" -Recurse -Force
+</div>
+
+    <h2>步驟 3：刪除舊備份（請先確認）</h2>
+    <div class="code-block">
+# 檢查 ai交接-* 內容
+Get-ChildItem -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\ai交接-*" | ForEach-Object { $_.Name }
+
+# 如確認可刪除
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\ahpal-backup-*" -Recurse -Force
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\game-backup-*" -Recurse -Force
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\ai交接-*" -Recurse -Force
+</div>
+
+    <h2>步驟 4：刪除手機備份（如已確認安全）</h2>
+    <div class="code-block">
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\CrossDevice" -Recurse -Force
+</div>
+
+    <h2>步驟 5：刪除除錯檔案</h2>
+    <div class="code-block">
+Remove-Item -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項\ahpal-diag" -Recurse -Force
+</div>
+
+    <h2>步驟 6：確認清理結果</h2>
+    <div class="code-block">
+# 檢查 05-其他雜項 剩餘檔案
+Get-ChildItem -Path "C:\Users\User\_待整理_2026-07-21\05-其他雜項" -Directory | ForEach-Object { $_.Name }
+</div>
+
+    <hr class="hr">
+
+    <!-- ============================================================
+    4. 預期釋放空間
+    ============================================================ -->
+    <h1>📊 4. 預期釋放空間</h1>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr><th>項目</th><th>估計大小</th><th>建議</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>AndroidStudioProjects</td><td>500 MB - 1.5 GB</td><td><span class="badge-status urgent">🗑️ 刪除</span></td></tr>
+                <tr><td>.gradle 快取</td><td>300 MB - 600 MB</td><td><span class="badge-status urgent">🗑️ 刪除</span></td></tr>
+                <tr><td>ai交接-* 備份</td><td>100 MB - 300 MB</td><td><span class="badge-status pending">⚠️ 確認後刪</span></td></tr>
+                <tr><td>CrossDevice 手機備份</td><td>1 GB - 3 GB</td><td><span class="badge-status pending">⚠️ 確認後刪</span></td></tr>
+                <tr><td>.wrangler 暫存</td><td>50 MB - 150 MB</td><td><span class="badge-status urgent">🗑️ 刪除</span></td></tr>
+                <tr><td>其他雜項</td><td>200 MB - 500 MB</td><td><span class="badge-status urgent">🗑️ 刪除</span></td></tr>
+                <tr style="background: #1C2333; font-weight: 700;">
+                    <td><strong>總計</strong></td>
+                    <td><strong>2.5 GB - 6 GB</strong></td>
+                    <td><span class="badge-status done">✅ 可釋放</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tip gold">
+        <div class="tip-title">💡 建議</div>
+        <p>建議將 <code>ai交接-*</code> 中較新的備份（如 <code>ai交接-2026-07-21_21-00-34</code>）移至 <code>C:\Users\User\ahpal-AI-archive\</code> 統一管理，其餘可刪除。</p>
+    </div>
+
+    <hr class="hr">
+
+    <!-- ============================================================
+    5. 下週行動計畫
+    ============================================================ -->
+    <h1>📅 5. 下週行動計畫</h1>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr><th>日期</th><th>任務</th><th>優先級</th><th>狀態</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>週一 8/10</strong></td>
+                    <td>執行步驟 1-2：刪除 Android 垃圾與雲端快取</td>
+                    <td><span class="badge-status urgent">🔴 高</span></td>
+                    <td><span class="badge-status pending">⏳ 待執行</span></td>
+                </tr>
+                <tr>
+                    <td><strong>週二 8/11</strong></td>
+                    <td>檢查 <code>ai交接-*</code> 備份內容，移至 AI 檔案館</td>
+                    <td><span class="badge-status pending">🟡 中</span></td>
+                    <td><span class="badge-status pending">⏳ 待執行</span></td>
+                </tr>
+                <tr>
+                    <td><strong>週三 8/12</strong></td>
+                    <td>執行步驟 3-5：刪除舊備份、手機備份與除錯檔</td>
+                    <td><span class="badge-status pending">🟡 中</span></td>
+                    <td><span class="badge-status pending">⏳ 待執行</span></td>
+                </tr>
+                <tr>
+                    <td><strong>週四 8/13</strong></td>
+                    <td>確認清理結果，檢查是否有遺漏的雜項</td>
+                    <td><span class="badge-status info">🔵 低</span></td>
+                    <td><span class="badge-status pending">⏳ 待執行</span></td>
+                </tr>
+                <tr>
+                    <td><strong>週五 8/14</strong></td>
+                    <td>執行 <code>sync-to-gdrive.ps1</code> 確保雲端同步</td>
+                    <td><span class="badge-status info">🔵 低</span></td>
+                    <td><span class="badge-status pending">⏳ 待執行</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tip green">
+        <div class="tip-title">✅ 預期成果</div>
+        <ul style="margin:4px 0 0 20px;">
+            <li>釋放 2.5 GB ~ 6 GB 硬碟空間</li>
+            <li>清理過時備份，減少混亂</li>
+            <li>優化筆電效能，提升系統反應速度</li>
+            <li>建立更整潔的數位檔案結構</li>
+        </ul>
+    </div>
+
+    <hr class="hr">
+
+    <!-- ============================================================
+    6. 備份提醒
+    ============================================================ -->
+    <h1>💾 6. 備份提醒</h1>
+
+    <div class="tip gold">
+        <div class="tip-title">⚠️ 執行前務必確認</div>
+        <ul style="margin:4px 0 0 20px;">
+            <li>✔ 重要備份已移至 <code>C:\Users\User\ahpal-AI-archive\</code></li>
+            <li>✔ 董事長遠端 (<code>praystone_drive</code>) 已清理完成</li>
+            <li>✔ 夫人遠端 (<code>praystones_drive</code>) 已包含所有備份</li>
+            <li>✔ 執行 <code>rclone size praystones_drive:</code> 確認備份完整</li>
+        </ul>
+    </div>
+
+    <div class="tip red">
+        <div class="tip-title">🔴 警告</div>
+        <p><strong>刪除操作不可逆！</strong> 請確保所有重要資料已備份至雲端或外部硬碟。</p>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        © 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 筆電清理分析與下周規劃行動<br>
+        文件最後更新：2026 年 8 月 9 日
+        <br><br>
+        <span style="color:#8B949E; font-size:12px;">
+        🦞 龍蝦總工程師 · 🤖 整合系統顧問 · 🏛️ 董事會執行長 · 共同制定
+        </span>
+        <br>
+        <span style="color:#D4AF37; font-size:12px;">
+        📌 目標：下週五前完成全數清理與同步
+        </span>
+    </div>
+
+</div>
+
+
+</body></html>

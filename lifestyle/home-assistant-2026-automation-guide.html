@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="Home Assistant 2026 智慧家庭自動化：感測器、自動化腳本與儀表板實戰 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="Home Assistant 2026 智慧家庭自動化：感測器、自動化腳本與儀表板實戰">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">🏠 生活小常識</span>
+    </div>
+    <h1>Home Assistant 2026 智慧家庭自動化：感測器、自動化腳本與儀表板實戰</h1>
+    <div class="meta-info">
+        發表時間：2026 年 08 月 09 日 | 更新日期：2026 年 08 月 09 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+</h1>
+<p><p>各位雅寶社區的鄰居們、頂客論壇的科技宅們，大家好久不見！我是那個喜歡把家裡弄得像科幻電影場景，但又時常被親友嫌棄「搞太複雜」的站長。今天，我們不談雲端依賴的便宜智慧插座，也不談封閉生態系的美麗高塔，我們要來好好聊聊，目前在自建智慧家庭領域中，堪稱「神主牌」等級的開源系統——<strong>Home Assistant（簡稱 HA）</strong>。</p>
+<img src="/images/article_Home Assistant 2026 智慧家庭自動化：感測器、自動化腳本與儀表板實戰.png" alt="cozy%20home%20interior%20with%20organized%20spaces..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+</p>
+<p><p>隨著 2026 年的到來，Home Assistant 的生態系已經成熟到一個不可思議的地步。無論是 Matter 協議的全面普及，還是 AI 輔助自動化腳本的降臨，都讓「真正的自動化」不再是遙不可及的夢想。這篇文章，我會帶著各位從最基礎的<strong>感測器部署</strong>，一路深入到<strong>自動化腳本的邏輯撰寫</b>，最後再教你打造一個屬於自己、美觀且實用的<strong>能源與控制儀表板</strong>。內容非常紮實，請務必備好雞排與珍奶，我們現在就開始這趟智慧家庭的奇幻之旅！</p></p>
+<h2></h2>
+<h2>一、新世代 Home Assistant 2026 核心架構與安裝策略</h2>
+<p><p>在開始動手把家裡搞聰明之前，我們得先徹底搞懂 2026 年的 Home Assistant 究竟長什麼樣子。很多人對 HA 的印象還停留在「那張醜醜的 YAML 設定檔」與「一大堆看不懂的程式碼」。但其實，經過多年的迭代，特別是 2025 年底發布的 2026.1 版本之後，整個系統的「擬真度」與「易用性」有了飛躍性的提升。</p></p>
+<p><p>這一段，我會先幫大家建立正確的「架構觀」，避免你買了一堆硬體回家後才發現無法整合，最後只能默默拿去退貨。</p></p>
+<h2>1.1 捨棄樹莓派？解密 2026 年最推薦的 HA 安裝載體</h2>
+<p><p>以往的教學總愛推薦樹莓派（Raspberry Pi），但到了 2026 年，我要大聲疾呼：<strong>拜託，請不要再買樹莓派來跑 HA 了！</strong>雖然樹莓派 5 的效能已經不錯，但其 SD 卡的損壞率與 I/O 瓶頸，在面對大量感測器同時回報資料時，依然會造成嚴重的延遲。現在最主流、CP 值最高的選擇是「<strong>迷你主機（Mini PC）</strong>」，特別是搭載 Intel N100 或 AMD 的 Ryzen 7000 系列低功耗處理器的機種。</p></p>
+<p><p>為什麼？因為 HA 不只是一套軟體，它更是你的「家庭物聯網閘道」。你需要的是充足的記憶體（建議 16GB）與快速的 NVMe SSD。跑在 Windows 上的 Hyper-V 或 VMware 雖然可行，但為了追求最佳的「<strong>能源效率</strong>」與「<strong>開機穩定性</strong>」，我強烈建議直接安裝 <strong>Home Assistant OS（HAOS）</strong>。這是一個專門為 HA 打造的作業系統，它將 Docker、Supervisor 與資料庫全部封裝好，開機即用，不需要任何 Linux 指令基礎。</p></p>
+<p><p>安裝流程非常簡單：下載 HAOS 的映像檔（.img），使用 Rufus 或 Balena Etcher 燒錄到隨身碟，然後從迷你主機的 USB 隨身碟開機，不到 15 分鐘，你就擁有了一座 24 小時不打烊的智慧家庭控制中樞。在 2026 年，請務必選擇<strong> 64GB 以上的 SSD</strong>，因為語音助理的本地端模型（Whisper 與 Piper）與長時間的歷史紀錄資料庫，會吃掉不少空間。</p></p>
+<h2>1.2 徹底搞懂「本地控制」與「雲端控制」的生存之戰</h2>
+<p><p>這幾年，Matter 協議雖然減輕了生態系互通的障礙，但這並不代表我們要把所有隱私交給雲端。Home Assistant 的核心價值，在於<strong>「本地控制」</strong>。例如，你買了一顆具備 Wi-Fi 功能的燈泡，它能連上你的路由器，但如果你不在家，這顆燈泡的 App 要求你必須連到大陸或美國的伺服器才能控制，這就是「雲端控制」。</p></p>
+<p><p>在 2026 年，我們要追求的是「<strong>斷網也能活</strong>」的智慧家庭。HA 透過各種整合（Integration），例如 Zigbee2MQTT、Z-Wave JS、或是特定品牌的本地 API（如 Tuya Local），直接繞過廠商雲端，在你的內網進行指令傳輸。這樣一來，當中華電信的小烏龜亮紅燈時，你家的感測器依然在運作、自動化依然在執行、門鎖依然能開關。</p></p>
+<p><p>這篇文章接下來的所有教學，都將以「<strong>本地優先</strong>」為最高原則。唯有徹底剝離對外網的依賴，你的智慧家庭才具備真正的「靈魂」。</p></p>
+<h2></h2>
+<h2>二、實戰！2026 感測器挑選指南與位置部署策略</h2>
+<p><p>感測器是智慧家庭的眼睛與神經末梢。沒有數據，自動化就是空談。來到 2026 年，感測器的種類與精準度已經大幅提升，且價格下降到了「可以無腦買」的地步。但買得多不如買得巧，這一段我要帶大家看看，在真實場域中，哪些感測器是必買的「神器」，以及它們應該被放在哪裡。</p></p>
+<h2>2.1 人體存在的終極奧義：mmWave 雷達感測器（毫米波）</h2>
+<p><p>傳統的 PIR（紅外線）感測器，只能偵測「大動作的移動」。如果你坐在書桌前看書超過五分鐘沒動，PIR 就會判定「無人」，然後把你的燈關掉，讓你瞬間陷入黑暗。這在 2026 年已經過時了！我們現在靠的是 <strong>mmWave 毫米波雷達</strong>（例如：Aqara FP2、Everything Presence One 或常見的 LD2410 晶片模組）。</p></p>
+<p><p>這類感測器能透過都卜勒效應，精確感測到「微小的呼吸起伏」。也就是說，你躺在沙發上滑手機，它也能判定「有人存在」。2026 年的 mmWave 感測器甚至具備了<strong>「區域偵測」</strong>功能。你可以將一個大型的客廳劃分為 A、B、C 三個區域，當人移動到 B 區（電視牆）時，自動開啟電視櫃燈條；移動到 C 區（陽台門口）時，自動開啟陽台燈。這類感測器的安裝位置至關重要，<strong>絕對不能直接貼在牆上或金屬家具後方</strong>，因為微波會穿透牆壁，造成隔壁房間的誤觸發。最佳的安裝位置是距離地面 2.2 至 2.5 公尺的高處，且有向下約 15 度的俯角。</p></p>
+<h2>2.2 環境氣象站：不只是溫濕度，還有空氣品質與氣壓</h2>
+<p><p>基於我們社群論壇上的討論熱度，「空氣品質感測器」是近兩年成長最快速的類別。在 2026 年，請直接購買整合了 <strong>PM2.5、PM10、CO2、揮發性有機化合物（VOC）</strong>以及<strong>溫濕度</strong>的複合式感測器（如 IKEA VINDSTYRKA 的改裝版，或是直接採用 IKEA VINDRIKTNING 搭配第三方元件）。</p></p>
+<p><p>為什麼 CO2 感測那麼重要？因為當室內 CO2 濃度超過 1000ppm 時，人的專注力會顯著下降，容易嗜睡。我個人的習慣是，在書桌旁放一顆 CO2 感測器。當 HA 讀取到濃度超過 900ppm 時，自動化腳本會強制啟動「全熱交換器」或「抽風扇」，將新鮮空氣引入室內。感測器的放置位置也很講究：<strong>溫濕度與 CO2 感測器請遠離窗戶與出風口</strong>，建議放在房間的中央區域，高度約在我們坐著時「頭部的位置」（約 1.2 公尺），才能真實反映我們呼吸到的空氣品質。</p></p>
+<h2>2.3 智慧門窗感測器：不只是防盜，更是節能關鍵</h2>
+<p><p>門窗感測器（又稱乾接點感測器）已經是老生常談了。但在 2026 年，我們賦予了它新的任務。除了基本的「開門亮燈」外，它還與<strong>空調系統</strong>進行完美連動。試想，當你打開陽台窗戶想要透透氣時，冷氣卻還在拼命運轉，這是不是非常浪費能源？</p></p>
+<p><p>透過 HA 的自動化，當「窗戶感測器」狀態從「關閉」變為「開啟」時，系統會立即發送指令給冷氣（透過紅外線萬用遙控器或品牌整合），將風速切換為「弱風」或直接將壓縮機關閉，只留下送風；當窗戶關閉超過三分鐘，冷氣再自動恢復原本的運作模式。此外，在 2026 年，我們強烈建議挑選具備「<strong>傾斜角度偵測</strong>」的門窗感測器，這能讓你區分「微開通風」與「全開」兩種狀態，進而做出更細膩的差異化控制。</p></p>
+<h2></h2>
+<h2>三、自動化腳本的魔法世界：從入門到進階邏輯思維</h2>
+<p><p>有了感測器數據，下一步就是讓 HA「動起來」。如果說感測器是心臟與眼睛，那麼<strong>自動化腳本（Automations）</strong>就是大腦中樞。很多人面對 HA 的介面時，會覺得像是踏入了一座複雜的迷宮。但其實，2026 年的 HA 已經內建了強悍的「視覺化編輯器」，你可以像在 IFTTT 上拼樂高積木一樣，完成各種邏輯串接，完全不需要撰寫艱澀難懂的 YAML 程式碼。不過，我還是會帶大家稍微瞄一眼程式碼的結構，因為這能幫助你除錯。</p></p>
+<h2>3.1 觸發條件與動作的完美結合：打造「人來燈亮」的藝術</h2>
+<p><p>自動化的最基本公式就是：<strong>當（When）什麼事情發生，且（And）如果（If）什麼條件成立，則（Then）執行什麼動作。</strong>聽起來很簡單，但要做得「溫馨」而不是「擾人」，就需要一點巧思了。</p></p>
+<p><p>傳統的人來燈亮，通常是「看到 PIR 訊號就開燈」，這會導致大白天的走廊也亮燈。我們的實戰腳本如下：</p></p>
+<h2>1. 觸發條件：人體感測器的「狀態」變為「開啟」</h2>
+<ol>
+    <li>條件判斷：使用「日照感測器（或太陽仰角）」判斷，若目前的照度低於 100 Lux（傍晚或夜晚），且時間介於晚上 18:00 至隔日早上 06:00，才繼續往下走。<br /></li>
+    <li>執行動作：打開走廊的崁燈，並設定亮度為 70%。<br /></li>
+    <li>進階延遲：新增一個「延遲 5 分鐘」的動作，時間到後，再次檢查「人體感測器」是否已變成「關閉」狀態。若確實無人，則關閉走廊燈。</p></li>
+</ol>
+<p><p>用視覺化編輯器建立這條自動化只需要大約一分鐘。但為了讓系統更強壯，我會直接撰寫一個簡短的 YAML 檔（2026 年仍支援此模式），讓各位理解背後的程式碼邏輯：</p></p>
+<h2></h2>
+<h2>alias: "走廊智慧照明"</h2>
+<h2>description: "夜間有人走動自動開燈，離開後自動關閉"</h2>
+<h2>trigger:</h2>
+<ul>
+    <li>platform: state</li>
+</ul>
+<h2>entity_id: binary_sensor.corridor_mmwave</h2>
+<h2>to: "on"</h2>
+<h2>condition:</h2>
+<ul>
+    <li>condition: numeric_state</li>
+</ul>
+<h2>entity_id: sensor.illuminance_128</h2>
+<h2>below: 100</h2>
+<h2>action:</h2>
+<ul>
+    <li>service: light.turn_on</li>
+</ul>
+<h2>target:</h2>
+<h2>entity_id: light.corridor</h2>
+<h2>data:</h2>
+<h2>brightness: 200</h2>
+<ul>
+    <li>wait_for_trigger:</li>
+    <li>platform: state</li>
+</ul>
+<h2>entity_id: binary_sensor.corridor_mmwave</h2>
+<h2>to: "off"</h2>
+<h2>timeout: "00:05:00"</h2>
+<ul>
+    <li>service: light.turn_off</li>
+</ul>
+<h2>target:</h2>
+<h2>entity_id: light.corridor</h2>
+<h2>mode: restart</h2>
+<h2></h2>
+<p><p>這裡的關鍵在於 <code>mode: restart</code>。這意味著，如果五分鐘內感測器又偵測到人，計時器會自動重新計算五分鐘。這確保我們不會在長輩坐在椅子上納涼時，突然把燈關掉！</p></p>
+<h2>3.2 全戶「預設情境」：建構電影般的智慧家庭場景</h2>
+<p><p>2026 年的自動化，已經從「單一裝置控制」進化到「<strong>情境指揮家</strong>」。我們可以把複雜的邏輯包裝成一個情境，只要觸發一次，就能控制數十個裝置。我底下分享的是最基本的「晚安情境」實作，這是透過 HA 的「Desk（儀表板）」按鈕來觸發。</p></p>
+<h2>點擊「晚安」按鈕後，系統會依序執行以下動作：</h2>
+<h2>1. 關閉所有客廳、餐廳的電燈與電視。</h2>
+<ol>
+    <li>將臥室的燈光調整為「夜燈模式」，色溫調整為 1800K（極度暖黃），亮度調整至 1%。<br /></li>
+    <li>確認全戶的窗簾（如果是電動窗簾）已經完全關閉。<br /></li>
+    <li>啟動臥室的空氣清淨機，並切換至「睡眠模式」。<br /></li>
+    <li>將「防盜警報器」狀態設定為「武裝（Armed）」。<br /></li>
+    <li>播放舒眠音樂（透過藍芽喇叭或智慧音箱），音量設定為 15%。</p></li>
+</ol>
+<p><p>這套情境背後的邏輯，就是利用了 HA 的「<strong>Service Call（服務呼叫）</strong>」。在 YAML 中，你可以使用 <code>light.turn_on</code> 搭配 <code>color_temp</code> 參數，或是呼叫 <code>climate.set_fan_mode</code> 來控制空調。透過結合「延遲（Delay）」指令，你可以讓窗簾先關閉，等 10 秒後再關燈，模擬出人類操作的真實節奏，而不是瞬間秒關的機械感。</p></p>
+<h2></h2>
+<h2>四、打造令人驚豔的 2026 儀表板（Dashboard）視覺化介面</h2>
+<p><p>Home Assistant 的控制能力再強，如果使用者介面（UI）像 Windows 95 一樣難看，也是很難持之以恆使用的。幸好，2026 年的 HA 儀表板，透過 <strong>Mushroom 卡片</strong>與 <strong>Sections 版面配置</strong>，已經可以做出媲美專業 App 的質感。這一段，我們要來聊聊如何將冰冷的數據，轉化為一眼就能讀懂的視覺化控制中樞。</p></p>
+<h2>4.1 採用「Sections」版面配置：打破傳統網格束縛</h2>
+<p><p>以往的 HA 儀表板是「網格」設計，卡片只能一格一格的排排站，看起來非常死板。2026 年的新功能「Sections（區段）」則允許你在儀表板中，像寫 PowerPoint 一樣，畫出各種大小的矩形區塊。你可以將「客廳燈光」這個區塊橫跨三個欄位，並在裡面用水平堆疊的方式，放置多顆按鈕。這讓整個畫面更有「設計感」。</p></p>
+<p><p>在實作上，我們會使用 <code>grid</code> 與 <code>stack</code> 卡片來組裝畫面。舉例來說，在主要控制區，我會擺放一顆「燈光總開關」的巨大滑桿按鈕，下面再放三個小按鈕（放鬆模式、閱讀模式、劇院模式）。透過 <code>horizontal-stack</code> 可以將三個小按鈕放在同一列。而整體儀表板背景，我們可以設定成「即時天氣動畫」，陰雨天時背景呈現灰暗，大晴天時是萬里無雲的藍天，這需要安裝 <code>weather-chart-card</code> 與相關的背景動畫元件。</p></p>
+<h2>4.2 能源管理視覺化：監控每一度電的去向</h2>
+<p><p>既然我們是頂客論壇的讀者，電費絕對是一大考量。HA 內建的<strong>「能源（Energy）」儀表板</strong>在 2026 年已經非常完善。它可以顯示你家目前的總用電量、太陽能板發電量、電池剩餘電量，甚至是用電成本估算。該如何新增資料？我們需要感測器來回報數據。</p></p>
+<p><p>實戰中，最簡單的方式是購買具有 HA 整合能力的「智慧電錸（Shelly EM）」或「比電錶（CT 比流器）」。將比流器夾在無熔絲開關上，就能讀取總電流與電壓。接著，將這些數據餵給 HA 的 Energy 面板。</p></p>
+<p><p>在開發者工具中，我們必須將實體（Entity）設定為「<strong>Diagnostic（診斷）</strong>」與「<strong>Total increasing（總計遞增）</strong>」的屬性。自訂儀表板時，我會擺一個大大的「圓形進度環」，顯示目前「非必要用電」的瓦數。當數值超過 500W 時，圖示會變成紅色，代表有電器在偷偷耗電。在 2026 年，搭配 <code>apexcharts-card</code> 這個外掛，我們甚至可以畫出「用電量即時曲線圖」，隨時查看是不是冰箱壓縮機啟動時造成了尖峰。</p></p>
+<h2>4.3 多媒體與安防監控整合：將監視器畫面融入儀表板</h2>
+<p><p>一個高級的儀表板，絕對少不了視訊監控畫面。如果你目前有使用 IP Cam（網路攝影機），可以透過 RTSP 串流整合至 HA。使用 <code>stream</code> 整合功能，然後在儀表板中使用「Picture Glance（圖片一覽）」卡片，即可顯示即時影像。</p></p>
+<p><p>2026 年的趨勢是結合「AI 物件辨識」技術。透過 <code>Frigate</code> 這套開源 NVR 軟體，搭配 Google Coral 或一般顯示卡的 AI 加速，我們可以在儀表板上看到一台攝影機，當它偵測到「人」或「車輛」時，卡片上會即時標示出一個綠色或紅色的邊框。更酷的是，當「人」被偵測到時，我們可以在自動化中設定「啟動戶外燈」。這樣一來，這台攝影機就不只是監視器，而是感測器與自動化腳本的核心驅動者。</p></p>
+<h2></h2>
+<h2>五、2026 頂客社群專屬：進階自動化設計模式與除錯技巧</h2>
+<p><p>很多人在論壇上問我：「為什麼我的自動化有時有動作，有時沒反應？」或是「我設定的條件明明正確，為什麼就是不執行？」這通常不是 HA 的問題，而是你對「狀態」與「觸發條件」的認知有落差。這裡，我要分享幾個頂客論壇社群獨家傳授的「魔鬼細節」。</p></p>
+<h2>5.1 了解「狀態觸發」與「數值觸發」的差別</h2>
+<p><p>這是最常見的雷區。如果你在觸發條件中設定了 <code>state</code> 來監看溫度的變化，那系統會在「溫度從 25 度變成 26 度」的那個瞬間觸發。但如果你設定的是 <code>numeric_state</code>，系統會檢測「溫度跨越了某個閾值」，例如超過 26 度，那它會在 26.1 度時觸發，但在 25.9 度時不會反覆啟動，這解決了溫控設備頻繁開關的震盪問題。</p></p>
+<p><p>在撰寫 YAML 時，務必區分 <code>trigger</code>（觸發器）與 <code>condition</code>（條件）。觸發器必須「發生改變」；條件是用來「過濾」的。舉例來說，你想要「當車庫門打開時，且是晚上，才開啟車庫燈」。觸發器是「車庫門狀態變為開啟」；條件是「現在是晚上」。如果這兩個寫反了，你的燈可能會在白天打開，或是晚上永不開啟。</p></p>
+<h2>5.2 使用「狀態面板」進行伺服器端除錯</h2>
+<p><p>當你的自動化處於「幽靈狀態」，不管怎麼測試都叫不醒時，請不要慌張。打開你的 HA 左側選單，找到「<strong>開發工具（Developer Tools）</strong>」。切換到「狀態（States）」標籤頁，搜尋你的感測器實體名稱，<code>sensor.living_room_temperature</code>。</p></p>
+<p><p>你會在頁面看到這個實體的所有屬性（Attributes）。此時，請檢查它最後被更新的時間（Last Updated）。如果時間一直沒有更新，代表感測器的連線已經斷了，或閘道根本沒回傳資料。另外，檢查 <code>availability</code> 屬性，確保它是不是顯示為 <code>unavailable</code>（離線）。在 2026 年，HA 的「設備」頁籤會以綠點或灰點顯示連線狀態，你可以在「聲音」標籤下配置「連線恢復」的通知，這樣在裝置重新上線時，你就能透過手機 App 收到推播，而不用一直用除錯模式猛戳觸發器。</p></p>
+<h2></h2>
+<h2>六、總結：踏上屬於你的 2026 智慧家庭旅程</h2>
+<p><p>不知不覺，這篇文章也寫了近五千字。我們從硬體安裝載體的選擇，聊到了感測器的靈敏度與擺設位置，再到自動化腳本中「條件」與「觸發器」的邏輯結構，最後成功打造出具有設計感的儀表板。這其實就是 Home Assistant 帶給我們的終極自由：<strong>你的家，由你定義。</strong></p></p>
+<p><p>頂客論壇與雅寶社區一直以來主張的就是「動手做（DIY）」的精神。不要害怕把系統搞壞，因為在 HA 的世界裡，每一次的「搞壞」都是為了下一次更完美的「重生」。你可以在 10 分鐘內建立一套比市面上萬元智慧家庭系統還強大的控制中心。</p></p>
+<p><p>從今晚開始，打開你的舊電腦或購買一台迷你主機，下載 Home Assistant OS，開始把玩那些感測器吧！當你成功讓第一盞燈自動亮起，當你看到儀表板上那跳動的即時電量曲線，內心的成就感絕對是無可比擬的。如果你在實作的過程遇到了任何問題，別忘了隨時回到雅寶社區的論壇發問，我們這群科技宅都非常樂意在線上幫你「隔空抓藥」！</p></p>
+<p><p>下次，我們再來分享如何利用 «語音助理» 將你的 HA 進化成更聰明的 AI 管家，讓它聽得懂國台語夾雜的指令！感謝大家的閱讀。</p></p>
+<h2></h2>
+<p><div style="background-color: #f4f6f8; padding: 20px; border-left: 5px solid #2c3e50; margin-top: 30px;"></p>
+<p><p><strong>🔥 2026 年必裝 HACS 外掛清單（記得收藏！）</strong>：</p></p>
+<h2></h2>
+<p><li><strong>Mushroom Cards:</strong> 打造現代化儀表板不可或缺的美學元素。</li></p>
+<p><li><strong>Google Home</strong> 或 <strong>HomeKit Bridge:</strong> 讓你的裝置能與手機內建生態系完美串接。</li></p>
+<p><li><strong>Frigate:</strong> 實時物體偵測，讓監視器擁有智慧大腦。</li></p>
+<p><li><strong>Sonoff LAN:</strong> 管理你家中便宜又好用的 Sonoff 設備的救星。</li></p>
+<p><li><strong>Advanced Climate Card:</strong> 專為冷氣與溫度控制設計的華麗卡片。</li></p>
+<h2></h2>
+<h2>只要掌握上述工具，你的 HA 使用體驗絕對會再次進化。</h2>
+<h2></h2>
+<p><p style="text-align: right; color: #7f8c8d;">本文同步發表於 雅寶社區（YaBao Community）唯一指定官方論壇，未經授權請勿隨意轉載。</p></p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

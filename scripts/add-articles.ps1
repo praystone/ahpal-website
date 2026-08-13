@@ -179,7 +179,11 @@ if ($newCount -gt 0) {
     New-Item -ItemType Directory -Path $MasterFileDir -Force | Out-Null
     
     # 寫入 JSON (UTF-8 無 BOM)
-    $master | ConvertTo-Json -Depth 10 | Out-File $MasterFile -Encoding utf8
+    # 替換為 v4.1
+$jsonContent = $master | ConvertTo-Json -Depth 10
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText($MasterFile, $jsonContent, $utf8NoBom)
+
     Write-Success "   ✅ 已寫入 $($master.Count) 篇文章到 master-articles.json"
 } else {
     Write-Gray "   ℹ️ 無變更，跳過寫入"

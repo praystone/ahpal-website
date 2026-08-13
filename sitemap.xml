@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.ahpal.com/</loc>
-        <lastmod>2026-08-09</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-tech.html</loc>
-        <lastmod>2026-08-09</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-game.html</loc>
-        <lastmod>2026-08-09</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-life.html</loc>
-        <lastmod>2026-08-09</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-review.html</loc>
-        <lastmod>2026-08-09</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-philosophy.html</loc>
-        <lastmod>2026-08-09</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-trend.html</loc>
-        <lastmod>2026-08-09</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -61,44 +61,62 @@
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/2026-08-08 -0500-AHPAL 附錄與備忘錄-時間戳紀錄.html</loc>
-        <lastmod>2026-08-08</lastmod>
+        <loc>https://www.ahpal.com/docs/AHPAL × LTX-2.3 視頻自動化整合計畫書.html</loc>
+        <lastmod>2026-08-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-交接附錄-v3.0.html</loc>
-        <lastmod>2026-08-08</lastmod>
+        <loc>https://www.ahpal.com/docs/AHPAL-交接手冊-v3.0.html</loc>
+        <lastmod>2026-08-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-系統核心架構與技術白皮書.html</loc>
-        <lastmod>2026-08-08</lastmod>
+        <loc>https://www.ahpal.com/docs/AHPAL-技術白皮書-v3.0.html</loc>
+        <lastmod>2026-08-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-組織營運與紅皮書.html</loc>
-        <lastmod>2026-08-08</lastmod>
+        <loc>https://www.ahpal.com/docs/AHPAL-紅皮書-v3.0.html</loc>
+        <lastmod>2026-08-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-自動化產線與交接手冊.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/2026-08-08 -0500-AHPAL 附錄與備忘錄-時間戳紀錄.html</loc>
         <lastmod>2026-08-08</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/docs/AI 音樂二創 — Suno 省力產線企劃書.html</loc>
-        <lastmod>2026-08-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AHPAL × 聯想 — 戰略合作提案.html</loc>
         <lastmod>2026-08-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AHPAL-交接附錄-v3.0.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AHPAL-系統核心架構與技術白皮書.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AHPAL-組織營運與紅皮書.html</loc>
+        <lastmod>2026-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AHPAL-自動化產線與交接手冊.html</loc>
+        <lastmod>2026-08-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -115,6 +133,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AI 音樂二創 — Suno 省力產線企劃書.html</loc>
+        <lastmod>2026-08-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/docs/_backup_20260807-141257/AI交接與新進工程師接手手冊.html</loc>
         <lastmod>2026-07-20</lastmod>
         <changefreq>monthly</changefreq>
@@ -123,6 +147,12 @@
     <url>
         <loc>https://www.ahpal.com/docs/_backup_20260807-141257/打一份AI交接與新進工程師交接手冊.html</loc>
         <lastmod>2026-08-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/數據遷移提示詞 — AI 移交專用.html</loc>
+        <lastmod>2026-08-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -151,13 +181,7 @@
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/數據遷移提示詞 — AI 移交專用.html</loc>
-        <lastmod>2026-08-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/docs/🦞 筆電清理分析與下周規劃行動.html</loc>
+        <loc>https://www.ahpal.com/docs/_backup_20260807-141257/🦞 筆電清理分析與下周規劃行動.html</loc>
         <lastmod>2026-08-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

@@ -1,0 +1,7 @@
+{
+    "daily_limit": 5,
+    "monthly_limit": 50,
+    "current_daily": 0,
+    "current_monthly": 0,
+    "last_reset": "2026-08-10"
+}

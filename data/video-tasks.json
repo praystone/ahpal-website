@@ -1,0 +1,24 @@
+[
+    {
+        "title": "望春風 Lo-fi 翻唱 音樂影片",
+        "description": "基於公眾領域歌曲《望春風》的 Lo-fi 翻唱版本，生成 AI 音樂影片",
+        "prompt": "A nostalgic 1930s Taiwanese street scene at night, warm vintage lighting, a lone female figure walking through an old alley, lo-fi aesthetic, film grain, 4k, cinematic",
+        "image_prompt": "A vintage Taiwanese street at night, warm lantern lights, lo-fi aesthetic, cinematic, 16:9",
+        "audio_file": "audio/望春風-lofi.wav",
+        "duration": 30,
+        "resolution": "720p",
+        "tags": ["music", "lo-fi", "public-domain"],
+        "priority": "high"
+    },
+    {
+        "title": "2026 AI 趨勢總結 視覺化影片",
+        "description": "將 AI 趨勢文章轉換為視覺化影片",
+        "prompt": "Futuristic digital city with AI holograms, data streams, glowing neural networks, cyberpunk aesthetic, 4k, cinematic",
+        "image_prompt": "Digital city with AI holograms, cyberpunk style, 16:9",
+        "audio_file": null,
+        "duration": 45,
+        "resolution": "1080p",
+        "tags": ["tech", "ai", "trend"],
+        "priority": "medium"
+    }
+]

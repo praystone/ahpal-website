@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+    <div class="meta-info">
+        發表時間：2026 年 08 月 14 日 | 更新日期：2026 年 08 月 14 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+</h1>
+<p><p>2026 年的今天，容器化技術已從一項新穎的實驗性工具，演變為驅動全球雲端運算、軟體開發與基礎設施自動化的核心引擎。無論你是剛踏入職場的工程師，還是已有多年經驗的資深開發者，都無法忽視 Docker 與 Kubernetes 所構築的現代應用程式交付生態。本文將以實作角度出發，從 Docker 的基本語法與設計哲學開始，逐步帶你建立容器化應用程式，再到使用 Docker Compose 編排多服務，最後整合進 Kubernetes 叢集，並輔以 CI/CD 自動化部署，完成一套 2026 年標準的雲原生交付流程。這篇文章也會探討許多 2026 年當下熱門的周邊工具，讓你不僅學到技術，更能掌握趨勢。</p>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+</p>
+<p><p>容器之所以如此重要，在於它解決了軟體開發中最棘手的問題：環境一致性。同樣的程式碼，在開發者筆電上能跑，為什麼到了測試環境就崩潰？容器利用 Linux 核心的 namespace 與 cgroup 技術，將應用程式及其相依套件、設定檔、執行環境打包成一個可攜帶的單元，從此「在我電腦上可以跑」這句話不再成為藉口。容器映像檔（Image）一旦建立，便可以任意移植到任何支援容器執行時的環境，無論是實體伺服器、虛擬機器、雲端主機，甚至是邊緣運算裝置。這正是 Docker 最初的承諾，也是它在 2026 年依然屹立不搖的原因。</p></p>
+<p><p>然而，單靠 Docker 處理單一容器，很快就會遭遇擴展與管理的瓶頸。當你的系統拆分成數十個微服務，每個服務需要多個副本、需要負載平衡、需要自動修復時，Kubernetes 便浮上檯面。Kubernetes（簡稱 K8s）是一個開源的容器叢集管理平台，它提供部署、擴展、服務發現、儲存掛載與自我修復等功能。雖然許多人抱怨 K8s 的學習曲線陡峭，但掌握它所能帶來的生產力與穩定性，絕對值得這份投資。2026 年的 K8s 生態系更加成熟，從安裝工具（kubeadm、kind、minikube）到雲端託管服務（EKS、AKS、GKE），都有完整的解決方案。更別提伴隨而來的 GitOps 工具（Argo CD、Flux）與服務網格（Istio、Linkerd），讓 K8s 成為名副其實的「應用程式作業系統」。</p></p>
+<h2>1. 為什麼 2026 年仍是容器化部署的關鍵時刻？</h2>
+<p><p>回顧過去十年的容器發展史，我們可以看到一條清晰的演進路線：Docker 讓容器廣為人知，然後 Kubernetes 讓容器規模化，而如今容器已成為了新一代軟體架構的預設選項。2026 年的此刻，正好位於「舊的部署方式逐漸退場，新的雲原生技術加速進場」的轉折點。如果你還停留在手動配置伺服器、安裝相依套件、使用虛擬機隔離的階段，那麼這篇文章將是你面對未來市場競爭的重要武器。</p></p>
+<p><p>為什麼說 2026 年仍然是關鍵？首先，容器執行時的選擇更加多元，包括 containerd、CRI-O、Podman 等，但 Docker 在開發者體驗、映像檔建置與遠端管理方面仍佔有巨大的優勢。Docker 早已不只是執行容器，它更像是一套完整的「容器供應鏈」工具，包括映像檔建置（build）、安全性掃描、內容信任、以及與開發工具的深度整合。Docker Desktop 在 2026 年也加入了許多人工智慧輔助功能，例如自動偵測 Dockerfile 優化建議、即時漏洞修補提示等。學會 Docker，就能無痛銜接這套日益智慧化的開發環境。</p></p>
+<p><p>其次，Kubernetes 在 2026 年已成為名副其實的「標準雲端 API」。各大雲端廠商都提供相容的 K8s 服務，且多數企業已將 K8s 做為內部平台工程的基礎。無論是採用雲端託管，還是自行建置裸機叢集，K8s 都能提供一致性的抽象層，讓你的應用程式可在不同雲或地端間遷移。此外，2026 年的 K8s 對開發者更加友善，像是 Gateway API 取代了傳統 Ingress，Sidecar 容器進入了穩定版，以及「叢集 API」讓管理多叢集與備援變得更簡單。這些新功能都讓 K8s 成為值得深入投入的技術。</p></p>
+<p><p>更重要的是，容器化結合 DevOps 與 GitOps，已形成不可逆的工程文化。2026 年，幾乎所有大型團隊都採用「基礎設施即程式碼」的方式管理雲端資源，而容器映像檔便是交付的核心單元。從開發者提交程式碼開始，CI 系統自動建置映像檔、掃描漏洞、簽署、推送至容器倉庫，再透過 CD 或 GitOps 流程部署至 Kubernetes 叢集。這條流水線若你沒有親手實作過，是很難體會其威力的。因此，這篇文章將帶你走一遍完整流程，從無到有建立一套可運作的容器化部署系統，讓你不僅理解概念，還能實際動手。</p></p>
+<p><p>最後，我們不能忽略 2026 年的新興趨勢：WebAssembly（WASM）、邊緣容器、以及 AI 工作負載容器化。WASM 輕量且可移植，有人預測它可能在某些場景取代容器，但目前它更常與容器並存，例如在 Sidecar 模式中扮演外掛程式。邊緣運算則需要極低的資源消耗，容器在邊緣裝置上配合輕量 K8s 發行版（如 K3s、K0s）展現了高度適應力。AI/ML 工作負載則透過容器封裝 GPU 環境與依賴套件，使得模型部署與服務化更加標準化。這些趨勢都建立在既有的容器概念上，只要熟稔 Docker 與 K8s，你便能快速掌握這些未來技術。</p></p>
+<h2>2. Docker 基本功：從零開始建置你的第一個容器</h2>
+<p><p>本節我們將進行實際操作，幫助你建立對 Docker 的肌肉記憶。若你已熟悉 Docker，可以快速跳過本節；但若你是初學者，請務必跟著指令一步步執行。我們使用 Linux 環境作為範例，但 macOS 與 Windows（透過 Docker Desktop）也能對應類似操作。</p></p>
+<h2>2.1 安裝 Docker 與環境準備</h2>
+<p><p>在 2026 年，Docker 官方建議在 Linux 上安裝 Docker Engine 並啟用 rootless 模式，以避免不必要的 root 權限提升。若是個人電腦，可以安裝 Docker Desktop 獲得圖形介面與整合開發體驗。以下是在 Ubuntu 24.04 LTS（或更新版本）上的安裝方式：</p></p>
+<h2># 移除舊版套件（若存在）</h2>
+<p>sudo apt remove docker docker-engine docker.io containerd runc</p>
+<p>curl -fsSL https://get.docker.com -o get-docker.sh</p>
+<h2>sudo sh get-docker.sh</h2>
+<h2>sudo docker --version</h2>
+<h2>sudo usermod -aG docker $USER</h2>
+<h2>sudo systemctl enable docker</h2>
+<h2>sudo systemctl start docker</h2>
+<h2>docker run hello-world</h2>
+<p><p>執行 `docker run hello-world` 後，Docker 會從 Docker Hub 下載一個微型映像檔，並執行其程式的輸出，最後顯示一段歡迎訊息。看到這個訊息代表你的 Docker 環境已完成安裝且可以正確運作。若你的系統支援 rootless 模式，官方也建議在非 root 使用者環境下執行 Docker daemon，可進一步降低被攻擊時提權的風險。在 Docker Desktop 上，則可在設定中啟用 rootless 實驗模式。</p></p>
+<p><p>此外，2026 年的 Docker 用戶端也建議安裝擴充功能，例如 `docker scan` 與 `docker buildx`。Buildx 是新一代建置引擎，支援多平台建置與高性能快取；Docker Scan 則整合了 Synk 或 Trivy 的漏洞掃描功能，可以在建置時或手動掃描映像檔，確保基礎套件不帶著已知弱點上線。我們會在後續章節詳細說明。</p></p>
+<h2>2.2 核心概念與常用指令</h2>
+<p><p>要學好 Docker，必須先釐清三個核心角色：映像檔（Image）、容器（Container）與倉庫（Registry）。映像檔是唯讀的、分層的模板，封裝了應用程式及其執行環境；容器是映像檔的一個可執行實例，擁有自己的檔案系統、網路、行程樹與資源限制；倉庫則是用來儲存與發佈映像檔的地方，Docker Hub 是最大的公共倉庫。了解這三個角色，就能理解以下常用指令的脈絡。</p></p>
+<h2>映像檔操作：</h2>
+<h2># 搜尋映像檔</h2>
+<h2>docker search nginx</h2>
+<h2>docker pull nginx:latest</h2>
+<h2>docker images</h2>
+<h2>docker inspect nginx</h2>
+<h2>docker rmi nginx</h2>
+<h2>容器操作：</h2>
+<h2># 以 nginx 映像檔建立並啟動容器（前景模式）</h2>
+<h2>docker run -it --rm -p 8080:80 nginx</h2>
+<h2>docker run -d --name web-server -p 8080:80 nginx</h2>
+<h2>docker ps</h2>
+<h2>docker ps -a</h2>
+<h2>docker exec -it web-server bash</h2>
+<h2>docker logs web-server</h2>
+<h2>docker stop web-server</h2>
+<h2>docker start web-server</h2>
+<h2>docker restart web-server</h2>
+<h2>docker rm web-server</h2>
+<p><p>資料管理：容器內的檔案在容器刪除後就會消失，因此需要「資料卷」（Volume）或「綁定掛載」（Bind Mount）來持久化資料。Volume 由 Docker 管理，適合儲存資料庫檔案；Bind Mount 則直接掛載主機目錄，適合開發階段即時同步程式碼。請看底下範例：</p></p>
+<h2># 建立一個 namespace 命名為 mydata 的 volume</h2>
+<h2>docker volume create mydata</h2>
+<h2>docker run -d --name db \</h2>
+<h2>v mydata:/var/lib/postgresql/data \</h2>
+<h2>e POSTGRES_PASSWORD=secret \</h2>
+<h2>postgres:16</h2>
+<h2>docker run -d --name app \</h2>
+<h2>v "$(pwd)/uploads:/app/uploads" \</h2>
+<h2>myapp:latest</h2>
+<p><p>網路管理：Docker 提供多種網路驅動，最常用的是 bridge、host 與 none。預設的 bridge 網路讓容器透過虛擬網橋互相溝通，並且可透過 `-p` 參數將內部埠對映到主機。但若要容器之間使用服務名稱互相解析，可以建立自訂 bridge 網路：</p></p>
+<h2># 建立自訂 bridge 網路</h2>
+<h2>docker network create mybridge</h2>
+<p>docker run -d --name web --network mybridge -p 8080:80 nginx</p>
+<p>docker run -d --name api --network mybridge myapi:latest</p>
+<p><p>掌握以上指令後，你已能處理單一容器的生命週期與基本資源設定。但實務上，正式環境很少只跑一個容器；我們需要透過 Dockerfile 自訂映像檔，再利用 Docker Compose 將多個容器組織起來。</p></p>
+<h2>2.3 撰寫高效能的 Dockerfile</h2>
+<p><p>Dockerfile 是純文字檔，用來定義如何建置映像檔。一個好的 Dockerfile 不僅影響建置速度，也影響映像檔大小與安全性。2026 年常見的最佳實務包括：選擇官方基礎映像檔、使用 Alpine 或 Distroless 縮小體積、採用多階段建置、最小化安裝套件數、以及避免以 root 執行服務。以下我們將以一個 Python Flask 應用程式作為範例，展示完整的 Dockerfile。</p></p>
+<p><p>假設你已有一個專案資料夾內含 `app.py`、`requirements.txt`，內容大致如下：</p></p>
+<h2># app.py</h2>
+<h2>from flask import Flask</h2>
+<h2>import os</h2>
+<h2>app = Flask(__name__)</h2>
+<h2>@app.route("/")</h2>
+<h2>def home():</h2>
+<h2>return "Hello from 2026 Docker!"</h2>
+<h2>if __name__ == "__main__":</h2>
+<h2>app.run(host="0.0.0.0", port=8080)</h2>
+<h2># requirements.txt</h2>
+<h2>flask==3.0.0</h2>
+<h2>接下來建立 Dockerfile。為了比較，我們先寫一個基本版，再優化為多階段。</h2>
+<h2># 基礎版 Dockerfile</h2>
+<h2>FROM python:3.12-slim</h2>
+<h2>WORKDIR /app</h2>
+<h2>COPY requirements.txt .</h2>
+<p>RUN pip install --no-cache-dir -r requirements.txt</p>
+<h2>COPY . .</h2>
+<h2>EXPOSE 8080</h2>
+<h2>CMD ["python", "app.py"]</h2>
+<p><p>這個 Dockerfile 使用官方 Python 映像，體積約 120MB。接下來我們改用多階段建置，在一個暫時的建置階段安裝編譯工具與套件，最後只將必要的執行結果複製到乾淨的執行環境，如此可大幅縮小最終映像檔。</p></p>
+<h2># 多階段 Dockerfile</h2>
+<h2>FROM python:3.12-slim AS builder</h2>
+<h2>WORKDIR /app</h2>
+<h2>COPY requirements.txt .</h2>
+<p>RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt</p>
+<h2>FROM python:3.12-slim</h2>
+<h2>RUN useradd --create-home appuser</h2>
+<h2>WORKDIR /app</h2>
+<h2>COPY --from=builder /wheels /wheels</h2>
+<h2>RUN pip install --no-cache-dir /wheels/*</h2>
+<h2>COPY --chown=appuser:appuser . .</h2>
+<h2>USER appuser</h2>
+<h2>EXPOSE 8080</h2>
+<p>CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]</code></pre></p>
+<p><p>如果你不想執行 Flask 開發伺服器，也可改用 gunicorn 效能更好。上例中，我們先以 `pip wheel` 建置所有相依套件，讓 builder 階段與執行階段使用的 Python 版本保持一致；然後將編譯好的 wheel 放進最終映像，避免了不必要的建置工具。最後，我們建立一個名為 `appuser` 的使用者，切換到該使用者執行，以避免以 root 身分執行服務，降低潛在攻擊風險。</p></p>
+<p><p>要進一步縮小映像檔，基礎映像可改用 `python:3.12-alpine`，但需注意 Alpine 使用 musl libc，有些 Python 套件可能需要額外編譯。另一種選擇是 `distroless` 映像，它甚至沒有 shell，只包含執行時期所需的函式庫，安全性極高，但除錯較為困難。實務上建議在正式環境使用 distroless 搭配適當的觀測工具，在本地開發時使用完整版映像。</p></p>
+<p><p>別忘了建立 `.dockerignore` 檔，排除不必要的檔案（如 .git 目錄、node_modules、測試資料夾），能增加建置速度與安全性。內容可以像這樣：</p></p>
+<h2># .dockerignore</h2>
+<h2>tests/</h2>
+<h2>venv/</h2>
+<h2>__pycache__/</h2>
+<h2></h2>
+<p><p>完成 Dockerfile 後，執行 `docker build -t myflask:2026 .` 即可產生映像檔。之後，我們可以透過 `docker run -p 8080:8080 myflask:2026` 啟動它，打開瀏覽器連到 http://localhost:8080 看到輸出。</p></p>
+<h2>3. 深入容器化應用程式：多容器編排與資料持久化</h2>
+<p><p>單一容器解決了不少問題，但真實世界的應用往往由多個服務組成：前端、後端、資料庫、快取、佇列等。若手動 `docker run` 每個容器，不但維護麻煩，也很難統一設定網路、磁碟與環境變數。Docker Compose 是 Docker 官方提供的多容器編排工具，以 YAML 描述服務、網路與磁碟，可以一條指令啟動整個應用系統。</p></p>
+<p><p>延續前面的 Flask 應用，我們希望加入 PostgreSQL 資料庫，並讓 Flask 透過環境變數連線。在 2026 年，新版 Docker Compose（V2）已經整合進 Docker CLI，執行 `docker compose` 即可。首先，我們調整 `app.py`，加入資料庫連線查詢功能：</p></p>
+<h2>import os, time</h2>
+<h2>from flask import Flask</h2>
+<h2>import psycopg2</h2>
+<h2>app = Flask(__name__)</h2>
+<h2>def db_conn():</h2>
+<h2>return psycopg2.connect(</h2>
+<p>host=os.getenv("DB_HOST", "localhost"),</p>
+<p>port=os.getenv("DB_PORT", "5432"),</p>
+<p>dbname=os.getenv("DB_NAME", "mydb"),</p>
+<p>user=os.getenv("DB_USER", "myuser"),</p>
+<p>password=os.getenv("DB_PASSWORD", "mypass"),</p>
+<p>)</p>
+<h2>@app.route("/")</h2>
+<h2>def home():</h2>
+<h2>return "Hello from Docker Compose"</h2>
+<h2>@app.route("/health")</h2>
+<h2>def health():</h2>
+<h2>try:</h2>
+<h2>conn = db_conn()</h2>
+<h2>conn.close()</h2>
+<h2>return "OK"</h2>
+<h2>except Exception as e:</h2>
+<h2>return f"DB Error: {e}", 503</h2>
+<h2>if __name__ == "__main__":</h2>
+<h2>app.run(host="0.0.0.0", port=8080)</h2>
+<h2>現在，在專案根目錄建立 `docker-compose.yml`：</h2>
+<h2>services:</h2>
+<h2>web:</h2>
+<h2>build: .</h2>
+<h2>ports:</h2>
+<ul>
+    <li>"8080:8080"</li>
+</ul>
+<h2>environment:</h2>
+<h2>DB_HOST: db</h2>
+<h2>DB_PORT: 5432</h2>
+<h2>DB_NAME: mydb</h2>
+<h2>DB_USER: myuser</h2>
+<h2>DB_PASSWORD: mypass</h2>
+<h2>networks:</h2>
+<ul>
+    <li>appnet</li>
+</ul>
+<h2>depends_on:</h2>
+<p>db:</p>
+<h2>condition: service_healthy</h2>
+<p>db:</p>
+<h2>image: postgres:16-alpine</h2>
+<h2>environment:</h2>
+<h2>POSTGRES_DB: mydb</h2>
+<h2>POSTGRES_USER: myuser</h2>
+<h2>POSTGRES_PASSWORD: mypass</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>db_data:/var/lib/postgresql/data</li>
+</ul>
+<h2>ports:</h2>
+<ul>
+    <li>"5432:5432"</li>
+</ul>
+<h2>networks:</h2>
+<ul>
+    <li>appnet</li>
+</ul>
+<h2>healthcheck:</h2>
+<p>test: ["CMD-SHELL", "pg_isready -U myuser -d mydb"]</p>
+<h2>interval: 5s</h2>
+<h2>timeout: 5s</h2>
+<h2>retries: 5</h2>
+<h2>volumes:</h2>
+<h2>db_data:</h2>
+<h2>networks:</h2>
+<h2>appnet:</h2>
+<h2>driver: bridge</h2>
+<p><p>這個 Compose 檔定義了兩個服務。`web` 利用目前資料夾內的 Dockerfile 建置映像檔；`db` 直接使用官方 PostgreSQL 映像。特別要注意的是 `depends_on` 加上 `condition: service_healthy`，這代表 web 會等 db 通過健康檢查後才開始啟動，避免 Flask 一啟動就因為連不上資料庫而崩潰。`healthcheck` 指令用 `pg_isready` 檢查資料庫是否就緒。此外，資料庫的資料卷 `db_data` 讓我們重啟容器時不會遺失資料。</p></p>
+<h2>啟動整個應用程式很簡單：</h2>
+<h2># 啟動所有服務（背景模式）</h2>
+<h2>docker compose up -d</h2>
+<h2>docker compose ps</h2>
+<h2>docker compose logs -f</h2>
+<h2>docker compose exec web sh</h2>
+<h2>docker compose down</h2>
+<h2>docker compose down -v</h2>
+<p><p>打開瀏覽器瀏覽 http://localhost:8080/health，應該會回傳 `OK`，代表 Flask 成功連接資料庫。透過這個實例，你可以看到 Compose 將服務之間的連結、環境變數、資料卷與健康檢查封裝在一份配置檔中，讓團隊成員可以快速複製出相同的開發環境。</p></p>
+<p><p>2026 年的 Docker Compose 還支援 `docker compose watch`，能自動監看檔案變動並同步至容器，大幅改善開發體驗。你也可以在 Compose 中使用變數替換、profiles 與 extend 等進階功能，讓不同環境（dev/staging/prod）共用同一份基礎配置。接下來，我們要進入更宏觀的 Kubernetes 世界。</p></p>
+<h2>4. Kubernetes 整合實戰：從 Docker 到 K8s 的無縫轉移</h2>
+<p><p>當你的服務數量持續增加、需要橫向擴展、希望具備自動復原與滾動更新能力時，Kubernetes 便成為不可或缺的平台。K8s 可以視為一個資料中心等級的作業系統，將多台機器（Node）抽象化為一個大型資源池。本節我們將把前面做的 Flask 應用部署到 Kubernetes，學習 Deployment、Service、Ingress 與 ConfigMap 的實作。</p></p>
+<h2>4.1 Kubernetes 基本概念與架構</h2>
+<p><p>一個 Kubernetes 叢集由控制平面（Control Plane）與工作節點（Worker Node）組成。控制平面負責管理整體狀態，包含 API Server、Scheduler、Controller Manager 與 etcd；工作節點則運行 Pod（最小部署單位）及 kubelet、kube-proxy 等代理套件。Pod 可以擁有一個或多個容器，通常是緊密耦合的應用（例如主程式搭配 Sidecar）。我們需要將 Docker 映像檔上傳至容器倉庫，讓 K8s 可以透過網頁下載這些映像檔。</p></p>
+<p><p>2026 年的 K8s 版本已支援更友善的 Gateway API，同時 Pod 內的 `restartPolicy` 與 `activeDeadlineSeconds` 等欄位也有了更明確的定義。但我們先從最經典的資源類型開始：Deployment 與 Service。</p></p>
+<h2>4.2 將 Docker 映像檔推送到容器倉庫</h2>
+<p><p>在部署到 K8s 之前，我們需要把先前建置的 `myflask:2026` 映像檔推到一個 K8s 能存取的 Registry。這裡我們使用 Docker Hub 作為範例，但你也使用 GitHub Container Registry（GHCR）或雲端廠商提供的倉庫。首先在 Docker Hub 建立一個公開或私人倉庫，設使用者為 `yourusername`，專案名為 `myflask`。接著執行：</p></p>
+<h2># 登入 Docker Hub</h2>
+<h2>docker login</h2>
+<h2>docker tag myflask:2026 yourusername/myflask:2026</h2>
+<p>docker push yourusername/myflask:2026</code></pre></p>
+<p><p>若使用 GHCR，網址會比較長，例如 `ghcr.io/yourname/myflask:2026`，但流程相同。推送到遠端倉庫後，K8s 才能從該位置拉取。若倉庫是私人的，必須在 K8s 中建立 `imagePullSecret` 來通過認證。2026 年的 K8s 也支援以 `kubectl create secret docker-registry` 建立這類密鑰。</p></p>
+<h2>4.3 建立 Deployment 與 Service</h2>
+<p><p>現在我們開始寫 K8s YAML。假設你的應用只需要一個 Deployment 與一個 Service。請將以下內容存入 `k8s/deployment.yaml`：</p></p>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: myflask</h2>
+<h2>labels:</h2>
+<h2>app: myflask</h2>
+<h2>spec:</h2>
+<h2>replicas: 3</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: myflask</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: myflask</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: myflask</li>
+</ul>
+<h2>image: yourusername/myflask:2026</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 8080</li>
+</ul>
+<h2>env:</h2>
+<ul>
+    <li>name: DB_HOST</li>
+</ul>
+<h2>value: postgres-service</h2>
+<ul>
+    <li>name: DB_PORT</li>
+</ul>
+<h2>value: "5432"</h2>
+<ul>
+    <li>name: DB_NAME</li>
+</ul>
+<h2>value: mydb</h2>
+<ul>
+    <li>name: DB_USER</li>
+</ul>
+<h2>value: myuser</h2>
+<ul>
+    <li>name: DB_PASSWORD</li>
+</ul>
+<h2>valueFrom:</h2>
+<h2>secretKeyRef:</h2>
+<h2>name: db-secret</h2>
+<h2>key: password</h2>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>cpu: "100m"</h2>
+<h2>memory: 64Mi</h2>
+<h2>limits:</h2>
+<h2>cpu: "200m"</h2>
+<h2>memory: 128Mi</h2>
+<h2>livenessProbe:</h2>
+<h2>httpGet:</h2>
+<h2>path: /health</h2>
+<h2>port: 8080</h2>
+<h2>initialDelaySeconds: 5</h2>
+<h2>periodSeconds: 10</h2>
+<h2>readinessProbe:</h2>
+<h2>httpGet:</h2>
+<h2>path: /health</h2>
+<h2>port: 8080</h2>
+<h2>initialDelaySeconds: 3</h2>
+<h2>periodSeconds: 5</h2>
+<p><p>此 Deployment 會建立 3 個 Pod 副本，每個副本執行你的 Flask 應用。我們設定了資源請求與上限、環境變數，並加入兩個探針：Liveness 告訴 K8s 何時強制重啟容器，Readiness 決定何時將流量導入 Pod。`env` 中的 DB_PASSWORD 是從 Secret 物件讀取，確保密碼不會直接出現在 YAML 檔。</p></p>
+<p><p>接著建立一個對應的 Secret，儲存資料庫密碼。也別忘了，我們要部署 PostgreSQL，但為了簡潔，這裡僅建立一個 StatefulSet，或是直接在 K8s 外部使用雲端資料庫。讀者可以參考官方資料庫部署。我們建立 Secret 的方式如下：</p></p>
+<h2># 建立 secret 物件（從 echo 管線或直接寫入）</h2>
+<p>kubectl create secret generic db-secret --from-literal=password=mypass</p>
+<p><p>Service 物件負責提供 Pod 的穩定存取入口。在叢集內，其他服務可以利用 Service 名稱來存取這些 Pod。請將以下內容存入 `k8s/service.yaml`：</p></p>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: myflask-service</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: myflask</h2>
+<h2>ports:</h2>
+<ul>
+    <li>protocol: TCP</li>
+</ul>
+<h2>port: 80</h2>
+<h2>targetPort: 8080</h2>
+<h2>type: ClusterIP</h2>
+<p><p>若要暴露到外部，可以將 `type` 改為 `NodePort` 或 `LoadBalancer`，但在雲端環境通常使用 Ingress 作為統一入口。以下是一個簡單的 Ingress 定義，使用 2026 年標準的 `networking.k8s.io/v1` API：</p></p>
+<h2>apiVersion: networking.k8s.io/v1</h2>
+<h2>kind: Ingress</h2>
+<h2>metadata:</h2>
+<h2>name: myflask-ingress</h2>
+<h2>spec:</h2>
+<h2>ingressClassName: nginx</h2>
+<h2>rules:</h2>
+<ul>
+    <li>host: myflask.example.com</li>
+</ul>
+<h2>http:</h2>
+<h2>paths:</h2>
+<ul>
+    <li>path: /</li>
+</ul>
+<h2>pathType: Prefix</h2>
+<h2>backend:</h2>
+<h2>service:</h2>
+<h2>name: myflask-service</h2>
+<h2>port:</h2>
+<h2>number: 80</h2>
+<p><p>如果你的叢集使用 Gateway API，則可建立 `HTTPRoute` 取代 Ingress，但目前 Ingress 仍是最常見的配置。部署到 K8s 的指令：</p></p>
+<h2># 部署 Secret、Deployment 與 Service</h2>
+<h2>kubectl apply -f k8s/secret.yaml</h2>
+<h2>kubectl apply -f k8s/deployment.yaml</h2>
+<h2>kubectl apply -f k8s/service.yaml</h2>
+<h2>kubectl apply -f k8s/ingress.yaml</h2>
+<h2>kubectl get pods</h2>
+<h2>kubectl get svc,ingress</h2>
+<p>kubectl port-forward svc/myflask-service 8080:80</code></pre></p>
+<p><p>透過 `kubectl get pods`，你可以看到 Pod 的狀態從 `ContainerCreating` 轉為 `Running`，然後 `Readiness` 探針通過後，Pod 會進入 `Ready` 狀態。這就是 K8s 的魅力：只需描述最終狀態，控制平面便自動達成。</p></p>
+<p><p>當你需要更新映像檔版本（例如改為 `myflask:2027`），可以執行 `kubectl set image deployment/myflask myflask=yourusername/myflask:2027`，K8s 會執行滾動更新（Rolling Update），逐步替換 Pod，避免服務停機。</p></p>
+<h2>4.4 使用 Helm 簡化部署**</h2>
+<p><p>實際專案中，直接撰寫大量 YAML 不免重複且難以管理。Helm 是 Kubernetes 的套件管理工具，用 Chart 將相關資源打包，並透過模板引擎進行參數化。2026 年，Helm 已成為雲原生社群的事實標準。你可以將上述 deployment.yaml、service.yaml 等放進 Chart 的 templates 目錄，並在 values.yaml 中定義可變參數。若想快速開始，可以直接使用社群預先寫好的 Chart：</p></p>
+<h2># 加入 Helm repo</h2>
+<p>helm repo add bitnami https://charts.bitnami.com/community</p>
+<h2>helm repo update</h2>
+<h2>helm install postgres bitnami/postgresql \</h2>
+<h2>set auth.database=mydb \</h2>
+<h2>set auth.username=myuser \</h2>
+<h2>set auth.password=mypass</h2>
+<h2>helm install myflask ./myflask-chart</h2>
+<p><p>Helm 最大的優勢是支援「升級」與「回滾」。當你安裝了新版本的 Chart，可以 `helm upgrade myflask ./myflask-chart --set image.tag=2027`，若發現問題，可以 `helm rollback myflask 1` 輕鬆回到上一個版本。</p></p>
+<h2>5. 進階部署策略：CI/CD 與 GitOps 整合</h2>
+<p><p>部署到 K8s 只是第一步，真正的現代化流程必須與程式碼版本控制、自動化建置、測試與部署緊密結合。2026 年的持續整合與持續部署（CI/CD）已經與雲原生技術深度掛鉤，而 GitOps 更將 Git 作為唯一事實來源，讓部署過程可稽核、可重現。</p></p>
+<p><p>我們以 GitHub Actions 為例，設計一套流水線：當開發者推送程式碼到主分支時，自動完成以下任務：測試、建置 Docker 映像檔、掃描漏洞、推送至 Docker Hub、並透過 kubectl 或 Helm 更新 K8s 叢集。請在專案中建立 `.github/workflows/deploy.yml`：</p></p>
+<h2>name: Build and Deploy to K8s</h2>
+<p>on:</p>
+<h2>push:</h2>
+<h2>branches:</h2>
+<ul>
+    <li>main</li>
+</ul>
+<h2>env:</h2>
+<h2>IMAGE_NAME: yourusername/myflask</h2>
+<h2>K8S_NAMESPACE: production</h2>
+<h2>jobs:</h2>
+<h2>test:</h2>
+<h2>runs-on: ubuntu-latest</h2>
+<h2>steps:</h2>
+<ul>
+    <li>uses: actions/checkout@v4</li>
+    <li>name: Set up Python</li>
+</ul>
+<h2>uses: actions/setup-python@v5</h2>
+<h2>with:</h2>
+<h2>python-version: '3.12'</h2>
+<ul>
+    <li>name: Install dependencies</li>
+</ul>
+<h2>run: pip install -r requirements.txt</h2>
+<ul>
+    <li>name: Run test</li>
+</ul>
+<h2>run: pytest</h2>
+<h2>build-and-push:</h2>
+<h2>needs: test</h2>
+<h2>runs-on: ubuntu-latest</h2>
+<h2>steps:</h2>
+<ul>
+    <li>uses: actions/checkout@v4</li>
+    <li>name: Set up Docker Buildx</li>
+</ul>
+<h2>uses: docker/setup-buildx-action@v3</h2>
+<ul>
+    <li>name: Login to DockerHub</li>
+</ul>
+<h2>uses: docker/login-action@v3</h2>
+<h2>with:</h2>
+<ul>
+    <li>name: Build and push</li>
+</ul>
+<h2>uses: docker/build-push-action@v6</h2>
+<h2>with:</h2>
+<h2>context: .</h2>
+<h2>push: true</h2>
+<h2>tags: ${{ env.IMAGE_NAME }}:latest</h2>
+<h2>deploy:</h2>
+<h2>needs: build-and-push</h2>
+<h2>runs-on: ubuntu-latest</h2>
+<h2>steps:</h2>
+<ul>
+    <li>uses: actions/checkout@v4</li>
+    <li>name: Set up kubectl</li>
+</ul>
+<h2>uses: azure/setup-kubectl@v4</h2>
+<ul>
+    <li>name: Configure kubeconfig</li>
+</ul>
+<h2>run: |</h2>
+<p>echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > kubeconfig</p>
+<h2>export KUBECONFIG=kubeconfig</h2>
+<ul>
+    <li>name: Deploy to K8s</li>
+</ul>
+<h2>run: |</h2>
+<p>kubectl rollout status deployment/myflask -n ${{ env.K8S_NAMESPACE }}</code></pre></p>
+<p><p>上述流水線中，測試與建置是分階段執行，避免失敗的程式進入部署流程。使用 GitHub Secrets 儲存 Docker Hub 憑證與 kubeconfig，確保敏感資訊不洩漏。若你的環境使用 Helm，可以用 `helm upgrade --install myflask ./charts/myflask --set image.tag=${{ github.sha }}` 替換掉 `kubectl set image`。</p></p>
+<p><p>GitOps 被視為 2026 年的最佳部署實務，它的核心理念是：將 K8s 的實際狀態與 Git 倉庫中的聲明式配置保持同步。Argo CD 是其中最受歡迎的工具之一。當你將應用程式與 K8s 清單儲存在 Git repository 時，Argo CD 會自動拉取變更並套用至叢集。如此一來，部署不再需要人為執行 `kubectl`，也不需要將 kubeconfig 交給 CI 系統，安全性與可追溯性大幅提升。</p></p>
+<h2>以下是一個極簡的 Argo CD Application 定義：</h2>
+<h2>apiVersion: argoproj.io/v1alpha1</h2>
+<h2>kind: Application</h2>
+<h2>metadata:</h2>
+<h2>name: myflask</h2>
+<h2>namespace: argocd</h2>
+<h2>spec:</h2>
+<h2>project: default</h2>
+<h2>source:</h2>
+<p>repoURL: https://github.com/yourname/myflask-gitops.git</p>
+<h2>targetRevision: HEAD</h2>
+<h2>path: overlays/production</h2>
+<h2>destination:</h2>
+<h2>server: https://kubernetes.default.svc</h2>
+<h2>namespace: production</h2>
+<h2>syncPolicy:</h2>
+<h2>automated:</h2>
+<h2>prune: true</h2>
+<h2>selfHeal: true</h2>
+<p><p>當開發者提交程式碼到 GitOps 倉庫後，Argo CD 偵測到設定變更，自動完成同步部署；若有人手動刪除了某個 Pod，Argo CD 也會將它恢復，實現自我修復。2026 年的 GitOps 工具鏈非常成熟，除了 Argo CD，Flux 也是強力競爭者，其支援的 Controller 提供了更靈活的資料庫與通知整合。</p></p>
+<h2>6. 疑難雜症與最佳實務</h2>
+<p><p>無論你多熟悉 Docker 與 K8s，總會遇到一些令人困惑或耗時的錯誤。本節整理常見問題與 2026 年值得遵循的最佳實務，幫助你少走冤枉路。</p></p>
+<h2>6.1 容器內的 PID 1 與殭屍程序</h2>
+<p><p>在 Linux 中，PID 1（init 行程）有特殊職責，包括收養孤兒行程、處理子行程訊號。但在 Docker 容器中，直接以你的應用程式（例如 Python）作為 PID 1，容易導致殭屍行程堆積，甚至 SIGTERM 訊號無法正確傳遞給子行程，導致容器無法優雅關閉。解決方法是加入一個輕量的 init 程序，如 `tini`。現代 Docker 映像檔可以使用 `--init` 標記，或在 Dockerfile 中安裝 tini：</p></p>
+<h2># Dockerfile 加入 tini</h2>
+<h2>FROM debian:bookworm-slim</h2>
+<h2>RUN apt-get update && apt-get install -y tini</h2>
+<h2>ENTRYPOINT ["/usr/bin/tini", "--"]</h2>
+<h2>CMD ["myapp"]</h2>
+<p><p>在 Kubernetes 中，你也可以給 Pod 設定 `shareProcessNamespace: true`，並加入一個 sidecar 容器運行 tini，但更簡單的方式是在映像檔層級搞定。</p></p>
+<h2>6.2 容器映像檔的安全性</h2>
+<p><p>容器映像檔的安全性直接影響整個叢集。2026 年，我們強烈建議在 CI/CD 流程中加入映像檔掃描。使用 `docker scan` 或 Trivy 檢查漏洞，並設定為「高風險漏洞不可上傳」。例如：</p></p>
+<h2># 使用 trivy 掃描本地映像檔</h2>
+<h2>trivy image yourusername/myflask:latest</h2>
+<p>trivy image --severity HIGH,CRITICAL yourusername/myflask:latest</code></pre></p>
+<p><p>除了掃描，還要遵循最小原則：盡量避免在映像檔中安裝 shell、編譯器或未使用的套件；使用非 root 使用者執行；確保基礎映像檔有更新到最新修補。在 K8s 中，可以透過 `SecurityContext` 設定容器的 `runAsNonRoot` 與 `readOnlyRootFilesystem`，進一步限制容器的權限。</p></p>
+<h2>6.3 監控與日誌收集</h2>
+<p><p>部署只是開始，觀測（Observability）才能確保服務穩定。在 2026 年，Prometheus 與 Grafana 仍是監控主流的選擇。Kubernetes 本身暴露許多指標，可透過 `kube-prometheus-stack` Helm Chart 快速安裝整套監控。日誌方面，可以將容器日誌導向 `stdout`，再由 Loki、Elasticsearch 或 CloudWatch 收集。常見的架構是 Fluent Bit 作為 DaemonSet，將節點上的日誌轉發到後端儲存。</p></p>
+<h2># 快速安裝 Prometheus 監控</h2>
+<p>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts</p>
+<h2>helm repo update</h2>
+<p>helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack</p>
+<p>kubectl get secret -n kube-monitoring kube-prometheus-stack-grafana -o jsonpath='{.data.admin-password}' | base64 -d</code></pre></p>
+<p><p>透過 Grafana 儀表板，你可以觀察 Pod 的 CPU、記憶體、磁碟 I/O、網路流量，以及 Kubernetes 資源事件。日誌可以與應用程式追蹤整合，形成完整的可觀測性棧。請將這些工具視為基礎設施的一部分，而非事後補救。</p></p>
+<h2>6.4 網路與憑證的常見雷區</h2>
+<p><p>容器網路看似簡單，但常遇到 DNS 解析問題，例如 Pod 之間無法使用 Service 名稱接通。2026 年的叢集通常使用 CoreDNS，若遇到解析失敗，請檢查 `kubectl exec -n kube-system -it coredns -- nslookup myflask-service`。另外，Pod 存取外部網路時，可能受 NetworkPolicy 限制，需要確認網路政策允許 Egress。還有，使用 Ingress 時 TLS 憑證可由 cert-manager 自動簽署，將憑證存取以 `Issuer` 描述，K8s 生態已非常自足。</p></p>
+<h2>6.5 資源管理與節省成本</h2>
+<p><p>K8s 的資源 request 與 limit 不只是為了管控，也是雲端成本的關鍵。2026 年已有更多工具（如 KubeCost）可根據容器資源用量攤提成本。撰寫資源定義時，建議使用 `requests` 設定基本所需，`limits` 設定上限，避免單一 Pod 影響整台 Node。同時可以使用 Vertical Pod Autoscaler（VPA）自動調整請求值，以及 Horizontal Pod Autoscaler（HPA）根據 CPU/自訂指標自動擴縮 Pod 數量。如下是一個 HPA 範例：</p></p>
+<h2>apiVersion: autoscaling/v2</h2>
+<h2>kind: HorizontalPodAutoscaler</h2>
+<h2>metadata:</h2>
+<h2>name: myflask-hpa</h2>
+<h2>spec:</h2>
+<h2>scaleTargetRef:</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>name: myflask</h2>
+<h2>metrics:</h2>
+<ul>
+    <li>type: Resource</li>
+</ul>
+<h2>resource:</h2>
+<h2>name: cpu</h2>
+<h2>target:</h2>
+<h2>type: Utilization</h2>
+<h2>averageUtilization: 70</h2>
+<p><p>使用 HPA 後，當 CPU 使用率超過 70% 時，Pod 數量會自動增加；當流量下降時又自動縮減，達到成本最佳化。</p></p>
+<h2>7. 結論與展望</h2>
+<p><p>在 2026 年，Docker 與 Kubernetes 已經成為雲原生世界的通行語言。從開發者在本機建立容器，到使用 Compose 編排多服務，再到將應用程式部署至 K8s，甚至透過 GitOps 與 CI/CD 達成全自動化交付，這一套技能組合正是現代工程師最需要掌握的核心競爭力。這篇文章從最基礎的 Docker 指令帶到 K8s 整合，並深入探討了安全、監控與進階部署策略。希望閱讀完後，你已經具備自行打造一套容器化部署流程的能力。</p></p>
+<p><p>回顧本文的旅途，我們先理解了容器存在的意義：解決環境一致性；接著學習建置 Dockerfile 的最佳實務，以及利用 Docker Compose 啟動多服務，然後引入 Kubernetes 提供真正的規模化能力。當你的系統需要面對高流量、快速迭代與複雜的分散式架構時，K8s 不僅是工具，更是一套設計思維。透過 Helm、Argo CD 等輔助工具，我們得以讓部署流程變得更簡潔、更可靠。</p></p>
+<p><p>展望未來，容器技術的演進仍不會停止。WebAssembly 將在邊緣與輕量場景與容器呈現互補；Kubernetes 的 API 持續簡化，Gateway API 逐步取代 Ingress；AI 原生應用開始使用容器作為標準交付格式，將模型與推論服務打包。但無論趨勢如何改變，「映像檔建置、容器執行、叢集調度」這三個核心概念依然會是解決現代軟體交付問題的基石。筆者鼓勵各位讀者，結合本文的實作，將自己的主力應用容器化並部署到 K8s 中。唯有親身走過這個流程，才能真正體會容器化所帶來的效率與樂趣。</p></p>
+<p><p>最後，記得訂閱「雅寶社區 · 頂客論壇」的科技教學版面，我們會持續分享更多關於 Docker、K8s、雲原生及 DevOps 的最新教學與實戰經驗。有任何問題或想法，歡迎在討論區留言交流。讓我們一起在 2026 年成為更強大的雲原生工程師！</p></p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

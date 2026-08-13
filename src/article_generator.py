@@ -1,16 +1,14 @@
-﻿# ============================================================
-# article_generator.py - 文章生成核心模組 v8.4
 # ============================================================
-# 修復與優化 (v8.4)：
-#   - 🔧 新增 _normalize_tables 函數，自動修正 AI 輸出的無效表格結構
-#   - 🔧 消除 <p><table>、</table></p>、</p><table>、</table><p> 等變體
-#   - 🔧 確保輸出符合標準 HTML 表格結構
-#   - 🔧 強化 text_to_html 內容邊界偵測
-#   - 🔧 自動過濾 CSS 程式碼區塊
-#   - 🔧 優先使用 AI 生成的標題
-#   - 🔧 防止 CSS 選擇器被誤判為 H2 標題
-#   - 🔧 配圖分類映射新增「🎵 音樂創作」支援
-#   - 🔧 同步 config.py 分類名稱變更
+# article_generator.py - 文章生成核心模組 v8.6
+# ============================================================
+# 修復與優化 (v8.6)：
+#   - 🔧 徹底重構 _clean_css_residue()，完整清除所有 CSS 殘留
+#   - 🔧 包含 .table-of-contents、@media、完整 CSS 區塊
+#   - 🔧 修正 H2 計數邏輯：在 Markdown 轉換為 HTML 之後才計算
+#   - 🔧 移除強制插入「xxx 的基礎介紹」模板 (防止萬用標題)
+#   - 🔧 統一 description 定義，避免 NameError
+#   - 🔧 強化二次防護過濾，徹底清除 CSS 屬性與選擇器
+#   - 🔧 測試區改用 📜 歷史腦洞 分類
 # ============================================================
 
 import os
@@ -27,7 +25,6 @@ from src.quality_checker import check_article_quality
 from src.model_router import ModelRouter
 from src.logger import get_logger
 
-# 取得日誌器
 logger = get_logger("article_generator")
 
 
@@ -119,6 +116,52 @@ def clean_raw_html(raw_html):
 
 
 # ============================================================
+# 🆕 v8.6: 徹底清除 CSS 殘留 (完整版)
+# ============================================================
+
+def _clean_css_residue(content):
+    """
+    強力過濾所有 CSS 語法殘留，防範 Markdown 誤判
+    v8.6: 完整清除所有 CSS 選擇器、屬性、註解、@media 規則
+    """
+    if not content:
+        return content
+
+    # 1. 移除完整 CSS 區塊 (含跨行 { ... })
+    content = re.sub(
+        r'(?i)(h[1-6]|body|div|p|span|a|img|\.table-of-contents|\.\w+|@media)[^{]*\{[^}]*\}',
+        '',
+        content,
+        flags=re.DOTALL
+    )
+
+    # 2. 移除裸露的 CSS 選擇器殘留 (行首)
+    content = re.sub(
+        r'(?m)^\s*(h[1-6]|body|div|p|span|a|img|\.[\w-]+|#[\w-]+|@media[^{]+)\s*\{\s*$',
+        '',
+        content
+    )
+
+    # 3. 移除裸露的 CSS 閉合大括號
+    content = re.sub(r'(?m)^\s*\}\s*$', '', content)
+
+    # 4. 移除常見 CSS 屬性行
+    content = re.sub(
+        r'(?m)^\s*(font|color|background|margin|padding|border|display|position|width|height|max-width|overflow|text-align|flex|grid|gap|font-size|font-weight|line-height|text-decoration|vertical-align|cursor|z-index|opacity|transform|transition|animation|box-shadow|justify-content|align-items)[^:\n]*:[^;\n]+;\s*$',
+        '',
+        content
+    )
+
+    # 5. 移除 CSS 註解
+    content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
+
+    # 6. 清理多餘空行
+    content = re.sub(r'\n\s*\n\s*\n', '\n\n', content)
+
+    return content
+
+
+# ============================================================
 # 🆕 表格結構標準化函數
 # ============================================================
 
@@ -126,130 +169,61 @@ def _normalize_tables(html_content):
     """
     修正 AI 輸出的無效表格結構
     將 <p><table>...</table></p> 轉換為標準 <table>...</table>
-    支援多種變體：
-        - <p><table> → <table>
-        - </table></p> → </table>
-        - </p><table> → <table>
-        - </table><p> → </table>
     """
     if not html_content:
         return html_content
 
-    # 修正 <p><table> 開頭
     html_content = re.sub(r'<p>\s*<table', '<table', html_content, flags=re.IGNORECASE)
-    # 修正 </table></p> 結尾
     html_content = re.sub(r'</table>\s*</p>', '</table>', html_content, flags=re.IGNORECASE)
-    # 修正 </p><table 中間的無效段落
     html_content = re.sub(r'</p>\s*<table', '<table', html_content, flags=re.IGNORECASE)
-    # 修正 </table><p> 後續無效段落
     html_content = re.sub(r'</table>\s*<p>', '</table>', html_content, flags=re.IGNORECASE)
 
     return html_content
 
 
 # ============================================================
-# 核心函數：將純文字轉換為完整 HTML (v8.4 強化版)
+# 核心函數：將純文字轉換為完整 HTML (v8.6 徹底修復版)
 # ============================================================
 
 def text_to_html(content, keyword, category):
     """
     將 AI 生成的純文字內容轉換為完整的 HTML 結構
-    自動識別標題、段落、列表
-    強制生成 H1 標題
-    🆕 強化內容邊界偵測：跳過 CSS 程式碼、HTML 標籤宣告
-    🆕 優先使用 AI 生成的 H1 標題
-    🆕 強化清單識別：支援純文字編號清單
-    🆕 清理標題中的 HTML 標籤殘留
-    🆕 防止 CSS 選擇器被誤判為 H2 標題
-    🆕 v8.4：返回前自動標準化表格結構
+    v8.6: 徹底清除 CSS 殘留、修正 H2 計數邏輯、移除萬用模板
     """
     if not content:
         return None
 
     content = clean_raw_html(content)
+    content = _clean_css_residue(content)
+
     lines = content.split('\n')
 
     # ============================================================
-    # 🆕 強化：偵測並跳過 CSS 程式碼區塊
+    # 二次防護：徹底過濾所有 CSS 相關行
     # ============================================================
-    css_patterns = [
-        r'^[a-zA-Z\-_]+\s*\{',           # CSS 選擇器
-        r'^font-family:',
-        r'^line-height:',
-        r'^color:',
-        r'^max-width:',
-        r'^margin:',
-        r'^padding:',
-        r'^background-',
-        r'^display:',
-        r'^text-align:',
-        r'^border-',
-        r'^font-size:',
-        r'^font-weight:',
-        r'^@media',
-        r'^\.',
-        r'^#',
-        r'^[a-zA-Z\-_]+\s*\{',           # 任何 CSS 選擇器
-    ]
-
-    # 過濾掉 CSS 程式碼行
     filtered_lines = []
-    in_css_block = False
-
     for line in lines:
-        line_stripped = line.strip()
-        if not line_stripped:
-            filtered_lines.append(line)
+        line_s = line.strip()
+
+        # 跳過 CSS 選擇器行
+        if re.search(r'^\s*(h[1-6]|body|div|p|span|a|img|\.[\w-]+|#[\w-]+|@media).*\{', line_s):
+            continue
+        # 跳過 CSS 屬性行
+        if re.search(r'^\s*[\w-]+\s*:\s*[^;]+;', line_s):
+            continue
+        # 跳過 CSS 閉合大括號
+        if re.search(r'^\s*\}\s*$', line_s):
+            continue
+        # 跳過 CSS 註解
+        if re.search(r'^\s*/\*', line_s):
             continue
 
-        # 檢查 CSS 區塊開始
-        if re.search(r'^[a-zA-Z\-_\.#]+\s*\{', line_stripped):
-            in_css_block = True
-            continue
-
-        # 檢查 CSS 區塊結束
-        if line_stripped == '}' or line_stripped.endswith('}'):
-            in_css_block = False
-            continue
-
-        # 如果在 CSS 區塊內，跳過
-        if in_css_block:
-            continue
-
-        # 檢查是否為 CSS 屬性
-        is_css = False
-        for pattern in css_patterns:
-            if re.search(pattern, line_stripped, re.IGNORECASE):
-                is_css = True
-                break
-
-        # 檢查是否為 CSS 註解
-        if line_stripped.startswith('/*') or line_stripped.startswith('*'):
-            is_css = True
-
-        # 檢查是否為 CSS 屬性（含冒號）
-        if ':' in line_stripped and '{' not in line_stripped and '}' not in line_stripped:
-            parts = line_stripped.split(':', 1)
-            if len(parts) == 2:
-                prop = parts[0].strip()
-                css_props = ['font', 'color', 'margin', 'padding', 'border', 'background',
-                            'display', 'width', 'height', 'max', 'min', 'line', 'text',
-                            'vertical', 'position', 'top', 'bottom', 'left', 'right',
-                            'z-index', 'opacity', 'overflow', 'box', 'transform', 'transition',
-                            'flex', 'grid', 'align', 'justify', 'gap', 'float', 'clear',
-                            'list', 'table', 'content', 'cursor', 'pointer', 'hover',
-                            'outline', 'visibility', 'white-space', 'word', 'letter',
-                            'text-decoration', 'text-transform', 'vertical-align']
-                if any(prop.startswith(p) for p in css_props):
-                    is_css = True
-
-        if not is_css:
-            filtered_lines.append(line)
+        filtered_lines.append(line)
 
     lines = filtered_lines
 
     # ============================================================
-    # 🆕 強化：偵測真正的內容起始位置
+    # 偵測真正的內容起始位置
     # ============================================================
     start_idx = 0
     found_content_start = False
@@ -259,7 +233,6 @@ def text_to_html(content, keyword, category):
         if not line_stripped:
             continue
 
-        # 跳過明顯的 HTML 標籤宣告
         if line_stripped.startswith('<!DOCTYPE') or line_stripped.startswith('<html'):
             continue
         if line_stripped.startswith('<head') or line_stripped.startswith('<body'):
@@ -269,16 +242,15 @@ def text_to_html(content, keyword, category):
         if line_stripped.startswith('<div') or line_stripped.startswith('<section'):
             continue
 
-        # 偵測真實內容開始：標題、段落、列表標記
         content_indicators = [
-            r'^[#*⃣]\s*',           # Markdown 標題
-            r'^[一二三四五六七八九十\d]+[、.．]\s*',  # 編號標題
-            r'^[A-Za-z\u4e00-\u9fa5]',  # 中文或英文開頭
-            r'^<h[1-6]',            # HTML 標題標籤
-            r'^<p>',                # HTML 段落標籤
-            r'^<ul>',               # HTML 列表
-            r'^<ol>',               # HTML 有序列表
-            r'^<blockquote',        # HTML 引用
+            r'^[#*⃣]\s*',
+            r'^[一二三四五六七八九十\d]+[、.．]\s*',
+            r'^[A-Za-z\u4e00-\u9fa5]',
+            r'^<h[1-6]',
+            r'^<p>',
+            r'^<ul>',
+            r'^<ol>',
+            r'^<blockquote',
         ]
 
         for indicator in content_indicators:
@@ -290,7 +262,6 @@ def text_to_html(content, keyword, category):
         if found_content_start:
             break
 
-    # 如果沒有找到內容起始，從第一個非空行開始
     if not found_content_start:
         for i, line in enumerate(lines):
             if line.strip():
@@ -300,33 +271,32 @@ def text_to_html(content, keyword, category):
     lines = lines[start_idx:] if start_idx < len(lines) else lines
 
     # ============================================================
-    # 強制提取 H1 標題（優先使用 AI 生成的標題）
+    # 提取 H1 標題 (優先使用 AI 生成的標題)
     # ============================================================
     title = keyword
     description = f"{keyword} - 雅寶社區 · 頂客論壇"
     found_title = False
 
-    # 🆕 優先從 AI 內容中提取 H1 標題
     for i, line in enumerate(lines[:30]):
         clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
         clean_line = re.sub(r'^#{1,6}\s*', '', clean_line)
         clean_line = re.sub(r'^>\s*', '', clean_line)
 
-        # 檢查是否為有效的標題（長度適中，不是 CSS 或程式碼）
         if len(clean_line) > 3 and len(clean_line) < 80:
             # 跳過 CSS 選擇器
             if re.match(r'^[a-zA-Z\-_\.#]+\s*\{', clean_line):
                 continue
-            # 跳過純數字或符號
             if re.match(r'^[\d\s\.]+$', clean_line):
                 continue
-            # 跳過 CSS 屬性
             if ':' in clean_line and '{' not in clean_line:
                 continue
-            # 跳過以 CSS 屬性開頭的行
+
             css_props_start = ['font', 'color', 'margin', 'padding', 'border', 'background',
                               'display', 'width', 'height', 'text', 'line', 'vertical']
             if any(clean_line.startswith(p) for p in css_props_start):
+                continue
+
+            if re.match(r'^h[1-6]\s*$', clean_line.lower()):
                 continue
 
             title = clean_line
@@ -334,16 +304,14 @@ def text_to_html(content, keyword, category):
             found_title = True
             break
 
-    # 如果沒找到合適的標題，使用 keyword
     if not found_title:
         title = keyword
 
-    # 確保標題不包含 keyword 重複（如果 keyword 已包含在標題中）
     if title != keyword and keyword not in title:
         title = f"{keyword}｜{title}"
 
     # ============================================================
-    # 開始構建 HTML
+    # 構建 HTML (解析 Markdown 標題、段落、列表)
     # ============================================================
     html_parts = []
     html_parts.append(f'<h1>{title}</h1>')
@@ -352,13 +320,8 @@ def text_to_html(content, keyword, category):
     in_ordered_list = False
     list_items = []
     ordered_items = []
-    skip_next = False
 
     for i, line in enumerate(lines):
-        if skip_next:
-            skip_next = False
-            continue
-
         line = line.strip()
         if not line:
             if in_list and list_items:
@@ -377,32 +340,20 @@ def text_to_html(content, keyword, category):
                 in_ordered_list = False
             continue
 
-        # 跳過明顯的 HTML 標籤行
-        html_tags_to_skip = [
-            '<html', '</html>', '<head', '</head>',
-            '<body', '</body>', '<!DOCTYPE',
-            '<meta', '<link', '<script', '<title', '</title>',
-            '<header', '</header>', '<article', '</article>',
-            '<footer', '</footer>', '<main', '</main>',
-            '<style', '</style>'
-        ]
-        should_skip = False
-        for tag in html_tags_to_skip:
-            if line.lower().startswith(tag.lower()):
-                should_skip = True
-                break
-        if should_skip:
+        # 跳過 HTML 標籤行
+        html_tags_to_skip = ['<html', '</html>', '<head', '</head>', '<body', '</body>',
+                             '<!DOCTYPE', '<meta', '<link', '<script', '<title', '</title>',
+                             '<header', '</header>', '<footer', '</footer>', '<style', '</style>']
+        if any(line.lower().startswith(tag.lower()) for tag in html_tags_to_skip):
             continue
 
         clean_line = re.sub(r'^[#*⃣\-\s]+', '', line).strip()
         clean_line = re.sub(r'^#{1,6}\s*', '', clean_line)
-        clean_line = re.sub(r'^《', '', clean_line)
-        clean_line = re.sub(r'》$', '', clean_line)
 
+        # 判斷是否為標題
         is_heading = False
         heading_level = 2
 
-        # 檢查是否為標題
         if line.startswith('# '):
             is_heading = True
             clean_line = line[2:].strip()
@@ -423,21 +374,14 @@ def text_to_html(content, keyword, category):
         elif re.match(r'^[一二三四五六七八九十\d]+[、.．]\s*', line):
             is_heading = True
             clean_line = re.sub(r'^[一二三四五六七八九十\d]+[、.．]\s*', '', line)
-        elif (len(clean_line) < 50 and
-              not clean_line.endswith(('。', '？', '！', '」', '：', ';', ',')) and
-              len(clean_line) > 3):
-            # 🆕 跳過 CSS 選擇器
+        elif (len(clean_line) < 60 and not clean_line.endswith(('。', '？', '！', '」', '：', ';', ',')) and len(clean_line) > 3):
             if not re.match(r'^[a-zA-Z\-_\.#]+\s*\{', clean_line):
-                # 🆕 跳過 CSS 屬性
                 if not any(clean_line.startswith(p) for p in ['font', 'color', 'margin', 'padding', 'border', 'background', 'display', 'width', 'height', 'text', 'line']):
                     is_heading = True
 
-        # 檢查是否為清單項目
-        is_unordered_item = line.startswith('- ') or line.startswith('* ') or line.startswith('• ') or line.startswith('  - ')
+        # 判斷清單
+        is_unordered_item = line.startswith('- ') or line.startswith('* ') or line.startswith('• ')
         is_ordered_item = bool(re.match(r'^\d+[.、)）]\s', line))
-
-        if not is_ordered_item:
-            is_ordered_item = bool(re.match(r'^\d+[.、)）]\s+', line))
 
         if is_unordered_item:
             item_text = re.sub(r'^[\-\*\•]\s*', '', line).strip()
@@ -484,9 +428,13 @@ def text_to_html(content, keyword, category):
         if is_heading:
             if clean_line == title or clean_line in title:
                 continue
-
-            # 清理標題中的 HTML 標籤殘留
             clean_line = re.sub(r'<[^>]+>', '', clean_line).strip()
+
+            if not clean_line or len(clean_line) < 2:
+                continue
+
+            if clean_line.lower() in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body', 'div', 'p', 'span', 'a', 'img', 'table', 'tr', 'td', 'th']:
+                continue
 
             if heading_level == 3:
                 html_parts.append(f'<h3>{clean_line}</h3>')
@@ -515,20 +463,18 @@ def text_to_html(content, keyword, category):
 
     body_content = '\n'.join(html_parts)
 
-    # 確保至少有 H2
+    # 移除空的 H2 標籤
+    body_content = re.sub(r'<h2>\s*</h2>', '', body_content)
+    body_content = re.sub(r'<h3>\s*</h3>', '', body_content)
+
+    # ============================================================
+    # 🆕 v8.6: 修正 H2 計數邏輯 — 在 HTML 轉換完成後才計算
+    # ============================================================
     h2_count = body_content.count('<h2>')
-    if h2_count < 3:
-        sections = [
-            f'<h2>{keyword} 的基礎介紹</h2>',
-            f'<p>{keyword} 是現代生活中不可或缺的重要主題，本文將為您詳細解析。</p>',
-            f'<h2>{keyword} 的實用技巧</h2>',
-            f'<p>以下將分享幾個關於 {keyword} 的實用技巧與建議。</p>',
-            f'<h2>{keyword} 常見問題 FAQ</h2>',
-            f'<p>針對 {keyword} 常見的問題，我們整理了以下解答。</p>',
-            f'<h2>總結</h2>',
-            f'<p>透過以上介紹，相信您對 {keyword} 有了更深入的了解。</p>'
-        ]
-        body_content = body_content.replace('</h1>', f'</h1>\n' + '\n'.join(sections))
+
+    # 只有真正缺少 H2 時才記錄警告，不再強制插入萬用模板
+    if h2_count < 2:
+        logger.warning(f"⚠️ 文章 H2 數量偏低 ({h2_count})，建議檢查 AI 輸出內容")
 
     full_html = f'''<!DOCTYPE html>
 <html lang="zh-TW">
@@ -544,16 +490,16 @@ def text_to_html(content, keyword, category):
 </body>
 </html>'''
 
-    # 🆕 v8.4：標準化表格結構（修正 AI 輸出的無效表格）
     full_html = _normalize_tables(full_html)
     return full_html
 
 
 # ============================================================
-# 🖼️ 智慧配圖系統 v3.3 - 分類同步版
+# 🖼️ 智慧配圖系統 v3.4 - 優化插入位置
 # ============================================================
 
 CATEGORY_VISUALS = {
+    "📜 歷史腦洞": "ancient Chinese battlefield with dramatic lighting, epic historical scene, traditional ink painting style, cinematic atmosphere",
     "🌟 人生哲理": "a person meditating peacefully in a modern minimalist room, digital detox concept, laptop on desk, soft natural lighting, calm serene atmosphere",
     "💻 3C 科技教學": "modern workspace with laptop, smartphone, tablet, clean technology gadgets on wooden desk, minimal background",
     "📊 軟體評測": "computer screen showing data visualization dashboard, sleek software interface, modern office setup, blue and white color scheme",
@@ -561,7 +507,6 @@ CATEGORY_VISUALS = {
     "🎮 遊戲攻略": "gaming setup with RGB keyboard, gaming monitor, headset, vibrant neon lighting, esports style",
     "🤖 AI 趨勢": "artificial intelligence concept, digital brain, futuristic tech network, glowing circuit board, cyan and blue lights",
     "🎵 音樂創作": "musical instruments, vinyl record, warm studio lighting, creative atmosphere, music production",
-    "🎵 台語音樂": "musical instruments, vinyl record, warm studio lighting, creative atmosphere, music production",
 }
 
 STYLE_SUFFIX = "vector illustration, clean line art, minimal corporate editorial style, soft color palette, professional design, crisp details, 8k"
@@ -574,7 +519,6 @@ def _build_english_visual_prompt(keyword, category):
         base_visual = f"concept visualization for {keyword}, modern professional setting"
 
     keyword_hints = []
-
     if "正念" in keyword or "平靜" in keyword or "專注" in keyword:
         keyword_hints.append("meditation, calmness, focus, mindfulness")
     if "數位" in keyword or "科技" in keyword:
@@ -597,7 +541,7 @@ def _build_english_visual_prompt(keyword, category):
 
 
 def _make_responsive_image(img_tag):
-    """將圖片標籤轉為響應式，並防止變形"""
+    """將圖片標籤轉為響應式"""
     return img_tag.replace(
         'width="800"',
         'style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);"'
@@ -605,7 +549,7 @@ def _make_responsive_image(img_tag):
 
 
 def generate_and_embed_image(html_content, keyword, category, retry_count=1):
-    """使用 Pollinations AI 生成配圖，並嵌入文章"""
+    """使用 Pollinations AI 生成配圖，並嵌入文章 (優化插入位置)"""
     print("   🖼️ 正在生成配圖（Pollinations AI）...")
     logger.info(f"生成配圖：{keyword}")
 
@@ -632,26 +576,21 @@ def generate_and_embed_image(html_content, keyword, category, retry_count=1):
         if result.get("img_tag"):
             responsive_img = _make_responsive_image(result["img_tag"])
 
-            p_close_match = re.search(r'</p>', html_content, re.IGNORECASE)
-            if p_close_match:
-                pos = p_close_match.end()
+            # 🆕 v8.5: 優化插入位置 — 置於 H1 之後，而非段落之後
+            h1_close_match = re.search(r'</h1>', html_content, re.IGNORECASE)
+            if h1_close_match:
+                pos = h1_close_match.end()
                 html_content = html_content[:pos] + '\n' + responsive_img + '\n' + html_content[pos:]
-                print(f"   ✅ 配圖已插入文章第一個段落之後")
+                print(f"   ✅ 配圖已插入文章 H1 標題之後")
             else:
-                h2_match = re.search(r'<h2', html_content, re.IGNORECASE)
-                if h2_match:
-                    pos = h2_match.start()
-                    html_content = html_content[:pos] + responsive_img + '\n' + html_content[pos:]
-                    print(f"   ✅ 配圖已插入文章第一個 H2 之前")
+                body_match = re.search(r'<body[^>]*>', html_content, re.IGNORECASE)
+                if body_match:
+                    pos = body_match.end()
+                    html_content = html_content[:pos] + '\n' + responsive_img + '\n' + html_content[pos:]
+                    print(f"   ✅ 配圖已插入文章 body 開頭")
                 else:
-                    body_match = re.search(r'<body[^>]*>', html_content, re.IGNORECASE)
-                    if body_match:
-                        pos = body_match.end()
-                        html_content = html_content[:pos] + '\n' + responsive_img + '\n' + html_content[pos:]
-                        print(f"   ✅ 配圖已插入文章 body 開頭")
-                    else:
-                        html_content = responsive_img + '\n' + html_content
-                        print(f"   ✅ 配圖已插入文章開頭")
+                    html_content = responsive_img + '\n' + html_content
+                    print(f"   ✅ 配圖已插入文章開頭")
 
             logger.info(f"配圖生成成功：{keyword}")
             return html_content, True
@@ -831,34 +770,21 @@ def get_pending_articles(keywords_list):
 
 
 # ============================================================
-# 測試（僅在直接執行時觸發）
+# 測試
 # ============================================================
 
 if __name__ == "__main__":
     print("\n" + "=" * 50)
-    print("  🧪 article_generator.py v8.4 測試")
+    print("  🧪 article_generator.py v8.6 測試")
     print("=" * 50 + "\n")
 
-    # 測試 1：Chat API
-    print("📝 測試 1：Chat API")
-    test_item_1 = {
-        "keyword": "2026 年 AI 趨勢簡介",
-        "category": "🤖 AI 趨勢",
-        "filename": "test/test-chat-api-v84.html",
-        "use_responses_api": False
-    }
-    generate_article(test_item_1)
-
-    # 測試 2：Responses API + Reasoning
-    print("\n📝 測試 2：Responses API + Reasoning")
-    test_item_2 = {
-        "keyword": "2026 年 AI 趨勢深度分析（含思維鏈）",
-        "category": "🤖 AI 趨勢",
-        "filename": "test/test-responses-reasoning-v84.html",
+    test_item = {
+        "keyword": "三國普通農民視角：今天曹操來了，明天劉備又來了",
+        "category": "📜 歷史腦洞",
+        "filename": "history/three-kingdoms-peasant-perspective.html",
         "use_responses_api": True,
         "enable_reasoning": True,
         "enable_search": False
     }
-    generate_article(test_item_2)
-
+    generate_article(test_item)
     print("\n✅ 測試完成")

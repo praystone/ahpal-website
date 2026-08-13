@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南｜<p>整合 Docker 映像標籤與 Argo CD 的 Sync 策略後，開發者合併 PR 即自動觸發前哨部署，讓終端使用者幾乎無痛升級。</p> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+    <div class="meta-info">
+        發表時間：2026 年 08 月 14 日 | 更新日期：2026 年 08 月 14 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: myapp</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: myapp</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: app</li>
+</ul>
+<h2>image: registry.example.com/myapp:2026</h2>
+<h2>常見陷阱與實戰心法</h2>
+<h2>容器化實戰中，有幾個容易踩雷的隱藏問題，本節分享最常遇到的狀況與解決方案。</h2>
+<h2>容器時區與日誌處理</h2>
+<p><p>許多基礎映像預設使用 UTC 時區，造成日誌時間與本地時間誤差。在 Dockerfile 中，可以用 <code>ENV TZ=Asia/Taipei</code> 並安裝 tzdata 套件，但這會增加映像大小。更好的方式是將時區掛載進容器，例如 <code>-v /etc/timezone:/etc/timezone:ro</code> 以及 <code>-v /etc/localtime:/etc/localtime:ro</code>。但若追求可攜性，應讓應用程式讀取環境變數並輸出 UTC 時間，然後依賴前端轉換。</p></p>
+<p><p>日誌應全數輸出至 stdout/stderr，不要寫入容器內部的檔案。Docker 與 K8s 都會自動收集這些輸出並轉交日誌後端。在 K8s Pod 中，若有多個容器，通常會加入一個 filebeat 或 fluent-bit sidecar 將日誌轉送到 Elasticsearch 或 Loki。2026 年的規範是使用 OpenTelemetry 標準，讓日誌、metrics 與 trace 全方面整合。</p></p>
+<h2>監控與可觀察性建置</h2>
+<p><p>不能等到出問題才連進容器查看。定要架設完整的監控系統：Prometheus 抓取 metrics，Grafana 顯示儀表板，Alertmanager 發送警報。Docker 本身可以透過 cAdvisor 收集容器運作資料，在 K8s 中則由 kubelet 內建 metrics API。實作上，部署下列套件即可：</p></p>
+<p><pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts</p>
+<p>helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring --create-namespace</code></pre></p>
+<p><p>並在應用程式中引入 Prometheus client library，暴露 <code>/metrics</code> 端點，Dockerfile 的 HEALTHCHECK 也可以透過該端點取得應用狀態。最後，建議設定 PodDisruptionBudget 與 Resource Quota，確保穩定性與公平分配資源。</p></p>
+<h2>結論</h2>
+<p><p>2026 年的 Docker 與 Kubernetes 已經完全成熟，學習資源豐富，工具鏈完整。從撰寫一份乾淨的 Dockerfile、用 Compose 在本機啟動多容器環境，到透過 K8s 部署高可用服務，每一階段都有明確的模式可循。最重要的是，我們不應只把 Docker 當作一項工具，而應理解其背後的「封裝、隔離、不可變基礎設施」思維，並與現代 DevOps 文化相乘。</p></p>
+<p><p>希望這份專為雅寶社區・頂客論壇撰寫的實戰指南，能幫助你站穩容器化部署的基礎。無論你的目標是成為 DevSecOps 工程師，還是想優化團隊交付流程，2026 年都是擁抱容器化的最佳時機。願你在 Docker 與 K8s 的世界中，航向更廣闊的雲原生之海。</p></p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

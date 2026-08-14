@@ -643,5 +643,485 @@
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 Wikipedia：曹操的條目會被怎麼編輯？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/wikipedia-cao-cao-edit-war.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「空城計」其實是古代版的 YouTube 直播帶貨",
+    "category": "📜 歷史腦洞",
+    "filename": "history/kong-cheng-ji-livestream.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 ChatGPT 翻譯：司馬懿怎麼看曹魏的內部信件？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sima-yi-chatgpt-translate.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "三國的「外送平台」：赤壁之戰的軍糧是怎麼配送的？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/red-cliff-food-delivery.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Slack：曹操的「挾天子以令諸侯」是群組公告？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-slack-announcement.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "劉備的「哭」其實是古代版的情緒勒索話術？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/liu-bei-emotional-blackmail.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 Twitter：諸葛亮的「出師表」是長文串？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhuge-liang-twitter-thread.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曹操的「寧可我負天下人」其實是古代版的職場 PUA",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-workplace-pua.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Zoom：赤壁之戰的遠端會議長怎樣？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/red-cliff-zoom-strategy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "三國的「網購平台」：關羽的青龍偃月刀哪裡買的？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/three-kingdoms-ecommerce.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Substack：曹操的「短歌行」是付費電子報？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-substack-newsletter.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「錦囊妙計」其實是古代版的 QR Code 掃描？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/jin-nang-qr-code-v2.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 Airbnb：劉備的「三顧茅廬」是民宿體驗？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/liu-bei-airbnb-experience.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曹操的「望梅止渴」其實是古代版的飢餓行銷？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-hunger-marketing.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 TikTok 短劇：三國故事怎麼改編成連續劇？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/three-kingdoms-tiktok-drama.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "司馬懿的「忍」其實是古代版的職場生存哲學",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sima-yi-workplace-survival.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 LinkedIn Learning：諸葛亮會開什麼課程？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhuge-liang-linkedin-course.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曹操的「求賢令」其實是古代版的 104 獵頭廣告",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-headhunter-ad.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Spotify 年度回顧：周瑜的 2026 年聽歌報告",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhou-yu-spotify-wrapped-v2.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "三國的「理財神器」：直百錢其實是古代版的 ETF？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/three-kingdoms-etf-investment.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果李白有 Instagram：他的詩會配什麼照片和 hashtag？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/li-bai-instagram-poetry.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "唐太宗與魏徵其實是古代版的「職場導師 vs 實習生」",
+    "category": "📜 歷史腦洞",
+    "filename": "history/tang-taizong-weizheng-mentor.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果楊貴妃有 TikTok：她會成為古代版的美妝帶貨一姐嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/yang-guifei-tiktok-beauty.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "杜甫如果活在現代：他會是「社畜詩人」還是「厭世作家」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/du-fu-modern-poet.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果蘇軾有 YouTube：他會成為古代版的「生活型 YouTuber」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/su-shi-youtube-lifestyle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "岳飛的「精忠報國」其實是古代版的「員工忠誠度培訓」",
+    "category": "📜 歷史腦洞",
+    "filename": "history/yue-fei-loyalty-training.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果宋朝有 Uber Eats：清明上河圖裡的外送員在哪裡？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/song-dynasty-uber-eats.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "宋徽宗如果當 YouTuber：他會拍「一日藝術家」還是「亡國日記」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/song-huizong-youtuber-artist.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "成吉思汗如果開 LinkedIn：他的履歷會怎麼寫「征服世界」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/genghis-khan-linkedin-profile.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果元朝有 Google Maps：蒙古鐵騎怎麼靠導航征服歐亞？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/yuan-dynasty-google-maps.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "忽必烈如果辦「帝國股東大會」：元朝的 KPI 考核怎麼做？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/kublai-khan-kpi-meeting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "朱元璋其實是古代版的「草根創業家」：從乞丐到皇帝的職場逆襲",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhu-yuanzhang-startup-story.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鄭和如果開 TikTok：他會成為古代版的「航海冒險網紅」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zheng-he-tiktok-adventure.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果明朝有 Slack：錦衣衛的「機密任務」是怎麼派發的？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/ming-dynasty-slack-secret.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "唐伯虎如果當 YouTuber：他會拍「點秋香實況」還是「畫畫教學」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/tang-bo-hu-youtuber-art.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果明朝有 Airbnb：紫禁城會變成「最高級民宿」嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/ming-dynasty-airbnb-forbidden.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "康熙如果開 Podcast：他會聊「治國心法」還是「後宮八卦」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/kangxi-podcast-governance.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "乾隆其實是古代版的「曬娃魔人」：他的「十全老人」貼文有多浮誇？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/qianlong-social-media-brag.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果清朝有 Zoom：慈禧太后的「垂簾聽政」是遠端會議？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cixi-zoom-remote-govern.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "林則徐如果開 LinkedIn：他的「虎門銷煙」專案管理怎麼寫？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/lin-zexu-project-management.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果秦始皇有 ChatGPT：他會怎麼用 AI 治理天下？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/qin-shi-huang-chatgpt-govern.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "劉邦的「大風起兮雲飛揚」如果改編成現代搖滾會怎樣？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/liu-bang-rock-anthem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "項羽的「霸王別姬」其實是古代版的職場分手信？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/xiang-yu-breakup-letter.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 Discord：諸葛亮會在伺服器裡開什麼頻道？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhuge-liang-discord-channels.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果竹林七賢有 TikTok：他們會拍什麼廢片？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhu-lin-seven-tiktok.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "王羲之的「蘭亭集序」其實是古代版的 IG 限時動態？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/wang-xizhi-ig-story.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果陶淵明有 YouTube：他會成為古代版的「田園生活 YouTuber」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/tao-yuanming-farm-youtuber.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "隋煬帝如果開 LinkedIn：他的「大運河專案」管理怎麼寫？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sui-yangdi-grand-canal-project.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果唐代有 AirPods：李白喝酒時會聽什麼歌？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/li-bai-airpods-playlist.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "唐玄宗與楊貴妃其實是古代版的「職場戀愛」禁忌？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/tang-xuanzong-office-romance.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果宋朝有 Amazon：蘇軾會開什麼樣的電商店？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/su-shi-amazon-store.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "文天祥的「正氣歌」其實是古代版的「社畜心聲」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/wen-tianxiang-office-blues.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果元朝有 Zoom：馬可波羅怎麼跟忽必烈開會？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/marco-polo-kublai-zoom.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果明朝有 TikTok：崇禎皇帝會拍「亡國日記」系列嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/chongzhen-kingdom-diary.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鄭成功的「反清復明」其實是古代版的「創業失敗紀錄」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zheng-chenggong-startup-fail.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果清朝有 LINE：康熙與施琅的聊天紀錄會長怎樣？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/kangxi-shi-lang-line-chat.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Google 翻譯：玄奘怎麼跟印度人溝通？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/xuanzang-google-translate.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "古代「和親」政策其實是古代版的「跨國聯姻商業合作」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/he-qin-policy-marriage.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Dcard 西斯版：后宮嬪妃會發什麼文？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/harem-dcard-romance.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "穿越到明朝當太監：該怎麼用現代知識活下去？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/time-travel-ming-eunuch.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   }
 ]

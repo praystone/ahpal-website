@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南｜ul, ol { - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+    <div class="meta-info">
+        發表時間：2026 年 08 月 15 日 | 更新日期：2026 年 08 月 15 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+
+<p>code {</p>
+<p>font-f</p>
+<p>m</p>
+<h2>process.exit(1))"</h2>
+<h2>EXPOSE 3000</h2>
+<h2>USER node</h2>
+<h2>CMD ["npm", "start"]</h2>
+<h2>3.2 使用 Docker Compose 串接資料庫與快取服務</h2>
+<p><p>有了前後端的映像檔之後，我們需要透過 Docker Compose 將所有服務黏合在一起。在這裡，我們加入了 PostgreSQL 與 Redis。為了讓資料庫資料不因容器重啟而消失，我們善用 <strong>Volume (卷軸)</strong> 來進行持久化儲存。同時，為了安全性，我們可以利用內建的 Docker 網路來隔離服務，讓資料庫不對外公開連接埠，僅允許後端容器存取。</p></p>
+<h2># docker-compose.yml (合併版)</h2>
+<h2>services:</h2>
+<h2>前端服務</h2>
+<h2>frontend:</h2>
+<h2>build: ./frontend</h2>
+<h2>ports:</h2>
+<ul>
+    <li>"8080:80"</li>
+</ul>
+<h2>depends_on:</h2>
+<ul>
+    <li>backend</li>
+</ul>
+<h2>後端服務</h2>
+<h2>backend:</h2>
+<h2>build: ./backend</h2>
+<h2>environment:</h2>
+<h2>使用資料庫服務名稱作為主機名稱</h2>
+<h2>DB_HOST: database</h2>
+<h2>DB_PORT: 5432</h2>
+<h2>DB_USER: app_user</h2>
+<h2>DB_PASSWORD: app_password</h2>
+<h2>REDIS_HOST: redis</h2>
+<h2>REDIS_PORT: 6379</h2>
+<h2>ports:</h2>
+<ul>
+    <li>"3000:3000"</li>
+</ul>
+<h2>depends_on:</h2>
+<h2>database:</h2>
+<h2>condition: service_healthy</h2>
+<h2>redis:</h2>
+<h2>condition: service_healthy</h2>
+<h2>PostgreSQL 資料庫</h2>
+<h2>database:</h2>
+<h2>image: postgres:16-alpine</h2>
+<h2>environment:</h2>
+<h2>POSTGRES_DB: app_db</h2>
+<h2>POSTGRES_USER: app_user</h2>
+<h2>POSTGRES_PASSWORD: app_password</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>db_data:/var/lib/postgresql/data</li>
+</ul>
+<h2>ports:</h2>
+<ul>
+    <li>"5432:5432" # 僅供本機測試用，正式環境通常不會對外開放</li>
+</ul>
+<h2>healthcheck:</h2>
+<h2>test: ["CMD-SHELL", "pg_isready -U app_user -d app_db"]</h2>
+<h2>interval: 10s</h2>
+<h2>timeout: 5s</h2>
+<h2>retries: 5</h2>
+<h2>Redis 快取</h2>
+<h2>redis:</h2>
+<h2>image: redis:7-alpine</h2>
+<h2>command: ["redis-server", "--appendonly", "yes"]</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>redis_data:/data</li>
+</ul>
+<h2>healthcheck:</h2>
+<h2>test: ["CMD", "redis-cli", "ping"]</h2>
+<h2>interval: 10s</h2>
+<h2>timeout: 5s</h2>
+<h2>retries: 5</h2>
+<h2>volumes:</h2>
+<h2>db_data:</h2>
+<h2>redis_data:</h2>
+<p><strong>重點提示：</strong> 在上述設定中，我們使用了 <code>condition: service_healthy</code> 來確保後端容器會等待資料庫成功啟動並通過健康檢查後，才開始啟動。這種「依賴宣告」是 2026 年撰寫 Compose 檔案的精髓，避免了因服務啟動順序錯誤而導致的連線失敗。</p>
+<p><p>設定完成後，我們只需執行 <code>docker compose up -d --build</code>，Docker 就會開始建置映像檔並啟動所有服務。當終端機出現「Started」字樣後，透過瀏覽器連接到 <code>http://localhost:8080</code>，你就能親眼看到你的應用程式成功運行在容器中了！這就是容器化帶來的無縫開發體驗。</p></p>
+<h2>四、邁向雲端原生：與 Kubernetes (K8s) 整合</h2>
+<p><p>當我們的應用程式在單一主機上運行順利後，下一個挑戰便是：如何應對爆量的請求？如何確保服務不間斷？如何在主機故障時自動恢復？這些問題，便是 Kubernetes (簡稱 K8s) 登場的時機。K8s 是一個開源的容器編排平台，用來自動化容器的部署、擴展和管理。</p></p>
+<h2>4.1 為什麼單機 Docker 不夠？認識 Kubernetes 的調度威力</h2>
+<p><p>單機 Docker Compose 僅限於「單一主機」進行管理。如果主機掛了，整個服務就毀了。而 Kubernetes 的核心價值在於「叢集（Cluster）」管理。我們可以將多台伺服器（Node）組成一個叢集，K8s 會負責將我們的容器（Pod）調度到合適的節點上運行。</p></p>
+<p><p>假設我們的服務有 3 個 Pod 實例在運行。當某一個節點因故離線時，K8s 的 Controller Manager 會自動偵測到節點異常，並在其他健康的節點上重新建立 Pod，確保服務的副本數（Replicas）始終維持在我們設定的數量。這就是 K8s 所提供的「自我修復」能力，也是它成為容器編排霸主的主要原因。</p></p>
+<h2>4.2 將 Docker 映像檔推送到 Container Registry</h2>
+<p><p>要讓 K8s 能夠下載我們的 Docker 映像檔，我們必須先將映像檔推送到一個「容器倉庫（Registry）」，例如 Docker Hub 或雲端平台提供的私有倉庫（如 AWS ECR、GCR、ACR）。首先，先為我們的映像檔打上標籤，然後推送：</p></p>
+<h2># 重新為映像檔命名，加入使用者名稱與版本</h2>
+<p>docker tag yabaoblog-backend:latest ghcr.io/yourname/yabaoblog-backend:v1.0.0</p>
+<h2>推送映像檔到 GitHub Container Registry (GHCR)</h2>
+<p>docker push ghcr.io/yourname/yabaoblog-backend:v1.0.0</code></pre></p>
+<p><strong>小提醒：</strong> 在正式團隊協作中，通常會結合 CI/CD 流程（如 GitHub Actions），在程式碼合併到主分支時，自動觸發建置並推送全新的映像檔。這樣可以確保每一位開發者部署的版本都有一致的來源與可追溯性。</p>
+<h2>4.3 部署到 K8s：編寫 Deployment 與 Service YAML</h2>
+<p><p>接下來，是整個指南的重頭戲：將我們的容器部署到 K8s 叢集。K8s 的操作核心是透過 YAML 定義檔與 API Server 溝通。以 <strong>Deployment</strong> 為例，它定義了應用程式的「期望狀態」，包含映像檔來源、副本數量、資源限制等。而 <strong>Service</strong> 則定義了如何對外暴露這些 Pod。</p></p>
+<h2>這是一個最基本的 Deployment 範例：</h2>
+<h2># deployment.yaml</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: yabaoblog-backend</h2>
+<h2>labels:</h2>
+<h2>app: yabaoblog</h2>
+<h2>tier: backend</h2>
+<h2>spec:</h2>
+<h2>replicas: 3</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: yabaoblog</h2>
+<h2>tier: backend</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: yabaoblog</h2>
+<h2>tier: backend</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: backend</li>
+</ul>
+<h2>image: ghcr.io/yourname/yabaoblog-backend:v1.0.0</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 3000</li>
+</ul>
+<h2>env:</h2>
+<ul>
+    <li>name: DB_HOST</li>
+</ul>
+<h2>value: "database"</h2>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>memory: "256Mi"</h2>
+<h2>cpu: "250m"</h2>
+<h2>limits:</h2>
+<h2>memory: "512Mi"</h2>
+<h2>cpu: "500m"</h2>
+<h2>readinessProbe:</h2>
+<h2>httpGet:</h2>
+<h2>path: /health</h2>
+<h2>port: 3000</h2>
+<p><p>接著，建立一個 Service 來允許叢集內部或外部的流量訪問這些 Pod。如果是對外服務，通常會搭配 LoadBalancer 或 Ingress Controller：</p></p>
+<h2># service.yaml</h2>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: yabaoblog-backend-service</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: yabaoblog</h2>
+<h2>tier: backend</h2>
+<h2>ports:</h2>
+<ul>
+    <li>protocol: TCP</li>
+</ul>
+<h2>port: 80</h2>
+<h2>targetPort: 3000</h2>
+<h2>對外開放類型，若在雲端環境會自動建立負載平衡器</h2>
+<h2>type: LoadBalancer</h2>
+<p><p>將上述檔案儲存後，我們只需執行 <code>kubectl apply -f deployment.yaml -f service.yaml</code>，K8s 就會立即開始建立 Pod 並進行調度。透過 <code>kubectl get pods</code>，我們可以觀察 Pod 的啟動狀態；透過 <code>kubectl get svc</code>，我們可以看到 K8s 分配給我們的對外 IP。至此，我們的應用程式已經具備了企業級的橫向擴展能力與高可用性，這是單純使用 Docker Docker Compose 無法達到的境界。</p></p>
+<h2>五、2026 年不可不知的進階技巧與趨勢</h2>
+<p><p>當你熟悉了 Docker 和 K8s 的基本整合後，想要在職場上具備更強的競爭力，就必須開始關注容器生態圈的進階議題。2026 年，我們特別聚焦在「安全」與「可觀測性」這兩個領域。</p></p>
+<h2>5.1 安全性強化：不再只是 root 權限</h2>
+<p><p>過去，我們看到太多因 Dockerfile 撰寫不良而導致的資安漏洞。例如，直接使用 <code>root</code> 使用者運行應用程式，或是在映像檔中不小心留下了敏感憑證。在 2026 年的最佳實務中，這件事絕對不可妥協。</p></p>
+<p><li><strong>採用 Rootless 模式：</strong> 確保容器內的 process 不具備宿主機的 root 權限，即使被入侵，也難以橫向移動到主機層級。</li></p>
+<p><li><strong>使用 Distroless 映像檔：</strong> 這類映像檔內不含 Shell 與套件管理器，大幅減少攻擊面。如果我們只需要執行一個二進位檔，Distroless 是最佳選擇。</li></p>
+<p><li><strong>掃描映像檔漏洞：</strong> 在 CI 流程中整合 <code>docker scan</code> 或 Trivy 等工具，確保推送到倉庫的映像檔沒有已知的高風險 CVE。</li></p>
+<h2>5.2 可觀測性整合：Prometheus 與 OpenTelemetry</h2>
+<p><p>除了把服務部署起來，我們還需要隨時掌握服務的健康狀況。在 K8s 環境中，<strong>Prometheus</strong> 已成為監控資料收集的事實標準。你的應用程式只需要在 `/metrics` 路徑暴露符合 Prometheus 格式的指標，Prometheus 就會定期來抓取（Scrape）。</p></p>
+<p><p>同時，追蹤系統也越來越重要。透過 <strong>OpenTelemetry</strong> 標準，我們可以在應用程式中輕鬆地植入分散式追蹤（Distributed Tracing），將一個請求從前端到後端、再到資料庫的完整路徑串聯起來。這對於微服務架構的效能調校與問題排查來說，絕對是不可或缺的工具。</p></p>
+<p><p>利用 Docker 的 HOST 網路模式或 K8s 的 Pod 網路，可以方便地讓各服務與 Prometheus 等監控元件連通。筆者強烈建議各位要親手部署一次 Grafana + Prometheus 到 K8s 叢集中，親眼看到監控告警面板上的數據流動，才能真正理解 Log（日誌）、Metrics（指標）、Traces（追蹤）三者的相輔相成。</p></p>
+<h2>六、結語：從入門到實戰的學習路徑建議</h2>
+<p><p>不知不覺，我們已經從 Docker 的基礎概念，一路走到與 Kubernetes 整合的應用層次。回顧這段旅程，我們不僅學會了如何撰寫 Dockerfile、使用 docker-compose 管理多容器環境，更深入了解如何利用 K8s 打造高可用性的叢集架構。</p></p>
+<p><p>學習容器化不該是死背指令，而是要理解背後要解決的問題。在雅寶社群中，筆者最喜歡看到的就是成員們分享自己的實作經驗。無論是你踩到了什麼雷，或是想出了一個超棒的解法，歡迎大家踴躍在底下留言討論。將知識分享出去，不僅能幫助他人，也能強化自己的理解。</p></p>
+<p><p>對於剛入門的朋友，建議可以先從 Docker Desktop 開始，將日常開發環境容器化，感受一致的開發體驗。熟悉之後，再嘗試在自己的電腦上建立單節點的 Minikube 或 Kind 叢集，將今天所學的 Deployment 與 Service 實際執行一遍。這條路徑雖然不算輕鬆，但只要持續刻意練習，很快就能收到甜美的果實。</p></p>
+<p><p>最後，隨著 AI 與邊緣運算的興起，容器技術的應用場景也變得更加多元。但請記住，無論底層技術如何演進，「標準化、自動化、可移植性」的容器核心精神恆久不變。期待在未來的文章或討論中，看到大家在雅寶社區內分享更多關於 Docker / K8s 的豐碩成果！祝大家部署順利，系統永遠穩定運行！</p></p>
+<p><p style="text-align: center; color: #7f8c8d; font-size: 0.9em;">本文同步發布於雅寶社區 · 頂客論壇 #3C 科技教學版</p></p>
+<p>```</p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">[[📖]] 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">[[📚]] 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">[[🎮]] 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        [[💬]] 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

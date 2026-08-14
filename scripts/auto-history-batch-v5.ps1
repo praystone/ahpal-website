@@ -100,27 +100,31 @@ Write-Log "✅ API Key 檢查通過"
 # ============================================================
 Write-Log "[2/6] 定義第三波 20 篇文章清單..."
 
+# ============================================================
+# 第四波 20 篇 — 全新主題 (接續系列)
+# ============================================================
+
 $Articles = @(
-    @{ keyword = "如果古代有 PTT：三國人物會在八卦版發什麼廢文？"; filename = "ptt-three-kingdoms-trash-talk.html" },
-    @{ keyword = "曹操的「人妻控」其實是古代版的 IG 追蹤清單？"; filename = "cao-cao-ig-follow-list.html" },
-    @{ keyword = "諸葛亮的「出師表」其實是古代版的年度 KPI 報告"; filename = "chu-shi-biao-kpi-report.html" },
-    @{ keyword = "如果劉備有 104 人力銀行：他的履歷會怎麼寫？"; filename = "liu-bei-104-resume.html" },
-    @{ keyword = "三國的「職場霸凌」：張飛其實是被同事排擠的受害者？"; filename = "zhang-fei-workplace-bullying.html" },
-    @{ keyword = "如果古代有 Dcard：孫權會在上面發什麼「感情問題」？"; filename = "sun-quan-dcard-love-issues.html" },
-    @{ keyword = "曹操的「短歌行」如果被改編成抖音神曲會怎樣？"; filename = "duan-ge-xing-tiktok-remix.html" },
-    @{ keyword = "諸葛亮的「草船借箭」其實是古代版的群眾募資？"; filename = "cao-chuan-jie-jian-crowdfunding.html" },
-    @{ keyword = "如果三國有 Netflix：哪個故事最適合改編成影集？"; filename = "three-kingdoms-netflix-series.html" },
-    @{ keyword = "司馬懿的「狼顧之相」其實是古代版的 LinkedIn 大頭貼？"; filename = "sima-yi-linkedin-profile.html" },
-    @{ keyword = "如果古代有 Uber：關羽的「千里走單騎」會得到幾顆星？"; filename = "guan-yu-uber-rating.html" },
-    @{ keyword = "曹操的「割髮代首」其實是古代版的 PR 危機處理"; filename = "cao-cao-pr-crisis.html" },
-    @{ keyword = "如果三國有 LINE Today：每天的新聞頭條會是什麼？"; filename = "line-today-three-kingdoms-news.html" },
-    @{ keyword = "諸葛亮的「八陣圖」其實是古代版的 QR Code 防偽標籤？"; filename = "ba-zhen-tu-qr-code.html" },
-    @{ keyword = "如果古代有 Google Maps：司馬懿怎麼靠導航打贏街亭之戰？"; filename = "sima-yi-google-maps.html" },
-    @{ keyword = "三國的「網紅經濟」：誰最有資格當古代版百萬 YouTuber？"; filename = "three-kingdoms-influencer-economy.html" },
-    @{ keyword = "曹操的「唯才是舉」其實是古代版的 104 人力銀行 AI 篩選"; filename = "cao-cao-ai-recruitment.html" },
-    @{ keyword = "如果古代有 Spotify：周瑜的「臨江仙」會登上排行榜嗎？"; filename = "zhou-yu-spotify-playlist.html" },
-    @{ keyword = "諸葛亮的「錦囊妙計」其實是古代版的 ChatGPT 對話記錄"; filename = "jin-nang-chatgpt-history.html" },
-    @{ keyword = "如果穿越到三國開 Uber Eats：哪個時段最容易爆單？"; filename = "uber-eats-three-kingdoms-guide.html" }
+    @{ keyword = "如果三國有 Wikipedia：曹操的條目會被怎麼編輯？"; filename = "wikipedia-cao-cao-edit-war.html" },
+    @{ keyword = "諸葛亮的「空城計」其實是古代版的 YouTube 直播帶貨"; filename = "kong-cheng-ji-livestream.html" },
+    @{ keyword = "如果古代有 ChatGPT 翻譯：司馬懿怎麼看曹魏的內部信件？"; filename = "sima-yi-chatgpt-translate.html" },
+    @{ keyword = "三國的「外送平台」：赤壁之戰的軍糧是怎麼配送的？"; filename = "red-cliff-food-delivery.html" },
+    @{ keyword = "如果古代有 Slack：曹操的「挾天子以令諸侯」是群組公告？"; filename = "cao-cao-slack-announcement.html" },
+    @{ keyword = "劉備的「哭」其實是古代版的情緒勒索話術？"; filename = "liu-bei-emotional-blackmail.html" },
+    @{ keyword = "如果三國有 Twitter：諸葛亮的「出師表」是長文串？"; filename = "zhuge-liang-twitter-thread.html" },
+    @{ keyword = "曹操的「寧可我負天下人」其實是古代版的職場 PUA"; filename = "cao-cao-workplace-pua.html" },
+    @{ keyword = "如果古代有 Zoom：赤壁之戰的遠端會議長怎樣？"; filename = "red-cliff-zoom-strategy.html" },
+    @{ keyword = "三國的「網購平台」：關羽的青龍偃月刀哪裡買的？"; filename = "three-kingdoms-ecommerce.html" },
+    @{ keyword = "如果古代有 Substack：曹操的「短歌行」是付費電子報？"; filename = "cao-cao-substack-newsletter.html" },
+    @{ keyword = "諸葛亮的「錦囊妙計」其實是古代版的 QR Code 掃描？"; filename = "jin-nang-qr-code-v2.html" },
+    @{ keyword = "如果三國有 Airbnb：劉備的「三顧茅廬」是民宿體驗？"; filename = "liu-bei-airbnb-experience.html" },
+    @{ keyword = "曹操的「望梅止渴」其實是古代版的飢餓行銷？"; filename = "cao-cao-hunger-marketing.html" },
+    @{ keyword = "如果古代有 TikTok 短劇：三國故事怎麼改編成連續劇？"; filename = "three-kingdoms-tiktok-drama.html" },
+    @{ keyword = "司馬懿的「忍」其實是古代版的職場生存哲學"; filename = "sima-yi-workplace-survival.html" },
+    @{ keyword = "如果三國有 LinkedIn Learning：諸葛亮會開什麼課程？"; filename = "zhuge-liang-linkedin-course.html" },
+    @{ keyword = "曹操的「求賢令」其實是古代版的 104 獵頭廣告"; filename = "cao-cao-headhunter-ad.html" },
+    @{ keyword = "如果古代有 Spotify 年度回顧：周瑜的 2026 年聽歌報告"; filename = "zhou-yu-spotify-wrapped-v2.html" },
+    @{ keyword = "三國的「理財神器」：直百錢其實是古代版的 ETF？"; filename = "three-kingdoms-etf-investment.html" }
 )
 
 Write-Log "✅ 已定義 $($Articles.Count) 篇文章"

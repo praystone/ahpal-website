@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南｜WORKDIR /app - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+    <div class="meta-info">
+        發表時間：2026 年 08 月 15 日 | 更新日期：2026 年 08 月 15 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+
+<h2>FROM node:20-alpine AS builder</h2>
+<h2>COPY package*.json ./</h2>
+<h2>RUN npm install</h2>
+<h2>第二階段：執行環境</h2>
+<h2>FROM node:20-alpine</h2>
+<h2>COPY --from=builder /app/node_modules ./node_modules</h2>
+<h2>COPY . .</h2>
+<h2>ENV PORT=3000</h2>
+<h2>EXPOSE 3000</h2>
+<h2>CMD ["node", "app.js"]</h2>
+<h2>接著執行建置：</h2>
+<p><pre><code class="language-bash">docker build -t my-node-app:1.0 .</p>
+<p>docker run -d -p 8080:3000 --name my-app my-node-app:1.0</code></pre></p>
+<p><p>打開瀏覽器存取 <code>http://localhost:8080</code>，你應該會看到應用程式的回應。這就完成了一個最基礎的 Docker 化應用！</p></p>
+<h2>三、多容器管理：Docker Compose 深入實戰</h2>
+<p><p>實際的應用很少只有單一容器，更多時候我們需要同時運行前端、後端、資料庫、快取服務等。Docker Compose 提供了一個宣告式方式，用一份 YAML 檔案定義並管理多個容器。接下來我們將建立一個「Web + PostgreSQL」的範例。</p></p>
+<h2>1. 為什麼需要 Compose？</h2>
+<p><p>假設你在開發一個待辦事項 API，它需要連接 PostgreSQL，你可能還要一個 Redis 作為快取。如果只用 <code>docker run</code>，你必須依序下達多條指令，還要設定網路、環境變數、volume，非常繁瑣。Compose 讓你可以把整個服務堆疊寫在一個 <code>docker-compose.yml</code> 檔案中，並用<code>docker compose up</code> 一條指令啟動所有服務。</p></p>
+<p><p>在 2026 年，Compose 已不只是本機開發的工具，雲端環境如 AWS ECS 也支援 Compose 規格。因此熟練 Compose 對後續銜接 Kubernetes 非常有幫助，因為兩者都使用 YAML 描述基礎設施。</p></p>
+<h2>2. Compose 實戰：Web + PostgreSQL 服務堆疊</h2>
+<p><p>我們沿用上面的 Node.js 應用，但加入資料庫，並透過 Dockerfile 來建置 Web 服務。請先建立一個 <code>docker-compose.yml</code>：</p></p>
+<h2>version: '3.8'</h2>
+<h2>services:</h2>
+<h2>web:</h2>
+<h2>build: .</h2>
+<h2>ports:</h2>
+<ul>
+    <li>"8080:3000"</li>
+</ul>
+<h2>environment:</h2>
+<ul>
+    <li>PORT=3000</li>
+    <li>DB_HOST=db</li>
+    <li>DB_USER=postgres</li>
+    <li>DB_PASSWORD=secret</li>
+    <li>DB_NAME=mydb</li>
+</ul>
+<h2>depends_on:</h2>
+<ul>
+    <li>db</li>
+</ul>
+<h2>restart: unless-stopped</h2>
+<p>db:</p>
+<h2>image: postgres:16</h2>
+<h2>environment:</h2>
+<h2>POSTGRES_USER: postgres</h2>
+<h2>POSTGRES_PASSWORD: secret</h2>
+<h2>POSTGRES_DB: mydb</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>db-data:/var/lib/postgresql/data</li>
+</ul>
+<h2>restart: unless-stopped</h2>
+<h2>volumes:</h2>
+<h2>db-data:</h2>
+<p><p>接著在 <code>app.js</code> 中讀取這些環境變數，建立 PostgreSQL 連線。這裡為了示範簡潔，可以只用環境變數列印出來，或使用 <code>pg</code> 套件存取。執行以下指令：</p></p>
+<h2>docker-compose up -d</h2>
+<h2>docker-compose ps</h2>
+<h2>docker-compose logs -f web</h2>
+<p><p>如此一來，資料庫的資料會保存在名為 <code>db-data</code> 的 volume 中，即使容器被刪除也不會流失。Compose 的常用指令還包括 <code>docker-compose down</code>（停止並移除網路與容器，但保留 volume）、<code>docker-compose down -v</code>（連同 volume 一起移除）等。</p></p>
+<h2>四、進入 Kubernetes：從單機容器到叢集編排</h2>
+<p><p>當你熟悉了 Docker 與 Compose，下一步自然是學習 Kubernetes。Kubernetes 是當今最成熟的容器編排平台，能夠自動處理容器調度、水平擴展、故障轉移與服務發現。本節將釐清 Kubernetes 的核心架構，並帶你在本機建立一個測試叢集。</p></p>
+<h2>1. Kubernetes 核心概念與架構</h2>
+<p><p>Kubernetes 叢集由一組機器（節點）組成，主要分為 Control Plane（控制平面）與 Worker Node（工作節點）。Control Plane 負責叢集的管理與 API 對外服務，主要元件包含：</p></p>
+<p><li><strong>kube-apiserver</strong>：提供 Kubernetes API，所有互動都經由它。</li></p>
+<h2>etcd：儲存叢集所有狀態的分散式鍵值庫。</h2>
+<p><li><strong>kube-scheduler</strong>：將新建立的 Pod 排程到合適的工作節點。</li></p>
+<p><li><strong>kube-controller-manager</strong>：執行各種控制器，如 ReplicaSet、Deployment 等。</li></p>
+<p><p>每個工作節點則執行 <strong>kubelet</strong>（管理 Pod 生命週期）以及容器執行時期（例如 containerd）。在 Kubernetes 中，最基本的部署單位是 <strong>Pod</strong>，它可能包含一個或多個容器。我們通常不會直接操作 Pod，而是透過更高層的資源：</p></p>
+<h2>Deployment：管理應用程式的聲明式更新、滾動升級、副本數。</h2>
+<h2>Service：提供 Pod 的穩定存取端點，內部可自動負載平衡。</h2>
+<h2>Ingress：管理叢集外部對服務的 HTTP/HTTPS 存取。</h2>
+<h2>ConfigMap / Secret：集中管理設定與敏感資料。</h2>
+<h2>2. 本機啟用 Kubernetes：Minikube vs kind</h2>
+<p><p>在 2026 年，本機測試 Kubernetes 最熱門的兩種工具是 Minikube 與 kind（Kubernetes in Docker）。Minikube 會建立一個輕量虛擬機來執行單節點叢集，適合想要完整體驗 Kubernetes 而無需多台機器的教學場景。kind 則將整個 Kubernetes 叢集跑在 Docker 容器中，建置速度極快，特別適合 CI/CD 情境。</p></p>
+<h2>選擇 Minikube 的安裝方式：</h2>
+<h2># 以 Linux amd64 為例</h2>
+<p>curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64</p>
+<h2>sudo install minikube-linux-amd64 /usr/local/bin/minikube</h2>
+<h2>啟動單節點叢集，並指定 Docker 作為驅動</h2>
+<h2>minikube start --driver=docker</h2>
+<h2>確認狀態</h2>
+<h2>minikube status</h2>
+<h2>安裝 kubectl：</h2>
+<p><pre><code class="language-bash">curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"</p>
+<h2>chmod +x kubectl</h2>
+<h2>sudo mv kubectl /usr/local/bin/</h2>
+<h2>kubectl version --client</h2>
+<h2>現在你的本機已經有一個 Kubernetes 叢集了。試試看：</h2>
+<h2>kubectl get nodes</h2>
+<h2>kubectl get pods -A</h2>
+<h2>五、Docker 與 Kubernetes 整合實戰</h2>
+<p><p>這一段是本文的重頭戲：將你先前用 Docker 建立的映像檔，部署到 Kubernetes 叢集，並讓它提供服務。我們會從建置映像、推送至 Container Registry，一路進行到 Deployment、Service、ConfigMap 與 Secret 的完整整合。</p></p>
+<h2>1. 從 Docker 映像到 Kubernetes 部署</h2>
+<p><p>首先，我們要將舊的映像檔標記並推送到 Docker Hub（或任何 Container Registry）。如果你還沒有帳號，請先到 Docker Hub 註冊一個。然後在終端機執行：</p></p>
+<h2># 使用你的 Docker Hub 使用者名稱</h2>
+<h2>docker tag my-node-app:1.0 yourusername/my-node-app:1.0</h2>
+<h2>docker login</h2>
+<h2>docker push yourusername/my-node-app:1.0</h2>
+<p><p>推送到遠端 Registry 之後，就可以用 <code>kubectl</code> 直接建立 Deployment：</p></p>
+<p><pre><code class="language-bash">kubectl create deployment my-node-app --image=yourusername/my-node-app:1.0 --replicas=3</p>
+<h2>查看 Pods</h2>
+<h2>kubectl get pods</h2>
+<p><p>這個指令會建立一個 Deployment 物件，自動創建三個 Pod。如果想要對外服務，還需要建立 Service：</p></p>
+<p><pre><code class="language-bash">kubectl expose deployment my-node-app --type=NodePort --port=3000 --target-port=3000</p>
+<h2>kubectl get service my-node-app</h2>
+<p><p>如果是 Minikube 環境，可以直接用 <code>minikube service my-node-app</code> 開啟瀏覽器存取。</p>
+<h2>2. 部署多層應用：完整 YAML 範例</h2>
+<p><p>雖然 <code>kubectl run</code> 可以快速建立資源，但正式環境我們會將所有資源寫成 YAML，方便版本控制與變更管理。以先前的 Node.js 應用搭配 PostgreSQL 為例，我們在 Kubernetes 上需要兩個 Deployment 與兩個 Service。以下是一個完整範例（假設已存在名為 <code>mydb-secret</code> 與 <code>app-config</code> 的設定物件，後續會補上）：</p></p>
+<h2># web-deployment.yaml</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: web</h2>
+<h2>labels:</h2>
+<h2>app: web</h2>
+<h2>spec:</h2>
+<h2>replicas: 3</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: web</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: web</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: web</li>
+</ul>
+<h2>image: yourusername/my-node-app:1.0</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 3000</li>
+</ul>
+<h2>env:</h2>
+<ul>
+    <li>name: DB_HOST</li>
+</ul>
+<h2>value: db-service</h2>
+<ul>
+    <li>name: DB_USER</li>
+</ul>
+<h2>valueFrom:</h2>
+<h2>secretKeyRef:</h2>
+<h2>name: mydb-secret</h2>
+<h2>key: username</h2>
+<ul>
+    <li>name: DB_PASSWORD</li>
+</ul>
+<h2>valueFrom:</h2>
+<h2>secretKeyRef:</h2>
+<h2>name: mydb-secret</h2>
+<h2>key: password</h2>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>memory: "128Mi"</h2>
+<h2>cpu: "100m"</h2>
+<h2>limits:</h2>
+<h2>memory: "256Mi"</h2>
+<h2>cpu: "200m"</h2>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: web-service</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: web</h2>
+<h2>ports:</h2>
+<ul>
+    <li>protocol: TCP</li>
+</ul>
+<h2>port: 80</h2>
+<h2>targetPort: 3000</h2>
+<h2>type: LoadBalancer</h2>
+<h2># db-deployment.yaml</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: db</h2>
+<h2>labels:</h2>
+<h2>app: db</h2>
+<h2>spec:</h2>
+<h2>replicas: 1</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: db</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: db</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: postgres</li>
+</ul>
+<h2>image: postgres:16</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 5432</li>
+</ul>
+<h2>env:</h2>
+<ul>
+    <li>name: POSTGRES_USER</li>
+</ul>
+<h2>valueFrom:</h2>
+<h2>secretKeyRef:</h2>
+<h2>name: mydb-secret</h2>
+<h2>key: username</h2>
+<ul>
+    <li>name: POSTGRES_PASSWORD</li>
+</ul>
+<h2>valueFrom:</h2>
+<h2>secretKeyRef:</h2>
+<h2>name: mydb-secret</h2>
+<h2>key: password</h2>
+<h2>volumeMounts:</h2>
+<ul>
+    <li>name: db-storage</li>
+</ul>
+<h2>mountPath: /var/lib/postgresql/data</h2>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>memory: "256Mi"</h2>
+<h2>cpu: "100m"</h2>
+<h2>limits:</h2>
+<h2>memory: "512Mi"</h2>
+<h2>cpu: "200m"</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>name: db-storage</li>
+</ul>
+<h2>persistentVolumeClaim:</h2>
+<h2>claimName: db-pvc</h2>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: db-service</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: db</h2>
+<h2>ports:</h2>
+<ul>
+    <li>protocol: TCP</li>
+</ul>
+<h2>port: 5432</h2>
+<h2>targetPort: 5432</h2>
+<h2>type: ClusterIP</h2>
+<p><p>請將 <code>web-deployment.yaml</code> 與 <code>db-deployment.yaml</code> 儲存後，利用 <code>kubectl apply -f</code> 部署。此外還需要建立 PersistentVolumeClaim 與 ConfigMap/Secret，讓我們在下一節說明。</p></p>
+<h2>3. 使用 ConfigMap 與 Secret 管理配置</h2>
+<p><p>在上面的 YAML 中，我們引用了 <code>mydb-secret</code>，並可以直接用 <code>kubectl create secret</code> 建立：</p></p>
+<p><pre><code class="language-bash">kubectl create secret generic mydb-secret \</p>
+<h2>from-literal=username=postgres \</h2>
+<h2>from-literal=password=secret</h2>
+<p><p>而配置非敏感資料則可以用 ConfigMap，例如將 Node.js 的環境變數 <code>APP_MODE=production</code> 放入：</p></p>
+<p><pre><code class="language-bash">kubectl create configmap app-config --from-literal=APP_MODE=production</code></pre></p>
+<h2>若要在 Deployment 中使用 ConfigMap，範例如下：</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: web</h2>
+<h2>spec:</h2>
+<h2>template:</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: web</li>
+</ul>
+<h2>image: yourusername/my-node-app:1.0</h2>
+<h2>env:</h2>
+<ul>
+    <li>name: APP_MODE</li>
+</ul>
+<h2>valueFrom:</h2>
+<h2>configMapKeyRef:</h2>
+<h2>name: app-config</h2>
+<h2>key: APP_MODE</h2>
+<p><p>這種設計讓你的映像檔完全無狀態，任何環境差異都由 Kubernetes 物件注入，正是 12-factor 應用提倡的精神。透過 Secret 與 ConfigMap，你不需要重新建置映像就能切換設定。</p></p>
+<h2>六、進階部署技巧與 2026 新視野</h2>
+<p><p>當你的應用成功在 Kubernetes 上運行後，下一個問題是：該如何讓它應付真實世界的流量？錯誤與延遲要怎麼監控？新興技術又將如何影響容器生態？本節將探討幾個關鍵進階主題。</p></p>
+<h2>1. 資源管理與 HPA 自動擴展</h2>
+<p><p>Kubernetes 內建的 HPA（Horizontal Pod Autoscaler）可以根據 CPU、記憶體或自訂指標自動調整 Pod 副本數。首先，你需要確定 Deployment 的每個 Pod 都有設定 <code>requests</code> 與 <code>limits</code>（如先前範例）。接著建立 HPA：</p></p>
+<p><pre><code class="language-bash">kubectl autoscale deployment web --cpu-percent=50 --min=2 --max=10</p>
+<h2>查看 HPA 狀態</h2>
+<h2>kubectl get hpa</h2>
+<p><p>當 CPU 使用率超過 50% 時，Kubernetes 會自動增加 Pod 數量，最多到 10 個。這是雲端原生系統彈性最重要的體現。此外，2026 年的 Kubernetes 已內建更成熟的 KEDA（Kubernetes Event-driven Autoscaling），能整合 Kafka、RabbitMQ 等事件來源，讓自動擴展不只限於 CPU。</p></p>
+<h2>2. 監控、日誌與安全實務</h2>
+<p><p>生產環境中，你不可能總是手動 <code>kubectl logs</code>。一個成熟的監控堆疊通常包含：</p></p>
+<p><li><strong>Prometheus：</strong>抓取叢集指標（CPU、記憶體、網路、自訂 metrics）。</li></p>
+<h2>Grafana：提供視覺化儀表板。</h2>
+<h2>Loki / Elastic Stack：集中收集與查詢日誌。</h2>
+<h2>OpenTelemetry：進行分散式追蹤。</h2>
+<p><p>在安全方面，2026 年已經有幾個不可忽視的趨勢。首先是「映像簽章」與「供應鏈安全」。使用 <code>cosign</code> 簽署你的容器映像，並在 Kubernetes 中透過策略引擎（如 Kyverno）要求所有映像必須有簽章才能部署。其次是「執行時期安全」，像是 Falco 這類工具可以偵測容器內的異常行為。最後，別忘了定期掃描映像漏洞，可使用 Trivy 或 Grype，並整合進 CI/CD pipeline。</p></p>
+<h2>3. 新興趨勢：WASM、Kata Containers 與 AI 工作負載</h2>
+<p><p>2026 年的容器世界正變得更多樣化。WebAssembly（WASM）因具備更快的啟動時間與更小的映像體積，開始被視為「輕量容器」的替代品。Kubernetes 現在可以透過 containerd 的 runtime class 同時管理傳統 Linux 容器與 Wasm 工作負載。例如，使用 <code>wasmtime</code> 的執行時期可以讓 Pod 以毫秒級速度啟動，特別適合 serverless 函式或邊緣運算。</p></p>
+<p><p>另一個發展是 Kata Containers，它結合了虛擬機的安全隔離與容器的靈活性，每幾個 Pod 運行在一個輕量虛擬機中，大幅強化多租戶安全。在 2026 年，Kata Containers 已成為高安全需求環境的熱門選擇。</p></p>
+<p><p>此外，AI/機器學習工作負載也大量以容器方式部署。Kubernetes 社群針對 GPU 資源調度、MIG（Multi-Instance GPU）切割以及 InfiniBand 網路支援都更加成熟。透過 Kubernetes 建立「Kubeflow」已成為機器學習工程師與 DevOps 合作的重要平台。</p></p>
+<h2>七、結語：打造你的 2026 部署技能樹</h2>
+<p><p>這篇從 Docker 入門一路到 Kubernetes 整合的指南，涵蓋了容器化部署的完整路徑。我們從傳統部署的困境看到容器的輕量與彈性，實際用 Dockerfile 打包應用，用 Compose 管理多容器，再進入 Kubernetes 學習 Pod、Deployment、Service 等核心基本元件。最後，透過完整的 YAML 整合範例與進階技巧，相信你已經具備了將 Docker 應用遷移到 Kubernetes 的基礎能力。</p></p>
+<p><p>但要真正成為容器化部署高手，光靠這一篇文章是不夠的。實際動手部署一個具有資料庫、快取、前端與後端的整合應用，並嘗試進行壓力測試、滾動更新與容錯演練，才是讓你技能昇華的關鍵。2026 年的容器生態正以驚人的速度進化，建議你持續關注 CNCF 的專案動態，並在社群中互相交流。</p></p>
+<h2>感謝各位閱讀雅寶社區・頂客論壇的這篇教學，我們期待你的實踐經驗分享！</h2>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

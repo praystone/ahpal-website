@@ -483,5 +483,165 @@
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 PTT：三國人物會在八卦版發什麼廢文？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/ptt-three-kingdoms-trash-talk.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曹操的「人妻控」其實是古代版的 IG 追蹤清單？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-ig-follow-list.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「出師表」其實是古代版的年度 KPI 報告",
+    "category": "📜 歷史腦洞",
+    "filename": "history/chu-shi-biao-kpi-report.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果劉備有 104 人力銀行：他的履歷會怎麼寫？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/liu-bei-104-resume.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "三國的「職場霸凌」：張飛其實是被同事排擠的受害者？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhang-fei-workplace-bullying.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Dcard：孫權會在上面發什麼「感情問題」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sun-quan-dcard-love-issues.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曹操的「短歌行」如果被改編成抖音神曲會怎樣？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/duan-ge-xing-tiktok-remix.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「草船借箭」其實是古代版的群眾募資？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-chuan-jie-jian-crowdfunding.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 Netflix：哪個故事最適合改編成影集？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/three-kingdoms-netflix-series.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "司馬懿的「狼顧之相」其實是古代版的 LinkedIn 大頭貼？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sima-yi-linkedin-profile.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Uber：關羽的「千里走單騎」會得到幾顆星？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/guan-yu-uber-rating.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曹操的「割髮代首」其實是古代版的 PR 危機處理",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-pr-crisis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 LINE Today：每天的新聞頭條會是什麼？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/line-today-three-kingdoms-news.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「八陣圖」其實是古代版的 QR Code 防偽標籤？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/ba-zhen-tu-qr-code.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Google Maps：司馬懿怎麼靠導航打贏街亭之戰？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sima-yi-google-maps.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "三國的「網紅經濟」：誰最有資格當古代版百萬 YouTuber？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/three-kingdoms-influencer-economy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曹操的「唯才是舉」其實是古代版的 104 人力銀行 AI 篩選",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-ai-recruitment.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果古代有 Spotify：周瑜的「臨江仙」會登上排行榜嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhou-yu-spotify-playlist.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「錦囊妙計」其實是古代版的 ChatGPT 對話記錄",
+    "category": "📜 歷史腦洞",
+    "filename": "history/jin-nang-chatgpt-history.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果穿越到三國開 Uber Eats：哪個時段最容易爆單？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/uber-eats-three-kingdoms-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   }
 ]

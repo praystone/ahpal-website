@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+    <div class="meta-info">
+        發表時間：2026 年 08 月 14 日 | 更新日期：2026 年 08 月 14 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+</h1>
+<p><p>在軟體開發的演化史中，容器化早已不是一門「選擇性」技術，而是支撐現代雲原生應用的核心基石。歷經多年發展，Docker 依然是開發者最熟悉、社群最龐大的容器入門工具。然而到了 2026 年，單單學會「跑起來」已經不夠了——你需要理解如何將 Docker 巧妙地與 Kubernetes（K8s）整合，打造可擴展、高可用且安全的部署環境。</p></p>
+<p><p>本篇實戰指南將帶你從零開始，建置完整的容器化知識體系。我們會先掌握 Docker 的基礎操作與映像檔優化，再透過 Docker Compose 管理多容器應用，最後深入 Kubernetes 叢集部署，並探討自動擴縮、安全加固等進階主題。無論你是初學者還是身經百戰的開發者，這篇文章都將提供 2026 年最務實的技術視野。</p></p>
+<h2>為什麼 2026 年還要重新學習 Docker？容器技術的生態現況</h2>
+<p><p>有些人認為 Kubernetes 已成為容器編排的唯一標準，Docker 的地位似乎不如以往，但事實並非如此。Docker 不僅提供了最直覺的容器開發體驗，更影響了包含 containerd、Podman、CRI-O 在內眾多底層技術的設計哲學。在 2026 年，Docker 依然是許多開發者與小型團隊的首選工具，因為它完美兼顧了開發、測試與交付的效率。</p></p>
+<p><p>更重要的是，Kubernetes 本身就支援從 Docker 所建置的映像檔直接部署。從 Docker Desktop 到 Minikube、Kind，甚至雲端管理的 AKS、EKS、GKE，Docker 映像檔成為了跨平台、跨雲供應商的「通用語言」。如果你正在規畫數位轉型，理解 Docker 的底層運作正好能墊定你往後深入 K8s 叢集時的重要基礎。</p></p>
+<h2>容器 vs 虛擬機器：2026 年的選擇標準</h2>
+<p><p>2026 年的 IT 環境中，實體機、虛擬機器（VM）與容器仍然同時存在。然而，容器以「輕量、快速、可攜性高」著稱。VM 每個執行個體都包含完整的作業系統，消耗大量資源；容器則共享宿主機核心，啟動時間可縮短至毫秒等級。雖然近年來微軟與 Linux 社群持續強化 VM 的隔離技術，但容器在微服務架構下依然是效率優先的選擇。當然，若遇到強隔離需求（例如多租戶安全），則可採用 Kata Containers 或 gVisor 等新興補強方案，與 Docker 完美搭配。原則上：追求最大資源利用率、期望快速迭代，就選擇容器；而強調穩定的多租戶隔離與作業系統層級隔離時，VM 仍是不可或缺。</p></p>
+<h2>Docker 在 DevOps 與雲原生中的核心地位</h2>
+<p><p>DevOps 強調開發與維運之間的協作，而 Docker 恰好扮演了銜接兩方的潤滑劑。透過將應用程式及其所有依賴封裝成映像檔，開發者可以在任何環境重現相同行為；維運人員則透過統一的部署流程，降低環境差異帶來的異常風險。2026 年，Docker 也積極支援 OCI（Open Container Initiative）標準，確保映像檔幾乎可被所有現代容器環境執行，其影響力深深地滲透進 CI/CD 流水線、GitOps 流程與平台工程之中。因此，學會 Docker 不只是學一個指令，而是學習一套完整的交付思維。</p></p>
+<h2>Docker 基礎實戰：從零開始建立第一個容器化服務</h2>
+<p><p>本段我們將以實際操作為導向，帶你建立一個 Node.js 網站，並將其容器化。我們將重點介紹常用的 Docker 指令、Dockerfile 的撰寫技巧、資料持久化的方式，以及容器之間如何溝通。請你準備好 Linux、macOS 或是 Windows 的開發環境，確認已安裝好 Docker Desktop 或 Docker Engine。</p></p>
+<h2>安裝 Docker Engine 與環境初始化</h2>
+<p><p>在 Ubuntu 22.04/24.04 環境中，可以使用官方 apt 儲存庫快速安裝；若在 Windows 或 macOS 上，則推薦直接安裝 Docker Desktop 以獲得完整的 GUI 與 K8s 支援。安裝完成後，請在終端機執行 <code>docker version</code> 確認 Client 與 Server 都能正常回應。若要建立非 root 使用者操作 Docker，可將使用者加入 docker 群組：</p></p>
+<h2>sudo usermod -aG docker $USER</h2>
+<h2>newgrp docker</h2>
+<h2>docker run hello-world</h2>
+<p><p>成功執行後，出現 “Hello from Docker!” 即代表 Docker Engine 正常運作。緊接著我們需要規劃工作目錄，例如 <code>my-node-app</code>。2026 年建議使用 Docker BuildKit 作為預設建置引擎，它提供更快的平行建置、更安全的密鑰管理，並支援快取最佳化。</p></p>
+<h2>撰寫 Dockerfile 打造高效映像檔</h2>
+<p><p>Dockerfile 是描述如何建置映像檔的藍圖。一個常見的 Node.js 映像檔 Dockerfile 如下：</p></p>
+<h2># syntax=docker/dockerfile:1.7</h2>
+<h2>FROM node:22-bookworm-slim AS builder</h2>
+<h2>WORKDIR /app</h2>
+<h2>COPY package*.json ./</h2>
+<h2>RUN npm ci --omit=dev</h2>
+<h2>COPY . .</h2>
+<h2>RUN npm run build</h2>
+<h2>FROM node:22-bookworm-slim</h2>
+<h2>ENV NODE_ENV=production</h2>
+<h2>WORKDIR /app</h2>
+<h2>COPY --from=builder /app/dist ./dist</h2>
+<h2>COPY --from=builder /app/node_modules ./node_modules</h2>
+<h2>EXPOSE 3000</h2>
+<h2>CMD ["node", "dist/index.js"]</h2>
+<p><p>2026 年建置映像檔必須特別留意幾個層級的最佳化：盡量使用小型的輕量基底映像檔（例如 Alpine、Distroless）；將套件安裝與程式碼複製分離，以便有效利用層級快取；合併多個 RUN 指令減少層級數，並搭配 BuildKit 使用 <code>--mount=type=cache</code> 提升重複建置的速度。多階段建置（Multi-stage build）不僅可以大幅縮小最終映像檔大小，還能避免原始碼或編譯工具遺留在正式環境中，降低攻擊面。</p></p>
+<p><p>完成 <code>docker build -t my-node-app:1.0 .</code> 之後，我們可以利用 <code>docker run -d -p 8080:3000 my-node-app:1.0</code> 啟動容器。若一切順利，打開瀏覽器存取 http://localhost:8080 即可看到你的應用程式。</p></p>
+<h2>資料持久化與容器網絡管理</h2>
+<p><p>容器本身是無狀態的（stateless）。當容器被刪除時，其內部檔案系統也會消失。為了保存資料庫、使用者上傳檔案等重要內容，我們需要透過 Volume 或 Bind Mount 進行持久化。Volume 由 Docker 管理，適合保存高依賴性的資料；Bind Mount 則可直接掛載主機目錄，方便開發時即時反映程式碼變更。例如：</p></p>
+<h2>docker volume create mydata</h2>
+<h2>docker run -d -v mydata:/app/data my-node-app:1.0</h2>
+<p><p>在網絡方面，Docker 提供 bridge、host、overlay 等網路驅動程式。多個容器需要彼此溝通時，可透過自訂 bridge 網路，並使用容器名稱當作 DNS 名稱。例如：</p></p>
+<h2>docker network create mynetwork</h2>
+<h2>docker run -d --name api --network mynetwork my-api:latest</h2>
+<p>docker run -d --name web --network mynetwork -p 8080:80 my-web:latest</p>
+<p><p>web 容器內可以直接以 <code>http://api:3000</code> 存取 API 服務。這種容器間通訊的方式是日後使用 Docker Compose 與 Kubernetes 的共同基礎。</p></p>
+<h2>Docker Compose 多容器管理：打造一站式開發環境</h2>
+<p><p>現代應用極少是單一容器，例如一個電商網站可能需要 nginx、node.js 後端、PostgreSQL 資料庫以及 Redis 快取。若手動逐一管理每一容器，很快就會失控。Docker Compose 允許我們透過一個 YAML 檔案描述完整的多容器應用，並以指令快速建立、啟動、停止所有服務。例如：</p></p>
+<h2>services:</h2>
+<p>db:</p>
+<h2>image: postgres:16-alpine</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>pgdata:/var/lib/postgresql/data</li>
+</ul>
+<h2>environment:</h2>
+<ul>
+    <li>POSTGRES_PASSWORD=secret</li>
+</ul>
+<h2>healthcheck:</h2>
+<h2>test: ["CMD", "pg_isready", "-U", "postgres"]</h2>
+<h2>interval: 5s</h2>
+<h2>retries: 5</h2>
+<h2>redis:</h2>
+<h2>image: redis:7-alpine</h2>
+<h2>api:</h2>
+<h2>build: ./backend</h2>
+<h2>ports:</h2>
+<ul>
+    <li>"3000:3000"</li>
+</ul>
+<h2>depends_on:</h2>
+<p>db:</p>
+<h2>condition: service_healthy</h2>
+<h2>web:</h2>
+<h2>build: ./frontend</h2>
+<h2>ports:</h2>
+<ul>
+    <li>"8080:80"</li>
+</ul>
+<h2>depends_on:</h2>
+<ul>
+    <li>api</li>
+</ul>
+<h2>volumes:</h2>
+<h2>pgdata:</h2>
+<p><p>2026 年的 Docker Compose 功能更加成熟，支援服務依賴健康檢查、自動重新啟動、資源限制與擴充套件。使用 <code>docker compose up -d</code> 即可一次啟動所有服務。針對開發環境，Compose 也可搭配 Bind Mount 實現熱重載（hot reload），大幅提升開發效率。更棒的是，Compose 檔案可以作為 Kubernetes 部署的參考依據，許多工具（如 Kompose）能夠將 Compose 檔案轉換為 K8s 資源定義，降低轉換門檻。</p></p>
+<h2>進階部署：Docker Swarm 與 Kubernetes 整合實戰</h2>
+<p><p>當你已經可以熟練使用 Docker 與 Compose，接下來最核心的課題便是「容器編排」。Docker Swarm 是 Docker 原生的叢集方案，雖然在市場被 Kubernetes 蓋過風頭，但它設定簡單，依然是小型叢集的優良選擇。然而，要因應大型分散式架構，Kubernetes 儼然成為企業標準。本段我們將聚焦 Kubernetes 與 Docker 的整合實務。</p></p>
+<h2>Kubernetes 基礎元件與 Pod 概念</h2>
+<p><p>Kubernetes 的最小排程單位不是容器，而是 Pod。Pod 內可以包含一個或多個容器，這些容器共享同一網路命名空間與儲存捲，被視為一個邏輯執行主機。通常建議一個 Pod 內僅執行一個主要容器，特殊情境再加入 sidecar 容器輔助（例如日誌收集、資料同步）。</p></p>
+<p><p>2026 年 Kubernetes API 已相當穩定，但底層運作機制更加複雜，包含 Control Plane 的 kube-apiserver、etcd、kube-scheduler，以及每個節點上的 kubelet、kube-proxy。若要自己建置一個實驗叢集，可使用 kind（Docker in Docker）或 k3s（輕量 K8s）。以 kind 為例：</p></p>
+<h2>kind create cluster</h2>
+<h2>kubectl cluster-info</h2>
+<p><p>接著，你可以將 Docker 映像檔推送至 Docker Hub 或雲端容器登錄，然後透過定義 Deployment 的方式部署到 K8s。</p></p>
+<h2>將 Docker 映像檔部署到 Kubernetes 叢集</h2>
+<p><p>假設你已經建立好 <code>my-node-app</code> 映像檔，並推送到登錄庫。現在需要建立 deployment.yaml：</p></p>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: my-node-app</h2>
+<h2>labels:</h2>
+<h2>app: my-node-app</h2>
+<h2>spec:</h2>
+<h2>replicas: 3</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: my-node-app</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: my-node-app</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: my-node-app</li>
+</ul>
+<h2>image: yourname/my-node-app:1.0</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 3000</li>
+</ul>
+<h2>env:</h2>
+<ul>
+    <li>name: NODE_ENV</li>
+</ul>
+<h2>value: "production"</h2>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>memory: "64Mi"</h2>
+<h2>cpu: "100m"</h2>
+<h2>limits:</h2>
+<h2>memory: "256Mi"</h2>
+<h2>cpu: "500m"</h2>
+<p><p>執行 <code>kubectl apply -f deployment.yaml</code> 即建立三個 Pod 副本。接著以 Service 對外暴露：</p></p>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: my-node-app-svc</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: my-node-app</h2>
+<h2>ports:</h2>
+<ul>
+    <li>protocol: TCP</li>
+</ul>
+<h2>port: 80</h2>
+<h2>targetPort: 3000</h2>
+<h2>type: LoadBalancer</h2>
+<p><p>執行後等待 LoadBalancer 取得外部 IP，即可存取應用。也可以使用 kubectl port-forward 進行本機測試。這說明了 Docker 映像檔如何無縫地被 K8s 使用。</p></p>
+<h2>自動擴縮與滾動更新策略</h2>
+<p><p>Kubernetes 的強大之處在於敏捷的擴縮能力。你可以使用 <code>kubectl scale deployment my-node-app --replicas=5</code> 手動擴充；更智慧的是採用 HPA（Horizontal Pod Autoscaler），根據 CPU、記憶體或自訂指標自動調整 Pod 數量。2026 年 HPA 可搭配 Prometheus 與 KEDA 驅動更多擴縮事件，例如佇列長度或請求延遲，真正實現彈性調度。</p></p>
+<p><p>優雅地更新應用程式是現代維運重要課題。Deployment 支援滾動更新（Rolling Update）與復原（Rollback）。設定策略 <code>strategy: type: RollingUpdate</code>，配合 maxSurge 與 maxUnavailable 控管更新速度。當新版映像檔版本有問題時，Kubernetes 會自動暫停或手動執行 <code>kubectl rollout undo deployment/my-node-app</code> 快速還原。此外，搭配 standalone 的 Docker Registry 或容器映像檔的 digest，我們可以確保部署每次都是相同內容，實現可重現的部署。</p></p>
+<h2>2026 年容器安全與效能最佳實踐</h2>
+<p><p>容器安全不能只依靠 Kubernetes 的權限控制。首先，開發階段就要遵循最小映像檔原則，定期掃描漏洞（如 Trivy、Grype）。執行容器時，若無特殊需求，一律使用非 root 使用者，並設定唯讀根檔案系統。在 K8s 中，可利用 SecurityContext 與 PodSecurity Admission（Pod Security Standards）強制執行安全政策。</p></p>
+<p><p>其次是供應鏈安全：2026 年多家大型企業已使用 Sigstore / Cosign 為映像檔進行簽署，確保映像檔在傳遞過程未被篡改。而官方的 Docker Desktop 服務上也提供 Docker Scout 直接整合映像檔弱點分析，讓我們在建置階段即可阻擋高風險套件。另一件不容忽視的是祕密（Secret）管理，切勿將密鑰直接寫在 Dockerfile 或映像檔環境變數中。Kubernetes 的 Secret 物件、External Secrets Operator 或雲端密鑰管理服務都是極佳的選擇。</p></p>
+<p><p>效能方面，2026 年的容器生態依然持續演進。eBPF 技術可以讓觀測工具無需侵入式代理即可擷取容器網路與系統呼叫資料；Wasm（WebAssembly）作為輕量沙箱也開始作為 sidecar 或函數級元件與容器共存。透過 Linux 核心的 cgroup v2 可進一步精準分配 CPU、記憶體與 I/O 資源，讓多租戶環境更穩定。建議在實際部署時，搭配 Grafana、Prometheus 與 OpenTelemetry，建立從應用程式、容器到叢集節點的完整監控鏈路。</p></p>
+<h2>常見問題與除錯技巧（Q&A）</h2>
+<h2>即使熟悉 Docker 與 K8s，仍會遇到非常多問題。以下是 2026 年最常出現的幾種情況與對策：</h2>
+<h2>Q1：容器無法啟動，怎麼快速找出原因？</h2>
+<p>首先使用 <code>docker logs &lt;container_id&gt;</code> 檢查輸出。若日誌沒有記錄，則用 <code>docker inspect</code> 查詢容器狀態與退出碼。常見情況是 HEALTHCHECK 失敗或環境變數缺失。在 K8s 環境可執行 <code>kubectl describe pod</code> 查看 Events。</p></p>
+<h2>Q2：Docker 映像檔建置速度緩慢？</h2>
+<p>利用 BuildKit 的本地快取、排除不必要的資料（.dockerignore）、使用多階段建置並把最容易被改動的檔案放在最後複製。如果仍太慢，可設定遠端建置程式（如 GitHub Actions）並使用快取加速。</p></p>
+<h2>Q3：為什麼容器可以從內部連上外網，但外網卻連不進來？</h2>
+<p>較常見的是忘了 -p 映射好宿主機與容器的連接埠，也可能是 host 防火牆未開啟。若在 K8s，則需檢查 Service 類型與其 external IP 設定。</p></p>
+<p><p><strong>Q4：Pod 被重新建立後 IP 改變，該如何讓其他 Pod 固定存取？</strong><br/></p>
+<p>不要依賴 Pod IP。應該使用 Service 為一組 Pod 提供穩定 DNS 名稱，或使用 Headless Service 配合 StatefulSet 獲取固定身分。</p></p>
+<h2>Q5：Kubernetes 叢集節點損毀如何復原？</h2>
+<p>當控制平面的 etcd 有備份，就能快速復原。建議定期備份 etcd 與重要的 PV 資料。2026 年，Velero 已廣泛用於叢集遷移與災難復原，搭配物件儲存即可輕鬆救回應用程式。</p></p>
+<h2>結語：下一步的學習路徑</h2>
+<p><p>恭喜你完成一趟從 Docker 入門到 Kubernetes 整合的實戰旅程。如今你已經具備容器化應用程式、撰寫 Dockerfile、使用 Docker Compose、以及部署 Pod、Service、Deployment 的能力。然而，這只是雲原生世界的地面起點。往後你可以進階探索服務網格（Istio、Linkerd）、GitOps（ArgoCD）、以及進階排程策略，這些技術都是以 Docker 與 Kubernetes 為核心持續發展的。</p></p>
+<p><p>2026 年的技術藍圖中，容器化已不是特定工具的名詞，而是一種設計思維：將應用程式拆解成可獨立開發、部署、擴充的單元。無論你正在規劃既有系統現代化，或是從零開始成立新創服務，掌握 Docker 與 K8s 整合就能確保基礎架構更具韌性與可觀測性。建議你將文章中的實作步驟一一執行，找一個真實的小專案，從 Docker 開始，逐步遷移到 Kubernetes，你將從中體悟兩者合作的巨大威力。</p></p>
+<p><p>最後，持續學習永遠是工程師最好的投資。在雅寶社區 · 頂客論壇，歡迎隨時分享你的實戰經驗或疑問，讓我們在反覆測試與討論中共同成長！</p></p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

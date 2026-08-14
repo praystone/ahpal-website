@@ -195,5 +195,133 @@
         "use_responses_api":  true,
         "enable_reasoning":  true,
         "enable_search":  false
+    },
+    {
+        "keyword":  "諸葛亮使用 AI 算力預測北方天氣與出師表：科幻三國",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/zhuge-liang-ai-weather-forecast.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "蜀漢五虎將：下凡渡劫的五方神獸",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/five-tiger-generals-reincarnation.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果韓信擁有現代電競的微操視角：兵仙的極限操作",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/han-xin-esports-micro-operation.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "長城背後的「天界監獄」：秦始皇為何要築牆鎮壓龍脈？",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/great-wall-celestial-prison.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "三國英雄渡劫錄：諸葛亮六出祁山與天機星的命數",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/three-kingdoms-heroes-tribulation.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "假如趙高是 AI：指鹿為馬的背後竟是一場系統錯亂",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/zhao-gao-ai-system-glitch.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "項羽不肯過江東：如果當年他搭上高鐵，歷史會改寫嗎？",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/xiang-yu-high-speed-rail.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "劉邦的「大風起兮雲飛揚」：一個流氓皇帝的 KTV 點歌單",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/liu-bang-ktv-playlist.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "曹操的頭痛不是病：華佗如果開刀，三國會提前結束？",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/cao-cao-headache-surgery.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "司馬懿的忍者哲學：裝病裝了十幾年，就為了那一場高平陵",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/sima-yi-ninja-philosophy.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "關羽的青龍偃月刀其實是「冷兵器界的 iPhone」？",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/guan-yu-green-dragon-saber.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果三國有 Line 群組：曹操、劉備、孫權的聊天紀錄",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/three-kingdoms-line-group-chat.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "諸葛亮的「空城計」其實是司馬懿故意放水？職場潛規則",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/empty-city-strategy-workplace.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "三國時代的「公關災難」：曹操殺呂伯奢的危機處理",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/cao-cao-crisis-management.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "古代公務員考試：漢代的「察舉制」其實比聯考還難？",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/han-dynasty-civil-service-exam.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果你穿越到赤壁之戰前夕，該怎麼用現代知識活下去？",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/red-cliff-survival-guide.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
     }
 ]

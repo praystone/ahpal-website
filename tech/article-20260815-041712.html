@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南｜if __n - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+    <div class="meta-info">
+        發表時間：2026 年 08 月 15 日 | 更新日期：2026 年 08 月 15 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+
+<p>htt</p>
+<p>server {</p>
+<p>listen 80;</p>
+<p>loc</p>
+<p>loc</p>
+<h2>Nginx 的 Dockerfile 很簡單：</h2>
+<h2>nginx/Dockerfile</h2>
+<h2>FROM nginx:1.27-alpine</h2>
+<h2>COPY nginx.conf /etc/nginx/nginx.conf</h2>
+<h2>EXPOSE 80</h2>
+<h2>3.3 使用 Docker Compose 編排多容器</h2>
+<p><p>你可以分別用 <code>docker build</code> 與 <code>docker run</code> 手動啟動這些容器，但這相當繁瑣。更優雅的方式是使用 Docker Compose 定義整個應用堆疊，並用單一指令啟動。</p></p>
+<h2>在專案根目錄建立 docker-compose.yml：</h2>
+<h2>version: "3.9"</h2>
+<h2>services:</h2>
+<h2>redis:</h2>
+<h2>image: redis:7-alpine</h2>
+<h2>container_name: myapp-redis</h2>
+<h2>restart: always</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>redis_data:/data</li>
+</ul>
+<h2>healthcheck:</h2>
+<h2>test: ["CMD", "redis-cli", "ping"]</h2>
+<h2>interval: 10s</h2>
+<h2>timeout: 3s</h2>
+<h2>retries: 3</h2>
+<h2>backend:</h2>
+<h2>build: ./backend</h2>
+<h2>image: myapp-backend:latest</h2>
+<h2>container_name: myapp-backend</h2>
+<h2>restart: always</h2>
+<h2>environment:</h2>
+<ul>
+    <li>REDIS_HOST=redis</li>
+    <li>REDIS_PORT=6379</li>
+</ul>
+<h2>depends_on:</h2>
+<h2>redis:</h2>
+<h2>condition: service_healthy</h2>
+<h2>networks:</h2>
+<ul>
+    <li>frontend</li>
+    <li>backend-net</li>
+</ul>
+<h2>nginx:</h2>
+<h2>build: ./nginx</h2>
+<h2>image: myapp-nginx:latest</h2>
+<h2>container_name: myapp-nginx</h2>
+<h2>restart: always</h2>
+<h2>ports:</h2>
+<ul>
+    <li>"8080:80"</li>
+</ul>
+<h2>depends_on:</h2>
+<ul>
+    <li>backend</li>
+</ul>
+<h2>networks:</h2>
+<ul>
+    <li>frontend</li>
+</ul>
+<h2>volumes:</h2>
+<h2>redis_data:</h2>
+<h2>networks:</h2>
+<h2>frontend:</h2>
+<h2>backend-net:</h2>
+<p><p>此處我們定義了三個 service。Redis 服務使用官方映像，同時掛載一個名為 <code>redis_data</code> 的 volume 以持久化資料。backend 服務會在建置階段讀取 <code>./backend</code> 目錄中的 Dockerfile，並且設定環境變數讓 Flask 知道 Redis 位於哪個主機名稱（在 Compose 網路中，service 名稱即為 DNS 名稱）。<code>depends_on</code> 搭配 healthcheck 確保 Redis 在 backend 啟動前就緒。</p></p>
+<p><p>Nginx 服務唯一對外的連接埠是 8080，其他服務則隔離在內網網路中。Frontend 與 backend-net 兩個網段讓 Nginx 可以到達 backend，但 backend 和 Redis 之間則透過 backend-net 連繫。一個小缺點是 Nginx 也同時在 frontend 網段，但它只能存取 backend 已綁定的連接埠，沒有其他資源，因此隔離性足夠。</p></p>
+<h2>現在，在專案根目錄執行以下指令：</h2>
+<h2>docker compose up -d --build</h2>
+<p><p>等待數分鐘後，你就可以使用 <code>curl</code> 或瀏覽器訪問 <code>http://localhost:8080/api/count</code>，每一次存取都會讓 visit_count 增加。透過 <code>docker compose ps</code> 可以查看所有服務的狀態；<code>docker compose logs -f</code> 可以追蹤日誌。</p></p>
+<p><p>這個多容器堆疊是一套完整的獨立交付單元。如果要擴展 backend 容器數量，只要執行 <code>docker compose up -d --scale backend=3</code> 即可，Nginx 會自動進行負載平衡。但若你的應用需要跨越多台實體機、需要自動伸縮、故障自動恢復，甚至滾動更新，那麼使用 Kubernetes（K8s）才是長久之計。</p></p>
+<h2>四、進階部署：從 Docker 到 Kubernetes（K8s）整合</h2>
+<p><p>Docker Compose 雖好用，但它僅限於單一主機上的編排。當你的服務規模成長到需要多節點、需要高可用性、需要集中管理機密與設定時，Kubernetes 便成為標準答案。本節將說明如何把剛才建立的 Docker 容器搬到 K8s 上運行，從映像推送、部署清單撰寫到 Ingress 設定。</p></p>
+<h2>4.1 為什麼需要 K8s？從單機到叢集</h2>
+<p><p>假設你的電商網站流量暴增，原本單一 Docker 主機的資源已滿載。你可以在另一台主機上用 Docker Compose 再複製一份堆疊，但兩台主機之間如何共享 Redis 資料？如何統一管理設定？如何做滾動更新而不中斷服務？這些問題在叢集管理平台上都能得到優雅解決。</p></p>
+<h2>Kubernetes 提供以下關鍵能力：</h2>
+<p><li><strong>服務發現與負載平衡</strong>：Kubernetes Service 物件可將流量分派到叢集中多個 Pod（一個 Pod 是一個或多個容器的組合）上，Pod 的 IP 會動態變化，但 Service 提供穩定 VIP 或 DNS。</li></p>
+<p><li><strong>自動伸縮（HPA / VPA）</strong>：根據 CPU、記憶體或自訂指標自動增加或減少 Pod 數量。</li></p>
+<p><li><strong>自我修復</strong>：若某個 Pod 故障，Kubernetes 會自動重建新的 Pod 並排空故障節點。</li></p>
+<p><li><strong>滾動更新與回滾</strong>：您可以更新映像版本，K8s 會逐步替換，且若更新失敗能自動回滾。</li></p>
+<p><li><strong>跨多節點的資源排程</strong>：排程器會依據資源需求、污點與容忍度，將 Pod 分配到最適合的節點。</li></p>
+<p><p>簡單來說，K8s 是「容器的作業系統」，它讓多台伺服器組成一個資源池，並在此池中智慧地運行與管理容器。而 Docker 映像檔正是 K8s 執行的基本單位，兩者不是競爭關係，而是上下游的整合關係。</p></p>
+<h2>4.2 將 Docker 映像推送到容器倉儲</h2>
+<p><p>要讓 K8s 叢集能拉取你的映像，首先必須將映像推送到一個可存取的倉儲。最常見的是 Docker Hub，但生產環境較推薦使用雲端服務（如 AWS ECR、GCR、GHCR）或私有 Harbor。在此我們以 Docker Hub 為例。</p></p>
+<p><p>首先確定你的映像已建置並標記了正確的版本。假設你的 Docker Hub 帳號是 <code>jason2026</code>，執行以下指令推送到公開或私人儲存庫：</p></p>
+<h2>docker push jason2026/myapp-backend:latest</h2>
+<h2>docker push jason2026/myapp-nginx:latest</h2>
+<p><p>在進行推送到 Docker Hub 之前，請先思考 2026 年的安全最佳實務：絕不要將帶有高風險漏洞的映像推送到正式倉儲，也不要在 Dockerfile 中存放任何機密。建議在你的 CI/CD 流程（例如 GitHub Actions）中加入映像掃描步驟。Docker Scout 可以監控映像的供應鏈，而 Cosign 能為映像簽署憑證，確保完整性。</p></p>
+<p><p>如果你的 K8s 叢集需要拉取私有映像，最安全的方法是使用 <code>imagePullSecrets</code>，而不是將密碼寫在 Deployment 清單中。建立 secret 的指令如下：</p></p>
+<h2>kubectl create secret docker-registry regcred \</h2>
+<h2>docker-server=https://index.docker.io/v1/ \</h2>
+<h2>docker-username=jason2026 \</h2>
+<h2>docker-password=your-strong-password \</h2>
+<h2>docker-email=your@email.com</h2>
+<h2>4.3 建立 Kubernetes 部署清單（Deployment、Service、Ingress）</h2>
+<p><p>現在，我們將 Docker Compose 中定義的服務翻譯成 K8s 物件。K8s 清單通常用 YAML 撰寫，並以 <code>kubectl apply -f</code> 套用。建立一個 <code>k8s/</code> 目錄，並在其中建立以下幾個 YAML 檔案。</p></p>
+<h2>1. Deployment（以 backend 為例）</h2>
+<h2>k8s/backend-deployment.yaml</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: backend</h2>
+<h2>labels:</h2>
+<h2>app: backend</h2>
+<h2>spec:</h2>
+<h2>replicas: 3</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: backend</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: backend</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: backend</li>
+</ul>
+<h2>image: jason2026/myapp-backend:latest</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 8000</li>
+</ul>
+<h2>env:</h2>
+<ul>
+    <li>name: REDIS_HOST</li>
+</ul>
+<h2>value: redis</h2>
+<ul>
+    <li>name: REDIS_PORT</li>
+</ul>
+<h2>value: "6379"</h2>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>memory: "128Mi"</h2>
+<h2>cpu: "100m"</h2>
+<h2>limits:</h2>
+<h2>memory: "256Mi"</h2>
+<h2>cpu: "500m"</h2>
+<h2>livenessProbe:</h2>
+<h2>httpGet:</h2>
+<h2>path: /healthz</h2>
+<h2>port: 8000</h2>
+<h2>initialDelaySeconds: 5</h2>
+<h2>periodSeconds: 10</h2>
+<h2>readinessProbe:</h2>
+<h2>httpGet:</h2>
+<h2>path: /healthz</h2>
+<h2>port: 8000</h2>
+<h2>initialDelaySeconds: 3</h2>
+<h2>periodSeconds: 5</h2>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: backend</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: backend</h2>
+<h2>ports:</h2>
+<ul>
+    <li>port: 8000</li>
+</ul>
+<h2>targetPort: 8000</h2>
+<h2>type: ClusterIP</h2>
+<p><p>這個 Deployment 包含 3 個 Pod 副本。我們設定了資源的 request 與 limit，K8s 會以此為調度依據，避免資源被單一 Pod 壟斷。Liveness probe 用於判斷容器是否存活，若失敗 K8s 會重啟該容器；Readiness probe 用於判斷容器是否可接收流量，若失敗 Service 自動將流量導離該 Pod。</p></p>
+<h2>2. Redis Deployment 與 Service</h2>
+<h2>k8s/redis-deployment.yaml</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: redis</h2>
+<h2>labels:</h2>
+<h2>app: redis</h2>
+<h2>spec:</h2>
+<h2>replicas: 1</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: redis</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: redis</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: redis</li>
+</ul>
+<h2>image: redis:7-alpine</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 6379</li>
+</ul>
+<h2>volumeMounts:</h2>
+<ul>
+    <li>name: redis-data</li>
+</ul>
+<h2>mountPath: /data</h2>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>memory: "64Mi"</h2>
+<h2>cpu: "50m"</h2>
+<h2>limits:</h2>
+<h2>memory: "128Mi"</h2>
+<h2>cpu: "100m"</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>name: redis-data</li>
+</ul>
+<h2>persistentVolumeClaim:</h2>
+<h2>claimName: redis-pvc</h2>
+<h2>apiVersion: v1</h2>
+<h2>kind: PersistentVolumeClaim</h2>
+<h2>metadata:</h2>
+<h2>name: redis-pvc</h2>
+<h2>spec:</h2>
+<h2>accessModes:</h2>
+<ul>
+    <li>ReadWriteOnce</li>
+</ul>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>storage: 1Gi</h2>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: redis</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: redis</h2>
+<h2>ports:</h2>
+<ul>
+    <li>port: 6379</li>
+</ul>
+<h2>targetPort: 6379</h2>
+<h2>type: ClusterIP</h2>
+<p><p>為了在節點異常或 Pod 重排後保留 Redis 資料，我們使用 PVC（Persistent Volume Claim）讓資料掛載到持久化儲存（如 EBS、Cinder、NFS）。如果你的正式環境不需要持久化快取，也可以直接使用 emptyDir。</p></p>
+<h2>3. Nginx Deployment 與 Ingress</h2>
+<p><p>Nginx 在 K8s 中通常不需要以 Deployment 方式部署，而是採用 Ingress Controller。不過為了延續我們原先的架構，也可以用 Deployment 暴露為 NodePort 或 LoadBalancer。但更進階且標準的做法是直接使用 Kubernetes Ingress 資源，讓叢集內的 Ingress Controller（如 ingress-nginx）統一處理 TLS 終止與路由規則。</p></p>
+<p><p>以下我們建立一個 Nginx Deployment（但僅作為靜態檔案伺服器）以及獨立的 Ingress 物件，但為了精簡教學，我們會將 Nginx 的內容簡化，並將外部流量直接導向 backend 服務。實際上在雲原生架構中，通常不會用 Nginx container 當作反向代理，而是直接使用 Ingress Controller 來路由，因此在此練習中，我們可以將 Nginx 角色由 Ingress Controller 取代。</p></p>
+<p><p>但為了讓教學完整，我們保留 Nginx 裝飾性的服務，並演示如何透過 Ingress 路徑將請求導至 Nginx 或 backend。假設訪客請求 <code>/</code> 由 Nginx 回應，請求 <code>/api</code> 轉發至 backend，我們可以這樣設定：</p></p>
+<h2>k8s/nginx-and-ingress.yaml</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: nginx-static</h2>
+<h2>labels:</h2>
+<h2>app: nginx-static</h2>
+<h2>spec:</h2>
+<h2>replicas: 1</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: nginx-static</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: nginx-static</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: nginx-static</li>
+</ul>
+<h2>image: jason2026/myapp-nginx:latest</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 80</li>
+</ul>
+<h2>apiVersion: v1</h2>
+<h2>kind: Service</h2>
+<h2>metadata:</h2>
+<h2>name: nginx-static</h2>
+<h2>spec:</h2>
+<h2>selector:</h2>
+<h2>app: nginx-static</h2>
+<h2>ports:</h2>
+<ul>
+    <li>port: 80</li>
+</ul>
+<h2>targetPort: 80</h2>
+<h2>apiVersion: networking.k8s.io/v1</h2>
+<h2>kind: Ingress</h2>
+<h2>metadata:</h2>
+<h2>name: app-ingress</h2>
+<h2>annotations:</h2>
+<h2>nginx.ingress.kubernetes.io/rewrite-target: /$2</h2>
+<h2>spec:</h2>
+<h2>ingressClassName: nginx</h2>
+<h2>rules:</h2>
+<ul>
+    <li>host: demo.example.com   # 請替換為你的網域</li>
+</ul>
+<h2>http:</h2>
+<h2>paths:</h2>
+<ul>
+    <li>path: /</li>
+</ul>
+<h2>pathType: Prefix</h2>
+<h2>backend:</h2>
+<h2>service:</h2>
+<h2>name: nginx-static</h2>
+<h2>port:</h2>
+<h2>number: 80</h2>
+<ul>
+    <li>path: /api(/|$)(.*)</li>
+</ul>
+<h2>pathType: ImplementationSpecific</h2>
+<h2>backend:</h2>
+<h2>service:</h2>
+<h2>name: backend</h2>
+<h2>port:</h2>
+<h2>number: 8000</h2>
+<p><p>這個 Ingress 接受 <code>demo.example.com</code> 的請求，路徑 / 導向 nginx-static，而 /api/* 導向 backend。你可以使用 <code>kubectl apply -f k8s/</code> 套用所有清單，然後以 <code>kubectl get pods, svc, ingress</code> 查看狀態。</p></p>
+<p><p>若你的叢集沒有現成的 Ingress Controller，可以先安裝 ingress-nginx（依版本略有不同，可使用 Helm 安裝），或者直接將 nginx-static Service 改為 LoadBalancer 類型。但這部分細節在真實雲環境中會因人而異，在此不做展開。</p></p>
+<p><p>到了這個階段，你已成功地將單機 Docker Compose 堆疊移植到了 Kubernetes 叢集。K8s 提供了自動化伸縮、自我修復、統一網關等能力，讓你可以更安心地進行大規模部署。</p></p>
+<h2>五、2026 年容器化部署的維運與安全最佳實務</h2>
+<p><p>完成部署只是起點，後續的維運與安全防護才能真正決定系統的長期穩定。尤其進入 2026 年，容器化環境的複雜度只增不減，從映像供應鏈到執行時的縱深防禦，每一個環節都需要謹慎把關。</p></p>
+<h2>5.1 映像健檢與供應鏈安全（Sigstore、Cosign）</h2>
+<p><p>曾經有安全研究機構發現，大規模開源專案中曾有數百萬個惡意映像被上傳至 Docker Hub，許多開發者會在不知情的情況下拉取到含有挖礦程式的映像。這些攻擊往往源自於不安全的基礎映像或依賴套件。</p></p>
+<h2>因此，在 2026 年，映像安全必須從兩個方向著手：</h2>
+<p><li><strong>靜態掃描</strong>：在 CI 中整合 Trivy、Clair 或 Docker Scout，掃描映像內所有 OS 套件與語言依賴的已知 CVE。設定「品質閘道」，例如若偵測到 critical 漏洞，就讓 pipeline 失敗。</li></p>
+<p><li><strong>映像簽署與驗證</strong>：使用 Cosign（Sigstore 專案）對映像簽署，並在 Kubernetes 叢集中透過策略引擎（如 Kyverno、OPA Gatekeeper）強制驗證簽章。只有簽署過的映像才能被部署，確保從建置到執行軌跡的完整性。</li></p>
+<h2>例如，我們用 Cosign 對還未推送的映像簽名：</h2>
+<h2>cosign sign --key cosign.key jason2026/myapp-backend:latest</h2>
+<p><p>之後在部署前，可在 CI 中用 <code>cosign verify</code> 驗證。Kubernetes 透過 Kyverno 的 ClusterPolicy 可以設定 signature verification 規則，拒絕未簽署的映像。</p></p>
+<h2>5.2 可觀測性整合：Prometheus、Grafana、OpenTelemetry</h2>
+<p><p>容器環境的動態性使得傳統的監控方式變得不夠直觀——Pod 在秒級內可能被建立或刪除，IP 不斷變化。因此，我們需要一套專為雲原生打造的觀測工具。</p></p>
+<p><p><strong>指標（Metrics）</strong>：Prometheus 負責收集指標，Kubernetes 本身暴露了豐富的指標，例如 Pod 的 CPU、記憶體、網路流量，以及容器狀態。Application 也可以透過 Prometheus client library 暴露自訂指標，例如每秒請求數、延遲分位數。透過 Grafana 儀表板，我們可以視覺化這些資料，設定告警（例如流量異常飆升或錯誤率超過 5%）。</p></p>
+<p><p><strong>日誌（Logs）</strong>：最常用的方案是 EFK/ELK（Elasticsearch + Fluentd/Fluent Bit + Kibana）或 Loki。在 K8s 中，每個 Pod 的 stdout 會被 kubelet 收集，我們可以部署 DaemonSet 來代理日誌推送，確保集中儲存與快速查詢。</p></p>
+<p><p><strong>追蹤（Traces）</strong>：OpenTelemetry 成為業界標準，整合 trace 到端到端請求鏈路，定位效能瓶頸。在 2026 年，所有主流微服務框架都已內建 OpenTelemetry 整合，只要在服務中加載 SDK，並搭配 Jaeger 或 Tempo 即可視覺化。</p></p>
+<p><p>理想的可觀測性架構應該是在 Docker 容器內就已啟動 instrumentation，通過標準的 OTLP 協議輸出，然後由叢集中的 Collector 統一處理，降低對應用程式的侵入性。</p></p>
+<h2>5.3 成本優化與資源管理</h2>
+<p><p>Kubernetes 靈活度高的另一面，是成本容易失控。隨便建立一個無 Limit 的 Pod 可能耗盡整個節點資源，久而久之產生高昂的雲端帳單。2026 年的最佳實務絕對包含以下項目：</p></p>
+<p><li><strong>善用 Namespace 與 ResourceQuota</strong>：為不同團隊或環境（dev/staging/prod）建立獨立 Namespace，並透過 ResourceQuota 限制每個 Namespace 的總 CPU、記憶體與 PVC 數量。</li></p>
+<p><li><strong>設定合理的 Requests/Limits</strong>：不只是最低需求，也要考慮 Limit 保證 QoS。Limit 設置過高可能導致節點資源競爭；過低則容易造成 OOMKilled。我們可以根據長期的 Profile 分析來調整。</li></p>
+<p><li><strong>善用 Cluster Autoscaler 與 KEDA</strong>：Cluster Autoscaler 自動調整節點數量以節省未利用資源，KEDA 則可以基於事件（如 RabbitMQ 佇列深度）進行從伸縮，避免固定 Pod 數量造成浪費。</li></p>
+<p><li><strong>使用 Spot 實例或搶佔式節點</strong>：對容錯性較高的批次任務可使用 spot 實例節點，降低 60-70% 成本。但必須設計好中斷容忍機制，讓應用程式能在節點被搶佔前優雅遷移。</li></p>
+<p><p>另外，Dockerfile 的寫法也會影響成本：使用更小體積的基礎映像（例如 <code>alpine</code> 或 <code>distroless</code>）可以減少映像拉取時間、磁碟空間與攻擊面。多階段建置能移除建置工具，讓最終映像僅保留 runtime 所需。</p></p>
+<p><p>在 2026 年，FinOps 已逐漸成為企業 KPI 的一部分，容器化工程師需要具備將技術決策轉化為財務影響的能力。透過上述技巧，你能在維持效能的同時，大幅降低基礎設施支出。</p></p>
+<h2>六、總結與學習地圖</h2>
+<p><p>在 2026 年的技術版圖中，Docker 與 Kubernetes 的整合不再是高深秘訣，而是現代應用部署的標準作業流程。這篇文章，我們從容器化的核心動機談起，逐步走過 Docker Engine 安裝、Dockerfile 撰寫、多階段建置、Docker Compose 編排，最後將整套應用移植到 Kubernetes 叢集，並涵蓋了映像安全、可觀測性與成本控管等維運層面的實踐。</p></p>
+<p><p>試著回顧一下你現在已掌握的能力：你能獨立撰寫優化的 Dockerfile，能使用 Compose 啟動一套完整的多容器應用，能建立 K8s 的 Deployment、Service、PVC 與 Ingress，也知道如何透過 Cosign 驗證映像、Prometheus 監控叢集。這些技能足以應對多數中大型企業的部署需求。</p></p>
+<h2>接下來，你可以依據自身角色深入研究以下延伸領域：</h2>
+<p><li>若你是後端工程師，建議深入學習 Helm（K8s 套件管理）、Kustomize 與 GitOps（ArgoCD / Flux），將部署總結為程式碼審查的一部分。</li></p>
+<p><li>若你是 SRE，則應探究 K8s 網絡與服務網格（Istio / Linkerd）、進階排程策略（污點容、優先級）以及混沌工程（Chaos Mesh）。</li></p>
+<p><li>若你熱衷於雲端，可以熟悉各大雲提供商的 Kubernetes 服務（如 EKS、GKE、AKS），並學習如何整合雲端 IAM 與 VPC 網路。</li></p>
+<p><p>最後，別忘了理念：容器化是為了讓交付更快速、運行更穩定、開發更敏捷。工具只會不斷演進——可能五年後 Docker 不再是霸主、K8s 被更新的編排框架取代，但「將應用與依賴隔離並自動化管理」的核心思想將恆久不變。將你的時間投資在基礎原理與問題本質上，你就能以不變應萬變。</p></p>
+<p><p>現在，請開啟你的終端機，把剛才學到的所有手動建置一遍。真正的技術來自於雙手，閱讀只是地圖，而旅行本身就是收穫。祝你在容器化的旅途上，駕輕就熟，部署無往不利！</p></p>
+<h2>（本文為雅寶社區 · 頂客論壇科技教學文章，歡迎分享、收藏並提出你的實戰經驗。）</h2>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">[[[[[📖]]]]] 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">[[[[[📚]]]]] 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">[[[[[🎮]]]]] 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        [[[[[💬]]]]] 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

@@ -1123,5 +1123,165 @@
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false
+  },
+  {
+    "keyword": "如果孔子有 Facebook：他會發什麼「正能量」貼文？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/kongzi-facebook-posts.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "孫子兵法如果出 App：會成為「職場必勝」神器嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sunzi-bingfa-app.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果墨子有 TikTok：他會拍「兼愛非攻」的宣導短片嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/mozi-tiktok-promo.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "莊子的「逍遙遊」其實是古代版的「躺平學」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhuangzi-lay-flat.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果秦始皇有 LINE 群組：他會怎麼管理大臣們的對話？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/qin-shi-huang-line-group.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "劉邦與項羽的對決如果辦在電競世界：誰會贏？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/liu-bang-xiang-yu-esports.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果漢武帝有 Google 搜尋：他會查什麼？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/han-wudi-google-search.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "司馬遷寫《史記》其實是古代版的「爆料公社」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sima-qian-baoliao.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 Spotify：曹操的「短歌行」會上榜嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-spotify-ranking.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「隆中對」其實是古代版的「創業 BP」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/longzhong-dui-startup-bp.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果周瑜有 IG：他會放什麼「美男照」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhou-yu-ig-selfie.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "司馬懿的「高平陵之變」其實是古代版的「敵意併購」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/gaopingling-hostile-takeover.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果唐太宗有 Slack：他會怎麼跟房玄齡開會？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/tang-taizong-slack-meeting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "李白如果開 Podcast：他會聊「喝酒」還是「寫詩」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/li-bai-podcast-talks.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果宋朝有 TikTok：李清照會拍什麼「文青廢片」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/li-qingzhao-tiktok-vibes.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蘇軾的「赤壁賦」其實是古代版的「旅遊 Vlog」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/su-shi-travel-vlog.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果明朝有 YouTube：朱元璋會開「大明教學頻道」嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/ming-taizu-youtube-channel.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鄭和下西洋其實是古代版的「跨國商務考察」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zheng-he-business-trip.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果清朝有 Twitter：康熙會發什麼「皇帝日常」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/kangxi-twitter-daily.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "乾隆的「江南巡遊」其實是古代版的「網紅探店」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/qianlong-food-tour.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   }
 ]

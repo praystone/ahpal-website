@@ -81,18 +81,18 @@ def generate_main_css():
     
     # 🆕 保護機制 1：CSS 存在且完整
     if css_path.exists() and css_path.stat().st_size >= CSS_MIN_SIZE:
-        print(f"[[[[ℹ️]]]] main.css 已存在且完整 ({css_path.stat().st_size} bytes, v{CSS_VERSION})，跳過生成")
+        print(f"[[[[[ℹ️]]]]] main.css 已存在且完整 ({css_path.stat().st_size} bytes, v{CSS_VERSION})，跳過生成")
         return css_path
     
     # 🆕 保護機制 2：CSS 存在但過小 (損壞)
     if css_path.exists() and css_path.stat().st_size < CSS_MIN_SIZE:
-        print(f"[[[[⚠️]]]] main.css 檔案過小 ({css_path.stat().st_size} bytes)，可能不完整")
-        print(f"[[[[📌]]]] 請手動還原完整的 main.css (v{CSS_VERSION})")
-        print(f"[[[[📌]]]] 或刪除後重新執行本函數以建立新檔案")
+        print(f"[[[[[⚠️]]]]] main.css 檔案過小 ({css_path.stat().st_size} bytes)，可能不完整")
+        print(f"[[[[[📌]]]]] 請手動還原完整的 main.css (v{CSS_VERSION})")
+        print(f"[[[[[📌]]]]] 或刪除後重新執行本函數以建立新檔案")
         return css_path
     
     # 只有 CSS 不存在時才建立 (內嵌完整 CSS)
-    print(f"[[[[📄]]]] 建立 main.css (v{CSS_VERSION} 完整版)")
+    print(f"[[[[[📄]]]]] 建立 main.css (v{CSS_VERSION} 完整版)")
     css_content = """/* ============================================================
    AHPAL 統一全域樣式表 v1.3 — 完整修復版
    最後更新：2026-08-09
@@ -574,7 +574,7 @@ img { max-width: 100%; height: auto; }
     with open(css_path, "w", encoding="utf-8") as f:
         f.write(css_content)
     
-    print(f"[[[[✅]]]] 已建立 main.css (v{CSS_VERSION})：{css_path}")
+    print(f"[[[[[✅]]]]] 已建立 main.css (v{CSS_VERSION})：{css_path}")
     return css_path
 
 
@@ -584,12 +584,12 @@ img { max-width: 100%; height: auto; }
 
 GOOGLE_CSE = '''
 <div class="google-search" style="max-width: 800px; margin: 20px auto; padding: 16px; background: #F7F9FC; border-radius: 12px; border: 1px solid #E2E8F0;">
-    <h3 style="font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px;">[[[[🔍]]]] 站內搜尋</h3>
+    <h3 style="font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px;">[[[[[🔍]]]]] 站內搜尋</h3>
     <p style="font-size: 13px; color: #4A5568; margin-bottom: 12px;">搜尋雅寶社區 · 頂客論壇的所有文章</p>
     <form action="https://cse.google.com/cse" target="_blank" style="display:flex; gap:8px; flex-wrap:wrap;">
         <input type="hidden" name="cx" value="940a30ae4765c4e72">
         <input type="text" name="q" placeholder="輸入關鍵字搜尋..." style="flex:1; min-width:200px; padding:10px 16px; border-radius:8px; border:1px solid #E2E8F0; font-size:14px; outline:none;">
-        <button type="submit" style="padding:10px 24px; background:#005A9C; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; white-space:nowrap;">[[[[🔍]]]] 搜尋</button>
+        <button type="submit" style="padding:10px 24px; background:#005A9C; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; white-space:nowrap;">[[[[[🔍]]]]] 搜尋</button>
     </form>
     <p style="font-size:12px; color:#A0AEC0; margin-top:8px;">由 Google 提供技術支援</p>
 </div>
@@ -641,11 +641,11 @@ SITE_HEADER = '''<header class="site-header">
         <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
         <nav class="nav-links">
             <a href="/">首頁</a>
-            <a href="/categories.html">[[[[📚]]]] 全部分類</a>
-            <a href="/about.html">[[[[📖]]]] 關於我們</a>
+            <a href="/categories.html">[[[[[📚]]]]] 全部分類</a>
+            <a href="/about.html">[[[[[📖]]]]] 關於我們</a>
             <a href="/contact.html">📧 聯絡我們</a>
             <a href="/privacy-policy.html">🔒 隱私權政策</a>
-            <a href="/game/" class="game-link">[[[[🎮]]]] 遊戲間</a>
+            <a href="/game/" class="game-link">[[[[[🎮]]]]] 遊戲間</a>
         </nav>
     </div>
 </header>'''
@@ -655,12 +655,12 @@ SITE_FOOTER = '''<footer class="site-footer">
         <div class="copy">&copy; {year} 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
         <div class="footer-links">
             <a href="/">🏠 首頁</a>
-            <a href="/categories.html">[[[[📚]]]] 全部分類</a>
-            <a href="/about.html">[[[[📖]]]] 關於我們</a>
+            <a href="/categories.html">[[[[[📚]]]]] 全部分類</a>
+            <a href="/about.html">[[[[[📖]]]]] 關於我們</a>
             <a href="/contact.html">📧 聯絡我們</a>
             <a href="/privacy-policy.html">🔒 隱私權政策</a>
             <a href="/terms-of-service.html">📋 服務條款</a>
-            <a href="/sitemap.xml">[[[[📄]]]] Sitemap</a>
+            <a href="/sitemap.xml">[[[[[📄]]]]] Sitemap</a>
         </div>
     </div>
 </footer>
@@ -717,11 +717,11 @@ BRAND_LINK = '<p style="font-size:14px; color:#666; text-align:center; margin:10
 
 RELATED_ARTICLES_BLOCK = '''
 <div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
-    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">[[[[📖]]]] 相關文章推薦</h4>
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">[[[[[📖]]]]] 相關文章推薦</h4>
     <ul style="list-style:none;padding-left:0;margin:0;">
         <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
-        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">[[[[📚]]]] 查看全部分類</a></li>
-        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">[[[[🎮]]]] 雅寶遊戲間</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">[[[[[📚]]]]] 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">[[[[[🎮]]]]] 雅寶遊戲間</a></li>
     </ul>
 </div>
 '''
@@ -760,7 +760,7 @@ GISCUS_COMMENT = '''
      ============================================================ -->
 <div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
     <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-        [[[[💬]]]] 留言討論
+        [[[[[💬]]]]] 留言討論
     </h3>
     <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
         歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
@@ -804,11 +804,11 @@ GISCUS_COMMENT = '''
 # ============================================================
 CATEGORY_EMOJI_MAP = {
     "💻": "💻 3C 科技教學",
-    "[[[[🎮]]]]": "[[[[🎮]]]] 遊戲攻略",
+    "[[[[[🎮]]]]]": "[[[[[🎮]]]]] 遊戲攻略",
     "🏠": "🏠 生活小常識",
-    "[[[[📊]]]]": "[[[[📊]]]] 軟體評測",
+    "[[[[[📊]]]]]": "[[[[[📊]]]]] 軟體評測",
     "🌟": "🌟 人生哲理",
-    "[[[[🤖]]]]": "[[[[🤖]]]] AI 趨勢",
+    "[[[[[🤖]]]]]": "[[[[[🤖]]]]] AI 趨勢",
     "🎵": "🎵 音樂創作",
 }
 
@@ -914,15 +914,15 @@ def extract_category_from_content(html_content):
     if "音樂" in html_content or "歌曲" in html_content or "歌詞" in html_content:
         return "🎵 音樂創作"
     if "AI" in html_content or "人工智慧" in html_content:
-        return "[[[[🤖]]]] AI 趨勢"
+        return "[[[[[🤖]]]]] AI 趨勢"
     if "遊戲" in html_content:
-        return "[[[[🎮]]]] 遊戲攻略"
+        return "[[[[[🎮]]]]] 遊戲攻略"
     if "科技" in html_content or "3C" in html_content or "手機" in html_content:
         return "💻 3C 科技教學"
     if "生活" in html_content or "居家" in html_content or "收納" in html_content:
         return "🏠 生活小常識"
     if "評測" in html_content or "比較" in html_content or "軟體" in html_content:
-        return "[[[[📊]]]] 軟體評測"
+        return "[[[[[📊]]]]] 軟體評測"
     if "人生" in html_content or "哲理" in html_content or "成長" in html_content:
         return "🌟 人生哲理"
 
@@ -955,13 +955,13 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
     # 🆕 v7.0：檢查 CSS 是否存在，不存在則警告
     css_path = Path(OUTPUT_DIR) / "style" / "main.css"
     if not css_path.exists():
-        print(f"   [[[[⚠️]]]] main.css 不存在！請手動建立 style/main.css")
-        print(f"   [[[[📌]]]] 執行 generate_main_css() 可建立初始版本")
+        print(f"   [[[[[⚠️]]]]] main.css 不存在！請手動建立 style/main.css")
+        print(f"   [[[[[📌]]]]] 執行 generate_main_css() 可建立初始版本")
 
     if '<head>' in html_content:
         if 'main.css' not in html_content:
             html_content = html_content.replace('<head>', '<head>\n    ' + UNIFIED_CSS_LINK)
-            print("   [[[[✅]]]] 已加入統一 CSS 連結")
+            print("   [[[[[✅]]]]] 已加入統一 CSS 連結")
     else:
         html_content = UNIFIED_CSS_LINK + '\n' + html_content
 
@@ -972,7 +972,7 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
         schema = build_music_schema(keyword, video_id, category)
         if schema:
             html_content = html_content.replace('</head>', schema + '\n</head>')
-            print("   [[[[✅]]]] 已嵌入 MusicRecording Schema.org")
+            print("   [[[[[✅]]]]] 已嵌入 MusicRecording Schema.org")
 
     # ============================================================
     # 1. 提取標題與分類（優先使用傳入參數）
@@ -1008,10 +1008,10 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
 
     if '<body>' in html_content:
         html_content = html_content.replace('<body>', '<body>\n' + golden_header)
-        print(f"   [[[[✅]]]] 已插入黃金樣板 Header（標題：{title[:30]}...）")
+        print(f"   [[[[[✅]]]]] 已插入黃金樣板 Header（標題：{title[:30]}...）")
     else:
         html_content = golden_header + '\n' + html_content
-        print("   [[[[✅]]]] 已插入黃金樣板 Header")
+        print("   [[[[[✅]]]]] 已插入黃金樣板 Header")
 
     # ============================================================
     # 4. 品牌標示（避免重複）
@@ -1019,10 +1019,10 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
     if '<body>' in html_content:
         if '雅寶社區 · 頂客論壇 (AHPAL.COM)' not in html_content or '<a href="/"' not in html_content:
             html_content = html_content.replace('<body>', '<body>\n' + BRAND_LINK)
-            print("   [[[[✅]]]] 已強制加入品牌標示（可點擊回首頁）")
+            print("   [[[[[✅]]]]] 已強制加入品牌標示（可點擊回首頁）")
     else:
         html_content = BRAND_LINK + '\n' + html_content
-        print("   [[[[✅]]]] 已強制加入品牌標示（可點擊回首頁）")
+        print("   [[[[[✅]]]]] 已強制加入品牌標示（可點擊回首頁）")
 
     # ============================================================
     # 5. 🆕 v7.0：強制加入相關文章推薦 + Giscus + 返回首頁 + 返回頂部
@@ -1036,19 +1036,19 @@ def enhance_article_html(html_content, keyword=None, category=None, video_id=Non
 
         if '</body>' in html_content:
             html_content = html_content.replace('</body>', footer_components + '\n</body>')
-            print("   [[[[✅]]]] [v7.0] 已強制插入 Giscus 留言板與頁尾元件")
+            print("   [[[[[✅]]]]] [v7.0] 已強制插入 Giscus 留言板與頁尾元件")
         else:
             html_content = html_content + '\n' + footer_components
-            print("   [[[[✅]]]] [v7.0] 已強制插入頁尾元件（無 </body> 標籤）")
+            print("   [[[[[✅]]]]] [v7.0] 已強制插入頁尾元件（無 </body> 標籤）")
     else:
-        print("   [[[[ℹ️]]]] [v7.0] Giscus 已存在，跳過插入")
+        print("   [[[[[ℹ️]]]]] [v7.0] Giscus 已存在，跳過插入")
 
     # ============================================================
     # 6. 確保 AdSense 程式碼存在
     # ============================================================
     if 'pagead2.googlesyndication.com' not in html_content:
         html_content = html_content.replace('</head>', ADSENSE_CODE + '\n' + GA4_CODE + '\n</head>')
-        print("   [[[[✅]]]] 已加入 AdSense 程式碼")
+        print("   [[[[[✅]]]]] 已加入 AdSense 程式碼")
 
     return html_content
 
@@ -1068,21 +1068,21 @@ def build_article_html(keyword, category, raw_html, video_id=None):
 
 def create_default_index():
     """建立完整功能的首頁 index.html（完整版 — 含品牌介紹、分類索引、熱門文章）"""
-    print("[[[[📄]]]] 建立全新首頁 index.html...")
+    print("[[[[[📄]]]]] 建立全新首頁 index.html...")
 
     # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
     css_path = Path(OUTPUT_DIR) / "style" / "main.css"
     if not css_path.exists():
-        print(f"   [[[[⚠️]]]] main.css 不存在！請手動建立 style/main.css")
+        print(f"   [[[[[⚠️]]]]] main.css 不存在！請手動建立 style/main.css")
 
     category_dirs = {
         "history": "📜 歷史腦洞",
         "tech": "💻 3C 科技教學",
-        "game": "[[[[🎮]]]] 遊戲攻略",
+        "game": "[[[[[🎮]]]]] 遊戲攻略",
         "life": "🏠 生活小常識",
-        "review": "[[[[📊]]]] 軟體評測",
+        "review": "[[[[[📊]]]]] 軟體評測",
         "philosophy": "🌟 人生哲理",
-        "trend": "[[[[🤖]]]] AI 趨勢",
+        "trend": "[[[[[🤖]]]]] AI 趨勢",
         "music": "🎵 音樂創作",
     }
 
@@ -1140,7 +1140,7 @@ def create_default_index():
                             content = file.read()
                             title = extract_clean_title(content, f)
                     except Exception as e:
-                        print(f"   [[[[⚠️]]]] 讀取文章失敗：{f} - {e}")
+                        print(f"   [[[[[⚠️]]]]] 讀取文章失敗：{f} - {e}")
                         title = f.replace(".html", "").replace("-", " ").title()
 
                     mtime = os.path.getmtime(file_path)
@@ -1192,7 +1192,7 @@ def create_default_index():
 
     for cat_dir, cat_name in category_dirs.items():
         count = article_counts.get(cat_dir, 0)
-        icon = cat_name.split()[0] if cat_name else "[[[[📁]]]]"
+        icon = cat_name.split()[0] if cat_name else "[[[[[📁]]]]]"
         index_html += f'''                        <a href="/category-{cat_dir}.html" class="category-card">
                             <span class="icon">{icon}</span>
                             <span class="name">{cat_name}</span>
@@ -1203,13 +1203,13 @@ def create_default_index():
     index_html += f'''                </div>
 
                     <a href="/game/" class="game-entry-card">
-                        <span class="emoji">[[[[🎮]]]]</span>
+                        <span class="emoji">[[[[[🎮]]]]]</span>
                         <span class="title">雅寶遊戲間</span>
                         <span class="desc">閱讀之餘，放鬆一下！2048、數獨，免下載即開即玩</span>
-                        <span class="badge">[[[[🎯]]]] 立即遊玩 →</span>
+                        <span class="badge">[[[[[🎯]]]]] 立即遊玩 →</span>
                     </a>
 
-                    <h2 class="section-title">[[[[📌]]]] 最新文章 <small>持續更新中</small></h2>
+                    <h2 class="section-title">[[[[[📌]]]]] 最新文章 <small>持續更新中</small></h2>
                     <ul id="article-list">
 '''
 
@@ -1222,7 +1222,7 @@ def create_default_index():
     index_html += f'''                    </ul>
 
                     <div class="index-section">
-                        <h2 class="section-title">[[[[📖]]]] 全部分類索引 <small>共 {total_count} 篇文章</small></h2>
+                        <h2 class="section-title">[[[[[📖]]]]] 全部分類索引 <small>共 {total_count} 篇文章</small></h2>
 '''
 
     for cat_dir, cat_name in category_dirs.items():
@@ -1240,7 +1240,7 @@ def create_default_index():
 
     index_html += f'''                    </div>
 
-                    <p style="text-align:center; margin-top:20px;"><a href="/categories.html" style="color:#005A9C; font-weight:500;">[[[[📚]]]] 查看全部分類</a></p>
+                    <p style="text-align:center; margin-top:20px;"><a href="/categories.html" style="color:#005A9C; font-weight:500;">[[[[[📚]]]]] 查看全部分類</a></p>
                 </div>
                 {GOOGLE_CSE}
             </div>
@@ -1250,13 +1250,13 @@ def create_default_index():
             <div class="widget">
                 <h3>⚖️ 關於本站</h3>
                 <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。從歲月記憶到知識共創，我們相信：<strong>誠實守信，是文明社會永恆的基石。</strong></p>
-                <p style="margin-top:8px;"><a href="/about.html" style="color:#005A9C;font-weight:500;">[[[[📖]]]] 了解更多 →</a></p>
+                <p style="margin-top:8px;"><a href="/about.html" style="color:#005A9C;font-weight:500;">[[[[[📖]]]]] 了解更多 →</a></p>
             </div>
 
             <div class="widget">
-                <h3>[[[[🎮]]]] 雅寶遊戲間</h3>
+                <h3>[[[[[🎮]]]]] 雅寶遊戲間</h3>
                 <p style="font-size:13px; margin-bottom:12px;">閱讀之餘，放鬆一下！免下載、即開即玩。</p>
-                <a href="/game/" style="display:inline-block; background:#005A9C; color:white; padding:8px 20px; border-radius:20px; text-decoration:none; font-size:14px; font-weight:500;">[[[[🎮]]]] 進入遊戲間</a>
+                <a href="/game/" style="display:inline-block; background:#005A9C; color:white; padding:8px 20px; border-radius:20px; text-decoration:none; font-size:14px; font-weight:500;">[[[[[🎮]]]]] 進入遊戲間</a>
             </div>
 
             <div class="widget">
@@ -1274,15 +1274,15 @@ def create_default_index():
                 <h3>🏷️ 分類標籤</h3>
                 <div class="tag-cloud">
                     <a href="/category-tech.html">💻 3C</a>
-                    <a href="/category-game.html">[[[[🎮]]]] 遊戲</a>
+                    <a href="/category-game.html">[[[[[🎮]]]]] 遊戲</a>
                     <a href="/category-life.html">🏠 生活</a>
-                    <a href="/category-review.html">[[[[📊]]]] 評測</a>
+                    <a href="/category-review.html">[[[[[📊]]]]] 評測</a>
                     <a href="/category-philosophy.html">🌟 哲理</a>
-                    <a href="/category-trend.html">[[[[🤖]]]] AI</a>
+                    <a href="/category-trend.html">[[[[[🤖]]]]] AI</a>
                     <a href="/category-music.html">🎵 音樂</a>
-                    <a href="/game/">[[[[🎮]]]] 遊戲間</a>
-                    <a href="/categories.html">[[[[📚]]]] 全部分類</a>
-                    <a href="/about.html">[[[[📖]]]] 關於我們</a>
+                    <a href="/game/">[[[[[🎮]]]]] 遊戲間</a>
+                    <a href="/categories.html">[[[[[📚]]]]] 全部分類</a>
+                    <a href="/about.html">[[[[[📖]]]]] 關於我們</a>
                     <a href="/contact.html">📧 聯絡我們</a>
                 </div>
             </div>
@@ -1299,7 +1299,7 @@ def create_default_index():
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(index_html)
 
-    print(f"[[[[✅]]]] 首頁已建立：{index_path} (共 {len(latest_articles)} 篇文章)")
+    print(f"[[[[[✅]]]]] 首頁已建立：{index_path} (共 {len(latest_articles)} 篇文章)")
     return index_path
 
 
@@ -1309,12 +1309,12 @@ def create_default_index():
 
 def generate_categories_page():
     """建立完整的分類入口頁 categories.html"""
-    print("[[[[📄]]]] 建立統一分類入口頁 categories.html...")
+    print("[[[[[📄]]]]] 建立統一分類入口頁 categories.html...")
 
     # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
     css_path = Path(OUTPUT_DIR) / "style" / "main.css"
     if not css_path.exists():
-        print(f"   [[[[⚠️]]]] main.css 不存在！請手動建立 style/main.css")
+        print(f"   [[[[[⚠️]]]]] main.css 不存在！請手動建立 style/main.css")
 
     from src.config import CATEGORIES as CATEGORIES_CONFIG
 
@@ -1323,7 +1323,7 @@ def generate_categories_page():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[[[[📚]]]] 全部分類 - 雅寶社區 · 頂客論壇</title>
+    <title>[[[[[📚]]]]] 全部分類 - 雅寶社區 · 頂客論壇</title>
     <meta name="description" content="雅寶社區 · 頂客論壇 — 七大知識分類總覽。">
     {ADSENSE_CODE}
     {GA4_CODE}
@@ -1336,7 +1336,7 @@ def generate_categories_page():
         <div class="main-content">
             <div class="container">
                 <div class="content-card">
-                    <h1>[[[[📚]]]] 全部分類</h1>
+                    <h1>[[[[[📚]]]]] 全部分類</h1>
                     <p class="hero-desc" style="font-size:15px; color:#4A5568; margin-bottom:20px;">七大知識領域，超過 400 篇精選文章，讓你一次掌握。</p>
                     <div class="category-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
 '''
@@ -1346,7 +1346,7 @@ def generate_categories_page():
         count = 0
         if os.path.exists(dir_path):
             count = len([f for f in os.listdir(dir_path) if f.endswith('.html')])
-        icon = cat_info['name'].split()[0] if cat_info['name'] else "[[[[📁]]]]"
+        icon = cat_info['name'].split()[0] if cat_info['name'] else "[[[[[📁]]]]]"
         html_content += f'''
                         <a href="/category-{cat_id}.html" class="category-card">
                             <span class="icon">{icon}</span>
@@ -1363,9 +1363,9 @@ def generate_categories_page():
         </div>
         <div class="sidebar">
             <div class="widget">
-                <h3>[[[[📊]]]] 本站統計</h3>
+                <h3>[[[[[📊]]]]] 本站統計</h3>
                 <ul>
-                    <li>[[[[📝]]]] 文章總數：{sum(1 for _ in Path(OUTPUT_DIR).rglob('*.html') if _.name not in ['index.html','404.html','categories.html'])} 篇</li>
+                    <li>[[[[[📝]]]]] 文章總數：{sum(1 for _ in Path(OUTPUT_DIR).rglob('*.html') if _.name not in ['index.html','404.html','categories.html'])} 篇</li>
                     <li>📂 分類數量：{len(CATEGORIES_CONFIG)} 類</li>
                     <li>📅 更新日期：{CURRENT_DATE_STR}</li>
                 </ul>
@@ -1381,7 +1381,7 @@ def generate_categories_page():
 
     with open(os.path.join(OUTPUT_DIR, "categories.html"), "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("[[[[✅]]]] 統一分類入口頁 categories.html 建立完成！")
+    print("[[[[[✅]]]]] 統一分類入口頁 categories.html 建立完成！")
 
 
 # ============================================================
@@ -1390,14 +1390,14 @@ def generate_categories_page():
 
 def generate_category_pages():
     """生成各分類的獨立頁面（與原 ahpal_generator.py 相容）"""
-    print("[[[[📄]]]] 正在生成分類頁面...")
+    print("[[[[[📄]]]]] 正在生成分類頁面...")
 
     from src.config import CATEGORIES as CATEGORIES_CONFIG
 
     # 🆕 v7.0：僅檢查 CSS 是否存在，不自動生成
     css_path = Path(OUTPUT_DIR) / "style" / "main.css"
     if not css_path.exists():
-        print(f"   [[[[⚠️]]]] main.css 不存在！請手動建立 style/main.css")
+        print(f"   [[[[[⚠️]]]]] main.css 不存在！請手動建立 style/main.css")
 
     for cat_id, cat_info in CATEGORIES_CONFIG.items():
         page_path = os.path.join(OUTPUT_DIR, f"category-{cat_id}.html")
@@ -1440,7 +1440,7 @@ def generate_category_pages():
                     <p class="hero-desc" style="font-size:15px; color:#4A5568;">{cat_info['desc']}</p>
                     <p style="font-size:14px; color:#718096; margin-bottom:16px;">共 {len(articles)} 篇文章</p>
 
-                    <h2>[[[[📖]]]] 全部文章</h2>
+                    <h2>[[[[[📖]]]]] 全部文章</h2>
                     <ul id="article-list">
 '''
 
@@ -1476,6 +1476,6 @@ def generate_category_pages():
 '''
         with open(page_path, "w", encoding="utf-8") as f:
             f.write(html_content)
-        print(f"   [[[[✅]]]] 生成分類頁面：category-{cat_id}.html（{len(articles)} 篇文章）")
+        print(f"   [[[[[✅]]]]] 生成分類頁面：category-{cat_id}.html（{len(articles)} 篇文章）")
 
-    print("[[[[✅]]]] 所有分類頁面生成完畢！")
+    print("[[[[[✅]]]]] 所有分類頁面生成完畢！")

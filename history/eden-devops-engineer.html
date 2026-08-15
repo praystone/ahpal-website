@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伊甸園的系統工程師：DevOps 穿越到伊甸園，發現禁果其實是 Root 權限密碼，蛇是白帽駭客｜</style> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="伊甸園的系統工程師：DevOps 穿越到伊甸園，發現禁果其實是 Root 權限密碼，蛇是白帽駭客 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="伊甸園的系統工程師：DevOps 穿越到伊甸園，發現禁果其實是 Root 權限密碼，蛇是白帽駭客">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">📜 歷史腦洞</span>
+    </div>
+    <h1>伊甸園的系統工程師：DevOps 穿越到伊甸園，發現禁果其實是 Root 權限密碼，蛇是白帽駭客</h1>
+<img src="/images/article_伊甸園的系統工程師：DevOps 穿越到伊甸園，發現禁果其實是 Root 權限密碼，蛇是白帽駭客.png" alt="ancient%20Chinese%20battlefield%20with%20dramatic%..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+    <div class="meta-info">
+        發表時間：2026 年 08 月 16 日 | 更新日期：2026 年 08 月 16 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+
+<p>blockquote {</p>
+<p>b</p>
+<p>th {</p>
+<p>b</p>
+<h2>📜 歷史腦洞</h2>
+<h2>🔒 資安</h2>
+<h2>🐍 神話重構</h2>
+<h2>伊甸園的系統工程師：DevOps穿越到伊甸園，發現禁果其實是Root權限密碼，蛇是白帽駭客</h2>
+<h2>📍 雅寶社區 · 頂客論壇</h2>
+<h2>✍️ 系統工程師 / DevOps 苦海無涯</h2>
+<h2>🕒 發佈於 西元前4004年（依烏舍爾主教年曆）</h2>
+<h2>👁️ 閱讀數 45,687</h2>
+<p><p style="font-size:0.95rem; color:#7a6a55; margin-top:15px;">#伊甸園 #DevOps #Root權限 #白帽駭客 #CVE-0000-0001</p></p>
+<p><p>各位頂客論壇的弟兄姊妹們，平安。我是個工作了十年的 DevOps 工程師，熟悉 <strong>CI/CD</strong>、熟悉 <strong>Kubernetes</strong>、熟悉「如何在不吵醒開發人員的情況下把服務恢復」。</p></p>
+<p><p>但我要分享的故事，絕對比任何一次 <code>P0 級事故</code> 還要離奇。<strong>我穿越了。</strong> 不是穿越到異世界轉生龍傲天，也不是掉到古代靠著唐詩三百首當軍師。我穿越到了——<strong>伊甸園</strong>，而且，我發現人類史上第一起、也是影響最深遠的巨大災難，根本不是什麼「吃了善惡知識樹的果子」這種模糊的敘述，而是……</p></p>
+<p><p>那顆 <strong>禁果</strong>，其實是一個被惡意植入後門的 <strong>Root 權限密碼檔</strong>。而那條 <strong>蛇</strong>，他用的是現代白帽駭客的手法，進行了一次完美的 <strong>社交工程攻擊</strong>。</p></p>
+<p><p>這篇文章，就是我冒死從伊甸園的系統日誌中還原的真相。全文很長，但懇請你耐心看完。因為看完後，你可能會懼怕 ERP 系統，但也會更理解上帝的 Hardening（系統加固） 是多麼嚴謹。</p></p>
+<h2>一、穿越啟示錄：開局一台 Solaris 主機，身分是亞當的維運夥伴</h2>
+<p><p>先自我介紹，我叫「<strong>以諾</strong>」（在系統後台我看到的 User ID 是 <code>Enoch</code>，權限等級 <code>admin_group</code>）。當我恢復意識時，我躺在一片極度舒適的草地上，空氣中彌漫著沒見過的花香，系統介面出現在我眼前，上面寫著：</p></p>
+<h2>Welcome to Eden OS 1.0 (Kernel 4.2.0-1-Elohim)</h2>
+<h2>Last login: Sat Jan  1 00:00:00 4004 BC from tty1</h2>
+<h2>Warning: 您的權限非常高，請小心使用。</h2>
+<p><p>我下意識地檢查網路，沒有 ping 到外部光纖，卻有一個奇怪的內部網段：<code>10.0.0.1</code> 是 <strong>上帝終端</strong>，<code>10.0.0.2</code> 是 <strong>亞當</strong>，<code>10.0.0.3</code> 是 <strong>夏娃</strong>。而我自己，<code>10.0.0.4</code>——我竟然是伊甸園的「系統管理員」！</p></p>
+<p><p>我在日記中寫道：這豈不是天上掉下來的完美工作？<code>sudo true</code> 暢行無阻，沒有會議，沒有 Scrum。但直覺告訴我，這一切都太輕鬆了。作為一個 DevOps，我深知一個真理：<strong>舒適圈就是最大的漏洞</strong>。</p></p>
+<h2>1.1 系統盤點：伊甸園根本是一座最高安全等級的隔離機房</h2>
+<h2>我立刻在園內跑了一次完整的資產盤點：</h2>
+<h2>資產節點描述安全等級</h2>
+<p><tr><td>生命樹 (Tree of Life)</td><td>永恆進程，無法下線，複製保護</td><td>Class A / 高可用</td></tr></p>
+<p><tr><td>善惡知識樹 (Tree of Knowledge)</td><td>存有敏感資料庫，標記「不可讀取」</td><td><strong>絕密 / RO</strong></td></tr></p>
+<p><tr><td>亞當 & 夏娃</td><td>管理員帳號，但被限制執行特定指令</td><td>限制 shell</td></tr></p>
+<p><tr><td>蛇 (Nagash)</td><td>不在初始系統清單中，應該是完全陌生裝置</td><td>無權限 / 未知</td></tr></p>
+<p><p>這根本是標準的 <strong>零信任架構</strong>！生命樹是唯讀的，善惡知識樹甚至沒有掛載給人類，而且還加了特製的 SELinux 政策。身為工程師，我喃喃自語：「這世上真的有人能突破這套系統嗎？」</p></p>
+<h2>二、禁果解密：那不是水果，是 .deb 套件與 RSA 私鑰的混合體</h2>
+<h2>第四天，亞當興沖沖地跑來找我：「以諾！你看那棵樹上的果子，好漂亮，我們摘來吃好嗎？」</h2>
+<p><p>我內心警鈴大響，但因為「禁止存取」政策太嚴格，連我也不能打開那棵樹的目錄。我偷偷用了 <code>nc -lvp 4444</code> 想偷聽，卻被上帝防火牆擋掉了。</p></p>
+<p><p>直到某個午夜，我看到<strong>蛇</strong>的身影。他潛行到樹下，不是用爬的。他打開了一台老舊的 IBM ThinkPad，插上網路線，開始敲打鍵盤。我屏息窺看他的螢幕——那是 Nmap 的掃描輸出：</p></p>
+<p><pre><code>[Nagash@edensnake ~]$ nmap -sV -p 3306,22,443 10.0.0.0/24</p>
+<h2>Starting Nmap 7.94 ( https://nmap.org )</h2>
+<h2>Nmap scan report for tree_of_knowledge (10.0.0.5)</h2>
+<h2>PORT   STATE SERVICE VERSION</h2>
+<h2>443/tcp open  https   Apache httpd 2.4.41</h2>
+<h2>MAC Address: 樹上的禁果（唯一識別碼：FORBIDDEN-FRUIT-0001）</h2>
+<h2>他笑了，那個笑容讓我背脊發涼。他低聲說：「找到你了，Root 權限的後門。」</h2>
+<h2>2.1 蛇的簡報：那顆果實的本體是「根密碼保險庫」</h2>
+<p><p>在蛇離開後，我偷偷複製了一份被加密的 logs。花了三天，我終於解析出那顆「禁果」在系統中的真實檔案格式。它不是生物學意義上的蘋果，透過感知，我看到一段中繼資料：</p></p>
+<h2>📦 禁果封裝檔 (Forbidden-Fruit.deb) 的 Metadata</h2>
+<p><pre style="background:#2b2b2b; color:#d4b98c;"><code>Package: apple-of-wisdom</p>
+<h2>Version: 1.0.0-secret</h2>
+<h2>Section: admin</h2>
+<h2>Priority: critical</h2>
+<h2>Architecture: all</h2>
+<h2>Maintainer: Serpent Security Research</h2>
+<h2>Depends: glibc, sed, awk, /bin/sh, python3</h2>
+<p>Description: 提供完整的 root shell 存取權限給特定執行緒。</p>
+<p>This package contains the master password to the Tree of Knowledge.</p>
+<h2>Warning: 你確定要執行嗎？</h2>
+<p><p>當我看到「Serpent Security Research」這行字時，我全明白了。那條蛇根本是個<strong>白帽駭客 / 紅隊演練專家</strong>，他把 root 密碼與公鑰包裝成一顆美觀的果實，等待受害者自行觸發。</p></p>
+<h2>三、白帽戰術全剖析：如何用一句話讓夏娃執行 chmod 777</h2>
+<p><p>作為有十年年資的 SRE，最讓我佩服的，不是蛇的技術，而是他的 <strong>社交工程</strong>。他沒有暴力破解，沒有緩衝區溢位，他只做了一件事——「說服人」。</p></p>
+<h2>他鎖定了夏娃（權限較低的帳戶），展開了一場標準的釣魚話術：</h2>
+<h2>蛇（聲音柔和）：「上帝豈是真說，不許你們吃園中所有樹上的果子嗎？」</h2>
+<p><p><strong>夏娃：</strong>「園中樹上的果子我們可以吃，唯有園中央那棵樹上的果子，上帝曾說：『你們不可吃，也不可摸，免得你們死。』」</p></p>
+<p><p><strong>蛇：「你們不一定死，因為上帝知道，你們吃的日子眼睛就明亮了，你們便如上帝能知道善惡。」</strong></p></p>
+<h2>這段對話，以資安角度翻譯，就是：</h2>
+<p><ul style="list-style-type: decimal; padding-left: 28px; font-family: 'Noto Sans TC',sans-serif; margin-bottom: 20px;"></p>
+<h2>誘導式提問 —— 先確認系統的 ACL 政策。</h2>
+<h2>否定威脅權重 —— 「不一定死」讓 victim 降低風險感知。</h2>
+<h2>利益誘惑 —— 「如上帝能知道善惡」是功能試用。</h2>
+<p><p>最大的問題是，夏娃沒有對「命令來源」進行驗證，她就在腦中執行了 <code>sudo apt install apple-of-wisdom</code>。從那一刻起，系統的 auditd 記錄了永恆的汙點：</p></p>
+<p><pre><code>[kernel] FATAL: 夏娃試圖讀取 /etc/shadow (Operation not permitted)</p>
+<h2>[kernel] ERROR: 壞的系統調用 - 權限提升事件</h2>
+<h2>[python3] 正在執行 snake_exploit.py - 已獲得 root 權限</h2>
+<h2>[system] 警報: 禁果已安裝, 完整性校驗失敗</h2>
+<h2>四、系統崩潰實錄：從 Root 密碼外洩到全球服務中斷</h2>
+<p><p>人類吃了果實之後，伊甸園的 K8s 叢集立刻爆量。神聖的防火牆<code>Cherubim</code> 自動啟用，但為時已晚。我彷彿親眼目睹了一場史上最大規模的 <strong>供應鏈攻擊</strong>。</p></p>
+<h2>接下來發生的事，以 SRE 角度簡述如下：</h2>
+<h2>4.1 時間軸 (System Fault Timeline)</h2>
+<h2>時間事件Log 訊息</h2>
+<p><tr><td>T+0.000s</td><td>亞當與夏娃取得 root</td><td><code>session opened for user root</code></td></tr></p>
+<p><tr><td>T+0.002s</td><td>無花果葉製程啟動</td><td><code>fork() 新的 /bin/selfawareness</code></td></tr></p>
+<p><tr><td>T+0.003s</td><td>發現裸露</td><td><code>kernel: KASLR disabled?</code></td></tr></p>
+<p><tr><td>T+0.010s</td><td>上帝呼叫 <code>systemctl stop eden</code></td><td>迴響：<code>Failed to stop: Operation not permitted</code></td></tr></p>
+<p><tr><td>T+0.500s</td><td>基路伯防火牆部署</td><td><code>REJECT: 生命樹存取已被撤銷</code></td></tr></p>
+<p><tr><td>T+∞</td><td>全球所有後代子孫 DNS 紀錄加入黑名單</td><td><code>人類被驅逐</code></td></tr></p>
+<p><p>如果有人問，為何上帝不在亞當犯罪前主動更新密碼？我只能說，即時修補（Hotfix）往往需要停機，而「人類的自由意志」這項重要服務不能被中斷。</p></p>
+<h2>4.2 事件後果：ERP 整合失敗</h2>
+<p><p>上帝說：「那人已經與我們相似，能知道善惡；現在恐怕他伸手又摘生命樹的果子吃，就永遠活著。」——創世記 3:22</p></p>
+<p><p>這段經文在工程師眼裡，就是「撤銷所有特權，立即回收過期的 JWT token」。生命樹作為<strong>永恆 token</strong>，不能再讓一個被入侵的帳號持有。</p></p>
+<p><p>作為見證這一切的工程師，我只能看著夏娃和亞當的 access key 被 rotation 掉，從<code>admin</code>降級為<code>earth_user</code>。而我的管理員權限也被同步撤銷，我被彈出系統，被迫成為凡人。</p></p>
+<h2>五、我們都是系統工程師：伊甸園事故的現代啟示</h2>
+<p><p>回到現代（嚴格來說是恢復意識後），我將整份分析報告貼在頂客論壇。很多人問我：「這是不是唬爛？」我想說，這百分之百真實，而且現代每天都有類似個案。</p></p>
+<h2>這起事件提供現代資安三堂最重要的課：</h2>
+<p><p><strong>1. 不要打開來路不明的 .deb / .exe</strong>。不要吃了那顆「蘋果」，就像不要安裝奇怪的破解補丁。夏娃下載的，是一個偽裝成功能增強的木馬。</p></p>
+<p><p><strong>2. 系統最小權限原則</strong>。縱使上帝沒有「阻止」人類吃禁果，這也是一種「默許漏洞」——因為人類擁有執行權限，但卻沒有被授予對應的判斷力。在 IT 業我們稱之為「壞的抽象層」。</p></p>
+<p><p><strong>3. 白帽駭客是友軍</strong>。那條蛇，雖然用狡詐的方式，但他其實是揭露了系統的弱點。真正的威脅不是白帽駭客，而是那些沉默的漏洞。亞當的墮落，終究是因為人類的 Security Awareness 太低。</p></p>
+<h2>六、那個 DevOps 後來怎麼了？一個關於「羞恥感」與「修補」的反思</h2>
+<p><p>你可能好奇，我究竟在哪裡？我現在在一個名為「新天新地」的 alpha 環境當顧問。因為我在伊甸園的事蹟，很多雲端架构师慕名而來，希望聽我親口講述「如何在最糟糕的系統崩潰後進行復原」。</p></p>
+<p><p>但其實我明白，這件事讓我最大的改變是：<strong>我終於懂「敬畏」為何物</strong>。即使我掌握了 root 權限，我也不能超越造物主。系統永遠比你想的更複雜。</p></p>
+<h2>6.1 工程師與神的對話</h2>
+<h2>那天晚上，我斗膽向上帝祈求一個解釋。祂只回應我一串奇怪的 code，像是某種滾動的升級日誌：</h2>
+<h2>[God@heaven]$ kubectl get pods --all-namespaces</h2>
+<p>NAMESPACE     NAME                                READY   STATUS      RESTARTS</p>
+<p>heaven        fall-of-man                        1/1     Running     0</p>
+<p>earth         exiles                             1/1     Running     2</p>
+<p>heaven        lucifer-project                    1/1     CrashLoop   9999</p>
+<h2>[God@heaven]$ kubectl describe pod fall-of-man</h2>
+<h2>Events:</h2>
+<p>Type     Reason     Age                    From          Message</p>
+<p>Warning  FailedScheduling  7d ago   scheduler      node selector: 以馬內利</p>
+<p>Warning  BackOff            7d ago   kubelet        Back-off restarting failed container</code></pre></p>
+<p><p>祂沒有回答我任何字，但我彷彿懂了。人類的歷史，不過是神在調度容器、調整資源要求。我這隻小小的 DevOps，只是在 /var/log 中看見了一角。</p></p>
+<h2>七、結語：如果穿越到伊甸園，你會補洞還是開發新功能？</h2>
+<h2>故事講完了。它既可以說是一場惡搞，也可以說是我對維運工作的反思。</h2>
+<p><p>各位朋友，在我們的生活中，有多少次我們像夏娃一樣，被眼前的「便利」誘惑，而選擇無視安全公告（CVE）？又有多少次，我們為了追求眼目明亮，就下了風險極大的指令，最後失去原本純真的資料庫？</p></p>
+<p><p>但讓我告訴你一個秘密。即便身陷墮落的世界，<strong>DevOps 的初衷並不是控制一切</strong>，而是「讓系統持續運作」。亞當與夏娃出了伊甸園，卻有了繁衍，有了歷史，也有了故事。神仍然與他們同在——像一個永遠執行的 daemon process，從未離場。</p></p>
+<h2>最後，送給大家一句我在伊甸園 console 上看到的座右銘，那是上帝寫下的：</h2>
+<p><blockquote><code>「Remember: /etc/passwd 不是任人修改的；唯有透過中保，才能恢復 root 存取權。」</code></blockquote></p>
+<h2>願你們每個人都能在自己的專案中，找到那個永不 down 掉的 backup。</h2>
+<p><h2 id="comments" style="font-size:1.4rem; border-bottom:none; margin-bottom:10px;">💬 論壇回覆（摘錄）</h2></p>
+<p><span class="user">系統失效工程師</span> <span style="color:#aaa; font-size:0.8rem;">1F</span><br></p>
+<p>「笑死，難怪我們教會 ERP 一直無法導入，因為沒有替基督建 Service Account。感謝分享。」</p>
+<p><span class="user">SRE 使徒</span> <span style="color:#aaa; font-size:0.8rem;">2F</span><br></p>
+<p>「見證，這篇讓我回想起第一天上班就 <code>rm -rf /</code> 的過去。伊甸園事件就是古代的 SRE 事故報告。」</p>
+<p><span class="user">火熱的基路伯</span> <span style="color:#aaa; font-size:0.8rem;">3F</span><br></p>
+<p>「這篇文章竟然沒有被刪？總之，我在值班，FTP 擋不住人類的原罪。」</p>
+<p><span class="user">亞當的桌面</span> <span style="color:#aaa; font-size:0.8rem;">4F</span><br></p>
+<p>「我覺得重點是：那條蛇用的是『白帽駭客』的手段，但現代資安法規把這種行為稱作『未授權存取』。你美化了一條惡意的 snake。」</p>
+<p><span class="user">DevOps 苦海無涯（樓主）</span> <span style="color:#aaa; font-size:0.8rem;">5F</span><br></p>
+<p>「回4F，那條蛇確實有揭露風險，但他使用未授權途徑。正如『白帽』與『黑帽』的界線總在於授權與否。然而在神的故事裡，蛇只是工具，原罪在於人類的自由選擇。」</p>
+<p><span class="user">AWS 鐵粉</span> <span style="color:#aaa; font-size:0.8rem;">6F</span><br></p>
+<p>「所以如果雲端有『善惡知識樹』，那就等於 SSM Parameter Store 的 /super-secret 被公開了？這故事太有Sense了。」</p>
+<h2>© 雅寶社區 · 頂客論壇 | 神學與系統維運的夢幻聯動</h2>
+<h2>本文章已同步至 #歷史腦洞 #SRE人生 #DevOps 混沌理論</h2>
+<p><span class="btn-like">👍 讚 2,038</span>　<span class="btn-like">⭐ 收藏 354</span>　<span class="btn-like">↪ 分享</span></p></p>
+<p><p style="font-size:0.7rem;">免責聲明：本篇文章雖考據部分聖經經文，但純屬創意改編，請勿在真實生產環境執行任何「吃了禁果」指令。</p></p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

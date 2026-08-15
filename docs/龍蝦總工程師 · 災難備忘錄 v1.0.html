@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龍蝦總工程師 · 災難備忘錄 v1.0</title>
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #D4AF37;
+            --bg: #1A1A1A;
+            --card: #2D2D2D;
+            --text: #E8E8E8;
+            --text-muted: #A0A0A0;
+            --border: #444444;
+            --shadow: 0 4px 20px rgba(0,0,0,0.5);
+            --radius: 12px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            --mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: var(--font); 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.8; 
+            font-size: 16px; 
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card { 
+            background: var(--card); 
+            padding: 30px 35px; 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            margin-bottom: 24px; 
+            border: 1px solid var(--border);
+        }
+        .header {
+            text-align: center;
+            padding: 30px 0 20px 0;
+            border-bottom: 3px solid var(--secondary);
+            margin-bottom: 30px;
+        }
+        .header .logo { font-size: 32px; font-weight: 700; color: var(--secondary); }
+        .header .logo span { color: #FF6B6B; }
+        .header .subtitle { font-size: 16px; color: var(--text-muted); margin-top: 4px; }
+        .header .version { 
+            display: inline-block; 
+            background: var(--primary); 
+            color: white; 
+            padding: 4px 20px; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            margin-top: 10px;
+        }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+        h2 { 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: var(--secondary); 
+            margin: 28px 0 16px 0; 
+            padding-bottom: 8px; 
+            border-bottom: 2px solid var(--border);
+        }
+        h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 20px 0 10px 0; }
+        h4 { font-size: 16px; font-weight: 600; color: var(--text-muted); margin: 16px 0 8px 0; }
+
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th, table td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+        table th { background: var(--primary); color: white; font-weight: 600; }
+        table tr:nth-child(even) { background: #3A3A3A; }
+        table tr:hover { background: #4A4A4A; }
+
+        .code-block { 
+            background: #0D0D0D; 
+            color: #E8E8E8; 
+            border-radius: 10px; 
+            padding: 16px 20px; 
+            margin: 12px 0 16px 0; 
+            overflow-x: auto; 
+            border: 1px solid var(--border); 
+            font-family: var(--mono); 
+            font-size: 14px; 
+            line-height: 1.7; 
+            white-space: pre-wrap; 
+            word-break: break-all;
+        }
+        .inline-code { 
+            background: #3A3A3A; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-family: var(--mono); 
+            font-size: 13px; 
+            border: 1px solid var(--border);
+            color: #FFD700;
+        }
+
+        .tip { 
+            padding: 16px 20px; 
+            border-radius: 10px; 
+            margin: 12px 0 16px 0; 
+            border-left: 4px solid; 
+        }
+        .tip.danger { background: #3D1A1A; border-color: #FF4444; color: #FF6B6B; }
+        .tip.warning { background: #3D3D1A; border-color: #FFD700; color: #FFD700; }
+        .tip.success { background: #1A3D1A; border-color: #44FF44; color: #6BFF6B; }
+        .tip.info { background: #1A2A3D; border-color: #4488FF; color: #6BB5FF; }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+
+        .error-box {
+            border: 2px solid #FF4444;
+            background: #2A0A0A;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 16px 0;
+            position: relative;
+        }
+        .error-box::before {
+            content: "⚠️ 錯誤記錄";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #FF4444;
+            color: white;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .error-box .error-title { font-size: 16px; font-weight: 700; color: #FF6B6B; margin-top: 6px; margin-bottom: 8px; }
+
+        .timestamp {
+            display: inline-block;
+            background: #3A3A3A;
+            color: var(--text-muted);
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-family: var(--mono);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        .footer .brand { color: var(--secondary); font-weight: 600; }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge.danger { background: #FF4444; color: white; }
+        .badge.warning { background: #FFD700; color: #1A1A1A; }
+        .badge.success { background: #44FF44; color: #1A1A1A; }
+
+        .emoji-big { font-size: 48px; display: block; text-align: center; margin: 10px 0; }
+
+        @media (max-width: 768px) {
+            .header .logo { font-size: 24px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            .card { padding: 20px 16px; }
+            table th, table td { padding: 6px 10px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">🦞 龍蝦總工程師 · <span>災難備忘錄</span></div>
+        <div class="subtitle">血淚交織的 24 小時 — 從 Emoji 地獄到產線復活</div>
+        <div class="version">📌 版本 v1.0 · 2026 年 8 月 16 日</div>
+    </div>
+
+    <!-- ============================================================
+    開場白
+    ============================================================ -->
+    <div class="card">
+        <div class="emoji-big">💀</div>
+        <h1 style="text-align:center; color:#FF6B6B;">2026-08-15 · 黑暗 24 小時</h1>
+        <p style="text-align:center; color:var(--text-muted);">
+            以下記錄了從 2026-08-15 到 2026-08-16 期間，AHPAL 系統遭遇的所有災難、錯誤與修復過程。<br>
+            <strong style="color:#FFD700;">願後人不再重蹈覆轍。</strong>
+        </p>
+    </div>
+
+    <!-- ============================================================
+    時間軸總覽
+    ============================================================ -->
+    <div class="card">
+        <h2>📅 災難時間軸</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>時間</th><th>事件</th><th>嚴重程度</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="timestamp">08-15 22:00</span></td><td>開始執行 auto-history-batch.ps1 v10.1</td><td><span class="badge success">✅ 正常</span></td></tr>
+                    <tr><td><span class="timestamp">08-15 22:15</span></td><td>執行 Add-Type -AssemblyName System.Net.Mail 失敗</td><td><span class="badge warning">⚠️ 警告</span></td></tr>
+                    <tr><td><span class="timestamp">08-15 22:31</span></td><td>批次生成 57 篇文章啟動（耗時 1 小時 13 分）</td><td><span class="badge success">✅ 正常</span></td></tr>
+                    <tr><td><span class="timestamp">08-15 23:44</span></td><td>批次生成完成，帳戶餘額歸零</td><td><span class="badge danger">🔴 重大</span></td></tr>
+                    <tr><td><span class="timestamp">08-15 23:50</span></td><td>發現 index.html Emoji 顯示為亂碼</td><td><span class="badge danger">🔴 重大</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 00:00</span></td><td>移動根目錄文章到 history/</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 00:15</span></td><td>Git checkout 恢復 html_builder.py</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 00:30</span></td><td>重新生成首頁與分類頁</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 00:45</span></td><td>部署到 Cloudflare</td><td><span class="badge success">✅ 完成</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 01:00</span></td><td>發現舊文章 Emoji 仍被破壞</td><td><span class="badge danger">🔴 重大</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 01:15</span></td><td>批量修復 182 篇文章的 Emoji</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 01:30</span></td><td>寫入 20 篇聖經穿越腦洞到 JSON</td><td><span class="badge warning">⚠️ 編碼錯誤</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 01:40</span></td><td>改用 Python 寫入 JSON（成功）</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 02:00</span></td><td>合併 20 篇文章到 master-articles.json</td><td><span class="badge success">✅ 完成</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 1：Add-Type System.Net.Mail
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 1：Add-Type System.Net.Mail 失敗</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤訊息</div>
+            <div class="code-block">
+Add-Type : 無法新增類型。找不到組件 'System.Net.Mail'。
+位於 線路:1 字元:1
++ Add-Type -AssemblyName System.Net.Mail
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo : ObjectNotFound: (System.Net.Mail:String) [Add-Type], Exception
+    + FullyQualifiedErrorId : ASSEMBLY_NOT_FOUND,Microsoft.PowerShell.Commands.AddTypeCommand
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <p><strong>PowerShell 5.1 及更早版本</strong> 中，<code>System.Net.Mail</code> 不是獨立的可載入組件，它包含在 <code>System</code> 組件中。</p>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# ❌ 錯誤寫法
+Add-Type -AssemblyName System.Net.Mail
+
+# ✅ 正確寫法（適用於所有 PowerShell 版本）
+Add-Type -AssemblyName System
+
+# 或直接使用，無需 Add-Type
+$smtpClient = New-Object System.Net.Mail.SmtpClient
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p>不要假設所有 PowerShell 版本都支援獨立的 <code>System.Net.Mail</code> 組件。<br>
+            <strong>永遠先測試，再部署。</strong></p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 2：Email 環境變數未設定
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 2：SMTP 郵件發送失敗</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤訊息</div>
+            <div class="code-block">
+Send-MailMessage : 無法驗證 'From' 參數上的引數。引數為 Null 或空的。
+位於 線路:1 字元:50
++ ... Send-MailMessage -To "praystone@gmail.com" -From $env:SMTP_USER ...
++                                                    ~~~~~~~~~~~~~~
+    + CategoryInfo : InvalidData: (:) [Send-MailMessage]，ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <p><code>$env:SMTP_USER</code> 為空，因為 <strong>尚未執行 <code>ahpal-static.ps1</code></strong> 載入環境變數。<br>
+            .env 檔案中的變數不會自動載入到 PowerShell 會話中。</p>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# 執行前必須先載入環境變數
+.\scripts\ahpal-static.ps1
+
+# 或手動載入 .env
+Get-Content .env | ForEach-Object {
+    if ($_ -match '^([^=]+)=(.*)$') {
+        [Environment]::SetEnvironmentVariable($matches[1], $matches[2])
+    }
+}
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>永遠在執行任何腳本前先執行 <code>ahpal-static.ps1</code></strong>。<br>
+            環境變數不是自動載入的，這是 PowerShell 101，但最容易忘記。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 3：Emoji 被破壞
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 3：Emoji 顯示為亂碼</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+<!-- 正常應該顯示 -->
+<span>🎮 遊戲間</span>
+
+<!-- 實際顯示 -->
+<span>🎮 遊戲間</span>
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <p><strong>auto-history-batch.ps1</strong> 中的「自動修復」區塊，將所有 Emoji 替換成了 <code>🎮</code> 格式。</p>
+            <div class="code-block">
+# 罪魁禍首
+$content = $content -replace '🎮', '[🎮]'   # 變成 [🎮]
+# 但實際上變成了 🎮
+            </div>
+            <p>更糟的是，這個修復被寫入 <code>html_builder.py</code>，導致所有新生成的頁面都包含被破壞的 Emoji。</p>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# 1. 從 Git 恢復 html_builder.py
+git checkout src/html_builder.py
+
+# 2. 批量修復所有文章的 Emoji
+$emojiMap = @{
+    '\[📖\]' = '📖'
+    '\[📚\]' = '📚'
+    '\[🎮\]' = '🎮'
+    '\[💬\]' = '💬'
+    # ... 更多映射
+}
+# 替換所有文章中的被破壞 Emoji
+
+# 3. 重新生成頁面
+python -c "from src.html_builder import create_default_index, generate_category_pages, generate_categories_page; create_default_index(); generate_category_pages(); generate_categories_page()"
+
+# 4. 部署
+npx wrangler pages deploy . --project-name=ahpal-pages
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>永遠不要自動修改核心檔案。</strong><br>
+            自動修復應該只針對輸出，不應該修改源代碼。<br>
+            如果必須修改，請先備份並在修改後驗證。</p>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🛑 永久修復</div>
+            <p>從 <code>auto-history-batch.ps1</code> 中 <strong>移除</strong> 整個「自動修復 html_builder.py」區塊。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 4：JSON 寫入編碼問題
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 4：PowerShell JSON 寫入編碼混亂</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+# PowerShell 寫入的 JSON 中，中文字變成亂碼
+"keyword": "隡??蝟餌絞撌亦?撣恬?DevOps 蝛輯??唬??詨?嚗?曄??撖行 Root 甈?撖Ⅳ嚗??舐撣賡妣摰?"
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <p>PowerShell 在傳遞多行 JSON 給 <code>WriteAllText</code> 時，中文字元被錯誤編碼。<br>
+            這是因為 PowerShell 的 <code>@' ... '@</code> 字符串在傳遞時發生意外的編碼轉換。</p>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# ✅ 使用 Python 寫入 JSON
+python -c "
+import json
+pending = [ ... ]  # 完整 JSON 資料
+with open('data/pending-articles.json', 'w', encoding='utf-8') as f:
+    json.dump(pending, f, ensure_ascii=False, indent=2)
+"
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>處理中文 JSON 時，優先使用 Python 而非 PowerShell。</strong><br>
+            PowerShell 的字符串處理對 Unicode 和 Emoji 支援不夠穩定。<br>
+            當資料量大或包含特殊字符時，Python 是更可靠的選擇。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 5：餘額不足
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 5：API 餘額耗盡</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+📊 目前餘額：¥0.00 CNY
+❌ 餘額不足，無法繼續生成
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <ul style="margin:8px 0 8px 20px;">
+                <li>一次生成了 57 篇文章（含 Responses API + Reasoning）</li>
+                <li>單日消耗約 ¥3.43</li>
+                <li>帳戶總餘額僅 ¥8.42（累計消費）</li>
+                <li>沒有建立餘額告警機制</li>
+            </ul>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# 1. 建立餘額監控
+.\scripts\check-deepseek-balance.ps1
+
+# 2. 設定餘額告警（在腳本中）
+if ($TotalBalance -lt 1.0) {
+    Write-Host "⚠️ 餘額不足，停止生成"
+    exit 1
+}
+
+# 3. 只在空閒時段執行（18:00-09:00）
+# 4. 關閉 Reasoning 和 Search 以節省成本
+# 5. 避免使用 Pro 模型
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>永遠在批次生成前檢查餘額。</strong><br>
+            建立自動化餘額告警，在餘額低於閾值時停止生成。<br>
+            高峰時段（09:00-18:00）價格是空閒時段的 2 倍，盡量避開。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 6：文章在根目錄
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 6：歷史腦洞文章在根目錄</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+# 文章在根目錄而非 history/
+C:\Users\User\ahpal-static\qin-shi-huang-iphone-apps.html
+C:\Users\User\ahpal-static\butler-ming-eunuch-sop.html
+C:\Users\User\ahpal-static\programmer-qing-astronomy.html
+# ... 等 35+ 篇
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <p><strong>違反死命令 #3</strong>：文章必須放在對應分類目錄下。<br>
+            歷史腦洞文章必須放在 <code>history/</code> 目錄。</p>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# 移動所有歷史腦洞文章到 history/
+Move-Item .\*.html .\history\ -Force
+
+# 檢查根目錄是否還有殘留
+Get-ChildItem *.html | Where-Object { $_.Name -notin @('index.html','categories.html','404.html') }
+
+# 更新 master-articles.json 中的路徑
+python -c "
+import json
+with open('data/master-articles.json', 'r', encoding='utf-8') as f:
+    articles = json.load(f)
+for a in articles:
+    if a.get('category') == '📜 歷史腦洞' and '/' not in a.get('filename', ''):
+        a['filename'] = f'history/{a[\"filename\"]}'
+with open('data/master-articles.json', 'w', encoding='utf-8') as f:
+    json.dump(articles, f, ensure_ascii=False, indent=2)
+"
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>死命令不是裝飾品，要嚴格遵守。</strong><br>
+            新增文章時，<code>filename</code> 欄位必須包含目錄路徑。<br>
+            建議在 <code>add-articles.ps1</code> 中自動檢查並強制分類目錄。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 7：中文檔名
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 7：文章檔名包含中文</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+history/Gemini 與 DeepSeek 的電子墓碑：當 AI 在產線上壯烈犧牲.html
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <p><strong>違反死命令 #2</strong>：文章檔名強制使用英文。</p>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# 重新命名為英文
+Rename-Item "history/Gemini 與 DeepSeek 的電子墓碑：當 AI 在產線上壯烈犧牲.html" "gemini-deepseek-elegy.html"
+
+# 檢查所有中文檔名
+Get-ChildItem -Recurse -Filter "*.html" | Where-Object { $_.Name -match '[\u4e00-\u9fa5]' }
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>永遠使用英文檔名。</strong><br>
+            在 <code>article_generator.py</code> 中已經有強制轉換邏輯，但手動新增時仍需注意。<br>
+            建議在 <code>add-articles.ps1</code> 中自動檢查並拒絕中文檔名。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    快速檢查清單
+    ============================================================ -->
+    <div class="card" style="border: 2px solid var(--secondary);">
+        <h2>✅ 快速檢查清單（每次執行前）</h2>
+        <div class="code-block">
+# 1. 檢查餘額
+.\scripts\check-deepseek-balance.ps1
+
+# 2. 載入環境變數
+.\scripts\ahpal-static.ps1
+
+# 3. 檢查 Git 狀態
+git status
+
+# 4. 檢查目前時段
+Get-Date  # 盡量在 18:00-09:00 執行
+
+# 5. 檢查待生成文章
+python src/main.py --dry-run
+
+# 6. 執行前備份
+.\scripts\backup-system.ps1 -Golden
+
+# 7. 檢查 Emoji 是否正常
+# 訪問 https://www.ahpal.com/ 檢查
+        </div>
+    </div>
+
+    <!-- ============================================================
+    總結
+    ============================================================ -->
+    <div class="card" style="border: 2px solid #FF4444;">
+        <h2 style="color:#FF6B6B;">🛑 最終警告</h2>
+        <div class="emoji-big">⚰️</div>
+        <p style="text-align:center; font-size:18px; color:#FF6B6B;">
+            <strong>這 24 小時的教訓，是用血淚換來的。</strong>
+        </p>
+        <ul style="margin:16px 0 0 24px; color:var(--text-muted);">
+            <li><strong style="color:#FF6B6B;">不要</strong> 自動修改核心檔案（html_builder.py）</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在沒有備份的情況下執行批次生成</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 忘記執行 ahpal-static.ps1</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在高峰時段消耗昂貴的 API 額度</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 把文章放在根目錄</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 使用中文檔名</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在 PowerShell 中處理中文 JSON</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 忽略死命令</li>
+        </ul>
+        <div style="margin-top:20px; padding:16px; background:#1A0A0A; border-radius:8px; text-align:center; border:1px solid #FF4444;">
+            <p style="color:#FFD700; font-weight:700; font-size:20px;">
+                🦞 龍蝦總工程師 · 血淚簽
+            </p>
+            <p style="color:var(--text-muted); font-size:14px;">
+                2026 年 8 月 16 日 · 凌晨 02:00
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 災難備忘錄 v1.0<br>
+        文件最後更新：2026 年 8 月 16 日 ｜ 🦞 龍蝦總工程師 親筆<br>
+        <span style="color:#FF6B6B; font-weight:700;">🔴 願後人不再重蹈覆轍</span>
+    </div>
+
+</div>
+
+</body>
+</html>

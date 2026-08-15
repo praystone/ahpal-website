@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南｜</style> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+    <div class="meta-info">
+        發表時間：2026 年 08 月 16 日 | 更新日期：2026 年 08 月 16 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+
+<p>code {</p>
+<p>b</p>
+<h2></he</h2>
+<h2>healthcheck:</h2>
+<h2>test: ["CMD-SHELL", "pg_isready -U admin"]</h2>
+<h2>interval: 10s</h2>
+<h2>timeout: 5s</h2>
+<h2>retries: 3</h2>
+<h2>networks:</h2>
+<ul>
+    <li>app-network</li>
+</ul>
+<h2>redis:</h2>
+<h2>image: redis:7-alpine</h2>
+<h2>command: ["redis-server", "--appendonly", "yes"]</h2>
+<h2>volumes:</h2>
+<ul>
+    <li>redis-data:/data</li>
+</ul>
+<h2>networks:</h2>
+<ul>
+    <li>app-network</li>
+</ul>
+<h2>volumes:</h2>
+<h2>pgdata:</h2>
+<h2>redis-data:</h2>
+<h2>networks:</h2>
+<h2>app-network:</h2>
+<h2>driver: bridge</h2>
+<h2>3.2 啟動與管理多容器應用</h2>
+<h2>當環境變數檔（.env）定義好之後，執行以下指令即可一次啟動所有服務並檢視狀態：</h2>
+<h2>建置並在背景啟動</h2>
+<h2>docker compose up -d --build</h2>
+<h2>查看所有容器狀態</h2>
+<h2>docker compose ps</h2>
+<h2>集中查看三個容器的日誌</h2>
+<h2>docker compose logs -f --tail=50</h2>
+<h2>停止並移除所有相關容器與網路，但保留資料卷</h2>
+<h2>docker compose down</h2>
+<p><p>在 2026 年，Compose 不僅限於本機，更是 <strong>Docker Desktop</strong> 與雲端 IDE 的內建功能。當你需要讓團隊成員快速複製開發環境時，只需提供這個 <code>docker-compose.yml</code> 檔案，即可達成「一鍵建置」的目標。</p></p>
+<h2>四、 由零到一：整合 Kubernetes（K8s）編排與部署</h2>
+<p><p>當你的容器數量突破數十甚至上百個，並需要考慮自動擴縮容、Service Discovery、無縫滾動更新時，管理變得太過複雜，此時就必須導入 Kubernetes（K8s）。2026 年的 K8s 已經將 API 穩定性提升到極致，很多生態系功能（如 Ingress Controller、HPA）皆已成為內建或穩定版。</p></p>
+<h2>4.1 關鍵編排概念：Pod、Service、Deployment 與 Ingress</h2>
+<h2>物件</h2>
+<h2>說明</h2>
+<h2>2026 年實務情境</h2>
+<h2>Pod</h2>
+<h2>最小調度單位，可包含一個或多個緊密耦合容器</h2>
+<h2>通常在同一個 Pod 中僅放置 Sidecar Proxy 或日誌收集 Agent</h2>
+<h2>Deployment</h2>
+<h2>管理無狀態應用的副本數與滾動更新策略</h2>
+<h2>前端/後端 API 最常使用的控制器</h2>
+<h2>Service</h2>
+<h2>提供穩定的 ClusterIP 與 DNS 名稱讓應用互相連線</h2>
+<h2>建立後端 API 於集群內被其他元件呼叫</h2>
+<h2>Ingress</h2>
+<h2>將外部的 HTTP/HTTPS 流量路由至集群內的 Service</h2>
+<h2>透過域名與路徑轉發流量至前端或後端</h2>
+<h2>4.2 將 Docker Compose 轉換為 K8s 清單</h2>
+<p><p>雖然 Compose 檔案不能直接被 K8s 使用，但可用 <code>kompose</code> 工具將 Compose 檔案轉換為 YAML 清單。以下是轉換與部署的快速指南：</p></p>
+<h2>安裝 kompose（於本機）</h2>
+<h2>在包含 docker-compose.yml 的目錄下執行</h2>
+<h2>kompose convert</h2>
+<h2>這會自動產生 deployment.yaml、service.yaml 等檔案</h2>
+<h2>kubectl apply -f .</h2>
+<h2>查看資源狀態</h2>
+<h2>kubectl get pods</h2>
+<h2>kubectl get services</h2>
+<p><p>雖然 Kompose 可以加速轉換，但由於 K8s 對資料庫等有狀態應用的排程涉及 StatefulSet、PersistentVolumeClaim（PVC），建議在正式環境中手動編寫更精確的清單。</p></p>
+<h2>4.3 建立高效的 Deployment 與 HPA（水平自動擴縮容）</h2>
+<p><p>2026 年部署的標準定義，包含資源請求和定義、存活探測（Liveness Probe）以及就緒探測（Readiness Probe）。彈性伸縮能力是 K8s 的核心優勢之一，透過 CPU 或自定義指標來動態增加 Pod 數量：</p></p>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>metadata:</h2>
+<h2>name: bookstore-api</h2>
+<h2>labels:</h2>
+<h2>app: bookstore</h2>
+<h2>spec:</h2>
+<h2>replicas: 3</h2>
+<h2>selector:</h2>
+<h2>matchLabels:</h2>
+<h2>app: bookstore</h2>
+<h2>template:</h2>
+<h2>metadata:</h2>
+<h2>labels:</h2>
+<h2>app: bookstore</h2>
+<h2>spec:</h2>
+<h2>containers:</h2>
+<ul>
+    <li>name: api</li>
+</ul>
+<h2>image: harbor.example.com/bookstore-api:v1.2.0</h2>
+<h2>ports:</h2>
+<ul>
+    <li>containerPort: 8080</li>
+</ul>
+<h2>resources:</h2>
+<h2>requests:</h2>
+<h2>memory: "256Mi"</h2>
+<h2>cpu: "250m"</h2>
+<h2>limits:</h2>
+<h2>memory: "512Mi"</h2>
+<h2>cpu: "500m"</h2>
+<h2>readinessProbe:</h2>
+<h2>httpGet:</h2>
+<h2>path: /health/ready</h2>
+<h2>port: 8080</h2>
+<h2>initialDelaySeconds: 5</h2>
+<h2>periodSeconds: 10</h2>
+<h2>livenessProbe:</h2>
+<h2>httpGet:</h2>
+<h2>path: /health/live</h2>
+<h2>port: 8080</h2>
+<h2>initialDelaySeconds: 15</h2>
+<h2>periodSeconds: 20</h2>
+<h2>apiVersion: autoscaling/v2</h2>
+<h2>kind: HorizontalPodAutoscaler</h2>
+<h2>metadata:</h2>
+<h2>name: bookstore-api-hpa</h2>
+<h2>spec:</h2>
+<h2>scaleTargetRef:</h2>
+<h2>apiVersion: apps/v1</h2>
+<h2>kind: Deployment</h2>
+<h2>name: bookstore-api</h2>
+<h2>minReplicas: 2</h2>
+<h2>maxReplicas: 10</h2>
+<h2>metrics:</h2>
+<ul>
+    <li>type: Resource</li>
+</ul>
+<h2>resource:</h2>
+<h2>name: cpu</h2>
+<h2>target:</h2>
+<h2>type: Utilization</h2>
+<h2>averageUtilization: 70</h2>
+<p><p>這個 YAML 片段說明了 2026 年的最佳實踐：資源限制與健康檢查已經是不可或缺的標準配備。HPA 會監控 Pod 的 CPU 使用率，當超過 70% 時自動增加 Pod 數量，確保服務平穩應對尖峰人流。</p></p>
+<h2>五、 2026 年 Docker 與 K8s 整合的進階策略</h2>
+<p><p>當你已經熟悉基礎的 K8s 操作之後，接下來的挑戰就在於如何優雅的整合 Docker 生態與 K8s 原生元件。謹記：Docker 負責建立與封裝映像檔，而 K8s 負責運行與調度。</p></p>
+<h2>5.1 私有映像檔倉庫與 Pull Secrets</h2>
+<p><p>在企業內部署，你不會將商業機密推送到 Docker Hub。使用 Harbour 或是自建 Registry 是常見的方案。K8s 要拉取私有映像檔，必須透過 <code>docker-registry</code> 類型的 Secret：</p></p>
+<h2>kubectl create secret docker-registry regcred \</h2>
+<h2>docker-server=my-registry.example.com \</h2>
+<h2>docker-username=admin \</h2>
+<h2>docker-password=supersecret \</h2>
+<h2>docker-email=devops@example.com</h2>
+<p><p>之後在 Deployment 中指定 <code>imagePullSecrets</code> 即可安全地取得映像檔，而不需將帳密寫在映像檔名稱中。</p></p>
+<h2>5.2 從 Docker Volume 到 PersistentVolume 的資料遷移</h2>
+<p><p>我們在 Compose 階段使用的資料卷（Volume）在 K8s 中對應為 PersistentVolumeClaim（PVC）。管理資料庫時，必須確保儲存類別（StorageClass）具備異地備援的功能。以下為 2026 年推薦的做法：</p></p>
+<p><li>使用 CSI（Container Storage Interface）驅動連接雲端磁碟（如 AWS EBS、GCE PD）。</li></p>
+<p><li>對於關鍵資料庫，務必使用 StatefulSet 而非 Deployment，以確保穩定的 Pod 網路識別符（如 db-0、db-1）。</li></p>
+<h2>善用 Velero 等工具定期備份 PVC 內的重要資料。</h2>
+<h2>5.3 GitOps 流程：以 Docker 為始，以 K8s 為終</h2>
+<p><p>2026 年的主流部署方式是 GitOps。開發者將 Dockerfile 的變更推送到 Git 儲存庫，CI 工具（如 GitHub Actions、GitLab CI）自動建構並推送映像檔至容器倉庫，隨後更新 K8s 清單。接著 Argo CD 監控 Git 中的期望狀態，並自動同步至 Kubernetes。</p></p>
+<h2>此流程具備高度的可追溯性與自動化安全性，任何變更皆有版本記錄，若部署失敗可一鍵 Rollback。</h2>
+<h2>六、 從入門到實戰的常見雷區與技巧</h2>
+<p><p>即便擁有完整的指南，許多人仍會在實作過程中踩到意料之外的雷區。以下為 2026 年論壇上最常被討論的痛點與對應解法：</p></p>
+<h2>6.1 容器格式化與時間同步問題</h2>
+<p><p>在 K8s 中，日誌會統一收集至 EFK/PLG 或 Loki 系統。若你的容器日誌輸出到不同位置（如 /var/log/app.log），會增加收集難度。2026 年方式為讓應用程式直接將日誌寫入標準輸出（STDOUT/STDERR），再由節點上的 Agent 統一讀取。</p></p>
+<h2>6.2 優雅結束（Graceful Shutdown）</h2>
+<p><p>當 K8s 縮容或更新時，它會發送 SIGTERM 訊號給容器。若應用程式只監聽 SIGINT 而忽略 SIGTERM，則會造成部分請求中斷。務必在應用程式中撰寫優雅收尾的程式碼，並設定 <code>terminationGracePeriodSeconds</code> 為適當值。</p></p>
+<h2>6.3 避免在容器內使用 SSH</h2>
+<p><p>容器強調不可變基礎架構，若你為了除錯而使用 SSH 登入容器，便破壞了這項原則。在 2026 年，除錯策略應以 <code>kubectl exec -it pod -- /bin/sh</code> 臨時執行工具，並且所有的設定皆應透過環境變數或設定檔注入，保持映像檔的「可重建性」。</p></p>
+<h2>七、 總結：開啟你的 2026 雲原生航路</h2>
+<p><p>回顧今年度關於 Docker 容器化部署的學習地圖，我們依序領略了 Dockerfile 的最佳化、多容器編排（Compose），並正式進入 Kubernetes 的整合領域。我們了解到，Docker 是構築容器映像的利器，而 K8s 是撐起整個星系的管理核心。在 2026 年，這兩者的界線非但不模糊，反而因為協作而更顯清晰。</p></p>
+<p><p>對於剛踏入容器世界的新手，建議先熟練 Docker CLI，反覆操作資料卷與網路；對於有經驗的系統管理員，則應投入 K8s 的服務網格（Service Mesh）與可觀測性領域。這是一條廣闊且充滿樂趣的技術道路，期望「雅寶社區 · 頂客論壇」的此份實戰指南，能成為你航向雲原生海域的標竿。</p></p>
+<h2>本文作者：雅寶資深架構師・K8s 好好玩</h2>
+<h2>發佈平台：雅寶社區 · 頂客論壇（3C 科技教學）</h2>
+<p><strong>版權聲明：</strong>歡迎分享，但請務必註明出處，共同維護良好的技術分享風氣。</p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">📖 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">📚 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">🎮 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        💬 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

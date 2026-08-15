@@ -1675,7 +1675,7 @@
   },
   {
     "keyword": "如果秦始皇有 iPhone：他會下載什麼 App 治理天下？",
-    "filename": "qin-shi-huang-iphone-apps.html",
+    "filename": "history/qin-shi-huang-iphone-apps.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1683,7 +1683,7 @@
   },
   {
     "keyword": "如果漢武帝有 Google 地圖：他還會迷路嗎？",
-    "filename": "han-wudi-google-maps.html",
+    "filename": "history/han-wudi-google-maps.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1691,7 +1691,7 @@
   },
   {
     "keyword": "如果曹操有 LinkedIn：他會怎麼經營他的「人脈」？",
-    "filename": "cao-cao-linkedin-network-v2.html",
+    "filename": "history/cao-cao-linkedin-network-v2.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1699,7 +1699,7 @@
   },
   {
     "keyword": "如果李煜有 Spotify：他會聽什麼歌療癒亡國之痛？",
-    "filename": "li-yu-spotify-playlist.html",
+    "filename": "history/li-yu-spotify-playlist.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1707,7 +1707,7 @@
   },
   {
     "keyword": "如果趙匡胤有 Slack：他會怎麼管理宋朝團隊？",
-    "filename": "zhao-kuangyin-slack-team.html",
+    "filename": "history/zhao-kuangyin-slack-team.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1715,7 +1715,7 @@
   },
   {
     "keyword": "如果 104 人力銀行 CEO 穿越到秦朝當丞相：KPI 考核百官，秦始皇封他「數據王」",
-    "filename": "104-ceo-qin-dynasty-kpi.html",
+    "filename": "history/104-ceo-qin-dynasty-kpi.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1723,7 +1723,7 @@
   },
   {
     "keyword": "如果立法院長穿越到漢朝當御史大夫：推動質詢制度，漢武帝氣到想斬他",
-    "filename": "legislator-han-dynasty-impeachment.html",
+    "filename": "history/legislator-han-dynasty-impeachment.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1731,7 +1731,7 @@
   },
   {
     "keyword": "如果現代公關危機專家穿越到唐朝當魏徵：寫「罪己詔」變成古代 PR 第一人",
-    "filename": "pr-expert-tang-dynasty-weizheng.html",
+    "filename": "history/pr-expert-tang-dynasty-weizheng.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1739,7 +1739,7 @@
   },
   {
     "keyword": "如果國防 AI 工程師穿越到三國當諸葛亮：AI 算出司馬懿路線，逆轉街亭之戰",
-    "filename": "ai-engineer-zhuge-liang-jieting.html",
+    "filename": "history/ai-engineer-zhuge-liang-jieting.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1747,7 +1747,7 @@
   },
   {
     "keyword": "如果現代外交官穿越到宋朝談和：用「雙贏」術語讓金國簽百年和平協議",
-    "filename": "diplomat-song-dynasty-peace.html",
+    "filename": "history/diplomat-song-dynasty-peace.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1755,7 +1755,7 @@
   },
   {
     "keyword": "如果現代廉政專員穿越到清朝當紀曉嵐：推行官員財產申報，乾隆氣到寫詩諷刺",
-    "filename": "anticorruption-official-qing-jixiaolan.html",
+    "filename": "history/anticorruption-official-qing-jixiaolan.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1763,7 +1763,7 @@
   },
   {
     "keyword": "如果現代特戰指揮官穿越到楚漢相爭：教項羽「閃擊戰」，劉邦躲進漢中不敢出來",
-    "filename": "special-forces-xiangyu-blitzkrieg.html",
+    "filename": "history/special-forces-xiangyu-blitzkrieg.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1771,7 +1771,7 @@
   },
   {
     "keyword": "如果現代物流主管穿越到漢朝幫霍去病：供應鏈管理解決補給，3 個月封狼居胥",
-    "filename": "logistics-manager-huoqubing-supply-chain.html",
+    "filename": "history/logistics-manager-huoqubing-supply-chain.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1779,7 +1779,7 @@
   },
   {
     "keyword": "如果現代無人機飛手穿越到三國當司馬懿：無人機偵查木牛流馬，提前伏擊成功",
-    "filename": "drone-pilot-simayi-recon.html",
+    "filename": "history/drone-pilot-simayi-recon.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1787,7 +1787,7 @@
   },
   {
     "keyword": "如果現代心理戰專家穿越到宋朝對抗金兵：認知作戰讓金兵內鬥，岳飛直搗黃龍",
-    "filename": "psywar-expert-song-yuefei.html",
+    "filename": "history/psywar-expert-song-yuefei.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1795,7 +1795,7 @@
   },
   {
     "keyword": "如果現代戰地記者穿越到明朝當史官：記錄崇禎 100 天，被稱「古代戰地第一筆」",
-    "filename": "war-correspondent-ming-chongzhen.html",
+    "filename": "history/war-correspondent-ming-chongzhen.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1803,7 +1803,7 @@
   },
   {
     "keyword": "如果現代媒體總編穿越到清朝創辦「大清時報」：頭版頭條逼慈禧讓步",
-    "filename": "media-editor-qing-newspaper.html",
+    "filename": "history/media-editor-qing-newspaper.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1811,7 +1811,7 @@
   },
   {
     "keyword": "如果現代社會學教授穿越到先秦教墨子：教階級理論，墨家變社會主義先驅",
-    "filename": "sociology-professor-mozi-socialism.html",
+    "filename": "history/sociology-professor-mozi-socialism.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1819,7 +1819,7 @@
   },
   {
     "keyword": "如果現代心理醫生穿越到魏晉當竹林七賢：心理分析治癒阮籍憂鬱症",
-    "filename": "psychologist-zhulin-seven-ruanji.html",
+    "filename": "history/psychologist-zhulin-seven-ruanji.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1827,7 +1827,7 @@
   },
   {
     "keyword": "如果現代大學校長穿越到漢朝辦太學：必修+選修，培養第一批古代學士",
-    "filename": "university-president-han-taixue.html",
+    "filename": "history/university-president-han-taixue.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1835,7 +1835,7 @@
   },
   {
     "keyword": "如果現代 AI 工程師穿越到唐朝教杜甫寫程式：NLP 幫杜甫寫詩，爆紅成 AI 詩聖",
-    "filename": "ai-engineer-dufu-poetry-nlp.html",
+    "filename": "history/ai-engineer-dufu-poetry-nlp.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1843,7 +1843,7 @@
   },
   {
     "keyword": "如果現代策展人穿越到宋朝保護藝術：建立古代文物法，蘇軾書法列國寶",
-    "filename": "curator-song-art-protection.html",
+    "filename": "history/curator-song-art-protection.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1851,7 +1851,7 @@
   },
   {
     "keyword": "如果現代哲學教授穿越到明朝教王陽明：用康德對話心學，寫出知行合一 2.0",
-    "filename": "philosophy-professor-wangyangming-kant.html",
+    "filename": "history/philosophy-professor-wangyangming-kant.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1859,7 +1859,7 @@
   },
   {
     "keyword": "如果現代證券分析師穿越到宋朝炒茶：技術分析炒茶葉期貨，成為古代第一茶王",
-    "filename": "stock-analyst-song-tea-futures.html",
+    "filename": "history/stock-analyst-song-tea-futures.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1867,7 +1867,7 @@
   },
   {
     "keyword": "如果現代新創 CEO 穿越到明朝開銀行：大明錢莊，發行紙幣+放貸+匯兌",
-    "filename": "startup-ceo-ming-bank.html",
+    "filename": "history/startup-ceo-ming-bank.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1875,7 +1875,7 @@
   },
   {
     "keyword": "如果現代供應鏈專家穿越到元朝管絲路：區塊鏈管理貿易，馬可波羅驚嘆",
-    "filename": "supply-chain-expert-yuan-silkroad.html",
+    "filename": "history/supply-chain-expert-yuan-silkroad.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1883,7 +1883,7 @@
   },
   {
     "keyword": "如果現代商業談判專家穿越到清朝談判：紅線策略讓英國商人妥協",
-    "filename": "negotiation-expert-qing-treaty.html",
+    "filename": "history/negotiation-expert-qing-treaty.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1891,7 +1891,7 @@
   },
   {
     "keyword": "如果現代行銷總監穿越到漢朝推廣絲綢：品牌定位打造古代第一奢侈品",
-    "filename": "marketing-director-han-silk-luxury.html",
+    "filename": "history/marketing-director-han-silk-luxury.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1899,7 +1899,7 @@
   },
   {
     "keyword": "如果現代財務長穿越到唐朝管國庫：建立古代預算制度，唐太宗稱讚",
-    "filename": "cfo-tang-treasury-budget.html",
+    "filename": "history/cfo-tang-treasury-budget.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1907,7 +1907,7 @@
   },
   {
     "keyword": "如果現代主廚穿越到宋朝開米其林餐廳：分子料理重現古代菜譜，貴族排隊",
-    "filename": "chef-song-michelin.html",
+    "filename": "history/chef-song-michelin.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1915,7 +1915,7 @@
   },
   {
     "keyword": "如果現代建築師穿越到唐朝建長安城：都市規劃+排水系統+路燈",
-    "filename": "architect-tang-changan-urban.html",
+    "filename": "history/architect-tang-changan-urban.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1923,7 +1923,7 @@
   },
   {
     "keyword": "如果現代訴訟律師穿越到漢朝當獄吏：證據法則翻案冤獄，漢文帝稱「古代第一刑辯」",
-    "filename": "lawyer-han-prison-evidence.html",
+    "filename": "history/lawyer-han-prison-evidence.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1931,7 +1931,7 @@
   },
   {
     "keyword": "如果現代健身教練穿越到明朝當禁軍教官：重訓+有氧訓練，邊關無戰事",
-    "filename": "fitness-trainer-ming-army.html",
+    "filename": "history/fitness-trainer-ming-army.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1939,7 +1939,7 @@
   },
   {
     "keyword": "如果現代程式設計師穿越到清朝當欽天監：古代曆法引擎，精準預測天象",
-    "filename": "programmer-qing-astronomy.html",
+    "filename": "history/programmer-qing-astronomy.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -1947,7 +1947,7 @@
   },
   {
     "keyword": "如果現代專業管家穿越到明朝當太監總管：酒店 SOP + 輪班表 + 績效考核",
-    "filename": "butler-ming-eunuch-sop.html",
+    "filename": "history/butler-ming-eunuch-sop.html",
     "category": "📜 歷史腦洞",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -2109,6 +2109,166 @@
     "keyword": "如果現代太空科學家穿越到明朝觀測天象：他用自製望遠鏡發現新星，寫出古代第一份天文論文，被後世稱為「東方哥白尼」",
     "category": "📜 歷史腦洞",
     "filename": "history/astronomer-ming-telescope.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "伊甸園的系統工程師：DevOps 穿越到伊甸園，發現禁果其實是 Root 權限密碼，蛇是白帽駭客",
+    "category": "📜 歷史腦洞",
+    "filename": "history/eden-devops-engineer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諾亞方舟的造船廠 QC：現代品管技師穿越到大洪水前夕，檢查方舟結構強度與排水量",
+    "category": "📜 歷史腦洞",
+    "filename": "history/noah-ark-qc-engineer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "巴別塔的跨國專案經理：現代 Scrum PM 穿越到巴別塔工地，用敏捷開發協調幾萬名工人",
+    "category": "📜 歷史腦洞",
+    "filename": "history/babel-tower-pm.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "索多瑪的廉政公署調查官：現代法務官穿越到索多瑪，持搜索票調查貪腐與土地強佔",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sodom-investigator.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "埃及十災的生物科技團隊：現代 CDC 專家穿越到古埃及，用病毒學解構十災",
+    "category": "📜 歷史腦洞",
+    "filename": "history/egypt-ten-plagues-cdc.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "紅海邊的土木工程專家：現代水利工程師穿越到出埃及現場，分析紅海分開的流體力學",
+    "category": "📜 歷史腦洞",
+    "filename": "history/red-sea-civil-engineer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曠野四十年的供應鏈總監：現代物流專家穿越到曠野，負責嗎哪與水資源分配",
+    "category": "📜 歷史腦洞",
+    "filename": "history/wilderness-supply-chain.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "迦南美地的房產鑑價師：現代不動產估價師穿越到探子回報現場，分析迦南地產價值",
+    "category": "📜 歷史腦洞",
+    "filename": "history/canaan-real-estate.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "耶利哥城牆的結構力學技師：現代建築技師穿越到耶利哥，研究聲波共振導致城牆倒塌",
+    "category": "📜 歷史腦洞",
+    "filename": "history/jericho-wall-engineer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "參孫的健美健身教練：現代健身教練穿越到參孫身邊，分析他的力量來源與心理弱點",
+    "category": "📜 歷史腦洞",
+    "filename": "history/samson-fitness-trainer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "大衛打哥利亞的彈道學專家：現代物理學家穿越到以撒谷，計算甩石機的初速與動能",
+    "category": "📜 歷史腦洞",
+    "filename": "history/david-goliath-ballistics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "所羅門審判的心理學分析師：現代法醫心理學家穿越到所羅門大殿，分析微表情與人性博弈",
+    "category": "📜 歷史腦洞",
+    "filename": "history/solomon-psychologist.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "以利亞與巴力先知的公關戰略家：現代公關專家穿越到迦密山，操作祭壇降火實境秀",
+    "category": "📜 歷史腦洞",
+    "filename": "history/elijah-pr-strategist.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "撒迦利亞書的神學調查記者：現代調查記者穿越到波斯帝國，追蹤三十塊銀子的預言現場",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zechariah-investigator.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "巴比倫宮廷的資深營養師：現代營養師穿越到尼布甲尼撒王宮，記錄但以理素食實驗",
+    "category": "📜 歷史腦洞",
+    "filename": "history/babylon-nutritionist.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "伯利恆的戶口調查統計員：現代人口普查官穿越到羅馬普查現場，記錄馬槽客滿真相",
+    "category": "📜 歷史腦洞",
+    "filename": "history/bethlehem-census-officer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "加利利海的商業漁業顧問：現代水產企業家穿越到加利利海，分析彼得打不到魚的經驗主義盲點",
+    "category": "📜 歷史腦洞",
+    "filename": "history/galilee-fishery-consultant.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "客西馬尼園的安保防衛專家：現代特勤專家穿越到客西馬尼園，分析猶大背叛與彼得拔刀",
+    "category": "📜 歷史腦洞",
+    "filename": "history/gethsemane-security.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "彼拉多官邸的政治公關顧問：現代政治幕僚穿越到彼拉多審判庭，分析洗手與群眾壓力的政治算計",
+    "category": "📜 歷史腦洞",
+    "filename": "history/pilate-pr-advisor.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "橄欖山的終極保險精算師：現代精算師穿越到橄欖山，分析十個童女與銀子比喻中的風險管理",
+    "category": "📜 歷史腦洞",
+    "filename": "history/olive-actuary.html",
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false

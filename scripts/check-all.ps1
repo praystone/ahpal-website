@@ -1,8 +1,12 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 全面系統檢查腳本 v3.2
+# 雅寶社區 · 頂客論壇 - 全面系統檢查腳本 v3.3
 # ============================================================
-# 功能：檢查文章、遊戲、分類頁面、Sitemap、首頁
-# 修復：強制型別宣告解決中文檔名型別轉換錯誤
+# v3.3 變更：
+#   - 🆕 加入 history/ 與 music/ 目錄掃描
+#   - 🆕 加入 category-history.html 與 category-music.html 檢查
+#   - 🔧 修復 $HasApiError 型別問題
+#   - 🔧 優化變數命名，避免混淆
+#   - 📊 完整統計所有 8 大分類
 # ============================================================
 
 param(
@@ -18,7 +22,7 @@ $ReportFile = "C:\Users\User\ahpal-full-check-report.txt"
 $DateStr = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "   📊 雅寶社區 · 頂客論壇 - 全面系統檢查工具 v3.2" -ForegroundColor Green
+Write-Host "   📊 雅寶社區 · 頂客論壇 - 全面系統檢查工具 v3.3" -ForegroundColor Green
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "📁 輸出目錄：$OutputDir" -ForegroundColor Cyan
@@ -32,6 +36,34 @@ if (-not (Test-Path $OutputDir)) {
 }
 
 # ============================================================
+# 🆕 v3.3: 完整 8 大分類
+# ============================================================
+$CategoryDirs = @{
+    "tech" = "💻 3C 科技教學"
+    "life" = "🏠 生活小常識"
+    "review" = "📊 軟體評測"
+    "philosophy" = "🌟 人生哲理"
+    "trend" = "🤖 AI 趨勢"
+    "game" = "🎮 遊戲攻略"
+    "history" = "📜 歷史腦洞"      # 🆕 新增
+    "music" = "🎵 音樂創作"        # 🆕 新增
+}
+
+# ============================================================
+# 🆕 v3.3: 完整分類頁面清單
+# ============================================================
+$CategoryPages = @(
+    "category-tech.html",
+    "category-game.html",
+    "category-life.html",
+    "category-review.html",
+    "category-philosophy.html",
+    "category-trend.html",
+    "category-history.html",    # 🆕 新增
+    "category-music.html"       # 🆕 新增
+)
+
+# ============================================================
 # 掃描所有文章
 # ============================================================
 Write-Host "🔍 正在掃描所有文章..." -ForegroundColor Yellow
@@ -40,19 +72,10 @@ Write-Host ""
 $AllArticles = New-Object System.Collections.ArrayList
 $AbnormalFiles = New-Object System.Collections.ArrayList
 $MissingBrand = New-Object System.Collections.ArrayList
-$HasApiError = New-Object System.Collections.ArrayList   # ✅ 強制 ArrayList
+$ApiErrorFiles = New-Object System.Collections.ArrayList   # 🆕 改名，避免混淆
 $LowQualityFiles = New-Object System.Collections.ArrayList
 $TotalSize = 0
 $TotalArticles = 0
-
-$CategoryDirs = @{
-    "tech" = "💻 3C 科技教學"
-    "life" = "🏠 生活小常識"
-    "review" = "📊 軟體評測"
-    "philosophy" = "🌟 人生哲理"
-    "trend" = "🤖 AI 趨勢"
-    "game" = "🎮 遊戲攻略"
-}
 
 $DirStats = @{}
 
@@ -82,12 +105,12 @@ foreach ($dirName in $CategoryDirs.Keys) {
         $sizeKB = [math]::Round($f.Length / 1KB, 2)
         $isAbnormal = $f.Length -lt 5120
         $hasBrand = $false
-        $HasApiError = @()
+        $hasApiError = $false   # 🆕 改用布林值
         
         try {
             $content = Get-Content -Path $f.FullName -Encoding UTF8 -Raw -ErrorAction SilentlyContinue
             if ($content -match "雅寶社區") { $hasBrand = $true }
-            if ($content -match "429|503|RESOURCE_EXHAUSTED|unavailable|暫時無法") { $HasApiError = @() }
+            if ($content -match "429|503|RESOURCE_EXHAUSTED|unavailable|暫時無法") { $hasApiError = $true }
         } catch {
             $hasBrand = $false
         }
@@ -150,10 +173,7 @@ foreach ($dirName in $CategoryDirs.Keys) {
         
         if ($isAbnormal) { [void]$AbnormalFiles.Add($article) }
         if (-not $hasBrand) { [void]$MissingBrand.Add($article) }
-        # ✅ 修復：使用 .Add() 方法
-        if ($hasApiError) { 
-            $HasApiError += $article.Name
-        }
+        if ($hasApiError) { [void]$ApiErrorFiles.Add($article) }
         if ($article.IsLowQuality) { [void]$LowQualityFiles.Add($article) }
     }
 }
@@ -186,10 +206,6 @@ $KeyPages = @(
     "index.html", "categories.html", "sitemap.xml", "404.html",
     "memorial.html", "royal_dragon_karma.html"
 )
-$CategoryPages = @(
-    "category-tech.html", "category-game.html", "category-life.html",
-    "category-review.html", "category-philosophy.html", "category-trend.html"
-)
 $AllKeyPages = $KeyPages + $CategoryPages
 $MissingPages = @()
 
@@ -218,7 +234,7 @@ Write-Host "   ├─ 總文章數：$TotalArticles 篇" -ForegroundColor White
 Write-Host "   ├─ 正常檔案：$($TotalArticles - $AbnormalFiles.Count) 篇" -ForegroundColor Green
 Write-Host "   ├─ 異常檔案：$($AbnormalFiles.Count) 篇" -ForegroundColor $(if ($AbnormalFiles.Count -gt 0) {'Red'} else {'Green'})
 Write-Host "   ├─ 缺少品牌：$($MissingBrand.Count) 篇" -ForegroundColor $(if ($MissingBrand.Count -gt 0) {'Yellow'} else {'Green'})
-Write-Host "   ├─ 含 API 錯誤：$($HasApiError.Count) 篇" -ForegroundColor $(if ($HasApiError.Count -gt 0) {'Yellow'} else {'Green'})
+Write-Host "   ├─ 含 API 錯誤：$($ApiErrorFiles.Count) 篇" -ForegroundColor $(if ($ApiErrorFiles.Count -gt 0) {'Yellow'} else {'Green'})
 Write-Host "   └─ 品質未達標：$($LowQualityFiles.Count) 篇" -ForegroundColor $(if ($LowQualityFiles.Count -gt 0) {'Red'} else {'Green'})
 
 if ($TotalSize) {
@@ -295,7 +311,7 @@ if ($Report) {
     
     $ReportContent = @"
 ============================================================
-雅寶社區 · 頂客論壇 - 全面系統檢查報告 v3.2
+雅寶社區 · 頂客論壇 - 全面系統檢查報告 v3.3
 ============================================================
 檢查時間：$DateStr
 輸出目錄：$OutputDir
@@ -306,7 +322,7 @@ if ($Report) {
    正常檔案: $($TotalArticles - $AbnormalFiles.Count) 篇
    異常檔案: $($AbnormalFiles.Count) 篇
    缺少品牌: $($MissingBrand.Count) 篇
-   含 API 錯誤: $($HasApiError.Count) 篇
+   含 API 錯誤: $($ApiErrorFiles.Count) 篇
    品質未達標: $($LowQualityFiles.Count) 篇
    文章總大小: $([math]::Round($TotalSize / 1MB, 2)) MB
    平均品質分數: $AvgScore 分

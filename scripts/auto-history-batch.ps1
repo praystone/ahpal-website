@@ -122,26 +122,26 @@ Write-Log "[2/6] 定義 20 篇文章清單..."
 Save-Checkpoint -Stage "article_definition"
 
 $Articles = @(
-    @{ keyword = "如果現代程式設計師穿越到唐朝當欽天監：他用 Python 寫出古代曆法，精準預測日蝕，皇帝封他為「天機真人」"; filename = "programmer-tang-astronomy.html" },
-    @{ keyword = "如果現代律師穿越到宋朝開律師事務所：他用證據法則幫包青天翻案，成為古代第一刑辯"; filename = "lawyer-song-baoqingtian.html" },
-    @{ keyword = "如果現代營養師穿越到明朝當御醫：他用現代營養學幫朱元璋調整飲食，皇帝活到 80 歲"; filename = "nutritionist-ming-emperor.html" },
-    @{ keyword = "如果現代建築師穿越到唐朝建長安城：都市規劃、排水系統、路燈、人行道一次到位"; filename = "architect-tang-changan.html" },
-    @{ keyword = "如果現代公關專家穿越到三國當諸葛亮：他用媒體操作讓劉備「仁德」形象深植民心，曹操氣到摔筆"; filename = "pr-expert-zhuge-liang.html" },
-    @{ keyword = "如果現代健身教練穿越到明朝當禁軍教官：他用重訓+有氧訓練，打造古代第一支特種部隊"; filename = "fitness-trainer-ming-army.html" },
-    @{ keyword = "如果現代心理醫生穿越到魏晉當竹林七賢：他用認知行為療法治癒阮籍的憂鬱症，七賢變成心靈成長團體"; filename = "psychologist-zhulin-seven.html" },
-    @{ keyword = "如果現代會計師穿越到漢朝管國庫：他建立古代預算制度，漢文帝稱他為「算聖」"; filename = "accountant-han-treasury.html" },
-    @{ keyword = "如果現代攝影師穿越到宋朝當宮廷畫師：他用光影技巧畫出前所未有的寫實人物畫，宋徽宗驚為天人"; filename = "photographer-song-painting.html" },
-    @{ keyword = "如果現代網紅穿越到唐朝開直播：李白在鏡頭前即興吟詩，粉絲打賞黃金萬兩，成為古代第一帶貨王"; filename = "influencer-tang-live.html" },
-    @{ keyword = "如果現代物流主管穿越到元朝管絲路：他建立「古代快遞系統」，馬可波羅說比威尼斯還先進"; filename = "logistics-yuan-silkroad.html" },
-    @{ keyword = "如果現代生化學家穿越到秦朝幫秦始皇煉丹：他用科學方法煉出「長生不老藥」，秦始皇封他為「國師」"; filename = "chemist-qin-elixir.html" },
-    @{ keyword = "如果現代音樂製作人穿越到唐朝教李龜年：他用數位編曲概念改造宮廷音樂，大唐樂府直接升級成古代百代"; filename = "music-producer-tang.html" },
-    @{ keyword = "如果現代地質學家穿越到宋朝找礦：他幫助北宋發現大型鐵礦和煤礦，宋朝工業實力大增"; filename = "geologist-song-mining.html" },
-    @{ keyword = "如果現代遊戲設計師穿越到三國開發戰略遊戲：他做出「三國誌」桌遊，曹操、劉備、孫權搶著玩到不開會"; filename = "game-designer-three-kingdoms.html" },
-    @{ keyword = "如果現代賽車手穿越到唐朝幫楊貴妃送荔枝：他改良驛站馬車，長安到嶺南只需三天，玄宗大喜封他為「飛車將軍」"; filename = "racer-tang-lychee.html" },
-    @{ keyword = "如果現代動物學家穿越到明朝幫鄭和下西洋：他繪製出古代第一份世界動物地圖，記錄了長頸鹿、獅子、鴕鳥"; filename = "zoologist-ming-zhenghe.html" },
-    @{ keyword = "如果現代社工穿越到宋朝開育幼院：他建立古代社會福利體系，救助孤兒和老人，百姓稱他為「活菩薩」"; filename = "social-worker-song-welfare.html" },
-    @{ keyword = "如果現代消防員穿越到宋朝開封府：他建立古代消防隊，用「水龍」和「雲梯」救火，百姓半夜不再怕火災"; filename = "firefighter-song-kaifeng.html" },
-    @{ keyword = "如果現代太空科學家穿越到明朝觀測天象：他用自製望遠鏡發現新星，寫出古代第一份天文論文，被後世稱為「東方哥白尼」"; filename = "astronomer-ming-telescope.html" }
+    @{ keyword = "如果現代人工智慧專家穿越到宋朝：幫王安石設計變法AI系統，青苗法變成精準扶貧大數據"; filename = "ai-expert-song-wanganshi.html" },
+    @{ keyword = "如果現代賽車手穿越到明朝：幫朱棣設計古代F1賽車，北京城變成賽車場，皇帝親自下場飆車"; filename = "racer-ming-zhudi-f1.html" },
+    @{ keyword = "如果現代太空人穿越到唐朝：幫李白體驗無重力，在太空中即興賦詩，寫出《天地之間》傳世名作"; filename = "astronaut-tang-libo-space-poem.html" },
+    @{ keyword = "如果現代調酒師穿越到宋朝：幫蘇軾調製雞尾酒，東坡醉變成東坡特調，汴京夜店爆紅"; filename = "mixologist-song-sushi-cocktail.html" },
+    @{ keyword = "如果現代考古學家穿越到元朝：幫成吉思汗找出失落的陵墓，破解八百年世紀之謎"; filename = "archaeologist-yuan-genghis-tomb.html" },
+    @{ keyword = "如果現代電競選手穿越到清朝：幫康熙皇帝訓練古代皇室電競隊，紫禁城變成電競館"; filename = "esports-player-qing-kangxi-gaming.html" },
+    @{ keyword = "如果現代心理學家穿越到唐朝：幫李白治療酒精成癮，詩仙戒酒後產出純淨版詩作"; filename = "psychologist-tang-libo-alcohol.html" },
+    @{ keyword = "如果現代機械工程師穿越到宋朝：幫岳飛設計古代坦克，金兵騎兵變裝甲車，直搗黃龍"; filename = "mechanical-engineer-song-yuefei-tank.html" },
+    @{ keyword = "如果現代品酒師穿越到元朝：幫馬可波羅鑑定葡萄酒，寫出古代第一本酒評指南"; filename = "sommelier-yuan-marco-wine.html" },
+    @{ keyword = "如果現代空中瑜伽教練穿越到唐朝：幫楊貴妃設計空中舞蹈，長安城開始興起空中健身潮"; filename = "yoga-instructor-tang-yangguifei.html" },
+    @{ keyword = "如果現代量子科學家穿越到明朝：幫朱元璋設計量子密碼，大明通信變成古代量子網路"; filename = "quantum-scientist-ming-zhuyuanzhang.html" },
+    @{ keyword = "如果現代特效化妝師穿越到宋朝：幫岳飛設計戰場傷疤妝，金兵看了直接嚇退百里"; filename = "makeup-artist-song-yuefei-scars.html" },
+    @{ keyword = "如果現代野生動物攝影師穿越到唐朝：拍下長安城內外的珍禽異獸，寫成古代第一本《國家地理》"; filename = "wildlife-photographer-tang-changan.html" },
+    @{ keyword = "如果現代土木工程師穿越到隋朝：幫隋煬帝改良大運河，京杭大運河變成古代蘇伊士運河"; filename = "civil-engineer-sui-grandcanal.html" },
+    @{ keyword = "如果現代茶藝師穿越到明朝：幫朱元璋設計泡茶SOP，明朝茶道變成古代星巴克"; filename = "tea-master-ming-zhuyuanzhang.html" },
+    @{ keyword = "如果現代動畫師穿越到唐朝：幫敦煌壁畫做成動畫，飛天仙女變成古代迪士尼公主"; filename = "animator-tang-dunhuang.html" },
+    @{ keyword = "如果現代睡眠專家穿越到清朝：幫雍正皇帝治療失眠，雍正不再是歷史上最累的皇帝"; filename = "sleep-expert-qing-yongzheng.html" },
+    @{ keyword = "如果現代聲樂教練穿越到宋朝：幫柳永訓練唱功，婉約詞變成古代流行金曲排行榜"; filename = "vocal-coach-song-liuyong.html" },
+    @{ keyword = "如果現代珠寶設計師穿越到明朝：幫鄭和設計寶石首飾，大明珠寶變成世界奢侈品牌"; filename = "jewelry-designer-ming-zhenghe.html" },
+    @{ keyword = "如果現代網頁設計師穿越到漢朝：幫司馬遷設計《史記》官網，古代歷史變成互動式網頁"; filename = "web-designer-han-simaqian.html" }
 )
 
 Write-Log "✅ 已定義 $($Articles.Count) 篇文章"

@@ -228,7 +228,7 @@
                 <tbody>
                     <tr><td><strong>1</strong></td><td>文章變更後強制檢查與推送規範</td><td>preflight-check.ps1</td></tr>
                     <tr><td><strong>2</strong></td><td>文章檔名強制使用英文</td><td>嚴禁中文檔名</td></tr>
-                    <tr><td><strong>3</strong></td><td>本地測試與路徑強制規範</td><td>禁止文章放根目錄</td></tr>
+                    <tr><td><strong>3</strong></td><td>信箱嚴禁明文外漏</td><td>尤其是董事長信箱嚴格保密，永不公開</td></tr>
                     <tr><td><strong>4</strong></td><td>CSS 靜態資產保護</td><td>main.css 禁止自動覆蓋</td></tr>
                     <tr><td><strong>5</strong></td><td>文章清單集中管理</td><td>master-articles.json</td></tr>
                     <tr><td><strong>6</strong></td><td>文章新增唯一入口</td><td>pending-articles.json</td></tr>
@@ -252,9 +252,6 @@
             <div class="code-block">
 # about.html 中直接暴露了郵箱
 📧 電子郵件：<a href="mailto:praystone@gmail.com">praystone@gmail.com</a>
-
-# 以及連結格式錯誤
-https://www.ahpal.com/about%20%20%20https://www.ahpal.com/privacy-policy  → 404
             </div>
         </div>
 
@@ -262,7 +259,6 @@ https://www.ahpal.com/about%20%20%20https://www.ahpal.com/privacy-policy  → 40
             <div class="tip-title">🔴 根因分析</div>
             <ul style="margin:8px 0 0 20px; color:#FF6B6B;">
                 <li>在 about.html 中直接暴露了公開郵箱，可能被爬蟲收集</li>
-                <li>連結格式錯誤，多個 URL 被錯誤合併</li>
                 <li>未使用聯絡表單作為主要聯繫方式</li>
             </ul>
         </div>
@@ -273,10 +269,8 @@ https://www.ahpal.com/about%20%20%20https://www.ahpal.com/privacy-policy  → 40
 # 1. 統一使用聯絡表單
 <a href="/contact.html">📧 聯絡我們</a>
 
-# 2. 隱私權政策使用業務專用信箱
-📧 電子郵件：praystone@gmail.com (業務聯絡用)
-
-# 3. 正確的連結格式
+# 2. 沒有業務專用信箱
+ 正確的連結格式:
 https://www.ahpal.com/about.html
 https://www.ahpal.com/privacy-policy.html
 
@@ -287,8 +281,8 @@ https://www.ahpal.com/privacy-policy.html
         <div class="tip warning">
             <div class="tip-title">📌 教訓</div>
             <p><strong>董事長信箱／內部信箱絕對不得在網站上公開！</strong><br>
-            所有聯絡應透過「聯絡表單」或「業務專用信箱」處理。<br>
-            提供連結前必須在本地驗證有效性，嚴禁合併多個 URL。</p>
+            所有聯絡應透過「聯絡表單」處理。<br>
+            </p>
         </div>
     </div>
 
@@ -413,7 +407,7 @@ python src/main.py --dry-run
             <li><strong style="color:#FF6B6B;">不要</strong> 忽略死命令</li>
             <li><strong style="color:#FF6B6B;">不要</strong> 暴露董事長信箱</li>
             <li><strong style="color:#FF6B6B;">不要</strong> 對服務條款等頁面設 NOINDEX</li>
-            <li><strong style="color:#FF6B6B;">不要</strong> 提供格式錯誤的連結</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 稱呼董事長為神--嚴禁!!</li>
         </ul>
         <div style="margin-top:20px; padding:16px; background:#1A0A0A; border-radius:8px; text-align:center; border:1px solid #FF4444;">
             <p style="color:#FFD700; font-weight:700; font-size:20px;">

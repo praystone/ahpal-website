@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHPAL 四大件 · 統一索引</title>
+    <style>
+        :root {
+            --red: #8B0000;
+            --blue: #005A9C;
+            --yellow: #D4AF37;
+            --gray: #4A5568;
+            --bg: #F7F9FC;
+            --card: #FFFFFF;
+            --text: #1A202C;
+            --border: #E2E8F0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 14px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 30px 20px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .card {
+            background: var(--card);
+            padding: 32px 36px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        @media (max-width: 640px) { .card { padding: 20px 16px; } }
+
+        /* ---- 頁首 ---- */
+        .header {
+            text-align: center;
+            border-bottom: 4px solid var(--blue);
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+        }
+        .header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+        .header .logo span { color: #00A86B; }
+        .header .subtitle {
+            font-size: 16px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+        .header .version {
+            display: inline-block;
+            background: var(--blue);
+            color: white;
+            padding: 2px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .header .status {
+            display: inline-block;
+            background: #00A86B;
+            color: white;
+            padding: 2px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--blue);
+            margin: 24px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 16px 0 10px 0;
+        }
+
+        /* ---- 四大件網格 ---- */
+        .four-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 16px 0;
+        }
+        .four-card {
+            padding: 24px 22px;
+            border-radius: 14px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            color: var(--text);
+        }
+        .four-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+        }
+        .four-card .icon { font-size: 36px; display: block; margin-bottom: 6px; }
+        .four-card .name { font-size: 20px; font-weight: 700; }
+        .four-card .sub {
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 600;
+        }
+        .four-card .desc {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 6px;
+        }
+        .four-card .version-tag {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+            background: #EDF2F7;
+            color: var(--gray);
+        }
+
+        .four-card.red { border-color: var(--red); background: #FFF8F8; }
+        .four-card.red .name { color: var(--red); }
+
+        .four-card.blue { border-color: var(--blue); background: #EBF8FF; }
+        .four-card.blue .name { color: var(--blue); }
+
+        .four-card.yellow { border-color: var(--yellow); background: #FFFFF0; }
+        .four-card.yellow .name { color: #7A6B3A; }
+
+        .four-card.gray { border-color: #CBD5E0; background: #F7F9FC; }
+        .four-card.gray .name { color: #2D3748; }
+
+        /* ---- 表格 ---- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+        table th, table td {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        table th {
+            background: var(--blue);
+            color: white;
+            font-weight: 600;
+        }
+        table tr:nth-child(even) td { background: var(--bg); }
+
+        /* ---- 標籤 ---- */
+        .badge {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge.green { background: #C6F6D5; color: #276749; }
+        .badge.yellow { background: #FEFCBF; color: #975A16; }
+        .badge.red { background: #FED7D7; color: #9B2C2C; }
+        .badge.blue { background: #BEE3F8; color: #2A69AC; }
+
+        .tip {
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 12px 0 16px 0;
+            border-left: 4px solid;
+        }
+        .tip.success { background: #F0FFF4; border-color: #00A86B; color: #276749; }
+        .tip.info { background: #EBF8FF; border-color: var(--blue); color: #2B6CB0; }
+        .tip.warning { background: #FFFAF0; border-color: var(--yellow); color: #9C4221; }
+
+        .footer {
+            text-align: center;
+            color: #A0AEC0;
+            font-size: 13px;
+            padding: 30px 0 10px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 10px;
+        }
+
+        @media (max-width: 640px) {
+            .four-grid { grid-template-columns: 1fr; }
+            .header .logo { font-size: 22px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 19px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="card">
+        <div class="header">
+            <div class="logo">🏛️ AHPAL · <span>四大件統一索引</span></div>
+            <div class="subtitle">雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+            <div class="version">📌 版本 V1 · 2026 年 8 月 16 日</div>
+            <div class="status">✅ 董事會核定 · 全員遵行</div>
+        </div>
+        <p style="font-size: 16px; color: var(--gray); text-align: center; margin-top: 8px;">
+            紅 · 白 · 黃 · 藍  — 四大件立國，系統文件統一管理
+        </p>
+    </div>
+
+    <!-- ============================================================
+    四大件總覽
+    ============================================================ -->
+    <div class="card">
+        <h1>📋 四大件總覽</h1>
+        <p style="font-size: 15px; color: var(--gray);">
+            AHPAL 系統核心文件整合為 <strong>紅、白、黃、藍</strong> 四大件，<br>
+            涵蓋營運法規、技術架構、創作策略、營運管理四大領域。
+        </p>
+
+        <div class="four-grid">
+            <!-- 紅皮書 -->
+            <a href="AHPAL-紅皮書-v4.0.html" class="four-card red" target="_blank">
+                <span class="icon">🔴</span>
+                <div class="name">紅皮書</div>
+                <div class="sub">組織營運與法規</div>
+                <div class="desc">死命令、組織架構、營運計畫、合規</div>
+                <span class="version-tag">📌 v4.0</span>
+                <span class="badge red" style="margin-left:8px;">最高指導原則</span>
+            </a>
+
+            <!-- 白皮書 -->
+            <a href="AHPAL-技術白皮書-v4.0.html" class="four-card blue" target="_blank">
+                <span class="icon">⚪</span>
+                <div class="name">白皮書</div>
+                <div class="sub">系統核心架構</div>
+                <div class="desc">技術架構、API 設計、目錄結構</div>
+                <span class="version-tag">📌 v4.0</span>
+                <span class="badge blue" style="margin-left:8px;">技術文件</span>
+            </a>
+
+            <!-- 黃皮書 -->
+            <a href="AHPAL-創作憲章-v2.0.html" class="four-card yellow" target="_blank">
+                <span class="icon">🟡</span>
+                <div class="name">黃皮書</div>
+                <div class="sub">創作憲章與內容策略</div>
+                <div class="desc">歷史腦洞憲章、AdSense 指南、內容規範</div>
+                <span class="version-tag">📌 v2.0</span>
+                <span class="badge yellow" style="margin-left:8px;">創作指引</span>
+            </a>
+
+            <!-- 藍皮書 -->
+            <a href="AHPAL-交接手冊-v4.0.html" class="four-card gray" target="_blank">
+                <span class="icon">🔵</span>
+                <div class="name">藍皮書</div>
+                <div class="sub">營運日誌與交接</div>
+                <div class="desc">每日總結、交接手冊、系統日誌</div>
+                <span class="version-tag">📌 v4.0</span>
+                <span class="badge blue" style="margin-left:8px;">營運管理</span>
+            </a>
+        </div>
+
+        <div class="tip success">
+            <strong>✅ 董事長朱批：</strong> 四大件必須同一目錄，不分開存放！<br>
+            <span style="font-size:14px; color:#4A5568;">所有文件統一放在 <code>C:\Users\User\ahpal-static\docs\</code></span>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    各文件詳細規格
+    ============================================================ -->
+    <div class="card">
+        <h2>📖 各文件詳細規格</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:12%;">顏色</th>
+                    <th style="width:18%;">文件</th>
+                    <th style="width:25%;">內容</th>
+                    <th style="width:20%;">版本</th>
+                    <th style="width:25%;">狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span style="color:var(--red);font-weight:700;font-size:20px;">🔴</span></td>
+                    <td><strong>紅皮書</strong></td>
+                    <td>死命令 · 組織架構 · 營運計畫 · 合規</td>
+                    <td>v3.1 → <strong>v4.0</strong></td>
+                    <td><span class="badge yellow">⏳ 升級中</span></td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--blue);font-weight:700;font-size:20px;">⚪</span></td>
+                    <td><strong>白皮書</strong></td>
+                    <td>技術架構 · API 設計 · 目錄結構</td>
+                    <td>v3.1 → <strong>v4.0</strong></td>
+                    <td><span class="badge yellow">⏳ 升級中</span></td>
+                </tr>
+                <tr>
+                    <td><span style="color:#7A6B3A;font-weight:700;font-size:20px;">🟡</span></td>
+                    <td><strong>黃皮書</strong></td>
+                    <td>創作憲章 · AdSense 指南 · 內容規範</td>
+                    <td>v1.0 → <strong>v2.0</strong></td>
+                    <td><span class="badge green">✅ 進行中</span></td>
+                </tr>
+                <tr>
+                    <td><span style="color:#2D3748;font-weight:700;font-size:20px;">🔵</span></td>
+                    <td><strong>藍皮書</strong></td>
+                    <td>交接手冊 · 系統日誌 · 災難備忘錄</td>
+                    <td>v3.1 → <strong>v4.0</strong></td>
+                    <td><span class="badge yellow">⏳ 升級中</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip info">
+            <strong>📌 目標：</strong> 所有文件於 2026 年 8 月 18 日前完成升級至目標版本。
+        </div>
+    </div>
+
+    <!-- ============================================================
+    目錄結構
+    ============================================================ -->
+    <div class="card">
+        <h2>📁 目錄結構</h2>
+        <div style="background: #1A1A2E; color: #E8E8E8; border-radius: 10px; padding: 16px 20px; font-family: 'Consolas', monospace; font-size: 13px; line-height: 2.2; overflow-x: auto; margin: 12px 0;">
+C:\Users\User\ahpal-static\docs\
+├── 📄 AHPAL-四大件-索引.html          ← 🏛️ 本文件 (統一入口)
+├── 📄 AHPAL-紅皮書-v4.0.html          ← 🔴 組織營運與法規
+├── 📄 AHPAL-技術白皮書-v4.0.html      ← ⚪ 系統核心架構
+├── 📄 AHPAL-創作憲章-v2.0.html        ← 🟡 創作憲章與內容策略
+├── 📄 AHPAL-交接手冊-v4.0.html        ← 🔵 營運日誌與交接
+├── 📄 2026-08-16-總結備忘錄.html      ← 📋 每日營運日誌
+├── 📄 龍蝦總工程師-災難備忘錄-v1.0.html ← 💀 災難記錄
+└── 📄 歷史腦洞-創作典範.txt           ← 📜 創作參考
+        </div>
+
+        <div class="tip warning">
+            <strong>📌 董事長朱批：</strong> 所有文件必須在同一目錄，不分開存放！<br>
+            <span style="font-size:14px; color:#4A5568;">❌ 禁止建立子目錄分開存放四大件</span>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    快速指令
+    ============================================================ -->
+    <div class="card">
+        <h2>⚡ 快速指令</h2>
+
+        <table>
+            <thead>
+                <tr><th>操作</th><th>指令</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>📂 開啟文件目錄</td><td><code>explorer C:\Users\User\ahpal-static\docs</code></td></tr>
+                <tr><td>🔍 搜尋四大件</td><td><code>Get-ChildItem *.html | Select-String "四大件"</code></td></tr>
+                <tr><td>📊 查看文件大小</td><td><code>Get-ChildItem *.html | Format-Table Name, Length</code></td></tr>
+                <tr><td>📋 備份四大件</td><td><code>Copy-Item *.html C:\Users\User\ahpal-AI-archive\優良備份\ -Force</code></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================================
+    簽核
+    ============================================================ -->
+    <div class="card">
+        <h2>📋 簽核記錄</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:16px; padding-top:16px; border-top:2px solid var(--border);">
+            <div style="text-align:center; padding:12px; background:var(--bg); border-radius:10px; border:1px solid var(--border);">
+                <div style="font-size:12px; color:var(--gray); font-weight:600;">📌 規劃</div>
+                <div style="font-size:16px; font-weight:700;">🦞 龍蝦總工程師</div>
+                <div style="width:60%; height:2px; background:var(--border); margin:8px auto 4px auto;"></div>
+                <span class="badge green">✅ 已簽核</span>
+            </div>
+            <div style="text-align:center; padding:12px; background:var(--bg); border-radius:10px; border:1px solid var(--border);">
+                <div style="font-size:12px; color:var(--gray); font-weight:600;">👑 核准</div>
+                <div style="font-size:16px; font-weight:700;">董事長</div>
+                <div style="width:60%; height:2px; background:var(--border); margin:8px auto 4px auto;"></div>
+                <span class="badge green">🏆 已核准</span>
+            </div>
+        </div>
+        <div style="margin-top:16px; padding:12px 16px; background:var(--bg); border-radius:8px; text-align:center; font-size:14px; color:var(--gray);">
+            📅 生效日期：2026 年 8 月 16 日 ｜ 📌 適用範圍：AHPAL 全系統文件
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 四大件統一索引 V1<br>
+        文件最後更新：2026 年 8 月 16 日 ｜ 🦞 龍蝦總工程師 親筆<br>
+        <span style="color: var(--blue); font-weight: 700;">
+            🔴⚪🟡🔵 紅白黃藍 · 四大件立國
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

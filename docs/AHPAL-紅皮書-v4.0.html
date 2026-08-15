@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHPAL 組織營運與紅皮書 v4.0</title>
+    <style>
+        :root {
+            --primary: #8B0000;
+            --gold: #D4AF37;
+            --bg: #FDF8F0;
+            --card: #FFFFFF;
+            --text: #1A1A1A;
+            --gray: #4A4A4A;
+            --border: #D4C5A9;
+            --shadow: 0 8px 30px rgba(0,0,0,0.10);
+            --radius: 14px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            --mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.8; font-size: 16px; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 50px 55px; border: 1px solid var(--border); }
+        @media (max-width: 640px) { .container { padding: 25px 18px; } }
+        .header { text-align: center; padding: 30px 0 25px 0; border-bottom: 4px solid var(--primary); margin-bottom: 30px; }
+        .header .logo { font-size: 32px; font-weight: 700; color: var(--primary); letter-spacing: 2px; }
+        .header .logo span { color: var(--gold); }
+        .header .subtitle { font-size: 18px; color: var(--gray); margin-top: 6px; letter-spacing: 4px; }
+        .header .version { display: inline-block; background: var(--primary); color: white; padding: 4px 24px; border-radius: 30px; font-size: 14px; font-weight: 600; margin-top: 12px; letter-spacing: 2px; }
+        .header .status-badge { display: inline-block; background: var(--gold); color: var(--text); padding: 4px 20px; border-radius: 30px; font-size: 14px; font-weight: 600; margin-top: 10px; }
+        h1 { font-size: 34px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+        h2 { font-size: 24px; font-weight: 700; color: var(--primary); margin: 36px 0 18px 0; padding-bottom: 10px; border-bottom: 3px solid var(--gold); }
+        h3 { font-size: 19px; font-weight: 700; color: var(--text); margin: 24px 0 12px 0; padding-left: 14px; border-left: 4px solid var(--gold); }
+        .table-wrapper { overflow-x: auto; margin: 16px 0 20px 0; border-radius: 12px; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
+        table th, table td { padding: 12px 16px; border: 1px solid var(--border); text-align: left; }
+        table th { background: var(--primary); color: white; font-weight: 600; }
+        table tr:nth-child(even) td { background: #F9FAFC; }
+        table tr:hover td { background: #FFF8E7; }
+        .tip { padding: 16px 22px; border-radius: 12px; margin: 14px 0 18px 0; border-left: 5px solid; }
+        .tip.success { background: #F0FFF4; border-color: #38A169; color: #276749; }
+        .tip.warning { background: #FFFAF0; border-color: #DD6B20; color: #9C4221; }
+        .tip.danger { background: #FFF5F5; border-color: #E53E3E; color: #9B2C2C; }
+        .tip.gold { background: #FFFDF0; border-color: var(--gold); color: #7A6B3A; }
+        .code-block { background: #1A1A2E; color: #E8E8E8; border-radius: 10px; padding: 16px 20px; margin: 12px 0 16px 0; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.7; white-space: pre-wrap; word-break: break-all; }
+        .inline-code { background: #EDF2F7; padding: 2px 8px; border-radius: 4px; font-family: var(--mono); font-size: 14px; border: 1px solid var(--border); }
+        .death-command { border: 3px solid #8B0000; background: #FFF8F8; padding: 24px 28px; border-radius: 14px; margin: 20px 0 24px 0; position: relative; }
+        .death-command::before { content: "🔴 董事長死命令"; position: absolute; top: -12px; left: 20px; background: #8B0000; color: white; padding: 2px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; letter-spacing: 2px; }
+        .death-command .death-title { font-size: 20px; font-weight: 700; color: #8B0000; margin-top: 8px; margin-bottom: 12px; }
+        .death-command ul, .death-command ol { margin: 10px 0 10px 25px; }
+        .death-command li { margin-bottom: 6px; }
+        .signature-area { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; margin-top: 40px; padding-top: 30px; border-top: 3px solid var(--gold); }
+        .signature-box { background: var(--bg); border-radius: 12px; padding: 20px 24px; text-align: center; border: 1px solid var(--border); }
+        .signature-box .role { font-size: 13px; color: var(--gray); font-weight: 600; letter-spacing: 1px; }
+        .signature-box .name { font-size: 18px; font-weight: 700; color: var(--text); margin: 4px 0; }
+        .signature-box .line { width: 80%; height: 2px; background: var(--border); margin: 12px auto 6px auto; }
+        .signature-box .status-badge { display: inline-block; padding: 4px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; margin-top: 8px; }
+        .signature-box .status-badge.approved { background: #C6F6D5; color: #276749; }
+        .signature-box .status-badge.dead { background: #8B0000; color: white; }
+        .footer { text-align: center; padding: 30px 0 10px 0; color: #A0AEC0; font-size: 13px; border-top: 2px solid var(--border); margin-top: 20px; }
+        @media (max-width: 768px) { .header .logo { font-size: 24px; } h1 { font-size: 26px; } h2 { font-size: 20px; } table th, table td { padding: 8px 12px; font-size: 13px; } .signature-area { grid-template-columns: 1fr; gap: 15px; } .death-command { padding: 18px 16px; } }
+        @media print { body { background: white; padding: 0; } .container { box-shadow: none; border: 1px solid #ddd; } .header { border-bottom-color: #333; } .tip { border: 1px solid #ddd; } .death-command { border: 2px solid #8B0000; background: #f9f0f0; } .death-command::before { background: #8B0000; color: white; } .code-block { background: #f4f4f4; color: #222; } .signature-area { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
+        <div class="subtitle">組織營運與紅皮書</div>
+        <div class="version">📌 版本 v4.0 · 董事會核定版</div>
+        <div class="status-badge">✅ 即日生效 · 全員遵行</div>
+    </div>
+
+    <!-- 死命令總覽 -->
+    <div class="death-command">
+        <div class="death-title">📜 董事長死命令總覽 (8 條)</div>
+        <p><strong>生效日期：2026-08-07 ~ 2026-08-15 ｜ 適用範圍：所有工程師與 AI 代理</strong></p>
+        <div class="table-wrapper" style="margin-top:16px;">
+            <table>
+                <thead><tr><th>#</th><th>死命令</th><th>生效日期</th><th>檢查方式</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>文章變更後強制檢查與推送規範</td><td>2026-08-07</td><td><code>.\scripts\preflight-check.ps1</code></td></tr>
+                    <tr><td><strong>2</strong></td><td>文章檔名強制使用英文</td><td>2026-08-08</td><td>自動強制轉換 + 檢查指令</td></tr>
+                    <tr><td><strong>3</strong></td><td>本地測試與路徑強制規範</td><td>2026-08-08</td><td>禁止文章放根目錄</td></tr>
+                    <tr><td><strong>4</strong></td><td>CSS 靜態資產保護</td><td>2026-08-08</td><td><code>main.css</code> 禁止自動覆蓋</td></tr>
+                    <tr><td><strong>5</strong></td><td>文章清單集中管理</td><td>2026-08-09</td><td>文章須在 <code>master-articles.json</code></td></tr>
+                    <tr><td><strong>6</strong></td><td>文章新增唯一入口</td><td>2026-08-09</td><td>僅限 <code>pending-articles.json</code></td></tr>
+                    <tr><td><strong>7</strong></td><td>首頁完整性</td><td>2026-08-09</td><td><code>create_default_index()</code> 完整</td></tr>
+                    <tr><td><strong>8</strong></td><td>禁止擅自精簡或改寫既有功能</td><td>2026-08-09</td><td>修復前備份、修復後對比</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:14px; padding:12px 16px; background:#8B0000; color:white; border-radius:8px; text-align:center; font-weight:700; letter-spacing:2px;">
+            ⚠️ 此 8 條死命令已錄入紅皮書，作為永久性強制規範。違者視同違反營運紀律。
+        </div>
+    </div>
+
+    <h2>📖 目錄</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 20px; margin:12px 0 24px 0; padding:16px 20px; background:var(--bg); border-radius:12px; border:1px solid var(--border);">
+        <div>1. 組織架構</div>
+        <div>2. 角色職責與權限</div>
+        <div>3. 內容營運計畫</div>
+        <div>4. 技術維護計畫</div>
+        <div>5. 安全與風險管理</div>
+        <div>6. 日常維運 SOP</div>
+        <div>7. 部署與發布流程</div>
+        <div>8. 災難復原計畫</div>
+        <div>9. 合規與法遵</div>
+        <div>10. 溝通與回報機制</div>
+        <div>11. 術語表</div>
+        <div>12. AI 協作規範</div>
+    </div>
+
+    <!-- 1. 組織架構 -->
+    <h2>1. 組織架構</h2>
+    <div class="table-wrapper"><table>
+        <thead><tr><th>角色</th><th>職稱</th><th>AI 代表</th><th>核心職責</th></tr></thead>
+        <tbody>
+            <tr><td>👑 董事長</td><td>最終決策者</td><td>人類</td><td>最終決策、資源分配、策略方向</td></tr>
+            <tr><td>🏛️ 執行長</td><td>董事會執行長</td><td>ChatGPT</td><td>決策執行、專案督導</td></tr>
+            <tr><td>🦞 總經理兼總工程師</td><td>技術最高負責人</td><td>DeepSeek</td><td>系統架構、自動化管線</td></tr>
+            <tr><td>🤖 整合顧問</td><td>整合系統顧問</td><td>Gemini</td><td>API 串接、SEO 診斷</td></tr>
+        </tbody>
+    </table></div>
+
+    <!-- 2. 角色職責 -->
+    <h2>2. 角色職責與權限</h2>
+    <div class="table-wrapper"><table>
+        <thead><tr><th>角色</th><th>職責</th><th>核准層級</th></tr></thead>
+        <tbody>
+            <tr><td>🦞 總經理兼總工程師</td><td>主導系統架構、自動化管線</td><td>技術方案核准</td></tr>
+            <tr><td>🤖 整合系統顧問</td><td>雙 API 切換策略、SEO 診斷</td><td>整合方案建議</td></tr>
+            <tr><td>🏛️ 董事會執行長</td><td>決策執行、專案督導</td><td>最終核准</td></tr>
+            <tr><td>👑 董事長</td><td>最終決策、資源分配</td><td>最終決策</td></tr>
+        </tbody>
+    </table></div>
+    <div class="tip danger"><strong>⚠️ 安全界線：</strong>不可暴露 API 金鑰，不可將 .env 寫入 Git。</div>
+
+    <!-- 3. 內容營運 -->
+    <h2>3. 內容營運計畫</h2>
+    <div class="table-wrapper"><table>
+        <thead><tr><th>指標</th><th>數值</th><th>狀態</th></tr></thead>
+        <tbody>
+            <tr><td>總文章數</td><td><strong>814+ 篇</strong></td><td>✅ 量產達成</td></tr>
+            <tr><td>歷史腦洞系列</td><td><strong>275+ 篇</strong></td><td>✅ 持續增長</td></tr>
+            <tr><td>配圖成功率</td><td><strong>100%</strong></td><td>✅ 穩定</td></tr>
+            <tr><td>品質未達標</td><td><strong>0 篇</strong></td><td>✅ 完美</td></tr>
+        </tbody>
+    </table></div>
+
+    <!-- 4-11 精簡呈現 -->
+    <h2>4. 技術維護計畫</h2>
+    <div class="table-wrapper"><table>
+        <thead><tr><th>元件</th><th>技術</th><th>狀態</th></tr></thead>
+        <tbody>
+            <tr><td>總指揮</td><td>PowerShell (ahpal-master.ps1)</td><td>✅ v8.0 穩定</td></tr>
+            <tr><td>內容生成引擎</td><td>Python 3 (模組化)</td><td>✅ v8.6 穩定</td></tr>
+            <tr><td>AI 文章模型</td><td>DeepSeek Flash + Responses API</td><td>✅ 固定</td></tr>
+            <tr><td>AI 配圖模型</td><td>Pollinations AI</td><td>✅ 免費、免 API Key</td></tr>
+        </tbody>
+    </table></div>
+
+    <h2>5. 安全與風險管理</h2>
+    <div class="table-wrapper"><table>
+        <thead><tr><th>金鑰</th><th>儲存位置</th><th>存取權限</th></tr></thead>
+        <tbody>
+            <tr><td><code>DEEPSEEK_API_KEY</code></td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
+            <tr><td><code>GEMINI_API_KEY</code></td><td><span class="inline-code">.env</span></td><td>僅限本地</td></tr>
+        </tbody>
+    </table></div>
+
+    <h2>6. 日常維運 SOP</h2>
+    <div class="code-block">
+# 每日維運檢查
+Invoke-WebRequest -Uri https://www.ahpal.com -Method Head
+git status; git pull
+.\scripts\check-deepseek-balance.ps1
+    </div>
+
+    <h2>7. 部署與發布流程</h2>
+    <div class="code-block">
+.\scripts\ahpal-master.ps1 → [1]
+# 或僅部署
+npx wrangler pages deploy . --project-name=ahpal-pages
+    </div>
+
+    <h2>8. 災難復原計畫</h2>
+    <div class="code-block">
+# 從黃金備份還原
+Copy-Item -Path "C:\Users\User\ahpal-backup\GOLDEN\*" -Destination C:\Users\User\ahpal-static -Recurse -Force
+npx wrangler pages deploy "C:\Users\User\ahpal-static" --project-name=ahpal-pages
+    </div>
+
+    <h2>9. 合規與法遵</h2>
+    <ul><li>所有 API Key 僅儲存於本地 <span class="inline-code">.env</span></li>
+    <li><span class="inline-code">.env</span> 已加入 <span class="inline-code">.gitignore</span></li>
+    <li>✅ 隱私權政策已發布</li>
+    <li>✅ ads.txt / robots.txt 已部署</li></ul>
+
+    <h2>10. 溝通與回報機制</h2>
+    <div class="table-wrapper"><table>
+        <thead><tr><th>類型</th><th>管道</th><th>對象</th></tr></thead>
+        <tbody>
+            <tr><td>部署報告</td><td>Gmail HTML 通知</td><td>董事會執行長</td></tr>
+            <tr><td>錯誤告警</td><td>Gmail 即時通知</td><td>總經理兼總工程師</td></tr>
+        </tbody>
+    </table></div>
+
+    <h2>11. 術語表</h2>
+    <div class="table-wrapper"><table>
+        <thead><tr><th>術語</th><th>說明</th></tr></thead>
+        <tbody>
+            <tr><td><span class="inline-code">.env</span></td><td>環境變數檔案，儲存 API Key，不上傳 Git</td></tr>
+            <tr><td><span class="inline-code">Responses API</span></td><td>DeepSeek 新一代 API，支援 Reasoning</td></tr>
+            <tr><td>Reasoning</td><td>思維鏈功能，提升文章品質</td></tr>
+        </tbody>
+    </table></div>
+
+    <!-- 12. AI 協作規範 -->
+    <h2>12. AI 協作規範</h2>
+    <div class="death-command">
+        <div class="death-title">📜 死命令 8：禁止擅自精簡或改寫既有功能</div>
+        <h4 style="margin-top:14px; color:#8B0000;">🔴 禁止行為清單</h4>
+        <ul>
+            <li><strong>❌ 禁止擅自精簡</strong>：不得以「優化」為由刪除既有功能</li>
+            <li><strong>❌ 禁止擅自改寫</strong>：未經核准不得改寫核心函數</li>
+            <li><strong>❌ 禁止「捕小洞挖大洞」</strong>：修復一個問題不得製造新問題</li>
+        </ul>
+        <h4 style="margin-top:14px; color:#8B0000;">📋 AI 代理行為準則</h4>
+        <ol><li><strong>先備份後修改</strong></li>
+        <li><strong>修改後對比</strong></li>
+        <li><strong>重大變更須核准</strong></li></ol>
+        <div style="margin-top:14px; padding:12px 16px; background:#8B0000; color:white; border-radius:8px; text-align:center; font-weight:700; letter-spacing:2px;">
+            ⚠️ 此命令已錄入紅皮書，作為永久性強制規範。
+        </div>
+    </div>
+
+    <!-- 簽核 -->
+    <div class="signature-area">
+        <div class="signature-box"><div class="role">📌 撰寫</div><div class="name">龍蝦總工程師</div><div class="line"></div><span class="status-badge approved">✅ 已簽核</span></div>
+        <div class="signature-box"><div class="role">✅ 核定</div><div class="name">董事會執行長</div><div class="line"></div><span class="status-badge approved">✅ 已簽核</span></div>
+        <div class="signature-box"><div class="role">👑 核准</div><div class="name">董事長</div><div class="line"></div><span class="status-badge dead">🔴 已簽核</span></div>
+    </div>
+
+    <div class="footer">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 紅皮書 v4.0<br>文件最後更新：2026 年 8 月 16 日 ｜ 🔴 內含 8 條董事長死命令</div>
+</div>
+</body>
+</html>

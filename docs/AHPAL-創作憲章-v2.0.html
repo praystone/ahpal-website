@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHPAL 創作憲章 v2.0</title>
+    <style>
+        :root {
+            --primary: #D4AF37;
+            --secondary: #00A86B;
+            --danger: #8B0000;
+            --bg: #FFFFF0;
+            --card: #FFFFFF;
+            --text: #1A202C;
+            --gray: #4A5568;
+            --border: #E2E8F0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 14px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.8; padding: 30px 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card { background: var(--card); padding: 32px 36px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 24px; border: 1px solid var(--border); }
+        @media (max-width: 640px) { .card { padding: 20px 16px; } }
+        .header { text-align: center; border-bottom: 4px solid var(--primary); padding-bottom: 20px; margin-bottom: 10px; }
+        .header .logo { font-size: 28px; font-weight: 700; color: #7A6B3A; }
+        .header .logo span { color: var(--secondary); }
+        .header .subtitle { font-size: 16px; color: var(--gray); margin-top: 4px; }
+        .header .version { display: inline-block; background: #7A6B3A; color: white; padding: 2px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 10px; }
+        .header .status { display: inline-block; background: var(--secondary); color: white; padding: 2px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 6px; }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+        h2 { font-size: 22px; font-weight: 700; color: #7A6B3A; margin: 24px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+        h3 { font-size: 17px; font-weight: 700; color: var(--text); margin: 16px 0 10px 0; }
+        .principle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+        .principle-card { padding: 18px 20px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); }
+        .principle-card .icon { font-size: 28px; display: block; margin-bottom: 4px; }
+        .principle-card .title { font-weight: 700; font-size: 16px; }
+        .principle-card .desc { font-size: 14px; color: var(--gray); }
+        .badge { display: inline-block; padding: 2px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge.green { background: #C6F6D5; color: #276749; }
+        .badge.yellow { background: #FEFCBF; color: #975A16; }
+        .badge.red { background: #FED7D7; color: #9B2C2C; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+        table th, table td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+        table th { background: #7A6B3A; color: white; font-weight: 600; }
+        table tr:nth-child(even) td { background: var(--bg); }
+        .tip { padding: 16px 20px; border-radius: 10px; margin: 12px 0 16px 0; border-left: 4px solid; }
+        .tip.success { background: #F0FFF4; border-color: var(--secondary); color: #276749; }
+        .tip.warning { background: #FFFAF0; border-color: #DD6B20; color: #9C4221; }
+        .tip.info { background: #EBF8FF; border-color: #3182CE; color: #2B6CB0; }
+        .tip.danger { background: #FFF5F5; border-color: #E53E3E; color: #9B2C2C; }
+        .rule-list { list-style: none; padding: 0; }
+        .rule-list li { padding: 8px 12px; margin-bottom: 6px; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--primary); }
+        .signature { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; padding-top: 20px; border-top: 2px solid var(--border); }
+        .signature-box { text-align: center; padding: 12px; background: var(--bg); border-radius: 10px; border: 1px solid var(--border); }
+        .signature-box .role { font-size: 12px; color: var(--gray); font-weight: 600; }
+        .signature-box .name { font-size: 16px; font-weight: 700; }
+        .signature-box .line { width: 60%; height: 2px; background: var(--border); margin: 8px auto 4px auto; }
+        .footer { text-align: center; color: #A0AEC0; font-size: 13px; padding: 30px 0 10px 0; border-top: 1px solid var(--border); margin-top: 10px; }
+        @media (max-width: 640px) { .principle-grid { grid-template-columns: 1fr; } .header .logo { font-size: 22px; } h1 { font-size: 24px; } h2 { font-size: 19px; } .signature { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">📜 創作憲章 · <span>內容策略</span></div>
+        <div class="subtitle">雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div class="version">📌 版本 v2.0 · 2026 年 8 月 16 日</div>
+        <div class="status">✅ 董事會核定 · 全員遵行</div>
+    </div>
+
+    <h1>📜 憲章宣言</h1>
+    <p style="font-size: 16px; color: var(--gray);">
+        AHPAL 歷史腦洞系列致力於以 <strong>現代職場、科技與管理學視角</strong>，
+        幽默且深度地解構歷史與宗教故事。<br>
+        <strong style="color:#7A6B3A;">誠實守信，是文明社會永恆的基石。</strong>
+    </p>
+    <div class="tip success"><strong>🎯 核心使命：</strong>用跨界思維創造高品質原創內容，讓讀者在趣味中學到現代知識。</div>
+
+    <h2>🌟 三大核心優勢</h2>
+    <div class="principle-grid">
+        <div class="principle-card"><span class="icon">🧠</span><div class="title">高原創性</div><div class="desc">跨界結合古代歷史 × 現代職場/科技，每篇必有 SWOT、KPI、戰略分析。</div></div>
+        <div class="principle-card"><span class="icon">🕊️</span><div class="title">無仇恨言論</div><div class="desc">客觀解構宗教與歷史，用科學與管理學視角分析。</div></div>
+        <div class="principle-card"><span class="icon">📈</span><div class="title">高附加價值</div><div class="desc">讀者學到現代職場技能、管理思維與科技知識。</div></div>
+    </div>
+    <div class="tip info"><strong>📊 AdSense 審核優勢：</strong>「高品質原創」、「文化與歷史討論」、「職場與科技觀點」</div>
+
+    <h2>🛡️ 避坑原則</h2>
+    <table>
+        <thead><tr><th>原則</th><th>說明</th><th>實踐方式</th></tr></thead>
+        <tbody>
+            <tr><td><span class="badge yellow">⚠️ 點到即止</span></td><td>血腥暴力描寫</td><td>用「戰略分析」視角，不描寫具體細節</td></tr>
+            <tr><td><span class="badge yellow">📝 結構完整</span></td><td>內文厚度</td><td>每篇 ≥ 3000 字，H1/H2/H3 完整</td></tr>
+            <tr><td><span class="badge green">🏷️ 明確分類</span></td><td>網站定位</td><td>標示「📜 歷史腦洞」</td></tr>
+        </tbody>
+    </table>
+    <div class="tip danger"><strong>🔴 紅線：</strong>絕對禁止煽動仇恨、歧視、極端宗教宣傳、過度血腥暴力細節。</div>
+
+    <h2>📋 文章結構標準</h2>
+    <table>
+        <thead><tr><th>元素</th><th>要求</th></tr></thead>
+        <tbody>
+            <tr><td>標題</td><td>吸睛 + 明確主題</td></tr>
+            <tr><td>H1 標題</td><td>1 個，完整主題</td></tr>
+            <tr><td>H2 標題</td><td>≥ 3 個</td></tr>
+            <tr><td>H3 標題</td><td>≥ 2 個</td></tr>
+            <tr><td>字數</td><td>≥ 3000 字</td></tr>
+            <tr><td>配圖</td><td>≥ 1 張 (Pollinations AI)</td></tr>
+            <tr><td>結構元素</td><td>表格 / FAQ / 清單 (≥ 2 種)</td></tr>
+        </tbody>
+    </table>
+    <div class="tip success"><strong>✅ 品質門檻：</strong>每篇文章品質分數須 ≥ 80/100。</div>
+
+    <h2>🏷️ 分類與標籤規範</h2>
+    <table>
+        <thead><tr><th>項目</th><th>規範</th></tr></thead>
+        <tbody>
+            <tr><td>分類名稱</td><td>📜 歷史腦洞</td></tr>
+            <tr><td>目錄路徑</td><td><code>history/</code></td></tr>
+            <tr><td>頁面說明</td><td>「幽默創意 · 歷史解構 · 職場文學」</td></tr>
+            <tr><td>SEO 描述</td><td>「用現代職場視角幽默解構歷史故事」</td></tr>
+        </tbody>
+    </table>
+
+    <h2>⚙️ 創作流程</h2>
+    <ol style="margin:12px 0 12px 24px; font-size:15px; line-height:2.2;">
+        <li><strong>構思主題</strong> — 歷史/宗教故事 + 現代職業/科技</li>
+        <li><strong>確認合規</strong> — 檢查是否觸及紅線</li>
+        <li><strong>撰寫大綱</strong> — H1/H2/H3 結構</li>
+        <li><strong>AI 生成</strong> — Responses API + Reasoning</li>
+        <li><strong>品質檢查</strong> — ≥ 80/100</li>
+        <li><strong>配圖生成</strong> — Pollinations AI</li>
+        <li><strong>分類標示</strong> — 📜 歷史腦洞</li>
+        <li><strong>發布部署</strong> — Git + Cloudflare</li>
+    </ol>
+
+    <h2 style="color:var(--danger);">🚫 絕對禁止事項</h2>
+    <ul class="rule-list">
+        <li>❌ 煽動仇恨、歧視或貶低特定宗教族群</li>
+        <li>❌ 過度血腥、暴力細節描寫</li>
+        <li>❌ 極端宗教宣傳或極端主義言論</li>
+        <li>❌ 成人內容、賭博、非法藥物</li>
+        <li>❌ 薄弱的內容（< 2000 字、無結構）</li>
+        <li>❌ 誤導性標題（Clickbait）</li>
+    </ul>
+
+    <div class="tip danger"><strong>🔴 違反後果：</strong>文章下架、AdSense 帳戶風險，並視同違反董事長死命令。</div>
+
+    <h2>📋 簽核記錄</h2>
+    <div class="signature">
+        <div class="signature-box"><div class="role">📌 撰寫</div><div class="name">🦞 龍蝦總工程師</div><div class="line"></div><span class="badge green">✅ 已簽核</span></div>
+        <div class="signature-box"><div class="role">👑 核准</div><div class="name">董事長</div><div class="line"></div><span class="badge green">🏆 已核准</span></div>
+    </div>
+
+    <div class="footer">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 創作憲章 v2.0<br>文件最後更新：2026 年 8 月 16 日<br><span style="color:#7A6B3A;font-weight:700;">✅ 誠實守信，是文明社會永恆的基石。</span></div>
+</div>
+</body>
+</html>

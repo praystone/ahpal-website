@@ -1,71 +1,277 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>服務條款 - 雅寶社區 · 頂客論壇</title>
-    
+    <title>📋 服務條款 - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="雅寶社區 · 頂客論壇 (AHPAL.COM) 服務條款，使用本網站即表示您同意遵守相關規範。">
+    <!-- ✅ 已移除 noindex，讓搜尋引擎正常索引 -->
+
+    <!-- 統一 CSS -->
+    <link rel="stylesheet" href="/style/main.css">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXGG1VTGPB');
+    </script>
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; background: #F7F9FC; color: #1A202C; line-height: 1.8; padding: 40px 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px 48px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-        h1 { font-size: 28px; color: #1A202C; border-bottom: 3px solid #005A9C; padding-bottom: 12px; margin-bottom: 20px; }
-        h2 { font-size: 20px; color: #005A9C; margin: 24px 0 10px 0; }
-        p { margin-bottom: 12px; color: #4A5568; }
-        ul { margin: 8px 0 16px 20px; color: #4A5568; }
-        .back-link { display: inline-block; margin-top: 20px; color: #005A9C; text-decoration: none; font-weight: 500; }
-        .back-link:hover { text-decoration: underline; }
-        .footer-text { margin-top: 30px; padding-top: 20px; border-top: 1px solid #E2E8F0; font-size: 13px; color: #718096; text-align: center; }
-        @media (max-width: 640px) { .container { padding: 24px 18px; } }
+        /* 服務條款專用樣式 */
+        .terms-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        .terms-card {
+            background: white;
+            border-radius: 14px;
+            padding: 40px 48px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid #E2E8F0;
+        }
+        .terms-card h1 {
+            font-size: 28px;
+            color: #005A9C;
+            border-bottom: 3px solid #005A9C;
+            padding-bottom: 12px;
+            margin-bottom: 8px;
+        }
+        .terms-card .last-updated {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .terms-card h2 {
+            font-size: 20px;
+            color: #005A9C;
+            margin: 28px 0 12px 0;
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 8px;
+        }
+        .terms-card p {
+            color: #4A5568;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .terms-card ul {
+            color: #4A5568;
+            font-size: 15px;
+            line-height: 1.8;
+            padding-left: 24px;
+            margin-bottom: 12px;
+        }
+        .terms-card ul li {
+            margin-bottom: 4px;
+        }
+        .terms-card .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #005A9C;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .terms-card .back-link:hover {
+            text-decoration: underline;
+        }
+        .terms-card .footer-text {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #E2E8F0;
+            font-size: 13px;
+            color: #718096;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .terms-card { padding: 24px 18px; }
+            .terms-card h1 { font-size: 22px; }
+            .terms-card h2 { font-size: 17px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📋 服務條款</h1>
-        <p><strong>最後更新日期：</strong>2026 年 7 月 22 日</p>
 
-        <p>歡迎使用雅寶社區 · 頂客論壇（以下簡稱「本網站」）。使用本網站即表示您已閱讀、理解並同意接受以下服務條款。若您不同意，請勿使用本網站。</p>
+    <!-- ============================================================
+    統一網站標頭
+    ============================================================ -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+            <nav class="nav-links">
+                <a href="/">首頁</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/about.html">📖 關於我們</a>
+                <a href="/contact.html">📧 聯絡我們</a>
+                <a href="/privacy-policy.html">🔒 隱私權政策</a>
+                <a href="/terms-of-service.html" style="color:white; border-bottom: 2px solid #00A86B;">📋 服務條款</a>
+                <a href="/game/" class="game-link">🎮 遊戲間</a>
+            </nav>
+        </div>
+    </header>
 
-        <h2>1. 接受條款</h2>
-        <p>使用本網站即表示您同意遵守本服務條款及所有相關法律規範。我們保留隨時修改條款的權利，變更生效前會在本頁面發布通知。</p>
+    <!-- ============================================================
+    主內容
+    ============================================================ -->
+    <div class="main-wrapper">
+        <div class="main-content">
+            <div class="terms-container">
 
-        <h2>2. 內容版權與智慧財產權</h2>
-        <ul>
-            <li>本網站所有內容（包括但不限於文章、圖片、遊戲、標誌、設計）均為原創或已取得合法授權。</li>
-            <li>未經書面授權，不得複製、散布、修改或商業使用本網站的任何內容。</li>
-            <li>遊戲內容為 HTML5 開放資源，僅供個人娛樂使用。</li>
-        </ul>
+                <div class="terms-card">
+                    <h1>📋 服務條款</h1>
+                    <p class="last-updated"><strong>最後更新日期：</strong>2026 年 8 月 16 日</p>
 
-        <h2>3. 使用者行為</h2>
-        <p>使用本網站時，您同意不會：</p>
-        <ul>
-            <li>發布違法、侵權、誹謗、不當或含有惡意程式碼的內容</li>
-            <li>干擾本網站的正常運作或安全</li>
-            <li>未經授權存取本網站的系統或資料</li>
-        </ul>
+                    <p>歡迎使用雅寶社區 · 頂客論壇（以下簡稱「本網站」）。使用本網站即表示您已閱讀、理解並同意接受以下服務條款。若您不同意，請勿使用本網站。</p>
 
-        <h2>4. 免責聲明</h2>
-        <ul>
-            <li>本網站內容僅供參考，不構成專業建議。如有任何疑問，建議諮詢相關領域專家。</li>
-            <li>我們盡力確保內容準確性，但不保證所有資訊完全正確或最新。</li>
-            <li>遊戲間的所有遊戲僅供娛樂，不具備任何實際金錢價值。</li>
-        </ul>
+                    <h2>1. 接受條款</h2>
+                    <p>使用本網站即表示您同意遵守本服務條款及所有相關法律規範。我們保留隨時修改條款的權利，變更生效前會在本頁面發布通知。</p>
 
-        <h2>5. 第三方連結</h2>
-        <p>本網站可能包含第三方網站連結，我們對其內容、隱私政策及服務不承擔任何責任。</p>
+                    <h2>2. 內容版權與智慧財產權</h2>
+                    <ul>
+                        <li>本網站所有內容（包括但不限於文章、圖片、遊戲、標誌、設計）均為原創或已取得合法授權。</li>
+                        <li>未經書面授權，不得複製、散布、修改或商業使用本網站的任何內容。</li>
+                        <li>遊戲內容為 HTML5 開放資源，僅供個人娛樂使用。</li>
+                    </ul>
 
-        <h2>6. 終止使用</h2>
-        <p>我們保留隨時終止或限制您使用本網站權利的權限，若違反本服務條款或相關法律。</p>
+                    <h2>3. 使用者行為</h2>
+                    <p>使用本網站時，您同意不會：</p>
+                    <ul>
+                        <li>發布違法、侵權、誹謗、不當或含有惡意程式碼的內容</li>
+                        <li>干擾本網站的正常運作或安全</li>
+                        <li>未經授權存取本網站的系統或資料</li>
+                    </ul>
 
-        <h2>7. 聯絡我們</h2>
-        <p>如對本服務條款有任何疑問或建議，請透過以下方式與我們聯絡：</p>
-        <ul>
-            <li><strong>電子郵件：</strong><a href="/contact.html" class="text-wa-red hover:underline">聯絡表單</a></li>
-        </ul>
+                    <h2>4. 免責聲明</h2>
+                    <ul>
+                        <li>本網站內容僅供參考，不構成專業建議。如有任何疑問，建議諮詢相關領域專家。</li>
+                        <li>我們盡力確保內容準確性，但不保證所有資訊完全正確或最新。</li>
+                        <li>遊戲間的所有遊戲僅供娛樂，不具備任何實際金錢價值。</li>
+                    </ul>
 
-        <a href="/" class="back-link">← 返回首頁</a>
-        <div class="footer-text">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+                    <h2>5. 第三方連結</h2>
+                    <p>本網站可能包含第三方網站連結，我們對其內容、隱私政策及服務不承擔任何責任。</p>
+
+                    <h2>6. 終止使用</h2>
+                    <p>我們保留隨時終止或限制您使用本網站權利的權限，若違反本服務條款或相關法律。</p>
+
+                    <h2>7. 聯絡我們</h2>
+                    <p>如對本服務條款有任何疑問或建議，請透過以下方式與我們聯絡：</p>
+                    <ul>
+                        <li><strong>📧 電子郵件：</strong><a href="mailto:praystone@gmail.com" style="color:#005A9C; text-decoration:none;">praystone@gmail.com</a></li>
+                        <li><strong>📝 聯絡表單：</strong><a href="/contact.html" style="color:#005A9C; text-decoration:none;">前往聯絡表單 →</a></li>
+                    </ul>
+
+                    <a href="/" class="back-link">← 返回首頁</a>
+                    <div class="footer-text">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================================
+        側邊欄
+        ============================================================ -->
+        <div class="sidebar">
+            <div class="widget">
+                <h3>⚖️ 關於本站</h3>
+                <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。從歲月記憶到知識共創，我們相信：<strong>誠實守信，是文明社會永恆的基石。</strong></p>
+                <p style="margin-top:8px;"><a href="/about.html" style="color:#005A9C;font-weight:500;">📖 了解更多 →</a></p>
+            </div>
+
+            <div class="widget">
+                <h3>🎮 雅寶遊戲間</h3>
+                <p style="font-size:13px; margin-bottom:12px;">閱讀之餘，放鬆一下！免下載、即開即玩。</p>
+                <a href="/game/" style="display:inline-block; background:#005A9C; color:white; padding:8px 20px; border-radius:20px; text-decoration:none; font-size:14px; font-weight:500;">🎮 進入遊戲間</a>
+            </div>
+
+            <div class="widget">
+                <h3>🏷️ 分類標籤</h3>
+                <div class="tag-cloud">
+                    <a href="/category-tech.html">💻 3C</a>
+                    <a href="/category-game.html">🎮 遊戲</a>
+                    <a href="/category-life.html">🏠 生活</a>
+                    <a href="/category-review.html">📊 評測</a>
+                    <a href="/category-philosophy.html">🌟 哲理</a>
+                    <a href="/category-trend.html">🤖 AI</a>
+                    <a href="/category-music.html">🎵 音樂</a>
+                    <a href="/category-history.html">📜 歷史</a>
+                    <a href="/game/">🎮 遊戲間</a>
+                    <a href="/categories.html">📚 全部分類</a>
+                    <a href="/about.html">📖 關於我們</a>
+                    <a href="/contact.html">📧 聯絡我們</a>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- ============================================================
+    統一頁尾
+    ============================================================ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+            <div class="footer-links">
+                <a href="/">🏠 首頁</a>
+                <a href="/categories.html">📚 全部分類</a>
+                <a href="/about.html">📖 關於我們</a>
+                <a href="/contact.html">📧 聯絡我們</a>
+                <a href="/privacy-policy.html">🔒 隱私權政策</a>
+                <a href="/terms-of-service.html">📋 服務條款</a>
+                <a href="/sitemap.xml">📄 Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回頂部 -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+    <style>
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #005A9C;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0.7;
+            z-index: 999;
+        }
+        #back-to-top:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            background: #003d66;
+        }
+        .site-footer .footer-links {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 24px;
+        }
+        .site-footer .footer-links a {
+            color: #CBD5E0;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s ease, text-decoration 0.2s ease;
+        }
+        .site-footer .footer-links a:hover {
+            color: #FFFFFF;
+            text-decoration: underline;
+        }
+    </style>
+
 </body>
 </html>
-

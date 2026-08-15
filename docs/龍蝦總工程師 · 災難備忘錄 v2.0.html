@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龍蝦總工程師 · 災難備忘錄 v2.0</title>
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #D4AF37;
+            --bg: #1A1A1A;
+            --card: #2D2D2D;
+            --text: #E8E8E8;
+            --text-muted: #A0A0A0;
+            --border: #444444;
+            --shadow: 0 4px 20px rgba(0,0,0,0.5);
+            --radius: 12px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            --mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: var(--font); 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.8; 
+            font-size: 16px; 
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card { 
+            background: var(--card); 
+            padding: 30px 35px; 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            margin-bottom: 24px; 
+            border: 1px solid var(--border);
+        }
+        .header {
+            text-align: center;
+            padding: 30px 0 20px 0;
+            border-bottom: 3px solid var(--secondary);
+            margin-bottom: 30px;
+        }
+        .header .logo { font-size: 32px; font-weight: 700; color: var(--secondary); }
+        .header .logo span { color: #FF6B6B; }
+        .header .subtitle { font-size: 16px; color: var(--text-muted); margin-top: 4px; }
+        .header .version { 
+            display: inline-block; 
+            background: var(--primary); 
+            color: white; 
+            padding: 4px 20px; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            margin-top: 10px;
+        }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+        h2 { 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: var(--secondary); 
+            margin: 28px 0 16px 0; 
+            padding-bottom: 8px; 
+            border-bottom: 2px solid var(--border);
+        }
+        h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 20px 0 10px 0; }
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th, table td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+        table th { background: var(--primary); color: white; font-weight: 600; }
+        table tr:nth-child(even) { background: #3A3A3A; }
+        .code-block { 
+            background: #0D0D0D; 
+            color: #E8E8E8; 
+            border-radius: 10px; 
+            padding: 16px 20px; 
+            margin: 12px 0 16px 0; 
+            overflow-x: auto; 
+            border: 1px solid var(--border); 
+            font-family: var(--mono); 
+            font-size: 14px; 
+            line-height: 1.7; 
+            white-space: pre-wrap; 
+            word-break: break-all;
+        }
+        .inline-code { 
+            background: #3A3A3A; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-family: var(--mono); 
+            font-size: 13px; 
+            border: 1px solid var(--border);
+            color: #FFD700;
+        }
+        .tip { 
+            padding: 16px 20px; 
+            border-radius: 10px; 
+            margin: 12px 0 16px 0; 
+            border-left: 4px solid; 
+        }
+        .tip.danger { background: #3D1A1A; border-color: #FF4444; color: #FF6B6B; }
+        .tip.warning { background: #3D3D1A; border-color: #FFD700; color: #FFD700; }
+        .tip.success { background: #1A3D1A; border-color: #44FF44; color: #6BFF6B; }
+        .tip.info { background: #1A2A3D; border-color: #4488FF; color: #6BB5FF; }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+        .error-box {
+            border: 2px solid #FF4444;
+            background: #2A0A0A;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 16px 0;
+            position: relative;
+        }
+        .error-box::before {
+            content: "⚠️ 錯誤記錄";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #FF4444;
+            color: white;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .error-box .error-title { font-size: 16px; font-weight: 700; color: #FF6B6B; margin-top: 6px; margin-bottom: 8px; }
+        .timestamp {
+            display: inline-block;
+            background: #3A3A3A;
+            color: var(--text-muted);
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-family: var(--mono);
+        }
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        .footer .brand { color: var(--secondary); font-weight: 600; }
+        .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge.danger { background: #FF4444; color: white; }
+        .badge.warning { background: #FFD700; color: #1A1A1A; }
+        .badge.success { background: #44FF44; color: #1A1A1A; }
+        .emoji-big { font-size: 48px; display: block; text-align: center; margin: 10px 0; }
+        .death-command-box {
+            border: 2px solid #FF4444;
+            background: #2A0A0A;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+        .death-command-box .death-title { font-size: 18px; font-weight: 700; color: #FF6B6B; margin-bottom: 8px; }
+        @media (max-width: 768px) {
+            .header .logo { font-size: 24px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            .card { padding: 20px 16px; }
+            table th, table td { padding: 6px 10px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">🦞 龍蝦總工程師 · <span>災難備忘錄</span></div>
+        <div class="subtitle">血淚交織的 24 小時 — 從 Emoji 地獄到產線復活</div>
+        <div class="version">📌 版本 v2.0 · 2026 年 8 月 16 日</div>
+    </div>
+
+    <!-- ============================================================
+    開場白
+    ============================================================ -->
+    <div class="card">
+        <div class="emoji-big">💀</div>
+        <h1 style="text-align:center; color:#FF6B6B;">2026-08-15 · 黑暗 24 小時</h1>
+        <p style="text-align:center; color:var(--text-muted);">
+            以下記錄了從 2026-08-15 到 2026-08-16 期間，AHPAL 系統遭遇的所有災難、錯誤與修復過程。<br>
+            <strong style="color:#FFD700;">願後人不再重蹈覆轍。</strong>
+        </p>
+    </div>
+
+    <!-- ============================================================
+    時間軸總覽 (精簡版)
+    ============================================================ -->
+    <div class="card">
+        <h2>📅 災難時間軸</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>時間</th><th>事件</th><th>嚴重程度</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="timestamp">08-15 22:00</span></td><td>執行 auto-history-batch.ps1</td><td><span class="badge success">✅ 正常</span></td></tr>
+                    <tr><td><span class="timestamp">08-15 23:44</span></td><td>57 篇文章生成，餘額歸零</td><td><span class="badge danger">🔴 重大</span></td></tr>
+                    <tr><td><span class="timestamp">08-15 23:50</span></td><td>index.html Emoji 亂碼</td><td><span class="badge danger">🔴 重大</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 00:00</span></td><td>移動根目錄文章 → history/</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 00:15</span></td><td>Git checkout 恢復 html_builder.py</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 01:15</span></td><td>批量修復 182 篇 Emoji</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 01:40</span></td><td>改用 Python 寫入 JSON</td><td><span class="badge success">✅ 修復</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    🆕 死命令總覽 (紅皮書精華)
+    ============================================================ -->
+    <div class="death-command-box">
+        <div class="death-title">📜 董事長死命令總覽 (8 條)</div>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>#</th><th>死命令</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>文章變更後強制檢查與推送規範</td><td>preflight-check.ps1</td></tr>
+                    <tr><td><strong>2</strong></td><td>文章檔名強制使用英文</td><td>嚴禁中文檔名</td></tr>
+                    <tr><td><strong>3</strong></td><td>本地測試與路徑強制規範</td><td>禁止文章放根目錄</td></tr>
+                    <tr><td><strong>4</strong></td><td>CSS 靜態資產保護</td><td>main.css 禁止自動覆蓋</td></tr>
+                    <tr><td><strong>5</strong></td><td>文章清單集中管理</td><td>master-articles.json</td></tr>
+                    <tr><td><strong>6</strong></td><td>文章新增唯一入口</td><td>pending-articles.json</td></tr>
+                    <tr><td><strong>7</strong></td><td>首頁完整性</td><td>create_default_index()</td></tr>
+                    <tr><td><strong>8</strong></td><td>禁止擅自精簡或改寫既有功能</td><td>修復前備份、修復後對比</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:12px; padding:12px 16px; background:#8B0000; color:white; border-radius:8px; text-align:center; font-weight:700; letter-spacing:2px;">
+            ⚠️ 此 8 條死命令已錄入紅皮書，作為永久性強制規範。
+        </div>
+    </div>
+
+    <!-- ============================================================
+    🆕 錯誤 8：董事長信箱暴露
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 8：董事長信箱暴露風險</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+# about.html 中直接暴露了郵箱
+📧 電子郵件：<a href="mailto:praystone@gmail.com">praystone@gmail.com</a>
+
+# 以及連結格式錯誤
+https://www.ahpal.com/about%20%20%20https://www.ahpal.com/privacy-policy  → 404
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <ul style="margin:8px 0 0 20px; color:#FF6B6B;">
+                <li>在 about.html 中直接暴露了公開郵箱，可能被爬蟲收集</li>
+                <li>連結格式錯誤，多個 URL 被錯誤合併</li>
+                <li>未使用聯絡表單作為主要聯繫方式</li>
+            </ul>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# 1. 統一使用聯絡表單
+<a href="/contact.html">📧 聯絡我們</a>
+
+# 2. 隱私權政策使用業務專用信箱
+📧 電子郵件：praystone@gmail.com (業務聯絡用)
+
+# 3. 正確的連結格式
+https://www.ahpal.com/about.html
+https://www.ahpal.com/privacy-policy.html
+
+# 4. 董事長信箱嚴格保密，永不公開
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>董事長信箱／內部信箱絕對不得在網站上公開！</strong><br>
+            所有聯絡應透過「聯絡表單」或「業務專用信箱」處理。<br>
+            提供連結前必須在本地驗證有效性，嚴禁合併多個 URL。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    🆕 錯誤 9：NOINDEX 誤用
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 9：服務條款誤設 NOINDEX</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+&lt;meta name="robots" content="noindex, follow"&gt;
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <p>服務條款、隱私權政策、關於我們等頁面被錯誤地設為 <code>noindex</code>，導致搜尋引擎無法索引，<br>
+            影響網站信任度與完整性。</p>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# ✅ 正確作法：完全移除 noindex
+&lt;!-- 已移除 noindex，讓搜尋引擎正常索引 --&gt;
+
+# 服務條款、隱私權政策、關於我們都是重要頁面，應被索引
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>切忌 NOINDEX！</strong><br>
+            服務條款、隱私權政策、關於我們等頁面 <strong>絕對不能設為 noindex</strong>，否則會降低網站的可信度與 SEO 排名。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    🆕 錯誤 10：你忘了的事 — 我幫你回想
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 10：你忘了的事 — 我幫你回想</h2>
+        <div class="error-box">
+            <div class="error-title">📌 你忘了的事：</div>
+            <div style="color:#FF6B6B; font-size:15px; padding:8px 0;">
+                <div>🔸 <strong>死命令 #2</strong> — 文章檔名強制英文，但第一批生成時仍有多篇中文檔名</div>
+                <div>🔸 <strong>死命令 #3</strong> — 文章放根目錄，35+ 篇歷史腦洞散落在根目錄</div>
+                <div>🔸 <strong>死命令 #8</strong> — 自動修改 html_builder.py，導致 Emoji 大規模破壞</div>
+                <div>🔸 <strong>餘額監控</strong> — 第一批 57 篇生成前未檢查餘額，直接歸零</div>
+                <div>🔸 <strong>PowerShell 寫 JSON</strong> — 中文亂碼，後來才改用 Python</div>
+                <div>🔸 <strong>SMTP 郵件</strong> — 忘記先執行 ahpal-static.ps1 載入環境變數</div>
+                <div>🔸 <strong>連結格式</strong> — about%20%20%20https://... 錯誤合併</div>
+                <div>🔸 <strong>NOINDEX 誤用</strong> — 服務條款被設為 noindex</div>
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">📌 核心教訓</div>
+            <p style="font-size:15px; color:#FF6B6B;">
+                所有錯誤都有共同根源：<strong>急於執行、忽略檢查、忘記死命令</strong>。<br>
+                解決方案只有一個：<strong>嚴格遵守 SOP，執行前先檢查清單。</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    快速檢查清單 (更新版)
+    ============================================================ -->
+    <div class="card" style="border: 2px solid var(--secondary);">
+        <h2 style="color: var(--secondary);">✅ 快速檢查清單（每次執行前）</h2>
+        <div class="code-block">
+# 1. 檢查餘額
+.\scripts\check-deepseek-balance.ps1
+
+# 2. 載入環境變數
+.\scripts\ahpal-static.ps1
+
+# 3. 檢查 Git 狀態
+git status
+
+# 4. 檢查目前時段（盡量在 18:00-09:00 執行）
+Get-Date
+
+# 5. 檢查待生成文章
+python src/main.py --dry-run
+
+# 6. 執行前備份
+.\scripts\backup-system.ps1 -Golden
+
+# 7. 檢查死命令 (強制)
+.\scripts\preflight-check.ps1
+
+# 8. 檢查 Emoji 是否正常
+# 訪問 https://www.ahpal.com/ 檢查
+
+# 9. 確認連結格式正確
+# 所有頁面連結須以 .html 結尾
+
+# 10. 確認無 NOINDEX
+# grep -r "noindex" . --include="*.html"
+        </div>
+    </div>
+
+    <!-- ============================================================
+    總結
+    ============================================================ -->
+    <div class="card" style="border: 2px solid #FF4444;">
+        <h2 style="color:#FF6B6B;">🛑 最終警告</h2>
+        <div class="emoji-big">⚰️</div>
+        <p style="text-align:center; font-size:18px; color:#FF6B6B;">
+            <strong>這 24 小時的教訓，是用血淚換來的。</strong>
+        </p>
+        <ul style="margin:16px 0 0 24px; color:var(--text-muted); font-size:15px; line-height:2.2;">
+            <li><strong style="color:#FF6B6B;">不要</strong> 自動修改核心檔案（html_builder.py）</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在沒有備份的情況下執行批次生成</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 忘記執行 ahpal-static.ps1</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在高峰時段消耗昂貴的 API 額度</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 把文章放在根目錄</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 使用中文檔名</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在 PowerShell 中處理中文 JSON</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 忽略死命令</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 暴露董事長信箱</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 對服務條款等頁面設 NOINDEX</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 提供格式錯誤的連結</li>
+        </ul>
+        <div style="margin-top:20px; padding:16px; background:#1A0A0A; border-radius:8px; text-align:center; border:1px solid #FF4444;">
+            <p style="color:#FFD700; font-weight:700; font-size:20px;">
+                🦞 龍蝦總工程師 · 血淚簽 v2.0
+            </p>
+            <p style="color:var(--text-muted); font-size:14px;">
+                2026 年 8 月 16 日 · 凌晨 04:30
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 災難備忘錄 v2.0<br>
+        文件最後更新：2026 年 8 月 16 日 ｜ 🦞 龍蝦總工程師 親筆<br>
+        <span style="color:#FF6B6B; font-weight:700;">🔴 願後人不再重蹈覆轍</span>
+        <br><br>
+        <span style="font-size:12px; color:#FFD700; font-weight:700;">
+            📌 包含：8 條死命令 · 董事長信箱保護 · 嚴禁 NOINDEX
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

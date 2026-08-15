@@ -2434,5 +2434,245 @@
         "use_responses_api":  true,
         "enable_reasoning":  true,
         "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代遊戲設計師穿越到宋朝：把清明上河圖變成開放世界遊戲，汴京變元宇宙",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/game-designer-song-qingming-metaverse.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代食品科學家穿越到唐朝：用分子料理重現楊貴妃最愛的荔枝，唐玄宗驚呆",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/food-scientist-tang-lychee.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代城市規劃師穿越到秦朝：幫秦始皇設計鹹陽地下交通網，修長城變捷運工程",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/urban-planner-qin-xianyang-metro.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代心理學家穿越到宋朝：幫蘇軾治療中年危機，寫出《前赤壁賦》2.0",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/psychologist-song-sushi-midlife.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代電商運營穿越到唐朝：幫李白開線上詩詞訂閱，月入萬金變大唐第一網紅",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/ecommerce-tang-libo-subscription.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代機械工程師穿越到三國：幫諸葛亮改良木牛流馬，變成古代自動化運輸系統",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/mechanical-engineer-zhuge-muniu.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代植物學家穿越到漢朝：幫張騫帶回西域植物，絲路變成植物獵人天堂",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/botanist-han-zhangqian-plants.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代配音員穿越到唐朝：幫長安城所有寺廟鐘聲配音，皇帝封他「聲音大師」",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/voice-actor-tang-temple-bells.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代天文物理學家穿越到商朝：幫甲骨文占卜加入宇宙射線數據，預測未來100%準",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/astrophysicist-shang-oracle-cosmic.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代玩具設計師穿越到宋朝：幫宋徽宗設計皇家桌遊，大臣不上朝改玩策略遊戲",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/toy-designer-song-huizong-boardgame.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代珠寶鑑定師穿越到明朝：幫鄭和鑑定南洋寶石，大明珠寶業直接起飛",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/jeweler-ming-zhenghe-gems.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代馬拉松選手穿越到唐朝：幫楊貴妃送荔枝，跑出古代第一個馬拉松紀錄",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/marathon-runner-tang-lychee-express.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代環境工程師穿越到宋朝：幫汴京解決垃圾處理問題，開創古代環保運動",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/environmental-engineer-song-waste.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代數據科學家穿越到漢朝：幫司馬遷用數據分析寫出《史記》大數據版",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/data-scientist-han-simaqian-bigdata.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代釀酒師穿越到唐朝：幫李白釀出古代精釀啤酒，大唐酒館變成潮牌",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/brewer-tang-libo-craft-beer.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代考古學家穿越到秦朝：在秦始皇陵找到兵馬俑製作SOP，揭開千年謎團",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/archaeologist-qin-terracotta-sop.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代電競教練穿越到三國：幫關羽訓練青龍偃月刀戰術，變成古代格鬥冠軍",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/esports-coach-guan-yu-fighting.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代花藝師穿越到宋朝：幫蘇軾設計東坡肉擺盤，美食變藝術品",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/florist-song-sushi-plating.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代航太工程師穿越到明朝：幫萬戶改良火箭座椅，成為世界航天第一人",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/aerospace-engineer-ming-wanhu-rocket.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代音樂治療師穿越到唐朝：用音樂療法治癒唐玄宗的失眠，安史之亂可能不會發生",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/music-therapist-tang-xuanzong-insomnia.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代攝影師穿越到宋朝：幫宋徽宗拍鳥類攝影集，成為古代第一位生態攝影師",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/photographer-song-huizong-birds.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代資安專家穿越到三國：幫曹操保護機密軍情，設立古代第一支網路安全部隊",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/cybersecurity-expert-cao-cao-intel.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代時尚設計師穿越到唐朝：幫武則天設計龍袍，大唐時尚圈直接起飛",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/fashion-designer-wu-zetian-robe.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代催眠師穿越到宋朝：幫岳飛催眠消除對秦檜的恐懼，歷史可能改寫",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/hypnotist-song-yuefei-qinhui.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代茶藝師穿越到宋朝：幫蘇軾設計宋代茶道SOP，變成古代茶文化推手",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/tea-master-song-sushi-tea-ceremony.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代獸醫穿越到唐朝：幫唐玄宗的御馬治療，成為古代第一馬醫",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/veterinarian-tang-xuanzong-horses.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代聲音工程師穿越到宋朝：幫京劇改良音響系統，宋朝戲曲直接升級百老匯",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/audio-engineer-song-opera-sound.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代運動心理教練穿越到唐朝：幫李白克服寫詩焦慮，產出更多曠世名作",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/sports-psychologist-libo-creativity.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代燈光設計師穿越到明朝：幫紫禁城設計古代燈光秀，皇帝天天看夜景",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/lighting-designer-ming-forbidden-city-show.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
+    },
+    {
+        "keyword":  "如果現代樂高設計師穿越到唐朝：用積木重建長安城，大唐變成古代樂高樂園",
+        "category":  "📜 歷史腦洞",
+        "filename":  "history/lego-designer-tang-changan-city.html",
+        "use_responses_api":  true,
+        "enable_reasoning":  true,
+        "enable_search":  false
     }
 ]

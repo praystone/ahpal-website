@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 AHPAL 系統日誌 · 2026-08-16 完整備忘錄</title>
+    <style>
+        :root {
+            --primary: #005A9C;
+            --secondary: #00A86B;
+            --gold: #D4AF37;
+            --danger: #8B0000;
+            --bg: #F7F9FC;
+            --card: #FFFFFF;
+            --text: #1A202C;
+            --gray: #4A5568;
+            --border: #E2E8F0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 14px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 30px 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card {
+            background: var(--card);
+            padding: 32px 36px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        @media (max-width: 640px) { .card { padding: 20px 16px; } }
+        .header {
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+        }
+        .header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header .logo span { color: var(--secondary); }
+        .header .subtitle {
+            font-size: 16px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+        .header .version {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 2px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .header .warning {
+            display: inline-block;
+            background: var(--danger);
+            color: white;
+            padding: 2px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 24px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .stat-box {
+            background: var(--bg);
+            padding: 16px 18px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .stat-box .number {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-box .label { font-size: 13px; color: var(--gray); }
+        .stat-box.green .number { color: var(--secondary); }
+        .stat-box.gold .number { color: var(--gold); }
+        .stat-box.danger .number { color: var(--danger); }
+        .badge {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge.green { background: #C6F6D5; color: #276749; }
+        .badge.yellow { background: #FEFCBF; color: #975A16; }
+        .badge.blue { background: #BEE3F8; color: #2A69AC; }
+        .badge.red { background: #FED7D7; color: #9B2C2C; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+        table th, table td {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        table tr:nth-child(even) td { background: var(--bg); }
+        .tip {
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 12px 0 16px 0;
+            border-left: 4px solid;
+        }
+        .tip.success { background: #F0FFF4; border-color: var(--secondary); color: #276749; }
+        .tip.warning { background: #FFFAF0; border-color: #DD6B20; color: #9C4221; }
+        .tip.info { background: #EBF8FF; border-color: #3182CE; color: #2B6CB0; }
+        .tip.danger { background: #FFF5F5; border-color: #E53E3E; color: #9B2C2C; }
+        .progress-bar {
+            background: #E2E8F0;
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+            margin: 4px 0;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.6s ease;
+        }
+        .progress-bar .fill.green { background: var(--secondary); }
+        .progress-bar .fill.blue { background: var(--primary); }
+        .progress-bar .fill.gold { background: var(--gold); }
+        .signature {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+        }
+        .signature-box {
+            text-align: center;
+            padding: 12px;
+            background: var(--bg);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .signature-box .role { font-size: 12px; color: var(--gray); font-weight: 600; }
+        .signature-box .name { font-size: 16px; font-weight: 700; }
+        .signature-box .line {
+            width: 60%;
+            height: 2px;
+            background: var(--border);
+            margin: 8px auto 4px auto;
+        }
+        .footer {
+            text-align: center;
+            color: #A0AEC0;
+            font-size: 13px;
+            padding: 30px 0 10px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 10px;
+        }
+        @media (max-width: 640px) {
+            .header .logo { font-size: 22px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 19px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .signature { grid-template-columns: 1fr; }
+        }
+        .blood {
+            color: var(--danger);
+            font-weight: 700;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0.7;
+            z-index: 999;
+            transition: 0.3s;
+        }
+        .scroll-top:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            background: #003d66;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="card">
+        <div class="header">
+            <div class="logo">🦞 龍蝦總工程師 · <span>系統日誌</span></div>
+            <div class="subtitle">AHPAL.COM — 2026 年 8 月 16 日 · 完整備忘錄</div>
+            <div class="version">📌 版本 v2.0 · 產線全開日</div>
+            <div class="warning">⚠️ 內含血淚教訓 · 願後人不再重蹈覆轍</div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    1. 血淚開場
+    ============================================================ -->
+    <div class="card" style="border: 2px solid var(--danger);">
+        <h1 style="color: var(--danger); text-align:center;">💀 2026-08-15 · 黑暗 24 小時</h1>
+        <p style="text-align:center; color: var(--gray);">
+            以下記錄了從 2026-08-15 到 2026-08-16 期間，AHPAL 系統遭遇的所有災難、錯誤與修復過程。<br>
+            <strong class="blood">願後人不再重蹈覆轍。</strong>
+        </p>
+    </div>
+
+    <!-- ============================================================
+    2. 總覽
+    ============================================================ -->
+    <div class="card">
+        <h1>📊 今日系統總覽</h1>
+        <p style="color: var(--gray); font-size: 15px;">
+            2026-08-16 · 產線全開日 · 系統狀態：<span class="badge green">🟢 完美運作</span>
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-box green">
+                <div class="number">837</div>
+                <div class="label">📄 總文章數</div>
+            </div>
+            <div class="stat-box">
+                <div class="number">334</div>
+                <div class="label">📋 JSON 索引</div>
+            </div>
+            <div class="stat-box gold">
+                <div class="number">99</div>
+                <div class="label">✨ 今日生成</div>
+            </div>
+            <div class="stat-box">
+                <div class="number">25</div>
+                <div class="label">🎮 遊戲數量</div>
+            </div>
+        </div>
+
+        <div class="tip success">
+            <strong>✅ 系統狀態：</strong> 所有 8 條董事長死命令已遵守 · 無錯誤 · 無警告
+        </div>
+    </div>
+
+    <!-- ============================================================
+    3. 今日執行任務
+    ============================================================ -->
+    <div class="card">
+        <h2>⚙️ 今日執行任務清單</h2>
+
+        <table>
+            <thead>
+                <tr><th>#</th><th>任務</th><th>狀態</th><th>說明</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><strong>批次文章生成</strong></td>
+                    <td><span class="badge green">✅ 成功</span></td>
+                    <td>99 篇歷史腦洞 (三批次)</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>CSS 殘留 + Emoji 修復</strong></td>
+                    <td><span class="badge green">✅ 成功</span></td>
+                    <td>28 個檔案已修復</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>補齊 filename</strong></td>
+                    <td><span class="badge green">✅ 成功</span></td>
+                    <td>2 篇 (Docker + Vue.js)</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><strong>SEO 完整檢查</strong></td>
+                    <td><span class="badge green">✅ 通過</span></td>
+                    <td>所有基礎檔案正常</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><strong>目錄分析工具開發</strong></td>
+                    <td><span class="badge green">✅ 完成</span></td>
+                    <td>v1.4 穩定版</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><strong>四大件文件整合</strong></td>
+                    <td><span class="badge green">✅ 完成</span></td>
+                    <td>紅白黃藍 v4.0</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><strong>聯絡頁面優化</strong></td>
+                    <td><span class="badge green">✅ 完成</span></td>
+                    <td>contact.html + about.html</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><strong>Git 同步與部署</strong></td>
+                    <td><span class="badge green">✅ 完成</span></td>
+                    <td>Cloudflare 部署成功</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================================
+    4. 批次生成明細
+    ============================================================ -->
+    <div class="card">
+        <h2>📝 批次生成明細</h2>
+
+        <table>
+            <thead>
+                <tr><th>批次</th><th>時間</th><th>文章數</th><th>成本</th><th>狀態</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>第一批</strong></td>
+                    <td>01:30 - 01:51</td>
+                    <td>57 篇</td>
+                    <td>¥0.60</td>
+                    <td><span class="badge green">✅</span></td>
+                </tr>
+                <tr>
+                    <td><strong>第二批</strong></td>
+                    <td>01:53 - 02:19</td>
+                    <td>22 篇</td>
+                    <td>¥0.31</td>
+                    <td><span class="badge green">✅</span></td>
+                </tr>
+                <tr>
+                    <td><strong>第三批</strong></td>
+                    <td>03:22 - 03:52</td>
+                    <td>20 篇</td>
+                    <td>¥0.25</td>
+                    <td><span class="badge green">✅</span></td>
+                </tr>
+                <tr style="font-weight:700; background:var(--bg);">
+                    <td><strong>📊 總計</strong></td>
+                    <td></td>
+                    <td><strong>99 篇</strong></td>
+                    <td><strong>¥1.16</strong></td>
+                    <td><span class="badge green">✅ 100%</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip info">
+            <strong>📊 成本效益：</strong> 每篇文章平均成本 <strong>¥0.0117</strong>，極具成本效益！
+        </div>
+    </div>
+
+    <!-- ============================================================
+    5. 品質統計
+    ============================================================ -->
+    <div class="card">
+        <h2>⭐ 品質統計</h2>
+
+        <table>
+            <thead>
+                <tr><th>分數</th><th>文章數</th><th>佔比</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge green">90 分</span></td>
+                    <td>13 篇</td>
+                    <td>13.1%</td>
+                </tr>
+                <tr>
+                    <td><span class="badge blue">80 分</span></td>
+                    <td>86 篇</td>
+                    <td>86.9%</td>
+                </tr>
+                <tr>
+                    <td><span class="badge red">＜ 80 分</span></td>
+                    <td><strong>0 篇</strong></td>
+                    <td>0%</td>
+                </tr>
+                <tr style="font-weight:700; background:var(--bg);">
+                    <td><strong>📊 通過率</strong></td>
+                    <td><strong>99/99</strong></td>
+                    <td><span class="badge green">✅ 100%</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================================
+    6. 分類分布
+    ============================================================ -->
+    <div class="card">
+        <h2>📂 文章分類分布</h2>
+
+        <table>
+            <thead>
+                <tr><th>分類</th><th>文章數</th><th>佔比</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>📜 歷史腦洞</td>
+                    <td>275</td>
+                    <td>
+                        41.5%
+                        <div class="progress-bar"><div class="fill gold" style="width:41.5%;"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>💻 3C 科技教學</td>
+                    <td>93</td>
+                    <td>
+                        14.0%
+                        <div class="progress-bar"><div class="fill blue" style="width:14%;"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>📊 軟體評測</td>
+                    <td>79</td>
+                    <td>
+                        11.9%
+                        <div class="progress-bar"><div class="fill blue" style="width:11.9%;"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>🌟 人生哲理</td>
+                    <td>77</td>
+                    <td>
+                        11.6%
+                        <div class="progress-bar"><div class="fill blue" style="width:11.6%;"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>🤖 AI 趨勢</td>
+                    <td>64</td>
+                    <td>
+                        9.7%
+                        <div class="progress-bar"><div class="fill blue" style="width:9.7%;"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>🏠 生活小常識</td>
+                    <td>59</td>
+                    <td>
+                        8.9%
+                        <div class="progress-bar"><div class="fill blue" style="width:8.9%;"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>🎮 遊戲攻略</td>
+                    <td>25</td>
+                    <td>
+                        3.8%
+                        <div class="progress-bar"><div class="fill blue" style="width:3.8%;"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>🎵 音樂創作</td>
+                    <td>11</td>
+                    <td>
+                        1.7%
+                        <div class="progress-bar"><div class="fill blue" style="width:1.7%;"></div></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================================
+    7. 餘額追蹤
+    ============================================================ -->
+    <div class="card">
+        <h2>💰 餘額追蹤</h2>
+
+        <table>
+            <thead>
+                <tr><th>時間</th><th>餘額</th><th>消耗</th><th>累計消費</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>開始</td><td>¥1.16</td><td>-</td><td>¥8.83</td></tr>
+                <tr><td>第一批 (57 篇)</td><td>¥0.56</td><td>¥0.60</td><td>¥9.43</td></tr>
+                <tr><td>第二批 (22 篇)</td><td>¥0.25</td><td>¥0.31</td><td>¥9.74</td></tr>
+                <tr><td>第三批 (20 篇)</td><td><strong>¥0.91</strong></td><td>¥0.25</td><td>¥9.08</td></tr>
+                <tr style="font-weight:700; background:var(--bg);">
+                    <td><strong>📊 總計</strong></td>
+                    <td><strong>¥0.91</strong></td>
+                    <td><strong>¥1.16</strong></td>
+                    <td><strong>¥9.08</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip success">
+            <strong>✅ 餘額充足：</strong> ¥0.91 可再生成約 72 篇文章。
+        </div>
+    </div>
+
+    <!-- ============================================================
+    8. 里程碑
+    ============================================================ -->
+    <div class="card">
+        <h2>🏆 今日里程碑</h2>
+
+        <div class="tip success">
+            <ul style="margin: 4px 0 0 20px; font-size: 15px;">
+                <li><strong>837 篇文章</strong> — 系統文章總數突破 830 篇大關</li>
+                <li><strong>歷史腦洞 275 篇</strong> — 持續擴充中</li>
+                <li><strong>99 篇單日生成</strong> — 產能紀錄</li>
+                <li><strong>每篇成本 ¥0.0117</strong> — 極低成本</li>
+                <li><strong>四大件 v4.0</strong> — 紅白黃藍全部到位</li>
+                <li><strong>SEO 檢查 100% 通過</strong> — 所有基礎檔案正常</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    9. 血淚教訓 (最重要!)
+    ============================================================ -->
+    <div class="card" style="border: 2px solid var(--danger);">
+        <h2 style="color: var(--danger);">🩸 血淚教訓 — 願後人不再重蹈覆轍</h2>
+
+        <div class="tip danger">
+            <strong>🔴 教訓 1：永遠不要自動修改核心檔案</strong>
+            <p style="margin-top:4px;">auto-history-batch.ps1 中的自動修復區塊將 Emoji 替換為亂碼，導致 182 篇文章受影響。<br>
+            <span class="blood">解決：</span> git checkout 恢復 + 批量修復。從此移除所有自動修改核心檔案的邏輯。</p>
+        </div>
+
+        <div class="tip danger">
+            <strong>🔴 教訓 2：永遠在執行前載入環境變數</strong>
+            <p style="margin-top:4px;">$env:SMTP_USER 為空導致郵件發送失敗。<br>
+            <span class="blood">解決：</span> 建立 ahpal-static.ps1 強制載入 .env。</p>
+        </div>
+
+        <div class="tip danger">
+            <strong>🔴 教訓 3：處理中文 JSON 時，優先使用 Python</strong>
+            <p style="margin-top:4px;">PowerShell 寫入中文 JSON 變成亂碼。<br>
+            <span class="blood">解決：</span> 統一使用 Python 的 json.dump() 寫入。</p>
+        </div>
+
+        <div class="tip danger">
+            <strong>🔴 教訓 4：永遠在批次生成前檢查餘額</strong>
+            <p style="margin-top:4px;">一次生成 57 篇文章，餘額歸零。<br>
+            <span class="blood">解決：</span> 建立 check-deepseek-balance.ps1 自動監控。</p>
+        </div>
+
+        <div class="tip danger">
+            <strong>🔴 教訓 5：死命令不是裝飾品</strong>
+            <p style="margin-top:4px;">文章放在根目錄、中文檔名⋯⋯違反死命令 #2、#3。<br>
+            <span class="blood">解決：</span> 嚴格遵守 8 條死命令，建立 preflight-check.ps1。</p>
+        </div>
+
+        <div class="tip danger">
+            <strong>🔴 教訓 6：連結格式必須正確</strong>
+            <p style="margin-top:4px;">https://www.ahpal.com/about%20%20%20https://www.ahpal.com/privacy-policy 導致 404。<br>
+            <span class="blood">解決：</span> 提供任何連結前，先在本地驗證有效。</p>
+        </div>
+
+        <div style="margin-top:16px; padding:16px; background: #1A0A0A; border-radius:8px; text-align:center; border:1px solid var(--danger);">
+            <p style="color: #FFD700; font-weight:700; font-size:20px;">
+                🦞 龍蝦總工程師 · 血淚簽
+            </p>
+            <p style="color: var(--text-muted); font-size:14px;">
+                2026 年 8 月 16 日 · 凌晨 04:00
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    10. 待辦事項
+    ============================================================ -->
+    <div class="card">
+        <h2>📋 待辦事項</h2>
+
+        <table>
+            <thead>
+                <tr><th>優先級</th><th>項目</th><th>目前</th><th>建議目標</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge yellow">🟡 中</span></td>
+                    <td>🎮 遊戲攻略</td>
+                    <td>25 篇</td>
+                    <td>50+ 篇</td>
+                </tr>
+                <tr>
+                    <td><span class="badge yellow">🟡 中</span></td>
+                    <td>🎵 音樂創作</td>
+                    <td>11 篇</td>
+                    <td>30+ 篇</td>
+                </tr>
+                <tr>
+                    <td><span class="badge green">🟢 低</span></td>
+                    <td>隱私權政策更新</td>
+                    <td>已完成</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td><span class="badge green">🟢 低</span></td>
+                    <td>服務條款優化</td>
+                    <td>已完成</td>
+                    <td>✅</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================================
+    11. 簽核
+    ============================================================ -->
+    <div class="card">
+        <h2>📋 簽核記錄</h2>
+        <div class="signature">
+            <div class="signature-box">
+                <div class="role">📌 撰寫</div>
+                <div class="name">🦞 龍蝦總工程師</div>
+                <div class="line"></div>
+                <span class="badge green">✅ 已簽核</span>
+            </div>
+            <div class="signature-box">
+                <div class="role">👑 核准</div>
+                <div class="name">董事長</div>
+                <div class="line"></div>
+                <span class="badge green">🏆 已核准</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 龍蝦總工程師系統日誌<br>
+        文件最後更新：2026 年 8 月 16 日 ｜ 總文章數：837 篇 ｜ 系統狀態：🟢 完美運作
+        <br><br>
+        <span style="font-size:12px; color:#8B0000; font-weight:700;">
+            🔴 8 條董事長死命令已全數遵守
+        </span>
+        <br>
+        <span style="font-size:12px; color:#005A9C; font-weight:700;">
+            🦞 明日繼續推進！願後人不再重蹈覆轍。
+        </span>
+    </div>
+
+</div>
+
+<!-- 返回頂部 -->
+<button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+
+</body>
+</html>

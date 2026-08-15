@@ -160,14 +160,16 @@
     "category": "💻 3C 科技教學",
     "use_responses_api": true,
     "enable_reasoning": true,
-    "enable_search": false
+    "enable_search": false,
+    "filename": "tech/article-20260816-015308.html"
   },
   {
     "keyword": "2026 年 Vue.js 3 組合式 API 完整教學：從 setup 到 Pinia 狀態管理",
     "category": "💻 3C 科技教學",
     "use_responses_api": true,
     "enable_reasoning": true,
-    "enable_search": false
+    "enable_search": false,
+    "filename": "tech/article-20260816-013059.html"
   },
   {
     "keyword": "2026 年 TypeScript 完整指南：從基礎到進階型別實戰",

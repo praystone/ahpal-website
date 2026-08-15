@@ -2,119 +2,188 @@
   {
     "keyword": "百年孤寂 馬奎斯 深度書評 魔幻現實主義 解析",
     "category": "🌟 人生哲理",
-    "filename": "philosophy/one-hundred-years-of-solitude-review.html"
+    "filename": "philosophy/one-hundred-years-of-solitude-review.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 機械式鍵盤 選購指南 推薦",
     "category": "💻 3C 科技教學",
-    "filename": "tech/mechanical-keyboard-guide-2026.html"
+    "filename": "tech/mechanical-keyboard-guide-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "打工人心酸語錄 原創歌曲 迷因改編",
     "category": "🎵 音樂創作",
-    "filename": "music/打工人心酸語錄.html"
+    "filename": "music/打工人心酸語錄.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "四季紅 EDM 未來貝斯 改編 台羅拼音 解析",
     "category": "🎵 音樂創作",
     "filename": "music/seasonal-blossoms-edm-remix.html",
     "content_type": "song",
-    "video_id": "Oqc10ueJMGA"
+    "video_id": "Oqc10ueJMGA",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "雨夜花 Lo-fi 抒情 改編 台羅拼音 解析",
     "category": "🎵 音樂創作",
     "filename": "music/rainy-night-flower-lo-fi-cover.html",
     "content_type": "song",
-    "video_id": "HF8jjeL9UFc"
+    "video_id": "HF8jjeL9UFc",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "家用 NAS 相片自動備份與家庭共享實戰：擺脫 iCloud 訂閱制的完整配置指南",
     "category": "🏠 生活小常識",
-    "filename": "lifestyle/nas-home-photo-backup-setup.html"
+    "filename": "lifestyle/nas-home-photo-backup-setup.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "Suno AI 生成台語歌曲完整指南：韻腳對齊、台羅拼音輸入技巧與風格 Prompt 實務",
     "category": "🎵 音樂創作",
-    "filename": "music/suno-ai-taiwanese-song-prompt-guide.html"
+    "filename": "music/suno-ai-taiwanese-song-prompt-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 Home Assistant 跨品牌智慧家庭整合實戰：Aqara、HomeKit 與 Matter 協定全屋自動化避坑指南",
     "category": "🏠 生活小常識",
-    "filename": "lifestyle/home-assistant-aqara-matter-setup.html"
+    "filename": "lifestyle/home-assistant-aqara-matter-setup.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "Suno / Udio 生成音樂後製拆軌指南：利用 Ultimate Vocal Remover 進行 Stems 獨立軌混音與 Mastering 實務",
     "category": "🎵 音樂創作",
-    "filename": "music/ai-music-stems-separation-daw-mixing-guide.html"
+    "filename": "music/ai-music-stems-separation-daw-mixing-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 家用 NAS 遠端安全存取實戰：Cloudflare Tunnel 穿透與 Tailscale VPN 配置指南",
     "category": "🏠 生活小常識",
-    "filename": "lifestyle/nas-remote-access-cloudflare-tunnel-tailscale.html"
+    "filename": "lifestyle/nas-remote-access-cloudflare-tunnel-tailscale.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "Suno AI 台語與客語歌曲創作：多聲部和聲 Prompt 配置與混音頻段修正指南",
     "category": "🎵 音樂創作",
-    "filename": "music/suno-ai-taiwanese-hakka-harmony-prompt-guide.html"
+    "filename": "music/suno-ai-taiwanese-hakka-harmony-prompt-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 Python 自動化爬蟲實戰指南：從 Requests 到 Scrapy 完整教學",
     "category": "💻 3C 科技教學",
-    "filename": "tech/python-web-scraping-guide-2026.html"
+    "filename": "tech/python-web-scraping-guide-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "Home Assistant 2026 智慧家庭自動化：感測器、自動化腳本與儀表板實戰",
     "category": "🏠 生活小常識",
-    "filename": "lifestyle/home-assistant-2026-automation-guide.html"
+    "filename": "lifestyle/home-assistant-2026-automation-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "免費 AI 繪圖工具完整評測：Stable Diffusion、Midjourney 與 DALL-E 3 優缺點比較",
     "category": "📊 軟體評測",
-    "filename": "review/ai-image-generators-comparison-2026.html"
+    "filename": "review/ai-image-generators-comparison-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年投資理財新手入門：ETF、數位帳戶與被動收入策略",
     "category": "🌟 人生哲理",
-    "filename": "philosophy/investment-beginners-guide-2026.html"
+    "filename": "philosophy/investment-beginners-guide-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "LLM 大型語言模型 RAG 檢索增強生成實務：向量資料庫與 LangChain 整合指南",
     "category": "🤖 AI 趨勢",
-    "filename": "trend/llm-rag-langchain-guide-2026.html"
+    "filename": "trend/llm-rag-langchain-guide-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年熱門電競遊戲排行榜與射擊遊戲推薦：FPS、大逃殺、MOBA 完整攻略",
     "category": "🎮 遊戲攻略",
-    "filename": "game/esports-shooter-games-ranking-2026.html"
+    "filename": "game/esports-shooter-games-ranking-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 CSS Flexbox 與 Grid 完整教學：從基礎到響應式佈局實戰",
     "category": "💻 3C 科技教學",
-    "filename": "tech/css-flexbox-grid-complete-guide-2026.html"
+    "filename": "tech/css-flexbox-grid-complete-guide-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 React 19 新特性完整解析：Compiler、Server Components 與 Actions 實戰",
     "category": "💻 3C 科技教學",
-    "filename": "tech/react-19-new-features-guide-2026.html"
+    "filename": "tech/react-19-new-features-guide-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南",
-    "category": "💻 3C 科技教學"
+    "category": "💻 3C 科技教學",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 Vue.js 3 組合式 API 完整教學：從 setup 到 Pinia 狀態管理",
-    "category": "💻 3C 科技教學"
+    "category": "💻 3C 科技教學",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 TypeScript 完整指南：從基礎到進階型別實戰",
     "category": "💻 3C 科技教學",
-    "filename": "tech/typescript-complete-guide-2026.html"
+    "filename": "tech/typescript-complete-guide-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 Next.js 14 App Router 實戰：從入門到 Server Components",
     "category": "💻 3C 科技教學",
-    "filename": "tech/nextjs14-app-router-guide-2026.html"
+    "filename": "tech/nextjs14-app-router-guide-2026.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   },
   {
     "keyword": "2026 年 AI 數字人主播完整指南：從 HeyGen 到自建開源方案",
@@ -1280,6 +1349,766 @@
     "keyword": "乾隆的「江南巡遊」其實是古代版的「網紅探店」？",
     "category": "📜 歷史腦洞",
     "filename": "history/qianlong-food-tour.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果老子有 YouTube：他會開「道德經」頻道嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/laozi-youtube-channel.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "孟子如果當網紅：他會怎麼推廣「性善論」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/mencius-influencer-marketing.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果韓非子有 TikTok：他會拍「法家管理學」短影音？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/hanfeizi-tiktok-law.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "管仲的「經濟戰」其實是古代版的「貿易戰爭」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/guanzhong-trade-war.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果秦二世有 Twitter：他會發什麼「亡國日常」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/qin-er-shi-twitter-daily.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "張良的「運籌帷幄」其實是古代版的「策略顧問」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhang-liang-strategy-consultant.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果漢武帝有 Discord：他會開「討伐匈奴」伺服器嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/han-wudi-discord-server.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "霍去病的「封狼居胥」其實是古代版的「極限運動」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/huo-qubing-extreme-sport.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 LinkedIn：曹操會怎麼經營他的「人脈」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-cao-linkedin-network.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「木牛流馬」其實是古代版的「自動駕駛」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/mu-niu-liu-ma-autonomous-v2.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果關羽有 Google Maps：他還會走麥城嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/guan-yu-google-maps-v2.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "孫權的「赤壁之戰」其實是古代版的「戰略合作」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sun-quan-strategic-alliance.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果唐代有 ChatGPT：李白會怎麼跟 AI 對詩？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/li-bai-chatgpt-poetry.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "杜甫的「安史之亂」日記其實是古代版的「戰地記者」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/du-fu-war-correspondent.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果宋朝有 Dcard：蘇軾會發什麼「貶官心情文」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/su-shi-dcard-exile.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "辛棄疾如果開 YouTube：他會拍「抗金實況」嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/xin-qiji-war-livestream.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果明朝有 Podcast：王陽明會開「心學」頻道嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/wang-yangming-podcast.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果清朝有 TikTok：雍正會拍「批奏摺」日常嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/yongzheng-tiktok-daily.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曹雪芹寫《紅樓夢》其實是古代版的「家族史小說」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/cao-xueqin-family-novel.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果清朝有 Google 翻譯：乾隆怎麼跟外國使節溝通？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/qianlong-google-translate-v2.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果秦始皇有 Siri：他會怎麼叫 AI 幫他批奏摺？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/qin-shi-huang-siri-assistant.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "項羽的火燒阿房宮其實是古代版的「都更計畫」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/xiang-yu-urban-renewal-v2.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果漢高祖有 Spotify：他會聽什麼歌打天下？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/han-gaozu-spotify-war.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "王莽的「改革」其實是古代版的「社會主義實驗」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/wang-mang-socialism-experiment.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果三國有 Zoom：赤壁之戰的遠端會議怎麼開？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/red-cliff-zoom-meeting-v2.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "諸葛亮的「借東風」其實是古代版的「天氣預報 App」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zhuge-liang-weather-app.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果關羽有 YouTube：他會拍「過五關斬六將」實況嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/guan-yu-youtube-livestream.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "司馬懿的「裝病」其實是古代版的「職場請假攻略」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sima-yi-sick-leave-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果唐代有 Uber：李白怎麼搭車去喝酒？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/li-bai-uber-ride.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "杜甫的「茅屋為秋風所破歌」其實是古代版的「租屋悲歌」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/du-fu-rental-crisis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果宋朝有 Netflix：蘇軾會追什麼劇？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/su-shi-netflix-binge.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "李清照的「聲聲慢」其實是古代版的「失戀心情文」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/li-qingzhao-breakup-poem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果明朝有 Twitter：朱元璋會發什麼「皇帝廢文」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/hongwu-twitter-shitpost.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鄭和下西洋其實是古代版的「郵輪旅遊」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zheng-he-cruise-trip.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果清朝有 TikTok：乾隆會拍「下江南」Vlog 嗎？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/qianlong-tiktok-vlog.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "林則徐的「虎門銷煙」其實是古代版的「環保抗議」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/lin-zexu-environmental-protest.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果后羿有 NASA：他會怎麼用現代科技射太陽？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/houyi-nasa-sun-shooting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "嫦娥奔月其實是古代版的「太空移民計畫」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/change-moon-colonization.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果孫悟空有 ChatGPT：他會問 AI 什麼問題？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/sun-wukong-chatgpt-questions.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "女媧補天其實是古代版的「地球修復工程」？",
+    "category": "📜 歷史腦洞",
+    "filename": "history/nuwa-earth-repair-project.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果秦始皇有 iPhone：他會下載什麼 App 治理天下？",
+    "filename": "qin-shi-huang-iphone-apps.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果漢武帝有 Google 地圖：他還會迷路嗎？",
+    "filename": "han-wudi-google-maps.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果曹操有 LinkedIn：他會怎麼經營他的「人脈」？",
+    "filename": "cao-cao-linkedin-network-v2.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果李煜有 Spotify：他會聽什麼歌療癒亡國之痛？",
+    "filename": "li-yu-spotify-playlist.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果趙匡胤有 Slack：他會怎麼管理宋朝團隊？",
+    "filename": "zhao-kuangyin-slack-team.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果 104 人力銀行 CEO 穿越到秦朝當丞相：KPI 考核百官，秦始皇封他「數據王」",
+    "filename": "104-ceo-qin-dynasty-kpi.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果立法院長穿越到漢朝當御史大夫：推動質詢制度，漢武帝氣到想斬他",
+    "filename": "legislator-han-dynasty-impeachment.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代公關危機專家穿越到唐朝當魏徵：寫「罪己詔」變成古代 PR 第一人",
+    "filename": "pr-expert-tang-dynasty-weizheng.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果國防 AI 工程師穿越到三國當諸葛亮：AI 算出司馬懿路線，逆轉街亭之戰",
+    "filename": "ai-engineer-zhuge-liang-jieting.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代外交官穿越到宋朝談和：用「雙贏」術語讓金國簽百年和平協議",
+    "filename": "diplomat-song-dynasty-peace.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代廉政專員穿越到清朝當紀曉嵐：推行官員財產申報，乾隆氣到寫詩諷刺",
+    "filename": "anticorruption-official-qing-jixiaolan.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代特戰指揮官穿越到楚漢相爭：教項羽「閃擊戰」，劉邦躲進漢中不敢出來",
+    "filename": "special-forces-xiangyu-blitzkrieg.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代物流主管穿越到漢朝幫霍去病：供應鏈管理解決補給，3 個月封狼居胥",
+    "filename": "logistics-manager-huoqubing-supply-chain.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代無人機飛手穿越到三國當司馬懿：無人機偵查木牛流馬，提前伏擊成功",
+    "filename": "drone-pilot-simayi-recon.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代心理戰專家穿越到宋朝對抗金兵：認知作戰讓金兵內鬥，岳飛直搗黃龍",
+    "filename": "psywar-expert-song-yuefei.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代戰地記者穿越到明朝當史官：記錄崇禎 100 天，被稱「古代戰地第一筆」",
+    "filename": "war-correspondent-ming-chongzhen.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代媒體總編穿越到清朝創辦「大清時報」：頭版頭條逼慈禧讓步",
+    "filename": "media-editor-qing-newspaper.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代社會學教授穿越到先秦教墨子：教階級理論，墨家變社會主義先驅",
+    "filename": "sociology-professor-mozi-socialism.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代心理醫生穿越到魏晉當竹林七賢：心理分析治癒阮籍憂鬱症",
+    "filename": "psychologist-zhulin-seven-ruanji.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代大學校長穿越到漢朝辦太學：必修+選修，培養第一批古代學士",
+    "filename": "university-president-han-taixue.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代 AI 工程師穿越到唐朝教杜甫寫程式：NLP 幫杜甫寫詩，爆紅成 AI 詩聖",
+    "filename": "ai-engineer-dufu-poetry-nlp.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代策展人穿越到宋朝保護藝術：建立古代文物法，蘇軾書法列國寶",
+    "filename": "curator-song-art-protection.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代哲學教授穿越到明朝教王陽明：用康德對話心學，寫出知行合一 2.0",
+    "filename": "philosophy-professor-wangyangming-kant.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代證券分析師穿越到宋朝炒茶：技術分析炒茶葉期貨，成為古代第一茶王",
+    "filename": "stock-analyst-song-tea-futures.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代新創 CEO 穿越到明朝開銀行：大明錢莊，發行紙幣+放貸+匯兌",
+    "filename": "startup-ceo-ming-bank.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代供應鏈專家穿越到元朝管絲路：區塊鏈管理貿易，馬可波羅驚嘆",
+    "filename": "supply-chain-expert-yuan-silkroad.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代商業談判專家穿越到清朝談判：紅線策略讓英國商人妥協",
+    "filename": "negotiation-expert-qing-treaty.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代行銷總監穿越到漢朝推廣絲綢：品牌定位打造古代第一奢侈品",
+    "filename": "marketing-director-han-silk-luxury.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代財務長穿越到唐朝管國庫：建立古代預算制度，唐太宗稱讚",
+    "filename": "cfo-tang-treasury-budget.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代主廚穿越到宋朝開米其林餐廳：分子料理重現古代菜譜，貴族排隊",
+    "filename": "chef-song-michelin.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代建築師穿越到唐朝建長安城：都市規劃+排水系統+路燈",
+    "filename": "architect-tang-changan-urban.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代訴訟律師穿越到漢朝當獄吏：證據法則翻案冤獄，漢文帝稱「古代第一刑辯」",
+    "filename": "lawyer-han-prison-evidence.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代健身教練穿越到明朝當禁軍教官：重訓+有氧訓練，邊關無戰事",
+    "filename": "fitness-trainer-ming-army.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代程式設計師穿越到清朝當欽天監：古代曆法引擎，精準預測天象",
+    "filename": "programmer-qing-astronomy.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代專業管家穿越到明朝當太監總管：酒店 SOP + 輪班表 + 績效考核",
+    "filename": "butler-ming-eunuch-sop.html",
+    "category": "📜 歷史腦洞",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代程式設計師穿越到唐朝當欽天監：他用 Python 寫出古代曆法，精準預測日蝕，皇帝封他為「天機真人」",
+    "category": "📜 歷史腦洞",
+    "filename": "history/programmer-tang-astronomy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代律師穿越到宋朝開律師事務所：他用證據法則幫包青天翻案，成為古代第一刑辯",
+    "category": "📜 歷史腦洞",
+    "filename": "history/lawyer-song-baoqingtian.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代營養師穿越到明朝當御醫：他用現代營養學幫朱元璋調整飲食，皇帝活到 80 歲",
+    "category": "📜 歷史腦洞",
+    "filename": "history/nutritionist-ming-emperor.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代建築師穿越到唐朝建長安城：都市規劃、排水系統、路燈、人行道一次到位",
+    "category": "📜 歷史腦洞",
+    "filename": "history/architect-tang-changan.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代公關專家穿越到三國當諸葛亮：他用媒體操作讓劉備「仁德」形象深植民心，曹操氣到摔筆",
+    "category": "📜 歷史腦洞",
+    "filename": "history/pr-expert-zhuge-liang.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代健身教練穿越到明朝當禁軍教官：他用重訓+有氧訓練，打造古代第一支特種部隊",
+    "category": "📜 歷史腦洞",
+    "filename": "history/fitness-trainer-ming-army.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代心理醫生穿越到魏晉當竹林七賢：他用認知行為療法治癒阮籍的憂鬱症，七賢變成心靈成長團體",
+    "category": "📜 歷史腦洞",
+    "filename": "history/psychologist-zhulin-seven.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代會計師穿越到漢朝管國庫：他建立古代預算制度，漢文帝稱他為「算聖」",
+    "category": "📜 歷史腦洞",
+    "filename": "history/accountant-han-treasury.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代攝影師穿越到宋朝當宮廷畫師：他用光影技巧畫出前所未有的寫實人物畫，宋徽宗驚為天人",
+    "category": "📜 歷史腦洞",
+    "filename": "history/photographer-song-painting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代網紅穿越到唐朝開直播：李白在鏡頭前即興吟詩，粉絲打賞黃金萬兩，成為古代第一帶貨王",
+    "category": "📜 歷史腦洞",
+    "filename": "history/influencer-tang-live.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代物流主管穿越到元朝管絲路：他建立「古代快遞系統」，馬可波羅說比威尼斯還先進",
+    "category": "📜 歷史腦洞",
+    "filename": "history/logistics-yuan-silkroad.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代生化學家穿越到秦朝幫秦始皇煉丹：他用科學方法煉出「長生不老藥」，秦始皇封他為「國師」",
+    "category": "📜 歷史腦洞",
+    "filename": "history/chemist-qin-elixir.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代音樂製作人穿越到唐朝教李龜年：他用數位編曲概念改造宮廷音樂，大唐樂府直接升級成古代百代",
+    "category": "📜 歷史腦洞",
+    "filename": "history/music-producer-tang.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代地質學家穿越到宋朝找礦：他幫助北宋發現大型鐵礦和煤礦，宋朝工業實力大增",
+    "category": "📜 歷史腦洞",
+    "filename": "history/geologist-song-mining.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代遊戲設計師穿越到三國開發戰略遊戲：他做出「三國誌」桌遊，曹操、劉備、孫權搶著玩到不開會",
+    "category": "📜 歷史腦洞",
+    "filename": "history/game-designer-three-kingdoms.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代賽車手穿越到唐朝幫楊貴妃送荔枝：他改良驛站馬車，長安到嶺南只需三天，玄宗大喜封他為「飛車將軍」",
+    "category": "📜 歷史腦洞",
+    "filename": "history/racer-tang-lychee.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代動物學家穿越到明朝幫鄭和下西洋：他繪製出古代第一份世界動物地圖，記錄了長頸鹿、獅子、鴕鳥",
+    "category": "📜 歷史腦洞",
+    "filename": "history/zoologist-ming-zhenghe.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代社工穿越到宋朝開育幼院：他建立古代社會福利體系，救助孤兒和老人，百姓稱他為「活菩薩」",
+    "category": "📜 歷史腦洞",
+    "filename": "history/social-worker-song-welfare.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代消防員穿越到宋朝開封府：他建立古代消防隊，用「水龍」和「雲梯」救火，百姓半夜不再怕火災",
+    "category": "📜 歷史腦洞",
+    "filename": "history/firefighter-song-kaifeng.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "如果現代太空科學家穿越到明朝觀測天象：他用自製望遠鏡發現新星，寫出古代第一份天文論文，被後世稱為「東方哥白尼」",
+    "category": "📜 歷史腦洞",
+    "filename": "history/astronomer-ming-telescope.html",
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false

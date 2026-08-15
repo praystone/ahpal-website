@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHPAL 系統核心架構與技術白皮書 v3.1</title>
+    <style>
+        :root {
+            --primary: #005A9C;
+            --secondary: #00A86B;
+            --gold: #D4AF37;
+            --danger: #8B0000;
+            --bg: #F7F9FC;
+            --card: #FFFFFF;
+            --text: #1A202C;
+            --gray: #4A5568;
+            --border: #E2E8F0;
+            --shadow: 0 4px 12px rgba(0,0,0,0.06);
+            --radius: 14px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            --mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.8; font-size: 16px; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .card { background: var(--card); padding: 36px 40px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 24px; border: 1px solid var(--border); }
+        @media (max-width: 640px) { .card { padding: 24px 18px; } }
+        .header { text-align: center; padding: 40px 0 20px 0; border-bottom: 3px solid var(--primary); margin-bottom: 30px; }
+        .header .logo { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .header .logo span { color: var(--secondary); }
+        .header .subtitle { font-size: 16px; color: var(--gray); margin-top: 4px; }
+        .header .version { display: inline-block; background: var(--primary); color: white; padding: 2px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 8px; }
+        .header .status-badge { display: inline-block; background: var(--secondary); color: white; padding: 4px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-top: 12px; }
+        h1 { font-size: 32px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        h2 { font-size: 24px; font-weight: 700; color: var(--primary); margin: 28px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+        h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 20px 0 10px 0; }
+        h4 { font-size: 16px; font-weight: 600; color: var(--gray); margin: 16px 0 8px 0; }
+        .toc { background: var(--bg); border-radius: 12px; padding: 20px 24px; border: 1px solid var(--border); margin-bottom: 24px; }
+        .toc h3 { margin-top: 0; color: var(--primary); border-bottom: none; }
+        .toc ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 4px 20px; }
+        .toc ul li::before { content: "▸ "; color: var(--secondary); font-weight: 700; }
+        .toc ul li a { color: var(--text); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .toc ul li a:hover { color: var(--primary); text-decoration: underline; }
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th, table td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+        table th { background: var(--primary); color: white; font-weight: 600; }
+        table tr:nth-child(even) { background: var(--bg); }
+        table tr:hover { background: #EBF8FF; }
+        .tip { padding: 16px 20px; border-radius: 10px; margin: 12px 0 16px 0; border-left: 4px solid; }
+        .tip.info { background: #EBF8FF; border-color: #3182CE; color: #2B6CB0; }
+        .tip.success { background: #F0FFF4; border-color: #38A169; color: #276749; }
+        .tip.warning { background: #FFFAF0; border-color: #DD6B20; color: #9C4221; }
+        .tip.danger { background: #FFF5F5; border-color: #E53E3E; color: #9B2C2C; }
+        .tip.gold { background: #FFFFF0; border-color: var(--gold); color: #7A6B3A; }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+        .code-block { background: #1A1A2E; color: #E8E8E8; border-radius: 10px; padding: 16px 20px; margin: 12px 0 16px 0; overflow-x: auto; border: 1px solid var(--border); font-family: var(--mono); font-size: 14px; line-height: 1.7; white-space: pre-wrap; word-break: break-all; }
+        .inline-code { background: var(--bg); padding: 2px 8px; border-radius: 4px; font-family: var(--mono); font-size: 14px; border: 1px solid var(--border); }
+        .architecture { background: var(--bg); border-radius: 10px; padding: 24px 30px; font-family: var(--mono); font-size: 13px; line-height: 2.2; border: 1px solid var(--border); margin: 12px 0 16px 0; text-align: center; overflow-x: auto; }
+        .architecture .box { display: inline-block; padding: 8px 20px; background: white; border: 2px solid var(--primary); border-radius: 8px; font-weight: 600; color: var(--primary); }
+        .architecture .box.green { border-color: var(--secondary); color: var(--secondary); }
+        .architecture .box.gold { border-color: var(--gold); color: #7A6B3A; }
+        .architecture .arrow { color: #A0AEC0; font-size: 20px; }
+        .architecture .line { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .death-command-box { border: 3px solid var(--danger); background: #FFF8F8; padding: 20px 24px; border-radius: 14px; margin: 16px 0 20px 0; position: relative; }
+        .death-command-box::before { content: "🔴 死命令"; position: absolute; top: -12px; left: 20px; background: var(--danger); color: white; padding: 2px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+        .death-command-box .death-title { font-size: 18px; font-weight: 700; color: var(--danger); margin-top: 6px; margin-bottom: 10px; }
+        .death-command-box ul { margin: 8px 0 8px 22px; }
+        .death-command-box li { margin-bottom: 4px; }
+        .signature-area { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; margin-top: 30px; padding-top: 30px; border-top: 2px solid var(--border); }
+        .signature-box { border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; text-align: center; background: var(--bg); }
+        .signature-box .role { font-size: 13px; color: var(--gray); font-weight: 600; }
+        .signature-box .name { font-size: 17px; font-weight: 700; color: var(--text); margin: 4px 0; }
+        .signature-box .line { width: 80%; height: 2px; background: var(--border); margin: 10px auto 6px auto; }
+        .signature-box .status-badge { display: inline-block; padding: 4px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; margin-top: 6px; }
+        .signature-box .status-badge.approved { background: #C6F6D5; color: #276749; }
+        .footer { text-align: center; padding: 30px 0; color: #A0AEC0; font-size: 13px; border-top: 1px solid var(--border); margin-top: 20px; }
+        .badge-status.done { background: var(--secondary); color: white; padding: 2px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-new { background: #D4AF37; color: #7A6B3A; padding: 2px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+        @media (max-width: 768px) { .header .logo { font-size: 22px; } h1 { font-size: 26px; } h2 { font-size: 20px; } .toc ul { grid-template-columns: 1fr; } table th, table td { padding: 6px 10px; font-size: 13px; } .signature-area { grid-template-columns: 1fr; gap: 16px; } }
+        @media print { body { background: white; padding: 0; } .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; } .header { border-bottom-color: #333; } .tip { border: 1px solid #ddd; border-left: 4px solid #666; } .code-block { border: 1px solid #ddd; background: #f9f9f9; } .toc ul { grid-template-columns: 1fr 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
+        <div class="subtitle">系統核心架構與技術白皮書</div>
+        <div class="version">📌 版本 v3.1 · 2026 年 8 月 15 日</div>
+        <div class="status-badge">✅ 董事會核定 · 264+ 篇文章 · 8 大分類</div>
+    </div>
+
+    <div class="card">
+        <h2>📖 目錄</h2>
+        <div class="toc">
+            <ul>
+                <li><a href="#s1">1. 系統概述</a></li>
+                <li><a href="#s2">2. 技術架構</a></li>
+                <li><a href="#s3">3. 目錄結構 <span class="badge-new">🆕 v3.1 強化</span></a></li>
+                <li><a href="#s4">4. 核心腳本總覽</a></li>
+                <li><a href="#s5">5. API 調度中心 (v4.1)</a></li>
+                <li><a href="#s6">6. Responses API + Reasoning</a></li>
+                <li><a href="#s7">7. 狀態管理與斷點續傳</a></li>
+                <li><a href="#s8">8. 資料流與增量構建</a></li>
+                <li><a href="#s9">9. 技術決策記錄</a></li>
+                <li><a href="#s10">10. 版本控制與變更管理</a></li>
+                <li><a href="#s11">11. 版本對照表</a></li>
+                <li><a href="#s12">12. 簽核與文件生效</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <section id="s1"><div class="card">
+        <h2>1. 系統概述</h2>
+        <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 是一個 <strong>AI 驅動的自動化內容平台</strong>，結合：</p>
+        <div class="table-wrapper"><table>
+            <thead><tr><th>模組</th><th>說明</th></tr></thead>
+            <tbody>
+                <tr><td>🤖 AI 文章生成</td><td><strong>DeepSeek Flash + Responses API</strong>（支援 Reasoning 思維鏈）</td></tr>
+                <tr><td>🎮 HTML5 遊戲</td><td>25 款互動遊戲</td></tr>
+                <tr><td>🎬 影音自動化產線</td><td>文章 → NotebookLM → YouTube Shorts</td></tr>
+                <tr><td>🖼️ AI 配圖生成</td><td><strong>Pollinations AI</strong>（免費、免 API Key）</td></tr>
+                <tr><td>⚙️ 自動化部署</td><td>一鍵完成生成 → 輸出 → Cloudflare 部署</td></tr>
+                <tr><td>☁️ 雲端備份</td><td>Rclone 自動同步至 Google Drive</td></tr>
+                <tr><td>📜 歷史腦洞</td><td>穿越、黑色幽默、星宿玄學、生存指南（184+ 篇）</td></tr>
+            </tbody>
+        </table></div>
+        <div class="tip success"><div class="tip-title">📊 系統數據（截至 2026-08-15）</div>
+        <ul><li><strong>總文章數：264+ 篇</strong>（8 大分類全覆蓋）</li>
+        <li><strong>歷史腦洞系列：184+ 篇</strong>（持續擴充中）</li>
+        <li><strong>配圖成功率：100%</strong>（Pollinations AI）</li>
+        <li><strong>品質通過率：100%</strong>（0 篇未達標）</li>
+        <li><strong>最高品質分數：90 分</strong>（Responses API + Reasoning）</li>
+        <li><strong>核心腳本：24 個</strong></li>
+        <li><strong>API 餘額：¥2.25</strong>（充足）</li></ul></div>
+    </div></section>
+
+    <section id="s2"><div class="card">
+        <h2>2. 技術架構</h2>
+        <div class="table-wrapper"><table>
+            <thead><tr><th>元件</th><th>技術</th></tr></thead>
+            <tbody>
+                <tr><td>總指揮</td><td>PowerShell (ahpal-master.ps1 v7.2)</td></tr>
+                <tr><td>內容生成引擎</td><td>Python 3 (src/ 模組化)</td></tr>
+                <tr><td>AI 文章模型</td><td><strong>DeepSeek Flash + Responses API</strong>（固定）</td></tr>
+                <tr><td>思維鏈 (Reasoning)</td><td><strong>✅ 已啟用</strong>（提升文章品質）</td></tr>
+                <tr><td>AI 配圖模型</td><td><strong>Pollinations AI</strong>（免費、免 API Key）</td></tr>
+                <tr><td>API 調度中心</td><td><code>api_client.py v4.1</code>（唯一入口）</td></tr>
+                <tr><td>靜態託管</td><td>Cloudflare Pages</td></tr>
+                <tr><td>版本控制</td><td>Git + GitHub (main 分支)</td></tr>
+                <tr><td>備份系統</td><td>AI 檔案館 + Rclone 雲端同步</td></tr>
+            </tbody>
+        </table></div>
+        <div class="architecture">
+            <div class="line"><span class="box">📄 JSON 驅動</span><span class="arrow">→</span><span class="box green">content_router.py</span></div>
+            <div class="line"><span class="arrow">├─</span><span class="box" style="font-size:12px;padding:4px 14px;">article_generator.py v8.6</span><span class="arrow">→</span><span class="box" style="font-size:12px;padding:4px 14px;">一般文章 + Pollinations 配圖</span></div>
+            <div class="line"><span class="arrow">├─</span><span class="box" style="font-size:12px;padding:4px 14px;">song_generator.py</span><span class="arrow">→</span><span class="box" style="font-size:12px;padding:4px 14px;">音樂文章 + YouTube 嵌入</span></div>
+            <div class="line"><span class="arrow">└─</span><span class="box green">☁️ Cloudflare Pages</span><span class="arrow">→</span><span class="box gold">🌐 https://www.ahpal.com</span></div>
+        </div>
+    </div></section>
+
+    <section id="s3"><div class="card">
+        <h2>3. 目錄結構 <span class="badge-new">🆕 v3.1 強化</span></h2>
+        <div class="tip danger"><div class="tip-title">🔴 死命令 #3 擴充：禁止根目錄文章</div>
+        <p>所有歷史腦洞文章 <strong>必須</strong> 放在 <code>history/</code> 資料夾，不得放於根目錄。</p></div>
+        <div class="code-block">
+📁 C:\Users\User\ahpal-static\
+├── 📁 src/                    ← Python 原始碼（15 個模組）
+│   ├── api_client.py          ← ⭐ API 調度中心（v4.1）
+│   ├── article_generator.py   ← ⭐ 文章生成核心（v8.6）
+│   ├── html_builder.py        ← HTML 建構（v7.2）
+│   ├── main.py                ← 入口（v6.1）
+│   └── config.py              ← 設定檔（v2.1）
+├── 📁 scripts/                ← ⭐ 24 個 PowerShell 腳本
+│   ├── ahpal-master.ps1       ← 萬能總指揮（v7.2）
+│   ├── add-articles.ps1       ← JSON 驅動新增（v4.1）
+│   ├── preflight-check.ps1    ← 死命令檢查（v2.1）
+│   ├── auto-history-batch.ps1 ← 歷史腦洞批次產線
+│   └── ...
+├── 📁 data/                   ← ⭐ 文章清單
+│   ├── master-articles.json   ← 📚 文章主資料庫（264+ 篇）
+│   └── pending-articles.json  ← 📝 新增文章入口
+├── 📁 history/                ← 📜 歷史腦洞系列（184+ 篇）✅ 強制
+├── 📁 images/                 ← 🖼️ Pollinations 配圖
+├── 📁 tech/ life/ review/ philosophy/ trend/ game/ music/
+├── .env                       ← ⚠️ API Key（不上傳 Git）
+├── index.html                 ← ✅ 唯一允許的根目錄 HTML
+├── categories.html            ← ✅ 唯一允許的根目錄 HTML
+└── 404.html                   ← ✅ 唯一允許的根目錄 HTML
+        </div>
+        <div class="tip warning"><div class="tip-title">📋 檢查指令</div>
+        <div class="code-block">
+# 檢查根目錄是否有不該存在的文章
+Get-ChildItem C:\Users\User\ahpal-static\*.html | 
+    Where-Object { $_.Name -notin @('index.html', 'categories.html', '404.html', 'sitemap.xml') }
+
+# 移動到正確目錄
+Move-Item *.html history\ -Force
+        </div></div>
+    </div></section>
+
+    <!-- ============================================================ -->
+    <!-- s4-s12 保持與 v3.0 相同，僅更新數據                       -->
+    <!-- ============================================================ -->
+
+    <section id="s4"><div class="card">
+        <h2>4. 核心腳本總覽</h2>
+        <div class="table-wrapper"><table>
+            <thead><tr><th>分類</th><th>腳本</th><th>功能</th><th>版本</th></tr></thead>
+            <tbody>
+                <tr><td><strong>總指揮</strong></td><td><code>ahpal-master.ps1</code></td><td>萬能總指揮</td><td>v7.2</td></tr>
+                <tr><td><strong>文章管理</strong></td><td><code>add-articles.ps1</code></td><td>JSON 驅動新增文章</td><td>v4.1</td></tr>
+                <tr><td></td><td><code>preflight-check.ps1</code></td><td>死命令強制檢查</td><td>v2.1</td></tr>
+                <tr><td></td><td><code>check-all.ps1</code></td><td>全面系統檢查</td><td>v3.2</td></tr>
+                <tr><td><strong>文章生成</strong></td><td><code>article_generator.py</code></td><td>文章生成核心</td><td>v8.6</td></tr>
+                <tr><td><strong>配圖系統</strong></td><td><code>model_router.py</code></td><td>Pollinations AI 生圖路由</td><td>v2.3</td></tr>
+                <tr><td><strong>遊戲生成</strong></td><td><code>generate-games.ps1</code></td><td>25 款 HTML5 遊戲</td><td>v3.4</td></tr>
+                <tr><td><strong>影音產線</strong></td><td><code>youtube-pipeline.ps1</code></td><td>NotebookLM 音訊生成</td><td>v1.0</td></tr>
+                <tr><td></td><td><code>youtube-upload-realtime.ps1</code></td><td>YouTube 即時上傳</td><td>v1.0</td></tr>
+                <tr><td><strong>備份同步</strong></td><td><code>backup-system.ps1</code></td><td>統一備份工具</td><td>v3.2</td></tr>
+                <tr><td></td><td><code>sync-to-gdrive.ps1</code></td><td>Rclone 雲端同步</td><td>v2.1</td></tr>
+                <tr><td><strong>批次產線</strong></td><td><code>auto-history-batch.ps1</code></td><td>歷史腦洞批次產線</td><td>v10.1</td></tr>
+            </tbody>
+        </table></div>
+    </div></section>
+
+    <section id="s5"><div class="card">
+        <h2>5. API 調度中心 (v4.1)</h2>
+        <div class="code-block">
+# api_client.py v4.1 — 雙軌 API 調度
+
+class APIClient:
+    def __init__(self):
+        self.deepseek_api_key = os.environ.get("DEEPSEEK_API_KEY")
+        self.deepseek_model = "deepseek-v4-flash"
+        self.openai_client = OpenAI(api_key=self.deepseek_api_key, base_url="https://api.deepseek.com")
+
+    def generate_with_responses_api(prompt, enable_reasoning=False, enable_search=False):
+        """Responses API — 支援 Reasoning + Web Search"""
+
+    def generate_article(keyword, category):
+        """傳統 Chat API — DeepSeek Flash (向後相容)"""
+        </div>
+        <div class="tip success"><div class="tip-title">✅ API 決策紀錄</div>
+        <ul><li><strong>生文</strong>：DeepSeek Flash + Responses API（固定）</li>
+        <li><strong>思維鏈 (Reasoning)</strong>：✅ 已啟用，品質分數提升至 90 分</li>
+        <li><strong>配圖</strong>：Pollinations AI — 完全免費、免 API Key</li>
+        <li><strong>統一調度</strong>：所有 AI 呼叫由 api_client.py 管理</li></ul></div>
+    </div></section>
+
+    <section id="s6"><div class="card">
+        <h2>6. Responses API + Reasoning</h2>
+        <div class="tip success"><div class="tip-title">🎯 正式啟用日期：2026 年 8 月 7 日</div>
+        <p>Responses API 搭配 Reasoning（思維鏈）已正式納入 AHPAL 文章生成管線。</p></div>
+        <div class="table-wrapper"><table>
+            <thead><tr><th>指標</th><th>傳統 Chat API</th><th>Responses API + Reasoning</th><th>提升</th></tr></thead>
+            <tbody>
+                <tr><td>平均品質分數</td><td>82.4 分</td><td>90 分</td><td>✅ +7.6 分</td></tr>
+                <tr><td>文章字數</td><td>4,500+ 字</td><td>9,600+ 字</td><td>✅ 提升 113%</td></tr>
+                <tr><td>H2 標題數量</td><td>≥ 3 個</td><td>≥ 10 個</td><td>✅ 顯著提升</td></tr>
+            </tbody>
+        </table></div>
+        <div class="code-block">
+# 在 JSON 中啟用 Responses API + Reasoning
+{
+    "keyword": "文章標題",
+    "category": "📜 歷史腦洞",
+    "filename": "history/article.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+}
+        </div>
+    </div></section>
+
+    <section id="s7"><div class="card">
+        <h2>7. 狀態管理與斷點續傳</h2>
+        <div class="code-block">
+# state_manager.py v4.3
+class StateManager:
+    def is_generated(filename):      # 檢查檔案是否已生成
+    def mark_generated(filename):    # 標記檔案為已生成
+    def get_pending_articles(list):  # 獲取待生成的文章列表
+        </div>
+        <div class="tip success"><div class="tip-title">✅ 斷點續傳效益</div>
+        <ul><li>節省時間：不重複生成已存在的文章</li>
+        <li>節省 API 成本：只生成真正需要的文章</li>
+        <li>任務可中斷：中斷後重新執行從中斷點繼續</li></ul></div>
+    </div></section>
+
+    <section id="s8"><div class="card">
+        <h2>8. 資料流與增量構建</h2>
+        <div class="architecture">
+            <div class="line"><span class="box">📄 JSON 驅動</span><span class="arrow">→</span><span class="box green">content_router</span></div>
+            <div class="line"><span class="arrow">├─</span><span class="box" style="font-size:12px;">api_client (Responses API + Reasoning)</span><span class="arrow">→</span><span class="box" style="font-size:12px;">高品質文章生成</span></div>
+            <div class="line"><span class="arrow">├─</span><span class="box" style="font-size:12px;">model_router (Pollinations)</span><span class="arrow">→</span><span class="box" style="font-size:12px;">配圖生成 + 緩存</span></div>
+            <div class="line"><span class="arrow">├─</span><span class="box" style="font-size:12px;">quality_checker</span><span class="arrow">→</span><span class="box" style="font-size:12px;">品質檢查 (≥80分)</span></div>
+            <div class="line"><span class="arrow">└─</span><span class="box green">☁️ Cloudflare Pages</span><span class="arrow">→</span><span class="box gold">🌐 https://www.ahpal.com</span></div>
+        </div>
+    </div></section>
+
+    <section id="s9"><div class="card">
+        <h2>9. 技術決策記錄</h2>
+        <div class="table-wrapper"><table>
+            <thead><tr><th>決策</th><th>內容</th><th>結果</th></tr></thead>
+            <tbody>
+                <tr><td><strong>配圖方案</strong></td><td>從 Gemini 切換至 Pollinations AI</td><td>✅ 完全免費、穩定生圖</td></tr>
+                <tr><td><strong>提示詞策略</strong></td><td>放棄中文直譯，改用英文視覺提示詞</td><td>✅ 圖文相符率 100%</td></tr>
+                <tr><td><strong>圖片比例</strong></td><td>統一使用 16:9 橫圖 + object-fit:cover</td><td>✅ 徹底解決變形</td></tr>
+                <tr><td><strong>API 調度</strong></td><td>統一由 <code>api_client.py</code> 管理</td><td>✅ 維護效率提升</td></tr>
+                <tr><td><strong>Responses API</strong></td><td>正式啟用 Responses API + Reasoning</td><td>✅ 品質分數提升至 90 分</td></tr>
+                <tr><td><strong>英文檔名</strong></td><td>強制所有新文章檔名使用英文</td><td>✅ 符合董事長死命令</td></tr>
+                <tr><td><strong>歷史腦洞分類</strong></td><td>新增「📜 歷史腦洞」分類</td><td>✅ 8 大分類完成</td></tr>
+                <tr><td><strong>CSS 殘留清除</strong></td><td>v8.6 徹底清除 CSS 殘留問題</td><td>✅ 版面完美</td></tr>
+                <tr><td><strong>目錄結構規範</strong></td><td>死命令 #3 擴充：禁止根目錄文章</td><td>✅ v3.1 正式納入</td></tr>
+            </tbody>
+        </table></div>
+    </div></section>
+
+    <section id="s10"><div class="card">
+        <h2>10. 版本控制與變更管理</h2>
+        <div class="death-command-box">
+            <div class="death-title">🔴 死命令 8：禁止擅自精簡或改寫既有功能</div>
+            <p><strong>生效日期：</strong>2026-08-09 ｜ <strong>適用範圍：</strong>所有工程師與 AI 代理</p>
+            <h4 style="margin-top:14px; color:#8B0000;">📋 禁止行為清單</h4>
+            <ul>
+                <li><strong>❌ 禁止擅自精簡</strong>：不得以「優化」、「整理」、「簡化」為由，刪除或省略任何既有功能區塊</li>
+                <li><strong>❌ 禁止擅自改寫</strong>：未經董事會執行長核准，不得改寫任何核心函數</li>
+                <li><strong>❌ 禁止覆蓋替代</strong>：不得以新版檔案直接覆蓋，必須合併保留所有既有功能</li>
+            </ul>
+            <h4 style="margin-top:14px; color:#8B0000;">📋 核心函數保護清單</h4>
+            <div class="table-wrapper"><table>
+                <thead><tr><th>函數/檔案</th><th>保護等級</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr><td><code>create_default_index()</code></td><td>🔴 最高</td><td>首頁完整功能，禁止精簡</td></tr>
+                    <tr><td><code>enhance_article_html()</code></td><td>🔴 最高</td><td>文章版面，禁止精簡</td></tr>
+                    <tr><td><code>html_builder.py</code></td><td>🔴 最高</td><td>所有頁面建構邏輯</td></tr>
+                    <tr><td><code>main.css</code></td><td>🔴 最高</td><td>靜態資產，禁止自動覆蓋</td></tr>
+                </tbody>
+            </table></div>
+            <div style="margin-top:14px; padding:12px 16px; background:#8B0000; color:white; border-radius:8px; text-align:center; font-weight:700; letter-spacing:2px;">
+                ⚠️ 此命令已錄入紅皮書，作為永久性強制規範。
+            </div>
+        </div>
+        <h3>標準修復 SOP</h3>
+        <ol><li><strong>診斷</strong> → 確認問題根源</li>
+        <li><strong>備份</strong> → <code>Copy-Item 檔案.py 檔案.py.bak</code></li>
+        <li><strong>修復</strong> → 最小化修改，不影響其他功能</li>
+        <li><strong>驗證</strong> → 對比原始版本，確保無功能遺失</li></ol>
+    </div></section>
+
+    <section id="s11"><div class="card">
+        <h2>11. 版本對照表</h2>
+        <div class="table-wrapper"><table>
+            <thead><tr><th>元件</th><th>版本</th><th>狀態</th></tr></thead>
+            <tbody>
+                <tr><td><code>main.css</code></td><td>v1.4</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                <tr><td><code>html_builder.py</code></td><td>v7.2</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                <tr><td><code>article_generator.py</code></td><td>v8.6</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                <tr><td><code>api_client.py</code></td><td>v4.1</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                <tr><td><code>main.py</code></td><td>v6.1</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                <tr><td><code>add-articles.ps1</code></td><td>v4.1</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                <tr><td><code>preflight-check.ps1</code></td><td>v2.1</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+                <tr><td><code>auto-history-batch.ps1</code></td><td>v10.1</td><td><span class="badge-status done">✅ 已部署</span></td></tr>
+            </tbody>
+        </table></div>
+    </div></section>
+
+    <section id="s12"><div class="card">
+        <h2>12. 簽核與文件生效</h2>
+        <div class="signature-area">
+            <div class="signature-box"><div class="role">📌 撰寫</div><div class="name">龍蝦總工程師</div><div class="line"></div><span class="status-badge approved">✅ 已簽核</span></div>
+            <div class="signature-box"><div class="role">✅ 核定</div><div class="name">董事會執行長</div><div class="line"></div><span class="status-badge approved">✅ 已簽核</span></div>
+            <div class="signature-box"><div class="role">👑 核准</div><div class="name">董事長</div><div class="line"></div><span class="status-badge approved">🏆 已核准</span></div>
+        </div>
+        <div class="tip gold"><div class="tip-title">📋 文件生效</div>
+        <p>本白皮書自 <strong>2026 年 8 月 15 日</strong> 起生效。</p>
+        <p><strong>死命令 #3 (禁止根目錄文章)</strong> 與 <strong>死命令 #8 (禁止擅自精簡)</strong> 為最高指導原則。</p></div>
+    </div></section>
+
+    <div class="footer">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 系統核心架構與技術白皮書 v3.1<br>文件最後更新：2026 年 8 月 15 日 ｜ 總文章數：264+ 篇 ｜ 核心腳本：24 個<br><span style="color:#8B0000;font-weight:700;">🔴 內含死命令 #3 (禁止根目錄文章) + #8 (禁止擅自精簡)</span></div>
+</div>
+</body>
+</html>

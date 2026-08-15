@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="/style/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南｜<h3>映像安全掃描與漏洞修復</h3> - 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南 - 雅寶社區 · 頂客論壇">
+    <meta name="keywords" content="2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXGG1VTGPB');
+</script>
+</head>
+<body>
+<header>
+    <div class="site-title"><a href="/" style="color:#666;text-decoration:none;">雅寶社區 · 頂客論壇 (AHPAL.COM)</a></div>
+    <div style="margin-top: 15px;">
+        <span class="post-category">💻 3C 科技教學</span>
+    </div>
+    <h1>2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南</h1>
+<img src="/images/article_2026 年 Docker 容器化部署實戰：從入門到 K8s 整合指南.png" alt="modern%20workspace%20with%20laptop%2C%20smartphone..." loading="lazy" style="width:100%;max-width:800px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:20px 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+    <div class="meta-info">
+        發表時間：2026 年 08 月 15 日 | 更新日期：2026 年 08 月 15 日 | 編輯：雅寶社區編輯團隊
+    </div>
+</header>
+
+<h2>with:</h2>
+<h2>context: .</h2>
+<h2>push: true</h2>
+<h2>tags: ghcr.io/yourusername/spring-app:latest</h2>
+<p><p>完成後，你可以在 GitHub Actions 中看到執行日誌，映像會自動更新。這個流程確保每一次程式碼變更都能產出新的可部署映像，實現持續交付。</p></p>
+<p><p>容器映像可能包含具有已知漏洞的套件。2026 年的 DevSecOps 實踐要求我們在 CI 中執行映像掃描。常見工具包括 Trivy、Grype、Snyk 等。以 Trivy 為例，我們可以加上一個掃描步驟：</p></p>
+<h2>- name: Scan image</h2>
+<h2>uses: aquasecurity/trivy-action@master</h2>
+<h2>with:</h2>
+<h2>image-ref: ghcr.io/yourusername/spring-app:latest</h2>
+<h2>exit-code: '1'</h2>
+<h2>ignore-unfixed: true</h2>
+<h2>如果掃描到高危漏洞，流水線會失敗，迫使開發者修復。此舉能有效降低軟體供應鏈風險。</h2>
+<h2>使用 Helm 簡化部署</h2>
+<p><p>當 K8s 設定變得複雜，Helm 成為套件管理的標準工具。Helm Chart 可以打包你的 Deployment、Service、ConfigMap 等 YAML，並透過參數化進行環境區分。例如建立一個 Chart 後，執行 <code>helm install my-app ./mychart</code> 即可部署。升級使用 <code>helm upgrade my-app ./mychart</code>，回滾使用 <code>helm rollback my-app 1</code>。Helm 極大地提升了 K8s 部署的複用性與管理效率，是企業級部署必備的技能。</p></p>
+<h2>2026 年容器化趨勢與展望</h2>
+<p><p>到了 2026 年，容器化不只是技術細節，更是雲原生生態的基石。新技術不斷湧現，未來的部署模式將更加多樣化。我們看到 eBPF 技術正在改變可觀測性與網路效能，無需修改應用程式即可深入核心進行監控。而 WebAssembly（Wasm）則以更輕量、更快啟動的特點，與容器技術共生，在邊緣運算等特定場景大放異彩。此外，無伺服器容器（如 AWS Fargate、Azure Container Instances）讓開發者不必管理叢集，只需定義容器即可自動擴縮容。在 K8s 生態中，你也會看到 Knative 等框架提供更上層的抽象。</p></p>
+<p><p>對多數人而言，掌握 Docker 與 K8s 的基本原理仍是最重要的基礎。因為不管未來技術如何演進，應用程式打包、部署、編排的核心概念不會改變。唯有深入理解這些原理，才能靈活應對每一次技術革新。</p></p>
+<h2>結語</h2>
+<p><p>這篇文章涵蓋了 Docker 的核心概念、入門操作、Compose 多容器管理，以及與 Kubernetes 整合的實戰流程。我們從一個簡單的 Flask 應用一路走到 Spring Boot 應用部署至 K8s，同時介紹了 CI/CD 與安全掃描等最佳實踐。在 2026 年，容器化已成為軟體開發者的必備技能，投資時間學習 Docker 與 K8s 絕對值得。</p></p>
+<p><p>行動起來吧！在你的本機安裝 Docker，嘗試建立你的第一個映像，接下來建立一個小型 K8s 叢集，親自體驗容器編排的威力。一旦你熟悉了這套流程，你將能自信地設計出高可用、可擴展且易於維護的現代化應用架構。雅寶社區與頂客論壇隨時歡迎你分享實作經驗與討論最新技術。</p></p>
+
+<div class="related-articles" style="background-color:#fff;border:1px solid #ddd;border-radius:8px;padding:20px;margin-top:50px;">
+    <h4 style="margin-top:0;color:#333;border-bottom:1px solid #eee;padding-bottom:10px;">[[[[[[[[[[[[📖]]]]]]]]]]]] 相關文章推薦</h4>
+    <ul style="list-style:none;padding-left:0;margin:0;">
+        <li style="margin-bottom:10px;"><a href="/" style="color:#0056b3;text-decoration:none;">🏠 返回首頁瀏覽更多</a></li>
+        <li style="margin-bottom:10px;"><a href="/categories.html" style="color:#0056b3;text-decoration:none;">[[[[[[[[[[[[📚]]]]]]]]]]]] 查看全部分類</a></li>
+        <li style="margin-bottom:10px;"><a href="/game/" style="color:#0056b3;text-decoration:none;">[[[[[[[[[[[[🎮]]]]]]]]]]]] 雅寶遊戲間</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     Giscus 留言系統 (v6.9 完整載入版)
+     ============================================================ -->
+<div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+    <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        [[[[[[[[[[[[💬]]]]]]]]]]]] 留言討論
+    </h3>
+    <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+        歡迎在下方留言，分享您的想法、心得或疑問。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+    </p>
+    <div class="giscus" 
+        data-repo="praystone/ahpal-website"
+        data-repo-id="R_kgDOTbvurg"
+        data-category="General"
+        data-category-id="DIC_kwDOTbvurs4DBhel"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-TW"
+        data-loading="lazy">
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+    data-repo="praystone/ahpal-website"
+    data-repo-id="R_kgDOTbvurg"
+    data-category="General"
+    data-category-id="DIC_kwDOTbvurs4DBhel"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+</script>
+
+<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }}
+    #back-to-top:hover {{
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }}
+</style>
+</body>
+</html>

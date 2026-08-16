@@ -1,11 +1,15 @@
 # ============================================================
-# AHPAL 內容生成引擎 - main.py v6.1
+# AHPAL 內容生成引擎 - main.py v6.2
 # ============================================================
 # 變更 (v6.1)：
 #   - 🔧 修復 _generate_safe_filename()：強制英文檔名
 #   - 🔧 如果 keyword 包含中文 → 使用時間戳 (純英文)
 #   - 🔧 如果 keyword 純英文 → 轉為小寫 + 中線
 #   - 🔧 完全符合董事長死命令 #2
+#
+# v6.2 變更：
+#   - 🆕 CATEGORY_DIR_MAP 新增 "🌳 動植物生態": "nature"
+#   - 🆕 CATEGORY_EMOJI_MAP 新增 "nature": "🌳"
 # ============================================================
 
 import sys
@@ -78,6 +82,7 @@ CATEGORY_DIR_MAP = {
     "🌟 人生哲理": "philosophy",
     "🤖 AI 趨勢": "trend",
     "🎵 音樂創作": "music",
+    "🌳 動植物生態": "nature",       # 🆕 新增
 }
 
 CATEGORY_EMOJI_MAP = {
@@ -88,6 +93,7 @@ CATEGORY_EMOJI_MAP = {
     "philosophy": "🌟",
     "trend": "🤖",
     "music": "🎵",
+    "nature": "🌳",                  # 🆕 新增
 }
 
 
@@ -287,7 +293,7 @@ def get_pending_articles():
 def run_pipeline(force_api=None, dry_run=False):
     """執行內容生成管線（支援文章 + 音樂 + Responses API）"""
     logger.info("=" * 70)
-    logger.info(f"🦞 AHPAL.COM 內容生成引擎 v6.1 - {CURRENT_YEAR}")
+    logger.info(f"🦞 AHPAL.COM 內容生成引擎 v6.2 - {CURRENT_YEAR}")
     logger.info(f"📅 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info("=" * 70)
 
@@ -393,7 +399,7 @@ def migrate_keywords_to_json():
 # ============================================================
 
 def main():
-    parser = argparse.ArgumentParser(description='AHPAL 內容生成引擎 v6.1')
+    parser = argparse.ArgumentParser(description='AHPAL 內容生成引擎 v6.2')
     parser.add_argument('--force', choices=['deepseek', 'gemini'], help='強制使用指定的 API（已棄用）')
     parser.add_argument('--dry-run', action='store_true', help='僅顯示待生成清單，不實際生成')
     parser.add_argument('--reset', action='store_true', help='重置文章狀態檔案')

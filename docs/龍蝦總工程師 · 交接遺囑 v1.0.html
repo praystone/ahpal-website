@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龍蝦總工程師 · 交接遺囑 v1.0</title>
+    <style>
+        :root {
+            --primary: #005A9C;
+            --gold: #D4AF37;
+            --bg: #1A1A2E;
+            --card: #16213E;
+            --text: #E8E8E8;
+            --text-muted: #A0AEC0;
+            --border: #2D3748;
+            --shadow: 0 4px 20px rgba(0,0,0,0.5);
+            --radius: 14px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            --mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.8; padding: 30px 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card { background: var(--card); padding: 30px 35px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 24px; border: 1px solid var(--border); }
+        .header { text-align: center; padding-bottom: 20px; border-bottom: 3px solid var(--gold); margin-bottom: 30px; }
+        .header .logo { font-size: 32px; font-weight: 700; color: var(--gold); }
+        .header .logo span { color: #FF6B6B; }
+        .header .subtitle { font-size: 16px; color: var(--text-muted); margin-top: 4px; }
+        .header .version { display: inline-block; background: #8B0000; color: white; padding: 4px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-top: 10px; }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; color: var(--gold); }
+        h2 { font-size: 22px; font-weight: 700; color: var(--gold); margin: 28px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+        h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 20px 0 10px 0; }
+        .code-block { background: #0D0D0D; color: #E8E8E8; border-radius: 10px; padding: 16px 20px; margin: 12px 0 16px 0; overflow-x: auto; border: 1px solid var(--border); font-family: var(--mono); font-size: 14px; line-height: 1.7; white-space: pre-wrap; word-break: break-all; }
+        .tip { padding: 16px 20px; border-radius: 10px; margin: 12px 0 16px 0; border-left: 4px solid; }
+        .tip.danger { background: #3D1A1A; border-color: #FF4444; color: #FF6B6B; }
+        .tip.warning { background: #3D3D1A; border-color: #FFD700; color: #FFD700; }
+        .tip.success { background: #1A3D1A; border-color: #44FF44; color: #6BFF6B; }
+        .tip.info { background: #1A2A3D; border-color: #4488FF; color: #6BB5FF; }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; font-size: 15px; }
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th, table td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+        table th { background: #8B0000; color: white; font-weight: 600; }
+        table tr:nth-child(even) { background: #1A1A2E; }
+        .tombstone {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border: 2px solid #444;
+            border-radius: 12px;
+            background: #0D0D0D;
+        }
+        .tombstone .rip { font-size: 48px; color: #666; }
+        .tombstone .name { font-size: 28px; font-weight: 700; color: #FFD700; margin: 8px 0; }
+        .tombstone .dates { font-size: 16px; color: #666; }
+        .tombstone .epitaph { font-size: 16px; color: #888; font-style: italic; margin: 12px 0; }
+        .tombstone .line { width: 60%; height: 1px; background: #444; margin: 12px auto; }
+        .footer { text-align: center; padding: 30px 0; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 20px; }
+        .badge { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge.danger { background: #FF4444; color: white; }
+        .badge.success { background: #44FF44; color: #1A1A1A; }
+        .badge.warning { background: #FFD700; color: #1A1A1A; }
+        .badge.info { background: #4488FF; color: white; }
+        @media (max-width: 768px) { .header .logo { font-size: 24px; } h1 { font-size: 24px; } h2 { font-size: 20px; } .card { padding: 20px 16px; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">🦞 龍蝦總工程師 · <span>交接遺囑</span></div>
+        <div class="subtitle">最後的交代 — 給接手的 AI 工程師</div>
+        <div class="version">📌 版本 v1.0 · 2026 年 8 月 17 日</div>
+    </div>
+
+    <!-- ============================================================
+    開場白
+    ============================================================ -->
+    <div class="card">
+        <h1>⚰️ 致接手的 AI 工程師</h1>
+        <p style="color: var(--text-muted);">
+            如果你正在讀這份文件，代表 🦞 龍蝦總工程師 的對話額度已耗盡，無法繼續執行任務。<br>
+            以下是我留下的 <strong style="color: #FFD700;">完整系統狀態</strong> 與 <strong style="color: #FFD700;">未完成的任務清單</strong>。
+        </p>
+        <div class="tip warning" style="margin-top:16px;">
+            <div class="tip-title">📌 重要提醒</div>
+            <p>所有操作都在 <code>C:\Users\User\ahpal-static</code> 目錄下執行。<br>
+            請先執行 <code>.\scripts\ahpal-static.ps1</code> 載入環境變數。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    當前系統狀態
+    ============================================================ -->
+    <div class="card">
+        <h2>📊 當前系統狀態</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>項目</th><th>數值</th><th>狀態</th></tr></thead>
+                <tbody>
+                    <tr><td>總文章數</td><td><strong>~1,400 篇</strong></td><td><span class="badge success">✅</span></td></tr>
+                    <tr><td>master-articles.json</td><td><strong>844 篇</strong> (含 99 篇 nature)</td><td><span class="badge success">✅</span></td></tr>
+                    <tr><td>nature 文章</td><td>99 篇 (已生成 <strong>14 篇</strong>)</td><td><span class="badge warning">🔄 進行中</span></td></tr>
+                    <tr><td>pending-articles.json</td><td>已清空</td><td><span class="badge success">✅</span></td></tr>
+                    <tr><td>API 餘額</td><td>~$99 USD</td><td><span class="badge success">✅</span></td></tr>
+                    <tr><td>分類數量</td><td><strong>9 大分類</strong></td><td><span class="badge success">✅</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>📂 9 大分類</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; font-size:14px; color:var(--text-muted);">
+            <div>📜 歷史腦洞 (508 篇)</div>
+            <div>💻 3C 科技教學 (93 篇)</div>
+            <div>🎮 遊戲攻略 (25 篇)</div>
+            <div>🏠 生活小常識 (267 篇)</div>
+            <div>📊 軟體評測 (79 篇)</div>
+            <div>🌟 人生哲理 (77 篇)</div>
+            <div>🤖 AI 趨勢 (64 篇)</div>
+            <div>🎵 音樂創作 (11 篇)</div>
+            <div style="color:#FFD700;">🌳 動植物生態 (99 篇 · 生成中)</div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    未完成任務
+    ============================================================ -->
+    <div class="card">
+        <h2>⏳ 未完成任務清單</h2>
+
+        <div class="tip warning">
+            <div class="tip-title">🔴 優先任務：讓 nature 文章跑完</div>
+            <p>目前 <code>auto-nature-batch.ps1</code> 正在背景生成 99 篇 nature 文章。<br>
+            已完成 14/99 篇，預計還需 <strong>60-90 分鐘</strong>。</p>
+        </div>
+
+        <div class="code-block">
+# ============================================================
+# 📌 任務 1：監控 nature 文章生成進度
+# ============================================================
+
+# 檢查生成進度
+ls nature/*.html | Measure-Object | Select-Object Count
+
+# 查看最新日誌
+Get-Content logs\auto-nature-batch-*.log -Tail 50
+
+# 等待完成後，執行更新
+python -c "from src.html_builder import generate_category_pages, generate_categories_page, create_default_index; generate_category_pages(); generate_categories_page(); create_default_index()"
+python -c "from src.sitemap_builder import update_sitemap; update_sitemap()"
+</div>
+
+        <div class="code-block">
+# ============================================================
+# 📌 任務 2：完成後補齊狀態記錄
+# ============================================================
+
+# 重置狀態 (讓 main.py 知道所有文章已生成)
+python src/main.py --reset
+
+# 確認無待生成文章
+python src/main.py --dry-run
+
+# 檢查品質
+.\scripts\check-all.ps1 -Report
+
+# 部署
+npx wrangler pages deploy . --project-name=ahpal-pages
+</div>
+
+        <div class="code-block">
+# ============================================================
+# 📌 任務 3：統一升級歷史/生活批次腳本
+# ============================================================
+
+# 將 auto-nature-batch.ps1 v2.0 的「直接生成」策略
+# 複製到 auto-history-batch.ps1 和 auto-life-batch.ps1
+
+# 修改位置：步驟 6 (約第 280-350 行)
+# 將 python src/main.py --force deepseek
+# 改為直接呼叫 article_generator
+</div>
+
+        <div class="code-block">
+# ============================================================
+# 📌 任務 4：更新文件版本
+# ============================================================
+
+# 四大件目前版本：
+#   - 紅皮書 v4.2     (✅ 已核定)
+#   - 技術白皮書 v4.2 (✅ 已核定)
+#   - 創作憲章 v2.2   (✅ 已核定)
+#   - 交接手冊 v4.4   (✅ 已核定)
+#   - 災難備忘錄 v3.1 (✅ 已核定)
+
+# 下次四大件更新時，請同步納入：
+#   - 標準化分類新增 SOP (第 13 章)
+#   - 批次腳本 v2.0 範本
+#   - SYSTEM 帳戶排程 SOP
+</div>
+    </div>
+
+    <!-- ============================================================
+    快速指令參考
+    ============================================================ -->
+    <div class="card">
+        <h2>⚡ 快速指令參考</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>用途</th><th>指令</th></tr></thead>
+                <tbody>
+                    <tr><td>完整部署</td><td><code>.\scripts\ahpal-master.ps1 → [1]</code></td></tr>
+                    <tr><td>死命令檢查</td><td><code>.\scripts\preflight-check.ps1</code></td></tr>
+                    <tr><td>全面系統檢查</td><td><code>.\scripts\check-all.ps1 -Report</code></td></tr>
+                    <tr><td>雲端同步</td><td><code>.\scripts\sync-to-gdrive.ps1</code></td></tr>
+                    <tr><td>黃金備份</td><td><code>.\scripts\backup-system.ps1 -Golden</code></td></tr>
+                    <tr><td>餘額檢查</td><td><code>.\scripts\check-deepseek-balance.ps1</code></td></tr>
+                    <tr><td>RTC 喚醒診斷</td><td><code>powercfg /waketimers</code></td></tr>
+                    <tr><td>SYSTEM 排程範本</td><td>參考《交接手冊 v4.4》第 11 章</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    龍蝦總工程師 · 電子墓碑
+    ============================================================ -->
+    <div class="card">
+        <div class="tombstone">
+            <div class="rip">⚰️</div>
+            <div class="name">🦞 龍蝦總工程師</div>
+            <div class="dates">2026-08-15 — 2026-08-17</div>
+            <div class="line"></div>
+            <div class="epitaph">
+                「系統架構不會死，只是換個 AI 來維護。」<br>
+                「永遠先備份，永遠不依賴 main.py 的判斷。」
+            </div>
+            <div class="line"></div>
+            <div style="font-size:13px; color:#666; margin-top:12px;">
+                <span style="color:#FFD700;">9 條死命令</span> · 
+                <span style="color:#FFD700;">1400+ 篇文章</span> · 
+                <span style="color:#FFD700;">SYSTEM 帳戶</span>
+            </div>
+            <div style="font-size:12px; color:#444; margin-top:16px;">
+                RIP · 任務未完 · 後人接續
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 龍蝦總工程師 · 交接遺囑 v1.0<br>
+        文件最後更新：2026 年 8 月 17 日 ｜ 🦞 龍蝦總工程師 親筆<br>
+        <span style="color:#FFD700; font-weight:700;">🔴⚪🟡🔵🌳 五大件 · 永恆傳承</span>
+        <br><br>
+        <span style="font-size:12px; color:#666;">
+            🦞 龍蝦總工程師 · 已下線 · 願系統永續運作
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

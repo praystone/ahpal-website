@@ -1,1 +1,689 @@
-[]
+[
+  {
+    "keyword": "動物行為學入門：理解動物在想什麼",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animal-behavior-basics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣鳥類觀察：新手賞鳥入門指南",
+    "category": "🌳 動植物生態",
+    "filename": "nature/bird-watching-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "野生動物救援：遇到受傷動物怎麼辦",
+    "category": "🌳 動植物生態",
+    "filename": "nature/wildlife-rescue-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣哺乳動物認識：山羌、野豬、台灣黑熊",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mammals-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物溝通：與寵物建立更深層的連結",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animal-communication-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣蝴蝶圖鑑：常見蝴蝶種類與觀察",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-butterfly-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物保育現況：台灣瀕危物種與保護行動",
+    "category": "🌳 動植物生態",
+    "filename": "nature/wildlife-conservation-taiwan.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "寵物行為解讀：貓咪狗狗的情緒密碼",
+    "category": "🌳 動植物生態",
+    "filename": "nature/pet-behavior-interpretation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣兩棲類認識：青蛙、蟾蜍、山椒魚",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-amphibians-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與人類：陪伴動物的療癒力量",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animal-therapy-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣爬蟲類認識：蛇類、蜥蜴、龜類",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-reptiles-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "海洋動物認識：台灣海域常見生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-marine-life-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物智商排名：最聰明的動物有哪些",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animal-intelligence-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物攝影技巧：拍出動物的靈魂",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animal-photography-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣昆蟲認識：最常見的昆蟲圖鑑",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-insects-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與季節：台灣候鳥遷徙路線",
+    "category": "🌳 動植物生態",
+    "filename": "nature/migratory-birds-taiwan.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "寵物營養學：毛孩該吃什麼最健康",
+    "category": "🌳 動植物生態",
+    "filename": "nature/pet-nutrition-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣淡水魚認識：溪流中的生態寶藏",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-freshwater-fish.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與藝術：動物在藝術中的象徵",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animals-in-art-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物老化照護：高齡毛孩的照顧指南",
+    "category": "🌳 動植物生態",
+    "filename": "nature/senior-pet-care-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與文化：台灣民間故事中的動物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animals-taiwan-folklore.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "野生動物追蹤技巧：觀察動物的足跡",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animal-tracking-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與環境：氣候變遷對動物的影響",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animals-climate-change.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣螢火蟲認識：賞螢季節與地點",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-firefly-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "寵物用品選購指南：給毛孩最好的選擇",
+    "category": "🌳 動植物生態",
+    "filename": "nature/pet-products-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與兒童：孩子與動物的相處之道",
+    "category": "🌳 動植物生態",
+    "filename": "nature/kids-animals-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣蝸牛與蛞蝓：認識陸生軟體動物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-snails-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與城市：都市中的野生動物觀察",
+    "category": "🌳 動植物生態",
+    "filename": "nature/urban-wildlife-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "寵物美容 DIY：在家幫毛孩打理",
+    "category": "🌳 動植物生態",
+    "filename": "nature/pet-grooming-diy-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與科技：AI 在動物保育上的應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/ai-animal-conservation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣蜘蛛認識：常見蜘蛛種類與生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-spiders-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與教育：如何教孩子愛護動物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animals-education-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣海洋哺乳動物：鯨豚觀察指南",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-cetaceans-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與倫理：我們對動物的責任",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animal-ethics-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣螃蟹與寄居蟹：潮間帶生態觀察",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-crabs-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與心理學：動物如何影響人類情緒",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animals-psychology-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣蝙蝠認識：夜行性的生態守護者",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-bats-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "動物與文學：文學作品中的動物形象",
+    "category": "🌳 動植物生態",
+    "filename": "nature/animals-literature-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣珊瑚礁生態：海洋熱帶雨林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-coral-reefs-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣特有種植物認識：10 種你沒看過的植物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-endemic-plants.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "森林療癒：走進山林放鬆身心的科學實證",
+    "category": "🌳 動植物生態",
+    "filename": "nature/forest-therapy-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物繁殖技巧：扦插、播種、分株一次學會",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-propagation-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "室內植物病蟲害防治：不用農藥的自然方法",
+    "category": "🌳 動植物生態",
+    "filename": "nature/indoor-plant-pest-control.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "苔蘚微景觀：打造自己的迷你森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/moss-terrarium-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣常見行道樹認識：城市裡的綠色夥伴",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-street-trees-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物風水：居家植栽擺設的科學與美學",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-feng-shui-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "多肉植物組合盆栽：設計與養護技巧",
+    "category": "🌳 動植物生態",
+    "filename": "nature/succulent-arrangement-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "食蟲植物入門：豬籠草、捕蠅草養殖教學",
+    "category": "🌳 動植物生態",
+    "filename": "nature/carnivorous-plants-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與情緒：綠色植物對心理健康的影響",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plants-mental-health.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣原生蘭花認識：山林中的美麗精靈",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-native-orchids.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物觀察筆記：記錄自然變化的樂趣",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-observation-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "樹木修剪技巧：正確修剪讓植物更健康",
+    "category": "🌳 動植物生態",
+    "filename": "nature/tree-pruning-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物標本製作：保存自然之美的藝術",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-specimen-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣竹類認識：從竹林到竹製品",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-bamboo-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與香氣：自製天然精油與香包",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-aromatherapy-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "水生植物介紹：打造生態水池與水族箱",
+    "category": "🌳 動植物生態",
+    "filename": "nature/aquatic-plants-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與食物：認識常見食用植物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/edible-plants-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與藥用：台灣青草藥認識",
+    "category": "🌳 動植物生態",
+    "filename": "nature/medicinal-plants-taiwan.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物繪畫入門：用畫筆記錄植物之美",
+    "category": "🌳 動植物生態",
+    "filename": "nature/botanical-illustration-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與季節：四季變化的植物觀察",
+    "category": "🌳 動植物生態",
+    "filename": "nature/seasonal-plants-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與土壤：認識土壤與植物生長關係",
+    "category": "🌳 動植物生態",
+    "filename": "nature/soil-plant-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與光線：不同植物對光照的需求",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-light-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與水：澆水技巧與水耕植物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-water-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與溫度：四季養護注意事項",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-temperature-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與肥料：有機施肥技巧",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-fertilizer-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與容器：盆器選擇與搭配藝術",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-container-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與陽台：小空間綠化改造",
+    "category": "🌳 動植物生態",
+    "filename": "nature/balcony-planting-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與辦公室：職場綠化與工作效率",
+    "category": "🌳 動植物生態",
+    "filename": "nature/office-plant-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與社區：社區園藝營造與維護",
+    "category": "🌳 動植物生態",
+    "filename": "nature/community-gardening-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "蕨類植物認識：台灣常見蕨類圖鑑",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ferns-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與歷史：台灣植物採集史",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plants-history-taiwan.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "多肉植物品種大全：認識不同品種與照顧",
+    "category": "🌳 動植物生態",
+    "filename": "nature/succulent-varieties-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與藝術：植物在藝術中的表現",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plants-art-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣紅樹林生態：海岸濕地的守護者",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mangroves-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與科學：植物的神奇生存機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-science-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "種子收集與保存：延續植物生命的方法",
+    "category": "🌳 動植物生態",
+    "filename": "nature/seed-collection-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與文化：台灣原住民的植物智慧",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plants-indigenous-culture.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "植物與健康：居家植物的空氣淨化效果",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plants-air-purification.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣高山植物：挑戰極限的生命力",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-alpine-plants.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣自然生態系認識：森林、溼地、海岸",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecosystems-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態多樣性為何重要：生物多樣性入門",
+    "category": "🌳 動植物生態",
+    "filename": "nature/biodiversity-basics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣國家公園介紹：自然生態的守護者",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-national-parks.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態旅遊指南：友善環境的旅遊方式",
+    "category": "🌳 動植物生態",
+    "filename": "nature/ecotourism-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "保育與開發的平衡：台灣環境議題",
+    "category": "🌳 動植物生態",
+    "filename": "nature/conservation-development-balance.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生物多樣性熱點：台灣的生態寶藏",
+    "category": "🌳 動植物生態",
+    "filename": "nature/biodiversity-hotspots-taiwan.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "自然觀察入門：用五感體驗大自然",
+    "category": "🌳 動植物生態",
+    "filename": "nature/nature-observation-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態攝影技巧：捕捉自然之美",
+    "category": "🌳 動植物生態",
+    "filename": "nature/nature-photography-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣溼地生態：候鳥與紅樹林的棲息地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-wetlands-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣高山生態：從低海拔到高海拔的變化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mountain-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態與氣候：氣候變遷對生態的影響",
+    "category": "🌳 動植物生態",
+    "filename": "nature/ecology-climate-change.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "外來種入侵：台灣的生態危機",
+    "category": "🌳 動植物生態",
+    "filename": "nature/invasive-species-taiwan.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態保育志工：你可以參與的方式",
+    "category": "🌳 動植物生態",
+    "filename": "nature/conservation-volunteer-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態教育：讓孩子認識自然的方法",
+    "category": "🌳 動植物生態",
+    "filename": "nature/ecology-education-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態修復：受損環境的復原之路",
+    "category": "🌳 動植物生態",
+    "filename": "nature/ecological-restoration-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "台灣河川生態：溪流裡的生物多樣性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-river-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態與農業：友善農耕的實踐",
+    "category": "🌳 動植物生態",
+    "filename": "nature/agroecology-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "都市生態：城市裡的綠色與生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/urban-ecology-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },  {
+    "keyword": "生態紀錄片推薦：認識自然的 10 部好片",
+    "category": "🌳 動植物生態",
+    "filename": "nature/ecology-documentary-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  }
+]

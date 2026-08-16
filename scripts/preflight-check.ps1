@@ -1,23 +1,37 @@
 ﻿# ============================================================
-# preflight-check.ps1 - 紅皮書死命令強制檢查腳本 v2.1
+# preflight-check.ps1 - 紅皮書死命令強制檢查腳本 v2.3
 # ============================================================
 # 用途：推送前強制檢查，確保文章品質與完整性
 # 違反死命令者視同違反營運紀律
 # ============================================================
-# 修正 v2.1：
-#   - 排除 game/ 目錄（遊戲檔案不適用文章檢查）
-#   - 只檢查 tech/ life/ review/ philosophy/ trend/ 目錄
+# 🆕 v2.3 變更 (2026-08-17)：
+#   - 🔧 統一使用 config.ps1 核心配置 (9 大分類)
+#   - 🔧 移除所有硬編碼分類定義
+#   - 🔧 動態讀取分類目錄與分類頁面
+#   - 🔧 版本號升級至 v2.3
 # ============================================================
 
 param(
-    [switch]$Fix,           # 自動修復可修復的問題
-    [switch]$ReportOnly,    # 僅產生報告，不顯示詳細輸出
-    [switch]$Quiet,         # 安靜模式（僅顯示摘要）
-    [switch]$SkipGit        # 跳過 Git 檢查（排程用）
+    [switch]$Fix,
+    [switch]$ReportOnly,
+    [switch]$Quiet,
+    [switch]$SkipGit
 )
 
-$ProjectRoot = "C:\Users\User\ahpal-static"
-$OutputDir = $ProjectRoot
+# ============================================================
+# 載入核心配置
+# ============================================================
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+if (-not $ScriptDir) { $ScriptDir = Get-Location }
+$ProjectRoot = Split-Path -Parent $ScriptDir
+Set-Location $ProjectRoot
+
+$ConfigPath = Join-Path $ScriptDir "config.ps1"
+if (Test-Path $ConfigPath) {
+    . $ConfigPath
+}
+
+$OutputDir = $Global:ProjectRoot
 $ErrorCount = 0
 $WarningCount = 0
 $FixCount = 0
@@ -25,18 +39,19 @@ $PassCount = 0
 $CheckResults = @()
 
 # ============================================================
-# 文章目錄（排除 game/）
+# 🆕 動態讀取文章目錄 (排除 game/)
 # ============================================================
-$ArticleDirs = @("tech", "life", "review", "philosophy", "trend")
+$ArticleDirs = $Global:CategoryDirs.Keys | Where-Object { $_ -ne "game" }
 
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Red
-Write-Host "  🔴 董事長死命令：變更後強制檢查 v2.1" -ForegroundColor Red
+Write-Host "  🔴 董事長死命令：變更後強制檢查 v2.3" -ForegroundColor Red
 Write-Host "============================================================" -ForegroundColor Red
 Write-Host ""
 Write-Host "  執行時間：$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 Write-Host "  檢查範圍：檔案完整性 | 內容品質 | Git 狀態 | 結構檢查"
 Write-Host "  排除目錄：game/（遊戲檔案）"
+Write-Host "  分類數量：$($Global:CategoryDirs.Count) 個"
 Write-Host ""
 
 cd $ProjectRoot
@@ -59,7 +74,7 @@ function Add-CheckResult {
 }
 
 # ============================================================
-# 取得文章檔案（排除 game/ 目錄）
+# 取得文章檔案
 # ============================================================
 function Get-ArticleFiles {
     param([int]$MaxCount = 20)
@@ -95,12 +110,10 @@ if (-not $Quiet) {
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
 }
 
-# 1.1 檢查文章數量（只檢查文章目錄）
 Write-Host "   [1.1] 檢查文章數量..." -ForegroundColor Gray
 $ArticleCount = (GetAllArticleFiles).Count
 Write-Host "   📄 文章目錄總數：$ArticleCount 篇（不含遊戲）" -ForegroundColor Cyan
 
-# 檢查是否有待生成（從 manifest 或 main.py）
 $DryRunOutput = python src/main.py --dry-run 2>&1
 if ($LASTEXITCODE -ne 0) {
     Write-Host "   ⚠️ 無法檢查待生成狀態（可能 main.py 有問題）" -ForegroundColor Yellow
@@ -121,18 +134,17 @@ if ($LASTEXITCODE -ne 0) {
     }
 }
 
-# 1.2 檢查檔案大小（只檢查文章目錄，排除 game/）
 Write-Host "   [1.2] 檢查文章大小..." -ForegroundColor Gray
 $SmallFiles = @()
 foreach ($dir in $ArticleDirs) {
     $path = Join-Path $OutputDir $dir
     if (Test-Path $path) {
-        $SmallFiles += Get-ChildItem -Path $path -Filter "*.html" -ErrorAction SilentlyContinue | Where-Object { $_.Length -lt 5120 }
+        $SmallFiles += Get-ChildItem -Path $path -Filter "*.html" -ErrorAction SilentlyContinue | Where-Object { $_.Length -lt $Global:MinFileSize }
     }
 }
 $SmallCount = ($SmallFiles | Measure-Object).Count
 if ($SmallCount -gt 0) {
-    Write-Host "   ⚠️ 發現 $SmallCount 個檔案小於 5KB（文章目錄）" -ForegroundColor Yellow
+    Write-Host "   ⚠️ 發現 $SmallCount 個檔案小於 $($Global:MinFileSize/1024)KB（文章目錄）" -ForegroundColor Yellow
     if ($Fix) {
         foreach ($f in $SmallFiles) {
             Write-Host "      🔧 標記待重新生成：$($f.Name)" -ForegroundColor Gray
@@ -142,16 +154,15 @@ if ($SmallCount -gt 0) {
         Write-Host "   ✅ 已刪除 $FixCount 個過小檔案" -ForegroundColor Green
         Add-CheckResult -Category "完整性" -Name "文章大小" -Status "PASS" -Message "已刪除 $FixCount 個過小檔案" -Icon "🔧"
     } else {
-        Add-CheckResult -Category "完整性" -Name "文章大小" -Status "WARN" -Message "$SmallCount 個檔案 < 5KB"
+        Add-CheckResult -Category "完整性" -Name "文章大小" -Status "WARN" -Message "$SmallCount 個檔案 < $($Global:MinFileSize/1024)KB"
         $WarningCount++
     }
 } else {
-    Write-Host "   ✅ 所有文章大小正常（≥5KB）" -ForegroundColor Green
-    Add-CheckResult -Category "完整性" -Name "文章大小" -Status "PASS" -Message "所有文章 ≥ 5KB"
+    Write-Host "   ✅ 所有文章大小正常（≥$($Global:MinFileSize/1024)KB）" -ForegroundColor Green
+    Add-CheckResult -Category "完整性" -Name "文章大小" -Status "PASS" -Message "所有文章 ≥ $($Global:MinFileSize/1024)KB"
 }
 
-# 1.3 檢查首頁
-Write-Host "   [1.3] 檢查首頁更新..." -ForegroundColor Gray
+Write-Host "   [1.3] 檢查首頁..." -ForegroundColor Gray
 $IndexPath = Join-Path $OutputDir "index.html"
 if (Test-Path $IndexPath) {
     $IndexContent = Get-Content $IndexPath -Raw
@@ -170,7 +181,7 @@ if (Test-Path $IndexPath) {
 }
 
 # ============================================================
-# 階段二：內容品質檢查（只檢查文章目錄，排除 game/）
+# 階段二：內容品質檢查
 # ============================================================
 if (-not $Quiet) {
     Write-Host ""
@@ -180,7 +191,6 @@ if (-not $Quiet) {
 
 $ArticleFiles = Get-ArticleFiles -MaxCount 30
 
-# 2.1 檢查品牌名稱
 Write-Host "   [2.1] 檢查品牌名稱..." -ForegroundColor Gray
 $BrandIssues = 0
 foreach ($f in $ArticleFiles) {
@@ -198,7 +208,6 @@ if ($BrandIssues -eq 0) {
     $WarningCount++
 }
 
-# 2.2 檢查 API 錯誤標記
 Write-Host "   [2.2] 檢查 API 錯誤標記..." -ForegroundColor Gray
 $ApiErrorIssues = 0
 $ErrorKeywords = @("429", "503", "RESOURCE_EXHAUSTED", "unavailable", "暫時無法", "配額已用盡")
@@ -222,7 +231,6 @@ if ($ApiErrorIssues -eq 0) {
     $WarningCount++
 }
 
-# 2.3 檢查 AdSense 程式碼
 Write-Host "   [2.3] 檢查 AdSense 程式碼..." -ForegroundColor Gray
 $AdsenseIssues = 0
 foreach ($f in $ArticleFiles) {
@@ -241,7 +249,7 @@ if ($AdsenseIssues -eq 0) {
 }
 
 # ============================================================
-# 階段三：HTML 結構檢查（只檢查文章目錄）
+# 階段三：HTML 結構檢查
 # ============================================================
 if (-not $Quiet) {
     Write-Host ""
@@ -249,7 +257,6 @@ if (-not $Quiet) {
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
 }
 
-# 3.1 檢查 H1 標題
 Write-Host "   [3.1] 檢查 H1 標題..." -ForegroundColor Gray
 $H1Issues = 0
 foreach ($f in $ArticleFiles) {
@@ -267,7 +274,6 @@ if ($H1Issues -eq 0) {
     $WarningCount++
 }
 
-# 3.2 檢查 H2 標題
 Write-Host "   [3.2] 檢查 H2 標題..." -ForegroundColor Gray
 $H2Issues = 0
 foreach ($f in $ArticleFiles) {
@@ -288,7 +294,6 @@ if ($H2Issues -eq 0) {
     $WarningCount++
 }
 
-# 3.3 檢查表格
 Write-Host "   [3.3] 檢查表格..." -ForegroundColor Gray
 $TableIssues = 0
 foreach ($f in $ArticleFiles) {
@@ -306,7 +311,6 @@ if ($TableIssues -eq 0) {
     $WarningCount++
 }
 
-# 3.4 檢查 FAQ
 Write-Host "   [3.4] 檢查 FAQ..." -ForegroundColor Gray
 $FaqIssues = 0
 foreach ($f in $ArticleFiles) {
@@ -333,9 +337,8 @@ if (-not $Quiet) {
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
 }
 
-# 4.1 檢查分類頁面
 Write-Host "   [4.1] 檢查分類頁面..." -ForegroundColor Gray
-$Categories = @("tech", "game", "life", "review", "philosophy", "trend")
+$Categories = $Global:CategoryDirs.Keys | Where-Object { $_ -ne "game" }
 $CatIssues = 0
 foreach ($cat in $Categories) {
     $CatPath = Join-Path $OutputDir "category-$cat.html"
@@ -354,14 +357,13 @@ foreach ($cat in $Categories) {
 }
 if ($CatIssues -eq 0) {
     Write-Host "   ✅ 所有分類頁面正常" -ForegroundColor Green
-    Add-CheckResult -Category "完整性" -Name "分類頁面" -Status "PASS" -Message "6 個分類頁面皆正常"
+    Add-CheckResult -Category "完整性" -Name "分類頁面" -Status "PASS" -Message "$($Categories.Count) 個分類頁面皆正常"
 } else {
     Write-Host "   ⚠️ 有 $CatIssues 個分類頁面有問題" -ForegroundColor Yellow
     Add-CheckResult -Category "完整性" -Name "分類頁面" -Status "WARN" -Message "$CatIssues 個分類頁面異常"
     $WarningCount++
 }
 
-# 4.2 檢查 Sitemap
 Write-Host "   [4.2] 檢查 Sitemap..." -ForegroundColor Gray
 $SitemapPath = Join-Path $OutputDir "sitemap.xml"
 if (Test-Path $SitemapPath) {
@@ -381,7 +383,7 @@ if (Test-Path $SitemapPath) {
 }
 
 # ============================================================
-# 階段五：遊戲檢查（僅統計，不評分）
+# 階段五：遊戲檢查
 # ============================================================
 if (-not $Quiet) {
     Write-Host ""
@@ -421,7 +423,6 @@ if (-not $SkipGit) {
         Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
     }
 
-    # 6.1 檢查 Git 狀態
     Write-Host "   [6.1] 檢查 Git 狀態..." -ForegroundColor Gray
     $GitStatus = git status --porcelain 2>&1
     if ($LASTEXITCODE -ne 0) {
@@ -440,7 +441,6 @@ if (-not $SkipGit) {
         }
     }
 
-    # 6.2 檢查機密檔案
     Write-Host "   [6.2] 檢查機密檔案..." -ForegroundColor Gray
     $EnvPath = Join-Path $ProjectRoot ".env"
     if (Test-Path $EnvPath) {
@@ -461,7 +461,7 @@ if (-not $SkipGit) {
 }
 
 # ============================================================
-# 階段七：總結報告
+# 總結報告
 # ============================================================
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Cyan
@@ -469,7 +469,6 @@ Write-Host "  📊 檢查報告" -ForegroundColor Yellow
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 
-# 顯示統計
 Write-Host "   ✅ 通過：$PassCount 項" -ForegroundColor Green
 Write-Host "   ⚠️ 警告：$WarningCount 項" -ForegroundColor Yellow
 Write-Host "   ❌ 錯誤：$ErrorCount 項" -ForegroundColor Red
@@ -479,7 +478,6 @@ if ($Fix) {
 
 Write-Host ""
 
-# 顯示詳細結果
 if ($CheckResults.Count -gt 0) {
     Write-Host "   📋 詳細結果：" -ForegroundColor Gray
     $CheckResults | ForEach-Object {

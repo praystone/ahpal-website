@@ -1,12 +1,12 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 全面系統檢查腳本 v3.3
+# 雅寶社區 · 頂客論壇 - 全面系統檢查腳本 v3.5
 # ============================================================
-# v3.3 變更：
-#   - 🆕 加入 history/ 與 music/ 目錄掃描
-#   - 🆕 加入 category-history.html 與 category-music.html 檢查
-#   - 🔧 修復 $HasApiError 型別問題
-#   - 🔧 優化變數命名，避免混淆
-#   - 📊 完整統計所有 8 大分類
+# 🆕 v3.5 變更 (2026-08-17)：
+#   - 🔧 統一使用 config.ps1 核心配置 (9 大分類)
+#   - 🔧 移除所有硬編碼分類定義
+#   - 🔧 動態讀取分類統計
+#   - 🔧 報告格式優化
+#   - 🔧 版本號升級至 v3.5
 # ============================================================
 
 param(
@@ -15,14 +15,25 @@ param(
     [switch]$DryRun
 )
 
+# ============================================================
+# 載入核心配置
+# ============================================================
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $ScriptDir) { $ScriptDir = Get-Location }
-$OutputDir = "C:\Users\User\ahpal-static"
+$ProjectRoot = Split-Path -Parent $ScriptDir
+Set-Location $ProjectRoot
+
+$ConfigPath = Join-Path $ScriptDir "config.ps1"
+if (Test-Path $ConfigPath) {
+    . $ConfigPath
+}
+
+$OutputDir = $Global:ProjectRoot
 $ReportFile = "C:\Users\User\ahpal-full-check-report.txt"
 $DateStr = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "   📊 雅寶社區 · 頂客論壇 - 全面系統檢查工具 v3.3" -ForegroundColor Green
+Write-Host "   📊 雅寶社區 · 頂客論壇 - 全面系統檢查工具 v3.5" -ForegroundColor Green
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "📁 輸出目錄：$OutputDir" -ForegroundColor Cyan
@@ -36,32 +47,10 @@ if (-not (Test-Path $OutputDir)) {
 }
 
 # ============================================================
-# 🆕 v3.3: 完整 8 大分類
+# 🆕 動態讀取分類 (從 config.ps1)
 # ============================================================
-$CategoryDirs = @{
-    "tech" = "💻 3C 科技教學"
-    "life" = "🏠 生活小常識"
-    "review" = "📊 軟體評測"
-    "philosophy" = "🌟 人生哲理"
-    "trend" = "🤖 AI 趨勢"
-    "game" = "🎮 遊戲攻略"
-    "history" = "📜 歷史腦洞"      # 🆕 新增
-    "music" = "🎵 音樂創作"        # 🆕 新增
-}
-
-# ============================================================
-# 🆕 v3.3: 完整分類頁面清單
-# ============================================================
-$CategoryPages = @(
-    "category-tech.html",
-    "category-game.html",
-    "category-life.html",
-    "category-review.html",
-    "category-philosophy.html",
-    "category-trend.html",
-    "category-history.html",    # 🆕 新增
-    "category-music.html"       # 🆕 新增
-)
+$CategoryDirs = $Global:CategoryDirs
+$CategoryPages = $Global:CategoryPages
 
 # ============================================================
 # 掃描所有文章
@@ -72,7 +61,7 @@ Write-Host ""
 $AllArticles = New-Object System.Collections.ArrayList
 $AbnormalFiles = New-Object System.Collections.ArrayList
 $MissingBrand = New-Object System.Collections.ArrayList
-$ApiErrorFiles = New-Object System.Collections.ArrayList   # 🆕 改名，避免混淆
+$ApiErrorFiles = New-Object System.Collections.ArrayList
 $LowQualityFiles = New-Object System.Collections.ArrayList
 $TotalSize = 0
 $TotalArticles = 0
@@ -103,9 +92,9 @@ foreach ($dirName in $CategoryDirs.Keys) {
     foreach ($f in $files) {
         $relPath = $f.FullName.Replace("$OutputDir\", "")
         $sizeKB = [math]::Round($f.Length / 1KB, 2)
-        $isAbnormal = $f.Length -lt 5120
+        $isAbnormal = $f.Length -lt $Global:MinFileSize
         $hasBrand = $false
-        $hasApiError = $false   # 🆕 改用布林值
+        $hasApiError = $false
         
         try {
             $content = Get-Content -Path $f.FullName -Encoding UTF8 -Raw -ErrorAction SilentlyContinue
@@ -133,7 +122,6 @@ foreach ($dirName in $CategoryDirs.Keys) {
             IsGame = ($dirName -eq "game")
         }
         
-        # 非遊戲目錄才做品質檢查
         if (-not $article.IsGame -and -not $isAbnormal) {
             try {
                 $content = Get-Content -Path $f.FullName -Encoding UTF8 -Raw -ErrorAction SilentlyContinue
@@ -148,8 +136,8 @@ foreach ($dirName in $CategoryDirs.Keys) {
                 $hasImage = $content -match '<img[^>]*>'
                 
                 $score = 0
-                if ($article.WordCount -ge 1200) { $score += 35 }
-                elseif ($article.WordCount -ge 800) { $score += 20 }
+                if ($article.WordCount -ge $Global:MinWords) { $score += 35 }
+                elseif ($article.WordCount -ge $Global:MinWords * 0.7) { $score += 20 }
                 else { $score += 10 }
                 
                 if ($hasH2) { $score += 20 }
@@ -160,7 +148,7 @@ foreach ($dirName in $CategoryDirs.Keys) {
                 if ($hasImage) { $score += 5 }
                 
                 $article.Score = $score
-                $article.Passed = $score -ge 60
+                $article.Passed = $score -ge $Global:QualityThreshold
                 $article.IsLowQuality = (-not $article.Passed)
             } catch {}
         } elseif ($article.IsGame) {
@@ -204,7 +192,7 @@ Write-Host "📄 檢查關鍵頁面..." -ForegroundColor Yellow
 
 $KeyPages = @(
     "index.html", "categories.html", "sitemap.xml", "404.html",
-    "memorial.html", "royal_dragon_karma.html"
+    "memorial.html", "royal_dragon_karma.html", "robots.txt", "ads.txt"
 )
 $AllKeyPages = $KeyPages + $CategoryPages
 $MissingPages = @()
@@ -252,31 +240,27 @@ foreach ($dirName in $CategoryDirs.Keys) {
 
 if ($LowQualityFiles.Count -gt 0) {
     Write-Host ""
-    Write-Host "❌ 品質未達標文章清單 (<60分)：" -ForegroundColor Red
+    Write-Host "❌ 品質未達標文章清單 (<$($Global:QualityThreshold)分)：" -ForegroundColor Red
     foreach ($item in $LowQualityFiles) {
         Write-Host "   📄 $($item.RelativePath) (分數：$($item.Score)/100)" -ForegroundColor Red
     }
 }
 
-# ============================================================
 # 品質分數統計
-# ============================================================
 $ScoredArticles = $AllArticles | Where-Object { $_.Score -gt 0 -and -not $_.IsGame }
 if ($ScoredArticles.Count -gt 0) {
     Write-Host ""
     Write-Host "⭐ 品質分數統計：" -ForegroundColor Cyan
     $PassedCount = ($ScoredArticles | Where-Object { $_.Passed }).Count
     $FailedCount = $ScoredArticles.Count - $PassedCount
-    Write-Host "   ├─ 通過 (≥60分)：$PassedCount 篇" -ForegroundColor Green
-    Write-Host "   └─ 未達標 (<60分)：$FailedCount 篇" -ForegroundColor $(if ($FailedCount -gt 0) {'Red'} else {'Green'})
+    Write-Host "   ├─ 通過 (≥$($Global:QualityThreshold)分)：$PassedCount 篇" -ForegroundColor Green
+    Write-Host "   └─ 未達標 (<$($Global:QualityThreshold)分)：$FailedCount 篇" -ForegroundColor $(if ($FailedCount -gt 0) {'Red'} else {'Green'})
     
     $AvgScore = [math]::Round(($ScoredArticles | Measure-Object -Property Score -Average).Average, 1)
     Write-Host "   📊 平均品質分數：$AvgScore 分" -ForegroundColor Cyan
 }
 
-# ============================================================
 # 刪除功能
-# ============================================================
 if ($Fix -and $LowQualityFiles.Count -gt 0) {
     Write-Host ""
     Write-Host "🔧 正在刪除品質未達標文章..." -ForegroundColor Yellow
@@ -302,16 +286,14 @@ if ($Fix -and $LowQualityFiles.Count -gt 0) {
     }
 }
 
-# ============================================================
 # 產生報告
-# ============================================================
 if ($Report) {
     Write-Host ""
     Write-Host "📄 正在產生詳細報告..." -ForegroundColor Yellow
     
     $ReportContent = @"
 ============================================================
-雅寶社區 · 頂客論壇 - 全面系統檢查報告 v3.3
+雅寶社區 · 頂客論壇 - 全面系統檢查報告 v3.5
 ============================================================
 檢查時間：$DateStr
 輸出目錄：$OutputDir

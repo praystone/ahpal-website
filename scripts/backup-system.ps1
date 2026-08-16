@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 系統備份腳本 v3.2 (完整版)
+# 雅寶社區 · 頂客論壇 - 系統備份腳本 v3.3 (完整版)
 # ============================================================
 # 功能：
 #   1. 一般備份（不壓縮）
@@ -7,7 +7,12 @@
 #   3. 黃金備份（壓縮 + 複製到 AI 檔案館）
 #   4. 清理過舊備份
 # ============================================================
-# 執行後不會自動關閉，方便查看結果
+# 🆕 v3.3 變更 (2026-08-17)：
+#   - 🔧 統一使用 config.ps1 核心配置 (9 大分類)
+#   - 🔧 移除所有硬編碼分類定義
+#   - 🔧 動態讀取分類統計
+#   - 🔧 備份保留數量統一為 5 個
+#   - 🔧 使用 $env:USERPROFILE 取代硬編碼路徑
 # ============================================================
 
 param(
@@ -17,7 +22,20 @@ param(
 )
 
 # ============================================================
-# 🔧 防止雙擊後自動關閉（全域開關）
+# 載入核心配置
+# ============================================================
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+if (-not $ScriptDir) { $ScriptDir = Get-Location }
+$ProjectRoot = Split-Path -Parent $ScriptDir
+Set-Location $ProjectRoot
+
+$ConfigPath = Join-Path $ScriptDir "config.ps1"
+if (Test-Path $ConfigPath) {
+    . $ConfigPath
+}
+
+# ============================================================
+# 防止雙擊後自動關閉
 # ============================================================
 $script:isDoubleClicked = $false
 if ($Host.Name -eq "ConsoleHost" -and $MyInvocation.InvocationName -ne ".") {
@@ -27,7 +45,7 @@ if ($Host.Name -eq "ConsoleHost" -and $MyInvocation.InvocationName -ne ".") {
 }
 
 # ============================================================
-# 🎨 顏色函數
+# 顏色函數
 # ============================================================
 function Write-Info { Write-Host $args -ForegroundColor Cyan }
 function Write-Success { Write-Host $args -ForegroundColor Green }
@@ -36,7 +54,7 @@ function Write-Error { Write-Host $args -ForegroundColor Red }
 function Write-Section { Write-Host "`n$('='*60)" -ForegroundColor Cyan; Write-Host $args -ForegroundColor Cyan; Write-Host "$('='*60)" -ForegroundColor Cyan }
 
 # ============================================================
-# 📦 核心備份函數
+# 核心備份函數
 # ============================================================
 function Invoke-Backup {
     param(
@@ -47,53 +65,31 @@ function Invoke-Backup {
     Write-Section "📦 執行備份"
     if ($Golden) { Write-Info "⭐ 黃金備份模式：完整壓縮 + 同步至 AI 檔案館" }
     
-    # ============================================================
-    # 1. 路徑設定
-    # ============================================================
-    # 🆕 修復：使用 Get-Location 作為備用
-    try {
-        $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-        if (-not $ScriptDir -or -not (Test-Path $ScriptDir)) {
-            $ScriptDir = Get-Location
-        }
-    } catch {
-        $ScriptDir = Get-Location
-    }
-    Write-Info "📁 腳本目錄：$ScriptDir"
-    
-    $MainOutputDir = "C:\Users\User\ahpal-static"
+    # 路徑設定
+    $MainOutputDir = $Global:ProjectRoot
     $BackupRoot = "C:\Users\User\ahpal-backup"
     $GoldenArchiveRoot = "C:\Users\User\ahpal-AI-archive\優良備份"
     
-    if (Test-Path $MainOutputDir) {
-        $ActualOutputDir = $MainOutputDir
-        Write-Info "📁 輸出目錄：$ActualOutputDir"
-    } else {
-        Write-Error "❌ 找不到輸出目錄！"
+    if (-not (Test-Path $MainOutputDir)) {
+        Write-Error "❌ 找不到輸出目錄：$MainOutputDir"
         return
     }
+    Write-Info "📁 輸出目錄：$MainOutputDir"
     
     $Timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
     $BackupDir = Join-Path $BackupRoot $Timestamp
     New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
     Write-Info "📁 備份目錄：$BackupDir"
     
-    # ============================================================
-    # 2. 備份腳本
-    # ============================================================
+    # 備份腳本
     Write-Info "`n📄 備份腳本檔案..."
     $ScriptBackupDir = Join-Path $BackupDir "scripts"
     New-Item -ItemType Directory -Path $ScriptBackupDir -Force | Out-Null
     
     $ScriptFiles = @(
-        "ahpal-master.ps1",
-        "ahpal-static.ps1",
-        "generate-games.ps1",
-        "backup-system.ps1",
-        "add-articles.ps1",
-        "check-all.ps1",
-        "preflight-check.ps1",
-        "sync-to-gdrive.ps1"
+        "ahpal-master.ps1", "ahpal-static.ps1", "generate-games.ps1",
+        "backup-system.ps1", "add-articles.ps1", "check-all.ps1",
+        "preflight-check.ps1", "sync-to-gdrive.ps1", "config.ps1"
     )
     $ScriptsCount = 0
     foreach ($file in $ScriptFiles) {
@@ -108,11 +104,9 @@ function Invoke-Backup {
     }
     Write-Info "   ✅ 已備份 $ScriptsCount 個腳本"
     
-    # ============================================================
-    # 3. 備份 Python
-    # ============================================================
+    # 備份 Python
     Write-Info "`n🐍 備份 Python 原始碼..."
-    $SrcDir = Join-Path $ActualOutputDir "src"
+    $SrcDir = Join-Path $MainOutputDir "src"
     if (Test-Path $SrcDir) {
         $SrcBackupDir = Join-Path $BackupDir "src"
         New-Item -ItemType Directory -Path $SrcBackupDir -Force | Out-Null
@@ -123,15 +117,13 @@ function Invoke-Backup {
         Write-Warning "   ⚠️ 找不到 src/ 目錄"
     }
     
-    # ============================================================
-    # 4. 備份網站
-    # ============================================================
+    # 備份完整網站 (使用動態分類)
     Write-Info "`n📄 備份完整網站..."
     $WebBackupDir = Join-Path $BackupDir "website-full"
     New-Item -ItemType Directory -Path $WebBackupDir -Force | Out-Null
     
     try {
-        Copy-Item -Path "$ActualOutputDir\*" -Destination $WebBackupDir -Recurse -Force
+        Copy-Item -Path "$MainOutputDir\*" -Destination $WebBackupDir -Recurse -Force
         $WebCount = (Get-ChildItem -Path $WebBackupDir -Recurse -File).Count
         $WebSize = [math]::Round((Get-ChildItem -Path $WebBackupDir -Recurse | Measure-Object -Property Length -Sum).Sum / 1MB, 2)
         Write-Success "   ✅ 已備份完整網站 ($WebCount 個檔案，${WebSize} MB)"
@@ -140,40 +132,31 @@ function Invoke-Backup {
         return
     }
     
-    # ============================================================
-    # 5. 備份關鍵頁面
-    # ============================================================
+    # 備份關鍵頁面 (含所有分類頁面)
     Write-Info "`n📄 備份關鍵頁面..."
     $LightBackupDir = Join-Path $BackupDir "website-light"
     New-Item -ItemType Directory -Path $LightBackupDir -Force | Out-Null
     
-    $KeyFiles = @("index.html", "categories.html", "sitemap.xml", "404.html", "memorial.html", "royal_dragon_karma.html", "ads.txt")
+    $KeyFiles = @("index.html", "categories.html", "sitemap.xml", "404.html", "memorial.html", "royal_dragon_karma.html", "ads.txt", "robots.txt")
     foreach ($file in $KeyFiles) {
-        $src = Join-Path $ActualOutputDir $file
+        $src = Join-Path $MainOutputDir $file
         if (Test-Path $src) {
             Copy-Item -Path $src -Destination $LightBackupDir -Force
             Write-Success "   ✅ $file"
         }
     }
     
-    $CategoryFiles = @(
-        "category-tech.html",
-        "category-game.html",
-        "category-life.html",
-        "category-review.html",
-        "category-philosophy.html",
-        "category-trend.html"
-    )
-    foreach ($file in $CategoryFiles) {
-        $src = Join-Path $ActualOutputDir $file
+    # 🆕 動態備份所有分類頁面
+    foreach ($page in $Global:CategoryPages) {
+        $src = Join-Path $MainOutputDir $page
         if (Test-Path $src) {
             Copy-Item -Path $src -Destination $LightBackupDir -Force
-            Write-Success "   ✅ $file"
+            Write-Success "   ✅ $page"
         }
     }
     
     # 遊戲
-    $GameSrc = Join-Path $ActualOutputDir "game"
+    $GameSrc = Join-Path $MainOutputDir "game"
     if (Test-Path $GameSrc) {
         $GameDest = Join-Path $LightBackupDir "game"
         New-Item -ItemType Directory -Path $GameDest -Force | Out-Null
@@ -182,23 +165,13 @@ function Invoke-Backup {
         Write-Success "   ✅ 已備份遊戲 ($GameCount 款)"
     }
     
-    # ============================================================
-    # 6. 產生文章清單
-    # ============================================================
+    # 產生文章清單 (動態)
     Write-Info "`n📋 產生文章清單..."
     $ManifestPath = Join-Path $BackupDir "article-manifest.txt"
     $AllArticles = @()
-    $CategoryDirs = @{
-        "tech" = "💻 3C 科技教學"
-        "game" = "🎮 遊戲攻略"
-        "life" = "🏠 生活小常識"
-        "review" = "📊 軟體評測"
-        "philosophy" = "🌟 人生哲理"
-        "trend" = "🤖 AI 趨勢"
-    }
     
-    foreach ($dirName in $CategoryDirs.Keys) {
-        $dirPath = Join-Path $ActualOutputDir $dirName
+    foreach ($key in $Global:CategoryDirs.Keys) {
+        $dirPath = Join-Path $MainOutputDir $key
         if (Test-Path $dirPath) {
             $files = Get-ChildItem -Path $dirPath -Filter "*.html"
             foreach ($f in $files) {
@@ -210,9 +183,9 @@ function Invoke-Backup {
                     $title = $f.BaseName
                 }
                 $AllArticles += [PSCustomObject]@{
-                    Category = $CategoryDirs[$dirName]
+                    Category = $Global:CategoryDirs[$key]
                     Title = $title
-                    Filename = "$dirName/$($f.Name)"
+                    Filename = "$key/$($f.Name)"
                     Size = $f.Length
                 }
             }
@@ -224,7 +197,7 @@ function Invoke-Backup {
 雅寶社區 · 頂客論壇 - 文章備份清單
 備份時間：$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
 備份目錄：$BackupDir
-輸出目錄：$ActualOutputDir
+輸出目錄：$MainOutputDir
 ============================================================
 
 📊 總文章數：$($AllArticles.Count) 篇
@@ -232,8 +205,8 @@ function Invoke-Backup {
 
 "@
     
-    foreach ($cat in $CategoryDirs.Keys) {
-        $catName = $CategoryDirs[$cat]
+    foreach ($key in $Global:CategoryDirs.Keys) {
+        $catName = $Global:CategoryDirs[$key]
         $catArticles = $AllArticles | Where-Object { $_.Category -eq $catName }
         $ManifestContent += "【$catName】($($catArticles.Count) 篇)`n"
         foreach ($article in $catArticles) {
@@ -250,15 +223,12 @@ function Invoke-Backup {
     Set-Content -Path $ManifestPath -Value $ManifestContent -Encoding UTF8
     Write-Success "   ✅ 已產生文章清單（$($AllArticles.Count) 篇）"
     
-    # ============================================================
-    # 7. 壓縮
-    # ============================================================
+    # 壓縮
     $ZipPath = $null
     if ($Compress -or $Golden) {
         Write-Info "`n🗜️ 壓縮備份..."
         $ZipPath = "$BackupDir.zip"
         try {
-            # 檢查是否有檔案需要壓縮
             $filesToCompress = Get-ChildItem -Path $BackupDir -Recurse
             if ($filesToCompress.Count -gt 0) {
                 Compress-Archive -Path $BackupDir -DestinationPath $ZipPath -Force -ErrorAction Stop
@@ -274,9 +244,7 @@ function Invoke-Backup {
         }
     }
     
-    # ============================================================
-    # 8. 黃金備份
-    # ============================================================
+    # 黃金備份
     if ($Golden) {
         Write-Info "`n⭐ 複製黃金備份到 AI 檔案館..."
         New-Item -ItemType Directory -Path $GoldenArchiveRoot -Force | Out-Null
@@ -287,10 +255,9 @@ function Invoke-Backup {
                 Copy-Item -Path $ZipPath -Destination $GoldenDest -Force
                 Write-Success "   ✅ 已複製黃金備份：$GoldenDest"
                 
-                # 🆕 清理舊黃金備份（保留 3 個，只刪除 ahpal-golden- 前綴的檔案）
                 $OldGoldens = Get-ChildItem -Path $GoldenArchiveRoot -Filter "ahpal-golden-*.zip" |
                     Sort-Object LastWriteTime -Descending |
-                    Select-Object -Skip 3
+                    Select-Object -Skip $Global:GoldenBackupKeepCount
                 foreach ($old in $OldGoldens) {
                     Remove-Item -Path $old.FullName -Force
                     Write-Info "   🗑️ 已刪除舊備份：$($old.Name)"
@@ -303,9 +270,7 @@ function Invoke-Backup {
         }
     }
     
-    # ============================================================
-    # 9. 顯示摘要
-    # ============================================================
+    # 顯示摘要
     Write-Section "✅ 備份完成！"
     Write-Info "📁 備份位置：$BackupDir"
     if ($ZipPath -and (Test-Path $ZipPath)) {
@@ -317,12 +282,12 @@ function Invoke-Backup {
 }
 
 # ============================================================
-# 🧹 清理過舊備份
+# 清理過舊備份
 # ============================================================
 function Invoke-Cleanup {
     Write-Section "🧹 清理過舊備份"
     $BackupRoot = "C:\Users\User\ahpal-backup"
-    $KeepCount = 5
+    $KeepCount = $Global:BackupKeepCount
     
     if (-not (Test-Path $BackupRoot)) {
         Write-Warning "   ⚠️ 備份目錄不存在：$BackupRoot"
@@ -346,12 +311,12 @@ function Invoke-Cleanup {
 }
 
 # ============================================================
-# 📋 互動選單
+# 互動選單
 # ============================================================
 function Show-Menu {
     Clear-Host
     Write-Host "============================================================" -ForegroundColor Cyan
-    Write-Host "  📦 雅寶社區 · 頂客論壇 - 系統備份工具 v3.2" -ForegroundColor Green
+    Write-Host "  📦 雅寶社區 · 頂客論壇 - 系統備份工具 v3.3" -ForegroundColor Green
     Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "📋 請選擇要執行的操作：" -ForegroundColor Yellow
@@ -359,20 +324,19 @@ function Show-Menu {
     Write-Host "  [1] 一般備份 (不壓縮)"
     Write-Host "  [2] 備份 + 壓縮"
     Write-Host "  [3] ⭐ 黃金備份 (壓縮 + 複製到 AI 檔案館)"
-    Write-Host "  [4] 🧹 清理過舊備份 (保留最近 5 個)"
+    Write-Host "  [4] 🧹 清理過舊備份 (保留最近 $($Global:BackupKeepCount) 個)"
     Write-Host "  [0] 退出"
     Write-Host ""
 }
 
 # ============================================================
-# 🚀 主程式
+# 主程式
 # ============================================================
 if ($Cleanup) {
     Invoke-Cleanup
 } elseif ($Golden -or $Compress) {
     Invoke-Backup -Compress:$Compress -Golden:$Golden
 } else {
-    # 互動選單模式
     do {
         Show-Menu
         $choice = Read-Host "請輸入選項 [0-4]"
@@ -394,9 +358,6 @@ if ($Cleanup) {
     } while ($choice -ne "0")
 }
 
-# ============================================================
-# 🔒 防止雙擊後自動關閉
-# ============================================================
 if ($script:isDoubleClicked) {
     Write-Host ""
     Write-Host "按 Enter 鍵結束..." -ForegroundColor Gray

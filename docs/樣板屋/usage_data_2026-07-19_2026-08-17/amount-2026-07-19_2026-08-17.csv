@@ -1,0 +1,119 @@
+﻿user_id,start_time_iso,end_time_iso,model,api_key_name,api_key,type,price,amount
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-19T00:00:00+08:00,2026-07-20T00:00:00+08:00,deepseek-v4-flash,AQ.,sk-90b34***********************ec3a,input_cache_hit_tokens,0.00000002,1152
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-19T00:00:00+08:00,2026-07-20T00:00:00+08:00,deepseek-v4-flash,AQ.,sk-90b34***********************ec3a,input_cache_miss_tokens,0.000001,1322
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-19T00:00:00+08:00,2026-07-20T00:00:00+08:00,deepseek-v4-flash,AQ.,sk-90b34***********************ec3a,request_count,,10
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-19T00:00:00+08:00,2026-07-20T00:00:00+08:00,deepseek-v4-flash,AQ.,sk-90b34***********************ec3a,output_tokens,0.000002,48545
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-20T00:00:00+08:00,2026-07-21T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,input_cache_hit_tokens,0.00000002,8832
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-20T00:00:00+08:00,2026-07-21T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,input_cache_miss_tokens,0.000001,7328
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-20T00:00:00+08:00,2026-07-21T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,request_count,,70
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-20T00:00:00+08:00,2026-07-21T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,output_tokens,0.000002,307004
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-22T00:00:00+08:00,2026-07-23T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,input_cache_hit_tokens,0.00000002,2560
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-22T00:00:00+08:00,2026-07-23T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,input_cache_miss_tokens,0.000001,2344
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-22T00:00:00+08:00,2026-07-23T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,request_count,,22
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-22T00:00:00+08:00,2026-07-23T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,output_tokens,0.000002,97645
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-23T00:00:00+08:00,2026-07-24T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,input_cache_hit_tokens,0.00000002,2048
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-23T00:00:00+08:00,2026-07-24T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,input_cache_miss_tokens,0.000001,1959
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-23T00:00:00+08:00,2026-07-24T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,request_count,,17
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-23T00:00:00+08:00,2026-07-24T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,output_tokens,0.000002,77951
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-24T00:00:00+08:00,2026-07-25T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,input_cache_hit_tokens,0.00000002,512
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-24T00:00:00+08:00,2026-07-25T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,input_cache_miss_tokens,0.000001,2246
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-24T00:00:00+08:00,2026-07-25T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,request_count,,45
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-24T00:00:00+08:00,2026-07-25T00:00:00+08:00,deepseek-v4-flash,777777,sk-3c383***********************e2b4,output_tokens,0.000002,87257
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-25T00:00:00+08:00,2026-07-26T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000003,1121
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-25T00:00:00+08:00,2026-07-26T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,request_count,,26
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-25T00:00:00+08:00,2026-07-26T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000006,61958
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-26T00:00:00+08:00,2026-07-27T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,input_cache_hit_tokens,0.000000025,256
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-26T00:00:00+08:00,2026-07-27T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000003,423
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-26T00:00:00+08:00,2026-07-27T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,request_count,,3
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-26T00:00:00+08:00,2026-07-27T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000006,15510
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-26T00:00:00+08:00,2026-07-27T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000001,5
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-26T00:00:00+08:00,2026-07-27T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,request_count,,1
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-26T00:00:00+08:00,2026-07-27T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000002,133
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-27T00:00:00+08:00,2026-07-28T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,input_cache_hit_tokens,0.000000025,1920
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-27T00:00:00+08:00,2026-07-28T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000003,1385
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-27T00:00:00+08:00,2026-07-28T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,request_count,,15
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-27T00:00:00+08:00,2026-07-28T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000006,72153
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-28T00:00:00+08:00,2026-07-29T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000001,5
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-28T00:00:00+08:00,2026-07-29T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,request_count,,1
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-28T00:00:00+08:00,2026-07-29T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000002,222
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-29T00:00:00+08:00,2026-07-30T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,input_cache_hit_tokens,0.000000025,128
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-29T00:00:00+08:00,2026-07-30T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000003,318
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-29T00:00:00+08:00,2026-07-30T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,request_count,,2
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-29T00:00:00+08:00,2026-07-30T00:00:00+08:00,deepseek-v4-pro,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000006,11608
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-29T00:00:00+08:00,2026-07-30T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000001,5
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-29T00:00:00+08:00,2026-07-30T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,request_count,,1
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-29T00:00:00+08:00,2026-07-30T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000002,160
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-30T00:00:00+08:00,2026-07-31T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000001,10
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-30T00:00:00+08:00,2026-07-31T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,request_count,,2
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-30T00:00:00+08:00,2026-07-31T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000002,269
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-31T00:00:00+08:00,2026-08-01T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.000000025,1152
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-31T00:00:00+08:00,2026-08-01T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000003,1059
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-31T00:00:00+08:00,2026-08-01T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,request_count,,10
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-31T00:00:00+08:00,2026-08-01T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000006,50101
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-31T00:00:00+08:00,2026-08-01T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,input_cache_miss_tokens,0.000001,5
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-31T00:00:00+08:00,2026-08-01T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,request_count,,1
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-07-31T00:00:00+08:00,2026-08-01T00:00:00+08:00,deepseek-v4-flash,AHP IHOME,sk-d4985***********************8eb7,output_tokens,0.000002,5
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-01T00:00:00+08:00,2026-08-02T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.000000025,1536
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-01T00:00:00+08:00,2026-08-02T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000003,1068
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-01T00:00:00+08:00,2026-08-02T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,request_count,,12
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-01T00:00:00+08:00,2026-08-02T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000006,75676
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-02T00:00:00+08:00,2026-08-03T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.000000025,640
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-02T00:00:00+08:00,2026-08-03T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000003,493
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-02T00:00:00+08:00,2026-08-03T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,request_count,,5
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-02T00:00:00+08:00,2026-08-03T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000006,28293
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-03T00:00:00+08:00,2026-08-04T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.000000025,1536
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-03T00:00:00+08:00,2026-08-04T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000003,1216
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-03T00:00:00+08:00,2026-08-04T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,request_count,,12
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-03T00:00:00+08:00,2026-08-04T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000006,60580
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-03T00:00:00+08:00,2026-08-04T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,84
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-03T00:00:00+08:00,2026-08-04T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,1
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-03T00:00:00+08:00,2026-08-04T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,37
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-04T00:00:00+08:00,2026-08-05T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.000000025,1792
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-04T00:00:00+08:00,2026-08-05T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000003,1326
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-04T00:00:00+08:00,2026-08-05T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,request_count,,14
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-04T00:00:00+08:00,2026-08-05T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000006,71582
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-05T00:00:00+08:00,2026-08-06T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.000000025,640
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-05T00:00:00+08:00,2026-08-06T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000003,488
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-05T00:00:00+08:00,2026-08-06T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,request_count,,5
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-05T00:00:00+08:00,2026-08-06T00:00:00+08:00,deepseek-v4-pro,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000006,26443
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-05T00:00:00+08:00,2026-08-06T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,168
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-05T00:00:00+08:00,2026-08-06T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,2
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-05T00:00:00+08:00,2026-08-06T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,105
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-06T00:00:00+08:00,2026-08-07T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.00000002,2432
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-06T00:00:00+08:00,2026-08-07T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,1824
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-06T00:00:00+08:00,2026-08-07T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,22
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-06T00:00:00+08:00,2026-08-07T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,120054
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-07T00:00:00+08:00,2026-08-08T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.00000002,384
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-07T00:00:00+08:00,2026-08-08T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,527
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-07T00:00:00+08:00,2026-08-08T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,6
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-07T00:00:00+08:00,2026-08-08T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,16832
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-08T00:00:00+08:00,2026-08-09T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.00000002,1920
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-08T00:00:00+08:00,2026-08-09T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,1269
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-08T00:00:00+08:00,2026-08-09T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,17
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-08T00:00:00+08:00,2026-08-09T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,90198
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-09T00:00:00+08:00,2026-08-10T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.00000002,1536
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-09T00:00:00+08:00,2026-08-10T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,942
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-09T00:00:00+08:00,2026-08-10T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,12
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-09T00:00:00+08:00,2026-08-10T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,77535
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-11T00:00:00+08:00,2026-08-12T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,168
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-11T00:00:00+08:00,2026-08-12T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,2
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-11T00:00:00+08:00,2026-08-12T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,90
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-14T00:00:00+08:00,2026-08-15T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.00000002,7296
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-14T00:00:00+08:00,2026-08-15T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,4400
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-14T00:00:00+08:00,2026-08-15T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,59
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-14T00:00:00+08:00,2026-08-15T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,370289
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-15T00:00:00+08:00,2026-08-16T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.00000002,28160
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-15T00:00:00+08:00,2026-08-16T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,16222
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-15T00:00:00+08:00,2026-08-16T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,221
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-15T00:00:00+08:00,2026-08-16T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,1335206
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-16T00:00:00+08:00,2026-08-17T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.0000000028,25984
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-16T00:00:00+08:00,2026-08-17T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.00000002,18048
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-16T00:00:00+08:00,2026-08-17T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.00000014,15780
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-16T00:00:00+08:00,2026-08-17T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.000001,11270
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-16T00:00:00+08:00,2026-08-17T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,345
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-16T00:00:00+08:00,2026-08-17T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.00000028,1174344
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-16T00:00:00+08:00,2026-08-17T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.000002,792149
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-17T00:00:00+08:00,2026-08-18T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_hit_tokens,0.000000007,25856
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-17T00:00:00+08:00,2026-08-18T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,input_cache_miss_tokens,0.00000022,13753
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-17T00:00:00+08:00,2026-08-18T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,request_count,,202
+cad905bb-cd80-4204-b667-ee5e51b5191f,2026-08-17T00:00:00+08:00,2026-08-18T00:00:00+08:00,deepseek-v4-flash,ahpal.cpm,sk-98e8a***********************0185,output_tokens,0.00000066,1206870

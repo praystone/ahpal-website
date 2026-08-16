@@ -1,5 +1,5 @@
 # ============================================================
-# html_builder.py - HTML 建構模組 v7.3 (Emoji 修復版)
+# html_builder.py - HTML 建構模組 v7.4 (Emoji 修復 + Nature 支援)
 # ============================================================
 # 修復 (v7.3)：
 #   - 🔧 恢復所有被破壞的 Emoji (🎮📊🤖📚🔍💬📖📄等)
@@ -8,6 +8,13 @@
 #   - 🔧 修復 create_default_index() 中的分類顯示
 #   - 🔧 修復 GOOGLE_CSE 中的搜尋圖示
 #   - ✅ 繼承 v7.2 所有功能
+#
+# v7.4 變更：
+#   - 🆕 CATEGORY_EMOJI_MAP 新增 "🌳": "🌳 動植物生態"
+#   - 🆕 category_dirs 新增 "nature": "🌳 動植物生態"
+#   - 🆕 create_default_index() 分類網格自動支援 nature/
+#   - 🆕 generate_categories_page() 自動讀取 config.py 中的 CATEGORIES
+#   - 🆕 generate_category_pages() 自動讀取 config.py 中的 CATEGORIES
 # ============================================================
 
 import hashlib
@@ -799,7 +806,7 @@ GISCUS_COMMENT = '''
 
 
 # ============================================================
-# 🆕 分類 Emoji 映射（完整版 — 已修復）
+# 🆕 分類 Emoji 映射（完整版 — 已修復 + Nature 支援）
 # ============================================================
 CATEGORY_EMOJI_MAP = {
     "💻": "💻 3C 科技教學",
@@ -810,6 +817,7 @@ CATEGORY_EMOJI_MAP = {
     "🤖": "🤖 AI 趨勢",
     "🎵": "🎵 音樂創作",
     "📜": "📜 歷史腦洞",
+    "🌳": "🌳 動植物生態",      # 🆕 新增
 }
 
 
@@ -925,6 +933,8 @@ def extract_category_from_content(html_content):
         return "📊 軟體評測"
     if "人生" in html_content or "哲理" in html_content or "成長" in html_content:
         return "🌟 人生哲理"
+    if "動物" in html_content or "植物" in html_content or "生態" in html_content:
+        return "🌳 動植物生態"      # 🆕 新增
 
     return "🌟 人生哲理"  # 預設
 
@@ -1063,7 +1073,7 @@ def build_article_html(keyword, category, raw_html, video_id=None):
 
 
 # ============================================================
-# 🆕 建構首頁（v7.3 — Emoji 修復版）
+# 🆕 建構首頁（v7.4 — Emoji 修復 + Nature 支援）
 # ============================================================
 
 def create_default_index():
@@ -1084,6 +1094,7 @@ def create_default_index():
         "philosophy": "🌟 人生哲理",
         "trend": "🤖 AI 趨勢",
         "music": "🎵 音樂創作",
+        "nature": "🌳 動植物生態",      # 🆕 新增
     }
 
     EXCLUDED_FILES = [
@@ -1280,6 +1291,7 @@ def create_default_index():
                     <a href="/category-trend.html">🤖 AI</a>
                     <a href="/category-music.html">🎵 音樂</a>
                     <a href="/category-history.html">📜 歷史</a>
+                    <a href="/category-nature.html">🌳 動植物</a>      <!-- 🆕 新增 -->
                     <a href="/game/">🎮 遊戲間</a>
                     <a href="/categories.html">📚 全部分類</a>
                     <a href="/about.html">📖 關於我們</a>

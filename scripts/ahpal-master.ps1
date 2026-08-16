@@ -1,17 +1,15 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 萬能總指揮 v8.0
+# 雅寶社區 · 頂客論壇 - 萬能總指揮 v8.2
 # ============================================================
 # 功能：備份、處理待新增文章、生成遊戲、生成文章、Git 提交、
 #       Cloudflare 部署、SEO 驗證、系統工具整合、餘額檢查
 # ============================================================
-# 🆕 v8.0 變更：
-#   - 整合系統工具整合器 (system-toolkit.ps1)
-#   - 新增完整 SEO 檢查 (含 master-articles.json)
-#   - 新增執行前餘額檢查
-#   - 新增執行前 .env 載入檢查
-#   - 新增執行前死命令檢查 (可選)
-#   - 強化錯誤處理
-#   - 版本號升級至 v8.0
+# 🆕 v8.2 變更 (2026-08-17)：
+#   - 🔧 統一使用 config.ps1 核心配置 (9 大分類)
+#   - 🔧 移除所有硬編碼分類定義
+#   - 🔧 動態讀取分類統計
+#   - 🔧 簡化 Get-ArticleCount 邏輯
+#   - 🔧 版本號升級至 v8.2
 # ============================================================
 
 param(
@@ -32,12 +30,33 @@ if ($Host.Name -eq "ConsoleHost" -and $MyInvocation.InvocationName -ne ".") {
 }
 
 # ============================================================
-# 載入環境設定
+# 載入核心配置
 # ============================================================
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $ScriptDir) { $ScriptDir = Get-Location }
 $ProjectRoot = Split-Path -Parent $ScriptDir
 Set-Location $ProjectRoot
+
+# 載入核心配置
+$ConfigPath = Join-Path $ScriptDir "config.ps1"
+if (Test-Path $ConfigPath) {
+    . $ConfigPath
+    Write-Host "✅ 已載入核心配置 v1.0" -ForegroundColor Green
+} else {
+    Write-Host "⚠️ config.ps1 不存在，使用預設分類" -ForegroundColor Yellow
+    # 備用分類定義
+    $Global:CategoryDirs = @{
+        "history"    = "📜 歷史腦洞"
+        "tech"       = "💻 3C 科技教學"
+        "game"       = "🎮 遊戲攻略"
+        "life"       = "🏠 生活小常識"
+        "review"     = "📊 軟體評測"
+        "philosophy" = "🌟 人生哲理"
+        "trend"      = "🤖 AI 趨勢"
+        "music"      = "🎵 音樂創作"
+        "nature"     = "🌳 動植物生態"
+    }
+}
 
 # 載入 .env
 if (Test-Path ".env") {
@@ -96,7 +115,7 @@ function Invoke-ProcessPending {
 }
 
 # ============================================================
-# 🆕 輔助函數：檢查 DeepSeek 餘額
+# 輔助函數：檢查 DeepSeek 餘額
 # ============================================================
 function Invoke-BalanceCheck {
     Write-Host ""
@@ -121,7 +140,7 @@ function Invoke-BalanceCheck {
 }
 
 # ============================================================
-# 🆕 輔助函數：執行死命令檢查
+# 輔助函數：執行死命令檢查
 # ============================================================
 function Invoke-PreflightCheck {
     Write-Host ""
@@ -147,7 +166,7 @@ function Invoke-PreflightCheck {
 }
 
 # ============================================================
-# 🆕 輔助函數：系統工具整合器
+# 輔助函數：系統工具整合器
 # ============================================================
 function Invoke-SystemToolkit {
     Write-Section "🛠️ 系統工具整合器"
@@ -162,26 +181,23 @@ function Invoke-SystemToolkit {
         Write-Info "  📌 請確認路徑：$ToolkitPath"
         Write-Host ""
         Write-Info "  📌 你可以手動建立該檔案，或直接執行："
-        Write-Gray "     C:\Users\User\ahpal-AI-archive\system-tools\system-toolkit.ps1"
+        Write-Host "     C:\Users\User\ahpal-AI-archive\system-tools\system-toolkit.ps1" -ForegroundColor Gray
         Read-Host "`n按 Enter 返回"
     }
 }
 
 # ============================================================
-# 🆕 輔助函數：完整 SEO 檢查（含文章狀態）v3.1 (修正版)
+# 完整 SEO 檢查（含文章狀態）v3.1
 # ============================================================
 function Invoke-SeoFullCheck {
     Write-Section "🔍 完整 SEO 檢查 v3.1"
 
-    # 1. 基礎檔案檢查 (呼叫原有函數)
     Invoke-SeoValidation -Master
 
-    # 2. master-articles.json 文章狀態
     Write-Host ""
     Write-Host "📊 master-articles.json 文章狀態" -ForegroundColor Yellow
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
 
-    # 🆕 修正：使用 Python 的 json 模組，避免轉義問題
     python -c "
 import json
 import os
@@ -200,7 +216,6 @@ with_responses = sum(1 for a in articles if a.get('use_responses_api', False))
 with_reasoning = sum(1 for a in articles if a.get('enable_reasoning', False))
 with_search = sum(1 for a in articles if a.get('enable_search', False))
 
-# 檢查分類分布
 categories = {}
 for a in articles:
     cat = a.get('category', '未分類')
@@ -220,12 +235,10 @@ for cat, count in sorted(categories.items(), key=lambda x: -x[1]):
     print(f'   ├─ {cat}：{count} 篇')
 "
 
-    # 3. 檢查文章檔案存在性 (獨立執行，避免變數干擾)
     Write-Host ""
     Write-Host "📁 文章檔案存在性檢查" -ForegroundColor Yellow
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
 
-    # 🆕 修正：使用獨立的 Python 腳本區塊，避免引號衝突
     python -c "
 import json
 import os
@@ -263,7 +276,7 @@ else:
 }
 
 # ============================================================
-# 1. 驗證 SEO 基礎檔案 v2.1
+# 驗證 SEO 基礎檔案 v2.1
 # ============================================================
 function Invoke-SeoValidation {
     param([switch]$Master)
@@ -377,7 +390,6 @@ function Invoke-SeoValidation {
         $allPass = $false
     }
 
-    # --- Master 模式 ---
     if ($Master) {
         Write-Host ""
         Write-Host "📋 Master 模式資訊" -ForegroundColor Yellow
@@ -388,10 +400,7 @@ function Invoke-SeoValidation {
         Write-Host "   🌿 Git 分支：$gitBranch" -ForegroundColor Cyan
         Write-Host "   📝 最新提交：$gitCommit" -ForegroundColor Cyan
 
-        $articleCount = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { 
-            $_.DirectoryName -notmatch "game" -and 
-            $_.Name -notmatch "index|categories|dashboard|about|contact|privacy|terms" 
-        } | Measure-Object).Count
+        $articleCount = Get-ArticleCount
         Write-Host "   📊 文章總數：$articleCount 篇" -ForegroundColor Cyan
     }
 
@@ -412,21 +421,26 @@ function Invoke-SeoValidation {
 }
 
 # ============================================================
-# 2. 核心功能函數
+# 核心功能函數
 # ============================================================
 
 function Get-ArticleCount {
-    $count = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { 
-        $_.DirectoryName -notmatch "game" -and 
-        $_.Name -notmatch "index|categories|dashboard|about|contact|privacy|terms|404|memorial|royal"
-    } | Measure-Object).Count
+    $excludePatterns = @("index", "categories", "dashboard", "about", "contact", "privacy", "terms", "404", "memorial", "royal")
+    $count = 0
+    foreach ($key in $Global:CategoryDirs.Keys) {
+        $dir = Join-Path $ProjectRoot $key
+        if (Test-Path $dir) {
+            $count += (Get-ChildItem -Path $dir -Filter "*.html" -ErrorAction SilentlyContinue | Where-Object {
+                $excludePatterns -notcontains $_.BaseName
+            }).Count
+        }
+    }
     return $count
 }
 
 function Invoke-FullPipeline {
     Write-Section "▶️ 執行完整流程 (備份 + 處理待新增 + 生成 + Git + 部署)"
     
-    # 執行前檢查
     if (-not $SkipBalance) {
         if (-not (Invoke-BalanceCheck)) {
             Write-Error "❌ 餘額不足，停止執行"
@@ -441,26 +455,21 @@ function Invoke-FullPipeline {
         }
     }
     
-    # 1. 備份
     Write-Host "   [1/5] 執行備份..." -ForegroundColor Yellow
     & "$ScriptDir\backup-system.ps1" -Compress
     
-    # 2. 處理待新增文章
     Write-Host "   [2/5] 處理待新增文章..." -ForegroundColor Yellow
     Invoke-ProcessPending
     
-    # 3. 生成文章
     Write-Host "   [3/5] 生成文章..." -ForegroundColor Yellow
     python src/main.py --force deepseek
     
-    # 4. Git 提交
     Write-Host "   [4/5] Git 提交..." -ForegroundColor Yellow
     git add .
     $articleCount = Get-ArticleCount
     git commit -m "🔄 完整更新 (總數: $articleCount 篇) | $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git push origin main
     
-    # 5. 部署
     Write-Host "   [5/5] 部署到 Cloudflare..." -ForegroundColor Yellow
     npx wrangler pages deploy . --project-name=ahpal-pages
     
@@ -477,22 +486,18 @@ function Invoke-QuickUpdate {
         }
     }
     
-    # 1. 處理待新增文章
     Write-Host "   [1/4] 處理待新增文章..." -ForegroundColor Yellow
     Invoke-ProcessPending
     
-    # 2. 生成文章
     Write-Host "   [2/4] 生成文章..." -ForegroundColor Yellow
     python src/main.py --force deepseek
     
-    # 3. Git 提交
     Write-Host "   [3/4] Git 提交..." -ForegroundColor Yellow
     git add .
     $articleCount = Get-ArticleCount
     git commit -m "🔄 快速更新 (總數: $articleCount 篇) | $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git push origin main
     
-    # 4. 部署
     Write-Host "   [4/4] 部署到 Cloudflare..." -ForegroundColor Yellow
     npx wrangler pages deploy . --project-name=ahpal-pages
     
@@ -507,15 +512,12 @@ function Invoke-GenerateGames {
 function Invoke-GenerateArticles {
     Write-Section "▶️ 生成文章 (遊戲 + 文章，不部署)"
     
-    # 1. 生成遊戲
     Write-Host "   [1/3] 生成遊戲..." -ForegroundColor Yellow
     & "$ScriptDir\generate-games.ps1"
     
-    # 2. 處理待新增文章
     Write-Host "   [2/3] 處理待新增文章..." -ForegroundColor Yellow
     Invoke-ProcessPending
     
-    # 3. 生成文章
     Write-Host "   [3/3] 生成文章..." -ForegroundColor Yellow
     python src/main.py --force deepseek
     
@@ -571,24 +573,14 @@ function Invoke-SystemStatus {
     
     Write-Host ""
     Write-Host "📂 分類統計：" -ForegroundColor Yellow
-    $categories = @{
-        "tech" = "💻 3C 科技教學"
-        "life" = "🏠 生活小常識"
-        "review" = "📊 軟體評測"
-        "philosophy" = "🌟 人生哲理"
-        "trend" = "🤖 AI 趨勢"
-        "history" = "📜 歷史腦洞"
-        "music" = "🎵 音樂創作"
-    }
-    foreach ($cat in $categories.Keys) {
-        if (Test-Path $cat) {
-            $c = (Get-ChildItem -Path $cat -Filter "*.html" -ErrorAction SilentlyContinue).Count
-            Write-Host "   $($categories[$cat])：$c 篇" -ForegroundColor Gray
+    foreach ($key in $Global:CategoryDirs.Keys) {
+        if (Test-Path $key) {
+            $c = (Get-ChildItem -Path $key -Filter "*.html" -ErrorAction SilentlyContinue).Count
+            Write-Host "   $($Global:CategoryDirs[$key])：$c 篇" -ForegroundColor Gray
         }
     }
     Write-Host "   🎮 遊戲攻略：$gameCount 款" -ForegroundColor Gray
     
-    # 檢查 DeepSeek 餘額
     Write-Host ""
     Write-Host "💰 餘額狀態：" -ForegroundColor Yellow
     & "$ScriptDir\check-deepseek-balance.ps1" 2>$null
@@ -609,12 +601,12 @@ function Set-ForceApi {
 }
 
 # ============================================================
-# 3. 主選單
+# 主選單
 # ============================================================
 function Show-MainMenu {
     Clear-Host
     Write-Host "============================================================" -ForegroundColor Cyan
-    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v8.0" -ForegroundColor Cyan
+    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v8.2" -ForegroundColor Cyan
     Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "📊 系統狀態：" -ForegroundColor Yellow
@@ -650,8 +642,8 @@ function Show-MainMenu {
     Write-Host "   [8] 查看系統狀態 (含餘額)"
     Write-Host ""
     Write-Host "   [S] 🔍 SEO 基礎檔案驗證 (robots.txt / ads.txt / sitemap.xml)"
-    Write-Host "   [E] 📊 完整 SEO 檢查 (含文章狀態與檔案存在性)"  # 🆕
-    Write-Host "   [T] 🛠️ 系統工具與診斷 (開機優化/硬體報告/備份)"  # 🆕
+    Write-Host "   [E] 📊 完整 SEO 檢查 (含文章狀態與檔案存在性)"
+    Write-Host "   [T] 🛠️ 系統工具與診斷 (開機優化/硬體報告/備份)"
     Write-Host ""
     Write-Host "   [A] 🔧 強制使用 Gemini (尖峰時段也適用)"
     Write-Host "   [D] 🔧 強制使用 DeepSeek"
@@ -685,10 +677,10 @@ function Show-MainMenu {
 }
 
 # ============================================================
-# 4. 啟動
+# 啟動
 # ============================================================
 if ($Action) {
-    Write-Host "🦞 AHPAL 萬能總指揮 v8.0 (命令列模式)" -ForegroundColor Cyan
+    Write-Host "🦞 AHPAL 萬能總指揮 v8.2 (命令列模式)" -ForegroundColor Cyan
     Write-Host "   Action: $Action" -ForegroundColor Gray
     
     switch ($Action) {

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龍蝦總工程師 · 災難備忘錄 v3.0</title>
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #D4AF37;
+            --bg: #1A1A1A;
+            --card: #2D2D2D;
+            --text: #E8E8E8;
+            --text-muted: #A0A0A0;
+            --border: #444444;
+            --shadow: 0 4px 20px rgba(0,0,0,0.5);
+            --radius: 12px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            --mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: var(--font); 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.8; 
+            font-size: 16px; 
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card { 
+            background: var(--card); 
+            padding: 30px 35px; 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            margin-bottom: 24px; 
+            border: 1px solid var(--border);
+        }
+        .header {
+            text-align: center;
+            padding: 30px 0 20px 0;
+            border-bottom: 3px solid var(--secondary);
+            margin-bottom: 30px;
+        }
+        .header .logo { font-size: 32px; font-weight: 700; color: var(--secondary); }
+        .header .logo span { color: #FF6B6B; }
+        .header .subtitle { font-size: 16px; color: var(--text-muted); margin-top: 4px; }
+        .header .version { 
+            display: inline-block; 
+            background: var(--primary); 
+            color: white; 
+            padding: 4px 20px; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            margin-top: 10px;
+        }
+        .header .status-badge {
+            display: inline-block;
+            background: #00A86B;
+            color: white;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+        h2 { 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: var(--secondary); 
+            margin: 28px 0 16px 0; 
+            padding-bottom: 8px; 
+            border-bottom: 2px solid var(--border);
+        }
+        h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 20px 0 10px 0; }
+        h4 { font-size: 16px; font-weight: 600; color: var(--text); margin: 16px 0 8px 0; }
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th, table td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+        table th { background: var(--primary); color: white; font-weight: 600; }
+        table tr:nth-child(even) { background: #3A3A3A; }
+        .code-block { 
+            background: #0D0D0D; 
+            color: #E8E8E8; 
+            border-radius: 10px; 
+            padding: 16px 20px; 
+            margin: 12px 0 16px 0; 
+            overflow-x: auto; 
+            border: 1px solid var(--border); 
+            font-family: var(--mono); 
+            font-size: 14px; 
+            line-height: 1.7; 
+            white-space: pre-wrap; 
+            word-break: break-all;
+        }
+        .code-block .comment { color: #6A9955; }
+        .code-block .keyword { color: #569CD6; }
+        .code-block .string { color: #CE9178; }
+        .inline-code { 
+            background: #3A3A3A; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-family: var(--mono); 
+            font-size: 13px; 
+            border: 1px solid var(--border);
+            color: #FFD700;
+        }
+        .tip { 
+            padding: 16px 20px; 
+            border-radius: 10px; 
+            margin: 12px 0 16px 0; 
+            border-left: 4px solid; 
+        }
+        .tip.danger { background: #3D1A1A; border-color: #FF4444; color: #FF6B6B; }
+        .tip.warning { background: #3D3D1A; border-color: #FFD700; color: #FFD700; }
+        .tip.success { background: #1A3D1A; border-color: #44FF44; color: #6BFF6B; }
+        .tip.info { background: #1A2A3D; border-color: #4488FF; color: #6BB5FF; }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; font-size: 15px; }
+        .error-box {
+            border: 2px solid #FF4444;
+            background: #2A0A0A;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 16px 0;
+            position: relative;
+        }
+        .error-box::before {
+            content: "⚠️ 錯誤記錄";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #FF4444;
+            color: white;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .error-box .error-title { font-size: 16px; font-weight: 700; color: #FF6B6B; margin-top: 6px; margin-bottom: 8px; }
+        .solution-box {
+            border: 2px solid #44FF44;
+            background: #1A2A1A;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 16px 0;
+            position: relative;
+        }
+        .solution-box::before {
+            content: "✅ 最終解決方案";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #44FF44;
+            color: #1A1A1A;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .timestamp {
+            display: inline-block;
+            background: #3A3A3A;
+            color: var(--text-muted);
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-family: var(--mono);
+        }
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        .footer .brand { color: var(--secondary); font-weight: 600; }
+        .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge.danger { background: #FF4444; color: white; }
+        .badge.warning { background: #FFD700; color: #1A1A1A; }
+        .badge.success { background: #44FF44; color: #1A1A1A; }
+        .badge.info { background: #4488FF; color: white; }
+        .emoji-big { font-size: 48px; display: block; text-align: center; margin: 10px 0; }
+        .death-command-box {
+            border: 2px solid #FF4444;
+            background: #2A0A0A;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+        .death-command-box .death-title { font-size: 18px; font-weight: 700; color: #FF6B6B; margin-bottom: 8px; }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .comparison-card {
+            background: #3A3A3A;
+            padding: 16px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .comparison-card .title { font-weight: 700; font-size: 15px; }
+        .comparison-card .title.good { color: #44FF44; }
+        .comparison-card .title.bad { color: #FF6B6B; }
+        .comparison-card ul { margin: 8px 0 0 20px; font-size: 14px; color: var(--text-muted); }
+        .sop-list { counter-reset: step; list-style: none; padding: 0; }
+        .sop-list li { 
+            counter-increment: step; 
+            padding: 10px 16px 10px 50px; 
+            margin-bottom: 8px; 
+            background: #3A3A3A; 
+            border-radius: 8px; 
+            border-left: 3px solid var(--secondary);
+            position: relative;
+        }
+        .sop-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--secondary);
+            color: #1A1A1A;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .sop-list li .cmd { 
+            display: block; 
+            font-family: var(--mono); 
+            font-size: 13px; 
+            color: #FFD700; 
+            margin-top: 4px; 
+        }
+        .sop-list li .desc { font-size: 14px; color: var(--text-muted); }
+        @media (max-width: 768px) {
+            .header .logo { font-size: 24px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            .card { padding: 20px 16px; }
+            table th, table td { padding: 6px 10px; font-size: 12px; }
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">🦞 龍蝦總工程師 · <span>災難備忘錄</span></div>
+        <div class="subtitle">血淚交織的 24 小時 — 從 Emoji 地獄到產線復活</div>
+        <div class="version">📌 版本 v3.0 · 2026 年 8 月 17 日</div>
+        <div class="status-badge">✅ 新增：強制掃描 SOP + 無人值守終極方案</div>
+    </div>
+
+    <!-- ============================================================
+    開場白
+    ============================================================ -->
+    <div class="card">
+        <div class="emoji-big">💀</div>
+        <h1 style="text-align:center; color:#FF6B6B;">2026-08-15 ~ 2026-08-17 · 黑暗 48 小時</h1>
+        <p style="text-align:center; color:var(--text-muted);">
+            以下記錄了從 2026-08-15 到 2026-08-17 期間，AHPAL 系統遭遇的所有災難、錯誤與修復過程。<br>
+            <strong style="color:#FFD700;">願後人不再重蹈覆轍。</strong>
+        </p>
+    </div>
+
+    <!-- ============================================================
+    時間軸總覽
+    ============================================================ -->
+    <div class="card">
+        <h2>📅 災難時間軸</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>時間</th><th>事件</th><th>嚴重程度</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="timestamp">08-15 22:00</span></td><td>執行 auto-history-batch.ps1</td><td><span class="badge success">✅ 正常</span></td></tr>
+                    <tr><td><span class="timestamp">08-15 23:44</span></td><td>57 篇文章生成，餘額歸零</td><td><span class="badge danger">🔴 重大</span></td></tr>
+                    <tr><td><span class="timestamp">08-15 23:50</span></td><td>index.html Emoji 亂碼</td><td><span class="badge danger">🔴 重大</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 00:00</span></td><td>移動根目錄文章 → history/</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 00:15</span></td><td>Git checkout 恢復 html_builder.py</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 01:15</span></td><td>批量修復 182 篇 Emoji</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-16 01:40</span></td><td>改用 Python 寫入 JSON</td><td><span class="badge success">✅ 修復</span></td></tr>
+                    <tr><td><span class="timestamp">08-17 02:39</span></td><td>100 篇全新生活小常識批次啟動</td><td><span class="badge info">🔄 進行中</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    🆕 錯誤 11：未掃描目錄直接新增 → 重複生成
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 11：未掃描目錄直接新增 → 重複生成</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+# 情境：在已有 167 篇 life/ 文章的情況下
+# 直接提供 100 篇新主題，未先掃描目錄
+# 結果：第一次執行時，有 91 篇已存在，實際只生成 9 篇
+#       第二次執行時，100 篇全部已存在 → 0 篇生成
+
+[2026-08-17 02:39:24] 📄 已存在: 167 篇
+[2026-08-17 02:39:25] ⚠️ 缺失 100 篇文章，開始生成...  ← 這次是對的
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <ul style="margin:8px 0 0 20px; color:#FF6B6B;">
+                <li>沒有先執行 <code>ls life/</code> 掃描現有檔案</li>
+                <li>憑記憶/猜測提供主題，未與現有清單比對</li>
+                <li>導致重複提供已存在的主題，浪費時間與 API 成本</li>
+            </ul>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法：強制掃描 SOP</div>
+            <div class="code-block">
+# ============================================================
+# 🔍 新增文章前強制掃描 SOP
+# ============================================================
+
+# 步驟 1：切換至目標目錄
+cd C:\Users\User\ahpal-static\life
+
+# 步驟 2：掃描現有檔案清單 (輸出至文字檔)
+ls *.html | ForEach-Object { $_.Name } > existing-files.txt
+
+# 步驟 3：統計現有文章數量
+(ls *.html).Count
+
+# 步驟 4：比對現有主題 (提取 keyword)
+# 從 master-articles.json 中提取所有 life/ 的 keyword
+python -c "import json; data=json.load(open('data/master-articles.json')); 
+           print('\n'.join([a['keyword'] for a in data if a.get('filename','').startswith('life/')]))" > existing-keywords.txt
+
+# 步驟 5：對比新清單，過濾掉已存在的
+# 只有當 MissingArticles.Count > 0 時才執行生成
+            </div>
+        </div>
+
+        <div class="tip warning">
+            <div class="tip-title">📌 教訓</div>
+            <p><strong>永遠先掃描，永遠先比對。</strong><br>
+            每次新增文章前，必須先執行目錄掃描，確認實際缺失數量。<br>
+            <span style="color:#FFD700;">「我覺得有缺」不等於「真的有缺」。</span></p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    🆕 強制掃描 SOP — 完整流程
+    ============================================================ -->
+    <div class="card" style="border: 2px solid var(--secondary);">
+        <h2 style="color: var(--secondary);">🔍 新增文章強制掃描 SOP (v3.0 核心)</h2>
+        <p style="color:var(--text-muted); margin-bottom:12px;">
+            每次新增文章前，<strong style="color:#FFD700;">必須</strong> 執行以下流程，確保不重複、不浪費。
+        </p>
+
+        <ol class="sop-list">
+            <li>
+                <span class="desc">切換至專案目錄</span>
+                <span class="cmd">cd C:\Users\User\ahpal-static</span>
+            </li>
+            <li>
+                <span class="desc">掃描目標目錄現有檔案 (以 life/ 為例)</span>
+                <span class="cmd">ls life/*.html | ForEach-Object { $_.Name }</span>
+            </li>
+            <li>
+                <span class="desc">統計現有文章數量</span>
+                <span class="cmd">(ls life/*.html).Count</span>
+            </li>
+            <li>
+                <span class="desc">從 master-articles.json 提取現有主題</span>
+                <span class="cmd">python -c "import json; data=json.load(open('data/master-articles.json')); print('\n'.join([a['keyword'] for a in data if a.get('filename','').startswith('life/')]))"</span>
+            </li>
+            <li>
+                <span class="desc">比對新清單，過濾已存在主題 (使用 Python)</span>
+                <span class="cmd"># 在 pending-articles.json 寫入前，先比對 master-articles.json</span>
+            </li>
+            <li>
+                <span class="desc">確認缺失數量 > 0 後才執行生成</span>
+                <span class="cmd">if ($MissingArticles.Count -gt 0) { python src/main.py --force deepseek }</span>
+            </li>
+            <li>
+                <span class="desc">記錄掃描結果至日誌</span>
+                <span class="cmd"># 已內建於 auto-life-batch.ps1 步驟 3</span>
+            </li>
+        </ol>
+
+        <div class="tip success" style="margin-top:16px;">
+            <div class="tip-title">✅ 自動化掃描已整合</div>
+            <p><code>auto-life-batch.ps1</code> 已在步驟 3 自動執行掃描與比對，<br>
+            日誌中會顯示 <code>📄 已存在: X 篇</code> 與 <code>⚠️ 缺失 X 篇文章</code>。<br>
+            <strong style="color:#FFD700;">執行前請務必確認日誌輸出。</strong></p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    🆕 無人值守終極解決方案
+    ============================================================ -->
+    <div class="solution-box">
+        <div style="padding-top:8px;">
+            <h3 style="color:#44FF44; margin-top:0;">🔋 無人值守終極解決方案 — SYSTEM 帳戶排程</h3>
+            <p style="color:var(--text-muted);">完全繞過 PIN 碼，實現真正的無人值守。</p>
+        </div>
+
+        <div class="comparison-grid">
+            <div class="comparison-card">
+                <div class="title bad">❌ 互動式任務 (Interactive)</div>
+                <ul>
+                    <li>使用您的帳戶</li>
+                    <li>LogonType: Interactive</li>
+                    <li>⚠️ <strong>需要 PIN 碼</strong></li>
+                    <li>視窗可見 (Normal)</li>
+                    <li>適合手動測試</li>
+                </ul>
+            </div>
+            <div class="comparison-card">
+                <div class="title good">✅ SYSTEM 任務 (ServiceAccount)</div>
+                <ul>
+                    <li>使用 SYSTEM 帳戶</li>
+                    <li>LogonType: ServiceAccount</li>
+                    <li>✅ <strong>無需 PIN 碼</strong></li>
+                    <li>視窗隱藏 (Hidden)</li>
+                    <li>✅ 適合正式排程</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4>🔧 建立 SYSTEM 帳戶無人值守排程</h4>
+        <div class="code-block">
+# ============================================================
+# 🚀 建立 SYSTEM 帳戶無人值守排程 (5分鐘後執行)
+# ============================================================
+
+# 1. 停用互動式任務 (避免衝突)
+Disable-ScheduledTask -TaskName "AHPAL_LifeBatch" -ErrorAction SilentlyContinue
+
+# 2. 計算執行時間
+$RunTime = (Get-Date).AddMinutes(5)
+
+# 3. 建立 SYSTEM 帳戶背景任務
+$Action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"C:\Users\User\ahpal-static\scripts\auto-life-batch.ps1`" -WindowStyle Hidden"
+
+$Trigger = New-ScheduledTaskTrigger -Once -At $RunTime
+
+$Settings = New-ScheduledTaskSettingsSet `
+    -AllowStartIfOnBatteries `
+    -DontStopIfGoingOnBatteries `
+    -WakeToRun `
+    -StartWhenAvailable `
+    -RunOnlyIfNetworkAvailable
+
+# ⭐ 關鍵：使用 SYSTEM 帳戶
+$Principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+
+# 4. 註冊新任務
+Register-ScheduledTask -TaskName "AHPAL_LifeBatch_System" -Action $Action -Trigger $Trigger -Settings $Settings -Principal $Principal -Force
+
+Write-Host "✅ 無人值守排程已建立 (SYSTEM 帳戶)" -ForegroundColor Green
+Write-Host "📌 任務將於 $($RunTime.ToString('yyyy-MM-dd HH:mm:ss')) 執行" -ForegroundColor Yellow
+Write-Host "🔑 無需輸入 PIN 碼" -ForegroundColor Cyan
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">📌 使用時機</div>
+            <ul style="margin:4px 0 0 20px; color:#6BFF6B;">
+                <li><strong>手動測試 / 監控</strong> → 使用 Interactive 模式 (需輸入 PIN)</li>
+                <li><strong>正式無人值守排程</strong> → 使用 <strong>SYSTEM 帳戶</strong> 模式</li>
+                <li><strong>混合方案</strong> → 同時保留兩個任務，平時停用 Interactive</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    死命令總覽 (更新版)
+    ============================================================ -->
+    <div class="death-command-box">
+        <div class="death-title">📜 董事長死命令總覽 (9 條)</div>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>#</th><th>死命令</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>文章變更後強制檢查與推送規範</td><td>preflight-check.ps1</td></tr>
+                    <tr><td><strong>2</strong></td><td>文章檔名強制使用英文</td><td>嚴禁中文檔名</td></tr>
+                    <tr><td><strong>3</strong></td><td>信箱嚴禁明文外漏</td><td>尤其是董事長信箱嚴格保密，永不公開</td></tr>
+                    <tr><td><strong>4</strong></td><td>CSS 靜態資產保護</td><td>main.css 禁止自動覆蓋</td></tr>
+                    <tr><td><strong>5</strong></td><td>文章清單集中管理</td><td>master-articles.json</td></tr>
+                    <tr><td><strong>6</strong></td><td>文章新增唯一入口</td><td>pending-articles.json</td></tr>
+                    <tr><td><strong>7</strong></td><td>首頁完整性</td><td>create_default_index()</td></tr>
+                    <tr><td><strong>8</strong></td><td>禁止擅自精簡或改寫既有功能</td><td>修復前備份、修復後對比</td></tr>
+                    <tr><td><strong>9</strong></td><td><span style="color:#FFD700;">🆕 新增前強制掃描目錄</span></td><td>比對現有檔案，確認缺失數量</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:12px; padding:12px 16px; background:#8B0000; color:white; border-radius:8px; text-align:center; font-weight:700; letter-spacing:2px;">
+            ⚠️ 此 9 條死命令已錄入紅皮書，作為永久性強制規範。
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 8：董事長信箱暴露
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 8：董事長信箱暴露風險</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+# about.html 中直接暴露了郵箱
+📧 電子郵件：<a href="mailto:praystone@gmail.com">praystone@gmail.com</a>
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <ul style="margin:8px 0 0 20px; color:#FF6B6B;">
+                <li>在 about.html 中直接暴露了公開郵箱，可能被爬蟲收集</li>
+                <li>未使用聯絡表單作為主要聯繫方式</li>
+            </ul>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# 1. 統一使用聯絡表單
+<a href="/contact.html">📧 聯絡我們</a>
+
+# 2. 沒有業務專用信箱
+# 正確的連結格式:
+https://www.ahpal.com/about.html
+https://www.ahpal.com/privacy-policy.html
+
+# 3. 董事長信箱嚴格保密，永不公開
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    錯誤 9：NOINDEX 誤用
+    ============================================================ -->
+    <div class="card">
+        <h2>❌ 錯誤 9：服務條款誤設 NOINDEX</h2>
+        <div class="error-box">
+            <div class="error-title">📌 錯誤現象</div>
+            <div class="code-block">
+&lt;meta name="robots" content="noindex, follow"&gt;
+            </div>
+        </div>
+
+        <div class="tip danger">
+            <div class="tip-title">🔴 根因分析</div>
+            <p>服務條款、隱私權政策、關於我們等頁面被錯誤地設為 <code>noindex</code>，導致搜尋引擎無法索引，影響網站信任度與完整性。</p>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">✅ 解決方法</div>
+            <div class="code-block">
+# ✅ 正確作法：完全移除 noindex
+&lt;!-- 已移除 noindex，讓搜尋引擎正常索引 --&gt;
+
+# 服務條款、隱私權政策、關於我們都是重要頁面，應被索引
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    快速檢查清單 (v3.0 更新版)
+    ============================================================ -->
+    <div class="card" style="border: 2px solid var(--secondary);">
+        <h2 style="color: var(--secondary);">✅ 快速檢查清單（每次執行前）</h2>
+        <div class="code-block">
+# ============================================================
+# 🔍 AHPAL 執行前檢查清單 v3.0
+# ============================================================
+
+# 1. 檢查餘額
+.\scripts\check-deepseek-balance.ps1
+
+# 2. 載入環境變數
+.\scripts\ahpal-static.ps1
+
+# 3. 🆕 掃描目標目錄 (以 life/ 為例)
+ls life/*.html | ForEach-Object { $_.Name }
+
+# 4. 🆕 統計現有文章數量
+(ls life/*.html).Count
+
+# 5. 🆕 比對現有主題 (從 master-articles.json 提取)
+python -c "import json; data=json.load(open('data/master-articles.json')); 
+           print('\n'.join([a['keyword'] for a in data if a.get('filename','').startswith('life/')]))"
+
+# 6. 檢查 Git 狀態
+git status
+
+# 7. 檢查目前時段 (盡量在 18:00-09:00 執行)
+Get-Date
+
+# 8. 檢查待生成文章
+python src/main.py --dry-run
+
+# 9. 執行前備份
+.\scripts\backup-system.ps1 -Golden
+
+# 10. 檢查死命令 (強制)
+.\scripts\preflight-check.ps1
+
+# 11. 檢查 Emoji 是否正常
+# 訪問 https://www.ahpal.com/ 檢查
+
+# 12. 確認連結格式正確
+# 所有頁面連結須以 .html 結尾
+
+# 13. 確認無 NOINDEX
+# grep -r "noindex" . --include="*.html"
+
+# 14. 🆕 確認缺失數量 > 0 才執行生成
+# auto-life-batch.ps1 步驟 3 會自動顯示
+        </div>
+    </div>
+
+    <!-- ============================================================
+    總結
+    ============================================================ -->
+    <div class="card" style="border: 2px solid #FF4444;">
+        <h2 style="color:#FF6B6B;">🛑 最終警告</h2>
+        <div class="emoji-big">⚰️</div>
+        <p style="text-align:center; font-size:18px; color:#FF6B6B;">
+            <strong>這 48 小時的教訓，是用血淚換來的。</strong>
+        </p>
+        <ul style="margin:16px 0 0 24px; color:var(--text-muted); font-size:15px; line-height:2.2;">
+            <li><strong style="color:#FF6B6B;">不要</strong> 自動修改核心檔案（html_builder.py）</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在沒有備份的情況下執行批次生成</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 忘記執行 ahpal-static.ps1</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在高峰時段消耗昂貴的 API 額度</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 把文章放在根目錄</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 使用中文檔名</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 在 PowerShell 中處理中文 JSON</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 忽略死命令</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 暴露董事長信箱</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 對服務條款等頁面設 NOINDEX</li>
+            <li><strong style="color:#FFD700;">🆕 不要</strong> 在未掃描目錄的情況下直接新增文章</li>
+            <li><strong style="color:#FFD700;">🆕 不要</strong> 使用 Interactive 任務做無人值守</li>
+            <li><strong style="color:#FF6B6B;">不要</strong> 稱呼董事長為神 — 嚴禁!!</li>
+        </ul>
+        <div style="margin-top:20px; padding:16px; background:#1A0A0A; border-radius:8px; text-align:center; border:1px solid #FF4444;">
+            <p style="color:#FFD700; font-weight:700; font-size:20px;">
+                🦞 龍蝦總工程師 · 血淚簽 v3.0
+            </p>
+            <p style="color:var(--text-muted); font-size:14px;">
+                2026 年 8 月 17 日 · 凌晨 03:00
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 災難備忘錄 v3.0<br>
+        文件最後更新：2026 年 8 月 17 日 ｜ 🦞 龍蝦總工程師 親筆<br>
+        <span style="color:#FF6B6B; font-weight:700;">🔴 願後人不再重蹈覆轍</span>
+        <br><br>
+        <span style="font-size:12px; color:#FFD700; font-weight:700;">
+            📌 包含：9 條死命令 · 強制掃描 SOP · 無人值守終極方案
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

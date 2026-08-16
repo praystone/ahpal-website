@@ -91,49 +91,37 @@
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/2026-08-16 完整備忘錄.html</loc>
+        <loc>https://www.ahpal.com/docs/AHPAL-交接手冊-v4.1.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/2026-08-16 總結備忘錄.html</loc>
+        <loc>https://www.ahpal.com/docs/AHPAL-創作憲章-v2.1.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL 四大件戰略規劃.html</loc>
+        <loc>https://www.ahpal.com/docs/AHPAL-四大件-索引1.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-交接手冊-v4.0.html</loc>
+        <loc>https://www.ahpal.com/docs/AHPAL-技術白皮書-v4.1.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-創作憲章-v2.0.html</loc>
+        <loc>https://www.ahpal.com/docs/AHPAL-紅皮書-v3.1.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-四大件-索引.html</loc>
-        <lastmod>2026-08-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-技術白皮書-v4.0.html</loc>
-        <lastmod>2026-08-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.ahpal.com/docs/AHPAL-紅皮書-v4.0.html</loc>
+        <loc>https://www.ahpal.com/docs/AHPAL-紅皮書-v4.1.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -313,13 +301,61 @@
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/龍蝦總工程師 · 災難備忘錄 v1.0.html</loc>
+        <loc>https://www.ahpal.com/docs/樣板屋/2026-08-16 完整備忘錄.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://www.ahpal.com/docs/龍蝦總工程師 · 災難備忘錄 v2.0.html</loc>
+        <loc>https://www.ahpal.com/docs/樣板屋/2026-08-16 總結備忘錄.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/樣板屋/AHPAL 四大件戰略規劃.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/樣板屋/AHPAL-交接手冊-v4.0.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/樣板屋/AHPAL-創作憲章-v2.0.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/樣板屋/AHPAL-四大件-索引.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/樣板屋/AHPAL-技術白皮書-v4.0.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/樣板屋/AHPAL-紅皮書-v4.0.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/樣板屋/龍蝦總工程師 · 災難備忘錄 v1.0.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/樣板屋/龍蝦總工程師 · 災難備忘錄 v2.0.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1075,6 +1111,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/acoustics-engineer-tang-bells.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/acoustics-expert-song-opera-sound.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1093,6 +1135,18 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/aerospace-engineer-ming-wanhu-v2.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/agronomist-tang-silkroad-farming.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/ai-engineer-dufu-poetry-nlp.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1106,6 +1160,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/ai-expert-song-wanganshi.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/animal-trainer-tang-circus.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1142,6 +1202,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/archaeologist-yuan-genghis-tomb.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/architect-sui-grandcanal.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1213,7 +1279,31 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/barista-song-kaifeng-cafe.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/beekeeper-tang-changan.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/bethlehem-census-officer.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/biologist-ming-forbidden-city-eco.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/bioplastic-engineer-ming-zhenghe.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1375,6 +1465,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/chef-qin-elixir-molecular.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/chef-song-michelin.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1382,6 +1478,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/chemist-qin-elixir.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/chemist-tang-firefighting.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1453,6 +1555,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/data-scientist-han-silkroad.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/data-scientist-han-simaqian-bigdata.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1483,7 +1591,19 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/diving-instructor-ming-zhenghe.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/drone-pilot-simayi-recon.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/drone-pilot-yuan-genghis-recon.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1519,6 +1639,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/ecommerce-yuan-marco-polo.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/eden-devops-engineer.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1526,6 +1652,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/egypt-ten-plagues-cdc.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/electrical-engineer-song-generator.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1543,6 +1675,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/energy-engineer-song-solar.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/entomologist-han-zhangqian-insects.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1555,7 +1693,19 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/environmental-scientist-sui-grandcanal.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/esports-coach-guan-yu-fighting.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/esports-coach-tang-xuanzong.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1591,6 +1741,18 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/film-director-song-huizong.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/financial-advisor-ming-investment.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/firefighter-song-kaifeng.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1598,6 +1760,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/fitness-trainer-ming-army.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/fitness-trainer-tang-xuanzong.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1657,6 +1825,18 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/gardener-ming-rooftop-garden.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/geneticist-han-silkroad-horses.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/geneticist-han-zhangqian-crops.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1681,7 +1861,19 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/geologist-song-yellow-river.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/gethsemane-security.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/graphic-designer-han-simaqian.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1730,6 +1922,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/guanzhong-trade-war.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/hacker-three-kingdoms-cao-cao.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1825,6 +2023,18 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/hydraulic-engineer-qin-greatwall.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/hypnotist-qin-shihuang.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/hypnotist-song-yuefei-qinhui.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1856,6 +2066,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/jeweler-ming-zhenghe-gems.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/jewelry-designer-han-lvhou.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -1939,6 +2155,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/lawyer-song-yuefei-defense.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/legislator-han-dynasty-impeachment.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -2000,6 +2222,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/lighting-designer-ming-forbidden-city-show.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/lighting-designer-ming-night-show.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -2101,6 +2329,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/makeup-artist-tang-wu-zetian.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/marathon-runner-tang-lychee-express.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -2125,6 +2359,24 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/materials-engineer-tang-bulletproof-silk.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/materials-scientist-song-armor.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/mechanical-engineer-qin-weapons.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/mechanical-engineer-song-yuefei-tank.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -2144,6 +2396,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/mencius-influencer-marketing.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/meteorologist-qing-drought.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -2203,6 +2461,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/music-producer-song-liuyong.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/music-producer-tang.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -2227,7 +2491,19 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/neuroscientist-tang-libo-brain.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/noah-ark-qc-engineer.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/nuclear-physicist-qin-radiation.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -2239,13 +2515,31 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/nutritionist-song-sushi-diet.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/nuwa-earth-repair-project.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/oceanographer-ming-zhenghe-currents.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/olive-actuary.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/optics-engineer-song-telescope.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -2323,6 +2617,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/pr-expert-qing-cixi-image.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/pr-expert-tang-dynasty-weizheng.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -2342,6 +2642,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/programmer-tang-astronomy.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/psy-war-chu-han-xiangyu.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -2503,6 +2809,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/robotics-engineer-zhuge-muniu.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/samson-fitness-trainer.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -2570,6 +2882,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/sodom-investigator.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/software-engineer-han-zhangheng-app.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -2767,6 +3085,18 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/tea-master-tang-luyu.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/therapist-song-sushi-ptsd.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/three-kingdoms-currency-war.html</loc>
         <lastmod>2026-08-15</lastmod>
         <changefreq>monthly</changefreq>
@@ -2827,6 +3157,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/tiktok-dancer-tang-huxuan.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/time-travel-ming-eunuch.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -2870,6 +3206,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/university-president-han-taixue.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/urban-planner-han-changan-metro.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -3026,6 +3368,12 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/yongzheng-tiktok-daily.html</loc>
+        <lastmod>2026-08-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/history/youtuber-ming-forbidden-city.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

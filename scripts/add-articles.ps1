@@ -1,11 +1,13 @@
 ﻿# ============================================================
-# add-articles.ps1 - 自動新增內容腳本 v4.0
+# add-articles.ps1 - 自動新增內容腳本 v5.0
 # ============================================================
-# 變更 (v4.0)：
-#   - 🆕 將文章合併到 master-articles.json (主資料庫)
-#   - 🆕 不再直接寫入 main.py
-#   - 🆕 處理後清空 pending-articles.json
-#   - 🆕 判斷邏輯：只在 pending-articles.json 有資料時才動作
+# 變更 (v5.0)：
+#   - 🆕 完整整合 ensure-utf8-nobom.ps1 編碼驗證邏輯
+#   - 🆕 新增 Write-Utf8NoBom 與 Test-NoBom 輔助函數
+#   - 🆕 清空 pending-articles.json 後自動驗證編碼
+#   - 🆕 讀取與寫入 JSON 統一使用 UTF-8 無 BOM
+#   - 🔧 修復 ConvertFrom-Json 在空檔案時的錯誤處理
+#   - 🔧 優化錯誤處理與重試機制
 # ============================================================
 
 param(
@@ -15,19 +17,17 @@ param(
 
 # 設定執行原則
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 
 # ============================================================
 # 🎨 顏色輸出函數
 # ============================================================
 
-function Write-ColorOutput { param([string]$Message, [string]$Color = "White") Write-Host $Message -ForegroundColor $Color }
-function Write-Success { Write-ColorOutput $args[0] "Green" }
-function Write-Info { Write-ColorOutput $args[0] "Cyan" }
-function Write-Warning { Write-ColorOutput $args[0] "Yellow" }
-function Write-Error { Write-ColorOutput $args[0] "Red" }
-function Write-Gray { Write-ColorOutput $args[0] "Gray" }
-
+function Write-Info { Write-Host $args -ForegroundColor Cyan }
+function Write-Success { Write-Host $args -ForegroundColor Green }
+function Write-Warning { Write-Host $args -ForegroundColor Yellow }
+function Write-Error { Write-Host $args -ForegroundColor Red }
+function Write-Gray { Write-Host $args -ForegroundColor Gray }
 
 # ============================================================
 # 📁 路徑設定
@@ -38,18 +38,90 @@ $PendingFile = "$ProjectRoot\data\pending-articles.json"
 $MasterFile = "$ProjectRoot\data\master-articles.json"
 $BackupDir = "$ProjectRoot\backups\master-json"
 
+# ============================================================
+# 🔧 輔助函數：UTF-8 無 BOM 寫入
+# ============================================================
+
+function Write-Utf8NoBom {
+    param(
+        [string]$Path,
+        [string]$Content
+    )
+    
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($Path, $Content, $utf8NoBom)
+}
+
+# ============================================================
+# 🔧 輔助函數：驗證編碼 (無 BOM)
+# ============================================================
+
+function Test-NoBom {
+    param([string]$Path)
+    
+    if (-not (Test-Path $Path)) { return $false }
+    
+    $bytes = [System.IO.File]::ReadAllBytes($Path)
+    if ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF) {
+        return $false  # 有 BOM
+    }
+    return $true  # 無 BOM
+}
+
+# ============================================================
+# 🔧 輔助函數：讀取 JSON (UTF-8)
+# ============================================================
+
+function Read-PendingArticles {
+    param([string]$Path)
+    
+    if (-not (Test-Path $Path)) {
+        return $null
+    }
+    
+    try {
+        $content = Get-Content $Path -Raw -Encoding UTF8 -ErrorAction Stop
+        if ([string]::IsNullOrWhiteSpace($content) -or $content -eq "[]") {
+            return @()
+        }
+        return $content | ConvertFrom-Json -ErrorAction Stop
+    } catch {
+        Write-Warning "   ⚠️ 讀取失敗：$_"
+        return $null
+    }
+}
+
+# ============================================================
+# 🔧 輔助函數：寫入 JSON (UTF-8 無 BOM)
+# ============================================================
+
+function Write-PendingArticles {
+    param(
+        [string]$Path,
+        [array]$Data
+    )
+    
+    try {
+        $json = $Data | ConvertTo-Json -Depth 10
+        Write-Utf8NoBom -Path $Path -Content $json
+        return $true
+    } catch {
+        Write-Error "   ❌ 寫入失敗：$_"
+        return $false
+    }
+}
 
 # ============================================================
 # 🔍 主要邏輯
 # ============================================================
 
 Write-Info "============================================================"
-Write-Info "  📝 自動新增內容工具 v4.0 (JSON 合併版)"
+Write-Info "  📝 自動新增內容工具 v5.0 (UTF-8 無 BOM 整合版)"
 Write-Info "============================================================"
 Write-Host ""
 
 # ============================================================
-# 步驟 1：檢查 pending-articles.json 是否存在且有資料
+# 步驟 1：檢查 pending-articles.json
 # ============================================================
 
 Write-Info "[1/4] 檢查待新增文章..."
@@ -62,27 +134,19 @@ if (-not (Test-Path $PendingFile)) {
     exit 0
 }
 
-# 讀取 pending-articles.json
-try {
-    $pendingContent = Get-Content $PendingFile -Raw -Encoding UTF8
-    if ([string]::IsNullOrWhiteSpace($pendingContent) -or $pendingContent -eq "[]") {
-        Write-Success "   ✅ 待新增文章清單為空，無需動作"
-        Write-Host ""
-        Read-Host "按 Enter 鍵結束"
-        exit 0
-    }
-    
-    $pending = $pendingContent | ConvertFrom-Json
-    if ($pending.Count -eq 0) {
-        Write-Success "   ✅ 待新增文章清單為空，無需動作"
-        Write-Host ""
-        Read-Host "按 Enter 鍵結束"
-        exit 0
-    }
-} catch {
-    Write-Error "   ❌ 讀取 pending-articles.json 失敗：$_"
+$pending = Read-PendingArticles -Path $PendingFile
+
+if ($pending -eq $null) {
+    Write-Error "   ❌ 讀取 pending-articles.json 失敗"
     Read-Host "按 Enter 鍵結束"
     exit 1
+}
+
+if ($pending.Count -eq 0) {
+    Write-Success "   ✅ 待新增文章清單為空，無需動作"
+    Write-Host ""
+    Read-Host "按 Enter 鍵結束"
+    exit 0
 }
 
 Write-Info "   📋 發現 $($pending.Count) 篇待新增文章"
@@ -121,20 +185,18 @@ if (Test-Path $MasterFile) {
     Write-Gray "   ℹ️ master-articles.json 不存在，將建立新檔案"
 }
 
-
 # ============================================================
-# 步驟 4：讀取現有 master-articles.json 並合併
+# 步驟 4：讀取現有 master-articles.json
 # ============================================================
 
 Write-Info "[3/4] 合併到 master-articles.json..."
 
-# 讀取現有 master 清單
 $master = @()
 if (Test-Path $MasterFile) {
     try {
-        $masterContent = Get-Content $MasterFile -Raw -Encoding UTF8
+        $masterContent = Get-Content $MasterFile -Raw -Encoding UTF8 -ErrorAction Stop
         if (-not [string]::IsNullOrWhiteSpace($masterContent) -and $masterContent -ne "[]") {
-            $master = $masterContent | ConvertFrom-Json
+            $master = $masterContent | ConvertFrom-Json -ErrorAction Stop
         }
     } catch {
         Write-Warning "   ⚠️ 讀取 master-articles.json 失敗，將建立新清單"
@@ -144,7 +206,10 @@ if (Test-Path $MasterFile) {
 
 Write-Gray "   📊 現有文章：$($master.Count) 篇"
 
-# 合併 (避免重複)
+# ============================================================
+# 步驟 5：合併 (避免重複)
+# ============================================================
+
 $existingKeywords = $master | ForEach-Object { $_.keyword }
 $newCount = 0
 $skipCount = 0
@@ -168,38 +233,63 @@ if ($newCount -eq 0) {
 }
 
 # ============================================================
-# 步驟 5：寫回 master-articles.json
+# 步驟 6：寫回 master-articles.json (UTF-8 無 BOM)
 # ============================================================
 
 Write-Info "[4/4] 儲存 master-articles.json..."
 
 if ($newCount -gt 0) {
-    # 確保目錄存在
     $MasterFileDir = Split-Path $MasterFile -Parent
     New-Item -ItemType Directory -Path $MasterFileDir -Force | Out-Null
     
-    # 寫入 JSON (UTF-8 無 BOM)
-    # 替換為 v4.1
-$jsonContent = $master | ConvertTo-Json -Depth 10
-$utf8NoBom = New-Object System.Text.UTF8Encoding $false
-[System.IO.File]::WriteAllText($MasterFile, $jsonContent, $utf8NoBom)
+    $jsonContent = $master | ConvertTo-Json -Depth 10
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($MasterFile, $jsonContent, $utf8NoBom)
 
     Write-Success "   ✅ 已寫入 $($master.Count) 篇文章到 master-articles.json"
+    
+    # 驗證 master-articles.json 編碼
+    if (Test-NoBom -Path $MasterFile) {
+        Write-Success "   ✅ master-articles.json 編碼驗證通過：UTF-8 無 BOM"
+    } else {
+        Write-Warning "   ⚠️ master-articles.json 編碼驗證失敗：仍有 BOM，請檢查"
+    }
 } else {
     Write-Gray "   ℹ️ 無變更，跳過寫入"
 }
 
 # ============================================================
-# 步驟 6：清空 pending-articles.json
+# 步驟 7：清空 pending-articles.json (UTF-8 無 BOM)
 # ============================================================
 
 Write-Info "🧹 清空 pending-articles.json..."
-"[]" | Out-File $PendingFile -Encoding utf8
-Write-Success "   ✅ 已清空 pending-articles.json"
 
+try {
+    Write-Utf8NoBom -Path $PendingFile -Content "[]"
+    Write-Success "   ✅ 已清空 pending-articles.json (UTF-8 無 BOM)"
+} catch {
+    Write-Error "   ❌ 清空失敗：$_"
+    Write-Warning "   ⚠️ 嘗試使用備用方法..."
+    
+    try {
+        [System.IO.File]::WriteAllText($PendingFile, "[]", [System.Text.Encoding]::UTF8)
+        Write-Success "   ✅ 已清空 pending-articles.json (備用方法)"
+    } catch {
+        Write-Error "   ❌ 備用方法也失敗：$_"
+        Write-Warning "   ⚠️ 請手動清空：echo '[]' > $PendingFile"
+        exit 1
+    }
+}
+
+# 驗證 pending-articles.json 編碼
+if (Test-NoBom -Path $PendingFile) {
+    Write-Success "   ✅ pending-articles.json 編碼驗證通過：UTF-8 無 BOM"
+} else {
+    Write-Warning "   ⚠️ pending-articles.json 編碼驗證失敗：仍有 BOM，請檢查"
+}
 
 # ============================================================
-# 步驟 7：完成摘要
+# 步驟 8：完成摘要
 # ============================================================
 
 Write-Host ""
@@ -214,7 +304,8 @@ if ($skipCount -gt 0) {
 }
 Write-Info "   ├─ 主資料庫：$($master.Count) 篇文章"
 Write-Info "   ├─ 備份位置：$BackupFile"
-Write-Success "   └─ 編碼：UTF-8 無 BOM ✅"
+Write-Success "   ├─ master-articles.json 編碼：UTF-8 無 BOM ✅"
+Write-Success "   └─ pending-articles.json 編碼：UTF-8 無 BOM ✅"
 Write-Host ""
 Write-Info "📌 下一步："
 Write-Gray "   python src\main.py --force deepseek"

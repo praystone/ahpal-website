@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AHPAL 喚醒定時器測試 SOP 標竿 v1.0</title>
+    <style>
+        /* ── 全域重置與字型 ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            background: #F7F9FC;
+            color: #1A202C;
+            line-height: 1.8;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            padding: 48px 52px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E2E8F0;
+        }
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 18px;
+            }
+        }
+
+        /* ── 頁首 ── */
+        .header {
+            text-align: center;
+            padding-bottom: 24px;
+            border-bottom: 4px solid #005A9C;
+            margin-bottom: 30px;
+        }
+        .header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #005A9C;
+        }
+        .header .logo span {
+            color: #00A86B;
+        }
+        .header .subtitle {
+            font-size: 16px;
+            color: #4A5568;
+            margin-top: 4px;
+        }
+        .header .version {
+            display: inline-block;
+            background: #005A9C;
+            color: white;
+            padding: 4px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        .header .status-badge {
+            display: inline-block;
+            background: #00A86B;
+            color: white;
+            padding: 4px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* ── 標題層級 ── */
+        h1 {
+            font-size: 30px;
+            font-weight: 700;
+            color: #005A9C;
+            margin: 28px 0 12px 0;
+            border-left: 6px solid #00A86B;
+            padding-left: 16px;
+        }
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #005A9C;
+            margin: 32px 0 14px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #E2E8F0;
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #2D3748;
+            margin: 20px 0 10px 0;
+        }
+
+        /* ── 表格 ── */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 16px 0 20px 0;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 500px;
+        }
+        table th,
+        table td {
+            padding: 10px 14px;
+            border: 1px solid #E2E8F0;
+            text-align: left;
+        }
+        table th {
+            background: #005A9C;
+            color: white;
+            font-weight: 600;
+        }
+        table tr:nth-child(even) td {
+            background: #F7F9FC;
+        }
+        table tr:hover td {
+            background: #EBF8FF;
+        }
+
+        /* ── 程式碼區塊 ── */
+        .code-block {
+            background: #1A1A2E;
+            color: #E8E8E8;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0 16px 0;
+            overflow-x: auto;
+            font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .code-block .comment {
+            color: #6A9955;
+        }
+        .code-block .cmd {
+            color: #D4D4D4;
+        }
+        .code-block .output {
+            color: #9CDCFE;
+        }
+
+        /* ── 提示區塊 ── */
+        .tip {
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 14px 0 18px 0;
+            border-left: 5px solid;
+        }
+        .tip.success {
+            background: #F0FFF4;
+            border-color: #38A169;
+            color: #276749;
+        }
+        .tip.warning {
+            background: #FFFAF0;
+            border-color: #DD6B20;
+            color: #9C4221;
+        }
+        .tip.info {
+            background: #EBF8FF;
+            border-color: #3182CE;
+            color: #2B6CB0;
+        }
+        .tip.danger {
+            background: #FFF5F5;
+            border-color: #E53E3E;
+            color: #9B2C2C;
+        }
+
+        /* ── 簽核區塊 ── */
+        .signature-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #E2E8F0;
+        }
+        .signature-box {
+            background: #F7F9FC;
+            border-radius: 12px;
+            padding: 20px 24px;
+            text-align: center;
+            border: 1px solid #E2E8F0;
+        }
+        .signature-box .role {
+            font-size: 13px;
+            color: #4A5568;
+            font-weight: 600;
+        }
+        .signature-box .name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A202C;
+            margin: 4px 0;
+        }
+        .signature-box .line {
+            width: 80%;
+            height: 2px;
+            background: #E2E8F0;
+            margin: 12px auto 6px auto;
+        }
+        .signature-box .status-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .signature-box .status-badge.approved {
+            background: #C6F6D5;
+            color: #276749;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0 10px 0;
+            color: #A0AEC0;
+            font-size: 13px;
+            border-top: 1px solid #E2E8F0;
+            margin-top: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge.green {
+            background: #C6F6D5;
+            color: #276749;
+        }
+        .badge.yellow {
+            background: #FEFCBF;
+            color: #975A16;
+        }
+        .badge.red {
+            background: #FED7D7;
+            color: #9B2C2C;
+        }
+        .badge.blue {
+            background: #BEE3F8;
+            color: #2A69AC;
+        }
+
+        @media (max-width: 768px) {
+            .signature-area {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .container {
+                padding: 20px 16px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 19px;
+            }
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .code-block {
+                background: #f4f4f4;
+                color: #222;
+            }
+            .header {
+                border-bottom-color: #333;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ========================================================== -->
+        <!-- 頁首                                                       -->
+        <!-- ========================================================== -->
+        <div class="header">
+            <div class="logo">雅寶社區 · <span>頂客論壇</span></div>
+            <div class="subtitle">喚醒定時器測試標準作業程序</div>
+            <div class="version">📌 版本 v1.0 · 2026 年 8 月 16 日</div>
+            <div class="status-badge">✅ 董事會核定 · 全員遵行</div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 1. 目的                                                    -->
+        <!-- ========================================================== -->
+        <h1>1. 目的</h1>
+        <p>
+            確保 AHPAL 系統在 <strong>螢幕關閉／系統睡眠</strong> 狀態下，工作排程器仍能
+            <strong>100% 準時喚醒 CPU 並執行預定任務</strong>，避免因 Windows Modern Standby (S0 低功耗閒置)
+            導致排程延遲或遺漏。
+        </p>
+
+        <!-- ========================================================== -->
+        <!-- 2. 適用情境                                                -->
+        <!-- ========================================================== -->
+        <h1>2. 適用情境</h1>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>情境</th><th>說明</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>🌙 晚間 19:00 歷史腦洞批次生成</td><td>每日固定生成 100 篇文章</td></tr>
+                    <tr><td>💾 凌晨備份任務</td><td>每日凌晨自動備份系統</td></tr>
+                    <tr><td>☁️ Cloudflare 部署任務</td><td>生成完成後自動部署</td></tr>
+                    <tr><td>⚙️ 任何無人值守排程</td><td>需長時間關閉螢幕但須準時執行</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 3. 前置條件                                                -->
+        <!-- ========================================================== -->
+        <h1>3. 前置條件</h1>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>項目</th><th>條件</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>🖥️ 作業系統</td><td>Windows 11 (22H2 以上)</td></tr>
+                    <tr><td>🔑 權限</td><td>系統管理員權限</td></tr>
+                    <tr><td>🔌 電源</td><td>建議插上 AC 電源 (確保喚醒定時器正常運作)</td></tr>
+                    <tr><td>🔧 BIOS</td><td>確認 BIOS 中 Wake on RTC / Wake on USB 已啟用</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 4. 標準作業步驟                                            -->
+        <!-- ========================================================== -->
+        <h1>4. 標準作業步驟</h1>
+
+        <!-- 步驟 1 -->
+        <h2>步驟 1：開啟喚醒定時器 (一次性設定)</h2>
+        <p>以系統管理員身分執行 PowerShell，開啟系統喚醒定時器：</p>
+        <div class="code-block">
+# ============================================================
+# 步驟 1：開啟喚醒定時器
+# ============================================================
+
+# 1.1 開啟插電 (AC) 狀態下的喚醒定時器
+powercfg -setacvalueindex SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 1
+
+# 1.2 開啟電池 (DC) 狀態下的喚醒定時器
+powercfg -setdcvalueindex SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 1
+
+# 1.3 套用目前電源計畫
+powercfg -setactive SCHEME_CURRENT
+
+Write-Host "✅ 喚醒定時器已開啟" -ForegroundColor Green
+        </div>
+
+        <!-- 步驟 2 -->
+        <h2>步驟 2：註冊可喚醒排程任務</h2>
+        <div class="code-block">
+# ============================================================
+# 步驟 2：註冊可喚醒排程任務
+# ============================================================
+
+param(
+    [string]$TaskName = "AHPAL_Scheduled_Task",
+    [string]$ScriptPath = "C:\Users\User\ahpal-static\scripts\target-script.ps1",
+    [datetime]$ExecutionTime = (Get-Date).AddMinutes(5)
+)
+
+# 2.1 定義任務動作
+$Action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -WindowStyle Normal -File `"$ScriptPath`""
+
+# 2.2 定義觸發時間
+$Trigger = New-ScheduledTaskTrigger -Once -At $ExecutionTime
+
+# 2.3 定義執行權限 (互動模式，可顯示視窗)
+$Principal = New-ScheduledTaskPrincipal -UserId "$env:COMPUTERNAME\$env:USERNAME" -RunLevel Highest -LogonType Interactive
+
+# 2.4 定義任務設定 (關鍵：WakeToRun + Priority 4)
+$Settings = New-ScheduledTaskSettingsSet `
+    -AllowStartIfOnBatteries `
+    -WakeToRun `
+    -DontStopIfGoingOnBatteries `
+    -StartWhenAvailable `
+    -Priority 4 `
+    -ExecutionTimeLimit (New-TimeSpan -Hours 4)
+
+# 2.5 註冊任務
+Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Principal $Principal -Settings $Settings -Force
+Enable-ScheduledTask -TaskName $TaskName
+
+Write-Host "✅ 任務已註冊並啟用，執行時間：$ExecutionTime" -ForegroundColor Green
+        </div>
+
+        <!-- 步驟 3 -->
+        <h2>步驟 3：驗證喚醒計時器</h2>
+        <div class="code-block">
+# ============================================================
+# 步驟 3：驗證喚醒計時器是否正常掛載
+# ============================================================
+
+# 3.1 顯示所有喚醒計時器
+powercfg /waketimers
+
+# 3.2 檢查任務狀態
+Get-ScheduledTask -TaskName $TaskName | Format-List TaskName, State, Triggers
+        </div>
+        <div class="tip success">
+            <strong>✅ 預期輸出範例：</strong><br>
+            <code>[SERVICE] ... 設定的計時器在 HH:mm:ss 到期。<br>原因: Windows 將執行 'NT TASK\AHPAL_Scheduled_Task' 排定要求喚醒電腦的工作。</code>
+        </div>
+
+        <!-- 步驟 4 -->
+        <h2>步驟 4：觸發睡眠測試</h2>
+        <div class="code-block">
+# ============================================================
+# 步驟 4：觸發睡眠 (使用 C# 原生 API，確保喚醒計時器不受干擾)
+# ============================================================
+
+# 4.1 關閉螢幕 (系統保持運作)
+$code = @"
+using System;
+using System.Runtime.InteropServices;
+public class Screen {
+    [DllImport("user32.dll")]
+    public static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);
+}
+"@
+Add-Type -TypeDefinition $code
+[Screen]::SendMessage(0xffff, 0x0112, 0xF170, 2)
+
+# 4.2 觸發睡眠 (不強制關閉，不禁用喚醒事件)
+$sleepCode = @"
+using System;
+using System.Runtime.InteropServices;
+public class Power {
+    [DllImport("Powrprof.dll", SetLastError = true)]
+    public static extern bool SetSuspendState(bool hibernate, bool forceCritical, bool disableWakeEvent);
+}
+"@
+Add-Type -TypeDefinition $sleepCode
+[Power]::SetSuspendState($false, $false, $false)
+
+Write-Host "✅ 系統已進入睡眠，喚醒計時器將於指定時間觸發" -ForegroundColor Green
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 5. 驗收標準                                                -->
+        <!-- ========================================================== -->
+        <h1>5. 驗收標準</h1>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>測試項目</th><th>預期結果</th><th>狀態</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>喚醒計時器掛載</td>
+                        <td><code>powercfg /waketimers</code> 顯示任務</td>
+                        <td><span class="badge green">✅</span></td>
+                    </tr>
+                    <tr>
+                        <td>排程準時觸發</td>
+                        <td>執行時間與設定時間一致 (±5秒)</td>
+                        <td><span class="badge green">✅</span></td>
+                    </tr>
+                    <tr>
+                        <td>執行過程可見</td>
+                        <td>PowerShell 視窗正常彈出</td>
+                        <td><span class="badge green">✅</span></td>
+                    </tr>
+                    <tr>
+                        <td>任務正常完成</td>
+                        <td>退出碼 0</td>
+                        <td><span class="badge green">✅</span></td>
+                    </tr>
+                    <tr>
+                        <td>產出檔案正常</td>
+                        <td>文章/日誌檔案正確生成</td>
+                        <td><span class="badge green">✅</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 6. 疑難排解                                                -->
+        <!-- ========================================================== -->
+        <h1>6. 疑難排解</h1>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>問題</th><th>可能原因</th><th>解決方法</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>喚醒計時器未掛載</td>
+                        <td>電源計畫未啟用</td>
+                        <td>重複執行步驟 1</td>
+                    </tr>
+                    <tr>
+                        <td>排程延遲執行</td>
+                        <td>Modern Standby 介入</td>
+                        <td>確保 <code>-WakeToRun</code> 與 <code>Priority 4</code> 已設定</td>
+                    </tr>
+                    <tr>
+                        <td>無 PowerShell 視窗</td>
+                        <td>LogonType 為 S4U</td>
+                        <td>改用 <code>Interactive</code></td>
+                    </tr>
+                    <tr>
+                        <td>任務未執行</td>
+                        <td>權限不足</td>
+                        <td>確保 <code>-RunLevel Highest</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 7. 參考記錄                                                -->
+        <!-- ========================================================== -->
+        <h1>7. 參考記錄</h1>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>測試日期</th><th>任務名稱</th><th>設定時間</th><th>實際執行</th><th>延遲</th><th>結果</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026-08-16</td>
+                        <td><code>AHPAL_Test_WakeTimer</code></td>
+                        <td>11:04:12</td>
+                        <td>11:04:12</td>
+                        <td>0 秒</td>
+                        <td><span class="badge green">✅ 成功</span></td>
+                    </tr>
+                    <tr>
+                        <td>2026-08-16</td>
+                        <td><code>AHPAL_History_Batch_100</code></td>
+                        <td>19:00:00</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td><span class="badge yellow">⏳ 待驗證</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 8. 簽核                                                    -->
+        <!-- ========================================================== -->
+        <h1>8. 簽核</h1>
+        <div class="signature-area">
+            <div class="signature-box">
+                <div class="role">📌 撰寫</div>
+                <div class="name">🦞 龍蝦總工程師</div>
+                <div class="line"></div>
+                <span class="status-badge approved">✅ 已簽核</span>
+            </div>
+            <div class="signature-box">
+                <div class="role">✅ 核定</div>
+                <div class="name">🏛️ 董事會執行長</div>
+                <div class="line"></div>
+                <span class="status-badge approved">✅ 已簽核</span>
+            </div>
+            <div class="signature-box">
+                <div class="role">👑 核准</div>
+                <div class="name">董事長</div>
+                <div class="line"></div>
+                <span class="status-badge approved">🏆 已核准</span>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 頁尾                                                      -->
+        <!-- ========================================================== -->
+        <div class="footer">
+            &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 喚醒定時器測試 SOP v1.0<br />
+            文件最後更新：2026 年 8 月 16 日 ｜ 🦞 龍蝦總工程師 親筆<br />
+            <span style="color: #005A9C; font-weight: 700;">🔴⚪🟡🔵 紅白黃藍 · 四大件立國</span>
+        </div>
+
+    </div>
+
+</body>
+</html>

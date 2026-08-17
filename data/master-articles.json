@@ -7578,5 +7578,805 @@
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false
+  },
+  {
+    "keyword": "台灣狐蝠生態與保育現況",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-flying-fox-conservation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣黃喉貂生態觀察",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-yellow-throated-marten.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣麝香貓生態與棲地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-masked-palm-civet.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣水獺保育與復育計畫",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-otter-conservation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣赤腹松鼠生態與都市適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-red-bellied-squirrel.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣刺鼠生態與農田關係",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-spiny-rat-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣鼴鼠生態與地下生活",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mole-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣鯪鯉（穿山甲）習性深度解析",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-pangolin-behavior.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣八哥生態與都市棲地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-crested-myna.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣藍腹鷴生態與繁殖",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-blue-pheasant.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣帝雉生態與保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mikado-pheasant.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣環頸雉生態與農田棲息",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ring-necked-pheasant.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣黑面琵鷺遷徙與棲地保護",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-black-faced-spoonbill.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣白鷺鷥生態與濕地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-egret-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣夜鷺生態與都市河流",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-night-heron.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣小鷿鷉生態與湖泊",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-little-grebe.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣魚鷹生態與溪流狩獵",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-osprey-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣黑鳶生態與都市適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-black-kite.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣遊隼生態與懸崖棲地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-peregrine-falcon.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣紅隼生態與農田狩獵",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-common-kestrel.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣領角鴞生態與都市夜間",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-collared-scops-owl.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣黃嘴角鴞生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mountain-scops-owl.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣褐鷹鴞生態與夜間狩獵",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-brown-hawk-owl.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣大冠鷲生態與森林棲地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-crested-serpent-eagle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣鳳頭蒼鷹生態與都市狩獵",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-crested-goshawk.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣松雀鷹生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-besra-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣赤腹鷹遷徙與生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-chinese-goshawk.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣灰面鵟鷹遷徙生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-gray-faced-buzzard.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣蛇鵰生態與蛇類捕食",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-snake-eagle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣熊鷹生態與原始森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-hawk-eagle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣翡翠（翠鳥）生態與溪流",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-kingfisher-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣五色鳥繁殖生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-barbet-breeding.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣小啄木生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-grey-capped-pygmy-woodpecker.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣綠鳩生態與果樹",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-green-pigeon.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣紅鳩生態與農田",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-red-turtle-dove.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣金背鳩生態與都市",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-oriental-turtle-dove.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣麻雀生態與都市適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-tree-sparrow-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣白頭翁生態與都市",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-light-vented-bulbul.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣紅嘴黑鵯生態與果園",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-black-bulbul.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣綠繡眼生態與都市花園",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-japanese-white-eye.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣原生杜鵑種類與賞花指南",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-native-rhododendron-species.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣馬兜鈴生態與保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-aristolochia-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣牛樟生態與復育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-stout-camphor-tree.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣相思樹生態與應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-acacia-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣苦楝樹生態與文化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-chinaberry-tree.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣茄苳樹生態與古樹保護",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-bishop-wood.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣九芎生態與水土保持",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-crepe-myrtle-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣烏心石生態與木材應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-michelia-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣樟樹生態與精油應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-camphor-tree-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣檜木林生態與保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-cypress-forest-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣鐵杉生態與高山生態系",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-hemlock-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣雲杉生態與高山森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-spruce-forest-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣冷杉生態與高山苔原",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-fir-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣高山箭竹生態與動物棲地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-alpine-bamboo-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣黃藤生態與原住民應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-rattan-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣山蘇花生態與附生",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-bird-nest-fern.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣筆筒樹生態與保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-tree-fern-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣觀音座蓮生態與保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-angiopteris-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣海金沙生態與海濱",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-climbing-fern.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣石松生態與低海拔森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-lycopodium-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣月桃生態與民俗植物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-alpinia-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣野薑花生態與濕地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ginger-lily.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣金花石蒜生態與海濱",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-spider-lily.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣杜鵑花季與賞花",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-rhododendron-season.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣玉山杜鵑生態與高山",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-yushan-rhododendron-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣澤蘭生態與中海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-taiwan-ageratum.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣馬藍生態與溪谷",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-strobilanthes-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣紅豆杉生態與保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-yew-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣火刺木生態與都市綠化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-firethorn-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣桂花生態與文化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-osmanthus-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣陸域生態系完整介紹",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-terrestrial-ecosystem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣水域生態系完整介紹",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-aquatic-ecosystem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣海岸生態系完整介紹",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-coastal-ecosystem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣低海拔生態與生物多樣性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-lowland-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣中海拔生態與霧林帶",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mid-altitude-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣高海拔生態與寒原",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-high-altitude-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣溪流生態系與指標生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-stream-ecosystem-indicators.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣湖泊生態系與特有生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-lake-ecosystem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣水庫生態與環境議題",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-reservoir-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣農田生態系與生物多樣性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-farmland-ecosystem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣都市生態系與綠色基礎設施",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-urban-ecosystem-infrastructure.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態廊道規劃與實踐",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-corridor-planning.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生物多樣性保育策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-biodiversity-strategy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣瀕危物種紅皮書與保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-red-list-conservation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣外來種管理與移除策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-invasive-species-management.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣野生動物救援與醫療",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-wildlife-rescue-medical.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣野生動物路殺與生態廊道",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-roadkill-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣環境影響評估與生態檢核",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-eia-ecological-review.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態補償機制與實踐",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-compensation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣森林認證與永續經營",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-forest-certification.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣海洋保護區與管理",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-marine-protected-areas.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣國家公園經營管理",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-national-park-management.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣自然保留區與生態保護",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-nature-reserve-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態旅遊永續發展",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecotourism-sustainability.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣環境教育與生態公民",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-environmental-education-citizen.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣原住民傳統生態知識",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-indigenous-ecological-knowledge.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣氣候變遷調適與生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-climate-adaptation-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態監測與公民科學",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-monitoring-citizen-science.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣里山倡議實踐案例",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-satoyama-practice.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣2050淨零與生態保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-net-zero-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   }
 ]

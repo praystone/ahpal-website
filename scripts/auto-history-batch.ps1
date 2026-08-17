@@ -1,24 +1,26 @@
 ﻿# ============================================================
-# 歷史腦洞20篇 — 即時顯示 + 排程優化版 v10.2 (移除 Emoji 破壞修復)
+# 📜 歷史腦洞 — 無人值守 + 方便添加 v11.2 (無餘額檢查)
 # ============================================================
-# 用途：無人值守一次性生成 全新歷史腦洞文章
-# 
-# v10.2 變更 (2026-08-16)：
-#   - 🗑️ 移除自動修復 html_builder.py 區塊 (避免破壞 Emoji)
-#   - ✅ 繼承 v10.1 所有功能 (斷點續傳、郵件通知、電源管理)
+# 用途：無人值守生成歷史腦洞文章
+# 特色：
+#   ✅ 方便添加：直接在 $Articles 區塊增減文章
+#   ✅ 無人值守：自動完成 JSON 寫入 → 合併 → 生成 → 更新頁面 → 部署
+#   ✅ 斷點續傳：已存在的文章自動跳過
+#   ✅ 電源管理：執行期間防止睡眠
+#   ✅ 錯誤通知：失敗時發送郵件
+#   ✅ 雙重重試：生成失敗自動重試一次
+#
+# v11.2 變更 (2026-08-17)：
+#   - 🆕 新增 1 篇歷史腦洞文章
+#   - ✅ 保留 v11.1 所有功能
 # ============================================================
 
 # ============================================================
-# 🔧 電源管理：擷取當前電源計劃並防止睡眠
+# 🔧 電源管理
 # ============================================================
-# 擷取目前的電源計劃 GUID
 $PowerCfgOriginal = (powercfg /getactivescheme) -replace '.*:\s+([a-f0-9-]+)\s+\(.*', '$1'
-
-# 切換為高效能 / 卓越效能（若無則維持現狀）
-# 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 為 Windows 內建「高效能」GUID
 powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 2>$null
 
-# ⭐ 強制 UTF-8 編碼
 $OutputEncoding = [System.Text.Encoding]::UTF8
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 chcp 65001 > $null
@@ -29,26 +31,13 @@ $ProjectRoot = "C:\Users\User\ahpal-static"
 Set-Location $ProjectRoot
 
 # ============================================================
-# 🔧 預載 .NET Assembly (SMTP 郵件) - 已註解，改用 .env 讀取
-# ============================================================
-# Add-Type -AssemblyName System.Net.Mail -ErrorAction SilentlyContinue
-
-# ============================================================
-# ✅ 已移除「自動修復 html_builder.py」區塊
-# 原因：該修復會將 Emoji (🎮📊🤖📚等) 替換為 [[[[[[[[[[[[🎮]]]]]]]]]]]]
-# 導致網站頁面顯示異常。
-# ============================================================
-
-# ============================================================
-# 設定日誌
+# 📝 設定日誌
 # ============================================================
 $Timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 $LogDir = "$ProjectRoot\logs"
 New-Item -ItemType Directory -Path $LogDir -Force | Out-Null
-$LogFile = "$LogDir\auto-history-batch-v10-$Timestamp.log"
-
-# 🆕 Checkpoint 檔案 (斷點續傳)
-$CheckpointFile = "$LogDir\v10-checkpoint.json"
+$LogFile = "$LogDir\auto-history-batch-v11-$Timestamp.log"
+$CheckpointFile = "$LogDir\history-checkpoint.json"
 
 function Write-Log {
     param([string]$Message)
@@ -64,7 +53,6 @@ function Save-Checkpoint {
         stage = $Stage
         detail = $Detail
         timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-        article_count = $MissingArticles.Count
     }
     $checkpoint | ConvertTo-Json | Out-File $CheckpointFile -Encoding UTF8
 }
@@ -86,7 +74,7 @@ function Send-ErrorNotification {
             $SmtpClient = New-Object System.Net.Mail.SmtpClient("smtp.gmail.com", 587)
             $SmtpClient.EnableSsl = $true
             $SmtpClient.Credentials = New-Object System.Net.NetworkCredential($SmtpUser, $SmtpPass)
-            $MailMessage = New-Object System.Net.Mail.MailMessage($SmtpUser, $ToEmail, "❌ V10 執行失敗", $ErrorMsg)
+            $MailMessage = New-Object System.Net.Mail.MailMessage($SmtpUser, $ToEmail, "❌ 歷史腦洞批次生成失敗", $ErrorMsg)
             $MailMessage.BodyEncoding = [System.Text.Encoding]::UTF8
             $SmtpClient.Send($MailMessage)
             Write-Log "📧 錯誤通知已發送"
@@ -97,14 +85,14 @@ function Send-ErrorNotification {
 }
 
 Write-Log "============================================================"
-Write-Log "📜 歷史腦洞 20 篇 — 即時顯示 + 排程優化版 v10.2"
+Write-Log "📜 歷史腦洞 — 無人值守 + 方便添加 v11.2 (無餘額檢查)"
 Write-Log "⏰ 啟動時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 Write-Log "============================================================"
 
 # ============================================================
-# 步驟 1：檢查 API Key
+# 📋 步驟 1：檢查 API Key
 # ============================================================
-Write-Log "[1/6] 檢查 API Key..."
+Write-Log "[1/4] 檢查 API Key..."
 Save-Checkpoint -Stage "api_check"
 
 $EnvPath = "$ProjectRoot\.env"
@@ -126,39 +114,39 @@ if (-not $DeepSeekKey) {
 Write-Log "✅ API Key 檢查通過"
 
 # ============================================================
-# 步驟 2：定義 20 篇文章 -- 現代人穿越中國古代
+# 📝 步驟 2：★ 方便添加區 ★
 # ============================================================
-Write-Log "[2/6] 定義 20 篇文章清單..."
-Save-Checkpoint -Stage "article_definition"
-
-# ============================================================
-# 步驟 2：定義 100 篇文章 -- 現代人穿越中國古代 (100篇完整版)
-# ============================================================
-Write-Log "[2/6] 定義 100 篇文章清單..."
-Save-Checkpoint -Stage "article_definition"
+Write-Log "[2/4] 準備文章清單..."
 
 $Articles = @(
+    # ── 現有文章 ──
     @{ keyword = "如果現代神經外科醫生穿越到唐朝：幫唐玄宗治療頭痛，用開顱手術根治千年頑疾，皇帝封他為「天醫」"; filename = "neurosurgeon-tang-xuanzong.html" },
-    @{ keyword = "如果現代全息投影工程師穿越到宋朝：幫汴京設計全息夜市，古代科技震撼世界"; filename = "hologram-engineer-song-kaifeng.html" }
- )
+    @{ keyword = "如果現代全息投影工程師穿越到宋朝：幫汴京設計全息夜市，古代科技震撼世界"; filename = "hologram-engineer-song-kaifeng.html" },
+    
+    # ── 🆕 新增文章 ──
+    @{ keyword = "如果現代量子物理學家穿越到明朝：用薛定諤的貓解釋太監命運，皇帝驚呆封他為「國師」"; filename = "quantum-physicist-ming-dynasty.html" }
+    
+    # ── 🆕 新增文章請複製下面這一行，貼在上方 ──
+    # @{ keyword = "你的新文章標題"; filename = "your-new-article.html" },
+)
 
 Write-Log "✅ 已定義 $($Articles.Count) 篇文章"
 
 # ============================================================
-# 步驟 3：檢查 history/ 目錄
+# 📂 步驟 3：檢查 history/ 目錄 → 寫入 JSON → 合併
 # ============================================================
-Write-Log "[3/6] 檢查 history/ 目錄..."
-Save-Checkpoint -Stage "directory_check"
+Write-Log "[3/4] 檢查缺失文章並合併到 master-articles.json..."
+Save-Checkpoint -Stage "merge"
 
-$HistoryDir = "$ProjectRoot\history"
-if (-not (Test-Path $HistoryDir)) {
-    New-Item -ItemType Directory -Path $HistoryDir -Force | Out-Null
+$TargetDir = "$ProjectRoot\history"
+if (-not (Test-Path $TargetDir)) {
+    New-Item -ItemType Directory -Path $TargetDir -Force | Out-Null
     Write-Log "   📁 history/ 目錄已建立"
 }
 
 $ExistingFiles = @()
-if (Test-Path $HistoryDir) {
-    $ExistingFiles = Get-ChildItem "$HistoryDir\*.html" -ErrorAction SilentlyContinue | ForEach-Object { $_.Name }
+if (Test-Path $TargetDir) {
+    $ExistingFiles = Get-ChildItem "$TargetDir\*.html" -ErrorAction SilentlyContinue | ForEach-Object { $_.Name }
 }
 Write-Log "   📄 已存在: $($ExistingFiles.Count) 篇"
 
@@ -170,23 +158,18 @@ foreach ($article in $Articles) {
 }
 
 if ($MissingArticles.Count -eq 0) {
-    Write-Log "   ✅ 所有 20 篇文章已存在，無需生成"
+    Write-Log "   ✅ 所有文章已存在，無需生成"
     Write-Log "============================================================"
     Write-Log "✅ 檢查完成！所有文章已存在"
     exit 0
 }
 
-Write-Log "   ⚠️ 缺失 $($MissingArticles.Count) 篇文章，開始生成..."
+Write-Log "   ⚠️ 缺失 $($MissingArticles.Count) 篇文章，準備生成..."
 foreach ($article in $MissingArticles) {
     Write-Log "      📄 $($article.filename)"
 }
 
-# ============================================================
-# 步驟 4：寫入 pending-articles.json
-# ============================================================
-Write-Log "[4/6] 寫入缺失文章 JSON..."
-Save-Checkpoint -Stage "json_write" -Detail "Missing: $($MissingArticles.Count) articles"
-
+# 寫入 pending-articles.json
 $jsonContent = "[`n"
 $first = $true
 foreach ($article in $MissingArticles) {
@@ -208,14 +191,9 @@ $jsonContent += "`n]"
 $PendingPath = "$ProjectRoot\data\pending-articles.json"
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 [System.IO.File]::WriteAllText($PendingPath, $jsonContent, $utf8NoBom)
-Write-Log "✅ JSON 已寫入 ($($MissingArticles.Count) 篇，UTF-8 無 BOM)"
+Write-Log "   ✅ JSON 已寫入 ($($MissingArticles.Count) 篇，UTF-8 無 BOM)"
 
-# ============================================================
-# 步驟 5：合併文章
-# ============================================================
-Write-Log "[5/6] 直接合併文章到 master-articles.json..."
-Save-Checkpoint -Stage "merge"
-
+# 合併到 master-articles.json
 $PyMergeScript = @'
 import json, os, shutil
 from datetime import datetime
@@ -276,23 +254,64 @@ if ($LASTEXITCODE -ne 0) {
 Write-Log "✅ 文章合併完成"
 
 # ============================================================
-# 步驟 6：執行文章生成 — 即時顯示模式
+# 🚀 步驟 4：執行文章生成 (直接呼叫 article_generator)
 # ============================================================
-Write-Log "[6/6] 執行文章生成與部署..."
+Write-Log "[4/4] 執行文章生成與部署..."
 Save-Checkpoint -Stage "generation_start"
 
-Write-Log "   [6a] 生成文章 (python src/main.py --force deepseek)..."
+Write-Log "   [4a] 生成文章 (直接呼叫 article_generator，繞過 main.py)..."
 Write-Log "   ⏳ 預計耗時 60-90 分鐘"
 Write-Log ""
 Write-Log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Write-Log "  📡 文章生成即時輸出 (每篇文章完成時顯示)"
+Write-Log "  📡 文章生成即時輸出"
 Write-Log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Write-Log ""
 
-$MainOutputPath = "$LogDir\main-output.txt"
+python -c "
+import json
+import sys
+import os
+sys.path.insert(0, '.')
 
-# 即時顯示 + 同時寫入日誌
-python src/main.py --force deepseek 2>&1 | Tee-Object -FilePath $MainOutputPath
+from src.article_generator import generate_article
+
+with open('data/master-articles.json', 'r', encoding='utf-8') as f:
+    all_articles = json.load(f)
+
+history_articles = [a for a in all_articles if a.get('filename', '').startswith('history/')]
+total = len(history_articles)
+print(f'📊 從 master-articles.json 找到 {total} 篇 history 文章')
+
+success_count = 0
+fail_count = 0
+skip_count = 0
+
+for idx, article in enumerate(history_articles, 1):
+    filename = article.get('filename', '')
+    filepath = f'./{filename}'
+    
+    if os.path.exists(filepath):
+        size = os.path.getsize(filepath)
+        if size >= 5120:
+            print(f'⏩ [{idx}/{total}] 已存在：{filename} ({size} bytes)')
+            skip_count += 1
+            continue
+        else:
+            print(f'⚠️ [{idx}/{total}] 檔案過小，重新生成：{filename} ({size} bytes)')
+    
+    print(f'--- 進度 {idx}/{total} ---')
+    try:
+        generate_article(article)
+        success_count += 1
+    except Exception as e:
+        print(f'❌ 生成失敗：{e}')
+        fail_count += 1
+
+print(f'')
+print(f'✅ 成功生成 {success_count} 篇')
+print(f'⏩ 跳過 {skip_count} 篇')
+print(f'❌ 失敗 {fail_count} 篇')
+"
 
 $ExitCode = $LASTEXITCODE
 
@@ -304,7 +323,31 @@ if ($ExitCode -ne 0) {
     
     Write-Log ""
     Write-Log "🔄 第二次嘗試..."
-    python src/main.py --force deepseek 2>&1 | Tee-Object -FilePath "$LogDir\main-output-retry.txt"
+    python -c "
+import json
+import sys
+import os
+sys.path.insert(0, '.')
+from src.article_generator import generate_article
+
+with open('data/master-articles.json', 'r', encoding='utf-8') as f:
+    all_articles = json.load(f)
+
+history_articles = [a for a in all_articles if a.get('filename', '').startswith('history/')]
+
+success_count = 0
+for idx, article in enumerate(history_articles, 1):
+    filename = article.get('filename', '')
+    filepath = f'./{filename}'
+    if os.path.exists(filepath) and os.path.getsize(filepath) >= 5120:
+        continue
+    try:
+        generate_article(article)
+        success_count += 1
+    except Exception as e:
+        print(f'❌ 失敗：{e}')
+print(f'✅ 第二次嘗試成功生成 {success_count} 篇')
+"
     
     if ($LASTEXITCODE -ne 0) {
         Write-Log "❌ 第二次重試仍失敗"
@@ -318,9 +361,9 @@ Write-Log ""
 Write-Log "✅ 文章生成完成"
 
 # ============================================================
-# 步驟 7：更新分類頁面與 Sitemap
+# 📂 更新分類頁面與 Sitemap
 # ============================================================
-Write-Log "   [6b] 更新分類頁面與 Sitemap..."
+Write-Log "   [4b] 更新分類頁面與 Sitemap..."
 Save-Checkpoint -Stage "category_update"
 
 python -c "from src.html_builder import generate_category_pages, generate_categories_page, create_default_index; generate_category_pages(); generate_categories_page(); create_default_index()" 2>&1 | Out-String | Write-Log
@@ -333,9 +376,9 @@ if ($LASTEXITCODE -ne 0) {
 Write-Log "✅ 分類頁面與首頁已更新"
 
 # ============================================================
-# 步驟 8：部署到 Cloudflare
+# ☁️ 部署到 Cloudflare
 # ============================================================
-Write-Log "   [6c] 部署到 Cloudflare Pages..."
+Write-Log "   [4c] 部署到 Cloudflare Pages..."
 Save-Checkpoint -Stage "deploy"
 
 $DeployResult = & npx wrangler pages deploy . --project-name=ahpal-pages 2>&1
@@ -355,18 +398,17 @@ if ($LASTEXITCODE -ne 0) {
 Write-Log "✅ 部署完成"
 
 # ============================================================
-# 完成報告
+# 📊 完成報告
 # ============================================================
 Save-Checkpoint -Stage "complete"
 Write-Log "============================================================"
-Write-Log "✅ 歷史腦洞 第九波 20 篇 — 即時顯示 + 排程優化版執行完畢！"
+Write-Log "✅ 歷史腦洞 — 無人值守 + 方便添加 v11.2 執行完畢！"
 Write-Log "📅 完成時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
-Write-Log "📊 本次新增: $($MissingArticles.Count) 篇"
 Write-Log "📁 日誌位置: $LogFile"
 Write-Log "============================================================"
 
 # ============================================================
-# 寄送完成通知
+# 📧 寄送完成通知
 # ============================================================
 Write-Log "📧 寄送完成通知..."
 
@@ -379,12 +421,11 @@ if (Test-Path $EnvPath) {
 }
 
 if ($SmtpUser -and $SmtpPass -and $ToEmail) {
-    $Subject = "📜 歷史腦洞 100 篇 — 即時顯示 + 排程優化版完成通知"
+    $Subject = "📜 歷史腦洞批次生成 v11.2 完成通知"
     $Body = @"
-歷史腦洞 100 篇即時顯示 + 排程優化版已於 $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') 完成！
+歷史腦洞批次生成 v11.2 (無餘額檢查) 已於 $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') 完成！
 
 📊 執行摘要：
-   - 本次新增：$($MissingArticles.Count) 篇
    - 日誌位置：$LogFile
    - 部署狀態：✅ 已完成
 

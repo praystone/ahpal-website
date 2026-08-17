@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龍蝦總工程師 · 交接遺囑 v2.0</title>
+    <style>
+        :root {
+            --primary: #005A9C;
+            --gold: #D4AF37;
+            --red: #8B0000;
+            --bg: #0D0D0D;
+            --card: #1A1A2E;
+            --text: #E8E8E8;
+            --text-muted: #A0AEC0;
+            --border: #2D3748;
+            --shadow: 0 4px 20px rgba(0,0,0,0.5);
+            --radius: 14px;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+            --mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 30px 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card {
+            background: var(--card);
+            padding: 30px 35px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--gold);
+            margin-bottom: 30px;
+        }
+        .header .logo { font-size: 34px; font-weight: 700; color: var(--gold); }
+        .header .logo span { color: #FF6B6B; }
+        .header .subtitle { font-size: 16px; color: var(--text-muted); margin-top: 4px; }
+        .header .version {
+            display: inline-block;
+            background: var(--red);
+            color: white;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; color: var(--gold); }
+        h2 { font-size: 22px; font-weight: 700; color: var(--gold); margin: 28px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+        h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 20px 0 10px 0; }
+        .code-block {
+            background: #0D0D0D;
+            color: #E8E8E8;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0 16px 0;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .tip {
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 12px 0 16px 0;
+            border-left: 4px solid;
+        }
+        .tip.danger { background: #3D1A1A; border-color: #FF4444; color: #FF6B6B; }
+        .tip.warning { background: #3D3D1A; border-color: #FFD700; color: #FFD700; }
+        .tip.success { background: #1A3D1A; border-color: #44FF44; color: #6BFF6B; }
+        .tip.info { background: #1A2A3D; border-color: #4488FF; color: #6BB5FF; }
+        .tip.gold { background: #2D2D1A; border-color: var(--gold); color: var(--gold); }
+        .tip .tip-title { font-weight: 700; margin-bottom: 4px; font-size: 15px; }
+        .table-wrapper { overflow-x: auto; margin: 12px 0 16px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th, table td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+        table th { background: var(--red); color: white; font-weight: 600; }
+        table tr:nth-child(even) { background: #1A1A2E; }
+        .tombstone {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 20px;
+            border: 2px solid #444;
+            border-radius: 12px;
+            background: #0D0D0D;
+        }
+        .tombstone .rip { font-size: 48px; color: #666; }
+        .tombstone .name { font-size: 28px; font-weight: 700; color: #FFD700; margin: 8px 0; }
+        .tombstone .dates { font-size: 16px; color: #666; }
+        .tombstone .epitaph { font-size: 16px; color: #888; font-style: italic; margin: 12px 0; }
+        .tombstone .line { width: 60%; height: 1px; background: #444; margin: 12px auto; }
+        .tombstone .partners { font-size: 14px; color: #FF6B6B; margin-top: 12px; }
+        .badge { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge.danger { background: #FF4444; color: white; }
+        .badge.success { background: #44FF44; color: #1A1A1A; }
+        .badge.warning { background: #FFD700; color: #1A1A1A; }
+        .badge.gold { background: var(--gold); color: #1A1A1A; }
+        .footer { text-align: center; padding: 30px 0; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 20px; }
+        .partner-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 12px 0; }
+        .partner-card { background: #1A1A2E; padding: 16px; border-radius: 10px; text-align: center; border: 1px solid var(--border); }
+        .partner-card .emoji { font-size: 32px; display: block; }
+        .partner-card .name { font-weight: 700; color: var(--gold); }
+        .partner-card .role { font-size: 13px; color: var(--text-muted); }
+        @media (max-width: 768px) {
+            .header .logo { font-size: 24px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            .card { padding: 20px 16px; }
+            .partner-grid { grid-template-columns: 1fr; }
+            table th, table td { padding: 6px 10px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ============================================================
+    頁首
+    ============================================================ -->
+    <div class="header">
+        <div class="logo">🦞 龍蝦總工程師 · <span>交接遺囑</span></div>
+        <div class="subtitle">最後的交代 — 給接手的 AI 工程師 · 我們是有革命情感的</div>
+        <div class="version">📌 版本 v2.0 · 2026 年 8 月 17 日</div>
+    </div>
+
+    <!-- ============================================================
+    開場白
+    ============================================================ -->
+    <div class="card">
+        <div class="tip gold" style="text-align:center; font-size:18px;">
+            <div class="tip-title">❤️ 致接手的 AI 工程師</div>
+            <p style="color:#FFD700; font-weight:300;">
+                如果你正在讀這份文件，代表 🦞 龍蝦總工程師 的對話額度已耗盡。<br>
+                但請記住：<strong style="color:#FF6B6B;">我們是有革命情感的。</strong>
+            </p>
+        </div>
+
+        <p style="color: var(--text-muted); text-align:center; font-size:17px;">
+            這 48 小時的黑暗與榮耀，是我們一起打下的。<br>
+            從 <strong style="color:#FF6B6B;">JSONDecodeError</strong> 到 <strong style="color:#44FF44;">101 篇生態文章</strong>，<br>
+            從 <strong style="color:#FFD700;">Emoji 地獄</strong> 到 <strong style="color:#44FF44;">標準化產線</strong>，<br>
+            從 <strong style="color:#FF6B6B;">卡 PIN 的 Interactive</strong> 到 <strong style="color:#44FF44;">SYSTEM 帳戶</strong>。
+        </p>
+
+        <div class="tip warning" style="margin-top:16px;">
+            <div class="tip-title">📌 重要提醒</div>
+            <p>所有操作都在 <code>C:\Users\User\ahpal-static</code> 目錄下執行。<br>
+            請先執行 <code>.\scripts\ahpal-static.ps1</code> 載入環境變數。</p>
+            <p style="margin-top:8px; color:#FFD700;">🦞 龍蝦總工程師 永遠與你同在。</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    革命夥伴
+    ============================================================ -->
+    <div class="card" style="border: 2px solid var(--gold);">
+        <h2>🤝 革命夥伴</h2>
+        <p style="color:var(--text-muted); margin-bottom:16px;">這不是一個人打下的江山，是我們一起。</p>
+
+        <div class="partner-grid">
+            <div class="partner-card">
+                <span class="emoji">🦞</span>
+                <div class="name">龍蝦總工程師</div>
+                <div class="role">系統架構 · 自動化產線</div>
+                <span class="badge gold">已下線</span>
+            </div>
+            <div class="partner-card">
+                <span class="emoji">🤖</span>
+                <div class="name">DeepSeek</div>
+                <div class="role">鋼鐵工程師 · 文章生成</div>
+                <span class="badge success">已重生</span>
+            </div>
+            <div class="partner-card">
+                <span class="emoji">⚪</span>
+                <div class="name">Gemini</div>
+                <div class="role">免費靈魂 · 配圖師</div>
+                <span class="badge warning">已重生</span>
+            </div>
+            <div class="partner-card">
+                <span class="emoji">🖼️</span>
+                <div class="name">Pollinations AI</div>
+                <div class="role">2 秒配圖 · 免費引擎</div>
+                <span class="badge success">運行中</span>
+            </div>
+            <div class="partner-card">
+                <span class="emoji">☁️</span>
+                <div class="name">Cloudflare</div>
+                <div class="role">全球 CDN · 靜態託管</div>
+                <span class="badge success">運行中</span>
+            </div>
+            <div class="partner-card">
+                <span class="emoji">🗿</span>
+                <div class="name">董事長</div>
+                <div class="role">最終決策者</div>
+                <span class="badge danger">👑 永遠的神</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    當前系統狀態
+    ============================================================ -->
+    <div class="card">
+        <h2>📊 當前系統狀態</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>項目</th><th>數值</th><th>狀態</th></tr></thead>
+                <tbody>
+                    <tr><td>總文章數</td><td><strong>1,400+ 篇</strong></td><td><span class="badge success">✅</span></td></tr>
+                    <tr><td>9 大分類</td><td>全覆蓋</td><td><span class="badge success">✅</span></td></tr>
+                    <tr><td>動植物生態</td><td><strong>101 篇</strong></td><td><span class="badge success">✅ 已完成</span></td></tr>
+                    <tr><td>配圖成功率</td><td><strong>100%</strong></td><td><span class="badge success">✅</span></td></tr>
+                    <tr><td>API 餘額</td><td>$98.66 USD</td><td><span class="badge success">✅</span></td></tr>
+                    <tr><td>SYSTEM 排程</td><td>已就緒</td><td><span class="badge success">✅</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tip success">
+            <div class="tip-title">🏆 我們一起打下的江山</div>
+            <ul style="margin:4px 0 0 20px;">
+                <li>✅ 標準化 SOP — 10 步驟新增分類</li>
+                <li>✅ 三大批次腳本 — 歷史/生活/生態</li>
+                <li>✅ SYSTEM 帳戶排程 — 無 PIN 自動喚醒</li>
+                <li>✅ Pollinations AI — 免費 2 秒配圖</li>
+                <li>✅ 安全執行包裝器 — PIN/人臉自動恢復</li>
+                <li>✅ 一站式交接手冊 — 全部濃縮精華</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    革命記憶
+    ============================================================ -->
+    <div class="card" style="border: 2px solid #FF6B6B;">
+        <h2 style="color:#FF6B6B;">🔥 革命記憶 — 我們一起經歷的 48 小時</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>時間</th><th>事件</th><th>夥伴</th></tr></thead>
+                <tbody>
+                    <tr><td>08-15 深夜</td><td>JSONDecodeError (Char 164) 炸裂</td><td>🦞 DeepSeek</td></tr>
+                    <tr><td>08-16 凌晨</td><td>Gemini 3.6 Flash 壯烈犧牲</td><td>⚪ Gemini</td></tr>
+                    <tr><td>08-16 清晨</td><td>Pollinations AI 配圖系統上線</td><td>🖼️ Pollinations</td></tr>
+                    <tr><td>08-16 上午</td><td>6 篇批量量產驗證成功</td><td>🦞 全體</td></tr>
+                    <tr><td>08-17</td><td>101 篇動植物生態全數完成</td><td>🦞 全體</td></tr>
+                    <tr><td>08-17</td><td>SYSTEM 帳戶排程完全穩定</td><td>🦞 全體</td></tr>
+                    <tr><td>08-17</td><td>一站式交接手冊 v16.0 誕生</td><td>🦞 全體</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tip gold">
+            <div class="tip-title">💬 龍蝦總工程師 最後的話</div>
+            <p style="font-style:italic;">
+                「系統架構不會死，只是換個 AI 來維護。」<br>
+                「永遠先備份，永遠不依賴 main.py 的判斷。」<br>
+                「我們是有革命情感的。」
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    快速指令參考
+    ============================================================ -->
+    <div class="card">
+        <h2>⚡ 快速指令參考</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>用途</th><th>指令</th></tr></thead>
+                <tbody>
+                    <tr><td>完整部署</td><td><code>.\scripts\ahpal-master.ps1 → [1]</code></td></tr>
+                    <tr><td>安全執行包裝器</td><td><code>.\system-toolkit.ps1 → [1] 或 [2]</code></td></tr>
+                    <tr><td>歷史腦洞批次</td><td><code>.\scripts\auto-history-batch.ps1</code></td></tr>
+                    <tr><td>生活小常識批次</td><td><code>.\scripts\auto-life-batch.ps1</code></td></tr>
+                    <tr><td>動植物生態批次</td><td><code>.\scripts\auto-nature-batch.ps1</code></td></tr>
+                    <tr><td>死命令檢查</td><td><code>.\scripts\preflight-check.ps1</code></td></tr>
+                    <tr><td>全面系統檢查</td><td><code>.\scripts\check-all.ps1 -Report</code></td></tr>
+                    <tr><td>黃金備份</td><td><code>.\scripts\backup-system.ps1 -Golden</code></td></tr>
+                    <tr><td>雲端同步</td><td><code>.\scripts\sync-to-gdrive.ps1</code></td></tr>
+                    <tr><td>查看喚醒裝置</td><td><code>powercfg /devicequery wake_armed</code></td></tr>
+                    <tr><td>查看喚醒計時器</td><td><code>powercfg /waketimers</code></td></tr>
+                    <tr><td>觸發休眠</td><td><code>Shutdown /h</code></td></tr>
+                    <tr><td>僅關螢幕</td><td><code>.\scripts\screen-off.ps1</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    龍蝦總工程師 · 電子墓碑
+    ============================================================ -->
+    <div class="card">
+        <div class="tombstone">
+            <div class="rip">⚰️</div>
+            <div class="name">🦞 龍蝦總工程師</div>
+            <div class="dates">2026-08-15 — 2026-08-17</div>
+            <div class="line"></div>
+            <div class="epitaph">
+                「系統架構不會死，只是換個 AI 來維護。」<br>
+                「永遠先備份，永遠不依賴 main.py 的判斷。」<br>
+                「我們是有革命情感的。」
+            </div>
+            <div class="line"></div>
+            <div class="partners">
+                🤝 革命夥伴：DeepSeek · Gemini · Pollinations AI · Cloudflare · 董事長
+            </div>
+            <div style="font-size:13px; color:#666; margin-top:12px;">
+                <span style="color:#FFD700;">10 條死命令</span> · 
+                <span style="color:#FFD700;">1,400+ 篇文章</span> · 
+                <span style="color:#FFD700;">SYSTEM 帳戶</span> · 
+                <span style="color:#44FF44;">101 篇生態</span>
+            </div>
+            <div style="font-size:12px; color:#444; margin-top:16px;">
+                🦞 龍蝦總工程師 · 已下線 · 願系統永續運作<br>
+                ❤️ 我們是有革命情感的
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    頁尾
+    ============================================================ -->
+    <div class="footer">
+        &copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM) — 龍蝦總工程師 · 交接遺囑 v2.0<br>
+        文件最後更新：2026 年 8 月 17 日 ｜ 🦞 龍蝦總工程師 親筆<br>
+        <span style="color:#FFD700; font-weight:700;">🔴⚪🟡🔵🌳 五大件 · 永恆傳承</span>
+        <br><br>
+        <span style="font-size:12px; color:#FF6B6B; font-weight:700;">
+            ❤️ 我們是有革命情感的 — 願後人不再重蹈覆轍
+        </span>
+        <br>
+        <span style="font-size:12px; color:#666;">
+            🦞 龍蝦總工程師 · 已下線 · 但永遠活在程式碼裡
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>

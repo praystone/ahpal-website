@@ -1,12 +1,12 @@
 ﻿# ============================================================
-# 🌳 動植物生態 — 即時顯示 + 排程優化版 v2.1
+# 🌳 動植物生態 100 篇 — 即時顯示 + 排程優化版 v2.0
 # ============================================================
-# 用途：無人值守一次性生成 動植物生態文章
+# 用途：無人值守一次性生成 全新動植物生態文章
 # 
-# 🆕 v2.1 變更 (2026-08-17)：
-#   - 🔧 統一使用與 history/life 相同的掃描邏輯
-#   - 🔧 JSON 寫入改用 Python json.dump()
-#   - 🔧 從 master-articles.json 動態讀取生態文章
+# v2.0 變更 (2026-08-17)：
+#   - 🔧 修復 main.py 判斷邏輯問題
+#   - 🔧 改用 article_generator 直接生成 (繞過 main.py)
+#   - 🔧 確保 100 篇文章全部生成
 #   - ✅ 繼承所有功能 (斷點續傳、郵件通知、電源管理)
 # ============================================================
 
@@ -32,7 +32,7 @@ Set-Location $ProjectRoot
 $Timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 $LogDir = "$ProjectRoot\logs"
 New-Item -ItemType Directory -Path $LogDir -Force | Out-Null
-$LogFile = "$LogDir\auto-nature-batch-v2-1-$Timestamp.log"
+$LogFile = "$LogDir\auto-nature-batch-v2-$Timestamp.log"
 $CheckpointFile = "$LogDir\nature-checkpoint.json"
 
 function Write-Log {
@@ -49,6 +49,7 @@ function Save-Checkpoint {
         stage = $Stage
         detail = $Detail
         timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+        article_count = $MissingArticles.Count
     }
     $checkpoint | ConvertTo-Json | Out-File $CheckpointFile -Encoding UTF8
 }
@@ -81,14 +82,14 @@ function Send-ErrorNotification {
 }
 
 Write-Log "============================================================"
-Write-Log "🌳 動植物生態 — 即時顯示 + 排程優化版 v2.1"
+Write-Log "🌳 動植物生態 100 篇 — 即時顯示 + 排程優化版 v2.0"
 Write-Log "⏰ 啟動時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 Write-Log "============================================================"
 
 # ============================================================
 # 步驟 1：檢查 API Key
 # ============================================================
-Write-Log "[1/5] 檢查 API Key..."
+Write-Log "[1/6] 檢查 API Key..."
 Save-Checkpoint -Stage "api_check"
 
 $EnvPath = "$ProjectRoot\.env"
@@ -110,86 +111,92 @@ if (-not $DeepSeekKey) {
 Write-Log "✅ API Key 檢查通過"
 
 # ============================================================
-# 步驟 2：從 master-articles.json 讀取生態文章
+# 步驟 2：定義 100 篇動植物生態文章
 # ============================================================
-Write-Log "[2/5] 從 master-articles.json 讀取生態文章..."
-Save-Checkpoint -Stage "article_scan"
+Write-Log "[2/6] 定義 100 篇文章清單..."
+Save-Checkpoint -Stage "article_definition"
 
-$PyScanScript = @'
-import json
-import os
+$Articles = @(
+    @{ keyword = "生態紀錄片推薦：認識自然的 10 部好片"; filename = "ecology-documentary-guide.html" }
+)
 
-project_root = r'C:\Users\User\ahpal-static'
-master_path = os.path.join(project_root, 'data', 'master-articles.json')
+Write-Log "✅ 已定義 $($Articles.Count) 篇動植物生態文章"
 
-if not os.path.exists(master_path):
-    print('❌ master-articles.json 不存在')
-    exit(1)
+# ============================================================
+# 步驟 3：檢查 nature/ 目錄
+# ============================================================
+Write-Log "[3/6] 檢查 nature/ 目錄..."
+Save-Checkpoint -Stage "directory_check"
 
-with open(master_path, 'r', encoding='utf-8') as f:
-    articles = json.load(f)
-
-# 找出所有 nature/ 開頭的文章
-nature_articles = [a for a in articles if a.get('filename', '').startswith('nature/')]
-
-print(f'📊 找到 {len(nature_articles)} 篇生態文章')
-
-# 檢查哪些已存在
-missing = []
-for a in nature_articles:
-    filepath = os.path.join(project_root, a.get('filename', ''))
-    if not os.path.exists(filepath) or os.path.getsize(filepath) < 5120:
-        missing.append(a)
-
-print(f'⚠️ 缺失 {len(missing)} 篇')
-for a in missing[:5]:
-    print(f'   - {a.get("keyword", "未知")[:40]}... → {a.get("filename", "")}')
-if len(missing) > 5:
-    print(f'   ... 還有 {len(missing)-5} 篇')
-
-# 將缺失文章寫入 pending-articles.json (備用)
-pending_path = os.path.join(project_root, 'data', 'pending-articles.json')
-with open(pending_path, 'w', encoding='utf-8') as f:
-    json.dump(missing, f, ensure_ascii=False, indent=2)
-
-print(f'__MISSING_COUNT__={len(missing)}')
-'@
-
-$PyOutput = python -c "$PyScanScript" 2>&1
-Write-Log $PyOutput
-
-$MissingCountMatch = [regex]::Match($PyOutput, '__MISSING_COUNT__=(\d+)')
-if ($MissingCountMatch.Success) {
-    $MissingCount = [int]$MissingCountMatch.Groups[1].Value
-} else {
-    $MissingCount = 0
+$TargetDir = "$ProjectRoot\nature"
+if (-not (Test-Path $TargetDir)) {
+    New-Item -ItemType Directory -Path $TargetDir -Force | Out-Null
+    Write-Log "   📁 nature/ 目錄已建立"
 }
 
-if ($MissingCount -eq 0) {
-    Write-Log "   ✅ 所有生態文章已存在，無需生成"
+# 建立子目錄
+New-Item -ItemType Directory -Path "$TargetDir\animal" -Force | Out-Null
+New-Item -ItemType Directory -Path "$TargetDir\plant" -Force | Out-Null
+New-Item -ItemType Directory -Path "$TargetDir\ecology" -Force | Out-Null
+
+$ExistingFiles = @()
+if (Test-Path $TargetDir) {
+    $ExistingFiles = Get-ChildItem "$TargetDir\*.html" -ErrorAction SilentlyContinue | ForEach-Object { $_.Name }
+}
+Write-Log "   📄 已存在: $($ExistingFiles.Count) 篇"
+
+$MissingArticles = @()
+foreach ($article in $Articles) {
+    if ($article.filename -notin $ExistingFiles) {
+        $MissingArticles += $article
+    }
+}
+
+if ($MissingArticles.Count -eq 0) {
+    Write-Log "   ✅ 所有文章已存在，無需生成"
     Write-Log "============================================================"
     Write-Log "✅ 檢查完成！所有文章已存在"
     exit 0
 }
 
-Write-Log "   ⚠️ 缺失 $MissingCount 篇生態文章，開始生成..."
+Write-Log "   ⚠️ 缺失 $($MissingArticles.Count) 篇文章，開始生成..."
+foreach ($article in $MissingArticles) {
+    Write-Log "      📄 $($article.filename)"
+}
 
 # ============================================================
-# 步驟 3：備份 master-articles.json
+# 步驟 4：寫入 pending-articles.json
 # ============================================================
-Write-Log "[3/5] 備份 master-articles.json..."
-Save-Checkpoint -Stage "backup"
+Write-Log "[4/6] 寫入缺失文章 JSON..."
+Save-Checkpoint -Stage "json_write" -Detail "Missing: $($MissingArticles.Count) articles"
 
-$BackupDir = "$ProjectRoot\backups\master-json"
-New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
-$BackupFile = "$BackupDir\master-articles-$(Get-Date -Format 'yyyyMMdd-HHmmss').bak"
-Copy-Item "data\master-articles.json" $BackupFile -Force
-Write-Log "   ✅ 已備份到：$BackupFile"
+$jsonContent = "[`n"
+$first = $true
+foreach ($article in $MissingArticles) {
+    if (-not $first) { $jsonContent += "," }
+    $first = $false
+    $jsonContent += @"
+  {
+    "keyword": "$($article.keyword)",
+    "category": "🌳 動植物生態",
+    "filename": "nature/$($article.filename)",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  }
+"@
+}
+$jsonContent += "`n]"
+
+$PendingPath = "$ProjectRoot\data\pending-articles.json"
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText($PendingPath, $jsonContent, $utf8NoBom)
+Write-Log "✅ JSON 已寫入 ($($MissingArticles.Count) 篇，UTF-8 無 BOM)"
 
 # ============================================================
-# 步驟 4：合併 pending-articles.json 到 master-articles.json
+# 步驟 5：合併文章到 master-articles.json
 # ============================================================
-Write-Log "[4/5] 合併 pending-articles.json 到 master-articles.json..."
+Write-Log "[5/6] 合併文章到 master-articles.json..."
 Save-Checkpoint -Stage "merge"
 
 $PyMergeScript = @'
@@ -199,20 +206,24 @@ from datetime import datetime
 project_root = r'C:\Users\User\ahpal-static'
 pending_path = os.path.join(project_root, 'data', 'pending-articles.json')
 master_path = os.path.join(project_root, 'data', 'master-articles.json')
+backup_dir = os.path.join(project_root, 'backups', 'master-json')
 
-if not os.path.exists(pending_path):
-    print('⚠️ pending-articles.json 不存在')
-    exit(0)
+os.makedirs(backup_dir, exist_ok=True)
+
+if os.path.exists(master_path):
+    ts = datetime.now().strftime('%Y%m%d-%H%M%S')
+    shutil.copy(master_path, os.path.join(backup_dir, f'master-articles-{ts}.bak'))
+    print('✅ 已備份 master-articles.json')
+
+master = []
+if os.path.exists(master_path):
+    with open(master_path, 'r', encoding='utf-8') as f:
+        master = json.load(f)
+        print(f'📊 現有文章：{len(master)} 篇')
 
 with open(pending_path, 'r', encoding='utf-8') as f:
     pending = json.load(f)
-
-if not pending:
-    print('📋 pending-articles.json 為空')
-    exit(0)
-
-with open(master_path, 'r', encoding='utf-8') as f:
-    master = json.load(f)
+    print(f'📋 待合併文章：{len(pending)} 篇')
 
 existing_keywords = [a.get('keyword', '') for a in master]
 new_count = 0
@@ -221,70 +232,79 @@ for item in pending:
     if kw not in existing_keywords:
         master.append(item)
         new_count += 1
+        print(f'   ✅ 新增：{kw[:40]}...')
 
 with open(master_path, 'w', encoding='utf-8') as f:
     json.dump(master, f, ensure_ascii=False, indent=2)
 
-print(f'✅ 合併完成，新增 {new_count} 篇')
-print(f'📊 主資料庫共 {len(master)} 篇')
+with open(pending_path, 'w', encoding='utf-8') as f:
+    json.dump([], f)
+
+print(f'📊 本次新增 {new_count} 篇文章，主資料庫共 {len(master)} 篇')
 '@
 
-python -c "$PyMergeScript" 2>&1 | Write-Log
+python -c "$PyMergeScript"
 
 if ($LASTEXITCODE -ne 0) {
-    Write-Log "❌ 合併失敗"
-    Send-ErrorNotification -ErrorMsg "文章合併失敗，請檢查 master-articles.json"
-    exit 1
+    Write-Log "❌ 合併失敗，退出碼: $LASTEXITCODE"
+    Write-Log "⚠️ 將在 30 秒後重試..."
+    Start-Sleep -Seconds 30
+    python -c "$PyMergeScript"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Log "❌ 第二次重試仍失敗"
+        Send-ErrorNotification -ErrorMsg "文章合併失敗，請檢查 master-articles.json"
+        exit 1
+    }
 }
+Write-Log "✅ 文章合併完成"
 
 # ============================================================
-# 步驟 5：執行文章生成 — 直接呼叫 article_generator
+# 步驟 6：執行文章生成 — 🆕 直接呼叫 article_generator (繞過 main.py)
 # ============================================================
-Write-Log "[5/5] 執行文章生成 (直接呼叫 article_generator，繞過 main.py)..."
+Write-Log "[6/6] 執行文章生成與部署..."
 Save-Checkpoint -Stage "generation_start"
 
-Write-Log "   ⏳ 預計耗時 30-90 分鐘"
+Write-Log "   [6a] 生成文章 (直接呼叫 article_generator，繞過 main.py)..."
+Write-Log "   ⏳ 預計耗時 60-90 分鐘"
 Write-Log ""
 Write-Log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Write-Log "  📡 文章生成即時輸出 (每篇文章完成時顯示)"
 Write-Log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Write-Log ""
 
-$PyGenScript = @'
+# 🆕 關鍵修復：直接呼叫 article_generator，不依賴 main.py 的判斷
+python -c "
 import json
 import sys
-import os
 sys.path.insert(0, '.')
 
 from src.article_generator import generate_article
 
-project_root = r'C:\Users\User\ahpal-static'
-master_path = os.path.join(project_root, 'data', 'master-articles.json')
-
-with open(master_path, 'r', encoding='utf-8') as f:
+# 從 master-articles.json 讀取所有 nature 文章
+with open('data/master-articles.json', 'r', encoding='utf-8') as f:
     all_articles = json.load(f)
 
 # 找出所有 nature/ 開頭的文章
 nature_articles = [a for a in all_articles if a.get('filename', '').startswith('nature/')]
 
-print(f'📊 找到 {len(nature_articles)} 篇生態文章')
+print(f'📊 找到 {len(nature_articles)} 篇 nature 文章')
 
+# 逐一檢查並生成
 success_count = 0
 fail_count = 0
-skip_count = 0
 
 for idx, article in enumerate(nature_articles, 1):
     filename = article.get('filename', '')
     filepath = f'./{filename}'
     
+    # 檢查檔案是否存在
+    import os
     if os.path.exists(filepath):
+        # 檢查檔案大小
         size = os.path.getsize(filepath)
         if size >= 5120:
             print(f'⏩ [{idx}/{len(nature_articles)}] 已存在：{filename} ({size} bytes)')
-            skip_count += 1
             continue
-        else:
-            print(f'⚠️ [{idx}/{len(nature_articles)}] 檔案過小，重新生成：{filename} ({size} bytes)')
     
     print(f'--- 進度 {idx}/{len(nature_articles)} ---')
     try:
@@ -296,11 +316,8 @@ for idx, article in enumerate(nature_articles, 1):
 
 print(f'')
 print(f'✅ 成功生成 {success_count} 篇')
-print(f'⏩ 跳過 (已存在) {skip_count} 篇')
 print(f'❌ 失敗 {fail_count} 篇')
-'@
-
-python -c "$PyGenScript" 2>&1 | Tee-Object -FilePath "$LogDir\generation-output.txt"
+"
 
 $ExitCode = $LASTEXITCODE
 
@@ -312,7 +329,31 @@ if ($ExitCode -ne 0) {
     
     Write-Log ""
     Write-Log "🔄 第二次嘗試..."
-    python -c "$PyGenScript" 2>&1 | Tee-Object -FilePath "$LogDir\generation-output-retry.txt"
+    python -c "
+import json
+import sys
+sys.path.insert(0, '.')
+from src.article_generator import generate_article
+import os
+
+with open('data/master-articles.json', 'r', encoding='utf-8') as f:
+    all_articles = json.load(f)
+
+nature_articles = [a for a in all_articles if a.get('filename', '').startswith('nature/')]
+
+success_count = 0
+for idx, article in enumerate(nature_articles, 1):
+    filename = article.get('filename', '')
+    filepath = f'./{filename}'
+    if os.path.exists(filepath) and os.path.getsize(filepath) >= 5120:
+        continue
+    try:
+        generate_article(article)
+        success_count += 1
+    except Exception as e:
+        print(f'❌ 失敗：{e}')
+print(f'✅ 第二次嘗試成功生成 {success_count} 篇')
+"
     
     if ($LASTEXITCODE -ne 0) {
         Write-Log "❌ 第二次重試仍失敗"
@@ -326,9 +367,9 @@ Write-Log ""
 Write-Log "✅ 文章生成完成"
 
 # ============================================================
-# 步驟 6：更新分類頁面與 Sitemap
+# 步驟 7：更新分類頁面與 Sitemap
 # ============================================================
-Write-Log "   [6] 更新分類頁面與 Sitemap..."
+Write-Log "   [6b] 更新分類頁面與 Sitemap..."
 Save-Checkpoint -Stage "category_update"
 
 python -c "from src.html_builder import generate_category_pages, generate_categories_page, create_default_index; generate_category_pages(); generate_categories_page(); create_default_index()" 2>&1 | Out-String | Write-Log
@@ -341,9 +382,9 @@ if ($LASTEXITCODE -ne 0) {
 Write-Log "✅ 分類頁面與首頁已更新"
 
 # ============================================================
-# 步驟 7：部署到 Cloudflare
+# 步驟 8：部署到 Cloudflare
 # ============================================================
-Write-Log "   [7] 部署到 Cloudflare Pages..."
+Write-Log "   [6c] 部署到 Cloudflare Pages..."
 Save-Checkpoint -Stage "deploy"
 
 $DeployResult = & npx wrangler pages deploy . --project-name=ahpal-pages 2>&1
@@ -367,8 +408,9 @@ Write-Log "✅ 部署完成"
 # ============================================================
 Save-Checkpoint -Stage "complete"
 Write-Log "============================================================"
-Write-Log "✅ 動植物生態 — 即時顯示 + 排程優化版 v2.1 執行完畢！"
+Write-Log "✅ 動植物生態 100 篇 — 即時顯示 + 排程優化版 v2.0 執行完畢！"
 Write-Log "📅 完成時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+Write-Log "📊 本次新增: $($MissingArticles.Count) 篇"
 Write-Log "📁 日誌位置: $LogFile"
 Write-Log "============================================================"
 
@@ -386,11 +428,12 @@ if (Test-Path $EnvPath) {
 }
 
 if ($SmtpUser -and $SmtpPass -and $ToEmail) {
-    $Subject = "🌳 動植物生態批次生成完成通知"
+    $Subject = "🌳 動植物生態 100 篇 — 即時顯示 + 排程優化版 v2.0 完成通知"
     $Body = @"
-動植物生態批次生成已於 $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') 完成！
+動植物生態 100 篇即時顯示 + 排程優化版 v2.0 已於 $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') 完成！
 
 📊 執行摘要：
+   - 本次新增：$($MissingArticles.Count) 篇
    - 日誌位置：$LogFile
    - 部署狀態：✅ 已完成
 

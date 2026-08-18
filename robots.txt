@@ -16,7 +16,6 @@ Disallow: /data/
 Disallow: /output/
 Disallow: /videos/
 Disallow: /game_backup/
-Disallow: /farm/
 
 # 指定阻擋 AI 訓練爬蟲
 User-agent: Google-Extended

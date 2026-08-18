@@ -13122,5 +13122,805 @@
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false
+  },
+  {
+    "keyword": "台北南機場夜市美食攻略：在地人私藏的 10 家排隊攤位",
+    "category": "🏠 生活小常識",
+    "filename": "life/nanjichang-night-market-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台中第二市場美食巡禮：從早餐吃到宵夜的 8 家老店",
+    "category": "🏠 生活小常識",
+    "filename": "life/taichung-second-market-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台南花園夜市必吃清單：在地人推薦的 12 攤經典美味",
+    "category": "🏠 生活小常識",
+    "filename": "life/tainan-huayuan-night-market-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "高雄鹽埕區老味道：隱身巷弄的 8 家傳承半世紀小吃",
+    "category": "🏠 生活小常識",
+    "filename": "life/kaohsiung-yancheng-old-flavor-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "新竹東門市場美食重生：文青風老市場的 10 家必吃攤位",
+    "category": "🏠 生活小常識",
+    "filename": "life/hsinchu-dongmen-market-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台北迪化街美食地圖：霞海城隍廟周邊的 7 家老字號",
+    "category": "🏠 生活小常識",
+    "filename": "life/dihua-street-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台中中區老宅咖啡巡禮：12 間充滿故事的復古咖啡館",
+    "category": "🏠 生活小常識",
+    "filename": "life/taichung-central-district-cafe-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台南中西區小吃全攻略：國華街到保安路的經典路線",
+    "category": "🏠 生活小常識",
+    "filename": "life/tainan-west-central-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "高雄左營眷村美食：10 家來自大江南北的眷村味",
+    "category": "🏠 生活小常識",
+    "filename": "life/kaohsiung-zuoying-military-village-food.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台北晴光市場美食：雙城街週邊的 8 家經典小吃",
+    "category": "🏠 生活小常識",
+    "filename": "life/qingguang-market-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣蚵仔煎王者對決：5 家南北名店終極評比",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-oyster-omelet-ranking.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣滷肉飯地圖：從北到南 10 家必吃名店完整評測",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-braised-pork-rice-map.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台中公益路美食一條街：30 家餐廳精選推薦名單",
+    "category": "🏠 生活小常識",
+    "filename": "life/taichung-gongyi-road-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台北市民大道熱炒一條街：8 家深夜食堂評比",
+    "category": "🏠 生活小常識",
+    "filename": "life/taipei-citizen-boulevard-stir-fry-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台南善化牛墟美食：只在特定日子出現的流動夜市攻略",
+    "category": "🏠 生活小常識",
+    "filename": "life/tainan-shanhua-cattle-market-food.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "高雄瑞豐夜市 vs 六合夜市：兩大夜市終極對決",
+    "category": "🏠 生活小常識",
+    "filename": "life/kaohsiung-ruifeng-vs-liuhe-night-market.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣擔仔麵全攻略：台南 vs 台北 6 家名店比較",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-danzai-noodle-comparison.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台北東區燒肉 vs 火鍋：10 家高 CP 值餐廳推薦",
+    "category": "🏠 生活小常識",
+    "filename": "life/taipei-dongqu-yakiniku-hotpot-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣鹽酥雞名店巡禮：從北到南 8 家必吃炸物專賣",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-salt-chicken-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台中逢甲 vs 一中夜市：兩大學生商圈美食對決",
+    "category": "🏠 生活小常識",
+    "filename": "life/taichung-fengjia-vs-yizhong-night-market.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台北 10 家高 CP 值平價旅館推薦：每晚 1500 元有找",
+    "category": "🏠 生活小常識",
+    "filename": "life/taipei-budget-hotel-1500-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台南特色民宿精選：5 家老屋改造的質感住宿",
+    "category": "🏠 生活小常識",
+    "filename": "life/tainan-old-house-homestay-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台中勤美誠品周邊住宿推薦：走路就到草悟道的 6 家旅館",
+    "category": "🏠 生活小常識",
+    "filename": "life/taichung-qinmei-hotel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "花蓮市區平價住宿：離東大門夜市最近的 5 家選擇",
+    "category": "🏠 生活小常識",
+    "filename": "life/hualien-city-budget-hotel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "墾丁民宿 vs 飯店：8 家適合家庭與情侶的住宿評比",
+    "category": "🏠 生活小常識",
+    "filename": "life/kenting-homestay-vs-hotel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "九份夜景住宿推薦：看山海景第一排的 4 家民宿",
+    "category": "🏠 生活小常識",
+    "filename": "life/jiufen-night-view-homestay-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台東市區住宿指南：離鐵花村最近的 5 家高評價旅館",
+    "category": "🏠 生活小常識",
+    "filename": "life/taitung-city-hotel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "澎湖馬公住宿推薦：海景第一排的 5 家特色民宿",
+    "category": "🏠 生活小常識",
+    "filename": "life/penghu-magong-seaview-homestay.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "宜蘭羅東住宿：離夜市最近的 6 家平價選擇",
+    "category": "🏠 生活小常識",
+    "filename": "life/yilan-luodong-hotel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "桃園機場周邊住宿：4 家適合紅眼班機的過境旅館",
+    "category": "🏠 生活小常識",
+    "filename": "life/taoyuan-airport-hotel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "阿里山住宿推薦：看日出最近的 3 家旅館與民宿",
+    "category": "🏠 生活小常識",
+    "filename": "life/alishan-sunrise-hotel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "綠島住宿推薦：離港口最近的 5 家潛水友善民宿",
+    "category": "🏠 生活小常識",
+    "filename": "life/green-island-homestay-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "日月潭伊達邵住宿：湖景第一排的 4 家精選旅館",
+    "category": "🏠 生活小常識",
+    "filename": "life/sun-moon-lake-itashao-hotel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台南民宿包棟推薦：5 家適合家族旅遊的獨棟住宿",
+    "category": "🏠 生活小常識",
+    "filename": "life/tainan-whole-house-homestay-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣豪華露營推薦：5 家免裝備奢華營地評比",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-glamping-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "苗栗三義勝興車站與龍騰斷橋：鐵道文化一日遊",
+    "category": "🏠 生活小常識",
+    "filename": "life/miaoli-sanyi-railway-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "南投埔里日月潭東岸：自行車環湖與秘境景點攻略",
+    "category": "🏠 生活小常識",
+    "filename": "life/nantou-puli-sun-moon-lake-east-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "嘉義市區 2 天 1 夜：檜意森活村與嘉義公園深度遊",
+    "category": "🏠 生活小常識",
+    "filename": "life/chiayi-2d1n-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台東池上關山小鎮漫遊：稻田與米鄉文化之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/taitung-chishang-guanshan-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "基隆正濱漁港與和平島：彩色屋與海蝕地質秘境",
+    "category": "🏠 生活小常識",
+    "filename": "life/keelung-zhengbin-fishing-port-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "桃園大溪與復興：兩蔣文化與部落輕旅行",
+    "category": "🏠 生活小常識",
+    "filename": "life/taoyuan-daxi-fuxing-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "新北深坑石碇老街：豆腐與茶香的文化之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/new-taipei-shenkeng-shiding-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "新竹竹東與北埔：客家山城 2 日深度文化遊",
+    "category": "🏠 生活小常識",
+    "filename": "life/hsinchu-zhudong-beipu-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "苗栗通霄與苑裡：山海之間的小鎮漫遊",
+    "category": "🏠 生活小常識",
+    "filename": "life/miaoli-tongxiao-yuanli-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "雲林北港與新港：媽祖文化與傳統工藝之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/yunlin-beigang-xingang-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "嘉義東石與布袋：蚵田與溼地生態之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/chiayi-dongshi-budai-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台南鹽水與新營：月津港燈節與糖廠文化",
+    "category": "🏠 生活小常識",
+    "filename": "life/tainan-yanshui-xinying-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "高雄美濃與旗山：客家文化與香蕉王國之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/kaohsiung-meinong-qishan-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "屏東潮州與萬巒：豬腳與燒冷冰的美食之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/pingtung-chaozhou-wanluan-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "花蓮光復與鳳林：糖廠與客家小鎮慢活之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/hualien-guangfu-fenglin-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台東金峰與太麻里：金崙溫泉與釋迦故鄉之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/taitung-jinfeng-taimali-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "澎湖北環一日遊：跨海大橋到西嶼燈塔的經典路線",
+    "category": "🏠 生活小常識",
+    "filename": "life/penghu-north-ring-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "金門戰地文化 3 日深度遊：坑道與洋樓的歷史之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/kinmen-3d2n-war-culture-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "馬祖南竿與北竿：藍眼淚與閩東文化之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/matsu-nangan-beigan-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣小鎮漫遊 10 選：觀光局推薦的經典小鎮攻略",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-small-town-10-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣夜市文化解析：從攤車到米其林的庶民美食演進",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-night-market-culture-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣茶文化之旅：從坪林到阿里山的品茶路線",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-tea-culture-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣傳統糕餅巡禮：鳳梨酥、太陽餅、綠豆椪名店推薦",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-traditional-cake-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣精釀啤酒地圖：10 家在地酒廠與酒吧推薦",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-craft-beer-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣咖啡莊園巡禮：從古坑到東山的精品咖啡之路",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-coffee-farm-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣巧克力工坊推薦：5 家 bean-to-bar 精品巧克力",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-chocolate-factory-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣小籠包名店評比：鼎泰豐 vs 點水樓 vs 杭州小籠包",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-xiaolongbao-comparison.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣牛肉麵文化：從老兵家鄉味到國際名店的演變",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-beef-noodle-culture-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣古早味飲料巡禮：青草茶、蓮藕茶、冬瓜茶名店",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-traditional-drinks-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣市場美食文化：從傳統早市到深夜夜市的味覺記憶",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-market-food-culture-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣辦桌文化與總舖師：南部宴席料理的經典菜色",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-banquet-culture-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣客家美食地圖：從粄條到梅干扣肉的經典客家味",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-hakka-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣原住民料理巡禮：馬告、山豬肉到小米酒的部落美食",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-indigenous-food-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣素食文化與蔬食餐廳推薦：10 家蔬食者必訪名店",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-vegetarian-restaurant-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣甜湯文化：燒仙草、紅豆湯、薑母茶到花生湯的冬日溫暖",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-sweet-soup-culture-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣賞鳥秘境：10 個候鳥過境與留鳥觀察熱點",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-bird-watching-hotspots.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣賞螢火蟲季節：5 月到 6 月的 8 個最佳觀賞點",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-firefly-watching-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣賞楓祕境：秋季限定的 10 個紅葉景點",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-autumn-maple-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣賞櫻景點全攻略：從陽明山到武陵農場的粉色路線",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-cherry-blossom-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣濕地生態旅遊：5 大國家級濕地推薦",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-wetland-ecotourism-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣瀑布秘境：從十分瀑布到白楊瀑布的 10 條步道",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-waterfall-hiking-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣森林遊樂區全攻略：從太平山到知本的 8 處森呼吸路線",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-forest-recreation-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣星空觀測點推薦：從合歡山到墾丁的 8 處無光害景點",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-stargazing-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣金針花季：花蓮六十石山與台東太麻里賞花攻略",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-daylily-season-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣桐花季攻略：4 月到 5 月的 10 條賞桐步道",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-tung-flower-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣賞梅秘境：1 月到 2 月的 6 個梅花景點",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-plum-blossom-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣海芋季：陽明山竹子湖的浪漫白色海芋花海",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-calla-lily-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣繡球花季：陽明山與杉林溪的紫色花海攻略",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-hydrangea-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣欒樹季節：10 月的城市金色樹海與觀賞路線",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-golden-rain-tree-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態觀察入門：從蛙類、蝴蝶到蜻蜓的自然筆記",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-nature-observation-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "澎湖花火節 2026 攻略：最佳觀賞點與行程推薦",
+    "category": "🏠 生活小常識",
+    "filename": "life/penghu-fireworks-festival-2026-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "金門海灘秘境：5 個隱藏版沙灘與軌條砦夕陽景點",
+    "category": "🏠 生活小常識",
+    "filename": "life/kinmen-beach-secret-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "馬祖東引與莒光：藍眼淚與軍事遺跡之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/matsu-dongyin-juguang-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "小琉球 2 天 1 夜：浮潛、海龜與潮間帶生態之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/xiaoliuqiu-2d1n-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "綠島 3 天 2 夜：潛水、溫泉與監獄文化之旅",
+    "category": "🏠 生活小常識",
+    "filename": "life/green-island-3d2n-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蘭嶼旅遊攻略：達悟族文化與飛魚季深度體驗",
+    "category": "🏠 生活小常識",
+    "filename": "life/lanyu-travel-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "澎湖南海跳島：七美、望安、虎井嶼一日遊",
+    "category": "🏠 生活小常識",
+    "filename": "life/penghu-south-island-hopping-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "金門戰地坑道之旅：翟山坑道、瓊林坑道與民防遺跡",
+    "category": "🏠 生活小常識",
+    "filename": "life/kinmen-tunnel-war-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "馬祖芹壁村與北竿：閩東聚落與石頭屋之美",
+    "category": "🏠 生活小常識",
+    "filename": "life/matsu-qinbi-beigan-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "澎湖東海一日遊：鳥嶼、員貝嶼與澎澎灘水上活動",
+    "category": "🏠 生活小常識",
+    "filename": "life/penghu-east-island-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "金門高粱酒文化之旅：酒廠參觀與品酒體驗",
+    "category": "🏠 生活小常識",
+    "filename": "life/kinmen-kaoliang-liquor-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "馬祖宗教文化之旅：媽祖巨神像與宗教慶典",
+    "category": "🏠 生活小常識",
+    "filename": "life/matsu-religious-culture-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "澎湖海洋牧場體驗：釣魚、烤牡蠣與海上平台活動",
+    "category": "🏠 生活小常識",
+    "filename": "life/penghu-ocean-ranch-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "金門迎城隍文化：一年一度的宗教盛事與遶境體驗",
+    "category": "🏠 生活小常識",
+    "filename": "life/kinmen-chenghuang-festival-guide.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣離島 5 選：澎湖、金門、馬祖、綠島、小琉球比較",
+    "category": "🏠 生活小常識",
+    "filename": "life/taiwan-outlying-islands-comparison.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   }
 ]

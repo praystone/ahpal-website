@@ -6,6 +6,7 @@
     <title>📖 關於我們 - 雅寶社區 · 頂客論壇</title>
     <meta name="description" content="雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供科技、生活、遊戲、哲理、AI 趨勢、音樂創作等多元領域的高品質知識內容。">
     <meta name="keywords" content="關於我們,雅寶社區,頂客論壇,AHPAL,使命,故事">
+    <meta name="robots" content="index, follow">
 
     <!-- 統一 CSS -->
     <link rel="stylesheet" href="/style/main.css">
@@ -85,6 +86,11 @@
             border-radius: 10px;
             text-align: center;
             border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        .value-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
         .value-item .icon {
             font-size: 32px;
@@ -123,6 +129,25 @@
             font-size: 12px;
             color: #718096;
         }
+        .belief-block {
+            background: #FFFFF0;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin: 16px 0;
+            border-left: 4px solid #D4AF37;
+        }
+        .belief-block p {
+            font-size: 15px;
+            color: #2D3748;
+            font-weight: 500;
+            margin: 0;
+        }
+        .belief-block .source {
+            font-size: 13px;
+            color: #718096;
+            margin: 4px 0 0 0;
+            letter-spacing: 1px;
+        }
 
         @media (max-width: 768px) {
             .about-card { padding: 20px 16px; }
@@ -158,25 +183,36 @@
         <div class="main-content">
             <div class="container">
 
-                <!-- Hero 區塊 -->
+                <!-- Hero 區塊 — 強化第一印象 -->
                 <div class="about-hero">
                     <h1>📖 關於雅寶社區 · 頂客論壇</h1>
-                    <p>歲月沉澱 · 知識共創 · 誠信為本</p>
+                    <p style="font-size:18px; font-weight:300; letter-spacing:2px;">歲月沉澱 · 知識共創 · 誠信為本</p>
+                    <div style="width:60px; height:3px; background:#D4AF37; margin:14px auto;"></div>
+                    <p style="font-size:15px; max-width:650px; margin:12px auto 0 auto; color:rgba(255,255,255,0.9);">
+                        從歲月記憶到知識共創，我們相信：<strong style="color:#D4AF37;">誠實守信，是文明社會永恆的基石。</strong>
+                    </p>
                 </div>
 
-                <!-- 使命 -->
+                <!-- 使命 — 深化核心價值 -->
                 <div class="about-card">
                     <h2>🎯 我們的使命</h2>
                     <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的知識內容，涵蓋 <strong>科技、生活、遊戲、哲理、AI 趨勢、音樂創作</strong> 等多元領域。</p>
-                    <p style="margin-top:8px;">我們相信：<strong>誠實守信，是文明社會永恆的基石。</strong></p>
+
+                    <!-- 🆕 巧妙插入的核心宣言 -->
+                    <div class="belief-block">
+                        <p>「從歲月記憶到知識共創，我們相信：<strong style="color:#005A9C;">誠實守信</strong>，是文明社會永恆的基石。」</p>
+                        <p class="source">— 雅寶社區 · 頂客論壇 核心信念</p>
+                    </div>
+
+                    <p style="margin-top:8px;"><strong>ahpal.com</strong> 註冊於 2008 年，擁有 18 年歷史的高權重域名，承載著無數社群的記憶與智慧。</p>
 
                     <div class="stats-grid">
                         <div class="stat-box">
-                            <div class="number">837+</div>
+                            <div class="number">2,000+</div>
                             <div class="label">📄 文章總數</div>
                         </div>
                         <div class="stat-box">
-                            <div class="number">8</div>
+                            <div class="number">9</div>
                             <div class="label">📂 知識分類</div>
                         </div>
                         <div class="stat-box">
@@ -194,17 +230,17 @@
                 <div class="about-card">
                     <h2>📜 我們的故事</h2>
                     <p>從頂客論壇的歲月迴聲出發，我們結合 AI 技術與編輯策展，為讀者篩選有價值的資訊，讓知識在數位時代中持續流動。</p>
-                    <p style="margin-top:8px;"><strong>ahpal.com</strong> 註冊於 2008 年，擁有 18 年歷史的高權重域名，承載著無數社群的記憶與智慧。</p>
+                    <p style="margin-top:8px;">這裡記錄了 <strong>頂客論壇</strong> 二十多年的歲月迴聲，並以 AI 精選 <strong>科技、遊戲、生活、軟體、哲理、AI 趨勢、音樂創作、歷史腦洞、動植物生態</strong> 九大領域的實用內容。從數位工具到人生成長，每一篇文章都經過編輯策展，為讀者提供真正有價值的資訊。</p>
                 </div>
 
-                <!-- 價值 -->
+                <!-- 價值 — 將「誠實守信」列為第一價值 -->
                 <div class="about-card">
                     <h2>💎 我們的價值</h2>
                     <div class="value-grid">
-                        <div class="value-item">
+                        <div class="value-item" style="border-color:#D4AF37; background:#FFFFF0;">
                             <span class="icon">⚖️</span>
-                            <div class="title">誠實守信</div>
-                            <div class="desc">相信誠實是文明社會永恆的基石</div>
+                            <div class="title" style="color:#8B0000;">誠實守信</div>
+                            <div class="desc">誠實是文明社會永恆的基石</div>
                         </div>
                         <div class="value-item">
                             <span class="icon">🤝</span>
@@ -235,12 +271,13 @@
         </div>
 
         <!-- ============================================================
-        側邊欄
+        側邊欄 — 維持一致性，精簡版本
         ============================================================ -->
         <div class="sidebar">
             <div class="widget">
                 <h3>⚖️ 關於本站</h3>
-                <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。從歲月記憶到知識共創，我們相信：<strong>誠實守信，是文明社會永恆的基石。</strong></p>
+                <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。</p>
+                <p style="margin-top:6px; font-weight:500; color:#1A202C;">從歲月記憶到知識共創，我們相信：<strong style="color:#005A9C;">誠實守信，是文明社會永恆的基石。</strong></p>
                 <p style="margin-top:8px;"><a href="/about.html" style="color:#005A9C;font-weight:500;">📖 了解更多 →</a></p>
             </div>
 
@@ -261,6 +298,7 @@
                     <a href="/category-trend.html">🤖 AI</a>
                     <a href="/category-music.html">🎵 音樂</a>
                     <a href="/category-history.html">📜 歷史</a>
+                    <a href="/category-nature.html">🌳 動植物</a>
                     <a href="/game/">🎮 遊戲間</a>
                     <a href="/categories.html">📚 全部分類</a>
                     <a href="/about.html">📖 關於我們</a>

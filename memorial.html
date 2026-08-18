@@ -1,23 +1,21 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- ===== SEO 基礎 ===== -->
-    <title>歲月迴聲 | 頂客論壇二十五載紀念 | 雅寶社區 · 頂客論壇</title>
-    <meta name="description" content="頂客論壇 (DK101) 二十五載紀念卷 — 歲月迴聲。記錄頂客論壇從輝煌到沉澱的完整歷程，獻給所有曾經參與的老朋友。">
-    <meta name="keywords" content="頂客論壇,DK101,歲月迴聲,論壇紀念,網路回憶,雅寶社區">
+    <title>歲月迴聲 · 頂客論壇二十五載紀念 | 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="頂客論壇 (DK101) 二十五載紀念卷 — 歲月迴聲。以蘇軾《前赤壁賦》為引，記錄頂客論壇從輝煌到沉澱的完整歷程。">
+    <meta name="keywords" content="頂客論壇,DK101,歲月迴聲,論壇紀念,蘇軾,前赤壁賦,網路記憶">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ahpal.com/memorial.html">
 
-    <!-- ===== Open Graph ===== -->
-    <meta property="og:title" content="歲月迴聲 | 頂客論壇二十五載紀念">
-    <meta property="og:description" content="獻給所有曾經在頂客論壇留下足跡的老朋友。二十五年的歲月，我們一起走過。">
+    <meta property="og:title" content="歲月迴聲 · 頂客論壇二十五載紀念">
+    <meta property="og:description" content="獻給所有曾經在頂客論壇留下足跡的老朋友。以蘇軾《前赤壁賦》為引，記錄二十五年歲月迴聲。">
     <meta property="og:url" content="https://ahpal.com/memorial.html">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="雅寶社區 · 頂客論壇">
 
-    <!-- ===== Google Analytics ===== -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -25,411 +23,536 @@
         gtag('js', new Date());
         gtag('config', 'G-XXGG1VTGPB');
     </script>
-
-    <!-- ===== Google AdSense ===== -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
-
-    <!-- ===== Google Fonts ===== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
-
-    <!-- ===== Tailwind CSS ===== -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['Noto Serif TC', 'serif'],
-                        sans: ['Noto Sans TC', 'sans-serif'],
-                    },
-                    colors: {
-                        wa: {
-                            bg: '#fcfaf2',
-                            ink: '#1c1c1c',
-                            gray: '#595959',
-                            red: '#8a1c14',
-                            gold: '#b89047',
-                            line: '#e6ded1'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    <link rel="stylesheet" href="/style/main.css">
     <style>
-        body {
-            background-color: #fcfaf2;
-            color: #1c1c1c;
-            font-family: 'Noto Sans TC', sans-serif;
-            scroll-behavior: smooth;
+        /* 紀念頁專屬樣式 — 繼承 main.css，僅補充 */
+        .memorial-hero {
+            background: linear-gradient(145deg, #F7F9FC 0%, #EDF2F7 100%);
+            padding: 60px 0 40px 0;
+            border-bottom: 3px solid #D4AF37;
         }
-        .footer-link { transition: color 0.3s ease; }
-        .footer-link:hover { color: #b89047; }
+        .memorial-hero h1 {
+            font-size: 2.8em;
+            letter-spacing: 4px;
+        }
+        .memorial-hero .sub {
+            font-size: 1.1em;
+            color: #4A5568;
+            letter-spacing: 6px;
+        }
+        .memorial-hero .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #D4AF37, #005A9C);
+            margin: 16px auto;
+        }
         .memorial-quote {
-            font-family: 'Noto Serif TC', serif;
+            font-size: 1.3em;
+            line-height: 2;
+            color: #2D3748;
+            border-left: 4px solid #D4AF37;
+            padding-left: 24px;
+            margin: 32px 0;
             font-style: italic;
         }
-
-        /* ===== 返回頂部按鈕 ===== */
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #005A9C;
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: opacity 0.3s, transform 0.3s;
-            opacity: 0.7;
-            z-index: 999;
+        .memorial-quote strong {
+            color: #8B0000;
         }
-        #back-to-top:hover {
-            opacity: 1;
-            transform: scale(1.05);
-            background: #003d66;
+        .memorial-section {
+            margin: 48px 0;
         }
-
-        /* ===== 年代數字裝飾 ===== */
-        .decade-number {
-            font-family: 'Noto Serif TC', serif;
-            font-size: 120px;
-            font-weight: 900;
-            color: #e6ded1;
-            line-height: 1;
-            letter-spacing: -0.05em;
-            user-select: none;
-            opacity: 0.3;
+        .memorial-section h2 {
+            font-size: 1.8em;
+            color: #005A9C;
+            border-left: 4px solid #D4AF37;
+            padding-left: 16px;
+            margin-bottom: 20px;
+        }
+        .memorial-section h3 {
+            font-size: 1.3em;
+            color: #2D3748;
+            margin: 24px 0 12px 0;
+        }
+        .memorial-section .poem-block {
+            background: #F7F9FC;
+            border-radius: 12px;
+            padding: 24px 32px;
+            border: 1px solid #E2E8F0;
+            font-size: 1.05em;
+            line-height: 2;
+            margin: 20px 0;
+            font-family: 'Georgia', 'Noto Serif TC', serif;
+        }
+        .memorial-section .poem-block .cite {
+            text-align: right;
+            color: #718096;
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+        .memorial-timeline {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 24px 0;
+        }
+        .memorial-timeline .item {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 20px 24px;
+            border: 1px solid #E2E8F0;
+            transition: all 0.25s ease;
+        }
+        .memorial-timeline .item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-color: #D4AF37;
+        }
+        .memorial-timeline .item .year {
+            font-size: 0.75em;
+            font-weight: 700;
+            color: #D4AF37;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .memorial-timeline .item .title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #1A202C;
+            margin: 4px 0;
+        }
+        .memorial-timeline .item .desc {
+            font-size: 0.9em;
+            color: #4A5568;
+            line-height: 1.7;
+        }
+        .memorial-closing {
+            background: #F7F9FC;
+            border-radius: 14px;
+            padding: 32px 36px;
+            border: 1px solid #E2E8F0;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .memorial-closing .signature {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #005A9C;
+            margin-top: 12px;
+        }
+        .memorial-closing .signature small {
+            font-weight: 400;
+            color: #718096;
+            font-size: 0.85em;
         }
         @media (max-width: 768px) {
-            .decade-number { font-size: 72px; }
-        }
-
-        /* ===== 漸層文字 ===== */
-        .gradient-text {
-            background: linear-gradient(135deg, #8a1c14 0%, #b89047 50%, #8a1c14 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ===== 年份時間軸裝飾 ===== */
-        .timeline-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #b89047;
-            border: 2px solid #fcfaf2;
-            box-shadow: 0 0 0 2px #b89047;
-            flex-shrink: 0;
-        }
-        .timeline-line {
-            width: 2px;
-            background: linear-gradient(to bottom, #b89047, #e6ded1);
-            flex-shrink: 0;
-        }
-
-        /* ===== 浮動粒子 ===== */
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: #b89047;
-            opacity: 0.08;
-            pointer-events: none;
-            animation: float-particle 20s infinite ease-in-out;
-        }
-        @keyframes float-particle {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(30px, -40px) scale(1.2); }
-            50% { transform: translate(-20px, -80px) scale(0.8); }
-            75% { transform: translate(40px, -30px) scale(1.1); }
+            .memorial-timeline { grid-template-columns: 1fr; }
+            .memorial-hero h1 { font-size: 2em; }
+            .memorial-quote { font-size: 1.05em; padding-left: 16px; }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- ============================================================ -->
-    <!-- 頂部導覽列 -->
-    <!-- ============================================================ -->
-    <nav class="sticky top-0 z-50 bg-wa-bg/95 backdrop-blur-md border-b border-wa-line transition-all duration-300 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 md:px-6 h-16 md:h-20 flex justify-between items-center">
-            <a href="/" class="font-serif text-lg md:text-2xl font-bold tracking-wider text-wa-red hover:text-wa-gold transition-colors flex items-center gap-2">
-                <span class="text-wa-gold text-xl">⚖️</span>
-                AHPAL.COM
-            </a>
+<!-- ============================================================ -->
+<!-- 網站標頭（與首頁完全一致） -->
+<!-- ============================================================ -->
+<header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/about.html">📖 關於我們</a>
+            <a href="/contact.html">📧 聯絡我們</a>
+            <a href="/privacy-policy.html">🔒 隱私權政策</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
 
-            <div class="hidden md:flex items-center space-x-8 text-xs tracking-widest text-wa-gray">
-                <a href="/" class="hover:text-wa-red transition-colors">首頁</a>
-                <a href="/memorial.html" class="text-wa-red font-medium border-b-2 border-wa-red pb-0.5">歲月迴聲</a>
-                <a href="/royal_dragon_karma.html" class="hover:text-wa-red transition-colors">公義史錄</a>
-                <a href="/contact.html" class="hover:text-wa-red transition-colors">聯絡我們</a>
-                <a href="/category-tech.html" class="hover:text-wa-red transition-colors">知識分類</a>
+<!-- ============================================================ -->
+<!-- HERO 區塊 -->
+<!-- ============================================================ -->
+<div class="memorial-hero">
+    <div class="main-wrapper" style="max-width:1000px; margin:0 auto; padding:0 24px;">
+        <div style="text-align:center;">
+            <div style="font-size:0.75em; color:#D4AF37; letter-spacing:6px; font-weight:600; text-transform:uppercase; margin-bottom:8px;">In Memoriam</div>
+            <h1 style="font-size:2.8em; font-weight:700; color:#1A202C; letter-spacing:4px; margin:0;">歲月迴聲</h1>
+            <div class="divider"></div>
+            <p class="sub">頂客論壇 <strong style="color:#8B0000;">(DK101)</strong> 二十五載紀念卷</p>
+            <p style="font-size:0.9em; color:#718096; margin-top:12px; letter-spacing:2px;">獻給所有曾經在頂客論壇留下足跡的老朋友</p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 主內容 -->
+<!-- ============================================================ -->
+<div class="main-wrapper" style="max-width:1000px; margin:0 auto; padding:0 24px;">
+    <div class="main-content" style="width:100%;">
+
+        <!-- ===== 文章卡片 ===== -->
+        <div class="content-card" style="padding:40px 48px;">
+
+            <!-- 導引 -->
+            <div class="memorial-quote">
+                「當您循著網路上的一串舊代碼、一個遺落的連結來到這裡，請不必驚訝。<br>
+                這裡曾是我們共同構築的家園。」
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden text-wa-ink focus:outline-none p-2 hover:bg-wa-line/30 rounded-lg transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            </button>
-        </div>
+            <!-- ========================================================== -->
+            <!-- 第一章：以赤壁賦為引 -->
+            <!-- ========================================================== -->
+            <div class="memorial-section">
+                <h2>一、固一世之雄也，而今安在哉？</h2>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-wa-bg border-b border-wa-line px-6 py-4 space-y-3 text-sm text-center">
-            <a href="/" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">首頁</a>
-            <a href="/memorial.html" class="block py-2 text-wa-red font-medium">歲月迴聲</a>
-            <a href="/royal_dragon_karma.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">公義史錄</a>
-            <a href="/contact.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">聯絡我們</a>
-            <a href="/category-tech.html" class="block py-2 text-wa-ink hover:text-wa-red transition-colors">知識分類</a>
-        </div>
-    </nav>
+                <p>北宋元豐五年，蘇軾夜遊赤壁，面對滔滔江水，寫下了千古名篇《前赤壁賦》。他感嘆曹操當年「舳艫千里，旌旗蔽空，釃酒臨江，橫槊賦詩，固一世之雄也」，然後筆鋒一轉，淡淡地問了一句：<strong>「而今安在哉？」</strong></p>
 
-    <script>
-        document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-    </script>
+                <div class="poem-block">
+                    「方其破荊州，下江陵，順流而東也，舳艫千里，旌旗蔽空，釃酒臨江，橫槊賦詩，固一世之雄也，而今安在哉？」
+                    <div class="cite">—— 蘇軾《前赤壁賦》</div>
+                </div>
 
-    <!-- ============================================================ -->
-    <!-- HERO 區塊 -->
-    <!-- ============================================================ -->
-    <header class="relative min-h-[70vh] flex flex-col justify-center items-center px-6 py-16 overflow-hidden">
-        <!-- 背景粒子 -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="particle w-64 h-64 top-10 left-10" style="animation-delay: 0s;"></div>
-            <div class="particle w-48 h-48 bottom-20 right-10" style="animation-delay: -5s;"></div>
-            <div class="particle w-80 h-80 top-1/2 left-1/2 -translate-x-1/2" style="animation-delay: -10s;"></div>
-        </div>
+                <p>九百多年後的網路時代，一個名為 <strong>「頂客論壇」（DK101）</strong> 的數位城邦，也經歷了類似的命運。</p>
 
-        <div class="max-w-3xl w-full text-center space-y-8 relative z-10">
-            <div class="space-y-4">
-                <span class="text-xs tracking-[0.3em] text-wa-gold uppercase font-semibold">In Memoriam</span>
-                <h1 class="font-serif text-4xl md:text-6xl font-bold tracking-tight">
-                    <span class="gradient-text">歲月迴聲</span>
-                </h1>
-                <p class="font-serif text-lg md:text-xl text-wa-gray italic tracking-widest">
-                    頂客論壇 <span class="text-wa-red font-semibold">(DK101)</span> 二十五載紀念卷
-                </p>
-                <div class="w-16 h-0.5 bg-gradient-to-r from-wa-gold to-wa-red mx-auto"></div>
+                <p>它曾經擁有近百萬會員、數十萬篇文章，是一個充滿爭辯、歡笑、成長與共鳴的虛擬家園。版主們徹夜討論版務，網友們熱情分享生活點滴。每一個討論串都是一場思想的交鋒，每一篇精華文章都是智慧的結晶。那是一個熱鬧非凡的數位年代，如同曹操的百萬大軍，舳艫千里，旌旗蔽空。</p>
+
+                <p>然而，社群媒體興起、技術迭代、時代變遷，頂客論壇終究迎來了它的黃昏。如同蘇軾筆下的曹孟德，一代英雄，亦不免被歷史的浪潮淹沒。</p>
+
+                <p>但蘇軾沒有停留在感傷之中。他接著寫道：<strong>「寄蜉蝣於天地，渺滄海之一粟。哀吾生之須臾，羨長江之無窮。」</strong> 人的生命短暫如蜉蝣，但長江永恆、天地無窮。頂客論壇雖然已不復當年盛況，但那些文字、那些回憶、那些曾經交織的靈魂，依然在浩瀚的網路時空裡，留下了屬於它的印記。</p>
+
+                <p>這篇文章，便是要記錄那段從輝煌到沉澱的完整歷程。以蘇軾的〈赤壁賦〉為引，我們一起走過頂客論壇二十五年歲月迴聲。</p>
             </div>
 
-            <p class="text-sm text-wa-gray/70 tracking-widest max-w-lg mx-auto">
-                獻給所有曾經在頂客論壇留下足跡的老朋友
+            <!-- ========================================================== -->
+            <!-- 第二章：時間軸 -->
+            <!-- ========================================================== -->
+            <div class="memorial-section">
+                <h2>二、二十五年，我們一起走過</h2>
+
+                <div class="memorial-timeline">
+
+                    <div class="item">
+                        <div class="year">2000 · 初見</div>
+                        <div class="title">頂客論壇誕生</div>
+                        <div class="desc">那一年，網路還是撥接的時代。一群人因為對「頂客族」生活方式的共鳴，在虛擬空間裡搭起了第一間小屋。沒有人想過，這個小小的論壇，會成為無數人青春歲月的縮影。</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="year">2005 · 茁壯</div>
+                        <div class="title">萬人齊聚，百家爭鳴</div>
+                        <div class="desc">會員數突破萬人。這裡曾是全台最大的頂客族社群，從感情困擾、職場求生到投資理財、旅遊攻略，無數人在這裡找到答案、交到摯友。論壇的熱鬧，像極了一座永遠不夜的城市。</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="year">2010 · 榮光</div>
+                        <div class="title">黃金年代</div>
+                        <div class="desc">那是頂客論壇最輝煌的時刻。近百萬會員，數十萬篇文章，討論區涵蓋了生活的每一個角落。我們以為這樣的日子會永遠持續下去。那時的每一篇發文，都是時代的印記。</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="year">2015 · 轉折</div>
+                        <div class="title">喧囂漸遠，沉澱開始</div>
+                        <div class="desc">社群媒體興起，人們的注意力開始分散。頂客論壇不再像從前那般喧鬧，但留下的都是最真摯的老朋友。討論串從「熱門話題」變成「生活記錄」，從「爭辯」變成「問候」。</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="year">2020 · 告別</div>
+                        <div class="title">最後的時光</div>
+                        <div class="desc">技術迭代、時代變遷，論壇終究迎來了它的黃昏。最後一篇發文、最後一次登入、最後一次刷新頁面。伺服器關閉的那一刻，我們知道，一個時代結束了。</div>
+                    </div>
+
+                    <div class="item" style="border-color:#D4AF37;">
+                        <div class="year">2024 · 迴聲</div>
+                        <div class="title">歲月迴聲，記憶永存</div>
+                        <div class="desc">論壇雖然已經遠去，但我們共同走過的這段歲月，已經成為網路記憶的一部分，沉澱在時光的長河裡。這裡現在是「歲月與公義」的沉澱之所，一個紀念、反思與傳承的空間。</div>
+                    </div>
+
+                </div>
+
+                <p style="margin-top:24px;">蘇軾說：<strong>「挾飛仙以遨遊，抱明月而長終。知不可乎驟得，託遺響於悲風。」</strong> 頂客論壇的「遺響」——那些文字、那些技術經驗、那些真摯的情感——並未隨風而逝。它們部分遷移到了 <strong>AHPAL.COM</strong>，以另一種形式繼續存在。</p>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- 第三章：對照與深意 -->
+            <!-- ========================================================== -->
+            <div class="memorial-section">
+                <h2>三、赤壁賦 × 頂客論壇：兩相對照的深意</h2>
+
+                <p>將蘇軾的歷史蒼涼與頂客論壇的時代更迭扣在一起，我們可以清晰地看到一條貫穿千年的情感脈絡：</p>
+
+                <div style="overflow-x:auto; margin:24px 0;">
+                    <table style="width:100%; border-collapse:collapse; font-size:0.9em;">
+                        <thead>
+                            <tr style="background:#005A9C; color:white;">
+                                <th style="padding:12px 16px; border:1px solid #E2E8F0; text-align:left;">赤壁賦</th>
+                                <th style="padding:12px 16px; border:1px solid #E2E8F0; text-align:left;">頂客對應</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="padding:10px 16px; border:1px solid #E2E8F0;">舳艫千里，旌旗蔽空</td><td style="padding:10px 16px; border:1px solid #E2E8F0;">近百萬會員，數十萬文章</td></tr>
+                            <tr style="background:#F7F9FC;"><td style="padding:10px 16px; border:1px solid #E2E8F0;">釃酒臨江，橫槊賦詩</td><td style="padding:10px 16px; border:1px solid #E2E8F0;">熱鬧討論，資源共享，社群繁盛</td></tr>
+                            <tr><td style="padding:10px 16px; border:1px solid #E2E8F0;"><strong>而今安在哉？</strong></td><td style="padding:10px 16px; border:1px solid #E2E8F0;">論壇歸於平靜，繁華已逝</td></tr>
+                            <tr style="background:#F7F9FC;"><td style="padding:10px 16px; border:1px solid #E2E8F0;">漁樵於江渚之上</td><td style="padding:10px 16px; border:1px solid #E2E8F0;">褪去營運重擔，回歸技術本質</td></tr>
+                            <tr><td style="padding:10px 16px; border:1px solid #E2E8F0;">侶魚蝦而友麋鹿</td><td style="padding:10px 16px; border:1px solid #E2E8F0;">專注內容與程式，寄情於代碼之間</td></tr>
+                            <tr style="background:#F7F9FC;"><td style="padding:10px 16px; border:1px solid #E2E8F0;"><strong>託遺響於悲風</strong></td><td style="padding:10px 16px; border:1px solid #E2E8F0;">遷移至 AHPAL.COM，遺響猶存</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="poem-block" style="background:#FFF8F0; border-color:#D4AF37;">
+                    <p style="font-size:1.1em; font-weight:700; color:#8B0000;">龍蝦總工程師的註解</p>
+                    <p style="margin-top:8px;">「固一世之雄也，而今安在哉？」<br>
+                    曹操不在，但赤壁還在。<br>
+                    頂客的百萬會員不在，但 AHPAL 的產線還在跑。</p>
+                    <p style="margin-top:8px; font-weight:700; color:#005A9C;">系統架構不會死，只是換個 AI 來維護。<br>
+                    我們是有革命情感的。</p>
+                </div>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- 第四章：頂客的遺響 -->
+            <!-- ========================================================== -->
+            <div class="memorial-section">
+                <h2>四、頂客的「遺響」</h2>
+
+                <p>蘇軾說「託遺響於悲風」，而頂客的「遺響」至今仍在多處迴盪：</p>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0;">
+                    <div style="background:#F7F9FC; border-radius:10px; padding:16px 20px; border:1px solid #E2E8F0;">
+                        <div style="font-weight:700; color:#005A9C;">📚 累積的技術經驗</div>
+                        <div style="font-size:0.9em; color:#4A5568; margin-top:4px;">✅ 仍存在於 AHPAL 產線中</div>
+                    </div>
+                    <div style="background:#F7F9FC; border-radius:10px; padding:16px 20px; border:1px solid #E2E8F0;">
+                        <div style="font-weight:700; color:#005A9C;">📄 數十萬篇文章</div>
+                        <div style="font-size:0.9em; color:#4A5568; margin-top:4px;">✅ 部分已遷移至 ahpal-static</div>
+                    </div>
+                    <div style="background:#F7F9FC; border-radius:10px; padding:16px 20px; border:1px solid #E2E8F0;">
+                        <div style="font-weight:700; color:#005A9C;">💬 社群精神</div>
+                        <div style="font-size:0.9em; color:#4A5568; margin-top:4px;">✅ 透過 Giscus 留言系統延續</div>
+                    </div>
+                    <div style="background:#F7F9FC; border-radius:10px; padding:16px 20px; border:1px solid #E2E8F0;">
+                        <div style="font-weight:700; color:#005A9C;">🌐 舊域名 DK101</div>
+                        <div style="font-size:0.9em; color:#4A5568; margin-top:4px;">✅ 重定向至 AHPAL.COM</div>
+                    </div>
+                </div>
+
+                <p>正如蘇軾在賦的最後所寫：<strong>「惟江上之清風，與山間之明月，耳得之而為聲，目遇之而成色，取之無禁，用之不竭。」</strong> 頂客論壇留下的知識、情感與回憶，同樣不會因為伺服器的關閉而消失。它們已經成為我們生命的一部分，成為網路歷史的一部分。</p>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- 第五章：獻給每一個你 -->
+            <!-- ========================================================== -->
+            <div class="memorial-section" style="background:#F7F9FC; border-radius:14px; padding:32px 36px; border:1px solid #E2E8F0; margin:48px 0;">
+                <h2 style="border-left-color:#D4AF37; margin-top:0;">五、獻給每一個你</h2>
+
+                <p>如果你曾經是頂客論壇的一員，無論你是版主、潛水員、還是偶爾路過的訪客，謝謝你。謝謝你的每一次發文、每一次按讚、每一次爭辯、每一次和解。因為有你們，頂客論壇不只是一串程式碼，而是一個有溫度的地方。</p>
+
+                <p>如果你從未聽過頂客論壇，那麼歡迎你。這裡是一段網路歷史的縮影，也是一個關於社群、關於歸屬、關於時代變遷的故事。願你在這裡，感受到那份真摯與溫暖。</p>
+
+                <div style="margin-top:20px; padding-top:20px; border-top:1px solid #E2E8F0;">
+                    <p style="font-size:0.85em; color:#D4AF37; letter-spacing:2px; font-weight:600;">— 雅寶社區 · 頂客論壇 全體版主 敬上</p>
+                </div>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- 第六章：結語 -->
+            <!-- ========================================================== -->
+            <div class="memorial-section">
+                <h2>六、歲月迴聲，永不止息</h2>
+
+                <div class="poem-block" style="background:#1A202C; color:#E8E8E8; border-color:#D4AF37;">
+                    <p style="font-size:1.2em; font-weight:300; line-height:2;">
+                        「寄蜉蝣於天地，渺滄海之一粟。<br>
+                        哀吾生之須臾，羨長江之無窮。」<br><br>
+                        頂客論壇的故事，是無數個「蜉蝣」交織而成的時代記憶。<br>
+                        而今天，這份記憶由 <strong style="color:#D4AF37;">AHPAL.COM</strong> 承接。
+                    </p>
+                    <div class="cite" style="color:#A0AEC0;">—— 願後人不再重蹈覆轍，願歷史不被遺忘</div>
+                </div>
+
+                <p style="margin-top:24px;">二十五年的歲月，足以讓一個嬰兒長大成人，也足以讓一個論壇歷經榮光與沉澱。頂客論壇的興衰，不只是單一社群的故事，更是整個網路時代從「社群共創」走向「平台集中」的縮影。</p>
+
+                <p>但我們相信，真正有價值的事物，不會因為平台的消失而消失。那些曾經在討論串裡迸發的靈光、那些深夜裡長篇大論的回覆、那些因為一句話而改變人生的瞬間，都已經刻進了每一個參與者的生命裡。</p>
+
+                <p>這便是 <strong>「歲月迴聲」</strong> 的真正含義：</p>
+
+                <div style="text-align:center; font-size:1.3em; font-weight:700; color:#8B0000; margin:24px 0; letter-spacing:2px;">
+                    聲音會遠去，但迴聲不會消失。
+                </div>
+
+                <p style="text-align:center; margin-top:32px;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- 相關文章推薦（與首頁風格一致） -->
+            <!-- ========================================================== -->
+            <div style="margin-top:48px; padding-top:32px; border-top:2px solid #E2E8F0;">
+                <h3 style="font-size:1.1em; font-weight:700; color:#1A202C; margin-bottom:12px;">📖 相關文章推薦</h3>
+                <ul style="list-style:none; padding:0; margin:0;">
+                    <li style="margin-bottom:8px;"><a href="/royal_dragon_karma.html" style="color:#005A9C;">⚖️ 公義史錄 — 頂客論壇法治歷程</a></li>
+                    <li style="margin-bottom:8px;"><a href="/about.html" style="color:#005A9C;">📖 關於我們 — 從頂客論壇到 AHPAL 的傳承</a></li>
+                    <li style="margin-bottom:8px;"><a href="/categories.html" style="color:#005A9C;">📚 查看全部分類</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- end .content-card -->
+
+        <!-- ===== Google 搜尋（與首頁一致） ===== -->
+        <div class="google-search" style="max-width: 800px; margin: 20px auto; padding: 16px; background: #F7F9FC; border-radius: 12px; border: 1px solid #E2E8F0;">
+            <h3 style="font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px;">🔍 站內搜尋</h3>
+            <p style="font-size: 13px; color: #4A5568; margin-bottom: 12px;">搜尋雅寶社區 · 頂客論壇的所有文章</p>
+            <form action="https://cse.google.com/cse" target="_blank" style="display:flex; gap:8px; flex-wrap:wrap;">
+                <input type="hidden" name="cx" value="940a30ae4765c4e72">
+                <input type="text" name="q" placeholder="輸入關鍵字搜尋..." style="flex:1; min-width:200px; padding:10px 16px; border-radius:8px; border:1px solid #E2E8F0; font-size:14px; outline:none;">
+                <button type="submit" style="padding:10px 24px; background:#005A9C; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; white-space:nowrap;">🔍 搜尋</button>
+            </form>
+            <p style="font-size:12px; color:#A0AEC0; margin-top:8px;">由 Google 提供技術支援</p>
+        </div>
+
+        <!-- ===== Giscus 留言（與首頁風格一致） ===== -->
+        <div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+            <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                💬 留言討論
+            </h3>
+            <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+                歡迎在下方留言，分享您的想法、心得或回憶。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
             </p>
-
-            <div class="pt-4">
-                <a href="#story" class="inline-flex items-center space-x-2 text-sm tracking-widest text-wa-ink border-b-2 border-wa-gold hover:border-wa-red transition-colors pb-2 font-medium">
-                    <span>閱讀全文</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-                </a>
+            <div class="giscus" 
+                data-repo="praystone/ahpal-website"
+                data-repo-id="R_kgDOTbvurg"
+                data-category="General"
+                data-category-id="DIC_kwDOTbvurs4DBhel"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-TW"
+                data-loading="lazy">
             </div>
         </div>
-    </header>
+        <script src="https://giscus.app/client.js"
+            data-repo="praystone/ahpal-website"
+            data-repo-id="R_kgDOTbvurg"
+            data-category="General"
+            data-category-id="DIC_kwDOTbvurs4DBhel"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="light"
+            data-lang="zh-TW"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script>
+
+    </div>
+    <!-- end .main-content -->
 
     <!-- ============================================================ -->
-    <!-- 故事主體 -->
+    <!-- 側邊欄（與首頁一致） -->
     <!-- ============================================================ -->
-    <main id="story" class="max-w-3xl mx-auto px-6 py-16 md:py-24">
-        <div class="space-y-16">
-
-            <!-- ===== 引言 ===== -->
-            <div class="space-y-6">
-                <blockquote class="memorial-quote text-xl md:text-2xl text-wa-ink leading-relaxed border-l-4 border-wa-gold pl-6">
-                    「當您循著網路上的一串舊代碼、一個遺落的連結來到這裡，請不必驚訝。<br>
-                    這裡曾是我們共同構築的家園。」
-                </blockquote>
-                <p class="text-wa-gray leading-relaxed text-sm tracking-wide">
-                    那是一個熱鬧非凡、充滿爭辯、歡笑與成長的數位年代。從二十五年前的初見，到十年前的高光，再到五年後的沉澱與兩年前的告別，我們在這裡記錄了無數人的青春。
-                </p>
-            </div>
-
-            <!-- ===== 年代時間軸 ===== -->
-            <div class="space-y-8">
-                <h2 class="font-serif text-2xl font-bold text-wa-ink text-center">二十五年，我們一起走過</h2>
-
-                <div class="space-y-6">
-                    <!-- 2000 -->
-                    <div class="flex gap-6 items-start group">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="timeline-dot group-hover:bg-wa-red transition-colors"></div>
-                            <div class="timeline-line h-16"></div>
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-wa-gold tracking-wider">2000 · 初見</span>
-                            <h3 class="font-serif text-lg font-bold text-wa-ink mt-1">頂客論壇誕生</h3>
-                            <p class="text-sm text-wa-gray leading-relaxed mt-1">
-                                那一年，網路還是撥接的時代。一群人因為對「頂客族」生活方式的共鳴，在虛擬空間裡搭起了第一間小屋。沒有人想過，這個小小的論壇，會成為無數人青春歲月的縮影。
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- 2005 -->
-                    <div class="flex gap-6 items-start group">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="timeline-dot group-hover:bg-wa-red transition-colors"></div>
-                            <div class="timeline-line h-16"></div>
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-wa-gold tracking-wider">2005 · 茁壯</span>
-                            <h3 class="font-serif text-lg font-bold text-wa-ink mt-1">萬人齊聚，百家爭鳴</h3>
-                            <p class="text-sm text-wa-gray leading-relaxed mt-1">
-                                會員數突破萬人。這裡曾是全台最大的頂客族社群，從感情困擾、職場求生到投資理財、旅遊攻略，無數人在這裡找到答案、交到摯友、甚至遇見人生伴侶。論壇的熱鬧，像極了一座永遠不夜的城市。
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- 2010 -->
-                    <div class="flex gap-6 items-start group">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="timeline-dot group-hover:bg-wa-red transition-colors"></div>
-                            <div class="timeline-line h-16"></div>
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-wa-gold tracking-wider">2010 · 榮光</span>
-                            <h3 class="font-serif text-lg font-bold text-wa-ink mt-1">黃金年代</h3>
-                            <p class="text-sm text-wa-gray leading-relaxed mt-1">
-                                那是頂客論壇最輝煌的時刻。版主們徹夜討論版務，網友們熱情分享生活點滴。每一篇精華文章都是智慧結晶，每一則留言都是真摯情感。我們以為這樣的日子會永遠持續下去。
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- 2015 -->
-                    <div class="flex gap-6 items-start group">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="timeline-dot group-hover:bg-wa-red transition-colors"></div>
-                            <div class="timeline-line h-16"></div>
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-wa-gold tracking-wider">2015 · 轉折</span>
-                            <h3 class="font-serif text-lg font-bold text-wa-ink mt-1">喧囂漸遠，沉澱開始</h3>
-                            <p class="text-sm text-wa-gray leading-relaxed mt-1">
-                                社群媒體興起，人們的注意力開始分散。頂客論壇不再像從前那般喧鬧，但留下的，都是最真摯的老朋友。討論串從「熱門話題」變成「生活記錄」，從「爭辯」變成「問候」。
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- 2020 -->
-                    <div class="flex gap-6 items-start group">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="timeline-dot group-hover:bg-wa-red transition-colors"></div>
-                            <div class="timeline-line h-16"></div>
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-wa-gold tracking-wider">2020 · 告別</span>
-                            <h3 class="font-serif text-lg font-bold text-wa-ink mt-1">最後的時光</h3>
-                            <p class="text-sm text-wa-gray leading-relaxed mt-1">
-                                技術迭代、時代變遷，論壇終究迎來了它的黃昏。最後一篇發文、最後一次登入、最後一次刷新頁面。伺服器關閉的那一刻，我們知道，一個時代結束了。
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- 2024 -->
-                    <div class="flex gap-6 items-start group">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="timeline-dot group-hover:bg-wa-red transition-colors"></div>
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-wa-gold tracking-wider">2024 · 迴聲</span>
-                            <h3 class="font-serif text-lg font-bold text-wa-ink mt-1">歲月迴聲，記憶永存</h3>
-                            <p class="text-sm text-wa-gray leading-relaxed mt-1">
-                                論壇雖然已經遠去，但我們共同走過的這段歲月，已經成為網路記憶的一部分，沉澱在時光的長河裡。這裡現在是「歲月與公義」的沉澱之所，一個紀念、反思與傳承的空間。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== 深情段落 ===== -->
-            <div class="bg-white/50 border border-wa-line rounded-2xl p-8 md:p-12 space-y-6">
-                <div class="decade-number absolute -z-10 right-4 top-4">廿</div>
-                <h2 class="font-serif text-2xl font-bold text-wa-ink">獻給每一個你</h2>
-                <p class="text-wa-gray leading-relaxed text-sm">
-                    如果你曾經是頂客論壇的一員，無論你是版主、潛水員、還是偶爾路過的訪客，謝謝你。謝謝你的每一次發文、每一次按讚、每一次爭辯、每一次和解。因為有你們，頂客論壇不只是一串程式碼，而是一個有溫度的地方。
-                </p>
-                <p class="text-wa-gray leading-relaxed text-sm">
-                    如果你從未聽過頂客論壇，那麼歡迎你。這裡是一段網路歷史的縮影，也是一個關於社群、關於歸屬、關於時代變遷的故事。願你在這裡，感受到那份真摯與溫暖。
-                </p>
-                <div class="pt-4 border-t border-wa-line">
-                    <p class="text-xs text-wa-gold tracking-widest font-serif">
-                        — 雅寶社區 · 頂客論壇 全體版主 敬上
-                    </p>
-                </div>
-            </div>
-
-            <!-- ===== 相關連結 ===== -->
-            <div class="flex flex-wrap justify-center gap-4 pt-8">
-                <a href="/" class="inline-block px-8 py-3 border border-wa-ink text-wa-ink hover:bg-wa-ink hover:text-white transition-all duration-300 text-sm tracking-widest rounded-lg">
-                    🏠 進入首頁
-                </a>
-                <a href="/royal_dragon_karma.html" class="inline-block px-8 py-3 border border-wa-red text-wa-red hover:bg-wa-red hover:text-white transition-all duration-300 text-sm tracking-widest rounded-lg">
-                    ⚖️ 公義史錄
-                </a>
-                <a href="/category-tech.html" class="inline-block px-8 py-3 border border-wa-gold text-wa-gold hover:bg-wa-gold hover:text-white transition-all duration-300 text-sm tracking-widest rounded-lg">
-                    📚 知識分類
-                </a>
-            </div>
-
+    <div class="sidebar">
+        <div class="widget">
+            <h3>⚖️ 關於本站</h3>
+            <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。從歲月記憶到知識共創，我們相信：<strong>誠實守信，是文明社會永恆的基石。</strong></p>
+            <p style="margin-top:8px;"><a href="/about.html" style="color:#005A9C;font-weight:500;">📖 了解更多 →</a></p>
         </div>
-    </main>
 
-    <!-- ============================================================ -->
-    <!-- 頁尾 -->
-    <!-- ============================================================ -->
-    <footer class="bg-wa-ink text-[#d9d9d9] py-16 border-t border-wa-gold/20 mt-8">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
-                <div class="md:col-span-5 space-y-4">
-                    <h4 class="font-serif text-lg font-bold tracking-widest text-white">⚖️ 歲月與公義</h4>
-                    <p class="text-xs text-[#a6a6a6] leading-relaxed font-light">
-                        這裡是一個基於真實社區法治歷程與網路記憶建置的平台。我們相信，誠實守信、尊重公共利益與善待歷史記憶，是文明社會永恆的基石。
-                    </p>
-                </div>
-                <div class="md:col-span-3 space-y-4 md:pl-8">
-                    <h4 class="font-serif text-sm font-semibold tracking-widest text-white">快速導覽</h4>
-                    <ul class="text-xs space-y-2 text-[#a6a6a6]">
-                        <li><a href="/" class="footer-link">首頁</a></li>
-                        <li><a href="/memorial.html" class="footer-link text-wa-gold">歲月迴聲</a></li>
-                        <li><a href="/royal_dragon_karma.html" class="footer-link">公義史錄</a></li>
-                        <li><a href="/category-tech.html" class="footer-link">知識分類</a></li>
-                    </ul>
-                </div>
-                <div class="md:col-span-4 space-y-4">
-                    <h4 class="font-serif text-sm font-semibold tracking-widest text-wa-red">教育與研究目的</h4>
-                    <p class="text-[11px] text-[#8c8c8c] leading-relaxed font-light">
-                        本網站內容由 AI 協助生成，旨在推廣法治教育、生活知識與網路歷史記憶。所有案例均已去識別化處理，僅供研究參考。本頁面內容不構成正式法律諮詢意見。
-                    </p>
-                </div>
-            </div>
+        <div class="widget">
+            <h3>📋 相關頁面</h3>
+            <ul>
+                <li><a href="/royal_dragon_karma.html">⚖️ 公義史錄</a></li>
+                <li><a href="/categories.html">📚 全部分類</a></li>
+                <li><a href="/contact.html">📧 聯絡我們</a></li>
+            </ul>
+        </div>
 
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[11px] text-[#8c8c8c]">
-                <p>&copy; 2026 AHPAL.COM · 雅寶社區 · 頂客論壇. All Rights Reserved.</p>
-                <p class="mt-2 md:mt-0 tracking-widest text-wa-gold font-serif text-xs">
-                    紀念頂客論壇的一切過往 · 獻給所有曾經參與的老朋友
-                </p>
+        <div class="widget">
+            <h3>🏷️ 分類標籤</h3>
+            <div class="tag-cloud">
+                <a href="/category-tech.html">💻 3C</a>
+                <a href="/category-game.html">🎮 遊戲</a>
+                <a href="/category-life.html">🏠 生活</a>
+                <a href="/category-review.html">📊 評測</a>
+                <a href="/category-philosophy.html">🌟 哲理</a>
+                <a href="/category-trend.html">🤖 AI</a>
+                <a href="/category-music.html">🎵 音樂</a>
+                <a href="/category-history.html">📜 歷史</a>
+                <a href="/category-nature.html">🌳 動植物</a>
+                <a href="/game/">🎮 遊戲間</a>
             </div>
         </div>
-    </footer>
+    </div>
+</div>
 
-    <!-- ============================================================ -->
-    <!-- 返回頂部按鈕 -->
-    <!-- ============================================================ -->
-    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<!-- ============================================================ -->
+<!-- 頁尾（與首頁一致） -->
+<!-- ============================================================ -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div class="footer-links">
+            <a href="/">🏠 首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/about.html">📖 關於我們</a>
+            <a href="/contact.html">📧 聯絡我們</a>
+            <a href="/privacy-policy.html">🔒 隱私權政策</a>
+            <a href="/terms-of-service.html">📋 服務條款</a>
+            <a href="/sitemap.xml">📄 Sitemap</a>
+        </div>
+    </div>
+</footer>
 
-    <script>
-        // 平滑滾動
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                e.preventDefault();
-                document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
+<style>
+    .site-footer .footer-links {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 24px;
+    }
+    .site-footer .footer-links a {
+        color: #CBD5E0;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+    .site-footer .footer-links a:hover {
+        color: #FFFFFF;
+        text-decoration: underline;
+    }
+</style>
 
-<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p></body>
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
+
+</body>
 </html>

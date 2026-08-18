@@ -1,16 +1,12 @@
-﻿# ============================================================
-# preflight-check.ps1 - 紅皮書死命令強制檢查腳本 v2.3
+﻿﻿# ============================================================
+# preflight-check.ps1 - 紅皮書死命令強制檢查腳本 v2.4
 # ============================================================
 # 用途：推送前強制檢查，確保文章品質與完整性
 # 違反死命令者視同違反營運紀律
 # ============================================================
-# 修正 v2.3 (2026-08-18)：
-#   - 🆕 從 config.ps1 動態讀取 9 大分類
-#   - 🆕 自動支援 nature/ 和 music/ 目錄
-#   - 🆕 分類頁面檢查支援多種 HTML 結構
-#   - 🆕 增加詳細輸出與進度顯示
-#   - 🆕 文章取樣數量提升至 50 篇
-#   - 🔧 修復分類頁面結構檢查誤報問題
+# 修正 v2.4 (2026-08-19)：
+#   - 🆕 新增死命令 11 檢查：SEO 四大件嚴禁 noindex
+#   - 🆕 調用 check-seo-noindex.ps1 獨立檢查腳本
 # ============================================================
 
 param(
@@ -28,10 +24,14 @@ $FixCount = 0
 $PassCount = 0
 $CheckResults = @()
 
+# 取得腳本目錄
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+if (-not $ScriptDir) { $ScriptDir = Get-Location }
+
 # ============================================================
 # 🔧 載入核心配置 (動態讀取分類)
 # ============================================================
-$ConfigPath = Join-Path $ProjectRoot "scripts\config.ps1"
+$ConfigPath = Join-Path $ScriptDir "config.ps1"
 if (Test-Path $ConfigPath) {
     $oldErrorAction = $ErrorActionPreference
     $ErrorActionPreference = "SilentlyContinue"
@@ -55,11 +55,11 @@ if (Test-Path $ConfigPath) {
 
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Red
-Write-Host "  🔴 董事長死命令：變更後強制檢查 v2.3" -ForegroundColor Red
+Write-Host "  🔴 董事長死命令：變更後強制檢查 v2.4" -ForegroundColor Red
 Write-Host "============================================================" -ForegroundColor Red
 Write-Host ""
 Write-Host "  執行時間：$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
-Write-Host "  檢查範圍：檔案完整性 | 內容品質 | Git 狀態 | 結構檢查"
+Write-Host "  檢查範圍：檔案完整性 | 內容品質 | Git 狀態 | 結構檢查 | 死命令 11"
 Write-Host "  分類數量：$($ArticleDirs.Count) 大分類"
 Write-Host ""
 
@@ -521,6 +521,31 @@ if (-not $SkipGit) {
         Add-CheckResult -Category "Git" -Name ".env 存在" -Status "WARN" -Message ".env 不存在"
         $WarningCount++
     }
+}
+
+# ============================================================
+# 🆕 階段六點五：死命令 11 — SEO 四大件嚴禁 noindex
+# ============================================================
+if (-not $Quiet) {
+    Write-Host ""
+    Write-Host "📋 階段六點五：死命令 11 檢查 (SEO 四大件嚴禁 noindex)" -ForegroundColor Yellow
+    Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
+}
+
+$CheckScript = Join-Path $ScriptDir "check-seo-noindex.ps1"
+if (Test-Path $CheckScript) {
+    & $CheckScript -Quiet
+    $exitCode = $LASTEXITCODE
+    if ($exitCode -eq 1) {
+        Add-CheckResult -Category "死命令" -Name "SEO 四大件 noindex" -Status "FAIL" -Message "四大件含有 noindex"
+        $ErrorCount++
+    } else {
+        Add-CheckResult -Category "死命令" -Name "SEO 四大件 noindex" -Status "PASS" -Message "所有四大件皆無 noindex"
+    }
+} else {
+    Write-Warning "   ⚠️ 找不到 check-seo-noindex.ps1，跳過死命令 11 檢查" -ForegroundColor Yellow
+    Add-CheckResult -Category "死命令" -Name "SEO 四大件 noindex" -Status "WARN" -Message "檢查腳本不存在"
+    $WarningCount++
 }
 
 # ============================================================

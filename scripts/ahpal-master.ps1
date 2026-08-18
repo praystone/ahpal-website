@@ -1,16 +1,14 @@
-﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 萬能總指揮 v8.4
+﻿﻿# ============================================================
+# 雅寶社區 · 頂客論壇 - 萬能總指揮 v8.5
 # ============================================================
 # 功能：備份、處理待新增文章、生成遊戲、生成文章、Git 提交、
 #       Cloudflare 部署、SEO 驗證、系統工具整合、餘額檢查、
 #       目錄深度分析、AI 系統交接掃描
 # ============================================================
-# 🆕 v8.4 變更 (2026-08-18)：
-#   - 🆕 整合 AI 系統交接掃描 (選項 [H])
-#   - 🆕 新增 Invoke-AIHandover 函數
-#   - 🔧 優化 Get-ArticleCount 排除更多系統頁面
-#   - 🔧 完善錯誤處理與使用者體驗
-#   - 🔧 版本號升級至 v8.4
+# 🆕 v8.5 變更 (2026-08-19)：
+#   - 🆕 Invoke-SeoValidation 加入死命令 11 檢查 (SEO 四大件嚴禁 noindex)
+#   - 🆕 調用 check-seo-noindex.ps1 獨立檢查腳本
+#   - 🔧 [S] 和 [E] 共用同一檢查邏輯
 # ============================================================
 
 param(
@@ -197,7 +195,7 @@ function Invoke-SystemToolkit {
 }
 
 # ============================================================
-# 🆕 v8.4: 輔助函數：AI 系統交接掃描
+# v8.4: 輔助函數：AI 系統交接掃描
 # ============================================================
 function Invoke-AIHandover {
     Write-Section "🤖 AI 系統交接掃描"
@@ -349,14 +347,14 @@ else:
 }
 
 # ============================================================
-# 驗證 SEO 基礎檔案 v2.1
+# 驗證 SEO 基礎檔案 v2.2
 # ============================================================
 function Invoke-SeoValidation {
     param([switch]$Master)
     
     Write-Host ""
     Write-Host "============================================================" -ForegroundColor Cyan
-    Write-Host "  🔍 SEO 基礎檔案驗證 v2.1" -ForegroundColor Cyan
+    Write-Host "  🔍 SEO 基礎檔案驗證 v2.2" -ForegroundColor Cyan
     Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host ""
 
@@ -478,6 +476,27 @@ function Invoke-SeoValidation {
         Write-Host "   📊 文章總數：$articleCount 篇" -ForegroundColor Cyan
     }
 
+    # ============================================================
+    # 🆕 v8.5: 死命令 11 — SEO 四大件嚴禁 noindex
+    # ============================================================
+    Write-Host ""
+    Write-Host "📋 死命令 11 檢查：SEO 四大件嚴禁 noindex" -ForegroundColor Yellow
+    Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
+
+    $CheckScript = Join-Path $ScriptDir "check-seo-noindex.ps1"
+    if (Test-Path $CheckScript) {
+        & $CheckScript -Quiet
+        $exitCode = $LASTEXITCODE
+        if ($exitCode -eq 1) {
+            Write-Host "   ❌ 違反死命令 11：四大件含有 noindex" -ForegroundColor Red
+            $allPass = $false
+        } else {
+            Write-Host "   ✅ 死命令 11 通過：四大件無 noindex" -ForegroundColor Green
+        }
+    } else {
+        Write-Warning "   ⚠️ 找不到 check-seo-noindex.ps1，跳過死命令 11 檢查" -ForegroundColor Yellow
+    }
+
     Write-Host ""
     Write-Host "============================================================" -ForegroundColor Green
     Write-Host "  ✅ SEO 驗證完成！" -ForegroundColor Green
@@ -499,7 +518,7 @@ function Invoke-SeoValidation {
 # ============================================================
 
 function Get-ArticleCount {
-    # 🆕 v8.4: 排除更多系統頁面
+    # v8.4: 排除更多系統頁面
     $excludePattern = "index|categories|dashboard|about|contact|privacy|terms|404|memorial|royal|category-"
     $count = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { 
         $_.DirectoryName -notmatch "game" -and 
@@ -676,7 +695,7 @@ function Set-ForceApi {
 function Show-MainMenu {
     Clear-Host
     Write-Host "============================================================" -ForegroundColor Cyan
-    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v8.4" -ForegroundColor Cyan
+    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v8.5" -ForegroundColor Cyan
     Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "📊 系統狀態：" -ForegroundColor Yellow
@@ -714,7 +733,7 @@ function Show-MainMenu {
     Write-Host ""
     Write-Host "   [S] 🔍 SEO 基礎檔案驗證 (robots.txt / ads.txt / sitemap.xml)"
     Write-Host "   [E] 📊 完整 SEO 檢查 (含文章狀態與檔案存在性)"
-    Write-Host "   [H] 🤖 AI 系統交接掃描 (完整備份與報告)"  # 🆕 v8.4
+    Write-Host "   [H] 🤖 AI 系統交接掃描 (完整備份與報告)"
     Write-Host "   [T] 🛠️ 系統工具與診斷 (開機優化/硬體報告/備份)"
     Write-Host ""
     Write-Host "   [A] 🔧 強制使用 Gemini (尖峰時段也適用)"
@@ -739,8 +758,8 @@ function Show-MainMenu {
         "s" { Invoke-SeoValidation -Master }
         "E" { Invoke-SeoFullCheck }
         "e" { Invoke-SeoFullCheck }
-        "H" { Invoke-AIHandover }  # 🆕 v8.4
-        "h" { Invoke-AIHandover }  # 🆕 v8.4
+        "H" { Invoke-AIHandover }
+        "h" { Invoke-AIHandover }
         "T" { Invoke-SystemToolkit }
         "t" { Invoke-SystemToolkit }
         "A" { Set-ForceApi "gemini" }
@@ -755,7 +774,7 @@ function Show-MainMenu {
 # 啟動
 # ============================================================
 if ($Action) {
-    Write-Host "🦞 AHPAL 萬能總指揮 v8.4 (命令列模式)" -ForegroundColor Cyan
+    Write-Host "🦞 AHPAL 萬能總指揮 v8.5 (命令列模式)" -ForegroundColor Cyan
     Write-Host "   Action: $Action" -ForegroundColor Gray
     
     switch ($Action) {
@@ -770,7 +789,7 @@ if ($Action) {
         "seo" { Invoke-SeoValidation -Master }
         "toolkit" { Invoke-SystemToolkit }
         "analyze" { Invoke-DirectoryAnalysis -TxtOnly }
-        "handover" { Invoke-AIHandover }  # 🆕 v8.4
+        "handover" { Invoke-AIHandover }
         default { Write-Host "❌ 未知 Action: $Action" -ForegroundColor Red }
     }
 } elseif ($ForceApi) {

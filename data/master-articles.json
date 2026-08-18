@@ -11578,5 +11578,749 @@
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false
+  },
+  {
+    "keyword": "大王花的寄生生活史：從種子到綻放的極端演化策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/rafflesia-parasitic-lifecycle-evolution.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "龍血樹的樹脂分泌機制與索科特拉島隔離演化奇蹟",
+    "category": "🌿 自然生態",
+    "filename": "nature/dragon-blood-tree-resin-socotra.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "捕蠅草的瞬間閉合機制：動作電位與彈性不穩定性物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/venus-flytrap-action-potential-closure.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "巨杉的耐火樹皮與北美森林火災生態適應",
+    "category": "🌿 自然生態",
+    "filename": "nature/giant-sequoia-fire-resistant-bark.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "猴麵包樹的儲水組織與非洲稀樹草原乾旱適應",
+    "category": "🌿 自然生態",
+    "filename": "nature/baobab-water-storage-savanna.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "紅杉的垂直水分輸送：根壓與蒸散作用的極限物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/redwood-water-transport-root-pressure.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "曼陀羅的生物鹼防禦與昆蟲共演化軍備競賽",
+    "category": "🌿 自然生態",
+    "filename": "nature/datura-alkaloid-defense-coevolution.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "跳舞草的葉片運動：膨壓變化與光週期調控機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/dancing-plant-leaf-movement-photoperiod.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "銀杏的古老基因組：恐龍時代至今的活化石演化停滯",
+    "category": "🌿 自然生態",
+    "filename": "nature/ginkgo-genome-living-fossil-stasis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蕨類植物的孢子彈射力學與森林底層微氣候適應",
+    "category": "🌿 自然生態",
+    "filename": "nature/fern-spore-dispersal-mechanics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蘭花的擬態欺騙：無報酬授粉與昆蟲行為操控演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/orchid-mimicry-deceptive-pollination.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "胡楊的鹽腺泌鹽機制與乾旱區土壤鹽漬化適應",
+    "category": "🌿 自然生態",
+    "filename": "nature/poplar-salt-glands-drought-adaptation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "藤蔓植物的向觸性生長與森林冠層競爭力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/vine-thigmotropism-canopy-competition.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "食蟲植物的消化酶演化：氮缺乏環境下的營養獲取策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/carnivorous-plant-digestive-enzyme-evolution.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "紅樹林的胎生種子萌發與潮間帶逆境適應",
+    "category": "🌿 自然生態",
+    "filename": "nature/mangrove-vivipary-intertidal-adaptation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "阿爾卑斯山植物的抗凍蛋白與高海拔紫外線防護",
+    "category": "🌿 自然生態",
+    "filename": "nature/alpine-plant-antifreeze-protein-uv-protection.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "真菌與植物的菌根共生：磷營養交換與生態網絡結構",
+    "category": "🌿 自然生態",
+    "filename": "nature/mycorrhizal-symbiosis-phosphorus-exchange.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "竹子的同步開花謎團：族群遺傳與演化時鐘假說",
+    "category": "🌿 自然生態",
+    "filename": "nature/bamboo-synchronous-flowering-evolution.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "植物揮發性有機物的防禦信號與鄰居溝通網絡",
+    "category": "🌿 自然生態",
+    "filename": "nature/plant-volatile-defense-signaling-network.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "風力傳粉的流體力學：裸子植物與被子植物的授粉效率比較",
+    "category": "🌿 自然生態",
+    "filename": "nature/wind-pollination-hydrodynamics-gymnosperm.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "帝王蝶的跨世代遷徙導航：太陽羅盤與地磁感應機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/monarch-butterfly-navigation-sun-compass.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "螞蟻的費洛蒙通訊網絡：群體智慧與最短路徑優化",
+    "category": "🌿 自然生態",
+    "filename": "nature/ant-pheromone-communication-swarm-intelligence.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜘蛛絲的力學超能力：強度、彈性與生物材料工程",
+    "category": "🌿 自然生態",
+    "filename": "nature/spider-silk-mechanics-biomaterial-engineering.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "螢火蟲的生物發光：螢光素酶反應與求偶信號演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/firefly-bioluminescence-luciferase-mating.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜜蜂的舞蹈語言：資訊編碼與群體決策機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/honeybee-waggle-dance-information-coding.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "糞金龜的星導航：銀河定位與糞球滾動力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/dung-beetle-milky-way-navigation-mechanics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜻蜓的複眼視覺與空中捕獵飛行力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/dragonfly-compound-eye-hunting-flight.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蟬的週期性出土：質數生命週期的演化優勢與生態時鐘",
+    "category": "🌿 自然生態",
+    "filename": "nature/cicada-periodical-emergence-prime-cycle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "竹節蟲的極致擬態：視覺欺騙與掠食者認知騙術",
+    "category": "🌿 自然生態",
+    "filename": "nature/stick-insect-mimicry-visual-deception.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "螳螂的鐮刀前足：捕捉運動的彈性能釋放與衝擊力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/mantis-raptorial-leg-elastic-recoil.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蝴蝶鱗片的結構色：光子晶體與奈米光學演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/butterfly-scale-structural-color-photonic.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜜蜂的熱防禦：集體扇風與巢溫調控生理機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/honeybee-thermal-defense-collective-fanning.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "跳蚤的彈跳力學：樹脂蛋白儲能與肌肉協同爆發",
+    "category": "🌿 自然生態",
+    "filename": "nature/flea-jumping-mechanics-resilin-energy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "白蟻的土木工程：巢穴通風與真菌培養共生生態",
+    "category": "🌿 自然生態",
+    "filename": "nature/termite-mound-ventilation-fungiculture.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "豆娘的空中交配力學：連體飛行的流體動力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/damselfly-mating-wheel-flight-hydrodynamics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "獨角仙的角鬥力學：繁殖競爭與角質結構強度",
+    "category": "🌿 自然生態",
+    "filename": "nature/rhinoceros-beetle-horn-mechanics-competition.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "虎甲蟲的極速奔跑：視覺盲區與逃避掠食者的運動策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/tiger-beetle-high-speed-vision-blindness.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "螻蛄的挖穴力學：前足演化與土壤穿透物理",
+    "category": "🌿 自然生態",
+    "filename": "nature/mole-cricket-digging-foreleg-soil-penetration.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蠍子的螫針毒液：神經毒素演化與獵物癱瘓策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/scorpion-venom-neurotoxin-evolution.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "水黽的表面張力行走：疏水性腿毛與水面支撐力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/water-strider-surface-tension-hydrophobic.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鮭魚的返鄉洄游：嗅覺印記與地磁導航機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/salmon-homing-migration-olfactory-magnetoreception.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "電鰻的放電器官：離子通道與高壓電擊獵捕物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/electric-eel-discharge-organ-ion-channel.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "小丑魚的性別轉變：社會階級與賀爾蒙調控機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/clownfish-sex-change-social-hierarchy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "深海琵琶魚的共生發光：費氏弧菌與誘餌演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/anglerfish-bioluminescent-symbiosis-bacteria.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "飛魚的滑翔力學：胸鰭升力與水面起飛動態",
+    "category": "🌿 自然生態",
+    "filename": "nature/flying-fish-gliding-lift-takeoff-dynamics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "彈塗魚的陸地適應：皮膚呼吸與鰭肢運動力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/mudskipper-terrestrial-adaptation-skin-breathing.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "河豚的膨脹防禦：彈性胃壁與四齒魨科演化策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/pufferfish-inflation-defense-elastic-stomach.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鯊魚的皮膚齒狀鱗片：流體減阻與游泳效率物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/shark-skin-denticles-hydrodynamic-drag-reduction.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "血鸚鵡的雜交畸形：觀賞魚產業下的基因組衝突",
+    "category": "🌿 自然生態",
+    "filename": "nature/blood-parrot-cichlid-hybrid-genome-conflict.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "龍膽石斑的性轉變：順序雌雄同體與繁殖策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/giant-grouper-sex-change-protogyny.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "海馬的雄性懷孕：育兒袋生理與胚胎發育調控",
+    "category": "🌿 自然生態",
+    "filename": "nature/seahorse-male-pregnancy-brood-pouch.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "比目魚的變態發育：眼睛遷移與扁平化適應演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/flatfish-metamorphosis-eye-migration.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "燈籠魚的垂直遷徙：深海晝夜移動物質能量流動",
+    "category": "🌿 自然生態",
+    "filename": "nature/lanternfish-vertical-migration-diel-cycle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鯰魚的味覺觸鬚：化學感應與濁水環境覓食適應",
+    "category": "🌿 自然生態",
+    "filename": "nature/catfish-barbels-taste-chemoreception-feeding.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "紅龍魚的嘴巴孵化：口孵行為與親代投資演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/arowana-mouth-brooding-parental-investment.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "海馬的尾巴力學：方形截面與抓握生物結構設計",
+    "category": "🌿 自然生態",
+    "filename": "nature/seahorse-tail-mechanics-square-section-grasping.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "燈魚的發光器演化：共生生態系與視覺訊號同步",
+    "category": "🌿 自然生態",
+    "filename": "nature/lanternfish-photophore-evolution-symbiosis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "吻鱷的伏擊力學：下顎咬合力與流體感應神經網路",
+    "category": "🌿 自然生態",
+    "filename": "nature/gar-fish-ambush-jaw-bite-force-hydromechanics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "箭毒蛙的皮膚生物鹼：毒素演化與警戒色共進化",
+    "category": "🌿 自然生態",
+    "filename": "nature/poison-dart-frog-alkaloid-evolution-aposematism.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "變色龍的顏色變化：色素細胞與奈米晶體光學調控",
+    "category": "🌿 自然生態",
+    "filename": "nature/chameleon-color-change-chromatophores-photonics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蛇類的下顎運動力學：頜骨脫臼與吞嚥生物力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/snake-jaw-mechanics-kinetic-skull-swallowing.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "壁虎的腳掌黏附力：凡德瓦爾力與微奈米結構設計",
+    "category": "🌿 自然生態",
+    "filename": "nature/gecko-foot-adhesion-van-der-waals-nanostructures.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蠑螈的肢體再生：芽基形成與基因組重啟機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/salamander-limb-regeneration-blastema-genomics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鬣蜥的海中覓食：滲透壓調節與鹽腺排鹽生理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/marine-iguana-osmoregulation-salt-glands.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "守宮的聲學通訊：叫聲結構與族群識別演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/gecko-vocal-communication-call-structure.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蟒蛇的熱感應：頰窩器官與紅外線偵測物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/python-infrared-sensing-pit-organ-physics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "樹蛙的黏性腳墊：表面張力與樹棲環境適應力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/tree-frog-adhesive-toe-pads-wettability.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "刺尾鬣蜥的尾棘防禦：掠食者威懾與尾部自割演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/spiny-tailed-iguana-tail-spines-defense.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "玻璃蛙的透明皮膚：血細胞隱藏與背景融合機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/glass-frog-translucent-skin-camouflage.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "凱門鱷的母子溝通：呼喚聲與孵化同步化行為",
+    "category": "🌿 自然生態",
+    "filename": "nature/caiman-parent-offspring-communication-hatching.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "避役的舌頭彈射：伸縮儲能與獵物捕獲超高速運動",
+    "category": "🌿 自然生態",
+    "filename": "nature/chameleon-tongue-projection-elastic-energy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "陸龜的龜甲演化：骨質防護與棲地適應多樣性",
+    "category": "🌿 自然生態",
+    "filename": "nature/tortoise-shell-evolution-bony-armor-habitat.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蠑螈的卵塊保護：季節性繁殖與親代照顧策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/salamander-egg-mass-protection-reproductive.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "極地燕鷗的極端遷徙：北極到南極的飛行生理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/arctic-tern-extreme-migration-flight-physiology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "孔雀的尾羽演化：性選擇與訊號理論的經典案例",
+    "category": "🌿 自然生態",
+    "filename": "nature/peacock-tail-evolution-sexual-selection-signaling.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜂鳥的懸停飛行：拍翅動力學與能量代謝極限",
+    "category": "🌿 自然生態",
+    "filename": "nature/hummingbird-hovering-flight-wing-kinematics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "渡鴉的認知能力：工具使用與元認知實驗證據",
+    "category": "🌿 自然生態",
+    "filename": "nature/raven-cognition-tool-use-metacognition.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鸚鵡的聲音模仿：鳴管控制與社會學習神經機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/parrot-vocal-mimicry-syrinx-social-learning.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "信天翁的動態滑翔：風場利用與長距離飛行最佳化",
+    "category": "🌿 自然生態",
+    "filename": "nature/albatross-dynamic-soaring-wind-optimization.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "喜鵲的自我鏡像認知：動物意識與智能演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/magpie-self-recognition-mirror-test-cognition.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "遊隼的俯衝速度：空氣動力學與獵捕策略物理",
+    "category": "🌿 自然生態",
+    "filename": "nature/peregrine-falcon-dive-speed-aerodynamics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鳥類的磁感應：隱花色素與量子糾纏導航機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/bird-magnetoreception-cryptochrome-quantum.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "啄木鳥的抗衝擊頭骨：減震結構與腦部保護力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/woodpecker-shock-absorption-cranial-mechanics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鳥巢的建築工程：材料選擇與結構力學多樣性",
+    "category": "🌿 自然生態",
+    "filename": "nature/bird-nest-architecture-material-structural.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "杜鵑的巢寄生：卵色模仿與宿主反適應軍備競賽",
+    "category": "🌿 自然生態",
+    "filename": "nature/cuckoo-brood-parasitism-egg-mimicry.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "猛禽的視覺超能力：紫外光辨識與遠距捕獵",
+    "category": "🌿 自然生態",
+    "filename": "nature/raptor-vision-ultraviolet-long-range-hunting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "企鵝的流線型身體：水下推進與極地游泳力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/penguin-streamlined-body-aquatic-locomotion.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鳥鳴的方言演化：地理隔離與文化傳承機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/bird-song-dialect-geographic-cultural-transmission.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜂鳥的舌頭毛細作用：花蜜攝取的微流體物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/hummingbird-tongue-capillary-nectar-microfluidics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "貓頭鷹的靜音飛行：羽毛構造與聲學隱形力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/owl-silent-flight-feather-acoustic-stealth.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "群體鳥類的湧現行為：空中芭蕾與掠食者躲避策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/starling-murmuration-emergent-behavior.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "北極海鸚的銜魚紀錄：多條魚一次捕獲的嘴部力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/puffin-fish-holding-mouth-mechanics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "太平鳥的果實消化與種子傳播共演化網絡",
+    "category": "🌿 自然生態",
+    "filename": "nature/waxwing-fruit-digestion-seed-dispersal.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   }
 ]

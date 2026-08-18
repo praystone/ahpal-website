@@ -128,7 +128,123 @@ Write-Log "✅ API Key 檢查通過"
 Write-Log "[2/4] 準備文章清單..."
 
 $Articles = @(
+    # ============================================================
+    # 🦖 古生物、滅絕與生命演化歷史 (20篇)
+    # ============================================================
+    @{ keyword = "埃迪卡拉生物群：前寒武紀軟體生物的演化實驗與滅絕謎團"; filename = "ediacaran-biota-soft-bodied-extinction.html" },
+    @{ keyword = "巨型陸行鳥（Gastornis）的頭骨力學與古新世生態位爭議"; filename = "gastornis-skull-mechanics-paleocene.html" },
+    @{ keyword = "滑齒龍與上龍亞目的水中運動力學與海洋頂級獵手地位"; filename = "liopleurodon-pliosaur-hydrodynamics.html" },
+    @{ keyword = "龍王鯨的後肢退化遺跡與古代鯨類海洋化演化關鍵"; filename = "basilosaurus-vestigial-limbs-whale-evolution.html" },
+    @{ keyword = "棘龍的半水生生活型態：神經棘帆與尾槳構造力學解析"; filename = "spinosaurus-semi-aquatic-tail-paddle.html" },
+    @{ keyword = "三疊紀末期大滅絕：盤古大陸裂解火山作用與恐龍崛起"; filename = "triassic-extinction-pangea-volcanism.html" },
+    @{ keyword = "古巨蜥（Megalania）的體型極限與澳洲更新世巨型動物群滅絕"; filename = "megalania-giant-lizard-pleistocene.html" },
+    @{ keyword = "包頭龍與甲龍科的尾槌力學碰撞與禦敵防衛策略"; filename = "ankylosaurus-tail-club-impact-mechanics.html" },
+    @{ keyword = "副櫛龍的神經棘冠腔體與聲波共鳴頻率重建物理學"; filename = "parasaurolophus-crest-sound-resonance.html" },
+    @{ keyword = "海口魚與無頜類的脊索演化：脊椎動物起源的關鍵里程碑"; filename = "haikouichthys-notochord-vertebrate-origin.html" },
+    @{ keyword = "恐狼（Dire Wolf）的骨骼強度與冰河時期獵物競爭滅絕"; filename = "dire-wolf-skeletal-strength-extinction.html" },
+    @{ keyword = "巨型杯首龍與巨首龍：早期羊膜卵出現對陸地開拓的革命影響"; filename = "amniote-egg-land-colonization-evolution.html" },
+    @{ keyword = "笠頭螈（Diplocaulus）的回旋鏢狀頭骨流骨力學與水中防禦"; filename = "diplocaulus-boomerang-skull-hydrodynamics.html" },
+    @{ keyword = "杯莖海百合的鈣化莖結構與古生代海底森林生態系"; filename = "crinoid-calcite-stem-paleozoic-reef.html" },
+    @{ keyword = "薄板龍的極端頸椎演化與水中捕魚的流體力學限制"; filename = "elasmosaurus-long-neck-hydrodynamics.html" },
+    @{ keyword = "古貓獸亞目與肉齒目：始新世哺乳動物捕食者的生態位替換"; filename = "miacidae-creodont-eocene-niche-shift.html" },
+    @{ keyword = "翼肢鲎（板足鲎）的游動肢結構與志留紀海洋頂級掠食者"; filename = "eurypterid-pterygotus-paddles-silurian.html" },
+    @{ keyword = "巨型短面熊的長骨槓桿結構與更新世獵食 scavenge 爭議"; filename = "short-faced-bear-locomotion-pleistocene.html" },
+    @{ keyword = "平胸鳥類（Ratite）的多次失去飛行能力演化與趨同演化機制"; filename = "ratite-flightless-convergent-evolution.html" },
+    @{ keyword = "泥盆紀後期大滅絕：陸地植物崛起導致海洋缺氧的連鎖效應"; filename = "late-devonian-extinction-plant-rise-anoxia.html" },
 
+    # ============================================================
+    # 🌋 地理、地質極限與大自然現象 (20篇)
+    # ============================================================
+    @{ keyword = "納特龍湖的高鹼性碳酸鹽成因與石化湖泊生物學解析"; filename = "lake-natron-alkaline-calcification.html" },
+    @{ keyword = "羅賴馬山的天台桌狀山地質沉積歷史與獨特島嶼生態系"; filename = "tepui-roraima-tepui-geology-endemic.html" },
+    @{ keyword = "奈卡水晶洞的超大石膏晶體生長機制與極限高溫礦化"; filename = "naica-crystal-cave-gypsum-growth.html" },
+    @{ keyword = "卡特馬伊火山「萬煙谷」的高溫凝灰岩與火山碎屑流遺跡"; filename = "valley-of-ten-thousand-smokes-ignimbrite.html" },
+    @{ keyword = "烏尤尼鹽沼的鋰礦沉積學與全球最大鏡面地貌水文動態"; filename = "uyuni-salt-flat-lithium-evaporite.html" },
+    @{ keyword = "理查特結構（撒哈拉之眼）的地殼穹窿侵蝕成因解析"; filename = "richat-structure-dome-erosion-geology.html" },
+    @{ keyword = "達洛爾火山（Dallol）的高酸高鹽地熱池與超極限生命邊界"; filename = "dallol-hydrothermal-acidic-brine.html" },
+    @{ keyword = "伊瓦魯巨石（Moeraki Boulders）的方解石方結晶核沉積原理"; filename = "moeraki-boulders-septarian-concretion.html" },
+    @{ keyword = "卡平加馬拉尼與珊瑚環礁的沉降理論：達爾文環礁演化學說"; filename = "coral-atoll-subsidence-darwin-theory.html" },
+    @{ keyword = "莫赫懸崖與沉積斜坡的重力塌陷與海蝕地形動態學"; filename = "cliffs-of-moher-coastal-erosion.html" },
+    @{ keyword = "喀拉喀托火山噴發引發的海嘯與全球大氣聲波震盪物理學"; filename = "krakatoa-eruption-atmospheric-shockwave.html" },
+    @{ keyword = "巨人堤道玄武岩柱狀節理的冷卻收縮裂隙形成力學"; filename = "giants-causeway-basalt-columnar-jointing.html" },
+    @{ keyword = "索科特拉島的隔離沉積地質與龍血樹奇觀演化"; filename = "socotra-island-isolation-dragon-blood.html" },
+    @{ keyword = "米爾鑽石礦坑（Mir Mine）的超深漏斗對周圍氣流與直升機的影響"; filename = "mir-diamond-mine-air-vortex.html" },
+    @{ keyword = "冰島冰川下火山（Subglacial Volcano）噴發與冰川潰壩洪流"; filename = "jokulhlaup-subglacial-volcano-eruption.html" },
+    @{ keyword = "大藍洞（Great Blue Hole）內石筍倒塌與古氣候乾旱紀錄"; filename = "great-blue-hole-stalactite-drought-record.html" },
+    @{ keyword = "懷奧塔普「香檳池」的高濃度重金屬沉積與熱帶地熱化學"; filename = "champagne-pool-heavy-metal-precipitation.html" },
+    @{ keyword = "馬達加斯加貝馬拉哈「石林」的雨水溶蝕與刀刃狀喀斯特地貌"; filename = "tsingy-de-bemaraha-karst-pinnacles.html" },
+    @{ keyword = "加拿大蘇必略湖巨型鐵礦床（BIF）與大氧化事件的地質紀錄"; filename = "banded-iron-formation-great-oxidation.html" },
+    @{ keyword = "芬迪灣（Bay of Fundy）超大潮差的海洋潮汐共振物理學"; filename = "bay-of-fundy-tidal-resonance.html" },
+
+    # ============================================================
+    # 🌪️ 氣象、大氣物理與天候奇觀 (20篇)
+    # ============================================================
+    @{ keyword = "乳狀雲（Mammatus Clouds）的重力不穩定性與積雨雲下沉氣流"; filename = "mammatus-clouds-gravity-instability.html" },
+    @{ keyword = "夜光雲（Noctilucent Clouds）的中層大氣冰晶與流星灰燼凝結核"; filename = "noctilucent-clouds-mesospheric-ice.html" },
+    @{ keyword = "馬拉開波湖卡塔通博閃電的甲烷氣體與大氣靜電長年放電"; filename = "catatumbo-lightning-methane-discharge.html" },
+    @{ keyword = "糙面雲（Asperitas Clouds）的波動流體力學與大氣重力波現象"; filename = "asperitas-clouds-atmospheric-gravity-waves.html" },
+    @{ keyword = "海市蜃樓（Fata Morgana）的高空逆溫層折射與光線彎曲物理"; filename = "fata-morgana-mirage-refraction-physics.html" },
+    @{ keyword = "綠閃光（Green Flash）的大氣折射色散與太陽邊緣極限光學現象"; filename = "green-flash-atmospheric-dispersion.html" },
+    @{ keyword = "暴風雪（Blizzard）的白矇天（Whiteout）現象與光線多重散射物理"; filename = "whiteout-blizzard-multiple-scattering.html" },
+    @{ keyword = "火旋風（Fire Whirl）的熱對流角動量守恆與火災風暴效應"; filename = "fire-whirl-angular-momentum-conservation.html" },
+    @{ keyword = "海龍捲風（Waterspout）的蒸發冷凝與水面渦旋形成學"; filename = "waterspout-vortex-evaporation-physics.html" },
+    @{ keyword = "鑽石塵（Diamond Dust）的高空清朗大氣直接冰晶凝華現象"; filename = "diamond-dust-ice-crystal-sublimation.html" },
+    @{ keyword = "穿洞雲（Fallstreak Hole）的過冷水滴冰晶化連鎖反應原理"; filename = "fallstreak-hole-supercooled-water.html" },
+    @{ keyword = "噴射氣流（Jet Stream）的 Rossby 波不穩定性與極端天氣連鎖"; filename = "jet-stream-rossby-waves-meandering.html" },
+    @{ keyword = "霧霓（Fogbow）的小水滴光學衍射現象與白色彩虹形成原理"; filename = "fogbow-diffraction-white-rainbow.html" },
+    @{ keyword = "強烈降雪中的雷暴（Thundersnow）成因與不穩定熱力對流機制"; filename = "thundersnow-thermodynamic-instability.html" },
+    @{ keyword = "熱雷雨（Thermal Thunderstorm）的地表局地加熱與自由對流高度"; filename = "thermal-thunderstorm-convective-initiation.html" },
+    @{ keyword = "高空彩煙（Iridescent Clouds）的薄雲微粒光學干涉與衍射現象"; filename = "cloud-iridescence-optical-interference.html" },
+    @{ keyword = "平流層突然變暖（SSW）對極地渦旋破裂與低緯寒潮的預測"; filename = "sudden-stratospheric-warming-polar-vortex.html" },
+    @{ keyword = "聖嬰南方振盪（ENSO）在大氣氣壓場中的 Walker 環流變異"; filename = "walker-circulation-enso-atmospheric-dynamics.html" },
+    @{ keyword = "強烈陣風鋒面（Arcurus/Shelf Cloud）的冷空氣下沉滾動流體物理"; filename = "shelf-cloud-outflow-boundary-physics.html" },
+    @{ keyword = "極地珠母雲（Nacreous Clouds）的極地平流層雲（PSC）與臭氧破壞"; filename = "nacreous-clouds-polar-stratospheric-cloud.html" },
+
+    # ============================================================
+    # 🪐 天文、宇宙學與星際探索 (20篇)
+    # ============================================================
+    @{ keyword = "開普勒-186f：宜居帶系外岩石行星的大氣與液態水存在條件"; filename = "kepler-186f-habitable-zone-exoplanet.html" },
+    @{ keyword = "磁星（Magnetar）的星震現象與超強磁場引起的伽瑪射線閃耀"; filename = "magnetar-starquake-magnetic-field-outburst.html" },
+    @{ keyword = "夸克星與奇異物質假說：中子星內部的極限壓強物理學"; filename = "quark-star-strange-matter-hypothesis.html" },
+    @{ keyword = "參宿四（Betelgeuse）的異常變暗與恆星拋射塵埃雲衰老歷史"; filename = "betelgeuse-dimming-dust-ejection.html" },
+    @{ keyword = "歐姆亞姆亞（'Oumuamua）：首個星際天體的非引力加速度與形狀謎團"; filename = "oumuamua-interstellar-object-acceleration.html" },
+    @{ keyword = "土衛二（Enceladus）羽流中的有機分子與冰火山噴發機制"; filename = "enceladus-plumes-cryovolcanism-organics.html" },
+    @{ keyword = "恆星潮汐破壞事件（TDE）：超大質量黑洞撕裂恆星的光學閃耀"; filename = "tidal-disruption-event-black-hole.html" },
+    @{ keyword = "創生之柱（Pillars of Creation）的光化蒸發與恆星孕育區物理"; filename = "pillars-of-creation-photoevaporation.html" },
+    @{ keyword = "宇宙微波背景輻射（CMB）的冷斑異常與宇宙暴脹理論驗證"; filename = "cmb-cold-spot-cosmic-inflation.html" },
+    @{ keyword = "木星大紅斑（Great Red Spot）的高壓氣旋流體力學與縮小趨勢"; filename = "jupiter-great-red-spot-anticyclone.html" },
+    @{ keyword = "水星的超大鐵芯構造與太陽系早期碰撞脫殼假說"; filename = "mercury-large-iron-core-giant-impact.html" },
+    @{ keyword = "銀河系中心黑洞人馬座 A* 的吸積盤結構與事件視界望遠鏡影像"; filename = "sagittarius-a-black-hole-eht-image.html" },
+    @{ keyword = "海王星大暗斑與極端風速：距離太陽最遠的風暴動態學"; filename = "neptune-great-dark-spot-supersonic-winds.html" },
+    @{ keyword = "戴森球（Dyson Sphere）猜想與塔比星（Tabby's Star）光變曲線解析"; filename = "dyson-sphere-tabbys-star-light-curve.html" },
+    @{ keyword = "雙星系統中的羅氏瓣（Roche Lobe）溢流與質量轉移演化"; filename = "roche-lobe-overflow-binary-stars.html" },
+    @{ keyword = "原行星盤（Protoplanetary Disk）中的行星形成隙縫與吸積物理"; filename = "protoplanetary-disk-gap-accretion.html" },
+    @{ keyword = "宇宙弦（Cosmic Strings）假說：早期宇宙相變產生的時空拓撲缺陷"; filename = "cosmic-strings-topological-defects.html" },
+    @{ keyword = "冥王星的氮冰冰川與斯普特尼克高原的地熱對流動態"; filename = "pluto-sputnik-planitia-nitrogen-glaciers.html" },
+    @{ keyword = "半人馬座 α 星 C（比鄰星 b）的紅矮星耀斑爆發與輻射威脅"; filename = "proxima-centauri-b-stellar-flare-radiation.html" },
+    @{ keyword = "宇宙大擠壓（Big Crunch）與大撕裂（Big Rip）：宇宙終極命題學說"; filename = "big-crunch-big-rip-cosmological-fate.html" },
+
+    # ============================================================
+    # 🐙 深海、極限生物與生態適應 (20篇)
+    # ============================================================
+    @{ keyword = "大王具足蟲的低代謝率與深海極限飢餓適應生理學"; filename = "giant-isopod-low-metabolism-starvation.html" },
+    @{ keyword = "水熊蟲（緩步動物）的隱生現象與 DNA 保護蛋白（Dsup）機制"; filename = "tardigrade-cryptobiosis-dsup-protein.html" },
+    @{ keyword = "管蟲（Riftia pachyptila）與硫化氫氧化菌的無消化道共生生態"; filename = "giant-tube-worm-chemosynthesis-symbiosis.html" },
+    @{ keyword = "燈塔水母的逆轉生命週期：細胞分化重轉化與理論永生現象"; filename = "turritopsis-dohrnii-transdifferentiation-immortality.html" },
+    @{ keyword = "深海巨型章魚的透明血液：血藍蛋白在高壓低溫下的氧氣輸送"; filename = "deep-sea-octopus-hemocyanin-oxygen-transport.html" },
+    @{ keyword = "裸鼴鼠的抗癌機制、耐缺氧能力與真社會性哺乳動物特徵"; filename = "naked-mole-rat-cancer-resistance-hypoxia.html" },
+    @{ keyword = "嗜熱菌（Thermus aquaticus）的 Taq 聚合酶與極限地熱水體生存"; filename = "thermus-aquaticus-taq-polymerase-extreme.html" },
+    @{ keyword = "深海鮟鱇魚的雄性寄生演化與免疫耐受機制謎團"; filename = "anglerfish-sexual-parasitism-immune-tolerance.html" },
+    @{ keyword = "極地冰魚（Icefish）的抗凍蛋白（AFP）與無紅血球透明血液適應"; filename = "icefish-antifreeze-protein-hemoglobinless.html" },
+    @{ keyword = "深海鯨落（Whale Fall）生態系：四個演化階段與極限有機物崩解"; filename = "whale-fall-ecosystem-succession-stages.html" },
+    @{ keyword = "沙漠傀儡蜥蜴的皮膚毛細管取水結構與水分凝結生理學"; filename = "thorny-devil-skin-capillary-water-harvesting.html" },
+    @{ keyword = "槍蝦（Pistol Shrimp）的空穴現象（Cavitation）與幾千度高溫衝擊波"; filename = "pistol-shrimp-cavitation-bubble-shockwave.html" },
+    @{ keyword = "深海大王烏賊（Architeuthis）的巨型化與光氣感受器眼睛演化"; filename = "giant-squid-gigantism-visual-adaptation.html" },
+    @{ keyword = "耐放射線奇異球菌（Deinococcus radiodurans）的超強 DNA 修復機制"; filename = "deinococcus-radiodurans-dna-repair.html" },
+    @{ keyword = "深海後肛魚（Barreleye）的透明頭部與旋轉管狀眼結構解析"; filename = "barreleye-fish-transparent-head-tubular-eyes.html" },
+    @{ keyword = "吸血鬼烏賊的低氧忍受力與深海有機碎屑（海雪）攝食"; filename = "vampire-squid-hypoxia-marine-snow.html" },
+    @{ keyword = "紅樹林植物的排鹽腺體與根系缺氧氣孔構造動態"; filename = "mangrove-salt-excretion-pneumatophores.html" },
+    @{ keyword = "龐貝蟲（Alvinella pompejana）的背部共生菌與極限高溫差耐受"; filename = "pompeii-worm-thermal-tolerance-symbiosis.html" }
 )
 
     # ── 🆕 新增文章請複製下面這一行，貼在上方 ──

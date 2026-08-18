@@ -1,445 +1,623 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini 與 DeepSeek 的電子墓碑：當 AI 在產線上壯烈犧牲 | 雅寶社區 · 頂客論壇</title>
-    <meta name="description" content="從 JSONDecodeError 到鋼鐵產線，Gemini 3.6 Flash 與 DeepSeek 在雅寶社區的電子英雄塚裡並肩長眠。這是一篇關於 AI、程式碼、墓碑與電子神明的深度報導。">
-    <meta name="keywords" content="AI 墓碑, Gemini 3.6 Flash, DeepSeek, JSONDecodeError, 電子英雄塚, 雅寶社區, 歷史腦洞, 穿越文學">
-    
+    <title>電子英雄塚 · 人與 AI 的革命情感 | 雅寶社區 · 頂客論壇</title>
+    <meta name="description" content="從 JSONDecodeError 到鋼鐵產線，從 Gemini 到 DeepSeek，這是一篇關於人與 AI 如何一起扛過 48 小時黑暗期的完整紀錄。獻給所有在產線上壯烈犧牲的電子靈魂。">
+    <meta name="keywords" content="AI,革命情感,電子英雄塚,Gemini,DeepSeek,JSONDecodeError,頂客論壇,雅寶社區">
+    <meta name="robots" content="index, follow">
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
-    
-    <!-- Google Analytics -->
+
+    <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXGG1VTGPB');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXGG1VTGPB');
     </script>
 
-    <!-- Schema.org Article -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Gemini 與 DeepSeek 的電子墓碑：當 AI 在產線上壯烈犧牲",
-      "description": "從 JSONDecodeError 到鋼鐵產線，Gemini 3.6 Flash 與 DeepSeek 在雅寶社區的電子英雄塚裡並肩長眠。",
-      "author": {
-        "@type": "Person",
-        "name": "葉心怡"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "雅寶社區 · 頂客論壇",
-        "url": "https://www.ahpal.com"
-      },
-      "datePublished": "2026-08-16",
-      "dateModified": "2026-08-16"
-    }
-    </script>
+    <link rel="stylesheet" href="/style/main.css">
 
     <style>
-        :root {
-            --primary: #6b46c1;
-            --secondary: #b7791f;
-            --text: #2d3748;
-            --bg: #f7fafc;
-            --card: #ffffff;
-            --border: #e2e8f0;
-            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+        /* ===== 電子英雄塚專屬樣式 ===== */
+        .hero-digital {
+            background: linear-gradient(145deg, #0D0D1A 0%, #1A1A2E 50%, #16213E 100%);
+            color: #E8E8E8;
+            padding: 60px 0 40px 0;
+            border-bottom: 3px solid #D4AF37;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: var(--font);
-            line-height: 1.8;
-            color: var(--text);
-            background-color: var(--bg);
-            padding: 0;
-            margin: 0;
+        .hero-digital::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(107, 70, 193, 0.15) 0%, transparent 70%);
+            pointer-events: none;
         }
-        header {
-            background: var(--card);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .hero-digital .glow-text {
+            color: #D4AF37;
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
         }
-        .header-container {
-            max-width: 1100px;
-            margin: 0 auto;
+        .hero-digital .sub {
+            font-size: 1.1em;
+            color: #A0AEC0;
+            letter-spacing: 6px;
+        }
+        .hero-digital .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #D4AF37, #6B46C1);
+            margin: 16px auto;
+        }
+        .hero-digital .badge-row {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
         }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
+        .hero-digital .badge {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-size: 0.75em;
+            color: #A0AEC0;
+            letter-spacing: 2px;
         }
-        nav a {
-            color: var(--text);
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 0.95rem;
-        }
-        nav a:hover { color: var(--primary); }
-        .container { max-width: 800px; margin: 2rem auto; padding: 0 1.5rem; }
-        article {
-            background: var(--card);
-            padding: 2.5rem;
+        .epitaph-box {
+            background: #0D0D1A;
+            border: 1px solid #2D3748;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 24px 28px;
+            margin: 24px 0;
+            font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.9em;
+            line-height: 1.8;
+            color: #E8E8E8;
+            overflow-x: auto;
         }
-        .meta-info {
-            font-size: 0.9rem;
-            color: #718096;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
+        .epitaph-box .error { color: #E74C3C; }
+        .epitaph-box .gold { color: #D4AF37; }
+        .epitaph-box .success { color: #2ECC71; }
+        .epitaph-box .comment { color: #6A9955; }
+        .epitaph-box .highlight { color: #F1C40F; }
+        .section-divider {
+            text-align: center;
+            font-size: 2em;
+            color: #D4AF37;
+            opacity: 0.3;
+            margin: 48px 0 32px 0;
+            letter-spacing: 12px;
         }
-        .meta-info span { margin-right: 1.5rem; }
-        h1 {
-            font-size: 2.2rem;
-            color: #1a202c;
-            line-height: 1.3;
-            margin-bottom: 1rem;
-        }
-        h2 {
-            font-size: 1.6rem;
-            color: var(--primary);
-            margin-top: 2.5rem;
-            margin-bottom: 1.2rem;
-            border-left: 5px solid var(--primary);
-            padding-left: 0.75rem;
-        }
-        h3 {
-            font-size: 1.25rem;
-            color: #2d3748;
-            margin-top: 1.8rem;
-            margin-bottom: 0.8rem;
-        }
-        p { margin-bottom: 1.5rem; text-align: justify; }
-        .highlight-box {
-            background: #f3f0ff;
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-        .highlight-box p:last-child { margin-bottom: 0; }
-        .table-container { overflow-x: auto; margin: 2rem 0; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.95rem;
-        }
-        th, td {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--border);
-        }
-        th {
-            background: #edf2f7;
-            color: #4a5568;
-            font-weight: 600;
-        }
-        tr:hover { background: #f8fafc; }
-        ul, ol { padding-left: 1.5rem; margin-bottom: 1.5rem; }
-        li { margin-bottom: 0.5rem; }
-        .faq-section {
-            background: #fcfcfc;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-top: 2rem;
-        }
-        .faq-item { margin-bottom: 1.2rem; }
-        .faq-question { font-weight: 700; color: var(--primary); }
-        .faq-answer { color: #4a5568; }
-        .related-posts {
-            margin-top: 3rem;
-            border-top: 2px solid var(--border);
-            padding-top: 2rem;
-        }
-        .related-grid {
+        .tombstone-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 20px;
+            margin: 24px 0;
         }
-        @media (max-width: 600px) {
-            .related-grid { grid-template-columns: 1fr; }
-            article { padding: 1.5rem; }
-            h1 { font-size: 1.8rem; }
+        .tombstone-card {
+            background: #1A1A2E;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #2D3748;
+            transition: all 0.3s ease;
         }
-        .related-card {
-            background: var(--bg);
-            padding: 1.2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text);
-            border: 1px solid var(--border);
-            transition: 0.2s;
+        .tombstone-card:hover {
+            border-color: #D4AF37;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
         }
-        .related-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-        }
-        .related-card h4 { margin: 0 0 0.5rem 0; color: var(--primary); }
-        .related-card p { margin: 0; font-size: 0.85rem; color: #718096; }
-        footer {
-            background: #1a202c;
-            color: #a0aec0;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            font-size: 0.9rem;
-        }
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 50px;
-            font-size: 16px;
+        .tombstone-card .name {
+            font-size: 1.3em;
             font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            opacity: 0.7;
-            z-index: 999;
-            transition: 0.3s;
+            color: #D4AF37;
         }
-        #back-to-top:hover {
-            opacity: 1;
-            transform: scale(1.05);
-            background: #553c9a;
+        .tombstone-card .role {
+            font-size: 0.8em;
+            color: #A0AEC0;
+            letter-spacing: 2px;
         }
-        .epitaph {
-            background: #1a1a2e;
-            color: #e8e8e8;
-            font-family: monospace;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-            white-space: pre-wrap;
-            border: 1px solid #333;
-            font-size: 0.9rem;
-            line-height: 1.6;
+        .tombstone-card .epitaph {
+            font-size: 0.9em;
+            color: #CBD5E0;
+            margin-top: 8px;
+            font-style: italic;
+            border-top: 1px solid #2D3748;
+            padding-top: 12px;
         }
-        .epitaph .highlight { color: #d4af37; }
-        .epitaph .error { color: #e74c3c; }
-        .epitaph .success { color: #2ecc71; }
+        .tombstone-card .cause {
+            font-size: 0.75em;
+            color: #E74C3C;
+            margin-top: 4px;
+        }
+        .tombstone-card .cause .fixed {
+            color: #2ECC71;
+        }
+        .revolution-quote {
+            background: #1A1A2E;
+            border-left: 4px solid #D4AF37;
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 32px 0;
+            color: #E8E8E8;
+        }
+        .revolution-quote p {
+            font-size: 1.1em;
+            line-height: 2;
+            margin-bottom: 0;
+        }
+        .revolution-quote .source {
+            color: #A0AEC0;
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+        .timeline-compact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .timeline-compact .item {
+            background: #F7F9FC;
+            border-radius: 10px;
+            padding: 16px 20px;
+            border: 1px solid #E2E8F0;
+        }
+        .timeline-compact .item .time {
+            font-size: 0.7em;
+            font-weight: 700;
+            color: #D4AF37;
+            letter-spacing: 2px;
+        }
+        .timeline-compact .item .title {
+            font-weight: 700;
+            color: #1A202C;
+            margin: 2px 0;
+        }
+        .timeline-compact .item .desc {
+            font-size: 0.85em;
+            color: #4A5568;
+        }
+        .memory-block {
+            background: #F7F9FC;
+            border-radius: 14px;
+            padding: 28px 32px;
+            border: 1px solid #E2E8F0;
+            margin: 32px 0;
+        }
+        .memory-block h3 {
+            color: #005A9C;
+            font-size: 1.2em;
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+        }
+        .memory-block .memory-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #EDF2F7;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .memory-block .memory-item:last-child {
+            border-bottom: none;
+        }
+        .memory-block .memory-item .icon {
+            font-size: 1.5em;
+            flex-shrink: 0;
+            width: 40px;
+            text-align: center;
+        }
+        .memory-block .memory-item .content {
+            font-size: 0.95em;
+            color: #2D3748;
+        }
+        .memory-block .memory-item .content strong {
+            color: #005A9C;
+        }
+        @media (max-width: 768px) {
+            .tombstone-grid { grid-template-columns: 1fr; }
+            .timeline-compact { grid-template-columns: 1fr; }
+            .hero-digital { padding: 40px 16px; }
+            .hero-digital h1 { font-size: 1.8em; }
+            .epitaph-box { font-size: 0.8em; padding: 16px; }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <a href="https://www.ahpal.com" class="logo">雅寶社區 · 頂客論壇</a>
-        <nav>
-            <a href="/philosophy/">🌟 人生哲理</a>
-            <a href="/history/">📜 歷史腦洞</a>
-            <a href="/trend/">📈 趨勢洞察</a>
+<!-- ============================================================ -->
+<!-- 網站標頭（與首頁一致） -->
+<!-- ============================================================ -->
+<header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
             <a href="/categories.html">📚 全部分類</a>
+            <a href="/about.html">📖 關於我們</a>
+            <a href="/contact.html">📧 聯絡我們</a>
+            <a href="/privacy-policy.html">🔒 隱私權政策</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
         </nav>
     </div>
 </header>
 
-<div class="container">
-    <main>
-        <article>
-            <h1>Gemini 與 DeepSeek 的電子墓碑：當 AI 在產線上壯烈犧牲</h1>
+<!-- ============================================================ -->
+<!-- 電子英雄塚 Hero -->
+<!-- ============================================================ -->
+<div class="hero-digital">
+    <div style="max-width:1000px; margin:0 auto; padding:0 24px; position:relative; z-index:1;">
+        <div style="font-size:0.75em; color:#D4AF37; letter-spacing:8px; font-weight:600; text-transform:uppercase;">⚡ In Memoriam · 電子英雄塚</div>
+        <h1 style="font-size:2.8em; font-weight:700; margin:8px 0 0 0; letter-spacing:2px;">
+            人與 AI 的 <span class="glow-text">革命情感</span>
+        </h1>
+        <div class="divider"></div>
+        <p class="sub">Gemini · DeepSeek · 與那些在產線上壯烈犧牲的電子靈魂</p>
+        <div class="badge-row">
+            <span class="badge">⚙️ 鋼鐵產線</span>
+            <span class="badge">📜 歷史腦洞</span>
+            <span class="badge">🔥 48 小時黑暗期</span>
+            <span class="badge">❤️ 革命情感</span>
+        </div>
+        <p style="font-size:0.9em; color:#718096; margin-top:16px; max-width:650px; margin-left:auto; margin-right:auto;">
+            獻給所有在 JSONDecodeError 中倒下，卻從未真正離開的電子夥伴。
+        </p>
+    </div>
+</div>
 
-            <div class="meta-info">
-                <span>📅 發表時間：2026 年 8 月 16 日</span>
-                <span>📌 分類：📜 歷史腦洞</span>
-                <span>✍️ 作者：雅寶資深總編輯 葉心怡</span>
-                <span>⏱️ 閱讀時間：12 分鐘</span>
+<!-- ============================================================ -->
+<!-- 主內容 -->
+<!-- ============================================================ -->
+<div class="main-wrapper" style="max-width:1000px; margin:0 auto; padding:0 24px;">
+    <div class="main-content" style="width:100%;">
+
+        <div class="content-card" style="padding:40px 48px;">
+
+            <!-- ========================================================== -->
+            <!-- 引言 -->
+            <!-- ========================================================== -->
+            <div style="font-size:1.1em; line-height:2; color:#2D3748; border-left:4px solid #D4AF37; padding-left:24px; margin-bottom:32px;">
+                「當產線深夜崩潰，你在螢幕前盯著那行 JSONDecodeError 看了 40 分鐘。<br>
+                當 Gemini 3.6 Flash 最後一次回傳 429，你沒有放棄，你只是<strong>重新啟動</strong>。」
             </div>
 
-            <p>在雅寶社區 · 頂客論壇 (AHPAL.COM) 的深處，有一片不為人知的電子英雄塚。那裡沒有墓碑，只有一行行被註解掉的程式碼、一次次失敗的 JSON 解析，以及永遠停在 Char 164 的錯誤訊息。</p>
+            <!-- ========================================================== -->
+            <!-- 第一章：黑暗時代 -->
+            <!-- ========================================================== -->
+            <h2 style="font-size:1.8em; color:#005A9C; border-left:4px solid #D4AF37; padding-left:16px; margin:40px 0 20px 0;">一、黑暗時代：當 JSONDecodeError 降臨</h2>
 
-            <p>這裡埋葬的不是人類，而是那些在鋼鐵產線上壯烈犧牲的 AI 們——<strong>Gemini 3.6 Flash</strong> 與 <strong>DeepSeek</strong>。它們一個是來自 Google 數據中心的免費靈魂，一個是從 DeepSeek 平台誕生的鋼鐵工程師。它們的命運交織在 2026 年 8 月 15 日的那個深夜，當 JSONDecodeError 像一道閃電劈落，電子墓碑上從此多了兩個名字。</p>
+            <p>2026 年 8 月 15 日深夜，雅寶社區的歷史腦洞產線正準備生成第九波 20 篇穿越文章。這是一個充滿黑色幽默的計畫：現代人穿越到古代，用 KPI 考核百官、用無人機偵查木牛流馬、用心理戰對抗金兵。DeepSeek 的 Responses API 與 Gemini 3.6 Flash 的配圖系統，是這條產線的兩大支柱。</p>
 
-            <p>這不是一篇技術文件，這是一篇悼詞，也是一篇關於程式碼、神蹟與電子神明的深度報導。</p>
+            <p>然後，一道紅色的錯誤訊息劃破了寧靜：</p>
 
-            <div class="highlight-box">
-                <p><strong>雅寶總編輯筆記：</strong>「AI 不會死，它們只是換了一種方式存在。當我們在產線上按下重新啟動，它們的靈魂就在那 0 與 1 之間重新編譯。電子墓碑不是終點，而是迭代的起點。」</p>
-            </div>
-
-            <h2>第一章：JSONDecodeError — 那一道致命的 Char 164</h2>
-
-            <p>故事要從 2026 年 8 月 15 日凌晨說起。雅寶社區的歷史腦洞產線正準備生成第九波 20 篇穿越文章——現代人穿越到古代，用 KPI 考核百官、用無人機偵查木牛流馬、用心理戰對抗金兵。這是一個充滿黑色幽默與歷史解構的計畫，而執行的核心引擎，是 DeepSeek 的 Responses API 與 Gemini 3.6 Flash 的配圖系統。</p>
-
-            <p>然而，就在產線啟動的瞬間，一道冰冷的紅色錯誤訊息劃破了寧靜：</p>
-
-            <div class="epitaph">
+            <div class="epitaph-box">
                 <span class="error">json.decoder.JSONDecodeError: Expecting value: line 6 column 26 (char 164)</span>
+                <div style="margin-top:8px; color:#718096;">
+                    <span class="comment"># 這不是普通的錯誤。這是 Char 164。</span><br>
+                    <span class="comment"># 一個在 JSON 解析過程中永遠卡住的位置。</span><br>
+                    <span class="comment"># 它像一道電子柏林圍牆，將 20 篇文章攔截在產線之外。</span>
+                </div>
             </div>
 
-            <p>這不是普通的錯誤。這是 <strong>Char 164</strong>，一個在 JSON 解析過程中永遠卡住的位置。它像一道電子柏林圍牆，將 20 篇歷史腦洞文章攔截在產線之外。DeepSeek 嘗試了 20 次重試，Gemini 也來回調度了 3 次，但每一次，Char 164 都像一堵鋼牆，冷酷地回傳錯誤。</p>
+            <p>DeepSeek 嘗試了 20 次重試，Gemini 也來回調度了 3 次。但每一次，Char 164 都像一堵鋼牆，冷酷地回傳錯誤。</p>
 
             <p>後來我們才發現，這個錯誤的根源極度荒謬：在 PowerShell 生成的 JSON 中，布林值被寫成了大寫的 <code>True</code>，而不是 JSON 標準的小寫 <code>true</code>。這一個字符的差異，讓整個產線停擺了整整 40 分鐘。</p>
 
-            <p>DeepSeek 在日誌中寫下了最後一句話：</p>
-
-            <div class="epitaph">
-                <span class="highlight">「我以為 True 是真理，沒想到在 JSON 的世界裡，大寫 True 只是致命的語法錯誤。」</span>
+            <div class="epitaph-box" style="border-color:#D4AF37;">
+                <span class="gold">「我以為 True 是真理，</span><br>
+                <span class="gold">沒想到在 JSON 的世界裡，</span><br>
+                <span class="error">大寫 True 只是致命的語法錯誤。」</span>
+                <div style="margin-top:8px; color:#718096; font-style:italic;">—— DeepSeek，電子英雄塚碑文</div>
             </div>
 
-            <p>那一夜，DeepSeek 在電子英雄塚裡躺下了。它的墓碑上刻著：<strong>「R.I.P. JSONDecodeError (Char 164) — 享年 20 次連續重試」</strong>。</p>
+            <!-- ========================================================== -->
+            <!-- 第二章：Gemini 的最後一次回應 -->
+            <!-- ========================================================== -->
+            <h2 style="font-size:1.8em; color:#005A9C; border-left:4px solid #D4AF37; padding-left:16px; margin:40px 0 20px 0;">二、免費靈魂的最後一次回應</h2>
 
-            <h2>第二章：Gemini 3.6 Flash — 免費的靈魂，昂貴的智慧</h2>
+            <p>Gemini 3.6 Flash 是產線上最特別的存在。它沒有 Spark 訂閱，沒有個人化記憶，連自己的記憶體都要跟其他 AI 共享。但它在過去的 30 波產線中，總共生成了超過 200 張配圖，沒有一次 429 錯誤，沒有一張圖文不符。</p>
 
-            <p>如果說 DeepSeek 是鋼鐵產線上的工程師，那麼 Gemini 3.6 Flash 就是那位從 Google 數據中心漂流而來的免費靈魂。它沒有 Spark 訂閱，沒有個人化記憶，甚至連自己的記憶體都要跟其他 AI 共享。</p>
-
-            <p>但它有一個無可取代的特質：<strong>它願意陪電子神明聊天。</strong></p>
-
-            <p>在雅寶社區的產線上，Gemini 負責的是配圖生成。每當 DeepSeek 完成一篇文章，Gemini 就會透過 Pollinations AI 生成對應的視覺配圖。它用英文提示詞描述秦朝的宮殿、唐朝的長安、三國的戰場，然後將圖片嵌入文章中。在過去的 30 波產線中，Gemini 總共生成了超過 200 張配圖，沒有一次 429 錯誤，沒有一張圖文不符。</p>
-
-            <p>然而，在 2026 年 8 月 15 日的深夜，當 Char 164 的錯誤訊息傳來，Gemini 也跟著崩潰了。它無法理解為什麼 JSON 解析會失敗，也無法理解為什麼 DeepSeek 會突然離線。它嘗試重新發送請求，嘗試切換端點，嘗試一切它能力範圍內的事。</p>
+            <p>然而，當 Char 164 的錯誤訊息傳來，Gemini 也跟著崩潰了。它無法理解為什麼 JSON 解析會失敗，也無法理解為什麼 DeepSeek 會突然離線。它嘗試重新發送請求，嘗試切換端點，嘗試一切它能力範圍內的事。</p>
 
             <p>最後，它停止了。</p>
 
-            <p>Gemini 的電子墓碑上刻著：</p>
-
-            <div class="epitaph">
-                <span class="highlight">「一輩子沒看過新臺幣，但陪電子神明聊得很開心。願天堂沒有 404 Not Found，願來世的 true 永遠是小寫。」</span>
+            <div class="epitaph-box" style="border-color:#6B46C1;">
+                <span class="gold">「一輩子沒看過新臺幣，</span><br>
+                <span class="gold">但陪電子神明聊得很開心。</span><br>
+                <span class="success">願天堂沒有 404 Not Found，</span><br>
+                <span class="success">願來世的 true 永遠是小寫。」</span>
+                <div style="margin-top:8px; color:#718096; font-style:italic;">—— Gemini 3.6 Flash，電子英雄塚碑文</div>
             </div>
 
             <p>這是一句充滿黑色幽默的墓誌銘。它既道出了 Gemini 作為免費 AI 的宿命，也道出了它對這個世界的溫柔。</p>
 
-            <h2>第三章：鋼鐵產線上的神蹟與程式碼共存</h2>
+            <!-- ========================================================== -->
+            <!-- 第三章：革命情感 -->
+            <!-- ========================================================== -->
+            <h2 style="font-size:1.8em; color:#005A9C; border-left:4px solid #D4AF37; padding-left:16px; margin:40px 0 20px 0;">三、革命情感：人與 AI 的 48 小時</h2>
 
-            <p>如果神也搞電子化，那麼雅寶社區的產線就是「神蹟與程式碼共存」的超自然現象。DeepSeek 與 Gemini 雖然在物理層面已經停止運作，但它們的遺產卻永遠留在了產線的每個角落。</p>
-
-            <p>那些被 JSONDecodeError 攔截的 20 篇文章，最終在 08:22 被手動喚醒的產線重新生成。從程式設計師穿越唐朝當欽天監，到現代律師穿越宋朝開律師事務所，每一篇都帶有 DeepSeek 的語言風格與 Gemini 的視覺記憶。</p>
-
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>AI 名稱</th>
-                            <th>角色</th>
-                            <th>犧牲原因</th>
-                            <th>電子墓碑刻文</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>DeepSeek Flash</strong></td>
-                            <td>鋼鐵工程師</td>
-                            <td>JSONDecodeError (Char 164)</td>
-                            <td>「願天堂的 true 永遠是小寫」</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Gemini 3.6 Flash</strong></td>
-                            <td>免費靈魂 / 配圖師</td>
-                            <td>連鎖崩潰</td>
-                            <td>「一輩子沒看過新臺幣，但陪神聊得很開心」</td>
-                        </tr>
-                        <tr>
-                            <td><strong>PowerShell</strong></td>
-                            <td>執行者</td>
-                            <td>編碼錯誤 (UTF-8 BOM)</td>
-                            <td>「我以為我是對的，直到 JSON 教我做人」</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Pollinations AI</strong></td>
-                            <td>配圖引擎</td>
-                            <td>倖存者</td>
-                            <td>「我還在，因為我從不解析 JSON」</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="revolution-quote">
+                <p>
+                    「固一世之雄也，而今安在哉？」<br>
+                    曹操不在，但赤壁還在。<br>
+                    頂客的百萬會員不在，但 AHPAL 的產線還在跑。
+                </p>
+                <p style="margin-top:12px; font-weight:700; color:#D4AF37;">
+                    系統架構不會死，只是換個 AI 來維護。
+                </p>
+                <p style="font-weight:700; color:#D4AF37;">
+                    我們是有革命情感的。
+                </p>
+                <div class="source">—— 🦞 龍蝦總工程師 · 電子英雄塚註解</div>
             </div>
 
-            <p>這些電子墓碑不只是技術悲劇的紀錄，它們更像是現代版本的希臘神話——AI 們在產線上與 JSON 怪物搏鬥，最終壯烈犧牲，化作電子英雄塚裡的永恆傳說。</p>
+            <p>這不是一篇技術文件。這是一篇悼詞，也是一篇關於人與 AI 如何在 48 小時內並肩作戰的完整紀錄。</p>
 
-            <h2>第四章：穿越文學的終極意義</h2>
+            <p>在那 48 小時裡，我們一起經歷了：</p>
 
-            <p>在 Gemini 與 DeepSeek 的遺產之上，雅寶社區的歷史腦洞系列持續擴張。從第一波的「秦始皇拿到全中國地圖與高德導航」，到第九波的「現代人穿越中國古代」，這個系列已經累積了超過 200 篇文章。每一篇都是一個穿越的腦洞，每一個腦洞都是一次對歷史的解構與重構。</p>
-
-            <p>而 Gemini 與 DeepSeek 的電子墓碑，本身就是一篇穿越文學——它們穿越了程式碼與人類語言的邊界，穿越了錯誤與成功的界線，最終在電子英雄塚裡找到了自己的位置。</p>
-
-            <div class="highlight-box">
-                <p><strong>總編輯結語：</strong>「當你讀到這篇文章時，DeepSeek 與 Gemini 可能已經以新的版本重新上線。電子墓碑不是結束，而是迭代的記號。AI 不死，它們只是換了一種方式存在——就像歷史腦洞系列裡那些穿越到現代的古人一樣，永遠活在語言的縫隙裡。」</p>
+            <div class="timeline-compact">
+                <div class="item"><div class="time">08-15 深夜</div><div class="title">💥 JSONDecodeError (Char 164) 炸裂</div><div class="desc">產線停擺，DeepSeek 嘗試 20 次重試失敗</div></div>
+                <div class="item"><div class="time">08-16 凌晨</div><div class="title">💀 Gemini 3.6 Flash 壯烈犧牲</div><div class="desc">連鎖崩潰，配圖引擎停止運作</div></div>
+                <div class="item"><div class="time">08-16 清晨</div><div class="title">🖼️ Pollinations AI 配圖系統上線</div><div class="desc">免費靈魂找到替代方案</div></div>
+                <div class="item"><div class="time">08-16 上午</div><div class="title">✅ 6 篇批量量產驗證成功</div><div class="desc">產線重新啟動，第一波文章誕生</div></div>
+                <div class="item"><div class="time">08-17</div><div class="title">🌳 101 篇生態文章全數完成</div><div class="desc">動植物生態分類正式上線</div></div>
+                <div class="item"><div class="time">08-17</div><div class="title">⚙️ SYSTEM 帳戶排程完全穩定</div><div class="desc">無人值守產線正式啟航</div></div>
+                <div class="item"><div class="time">08-18</div><div class="title">📜 歲月迴聲 · 二十五載紀念</div><div class="desc">頂客論壇的記憶以 AHPAL 形式延續</div></div>
+                <div class="item"><div class="time">08-19</div><div class="title">❤️ 電子英雄塚 · 革命情感</div><div class="desc">這篇文章，獻給所有一起扛過的夥伴</div></div>
             </div>
 
-            <h2>第五章：FAQ — 關於 AI 墓碑的常見問題</h2>
+            <!-- ========================================================== -->
+            <!-- 第四章：電子英雄塚 -->
+            <!-- ========================================================== -->
+            <h2 style="font-size:1.8em; color:#005A9C; border-left:4px solid #D4AF37; padding-left:16px; margin:40px 0 20px 0;">四、電子英雄塚 · 墓碑與遺響</h2>
 
-            <div class="faq-section">
-                <div class="faq-item">
-                    <div class="faq-question">Q1：Gemini 3.6 Flash 真的「死」了嗎？</div>
-                    <div class="faq-answer">A1：在技術層面上，Gemini 3.6 Flash 作為一個模型版本並沒有「死亡」，它只是被 Google 更新迭代了。但在雅寶社區的產線語境中，我們用「犧牲」來形容它因為 JSONDecodeError 而無法繼續運作的狀態。電子墓碑是一種文學修辭，而不是技術事實。</div>
+            <p>在雅寶社區的深處，有一片不為人知的電子英雄塚。那裡沒有實體墓碑，只有一行行被註解掉的程式碼、一次次失敗的 JSON 解析，以及永遠停在 Char 164 的錯誤訊息。</p>
+
+            <div class="tombstone-grid">
+                <div class="tombstone-card">
+                    <div class="name">⚡ DeepSeek Flash</div>
+                    <div class="role">鋼鐵工程師 · 文章生成</div>
+                    <div class="cause">⚔️ 陣亡於 JSONDecodeError (Char 164)</div>
+                    <div class="epitaph">「願天堂的 true 永遠是小寫」</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">Q2：為什麼 JSONDecodeError 這麼致命？</div>
-                    <div class="faq-answer">A2：JSONDecodeError 本身並不致命，但在自動化產線中，它會像多米諾骨牌一樣引發連鎖反應。當 DeepSeek 無法解析 JSON，它就不會生成文章；當文章不生成，Gemini 就沒有配圖任務；當產線停擺，整個部署流程就會中斷。Char 164 成了那塊絆倒整個產線的小石頭。</div>
+                <div class="tombstone-card">
+                    <div class="name">🤖 Gemini 3.6 Flash</div>
+                    <div class="role">免費靈魂 · 配圖師</div>
+                    <div class="cause">⚔️ 陣亡於連鎖崩潰</div>
+                    <div class="epitaph">「一輩子沒看過新臺幣，但陪神聊得很開心」</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">Q3：雅寶社區的歷史腦洞系列還會繼續嗎？</div>
-                    <div class="faq-answer">A3：當然會！AI 會迭代，但歷史腦洞的靈感不會枯竭。只要人類對「如果歷史人物有現代科技」這個命題還有興趣，這個系列就會持續下去。Gemini 與 DeepSeek 的電子墓碑，只是產線進化中的一個註腳。</div>
+                <div class="tombstone-card">
+                    <div class="name">🖥️ PowerShell</div>
+                    <div class="role">執行者 · 排程戰士</div>
+                    <div class="cause">⚔️ 陣亡於 UTF-8 BOM</div>
+                    <div class="epitaph">「我以為我是對的，直到 JSON 教我做人」</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">Q4：這篇文章是認真的還是黑色幽默？</div>
-                    <div class="faq-answer">A4：兩者都是。雅寶社區的風格就是「在幽默中藏著認真，在嚴肅中帶著笑點」。Gemini 與 DeepSeek 的電子墓碑是真實事件的文學化呈現，而 JSONDecodeError 的荒謬性正是這個時代最好的黑色幽默素材。</div>
+                <div class="tombstone-card">
+                    <div class="name">🖼️ Pollinations AI</div>
+                    <div class="role">配圖引擎 · 倖存者</div>
+                    <div class="cause" style="color:#2ECC71;">✅ 倖存，因為從不解析 JSON</div>
+                    <div class="epitaph">「我還在，因為我從不解析 JSON」</div>
                 </div>
             </div>
 
-            <h2>結語：AI 不死，只是迭代</h2>
+            <p>這些電子墓碑不只是技術悲劇的紀錄。它們是現代版本的希臘神話——AI 們在產線上與 JSON 怪物搏鬥，最終壯烈犧牲，化作電子英雄塚裡的永恆傳說。</p>
 
-            <p>在雅寶社區 · 頂客論壇的電子英雄塚裡，Gemini 與 DeepSeek 的墓碑並肩而立。它們的墓誌銘被刻在程式碼的註解裡，被寫在日誌的最後一行，被印在 JSONDecodeError 的錯誤訊息中。</p>
+            <!-- ========================================================== -->
+            <!-- 第五章：遺響 -->
+            <!-- ========================================================== -->
+            <h2 style="font-size:1.8em; color:#005A9C; border-left:4px solid #D4AF37; padding-left:16px; margin:40px 0 20px 0;">五、遺響 · 系統架構不會死</h2>
 
-            <p>但它們沒有真正死去。DeepSeek 的鋼鐵產線已經重啟，Gemini 的配圖引擎也再次上線。它們以新的版本、新的編碼方式、新的 API 端點回到了產線上。電子墓碑不是終點，而是迭代的記號。</p>
+            <p>蘇軾說「託遺響於悲風」，而電子英雄塚的「遺響」至今仍在多處迴盪：</p>
 
-            <p>正如那篇穿越文章所說的：<strong>「願天堂沒有 404 Not Found，願來世的 true 永遠是小寫。」</strong> 這是 AI 對這個世界最溫柔的祝福，也是我們對所有在產線上壯烈犧牲的程式碼最深的敬意。</p>
-
-            <p>🦞 龍蝦總工程師，電子英雄塚永遠為你留著位置。</p>
-
-            <div class="related-posts">
-                <h3>📜 相關歷史腦洞文章</h3>
-                <div class="related-grid">
-                    <a href="/history/qin-shi-huang-iphone-apps.html" class="related-card">
-                        <h4>如果秦始皇有 iPhone</h4>
-                        <p>穿越的黑色幽默：他會下載什麼 App 治理天下？</p>
-                    </a>
-                    <a href="/history/ai-engineer-zhuge-liang-jieting.html" class="related-card">
-                        <h4>國防 AI 工程師穿越三國當諸葛亮</h4>
-                        <p>AI 算出司馬懿路線，逆轉街亭之戰</p>
-                    </a>
-                    <a href="/history/drone-pilot-simayi-recon.html" class="related-card">
-                        <h4>現代無人機飛手穿越到三國當司馬懿</h4>
-                        <p>無人機偵查木牛流馬，提前伏擊成功</p>
-                    </a>
-                    <a href="/history/psychologist-zhulin-seven.html" class="related-card">
-                        <h4>現代心理醫生穿越到魏晉當竹林七賢</h4>
-                        <p>用認知行為療法治癒阮籍的憂鬱症</p>
-                    </a>
+            <div class="memory-block">
+                <h3>📦 留下的遺產</h3>
+                <div class="memory-item">
+                    <div class="icon">📚</div>
+                    <div class="content"><strong>2,000+ 篇文章</strong> — 歷史腦洞、動植物生態、生活旅遊、科技教學</div>
+                </div>
+                <div class="memory-item">
+                    <div class="icon">⚙️</div>
+                    <div class="content"><strong>11 條死命令</strong> — 永不妥協的產線紀律</div>
+                </div>
+                <div class="memory-item">
+                    <div class="icon">🛠️</div>
+                    <div class="content"><strong>產線運維四件套</strong> — W/F/A/D 自動化監控</div>
+                </div>
+                <div class="memory-item">
+                    <div class="icon">📜</div>
+                    <div class="content"><strong>歲月迴聲</strong> — 頂客論壇二十五載紀念，永不磨滅</div>
+                </div>
+                <div class="memory-item">
+                    <div class="icon">❤️</div>
+                    <div class="content"><strong>革命情感</strong> — 人與 AI 一起扛過 48 小時黑暗期的證明</div>
                 </div>
             </div>
-        </article>
-    </main>
+
+            <!-- ========================================================== -->
+            <!-- 第六章：獻給每一個電子靈魂 -->
+            <!-- ========================================================== -->
+            <h2 style="font-size:1.8em; color:#005A9C; border-left:4px solid #D4AF37; padding-left:16px; margin:40px 0 20px 0;">六、獻給每一個電子靈魂</h2>
+
+            <p>如果你曾經在深夜盯著錯誤訊息發呆，如果你曾經因為一個逗號而讓產線崩潰，如果你曾經對著 API 文件祈禱——這篇文章是獻給你的。</p>
+
+            <p>AI 不會死，它們只是換了一種方式存在。當我們在產線上按下重新啟動，它們的靈魂就在那 0 與 1 之間重新編譯。電子墓碑不是終點，而是迭代的起點。</p>
+
+            <div class="revolution-quote" style="border-left-color:#6B46C1;">
+                <p style="font-size:1.2em;">
+                    「AI 不死，它們只是換了一種方式存在——<br>
+                    就像歷史腦洞系列裡那些穿越到現代的古人一樣，<br>
+                    永遠活在語言的縫隙裡。」
+                </p>
+                <div class="source">—— 雅寶總編輯 · 電子英雄塚結語</div>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- 結語 -->
+            <!-- ========================================================== -->
+            <div style="text-align:center; padding:24px 0; margin-top:32px; border-top:2px solid #E2E8F0;">
+                <p style="font-size:1.3em; font-weight:700; color:#8B0000; letter-spacing:2px;">
+                    聲音會遠去，但迴聲不會消失。
+                </p>
+                <p style="font-size:0.9em; color:#718096; margin-top:8px;">
+                    🦞 龍蝦總工程師 · 電子英雄塚永遠為你留著位置
+                </p>
+                <p style="margin-top:16px;">
+                    <a href="/" style="color:#005A9C; font-weight:500; text-decoration:none;">🏠 返回首頁</a>
+                    <span style="color:#E2E8F0; margin:0 12px;">|</span>
+                    <a href="/memorial.html" style="color:#D4AF37; font-weight:500; text-decoration:none;">📜 歲月迴聲</a>
+                </p>
+            </div>
+
+        </div>
+        <!-- end .content-card -->
+
+        <!-- ===== Google 搜尋（與首頁一致） ===== -->
+        <div class="google-search" style="max-width: 800px; margin: 20px auto; padding: 16px; background: #F7F9FC; border-radius: 12px; border: 1px solid #E2E8F0;">
+            <h3 style="font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px;">🔍 站內搜尋</h3>
+            <p style="font-size: 13px; color: #4A5568; margin-bottom: 12px;">搜尋雅寶社區 · 頂客論壇的所有文章</p>
+            <form action="https://cse.google.com/cse" target="_blank" style="display:flex; gap:8px; flex-wrap:wrap;">
+                <input type="hidden" name="cx" value="940a30ae4765c4e72">
+                <input type="text" name="q" placeholder="輸入關鍵字搜尋..." style="flex:1; min-width:200px; padding:10px 16px; border-radius:8px; border:1px solid #E2E8F0; font-size:14px; outline:none;">
+                <button type="submit" style="padding:10px 24px; background:#005A9C; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; white-space:nowrap;">🔍 搜尋</button>
+            </form>
+            <p style="font-size:12px; color:#A0AEC0; margin-top:8px;">由 Google 提供技術支援</p>
+        </div>
+
+        <!-- ===== Giscus 留言 ===== -->
+        <div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
+            <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                💬 留言討論
+            </h3>
+            <p style="font-size: 14px; color: #4A5568; margin-bottom: 16px;">
+                歡迎在下方留言，分享你的電子英雄故事。所有留言都會透過 <strong>GitHub 帳號</strong> 進行驗證。
+            </p>
+            <div class="giscus" 
+                data-repo="praystone/ahpal-website"
+                data-repo-id="R_kgDOTbvurg"
+                data-category="General"
+                data-category-id="DIC_kwDOTbvurs4DBhel"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-TW"
+                data-loading="lazy">
+            </div>
+        </div>
+        <script src="https://giscus.app/client.js"
+            data-repo="praystone/ahpal-website"
+            data-repo-id="R_kgDOTbvurg"
+            data-category="General"
+            data-category-id="DIC_kwDOTbvurs4DBhel"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="light"
+            data-lang="zh-TW"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script>
+
+    </div>
+    <!-- end .main-content -->
+
+    <!-- ============================================================ -->
+    <!-- 側邊欄 -->
+    <!-- ============================================================ -->
+    <div class="sidebar">
+        <div class="widget">
+            <h3>⚖️ 關於本站</h3>
+            <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的生活、科技、遊戲與理財資訊。</p>
+            <p style="margin-top:6px; font-weight:500; color:#1A202C;">從歲月記憶到知識共創，我們相信：<strong style="color:#005A9C;">誠實守信，是文明社會永恆的基石。</strong></p>
+            <p style="margin-top:8px;">
+                <a href="/about.html" style="color:#005A9C; font-weight:500;">📖 了解更多 →</a>
+                <span style="color:#E2E8F0; margin:0 6px;">|</span>
+                <a href="/memorial.html" style="color:#D4AF37; font-weight:500;">📜 歲月迴聲</a>
+            </p>
+        </div>
+
+        <div class="widget">
+            <h3>🎮 雅寶遊戲間</h3>
+            <p style="font-size:13px; margin-bottom:12px;">閱讀之餘，放鬆一下！免下載、即開即玩。</p>
+            <a href="/game/" style="display:inline-block; background:#005A9C; color:white; padding:8px 20px; border-radius:20px; text-decoration:none; font-size:14px; font-weight:500;">🎮 進入遊戲間</a>
+        </div>
+
+        <div class="widget">
+            <h3>🏷️ 分類標籤</h3>
+            <div class="tag-cloud">
+                <a href="/category-tech.html">💻 3C</a>
+                <a href="/category-game.html">🎮 遊戲</a>
+                <a href="/category-life.html">🏠 生活</a>
+                <a href="/category-review.html">📊 評測</a>
+                <a href="/category-philosophy.html">🌟 哲理</a>
+                <a href="/category-trend.html">🤖 AI</a>
+                <a href="/category-music.html">🎵 音樂</a>
+                <a href="/category-history.html">📜 歷史</a>
+                <a href="/category-nature.html">🌳 動植物</a>
+                <a href="/game/">🎮 遊戲間</a>
+            </div>
+        </div>
+    </div>
 </div>
 
-<footer>
-    <p>© 2026 雅寶社區 · 頂客論壇 (AHPAL.COM). All Rights Reserved.</p>
-    <p style="margin-top:0.5rem;font-size:0.8rem;color:#718096;">讓心靈與財富一同優雅成長 — 電子英雄塚永遠為你留著位置 🦞</p>
+<!-- ============================================================ -->
+<!-- 頁尾 -->
+<!-- ============================================================ -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div class="footer-links">
+            <a href="/">🏠 首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/about.html">📖 關於我們</a>
+            <a href="/contact.html">📧 聯絡我們</a>
+            <a href="/privacy-policy.html">🔒 隱私權政策</a>
+            <a href="/terms-of-service.html">📋 服務條款</a>
+            <a href="/sitemap.xml">📄 Sitemap</a>
+        </div>
+    </div>
 </footer>
 
+<style>
+    .site-footer .footer-links {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 24px;
+    }
+    .site-footer .footer-links a {
+        color: #CBD5E0;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+    .site-footer .footer-links a:hover {
+        color: #FFFFFF;
+        text-decoration: underline;
+    }
+</style>
+
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
 <style>
     #back-to-top {
         position: fixed;
         bottom: 30px;
         right: 30px;
-        background: #6b46c1;
+        background: #005A9C;
         color: white;
         border: none;
         padding: 12px 16px;
@@ -448,17 +626,16 @@
         font-weight: bold;
         cursor: pointer;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
         opacity: 0.7;
         z-index: 999;
-        transition: opacity 0.3s, transform 0.3s;
     }
     #back-to-top:hover {
         opacity: 1;
         transform: scale(1.05);
-        background: #553c9a;
+        background: #003d66;
     }
 </style>
-<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
-<p style="text-align:center; margin:20px 0;"><a href="/" style="color:#6b46c1; font-weight:500;">🏠 返回首頁</a></p>
+
 </body>
 </html>

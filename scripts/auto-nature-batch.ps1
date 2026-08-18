@@ -1,15 +1,22 @@
 ﻿# ============================================================
-# 🌳 動植物生態 100 篇 — SYSTEM 背景執行版
+# 🌿 自然生態 — 無人值守 + 方便添加 v2.6
 # ============================================================
-# 用途：無人值守生成 100 篇動植物生態文章
-# 執行方式：SYSTEM 帳戶 (背景執行，無視窗)
+# 用途：無人值守生成自然生態文章
 # 特色：
-#   ✅ 100 篇完整文章清單 (動物/植物/生態)
+#   ✅ 方便添加：直接在 $Articles 區塊增減文章
 #   ✅ 無人值守：自動完成 JSON 寫入 → 合併 → 生成 → 更新頁面 → 部署
 #   ✅ 斷點續傳：已存在的文章自動跳過
 #   ✅ 電源管理：執行期間防止睡眠
 #   ✅ 錯誤通知：失敗時發送郵件
 #   ✅ 雙重重試：生成失敗自動重試一次
+#   ✅ 即時進度：每篇顯示目前篇數 [N/M] 與詳細生成 Log
+#   ✅ ETA 預估：每 10 篇顯示進度摘要與預估剩餘時間
+#   ✅ 日誌路徑：統一使用 config.ps1 管理 (system-reports/)
+#
+# v2.6 變更 (2026-08-18)：
+#   - 🆕 優化進度摘要顯示 (更精簡)
+#   - 🆕 加入總跳過計數顯示
+#   - 🆕 與 history/life v2.6 保持一致
 # ============================================================
 
 # ============================================================
@@ -28,12 +35,16 @@ $ProjectRoot = "C:\Users\User\ahpal-static"
 Set-Location $ProjectRoot
 
 # ============================================================
-# 📝 設定日誌
+# 📁 載入核心配置 (日誌路徑)
+# ============================================================
+. .\scripts\config.ps1
+
+# ============================================================
+# 📝 設定日誌 (使用 config.ps1 統一管理)
 # ============================================================
 $Timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-$LogDir = "$ProjectRoot\logs"
-New-Item -ItemType Directory -Path $LogDir -Force | Out-Null
-$LogFile = "$LogDir\auto-nature-batch-100-$Timestamp.log"
+$LogDir = Get-LogPath -Type batch
+$LogFile = "$LogDir\auto-nature-batch-v2-$Timestamp.log"
 $CheckpointFile = "$LogDir\nature-checkpoint.json"
 
 function Write-Log {
@@ -71,7 +82,7 @@ function Send-ErrorNotification {
             $SmtpClient = New-Object System.Net.Mail.SmtpClient("smtp.gmail.com", 587)
             $SmtpClient.EnableSsl = $true
             $SmtpClient.Credentials = New-Object System.Net.NetworkCredential($SmtpUser, $SmtpPass)
-            $MailMessage = New-Object System.Net.Mail.MailMessage($SmtpUser, $ToEmail, "❌ 動植物生態 100 篇批次生成失敗", $ErrorMsg)
+            $MailMessage = New-Object System.Net.Mail.MailMessage($SmtpUser, $ToEmail, "❌ 自然生態批次生成失敗", $ErrorMsg)
             $MailMessage.BodyEncoding = [System.Text.Encoding]::UTF8
             $SmtpClient.Send($MailMessage)
             Write-Log "📧 錯誤通知已發送"
@@ -82,8 +93,9 @@ function Send-ErrorNotification {
 }
 
 Write-Log "============================================================"
-Write-Log "🌳 動植物生態 100 篇 — SYSTEM 背景執行版"
+Write-Log "🌿 自然生態 — 無人值守 + 方便添加 v2.6"
 Write-Log "⏰ 啟動時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+Write-Log "📁 日誌位置: $LogDir"
 Write-Log "============================================================"
 
 # ============================================================
@@ -111,123 +123,16 @@ if (-not $DeepSeekKey) {
 Write-Log "✅ API Key 檢查通過"
 
 # ============================================================
-# 📝 步驟 2：★ 100 篇文章清單 ★
+# 📝 步驟 2：★ 方便添加區 ★ (80 篇文章，四大主題)
 # ============================================================
-Write-Log "[2/4] 準備 100 篇文章清單..."
+Write-Log "[2/4] 準備文章清單..."
 
 $Articles = @(
-    # ============================================================
-    # 🐾 動物類 (40篇) — 全新主題
-    # ============================================================
-    @{ keyword = "台灣狐蝠生態與保育現況"; filename = "taiwan-flying-fox-conservation.html" },
-    @{ keyword = "台灣黃喉貂生態觀察"; filename = "taiwan-yellow-throated-marten.html" },
-    @{ keyword = "台灣麝香貓生態與棲地"; filename = "taiwan-masked-palm-civet.html" },
-    @{ keyword = "台灣水獺保育與復育計畫"; filename = "taiwan-otter-conservation.html" },
-    @{ keyword = "台灣赤腹松鼠生態與都市適應"; filename = "taiwan-red-bellied-squirrel.html" },
-    @{ keyword = "台灣刺鼠生態與農田關係"; filename = "taiwan-spiny-rat-ecology.html" },
-    @{ keyword = "台灣鼴鼠生態與地下生活"; filename = "taiwan-mole-ecology.html" },
-    @{ keyword = "台灣鯪鯉（穿山甲）習性深度解析"; filename = "taiwan-pangolin-behavior.html" },
-    @{ keyword = "台灣八哥生態與都市棲地"; filename = "taiwan-crested-myna.html" },
-    @{ keyword = "台灣藍腹鷴生態與繁殖"; filename = "taiwan-blue-pheasant.html" },
-    @{ keyword = "台灣帝雉生態與保育"; filename = "taiwan-mikado-pheasant.html" },
-    @{ keyword = "台灣環頸雉生態與農田棲息"; filename = "taiwan-ring-necked-pheasant.html" },
-    @{ keyword = "台灣黑面琵鷺遷徙與棲地保護"; filename = "taiwan-black-faced-spoonbill.html" },
-    @{ keyword = "台灣白鷺鷥生態與濕地"; filename = "taiwan-egret-ecology.html" },
-    @{ keyword = "台灣夜鷺生態與都市河流"; filename = "taiwan-night-heron.html" },
-    @{ keyword = "台灣小鷿鷉生態與湖泊"; filename = "taiwan-little-grebe.html" },
-    @{ keyword = "台灣魚鷹生態與溪流狩獵"; filename = "taiwan-osprey-ecology.html" },
-    @{ keyword = "台灣黑鳶生態與都市適應"; filename = "taiwan-black-kite.html" },
-    @{ keyword = "台灣遊隼生態與懸崖棲地"; filename = "taiwan-peregrine-falcon.html" },
-    @{ keyword = "台灣紅隼生態與農田狩獵"; filename = "taiwan-common-kestrel.html" },
-    @{ keyword = "台灣領角鴞生態與都市夜間"; filename = "taiwan-collared-scops-owl.html" },
-    @{ keyword = "台灣黃嘴角鴞生態與森林"; filename = "taiwan-mountain-scops-owl.html" },
-    @{ keyword = "台灣褐鷹鴞生態與夜間狩獵"; filename = "taiwan-brown-hawk-owl.html" },
-    @{ keyword = "台灣大冠鷲生態與森林棲地"; filename = "taiwan-crested-serpent-eagle.html" },
-    @{ keyword = "台灣鳳頭蒼鷹生態與都市狩獵"; filename = "taiwan-crested-goshawk.html" },
-    @{ keyword = "台灣松雀鷹生態與森林"; filename = "taiwan-besra-ecology.html" },
-    @{ keyword = "台灣赤腹鷹遷徙與生態"; filename = "taiwan-chinese-goshawk.html" },
-    @{ keyword = "台灣灰面鵟鷹遷徙生態"; filename = "taiwan-gray-faced-buzzard.html" },
-    @{ keyword = "台灣蛇鵰生態與蛇類捕食"; filename = "taiwan-snake-eagle.html" },
-    @{ keyword = "台灣熊鷹生態與原始森林"; filename = "taiwan-hawk-eagle.html" },
-    @{ keyword = "台灣翡翠（翠鳥）生態與溪流"; filename = "taiwan-kingfisher-ecology.html" },
-    @{ keyword = "台灣五色鳥繁殖生態"; filename = "taiwan-barbet-breeding.html" },
-    @{ keyword = "台灣小啄木生態與森林"; filename = "taiwan-grey-capped-pygmy-woodpecker.html" },
-    @{ keyword = "台灣綠鳩生態與果樹"; filename = "taiwan-green-pigeon.html" },
-    @{ keyword = "台灣紅鳩生態與農田"; filename = "taiwan-red-turtle-dove.html" },
-    @{ keyword = "台灣金背鳩生態與都市"; filename = "taiwan-oriental-turtle-dove.html" },
-    @{ keyword = "台灣麻雀生態與都市適應"; filename = "taiwan-tree-sparrow-ecology.html" },
-    @{ keyword = "台灣白頭翁生態與都市"; filename = "taiwan-light-vented-bulbul.html" },
-    @{ keyword = "台灣紅嘴黑鵯生態與果園"; filename = "taiwan-black-bulbul.html" },
-    @{ keyword = "台灣綠繡眼生態與都市花園"; filename = "taiwan-japanese-white-eye.html" },
 
-    # ============================================================
-    # 🌿 植物類 (30篇) — 全新主題
-    # ============================================================
-    @{ keyword = "台灣原生杜鵑種類與賞花指南"; filename = "taiwan-native-rhododendron-species.html" },
-    @{ keyword = "台灣馬兜鈴生態與保育"; filename = "taiwan-aristolochia-ecology.html" },
-    @{ keyword = "台灣牛樟生態與復育"; filename = "taiwan-stout-camphor-tree.html" },
-    @{ keyword = "台灣相思樹生態與應用"; filename = "taiwan-acacia-ecology.html" },
-    @{ keyword = "台灣苦楝樹生態與文化"; filename = "taiwan-chinaberry-tree.html" },
-    @{ keyword = "台灣茄苳樹生態與古樹保護"; filename = "taiwan-bishop-wood.html" },
-    @{ keyword = "台灣九芎生態與水土保持"; filename = "taiwan-crepe-myrtle-ecology.html" },
-    @{ keyword = "台灣烏心石生態與木材應用"; filename = "taiwan-michelia-ecology.html" },
-    @{ keyword = "台灣樟樹生態與精油應用"; filename = "taiwan-camphor-tree-ecology.html" },
-    @{ keyword = "台灣檜木林生態與保育"; filename = "taiwan-cypress-forest-ecology.html" },
-    @{ keyword = "台灣鐵杉生態與高山生態系"; filename = "taiwan-hemlock-ecology.html" },
-    @{ keyword = "台灣雲杉生態與高山森林"; filename = "taiwan-spruce-forest-ecology.html" },
-    @{ keyword = "台灣冷杉生態與高山苔原"; filename = "taiwan-fir-ecology.html" },
-    @{ keyword = "台灣高山箭竹生態與動物棲地"; filename = "taiwan-alpine-bamboo-ecology.html" },
-    @{ keyword = "台灣黃藤生態與原住民應用"; filename = "taiwan-rattan-ecology.html" },
-    @{ keyword = "台灣山蘇花生態與附生"; filename = "taiwan-bird-nest-fern.html" },
-    @{ keyword = "台灣筆筒樹生態與保育"; filename = "taiwan-tree-fern-ecology.html" },
-    @{ keyword = "台灣觀音座蓮生態與保育"; filename = "taiwan-angiopteris-ecology.html" },
-    @{ keyword = "台灣海金沙生態與海濱"; filename = "taiwan-climbing-fern.html" },
-    @{ keyword = "台灣石松生態與低海拔森林"; filename = "taiwan-lycopodium-ecology.html" },
-    @{ keyword = "台灣月桃生態與民俗植物"; filename = "taiwan-alpinia-ecology.html" },
-    @{ keyword = "台灣野薑花生態與濕地"; filename = "taiwan-ginger-lily.html" },
-    @{ keyword = "台灣金花石蒜生態與海濱"; filename = "taiwan-spider-lily.html" },
-    @{ keyword = "台灣台灣杜鵑花季與賞花"; filename = "taiwan-rhododendron-season.html" },
-    @{ keyword = "台灣玉山杜鵑生態與高山"; filename = "taiwan-yushan-rhododendron-ecology.html" },
-    @{ keyword = "台灣台灣澤蘭生態與中海拔"; filename = "taiwan-taiwan-ageratum.html" },
-    @{ keyword = "台灣台灣馬藍生態與溪谷"; filename = "taiwan-strobilanthes-ecology.html" },
-    @{ keyword = "台灣台灣紅豆杉生態與保育"; filename = "taiwan-yew-ecology.html" },
-    @{ keyword = "台灣台灣火刺木生態與都市綠化"; filename = "taiwan-firethorn-ecology.html" },
-    @{ keyword = "台灣台灣桂花生態與文化"; filename = "taiwan-osmanthus-ecology.html" },
-
-    # ============================================================
-    # 🌍 生態/環境類 (30篇) — 全新主題
-    # ============================================================
-    @{ keyword = "台灣陸域生態系完整介紹"; filename = "taiwan-terrestrial-ecosystem.html" },
-    @{ keyword = "台灣水域生態系完整介紹"; filename = "taiwan-aquatic-ecosystem.html" },
-    @{ keyword = "台灣海岸生態系完整介紹"; filename = "taiwan-coastal-ecosystem.html" },
-    @{ keyword = "台灣低海拔生態與生物多樣性"; filename = "taiwan-lowland-ecology.html" },
-    @{ keyword = "台灣中海拔生態與霧林帶"; filename = "taiwan-mid-altitude-ecology.html" },
-    @{ keyword = "台灣高海拔生態與寒原"; filename = "taiwan-high-altitude-ecology.html" },
-    @{ keyword = "台灣溪流生態系與指標生物"; filename = "taiwan-stream-ecosystem-indicators.html" },
-    @{ keyword = "台灣湖泊生態系與特有生物"; filename = "taiwan-lake-ecosystem.html" },
-    @{ keyword = "台灣水庫生態與環境議題"; filename = "taiwan-reservoir-ecology.html" },
-    @{ keyword = "台灣農田生態系與生物多樣性"; filename = "taiwan-farmland-ecosystem.html" },
-    @{ keyword = "台灣都市生態系與綠色基礎設施"; filename = "taiwan-urban-ecosystem-infrastructure.html" },
-    @{ keyword = "台灣生態廊道規劃與實踐"; filename = "taiwan-ecological-corridor-planning.html" },
-    @{ keyword = "台灣生物多樣性保育策略"; filename = "taiwan-biodiversity-strategy.html" },
-    @{ keyword = "台灣瀕危物種紅皮書與保育"; filename = "taiwan-red-list-conservation.html" },
-    @{ keyword = "台灣外來種管理與移除策略"; filename = "taiwan-invasive-species-management.html" },
-    @{ keyword = "台灣野生動物救援與醫療"; filename = "taiwan-wildlife-rescue-medical.html" },
-    @{ keyword = "台灣野生動物路殺與生態廊道"; filename = "taiwan-roadkill-ecology.html" },
-    @{ keyword = "台灣環境影響評估與生態檢核"; filename = "taiwan-eia-ecological-review.html" },
-    @{ keyword = "台灣生態補償機制與實踐"; filename = "taiwan-ecological-compensation.html" },
-    @{ keyword = "台灣森林認證與永續經營"; filename = "taiwan-forest-certification.html" },
-    @{ keyword = "台灣海洋保護區與管理"; filename = "taiwan-marine-protected-areas.html" },
-    @{ keyword = "台灣國家公園經營管理"; filename = "taiwan-national-park-management.html" },
-    @{ keyword = "台灣自然保留區與生態保護"; filename = "taiwan-nature-reserve-ecology.html" },
-    @{ keyword = "台灣生態旅遊永續發展"; filename = "taiwan-ecotourism-sustainability.html" },
-    @{ keyword = "台灣環境教育與生態公民"; filename = "taiwan-environmental-education-citizen.html" },
-    @{ keyword = "台灣原住民傳統生態知識"; filename = "taiwan-indigenous-ecological-knowledge.html" },
-    @{ keyword = "台灣氣候變遷調適與生態"; filename = "taiwan-climate-adaptation-ecology.html" },
-    @{ keyword = "台灣生態監測與公民科學"; filename = "taiwan-ecological-monitoring-citizen-science.html" },
-    @{ keyword = "台灣里山倡議實踐案例"; filename = "taiwan-satoyama-practice.html" },
-    @{ keyword = "台灣2050淨零與生態保育"; filename = "taiwan-net-zero-ecology.html" }
 )
+
+    # ── 🆕 新增文章請複製下面這一行，貼在上方 ──
+    # @{ keyword = "你的新文章標題"; filename = "your-new-article.html" },
 
 Write-Log "✅ 已定義 $($Articles.Count) 篇文章"
 
@@ -242,11 +147,6 @@ if (-not (Test-Path $TargetDir)) {
     New-Item -ItemType Directory -Path $TargetDir -Force | Out-Null
     Write-Log "   📁 nature/ 目錄已建立"
 }
-
-# 建立子目錄
-New-Item -ItemType Directory -Path "$TargetDir\animal" -Force | Out-Null
-New-Item -ItemType Directory -Path "$TargetDir\plant" -Force | Out-Null
-New-Item -ItemType Directory -Path "$TargetDir\ecology" -Force | Out-Null
 
 $ExistingFiles = @()
 if (Test-Path $TargetDir) {
@@ -282,7 +182,7 @@ foreach ($article in $MissingArticles) {
     $jsonContent += @"
   {
     "keyword": "$($article.keyword)",
-    "category": "🌳 動植物生態",
+    "category": "🌿 自然生態",
     "filename": "nature/$($article.filename)",
     "use_responses_api": true,
     "enable_reasoning": true,
@@ -358,25 +258,22 @@ if ($LASTEXITCODE -ne 0) {
 Write-Log "✅ 文章合併完成"
 
 # ============================================================
-# 🚀 步驟 4：執行文章生成 (直接呼叫 article_generator)
+# 🚀 步驟 4：執行文章生成 (即時 Log + 顯式進度 N/M + ETA)
 # ============================================================
-Write-Log "[4/4] 執行 100 篇文章生成與部署..."
+Write-Log "[4/4] 執行文章生成與部署..."
 Save-Checkpoint -Stage "generation_start"
 
-$CurrentCount = (Get-ChildItem "$TargetDir\*.html" -ErrorAction SilentlyContinue).Count
-Write-Log "   📄 目前 nature/ 目錄有 $CurrentCount 篇文章"
-Write-Log "   ⏳ 預計生成 $($MissingArticles.Count) 篇，耗時 60-90 分鐘"
-Write-Log ""
-
+Write-Log "   [4a] 生成文章 (顯示目前進度 + ETA)..."
 Write-Log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Write-Log "  📡 文章生成即時輸出 (每篇文章完成時顯示)"
+Write-Log "  📡 文章生成即時輸出"
 Write-Log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Write-Log ""
 
-python -c "
+python -u -c "
 import json
 import sys
 import os
+import time
 sys.path.insert(0, '.')
 
 from src.article_generator import generate_article
@@ -386,8 +283,9 @@ with open('data/master-articles.json', 'r', encoding='utf-8') as f:
 
 nature_articles = [a for a in all_articles if a.get('filename', '').startswith('nature/')]
 total = len(nature_articles)
-print(f'📊 從 master-articles.json 找到 {total} 篇 nature 文章')
+print(f'📊 從 master-articles.json 找到 {total} 篇 nature 文章', flush=True)
 
+start_time = time.time()
 success_count = 0
 fail_count = 0
 skip_count = 0
@@ -395,29 +293,40 @@ skip_count = 0
 for idx, article in enumerate(nature_articles, 1):
     filename = article.get('filename', '')
     filepath = f'./{filename}'
-    
+    keyword = article.get('keyword', '')
+    progress = f'[{idx}/{total}]'
+
+    # ✅ 進度摘要 (每 10 篇顯示)
+    if idx == 1 or idx == total or idx % 10 == 0:
+        elapsed = time.time() - start_time
+        avg_time = elapsed / idx if idx > 0 else 0
+        remaining = (total - idx) * avg_time
+        print(f'📊 進度：{idx}/{total} ({idx/total*100:.1f}%) | 已耗：{elapsed:.0f}s | 預估剩餘：{remaining:.0f}s', flush=True)
+        print(f'   └─ 累積跳過：{skip_count} 篇', flush=True)
+
     if os.path.exists(filepath):
         size = os.path.getsize(filepath)
         if size >= 5120:
-            print(f'⏩ [{idx}/{total}] 已存在：{filename} ({size} bytes)')
             skip_count += 1
+            print(f'⏩ {progress} 已存在跳過：{filename}', flush=True)
             continue
         else:
-            print(f'⚠️ [{idx}/{total}] 檔案過小，重新生成：{filename} ({size} bytes)')
+            print(f'⚠️ {progress} 檔案過小重新生成：{filename} ({size} bytes)', flush=True)
     
-    print(f'--- 進度 {idx}/{total} ---')
+    print(f'\n============================================================', flush=True)
+    print(f'🚀 {progress} 開始生成（第 {idx} 篇，共 {total} 篇）：{keyword} ({filename})', flush=True)
+    print(f'============================================================', flush=True)
+    
     try:
         generate_article(article)
+        print(f'✅ {progress} 完成（第 {idx} 篇，共 {total} 篇）：{os.path.basename(filename)}', flush=True)
         success_count += 1
     except Exception as e:
-        print(f'❌ 生成失敗：{e}')
+        print(f'❌ {progress} 失敗（第 {idx} 篇，共 {total} 篇）：{str(e)}', flush=True)
         fail_count += 1
 
-print(f'')
-print(f'✅ 成功生成 {success_count} 篇')
-print(f'⏩ 跳過 {skip_count} 篇')
-print(f'❌ 失敗 {fail_count} 篇')
-"
+print(f'\n📊 執行總結：成功 {success_count} 篇 | 跳過 {skip_count} 篇 | 失敗 {fail_count} 篇', flush=True)
+" 2>&1
 
 $ExitCode = $LASTEXITCODE
 
@@ -440,18 +349,23 @@ with open('data/master-articles.json', 'r', encoding='utf-8') as f:
     all_articles = json.load(f)
 
 nature_articles = [a for a in all_articles if a.get('filename', '').startswith('nature/')]
+total = len(nature_articles)
 
 success_count = 0
 for idx, article in enumerate(nature_articles, 1):
     filename = article.get('filename', '')
     filepath = f'./{filename}'
+    keyword = article.get('keyword', '')
+    progress = f'[{idx}/{total}]'
     if os.path.exists(filepath) and os.path.getsize(filepath) >= 5120:
         continue
     try:
+        print(f'🚀 {progress} 重試生成：{keyword[:30]}... ({filename})')
         generate_article(article)
+        print(f'✅ {progress} 重試成功：{filename}')
         success_count += 1
     except Exception as e:
-        print(f'❌ 失敗：{e}')
+        print(f'❌ {progress} 重試失敗：{e}')
 print(f'✅ 第二次嘗試成功生成 {success_count} 篇')
 "
     
@@ -466,13 +380,12 @@ Save-Checkpoint -Stage "generation_done"
 Write-Log ""
 Write-Log "✅ 文章生成完成"
 
-$AfterCount = (Get-ChildItem "$TargetDir\*.html" -ErrorAction SilentlyContinue).Count
-Write-Log "   📄 生成後 nature/ 目錄有 $AfterCount 篇文章 (新增 $($AfterCount - $CurrentCount) 篇)"
-
 # ============================================================
 # 📂 更新分類頁面與 Sitemap
 # ============================================================
-Write-Log "   [4a] 更新分類頁面與 Sitemap..."
+Write-Log "   [4b] 更新分類頁面與 Sitemap..."
+Save-Checkpoint -Stage "category_update"
+
 python -c "from src.html_builder import generate_category_pages, generate_categories_page, create_default_index; generate_category_pages(); generate_categories_page(); create_default_index()" 2>&1 | Out-String | Write-Log
 
 if ($LASTEXITCODE -ne 0) {
@@ -485,7 +398,9 @@ Write-Log "✅ 分類頁面與首頁已更新"
 # ============================================================
 # ☁️ 部署到 Cloudflare
 # ============================================================
-Write-Log "   [4b] 部署到 Cloudflare Pages..."
+Write-Log "   [4c] 部署到 Cloudflare Pages..."
+Save-Checkpoint -Stage "deploy"
+
 $DeployResult = & npx wrangler pages deploy . --project-name=ahpal-pages 2>&1
 Write-Log $DeployResult
 
@@ -507,9 +422,8 @@ Write-Log "✅ 部署完成"
 # ============================================================
 Save-Checkpoint -Stage "complete"
 Write-Log "============================================================"
-Write-Log "✅ 動植物生態 100 篇 — SYSTEM 背景執行版 執行完畢！"
+Write-Log "✅ 自然生態 — 無人值守 + 方便添加 v2.6 執行完畢！"
 Write-Log "📅 完成時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
-Write-Log "📊 nature/ 目錄文章總數: $AfterCount 篇"
 Write-Log "📁 日誌位置: $LogFile"
 Write-Log "============================================================"
 
@@ -527,12 +441,11 @@ if (Test-Path $EnvPath) {
 }
 
 if ($SmtpUser -and $SmtpPass -and $ToEmail) {
-    $Subject = "🌳 動植物生態 100 篇 — SYSTEM 背景執行版 完成通知"
+    $Subject = "🌿 自然生態批次生成 v2.6 完成通知"
     $Body = @"
-動植物生態 100 篇 SYSTEM 背景執行版已於 $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') 完成！
+自然生態批次生成 v2.6 已於 $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') 完成！
 
 📊 執行摘要：
-   - 文章總數：$AfterCount 篇
    - 日誌位置：$LogFile
    - 部署狀態：✅ 已完成
 

@@ -8378,5 +8378,2405 @@
     "use_responses_api": true,
     "enable_reasoning": true,
     "enable_search": false
+  },
+  {
+    "keyword": "台灣長鬃山羊生態與高山適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-swinhoe-serow-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣野山羊生態與族群調查",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-wild-goat-survey.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣山羌生態與森林棲地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-muntjac-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣小黃腹鼠生態與農田",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-small-field-mouse.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣森鼠生態與中海拔森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-wood-mouse-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣高山田鼠生態與高山草原",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-highland-vole.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣短尾鼩生態與地下生活",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-short-tailed-shrew.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣大蹄鼻蝠生態與洞穴",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-greater-horseshoe-bat.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣長耳蝠生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-brown-long-eared-bat.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣管鼻蝠生態與棲地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-tube-nosed-bat.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣高山白腹鼠生態與高山",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-highland-white-bellied-rat.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣刺山鼠生態與乾燥林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-spiny-dormouse.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣黑腹濱鷸遷徙與濕地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-dunlin-migration.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣小水鴨生態與濕地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-teal-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣綠頭鴨生態與湖泊",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mallard-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣白眉鴨遷徙與生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-garganey-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣花嘴鴨生態與濕地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-spot-billed-duck.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣澤鳧生態與水庫",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-tufted-duck.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣鳳頭潛鴨生態與湖泊",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-greater-scaup.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣普通秋沙鴨生態與溪流",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-common-merganser.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣鵲鴝生態與都市",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-oriental-magpie-robin.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣黃尾鴝生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-daurian-redstart.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣鉛色水鶇生態與溪流",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-plumbeous-water-redstart.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣白尾鴝生態與中海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-white-tailed-robin.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣栗背林鴝生態與高山",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-collared-bush-robin.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣藍尾鴝生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-red-flanked-bluetail.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣白腹鶇生態與冬候鳥",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-pale-thrush.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣赤腹鶇生態與遷徙",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-brown-headed-thrush.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣斑點鶇生態與農田",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-dusky-thrush.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣白眉鶇生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-eyebrowed-thrush.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣紅尾伯勞生態與農田",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-brown-shrike.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣棕背伯勞生態與草原",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-long-tailed-shrike.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣黑頭文鳥生態與農田",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-chestnut-munia.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣斑文鳥生態與濕地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-scaly-breasted-munia.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣白腰文鳥生態與草原",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-white-rumped-munia.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣赤楊生態與崩塌地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-alder-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣榿木生態與溪流",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-formosan-elm-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣朴樹生態與低海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-hackberry-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣櫸木生態與木材應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-zelkova-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣無患子生態與應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-soapberry-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣欒樹生態與都市綠化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-golden-rain-tree.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣苦茶樹生態與茶油",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-oil-tea-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣木麻黃生態與海岸防風",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-casuarina-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣白千層生態與濕地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-paperbark-tree.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣水柳生態與溪流",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-willow-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣構樹生態與民俗應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-paper-mulberry.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣桑樹生態與養蠶",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mulberry-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣榕樹生態與都市",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-banyan-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣雀榕生態與附生",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-strangler-fig.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣稜果榕生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ficus-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣金絲桃生態與高山",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-st-johns-wort.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣野牡丹生態與中海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-melastoma-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣杜虹花生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-callicarpa-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣台灣赤箭生態與蘭花",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-gastrodia-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣根節蘭生態與森林",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-calanthe-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣羊耳蒜生態與附生",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-liparis-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣豆蘭生態與低海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-bulbophyllum-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣蜘蛛蘭生態與附生",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-arachnis-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣角蘭生態與低海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ceratostylis-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣白及生態與中海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-bletilla-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣綬草生態與濕地",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-spiranthes-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣葦草蘭生態與低海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-vanda-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣唇蘭生態與中海拔",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-cymbidium-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣珊瑚蘭生態與高山",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-corallorhiza-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣台灣隔距蘭生態與溪谷",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-cleisostoma-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣海岸沙丘生態與植物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-dune-ecosystem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣河口生態系與生物多樣性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-estuary-ecosystem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣潮間帶生態與生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-intertidal-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣海草床生態與保育",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-seagrass-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣海藻林生態與生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-kelp-forest-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣熱帶雨林生態與特有種",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-rainforest-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣常綠闊葉林生態與特性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-evergreen-broadleaf-forest.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣落葉闊葉林生態與特性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-deciduous-forest-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣針葉林生態與特性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-coniferous-forest-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣混合林生態與生物多樣性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-mixed-forest-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣高山草原生態與動植物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-alpine-grassland-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣高山苔原生態與植物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-alpine-tundra-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣硫磺泉生態與特有生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-sulfur-spring-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣石灰岩生態與特有植物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-limestone-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣火山地形生態與演替",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-volcanic-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣崩塌地生態與演替",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-landslide-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣次生林生態與演替",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-secondary-forest-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣造林地生態與生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-plantation-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣休耕農田生態與生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-fallow-farmland-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣都市公園生態與生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-urban-park-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣屋頂綠化生態與生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-green-roof-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣垂直綠化生態與生物",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-vertical-greening-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態網路規劃與實踐",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-network-planning.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態補償政策與實踐",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-compensation-policy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態服務價值評估",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecosystem-services-valuation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣自然資本核算與生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-natural-capital-accounting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態資料庫與監測",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-database-monitoring.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣遙測技術與生態監測",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-remote-sensing-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣GIS應用與生態規劃",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-gis-ecology-planning.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態模型與預測",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-modeling.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態風險評估與管理",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-risk-assessment.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態健康評估與指標",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-health-assessment.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態韌性與氣候變遷",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-resilience.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態修復技術與實踐",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-restoration-tech.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "台灣生態教育推動與實踐",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiwan-ecological-education-practice.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "深海熱泉生態系：無光世界中的化學合成生命奇蹟",
+    "category": "🌳 動植物生態",
+    "filename": "nature/deep-sea-hydrothermal-ecology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "珊瑚礁白化機制與全球海洋升溫對生物多樣性的衝擊",
+    "category": "🌳 動植物生態",
+    "filename": "nature/coral-bleaching-impact.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "藍鯨的遷徙路徑與海洋聲波污染對其覓食行為的干擾",
+    "category": "🌳 動植物生態",
+    "filename": "nature/blue-whale-migration-noise.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "電鰻發電機制解析：生物電能如何在水中精準傳導",
+    "category": "🌳 動植物生態",
+    "filename": "nature/electric-eel-mechanism.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "章魚的擬態能力與無脊椎動物的神經系統進化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/octopus-mimicry-neuroscience.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "海龜的磁場導航天賦與返回產卵地的精準定位機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/sea-turtle-magnetic-navigation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "河豚毒素的生物防禦機制與天敵對毒素的抗性進化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/pufferfish-toxin-defense.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "水母大爆發的背後原因：海洋富營養化與天敵減少",
+    "category": "🌳 動植物生態",
+    "filename": "nature/jellyfish-bloom-causes.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鮭魚逆流而上的洄游行為與河流生態系的養分循環",
+    "category": "🌳 動植物生態",
+    "filename": "nature/salmon-migration-nutrient-cycle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "海獺的石塊工具使用行為與巨藻林生態系的平衡",
+    "category": "🌳 動植物生態",
+    "filename": "nature/sea-otter-tool-use-kelp.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鯨落生態系：一頭鯨魚沉沒如何滋養深海百年的生物群落",
+    "category": "🌳 動植物生態",
+    "filename": "nature/whale-fall-ecosystem.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "淡水珍珠蚌的寄生幼蟲與寄主魚類的協同進化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/freshwater-mussel-parasite.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "射水魚的精密光學折射計算與捕食水面昆蟲技巧",
+    "category": "🌳 動植物生態",
+    "filename": "nature/archerfish-optics-predation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "海馬的雄性懷孕機制及其在魚類繁殖學上的獨特性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/seahorse-male-pregnancy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "盲鰽的黏液防禦機制：超彈性蛋白質在材料科學的應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/hagfish-slime-defense.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "美洲豹的咬合力與咬碎龜殼的特化捕食策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/jaguar-bite-force-turtle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "獵豹的速度極限：肌肉纖維與骨骼結構的物理適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/cheetah-speed-physiology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "非洲狩獵犬的群體社交與投票決策機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/african-wild-dog-social-voting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "裸鼴鼠的耐缺氧特性與抗癌基因的神奇機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/naked-mole-rat-hypoxia-cancer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "吸血蝙蝠的熱感應鼻葉與群體互惠分享血液行為",
+    "category": "🌳 動植物生態",
+    "filename": "nature/vampire-bat-heat-sensing.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鴨嘴獸的電磁感應嘴部與單孔目的演化活化石地位",
+    "category": "🌳 動植物生態",
+    "filename": "nature/platypus-electroreception.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "無尾熊的尤加利葉飲食適應與腸道微生物解毒機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/koala-eucalyptus-gut-microbiome.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "樹懶的低代謝率生活與毛髮中微型藻類共生生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/sloth-low-metabolism-algae.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜂鷹演化出抵抗蜂毒的羽毛防護與掘巢捕食策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/honey-buzzard-bee-defense.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "游隼的俯衝極速與鼻孔內的氣流調節結構",
+    "category": "🌳 動植物生態",
+    "filename": "nature/peregrine-falcon-dive-aerodynamics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "渡鴉的工具製造能力與複雜的社交記憶力",
+    "category": "🌳 動植物生態",
+    "filename": "nature/raven-tool-making-social-memory.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "變色龍的舌頭彈射物理學與皮膚色素細胞控制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/chameleon-tongue-physics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "響尾蛇的紅外線熱感應器與乾旱環境的節水生理",
+    "category": "🌳 動植物生態",
+    "filename": "nature/rattlesnake-infrared-sensing.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "箭毒毒蛙的警示色與防衛性生物鹼來源解析",
+    "category": "🌳 動植物生態",
+    "filename": "nature/poison-dart-frog-alkaloids.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "琴鳥的聲音模仿天賦與森林生態中的播種角色",
+    "category": "🌳 動植物生態",
+    "filename": "nature/lyrebird-mimicry-seed-dispersal.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "帝王斑蝶橫跨北美洲的跨代遷徙與基因導航",
+    "category": "🌳 動植物生態",
+    "filename": "nature/monarch-butterfly-migration-genetics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "切葉蟻的真菌農業：地下巢穴中的微生物栽培系統",
+    "category": "🌳 動植物生態",
+    "filename": "nature/leafcutter-ant-fungus-farming.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "虎甲蟲的高速奔跑與暫時性視覺失明現象",
+    "category": "🌳 動植物生態",
+    "filename": "nature/tiger-beetle-speed-blindness.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "螢火蟲冷光發光機制及其在生物科技的螢光標記應用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/firefly-bioluminescence-biotech.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "水黽的超疏水腳毛與水面張力利用物理學",
+    "category": "🌳 動植物生態",
+    "filename": "nature/water-strider-hydrophobic-legs.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "子彈蟻的劇毒針刺與神經毒素對哺乳動物的作用",
+    "category": "🌳 動植物生態",
+    "filename": "nature/bullet-ant-neurotoxin.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "昆蟲變態發育的激素調節：從幼蟲到成蟲的基因重塑",
+    "category": "🌳 動植物生態",
+    "filename": "nature/insect-metamorphosis-hormones.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "螳螂蝦的超高速拳擊與複雜的十二原色視覺系統",
+    "category": "🌳 動植物生態",
+    "filename": "nature/mantis-shrimp-punch-vision.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蛛絲的拉伸強度與蜘蛛網結構的工程學原理",
+    "category": "🌳 動植物生態",
+    "filename": "nature/spider-silk-tensile-strength.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "沙漠蝗蟲的相變機制：從獨居到群居的血清素引發現象",
+    "category": "🌳 動植物生態",
+    "filename": "nature/desert-locust-phase-change-serotonin.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "隱翅蟲素的化學防禦與皮炎誘發機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/rove-beetle-chemical-defense.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜂群的神經網絡集體智慧與搖擺舞語言訊號",
+    "category": "🌳 動植物生態",
+    "filename": "nature/honeybee-waggle-dance-neural-network.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "獨角仙角狀突起的性選擇與同性競爭物理力學",
+    "category": "🌳 動植物生態",
+    "filename": "nature/rhinoceros-beetle-horn-physics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "竹節蟲的擬態與無性生殖適應策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/stick-insect-mimicry-parthenogenesis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蟲草菌感染螞蟻的操縱行為與真菌寄生生態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/cordyceps-ant-manipulation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "植物葉片氣孔的開閉機制與極端乾旱下的氣孔調節",
+    "category": "🌳 動植物生態",
+    "filename": "nature/stomata-drought-regulation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "食蟲植物毛氈苔的黏液捕食與消化酶分泌過程",
+    "category": "🌳 動植物生態",
+    "filename": "nature/sundew-mucilage-digestion.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "巨杉的樹高極限與水分透過蒸散作用上升的物理極限",
+    "category": "🌳 動植物生態",
+    "filename": "nature/giant-sequoia-height-limit.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "植物根系與真菌的菌根共生：地下養分交換網絡",
+    "category": "🌳 動植物生態",
+    "filename": "nature/mycorrhizal-symbiosis-network.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "植物警報訊號：揮發性有機化合物的鄰株防禦",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-vocs-defense-signaling.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "沙漠仙人掌的景天酸代謝與水分利用效率",
+    "category": "🌳 動植物生態",
+    "filename": "nature/cactus-cam-photosynthesis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "含羞草的葉片觸發閉合與離子流動引發的細胞壓變化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/mimosa-leaf-closure-ion-flux.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "花卉色彩與氣味演化：吸引特定授粉者的精準策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/flower-color-scent-pollination.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "紅樹林植物的排鹽機制與胎生苗的潮間帶生存適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/mangrove-salt-excretion-vivipary.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "絞殺榕的生長策略：從附生植物到樹木絞殺的演化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/strangler-fig-growth-strategy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "大王花的寄生生活與模擬腐肉氣味的授粉機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/rafflesia-parasitic-pollination.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蒲公英種子的降落傘結構與空氣動力學懸浮原理",
+    "category": "🌳 動植物生態",
+    "filename": "nature/dandelion-seed-aerodynamics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "植物的避陰反應：遠紅光比例對生長形態的重塑",
+    "category": "🌳 動植物生態",
+    "filename": "nature/plant-shade-avoidance-far-red.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "高山植物的矮化現象與防風抗凍的絨毛適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/alpine-plant-dwarfism-trichomes.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "銀杏的演化停滯與作為活化石的基因穩定性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/ginkgo-evolutionary-stasis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "地衣的真菌與藻類共生體：裸岩創始生態系的先鋒",
+    "category": "🌳 動植物生態",
+    "filename": "nature/lichen-symbiosis-pioneer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "發光真菌的化學發光機制與夜間吸引昆蟲播種",
+    "category": "🌳 動植物生態",
+    "filename": "nature/bioluminescent-fungi-spore-dispersal.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "極地永久凍土層中的古老微生物與復甦風險",
+    "category": "🌳 動植物生態",
+    "filename": "nature/permafrost-ancient-microbes-thaw.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "內生真菌促進宿主植物抗旱能力的生理機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/endophytic-fungi-drought-resistance.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "黏菌的無腦路徑尋優能力與複雜網絡計算啟發",
+    "category": "🌳 動植物生態",
+    "filename": "nature/slime-mold-optimization-networks.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "溫帶落葉林秋季葉片色素轉變與養分回收生理",
+    "category": "🌳 動植物生態",
+    "filename": "nature/temperate-deciduous-leaf-senescence.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "熱帶雨林垂直分層生態：從樹冠層到林下層的物種位缺",
+    "category": "🌳 動植物生態",
+    "filename": "nature/rainforest-vertical-stratification.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "高山草原生態系的凍融循環與土壤微生物活性",
+    "category": "🌳 動植物生態",
+    "filename": "nature/alpine-grassland-freeze-thaw-soil.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "紅樹林濕地的碳封存能力：藍碳生態系的氣候效益",
+    "category": "🌳 動植物生態",
+    "filename": "nature/mangrove-blue-carbon-sequestration.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "泥炭地濕地的酸性水質與有機物長期保存機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/peatland-acidic-preservation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "火災生態學：某些松樹松果需高溫萌發的演化適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/fire-ecology-serotiny-cones.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "寒帶針葉林的酸性土壤與葉針防凍油脂",
+    "category": "🌳 動植物生態",
+    "filename": "nature/taiga-coniferous-acidic-soil.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "高鹽湖泊中的極限微生物與類胡蘿蔔素發光色素",
+    "category": "🌳 動植物生態",
+    "filename": "nature/hypersaline-lake-extremophiles.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "微塑膠在淡水食物網中的累積與生物放大效應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/microplastics-freshwater-biomagnification.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "都市綠洲與生態廊道對碎片化野生動物族群的影響",
+    "category": "🌳 動植物生態",
+    "filename": "nature/urban-green-corridors-wildlife.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "外來入侵種對本土生態系食物網的破壞與重組",
+    "category": "🌳 動植物生態",
+    "filename": "nature/invasive-species-food-web-disruption.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "夜間人工光源對夜行性昆蟲與鳥類遷徙的干擾",
+    "category": "🌳 動植物生態",
+    "filename": "nature/light-pollution-nocturnal-insects-birds.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "自然保護區的核心區與緩衝區規劃對大型猛禽的庇護效益",
+    "category": "🌳 動植物生態",
+    "filename": "nature/protected-area-core-buffer-raptors.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "土壤生物多樣性對全球碳循環與氣候變遷的調節機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/soil-biodiversity-carbon-cycle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "氣候變遷導致物種物候期錯位對授粉生態的衝擊",
+    "category": "🌳 動植物生態",
+    "filename": "nature/phenology-mismatch-pollination.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鳥類的羽毛色彩演化：紫外線反射與配偶選擇的關係",
+    "category": "🌳 動植物生態",
+    "filename": "nature/bird-feather-color-uv-selection.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "螞蟻社會的勞動分工與信息素通訊網絡",
+    "category": "🌳 動植物生態",
+    "filename": "nature/ant-social-division-pheromones.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蝙蝠的回聲定位演化與不同棲地的聲學適應",
+    "category": "🌳 動植物生態",
+    "filename": "nature/bat-echolocation-acoustic-adaptation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "魚類的體色變色機制：壓力、環境與擬態",
+    "category": "🌳 動植物生態",
+    "filename": "nature/fish-color-change-stress-mimicry.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "狐狸的都市適應行為與人類環境的共存策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/urban-fox-adaptation-behavior.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鳥巢結構的多樣性與捕食者迴避策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/bird-nest-diversity-predator-avoidance.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鯊魚的電磁感應與遠洋獵捕的協同進化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/shark-electroreception-pelagic-hunting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜥蜴的斷尾自割機制與能量權衡策略",
+    "category": "🌳 動植物生態",
+    "filename": "nature/lizard-tail-autotomy-energy-tradeoff.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "植物種子傳播策略：風力、動物攜帶與彈射機制",
+    "category": "🌳 動植物生態",
+    "filename": "nature/seed-dispersal-wind-animal-ballistic.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鱷魚的母性照顧與巢穴溫度依賴性別決定",
+    "category": "🌳 動植物生態",
+    "filename": "nature/crocodile-maternal-care-tdsd.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜻蜓的複眼結構與高速飛行捕捉獵物能力",
+    "category": "🌳 動植物生態",
+    "filename": "nature/dragonfly-compound-eye-hunting.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蜘蛛的網型演化與獵物捕捉的效率最大化",
+    "category": "🌳 動植物生態",
+    "filename": "nature/spider-web-evolution-prey-efficiency.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "珊瑚的同步產卵機制與大規模繁殖事件",
+    "category": "🌳 動植物生態",
+    "filename": "nature/coral-synchronous-spawning.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "穿山甲的鱗片防禦機制與挖掘棲地的生態工程",
+    "category": "🌳 動植物生態",
+    "filename": "nature/pangolin-scales-burrowing-engineering.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蝴蝶的翅脈結構與飛行穩定性空氣動力學",
+    "category": "🌳 動植物生態",
+    "filename": "nature/butterfly-wing-vein-aerodynamics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "麋鹿的鹿角脫落與再生週期的激素調控",
+    "category": "🌳 動植物生態",
+    "filename": "nature/elk-antler-shedding-hormone-cycle.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "蟾蜍的皮膚呼吸與乾旱環境的適應性表皮",
+    "category": "🌳 動植物生態",
+    "filename": "nature/toad-skin-respiration-drought-adaptation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "螢火蟲幼蟲的捕食策略與分泌型消化酶",
+    "category": "🌳 動植物生態",
+    "filename": "nature/firefly-larva-predation-digestion.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "狼群的狩獵合作與社會階層的溝通訊號",
+    "category": "🌳 動植物生態",
+    "filename": "nature/wolf-pack-hunting-social-communication.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "珊瑚礁魚類的清潔站生態與客戶魚的互動行為",
+    "category": "🌳 動植物生態",
+    "filename": "nature/coral-reef-cleaner-station-behavior.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "核糖體（Ribosome）的蛋白質翻譯過程與信使 RNA（mRNA）解碼",
+    "category": "🌿 自然生態",
+    "filename": "nature/ribosome-mrna-translation-mechanism.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "病毒的外殼蛋白質自我組裝物理學與宿主受體結合辨識",
+    "category": "🌿 自然生態",
+    "filename": "nature/viral-capsid-self-assembly-receptor.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "幹細胞的全能性（Totipotency）與誘導性多能幹細胞（iPSC）重編程",
+    "category": "🌿 自然生態",
+    "filename": "nature/stem-cell-pluripotency-ipsc-reprogramming.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "神經元動作電位（Action Potential）的鈉鉀離子通道物理化學",
+    "category": "🌿 自然生態",
+    "filename": "nature/neuron-action-potential-ion-channels.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "植物葉綠體的雙層膜結構與光反應電子傳遞鏈物理",
+    "category": "🌿 自然生態",
+    "filename": "nature/chloroplast-electron-transport-chain.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "嗜鹽菌（Halophiles）的紫膜質（Bacteriorhodopsin）光能利用機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/halophile-bacteriorhodopsin-light-energy.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "黏液黴菌的細胞聚集現象與環磷酸腺苷（cAMP）訊號傳遞",
+    "category": "🌿 自然生態",
+    "filename": "nature/slime-mold-camp-aggregation-signal.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "表皮細胞的緊密連接（Tight Junctions）與皮膚屏障防禦力",
+    "category": "🌿 自然生態",
+    "filename": "nature/skin-barrier-tight-junctions-defense.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "寒武紀生命大爆發：軀體結構演化與獵食者出現的連鎖反應",
+    "category": "🌿 自然生態",
+    "filename": "nature/cambrian-explosion-body-plans.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "三葉蟲的外骨骼演化與複眼結構的多樣性分析",
+    "category": "🌿 自然生態",
+    "filename": "nature/trilobite-exoskeleton-compound-eyes.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "提塔利克魚與脊椎動物從海洋登陸陸地的關鍵過渡期",
+    "category": "🌿 自然生態",
+    "filename": "nature/tiktaalik-vertebrate-land-transition.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "翼龍的飛行骨骼結構與膜翼空氣動力學解析",
+    "category": "🌿 自然生態",
+    "filename": "nature/pterosaur-bone-structure-aerodynamics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "霸王龍的雙眼視覺能力與咬合力演化歷史",
+    "category": "🌿 自然生態",
+    "filename": "nature/tyrannosaurus-rex-binocular-vision.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "恐龍羽毛的原始功能：從體溫調節到配偶吸引的演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/dinosaur-feather-evolution-thermoregulation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "白堊紀末期隕石撞擊與火山爆發對生物大滅絕的加成效應",
+    "category": "🌿 自然生態",
+    "filename": "nature/cretaceous-extinction-asteroid-volcanism.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "猛獁象的抗寒生理適應與更新世末期滅絕主因",
+    "category": "🌿 自然生態",
+    "filename": "nature/mammoth-cold-adaptation-extinction.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "劍齒虎的犬齒結構與捕食大型哺乳動物的力學機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/saber-toothed-cat-canines-mechanics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "巨齒鯊的體型極限與全球海洋氣候變遷的滅絕威脅",
+    "category": "🌿 自然生態",
+    "filename": "nature/megalodon-size-limit-climate.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "恐鳥的無翼演化與紐西蘭隔離生態系的絕種命運",
+    "category": "🌿 自然生態",
+    "filename": "nature/moa-wingless-evolution-extinction.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "渡渡鳥的島嶼巨型化與缺乏天敵下的適應性退化",
+    "category": "🌿 自然生態",
+    "filename": "nature/dodo-island-gigantism-evolution.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "始祖鳥的羽毛與骨骼特徵：鳥類源自獸腳類恐龍的關鍵鐵證",
+    "category": "🌿 自然生態",
+    "filename": "nature/archaeopteryx-dinosaur-bird-link.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "古生代巨型昆蟲的崛起：高氧大氣下的呼吸與體型限制",
+    "category": "🌿 自然生態",
+    "filename": "nature/paleozoic-giant-insects-hyperoxia.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "二疊紀末期大滅絕：海洋酸性化與全球變暖的生命浩劫",
+    "category": "🌿 自然生態",
+    "filename": "nature/permian-extinction-ocean-acidification.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鄧氏魚的無齒頜骨切削結構與泥盆紀海洋頂級獵手",
+    "category": "🌿 自然生態",
+    "filename": "nature/dunkleosteus-jaw-force-devonian.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "奇蝦的捕食肢結構與寒武紀頂級掠食者生態位",
+    "category": "🌿 自然生態",
+    "filename": "nature/anomalocaris-predatory-appendages.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "恐龍蛋化石與孵化行為：從巢穴結構看古生物育幼策略",
+    "category": "🌿 自然生態",
+    "filename": "nature/dinosaur-egg-nesting-behavior.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "古菌門與真核生物起源：洛基古菌對細胞演化的關鍵啟示",
+    "category": "🌿 自然生態",
+    "filename": "nature/lokiarchaeota-eukaryote-origin.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "島嶼矮化與巨型化效應：有限資源下的演化加速器",
+    "category": "🌿 自然生態",
+    "filename": "nature/island-dwarfism-gigantism-rules.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "馬里亞納海溝挑戰者深淵的超高水壓與極限生物生存適應",
+    "category": "🌿 自然生態",
+    "filename": "nature/mariana-trench-challenger-deep-life.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "黃石超級火山的地熱系統與潛在噴發對全球氣候的衝擊",
+    "category": "🌿 自然生態",
+    "filename": "nature/yellowstone-supervolcano-geothermal.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "東非大裂谷的地層板塊運動與未來新海洋的形成趨勢",
+    "category": "🌿 自然生態",
+    "filename": "nature/east-african-rift-tectonics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "死海的高鹽度化學成份與極限鹽鹼環境中的微型生命",
+    "category": "🌿 自然生態",
+    "filename": "nature/dead-sea-extreme-salinity-microbes.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "阿塔卡瑪沙漠的極度乾旱成因與火星模擬環境研究",
+    "category": "🌿 自然生態",
+    "filename": "nature/atacama-desert-hyper-arid-mars.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "南極洲冰層下基岩湖泊的封閉生態系與古老水體研究",
+    "category": "🌿 自然生態",
+    "filename": "nature/antarctic-subglacial-lake-vostok.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "百慕達三角洲的大氣與地質真相：甲烷氣泡與強烈洋流解析",
+    "category": "🌿 自然生態",
+    "filename": "nature/bermuda-triangle-methane-currents.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "夏威夷熱點火山鏈的形成原理與板塊漂移軌跡記錄",
+    "category": "🌿 自然生態",
+    "filename": "nature/hawaii-hotspot-volcano-chain.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "亞馬遜河的流域水文循環及其對全球氣候調節的肺部效益",
+    "category": "🌿 自然生態",
+    "filename": "nature/amazon-river-hydrology-climate.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "大香波特火山噴發與全球火山冬天的氣候致冷效應",
+    "category": "🌿 自然生態",
+    "filename": "nature/tambora-volcano-year-without-summer.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "地殼板塊碰撞與喜馬拉雅山脈的持續抬升力學",
+    "category": "🌿 自然生態",
+    "filename": "nature/himalayas-plate-collision-uplift.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "鐘乳石與石筍的碳酸鈣沉積速率與古氣候數據解碼",
+    "category": "🌿 自然生態",
+    "filename": "nature/stalactite-stalagmite-palaeoclimate.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "海底熱泉噴口（黑煙囪）的化學合成生態系與生命起源",
+    "category": "🌿 自然生態",
+    "filename": "nature/hydrothermal-vent-chemosynthesis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "天坑（Sinkhole）的喀斯特地貌溶蝕原理與地下水網動態",
+    "category": "🌿 自然生態",
+    "filename": "nature/karst-sinkhole-formation-hydrogeology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "大洋中脊的洋底擴張學說與地磁倒轉帶的歷史紀錄",
+    "category": "🌿 自然生態",
+    "filename": "nature/mid-ocean-ridge-magnetic-reversals.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "土庫曼「地獄之門」天然氣坑的持續燃燒現象與地質成因",
+    "category": "🌿 自然生態",
+    "filename": "nature/darvaza-gas-crater-geology.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "藍洞（Blue Hole）的地下洞穴塌陷歷史與古海洋沉積物紀錄",
+    "category": "🌿 自然生態",
+    "filename": "nature/blue-hole-cave-system-sediments.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "海嘯（Tsunami）在深海中的傳播速度與近岸波高激增物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/tsunami-propagation-physics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "液化現象：強震發生時沙土顆粒與地下水相互作用的災害物理",
+    "category": "🌿 自然生態",
+    "filename": "nature/soil-liquefaction-earthquake-physics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "南極血瀑布的富鐵古老地下水與無氧鐵氧化菌代謝",
+    "category": "🌿 自然生態",
+    "filename": "nature/blood-falls-iron-oxidizing-bacteria.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "極光（Aurora）的生成機制：太陽風高能粒子與大氣分子的碰撞",
+    "category": "🌿 自然生態",
+    "filename": "nature/aurora-formation-solar-wind.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "超級單體雷雨胞（Supercell）的中氣旋結構與龍捲風孕育過程",
+    "category": "🌿 自然生態",
+    "filename": "nature/supercell-mesocyclone-tornado.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "球狀閃電（Ball Lightning）的目擊紀錄與物理學理論猜想",
+    "category": "🌿 自然生態",
+    "filename": "nature/ball-lightning-physics-theories.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "聖埃爾莫之火（St. Elmo's Fire）的電暈放電現象與高空電場",
+    "category": "🌿 自然生態",
+    "filename": "nature/st-elmos-fire-corona-discharge.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "雲海與逆溫層（Inversion Layer）的大氣穩定度動態解析",
+    "category": "🌿 自然生態",
+    "filename": "nature/sea-of-clouds-temperature-inversion.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "彩虹與霓虹的光學折射、反射與色散角度物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/rainbow-reflection-refraction-optics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "厄爾尼諾與拉尼娜現象：赤道太平洋海溫異常對全球氣候的牽動",
+    "category": "🌿 自然生態",
+    "filename": "nature/el-nino-la-nina-pacific-oscillation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "颱風眼（Typhoon Eye）的下沉氣流機制與眼牆置換循環",
+    "category": "🌿 自然生態",
+    "filename": "nature/typhoon-eye-eyewall-replacement.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "大氣平流層臭氧層的形成與阻擋紫外線保護機理",
+    "category": "🌿 自然生態",
+    "filename": "nature/stratospheric-ozone-layer-uv-shield.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "焚風（Foehn Wind）的過山乾絕熱降溫與濕絕熱升溫物理解析",
+    "category": "🌿 自然生態",
+    "filename": "nature/foehn-wind-adiabatic-heating.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "紅色精靈與藍色噴流：高空高層大氣發光現象（TLEs）解析",
+    "category": "🌿 自然生態",
+    "filename": "nature/red-sprites-blue-jets-tles.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "微下擊暴流（Microburst）的形成及其對航空飛行的極大威脅",
+    "category": "🌿 自然生態",
+    "filename": "nature/microburst-aviation-hazard.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "冰暈（Halo）與幻日（Sundog）的大氣冰晶光學折射現象",
+    "category": "🌿 自然生態",
+    "filename": "nature/ice-halo-sundog-atmospheric-optics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "極地渦旋（Polar Vortex）的穩定性與低緯度寒潮爆發脈絡",
+    "category": "🌿 自然生態",
+    "filename": "nature/polar-vortex-cold-wave-outbreak.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "塵卷風（Dust Devil）在無雲晴天下的地表熱對流形成原理",
+    "category": "🌿 自然生態",
+    "filename": "nature/dust-devil-thermal-convection.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "酸雨的二氧化硫與氮氧化物大氣化學反應與土壤鈣流失",
+    "category": "🌿 自然生態",
+    "filename": "nature/acid-rain-atmospheric-chemistry.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "熱帶夜與都市熱島效應（UHI）：建築材質與通風受阻的累積加熱",
+    "category": "🌿 自然生態",
+    "filename": "nature/urban-heat-island-effect-physics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "卡門渦旋（Von Kármán Vortex）在島嶼背風面形成的雲系奇觀",
+    "category": "🌿 自然生態",
+    "filename": "nature/von-karman-vortex-cloud-patterns.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "輻射霧與平流霧的形成差異：空氣飽和與水氣凝結物理",
+    "category": "🌿 自然生態",
+    "filename": "nature/radiation-advection-fog-physics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "火山灰雲（Volcanic Ash Cloud）的靜電閃電與全球航線影響",
+    "category": "🌿 自然生態",
+    "filename": "nature/volcanic-ash-lightning-aviation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "黑洞的事件視界（Event Horizon）與引力時間膨脹效應",
+    "category": "🌿 自然生態",
+    "filename": "nature/black-hole-event-horizon-time-dilation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "太陽風暴與日冕物質拋射（CME）對地球電網與衛星的威脅",
+    "category": "🌿 自然生態",
+    "filename": "nature/solar-storm-coronal-mass-ejection.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "木衛二（Europa）的冰層下海洋與外星生命存在的可能性",
+    "category": "🌿 自然生態",
+    "filename": "nature/europa-subsurface-ocean-alien-life.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "中子星與脈衝星的高密度構造與極端磁場物理學",
+    "category": "🌿 自然生態",
+    "filename": "nature/neutron-star-pulsar-magnetic-field.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "詹姆斯·韋伯太空望遠鏡（JWST）的紅外線觀測與早期宇宙演化",
+    "category": "🌿 自然生態",
+    "filename": "nature/jwst-infrared-early-universe.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "土星環的冰粒構成及其潮汐力維持動態平衡原理",
+    "category": "🌿 自然生態",
+    "filename": "nature/saturn-rings-ice-tidal-forces.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "流星雨（Meteor Shower）的成因：彗星軌道殘留塵埃與大氣摩擦",
+    "category": "🌿 自然生態",
+    "filename": "nature/meteor-shower-comet-debris.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "暗物質（Dark Matter）與暗能量（Dark Energy）：宇宙膨脹的主要推手",
+    "category": "🌿 自然生態",
+    "filename": "nature/dark-matter-dark-energy-expansion.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "柯伊伯帶與奧爾特雲：太陽系邊緣的冰凍天體遺蹟",
+    "category": "🌿 自然生態",
+    "filename": "nature/kuiper-belt-oort-cloud-comets.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "火星上的水流遺跡與過去大氣層流失的原因解析",
+    "category": "🌿 自然生態",
+    "filename": "nature/mars-water-history-atmosphere-loss.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "超新星爆發（Supernova）與重元素（金、鈾）的核融合合成",
+    "category": "🌿 自然生態",
+    "filename": "nature/supernova-nucleosynthesis-heavy-elements.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "系外行星（Exoplanet）的凌日法與視向速度法偵測技術",
+    "category": "🌿 自然生態",
+    "filename": "nature/exoplanet-transit-radial-velocity.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "金星的暴走溫室效應（Runaway Greenhouse Effect）與濃密硫酸雲",
+    "category": "🌿 自然生態",
+    "filename": "nature/venus-runaway-greenhouse-effect.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "伽瑪射線暴（GRB）：宇宙中最劇烈的能量釋放事件",
+    "category": "🌿 自然生態",
+    "filename": "nature/gamma-ray-burst-energy-release.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "土衛六（Titan）的液態甲烷湖泊與氮氣大氣層奇觀",
+    "category": "🌿 自然生態",
+    "filename": "nature/titan-methane-lakes-nitrogen-atmosphere.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "引力波（Gravitational Waves）的發現與雙中子星併合時空漣漪",
+    "category": "🌿 自然生態",
+    "filename": "nature/gravitational-waves-neutron-star-merger.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "太陽演化終局：紅巨星階段到白矮星的膨脹與冷卻歷史",
+    "category": "🌿 自然生態",
+    "filename": "nature/sun-evolution-red-giant-white-dwarf.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "月球潮汐鎖定（Tidal Locking）原理與自轉公轉同步現象",
+    "category": "🌿 自然生態",
+    "filename": "nature/moon-tidal-locking-synchronous-rotation.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "拉格朗日點（Lagrange Points）的引力平衡與太空望遠鏡軌道佈署",
+    "category": "🌿 自然生態",
+    "filename": "nature/lagrange-points-orbital-mechanics.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "快無線電暴（FRB）的起源謎團與磁星（Magnetar）活動假說",
+    "category": "🌿 自然生態",
+    "filename": "nature/fast-radio-bursts-magnetar-hypothesis.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "水熊蟲（緩步動物）的隱生現象與極端輻射抗性生理",
+    "category": "🌿 自然生態",
+    "filename": "nature/tardigrade-cryptobiosis-radiation-resistance.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "噬菌體（Phage）的精密殺菌機制與抗生素替代療法潛力",
+    "category": "🌿 自然生態",
+    "filename": "nature/phage-therapy-bacterial-predator.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "端粒（Telomere）與端粒酶：細胞衰老與壽命極限的分子鐘",
+    "category": "🌿 自然生態",
+    "filename": "nature/telomere-telomerase-cellular-aging.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "CRISPR-Cas9 基因編輯技術的原核生物免疫機制起源",
+    "category": "🌿 自然生態",
+    "filename": "nature/crispr-cas9-bacterial-immunity-origin.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "線粒體（Mitochondria）的內共生學說與細胞能量ATP生成機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/mitochondria-endosymbiosis-atp-production.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "普里昂毒蛋白（Prion）的神經毒性與無核酸傳染機制",
+    "category": "🌿 自然生態",
+    "filename": "nature/prion-protein-misfolding-neurodegeneration.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "腸道菌群（Microbiome）與腦-腸軸：微生物對情緒與神經的影響",
+    "category": "🌿 自然生態",
+    "filename": "nature/gut-brain-axis-microbiome-influence.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "趨磁細菌（Magnetotactic Bacteria）的磁小體構造與磁場導航",
+    "category": "🌿 自然生態",
+    "filename": "nature/magnetotactic-bacteria-magnetosomes.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "極限嗜熱菌（Hyperthermophiles）的蛋白質熱穩定性結構解析",
+    "category": "🌿 自然生態",
+    "filename": "nature/hyperthermophiles-protein-thermostability.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "生物鐘（Circadian Rhythm）的分子反饋迴路與晝夜節律調控",
+    "category": "🌿 自然生態",
+    "filename": "nature/circadian-clock-molecular-feedback-loop.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "表觀遺傳學（Epigenetics）：環境如何透過 DNA 甲基化改變基因表達",
+    "category": "🌿 自然生態",
+    "filename": "nature/epigenetics-dna-methylation-environment.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
+  },
+  {
+    "keyword": "藍綠菌（Cyanobacteria）的光合作用演化與地球大氧氣事件",
+    "category": "🌿 自然生態",
+    "filename": "nature/cyanobacteria-great-oxidation-event.html",
+    "use_responses_api": true,
+    "enable_reasoning": true,
+    "enable_search": false
   }
 ]

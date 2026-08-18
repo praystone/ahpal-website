@@ -1,5 +1,5 @@
 ﻿# ============================================================
-# 🏠 生活小常識 — 無人值守 + 方便添加 v2.2 (無餘額檢查)
+# 🏠 生活小常識 — 無人值守 + 方便添加 v2.6
 # ============================================================
 # 用途：無人值守生成生活小常識文章
 # 特色：
@@ -9,10 +9,15 @@
 #   ✅ 電源管理：執行期間防止睡眠
 #   ✅ 錯誤通知：失敗時發送郵件
 #   ✅ 雙重重試：生成失敗自動重試一次
+#   ✅ 即時進度：每篇顯示目前篇數 [N/M] 與詳細生成 Log
+#   ✅ ETA 預估：每 10 篇顯示進度摘要與預估剩餘時間
+#   ✅ 日誌路徑：統一使用 config.ps1 管理 (system-reports/)
 #
-# v2.2 變更 (2026-08-17)：
-#   - 🆕 新增 1 篇生活小常識文章
-#   - ✅ 保留 v2.1 所有功能
+# v2.6 變更 (2026-08-18)：
+#   - 🆕 加入 ETA 預估剩餘時間
+#   - 🆕 加入進度摘要 (每 10 篇顯示)
+#   - 🆕 加入跳過計數摘要
+#   - 🆕 與 nature v2.6 保持一致
 # ============================================================
 
 # ============================================================
@@ -31,11 +36,15 @@ $ProjectRoot = "C:\Users\User\ahpal-static"
 Set-Location $ProjectRoot
 
 # ============================================================
-# 📝 設定日誌
+# 📁 載入核心配置 (日誌路徑)
+# ============================================================
+. .\scripts\config.ps1
+
+# ============================================================
+# 📝 設定日誌 (使用 config.ps1 統一管理)
 # ============================================================
 $Timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-$LogDir = "$ProjectRoot\logs"
-New-Item -ItemType Directory -Path $LogDir -Force | Out-Null
+$LogDir = Get-LogPath -Type batch
 $LogFile = "$LogDir\auto-life-batch-v2-$Timestamp.log"
 $CheckpointFile = "$LogDir\life-checkpoint.json"
 
@@ -85,8 +94,9 @@ function Send-ErrorNotification {
 }
 
 Write-Log "============================================================"
-Write-Log "🏠 生活小常識 — 無人值守 + 方便添加 v2.2 (無餘額檢查)"
+Write-Log "🏠 生活小常識 — 無人值守 + 方便添加 v2.6"
 Write-Log "⏰ 啟動時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+Write-Log "📁 日誌位置: $LogDir"
 Write-Log "============================================================"
 
 # ============================================================
@@ -254,23 +264,22 @@ if ($LASTEXITCODE -ne 0) {
 Write-Log "✅ 文章合併完成"
 
 # ============================================================
-# 🚀 步驟 4：執行文章生成 (直接呼叫 article_generator)
+# 🚀 步驟 4：執行文章生成 (即時 Log + 顯式進度 N/M + ETA)
 # ============================================================
 Write-Log "[4/4] 執行文章生成與部署..."
 Save-Checkpoint -Stage "generation_start"
 
-Write-Log "   [4a] 生成文章 (直接呼叫 article_generator，繞過 main.py)..."
-Write-Log "   ⏳ 預計耗時 60-90 分鐘"
-Write-Log ""
+Write-Log "   [4a] 生成文章 (顯示目前進度 + ETA)..."
 Write-Log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Write-Log "  📡 文章生成即時輸出"
 Write-Log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Write-Log ""
 
-python -c "
+python -u -c "
 import json
 import sys
 import os
+import time
 sys.path.insert(0, '.')
 
 from src.article_generator import generate_article
@@ -280,8 +289,9 @@ with open('data/master-articles.json', 'r', encoding='utf-8') as f:
 
 life_articles = [a for a in all_articles if a.get('filename', '').startswith('life/')]
 total = len(life_articles)
-print(f'📊 從 master-articles.json 找到 {total} 篇 life 文章')
+print(f'📊 從 master-articles.json 找到 {total} 篇 life 文章', flush=True)
 
+start_time = time.time()
 success_count = 0
 fail_count = 0
 skip_count = 0
@@ -289,29 +299,40 @@ skip_count = 0
 for idx, article in enumerate(life_articles, 1):
     filename = article.get('filename', '')
     filepath = f'./{filename}'
-    
+    keyword = article.get('keyword', '')
+    progress = f'[{idx}/{total}]'
+
+    # ✅ 進度摘要 (每 10 篇顯示)
+    if idx == 1 or idx == total or idx % 10 == 0:
+        elapsed = time.time() - start_time
+        avg_time = elapsed / idx if idx > 0 else 0
+        remaining = (total - idx) * avg_time
+        print(f'📊 進度：{idx}/{total} ({idx/total*100:.1f}%) | 已耗：{elapsed:.0f}s | 預估剩餘：{remaining:.0f}s', flush=True)
+        print(f'   └─ 累積跳過：{skip_count} 篇', flush=True)
+
     if os.path.exists(filepath):
         size = os.path.getsize(filepath)
         if size >= 5120:
-            print(f'⏩ [{idx}/{total}] 已存在：{filename} ({size} bytes)')
             skip_count += 1
+            print(f'⏩ {progress} 已存在跳過：{filename}', flush=True)
             continue
         else:
-            print(f'⚠️ [{idx}/{total}] 檔案過小，重新生成：{filename} ({size} bytes)')
+            print(f'⚠️ {progress} 檔案過小重新生成：{filename} ({size} bytes)', flush=True)
     
-    print(f'--- 進度 {idx}/{total} ---')
+    print(f'\n============================================================', flush=True)
+    print(f'🚀 {progress} 開始生成（第 {idx} 篇，共 {total} 篇）：{keyword} ({filename})', flush=True)
+    print(f'============================================================', flush=True)
+    
     try:
         generate_article(article)
+        print(f'✅ {progress} 完成（第 {idx} 篇，共 {total} 篇）：{os.path.basename(filename)}', flush=True)
         success_count += 1
     except Exception as e:
-        print(f'❌ 生成失敗：{e}')
+        print(f'❌ {progress} 失敗（第 {idx} 篇，共 {total} 篇）：{str(e)}', flush=True)
         fail_count += 1
 
-print(f'')
-print(f'✅ 成功生成 {success_count} 篇')
-print(f'⏩ 跳過 {skip_count} 篇')
-print(f'❌ 失敗 {fail_count} 篇')
-"
+print(f'\n📊 執行總結：成功 {success_count} 篇 | 跳過 {skip_count} 篇 | 失敗 {fail_count} 篇', flush=True)
+" 2>&1
 
 $ExitCode = $LASTEXITCODE
 
@@ -334,18 +355,23 @@ with open('data/master-articles.json', 'r', encoding='utf-8') as f:
     all_articles = json.load(f)
 
 life_articles = [a for a in all_articles if a.get('filename', '').startswith('life/')]
+total = len(life_articles)
 
 success_count = 0
 for idx, article in enumerate(life_articles, 1):
     filename = article.get('filename', '')
     filepath = f'./{filename}'
+    keyword = article.get('keyword', '')
+    progress = f'[{idx}/{total}]'
     if os.path.exists(filepath) and os.path.getsize(filepath) >= 5120:
         continue
     try:
+        print(f'🚀 {progress} 重試生成：{keyword[:30]}... ({filename})')
         generate_article(article)
+        print(f'✅ {progress} 重試成功：{filename}')
         success_count += 1
     except Exception as e:
-        print(f'❌ 失敗：{e}')
+        print(f'❌ {progress} 重試失敗：{e}')
 print(f'✅ 第二次嘗試成功生成 {success_count} 篇')
 "
     
@@ -402,7 +428,7 @@ Write-Log "✅ 部署完成"
 # ============================================================
 Save-Checkpoint -Stage "complete"
 Write-Log "============================================================"
-Write-Log "✅ 生活小常識 — 無人值守 + 方便添加 v2.2 執行完畢！"
+Write-Log "✅ 生活小常識 — 無人值守 + 方便添加 v2.6 執行完畢！"
 Write-Log "📅 完成時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 Write-Log "📁 日誌位置: $LogFile"
 Write-Log "============================================================"
@@ -421,9 +447,9 @@ if (Test-Path $EnvPath) {
 }
 
 if ($SmtpUser -and $SmtpPass -and $ToEmail) {
-    $Subject = "🏠 生活小常識批次生成 v2.2 完成通知"
+    $Subject = "🏠 生活小常識批次生成 v2.6 完成通知"
     $Body = @"
-生活小常識批次生成 v2.2 (無餘額檢查) 已於 $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') 完成！
+生活小常識批次生成 v2.6 已於 $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') 完成！
 
 📊 執行摘要：
    - 日誌位置：$LogFile

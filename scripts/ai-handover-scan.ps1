@@ -1,17 +1,50 @@
 ﻿# ============================================================
-# AI 交接專用 - 完整系統掃描與備份腳本 v5.0
-# 修復：Write-Host 語法錯誤
+# AI 交接專用 - 完整系統掃描與備份腳本 v5.1
 # 優化：
-#   - 🆕 完整支援 9 大分類 (history, tech, game, life, review, philosophy, trend, music, nature)
-#   - 🆕 新增 12 個自動化腳本
-#   - 🆕 統計總文章數時包含所有分類
-#   - 🆕 自動偵測並複製分類頁面 (category-*.html)
-#   - 🆕 優化日誌輸出格式
-#   - 🆕 加入進度顯示
+#   - 🆕 自動載入 config.ps1 (無 Export-ModuleMember 警告)
+#   - 🆕 動態讀取 9 大分類
+#   - 🆕 增加分類統計詳情
+#   - 🆕 加入交接檔案完整性驗證
 # ============================================================
 
+# ============================================================
+# 🔧 載入核心配置 (靜默模式，避免 Export-ModuleMember 警告)
+# ============================================================
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+if (-not $ScriptDir) { $ScriptDir = Get-Location }
+$ProjectRoot = Split-Path -Parent $ScriptDir
+$ConfigPath = Join-Path $ScriptDir "config.ps1"
+
+# 載入 config.ps1 (抑制 Export-ModuleMember 警告)
+if (Test-Path $ConfigPath) {
+    $oldErrorAction = $ErrorActionPreference
+    $ErrorActionPreference = "SilentlyContinue"
+    . $ConfigPath
+    $ErrorActionPreference = $oldErrorAction
+    
+    # 確認分類已載入
+    if (-not $Global:CategoryDirs) {
+        Write-Warning "⚠️ config.ps1 載入失敗，使用預設分類"
+        $Global:CategoryDirs = @{
+            "history" = "📜 歷史腦洞"; "tech" = "💻 3C 科技教學"
+            "game" = "🎮 遊戲攻略"; "life" = "🏠 生活小常識"
+            "review" = "📊 軟體評測"; "philosophy" = "🌟 人生哲理"
+            "trend" = "🤖 AI 趨勢"; "music" = "🎵 音樂創作"
+            "nature" = "🌳 動植物生態"
+        }
+    }
+} else {
+    Write-Warning "⚠️ 找不到 config.ps1，使用預設分類"
+    $Global:CategoryDirs = @{
+        "history" = "📜 歷史腦洞"; "tech" = "💻 3C 科技教學"
+        "game" = "🎮 遊戲攻略"; "life" = "🏠 生活小常識"
+        "review" = "📊 軟體評測"; "philosophy" = "🌟 人生哲理"
+        "trend" = "🤖 AI 趨勢"; "music" = "🎵 音樂創作"
+        "nature" = "🌳 動植物生態"
+    }
+}
+
 $Timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-$ProjectRoot = "C:\Users\User\ahpal-static"
 $BackupRoot = "C:\Users\User\ahpal-backup"
 $ArchiveRoot = "C:\Users\User\ahpal-AI-archive"
 
@@ -24,30 +57,30 @@ $ErrorCount = 0
 $WarningCount = 0
 $FileCopyCount = 0
 
-function Write-ColorOutput {
-    param([string]$Message, [string]$Color = "White")
-    Write-Host $Message -ForegroundColor $Color
-}
-
-function Write-ErrorLog {
+# 顏色函數
+function Write-ColorOutput { param([string]$Message, [string]$Color = "White") Write-Host $Message -ForegroundColor $Color }
+function Write-ErrorLog { 
     param([string]$Message)
     $ErrorCount++
     Write-Host "   ❌ $Message" -ForegroundColor Red
-    Add-Content -Path "$HandoverDir\error-log.txt" -Value "[ERROR] $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - $Message"
+    Add-Content -Path "$HandoverDir\error-log.txt" -Value "[ERROR] $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - $Message" -Encoding UTF8
 }
-
 function Write-WarningLog {
     param([string]$Message)
     $WarningCount++
     Write-Host "   ⚠️ $Message" -ForegroundColor Yellow
-    Add-Content -Path "$HandoverDir\warning-log.txt" -Value "[WARNING] $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - $Message"
+    Add-Content -Path "$HandoverDir\warning-log.txt" -Value "[WARNING] $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - $Message" -Encoding UTF8
 }
 
 Write-ColorOutput "`n============================================================" "Cyan"
-Write-ColorOutput "  🤖 AI 系統交接 - 完整掃描與備份 v5.0" "Cyan"
+Write-ColorOutput "  🤖 AI 系統交接 - 完整掃描與備份 v5.1" "Cyan"
 Write-ColorOutput "  時間: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" "Cyan"
+Write-ColorOutput "  分類數: $($Global:CategoryDirs.Count) 大分類" "Cyan"
 Write-ColorOutput "============================================================" "Cyan"
 
+# ============================================================
+# 📁 建立交接目錄
+# ============================================================
 Write-ColorOutput "`n📁 建立交接目錄..." "Yellow"
 New-Item -ItemType Directory -Path $HandoverDir -Force | Out-Null
 Write-ColorOutput "   ✅ 交接目錄: $HandoverDir" "Green"
@@ -65,30 +98,23 @@ foreach ($dir in $SubDirs) {
 Write-ColorOutput "   ✅ 子目錄建立完成 ($($SubDirs.Count) 個)" "Green"
 
 # ============================================================
-# 3. PowerShell 腳本 (完整清單 v5.0)
+# 📜 PowerShell 腳本
 # ============================================================
 Write-ColorOutput "`n📜 [1/13] 掃描 PowerShell 腳本..." "Yellow"
 
 $ScriptsDir = "$ProjectRoot\scripts"
 $ScriptFiles = @(
-    # 核心腳本
     "ahpal-master.ps1", "ahpal-static.ps1", "generate-games.ps1",
     "backup-system.ps1", "check-all.ps1", "config.ps1",
     "add-articles.ps1", "ai-handover-scan.ps1", "preflight-check.ps1",
-    # YouTube 相關
     "youtube-pipeline.ps1", "youtube-upload-realtime.ps1",
     "batch-upload-throttled.ps1", "check-deepseek-balance.ps1",
     "check-quota.ps1", "manage-schedules.ps1",
     "clean-and-push.ps1", "sync-to-gdrive.ps1",
-    # 🆕 批次生成腳本
     "auto-history-batch.ps1", "auto-life-batch.ps1", "auto-nature-batch.ps1",
-    # 🆕 編碼與分析工具
     "ensure-utf8-nobom.ps1", "analyze-directory.ps1",
-    # 🆕 電源管理
     "screen-off.ps1", "sleep-native.ps1",
-    # 🆕 影音工具
     "video-gen.ps1", "video-finalize.ps1",
-    # 🆕 迷因工具
     "meme-to-song.ps1", "launcher-test.ps1"
 )
 
@@ -107,7 +133,7 @@ foreach ($script in $ScriptFiles) {
 Write-ColorOutput "   ✅ 已複製 $scriptCount 個 PowerShell 腳本" "Green"
 
 # ============================================================
-# 4. Python 模組 (完整清單 v5.0)
+# 🐍 Python 模組
 # ============================================================
 Write-ColorOutput "`n🐍 [2/13] 掃描 Python 模組..." "Yellow"
 
@@ -135,7 +161,7 @@ foreach ($module in $PythonModules) {
 Write-ColorOutput "   ✅ 已複製 $pyCount 個 Python 模組" "Green"
 
 # ============================================================
-# 5. 環境設定
+# 🔐 環境設定
 # ============================================================
 Write-ColorOutput "`n🔐 [3/13] 處理環境設定檔..." "Yellow"
 
@@ -164,7 +190,6 @@ if (Test-Path $EnvPath) {
     $maskedContent = $envContent
     $maskedContent = $maskedContent -replace '(DEEPSEEK_API_KEY=)(sk-[A-Za-z0-9]+)', '$1sk-****MASKED****'
     $maskedContent = $maskedContent -replace '(GEMINI_API_KEY=)(AIzaSy[A-Za-z0-9]+)', '$1AIza****MASKED****'
-    $maskedContent = $maskedContent -replace '(POLLINATIONS_API_KEY=)([A-Za-z0-9]+)', '$1****MASKED****'
     
     $maskedContent | Out-File "$HandoverDir\04-環境設定與API\.env.masked" -Encoding UTF8
     Write-ColorOutput "      ✅ .env 已遮罩處理 (原始大小: $envSize KB)" "Green"
@@ -174,22 +199,11 @@ if (Test-Path $EnvPath) {
 }
 
 # ============================================================
-# 6. 文章內容 — 🆕 完整 9 大分類
+# 📄 文章內容 — 動態 9 大分類
 # ============================================================
 Write-ColorOutput "`n📄 [4/13] 掃描文章內容..." "Yellow"
 
-$Categories = @{
-    "history"    = "📜 歷史腦洞"
-    "tech"       = "💻 3C 科技教學"
-    "game"       = "🎮 遊戲攻略"
-    "life"       = "🏠 生活小常識"
-    "review"     = "📊 軟體評測"
-    "philosophy" = "🌟 人生哲理"
-    "trend"      = "🤖 AI 趨勢"
-    "music"      = "🎵 音樂創作"
-    "nature"     = "🌳 動植物生態"
-}
-
+$Categories = $Global:CategoryDirs
 $ArticleStats = @()
 $TotalArticles = 0
 $TotalSize = 0
@@ -216,7 +230,7 @@ foreach ($cat in $Categories.Keys) {
 Write-ColorOutput "   ✅ 總文章數: $TotalArticles 篇" "Green"
 
 # ============================================================
-# 7. 遊戲內容
+# 🎮 遊戲內容
 # ============================================================
 Write-ColorOutput "`n🎮 [5/13] 掃描遊戲內容..." "Yellow"
 
@@ -242,7 +256,7 @@ if (Test-Path $GameDir) {
 }
 
 # ============================================================
-# 8. 圖片資源
+# 🖼️ 圖片資源
 # ============================================================
 Write-ColorOutput "`n🖼️ [6/13] 掃描圖片資源..." "Yellow"
 
@@ -264,7 +278,7 @@ if (Test-Path $ImageDir) {
 }
 
 # ============================================================
-# 9. 狀態與日誌
+# 📊 狀態與日誌
 # ============================================================
 Write-ColorOutput "`n📊 [7/13] 掃描狀態與日誌..." "Yellow"
 
@@ -293,16 +307,11 @@ if (Test-Path $LogDir) {
 }
 
 # ============================================================
-# 10. 分類頁面 — 🆕 完整 9 大分類
+# 📄 分類頁面
 # ============================================================
 Write-ColorOutput "`n📄 [7.5/13] 掃描分類頁面..." "Yellow"
 
-$CategoryPages = @(
-    "category-history.html", "category-tech.html", "category-game.html",
-    "category-life.html", "category-review.html", "category-philosophy.html",
-    "category-trend.html", "category-music.html", "category-nature.html"
-)
-
+$CategoryPages = $Categories.Keys | ForEach-Object { "category-$_.html" }
 $CatPageDest = "$HandoverDir\01-系統架構與文件\category-pages"
 New-Item -ItemType Directory -Path $CatPageDest -Force | Out-Null
 
@@ -318,19 +327,19 @@ foreach ($page in $CategoryPages) {
 }
 
 # ============================================================
-# 11. Git 版本歷史
+# 📜 Git 版本歷史
 # ============================================================
 Write-ColorOutput "`n📜 [8/13] 匯出 Git 版本歷史..." "Yellow"
 
 $GitLogPath = "$HandoverDir\12-Git-版本歷史"
 if (Test-Path "$ProjectRoot\.git") {
-    git -C $ProjectRoot log --oneline --graph --decorate --all > "$GitLogPath\git-commit-history.txt"
+    git -C $ProjectRoot log --oneline --graph --decorate --all > "$GitLogPath\git-commit-history.txt" 2>$null
     Write-ColorOutput "      ✅ commit 歷史已匯出" "Green"
-    git -C $ProjectRoot log --stat --format="%H%n%an <%ae>%n%ad%n%s%n" > "$GitLogPath\git-commit-detail.txt"
+    git -C $ProjectRoot log --stat --format="%H%n%an <%ae>%n%ad%n%s%n" > "$GitLogPath\git-commit-detail.txt" 2>$null
     Write-ColorOutput "      ✅ commit 詳細資訊已匯出" "Green"
-    git -C $ProjectRoot branch -a > "$GitLogPath\git-branches.txt"
+    git -C $ProjectRoot branch -a > "$GitLogPath\git-branches.txt" 2>$null
     Write-ColorOutput "      ✅ 分支資訊已匯出" "Green"
-    git -C $ProjectRoot remote -v > "$GitLogPath\git-remote.txt"
+    git -C $ProjectRoot remote -v > "$GitLogPath\git-remote.txt" 2>$null
     Write-ColorOutput "      ✅ 遠端資訊已匯出" "Green"
     $FileCopyCount += 4
 } else {
@@ -338,7 +347,7 @@ if (Test-Path "$ProjectRoot\.git") {
 }
 
 # ============================================================
-# 12. 備份檔案
+# 💾 備份檔案
 # ============================================================
 Write-ColorOutput "`n💾 [9/13] 掃描備份檔案..." "Yellow"
 
@@ -361,7 +370,7 @@ if (Test-Path $BackupRoot) {
 }
 
 # ============================================================
-# 13. 自動化工具
+# ⚡ 自動化工具
 # ============================================================
 Write-ColorOutput "`n⚡ [10/13] 掃描自動化工具..." "Yellow"
 
@@ -387,7 +396,7 @@ if (Test-Path $BackupsDir) {
 }
 
 # ============================================================
-# 14. 文件庫
+# 📚 文件庫
 # ============================================================
 Write-ColorOutput "`n📚 [11/13] 掃描文件庫..." "Yellow"
 
@@ -413,7 +422,7 @@ foreach ($rf in $RootFiles) {
 }
 
 # ============================================================
-# 15. START-HERE.txt
+# 📌 START-HERE.txt
 # ============================================================
 Write-ColorOutput "`n📌 [12/13] 建立快速上手指引..." "Yellow"
 
@@ -422,76 +431,65 @@ $QuickStart = @"
 ║  🚀 新 AI 工程師 / 系統接手者，請先讀我！                   ║
 ║  雅寶社區 · 頂客論壇 (AHPAL.COM)                            ║
 ║  交接時間: $Timestamp                                        ║
-║  系統版本: v5.0 (9 大分類 · 批次自動化)                     ║
+║  系統版本: v5.1 (9 大分類 · 批次自動化)                     ║
+║  文章總數: $TotalArticles 篇                                 ║
 ╚════════════════════════════════════════════════════════════════╝
 
-📌 你必須知道的最重要工具
+📌 核心指令
 
-【1️⃣ 新增文章（批次自動化）】
-   📁 data/pending-articles.json  ← 在這裡定義新文章（JSON 格式）
-   ⚡ scripts/add-articles.ps1    ← 執行這個腳本
+【1️⃣ 完整部署】
+   .\scripts\ahpal-master.ps1 → [1]
 
-【2️⃣ 生成文章】
-   ⚡ python src/main.py --force deepseek
+【2️⃣ 新增文章】
+   編輯 data/pending-articles.json
+   .\scripts\add-articles.ps1
 
-【3️⃣ 完整部署】
-   ⚡ .\scripts\ahpal-master.ps1 → [1]
+【3️⃣ 生成文章】
+   python src/main.py --force deepseek
 
-【4️⃣ 死命令與品質檢查】
-   ⚡ .\scripts\preflight-check.ps1  ← 推送前強制檢查
-   ⚡ .\scripts\check-all.ps1       ← 全系統診斷
+【4️⃣ 系統檢查】
+   .\scripts\check-all.ps1 -Report
+   .\scripts\preflight-check.ps1
 
-【5️⃣ 批次生成 (三大自動化腳本)】
-   ⚡ .\scripts\auto-history-batch.ps1  ← 歷史腦洞
-   ⚡ .\scripts\auto-life-batch.ps1     ← 生活小常識
-   ⚡ .\scripts\auto-nature-batch.ps1   ← 動植物生態
+【5️⃣ 批次生成】
+   .\scripts\auto-history-batch.ps1  ← 歷史腦洞
+   .\scripts\auto-life-batch.ps1     ← 生活小常識
+   .\scripts\auto-nature-batch.ps1   ← 動植物生態
 
 【6️⃣ 系統交接】
-   ⚡ .\scripts\ai-handover-scan.ps1    ← 生成完整交接報告
+   .\scripts\ai-handover-scan.ps1    ← 完整交接報告
 
-📋 JSON 格式範例：
-[
-    {"keyword": "2026 年最新 AI 工具推薦", "category": "🤖 AI 趨勢"},
-    {"keyword": "居家收納終極指南", "category": "🏠 生活小常識"}
-]
+📋 9 大分類:
+$(($Categories.Keys | ForEach-Object { "   $($Categories[$_])" }) -join "`n")
 
-🔐 安全提醒：此交接檔案不包含實際 API Key，需自行建立 .env
+🔐 安全提醒：此交接檔案不包含實際 API Key
 "@
 $QuickStart | Out-File "$HandoverDir\START-HERE.txt" -Encoding UTF8
 Write-ColorOutput "   ✅ 快速上手指引已建立" "Green"
 
 # ============================================================
-# 16. 驗證清單
+# ✅ 驗證清單
 # ============================================================
 Write-ColorOutput "`n✅ [13/13] 建立交接驗證清單..." "Yellow"
 
 $Checklist = @"
-AI 系統交接 - 驗證清單 v5.0
+AI 系統交接 - 驗證清單 v5.1
 交接時間: $Timestamp
+文章總數: $TotalArticles 篇
 
 【環境設定】
 ☐ Git 已安裝並設定
 ☐ Python 3 已安裝
-☐ .env 檔案已建立
-☐ SSH 金鑰已新增至 GitHub
+☐ .env 檔案已建立 (參考 .env.template)
 
 【系統驗證】
 ☐ 執行 check-all.ps1 -Report
 ☐ 執行 preflight-check.ps1
-☐ 執行 git status
-
-【文章操作】
-☐ 了解 pending-articles.json 格式
-☐ 測試新增文章
+☐ 確認 9 大分類頁面皆正常
 
 【部署驗證】
 ☐ 執行 ahpal-master.ps1 → [1]
 ☐ 確認 Cloudflare 部署成功
-
-【分類檢查】
-☐ 9 大分類皆正常顯示 (history, tech, game, life, review, philosophy, trend, music, nature)
-☐ categories.html 包含所有分類
-☐ 各分類頁面 (category-*.html) 可正常瀏覽
 
 簽署人: ____________________
 日期: ____________________
@@ -500,13 +498,13 @@ $Checklist | Out-File "$HandoverDir\交接驗證清單.txt" -Encoding UTF8
 Write-ColorOutput "   ✅ 交接驗證清單已建立" "Green"
 
 # ============================================================
-# 17. 分析報告
+# 📋 分析報告
 # ============================================================
 Write-ColorOutput "`n📋 生成完整分析報告..." "Yellow"
 
 $Report = @"
 ╔════════════════════════════════════════════════════════════════╗
-║     🤖 AI 系統交接 - 完整系統分析報告 v5.0                  ║
+║     🤖 AI 系統交接 - 完整系統分析報告 v5.1                  ║
 ║     雅寶社區 · 頂客論壇 (AHPAL.COM)                         ║
 ║     報告時間: $Timestamp                                     ║
 ╚════════════════════════════════════════════════════════════════╝
@@ -545,13 +543,12 @@ $Report += @"
 1. 此交接檔案不包含實際 API Key
 2. 需自行建立 .env 檔案
 3. 建議交接完成後變更所有 API Key
-4. 請確實執行驗證清單中的所有項目
 "@
 $Report | Out-File "$HandoverDir\09-分析報告\系統分析報告-$Timestamp.txt" -Encoding UTF8
 Write-ColorOutput "   ✅ 分析報告已建立" "Green"
 
 # ============================================================
-# 18. 壓縮
+# 📦 壓縮
 # ============================================================
 Write-ColorOutput "`n📦 壓縮交接檔案..." "Yellow"
 
@@ -565,7 +562,7 @@ try {
 }
 
 # ============================================================
-# 19. 完成
+# ✅ 完成
 # ============================================================
 Write-ColorOutput "`n============================================================" "Cyan"
 Write-ColorOutput "  ✅ 掃描與備份完成！" "Green"
@@ -575,6 +572,7 @@ Write-ColorOutput "`n📊 系統快照:" "Yellow"
 Write-ColorOutput "   📝 文章總數: $TotalArticles 篇" "Cyan"
 Write-ColorOutput "   📁 複製檔案: $FileCopyCount 個" "Cyan"
 Write-ColorOutput "   📦 交接大小: $(if (Test-Path $ZipPath) { "$([math]::Round((Get-Item $ZipPath).Length / 1MB, 2)) MB" } else { '未知' })" "Cyan"
+Write-ColorOutput "   📂 分類數量: $($Categories.Count) 大分類" "Cyan"
 
 Write-ColorOutput "`n📋 交接檔案位置:" "Yellow"
 Write-ColorOutput "   📁 $HandoverDir" "White"

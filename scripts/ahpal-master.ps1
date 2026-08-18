@@ -1,21 +1,20 @@
 ﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 萬能總指揮 v8.3
+# 雅寶社區 · 頂客論壇 - 萬能總指揮 v8.4
 # ============================================================
 # 功能：備份、處理待新增文章、生成遊戲、生成文章、Git 提交、
 #       Cloudflare 部署、SEO 驗證、系統工具整合、餘額檢查、
-#       目錄深度分析
+#       目錄深度分析、AI 系統交接掃描
 # ============================================================
-# 🆕 v8.3 變更：
-#   - 🔧 修復 Write-Gray 函數未定義問題
-#   - 🔧 優化 SEO 檢查，合併 Python 調用為單次執行
-#   - 🔧 Get-ArticleCount 新增排除 dashboard.html
-#   - 🆕 整合目錄深度分析 (選項 [9])
-#   - 🆕 新增 Invoke-DirectoryAnalysis 函數
-#   - 🆕 選單新增 [9] 目錄深度分析
+# 🆕 v8.4 變更 (2026-08-18)：
+#   - 🆕 整合 AI 系統交接掃描 (選項 [H])
+#   - 🆕 新增 Invoke-AIHandover 函數
+#   - 🔧 優化 Get-ArticleCount 排除更多系統頁面
+#   - 🔧 完善錯誤處理與使用者體驗
+#   - 🔧 版本號升級至 v8.4
 # ============================================================
 
 param(
-    [ValidateSet("full", "quick", "games", "articles", "backup", "deploy", "check", "status", "seo", "toolkit", "analyze")]
+    [ValidateSet("full", "quick", "games", "articles", "backup", "deploy", "check", "status", "seo", "toolkit", "analyze", "handover")]
     [string]$Action,
     [ValidateSet("gemini", "deepseek", "auto")]
     [string]$ForceApi,
@@ -36,7 +35,7 @@ if ($Host.Name -eq "ConsoleHost" -and $MyInvocation.InvocationName -ne ".") {
 }
 
 # ============================================================
-# 載入核心配置 (v1.0)
+# 載入核心配置 (v1.1)
 # ============================================================
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $ScriptDir) { $ScriptDir = Get-Location }
@@ -46,8 +45,12 @@ Set-Location $ProjectRoot
 # 載入核心配置
 $ConfigPath = Join-Path $ScriptDir "config.ps1"
 if (Test-Path $ConfigPath) {
+    # 靜默載入，避免 Export-ModuleMember 警告
+    $oldErrorAction = $ErrorActionPreference
+    $ErrorActionPreference = "SilentlyContinue"
     . $ConfigPath
-    Write-Host "✅ 已載入核心配置 v1.0" -ForegroundColor Green
+    $ErrorActionPreference = $oldErrorAction
+    Write-Host "✅ 已載入核心配置 v1.1" -ForegroundColor Green
 } else {
     Write-Warning "⚠️ 找不到 config.ps1，使用預設值" -ForegroundColor Yellow
     $Global:CategoryDirs = @{
@@ -79,7 +82,7 @@ function Write-Info { Write-Host $args -ForegroundColor Cyan }
 function Write-Success { Write-Host $args -ForegroundColor Green }
 function Write-Warning { Write-Host $args -ForegroundColor Yellow }
 function Write-Error { Write-Host $args -ForegroundColor Red }
-function Write-Gray { Write-Host $args -ForegroundColor Gray }  # 🆕 v8.3: 補上定義
+function Write-Gray { Write-Host $args -ForegroundColor Gray }
 function Write-Section {
     Write-Host "`n$('='*60)" -ForegroundColor Cyan
     Write-Host $args -ForegroundColor Cyan
@@ -106,7 +109,7 @@ function Invoke-ProcessPending {
     }
     
     try {
-        $Pending = $Content | ConvertFrom-Json
+        $Pending = $Content | ConvertFrom-Json -ErrorAction Stop
         $count = $Pending.Count
         if ($count -eq 0) {
             Write-Host "   ℹ️ 待新增文章清單為空" -ForegroundColor Gray
@@ -194,7 +197,44 @@ function Invoke-SystemToolkit {
 }
 
 # ============================================================
-# 🆕 v8.3: 輔助函數：目錄深度分析
+# 🆕 v8.4: 輔助函數：AI 系統交接掃描
+# ============================================================
+function Invoke-AIHandover {
+    Write-Section "🤖 AI 系統交接掃描"
+    
+    $HandoverScript = "$ScriptDir\ai-handover-scan.ps1"
+    
+    if (Test-Path $HandoverScript) {
+        Write-Info "  📌 執行 AI 系統完整交接掃描..."
+        Write-Info "  ⏳ 此過程將產生完整系統報告與壓縮備份，約需 2-5 分鐘"
+        Write-Info "  📂 輸出位置：C:\Users\User\ahpal-AI-archive\ai交接-*"
+        Write-Host ""
+        
+        $confirm = Read-Host "是否繼續執行系統交接掃描？(y/n)"
+        if ($confirm -ne "y") {
+            Write-Warning "已取消"
+            return
+        }
+        
+        & $HandoverScript
+        
+        if ($LASTEXITCODE -eq 0) {
+            Write-Success "  ✅ AI 系統交接掃描完成！"
+            Write-Info "  📌 請檢查 C:\Users\User\ahpal-AI-archive\ 中的交接檔案"
+        } else {
+            Write-Error "  ❌ 交接掃描執行失敗，請檢查日誌"
+        }
+    } else {
+        Write-Error "  ❌ 找不到 ai-handover-scan.ps1"
+        Write-Info "  📌 請確認路徑：$HandoverScript"
+        Write-Info "  💡 你可以手動執行完整交接掃描："
+        Write-Gray "     .\scripts\ai-handover-scan.ps1"
+        Read-Host "`n按 Enter 返回"
+    }
+}
+
+# ============================================================
+# 輔助函數：目錄深度分析
 # ============================================================
 function Invoke-DirectoryAnalysis {
     param(
@@ -232,7 +272,7 @@ function Invoke-DirectoryAnalysis {
 }
 
 # ============================================================
-# 完整 SEO 檢查（含文章狀態）v3.1 (修正版)
+# 完整 SEO 檢查（含文章狀態）v3.1
 # ============================================================
 function Invoke-SeoFullCheck {
     Write-Section "🔍 完整 SEO 檢查 v3.1"
@@ -243,7 +283,6 @@ function Invoke-SeoFullCheck {
     Write-Host "📊 master-articles.json 文章狀態" -ForegroundColor Yellow
     Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
 
-    # 🆕 v8.3: 合併為單次 Python 調用
     python -c "
 import json
 import os
@@ -280,7 +319,7 @@ print(f'📂 分類分布：')
 for cat, count in sorted(categories.items(), key=lambda x: -x[1]):
     print(f'   ├─ {cat}：{count} 篇')
 
-# 文章檔案存在性檢查 (合併至同一次執行)
+# 文章檔案存在性檢查
 missing = []
 for a in articles:
     filename = a.get('filename', '')
@@ -310,7 +349,7 @@ else:
 }
 
 # ============================================================
-# 1. 驗證 SEO 基礎檔案 v2.1
+# 驗證 SEO 基礎檔案 v2.1
 # ============================================================
 function Invoke-SeoValidation {
     param([switch]$Master)
@@ -456,13 +495,15 @@ function Invoke-SeoValidation {
 }
 
 # ============================================================
-# 2. 核心功能函數
+# 核心功能函數
 # ============================================================
 
 function Get-ArticleCount {
+    # 🆕 v8.4: 排除更多系統頁面
+    $excludePattern = "index|categories|dashboard|about|contact|privacy|terms|404|memorial|royal|category-"
     $count = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { 
         $_.DirectoryName -notmatch "game" -and 
-        $_.Name -notmatch "index|categories|dashboard|about|contact|privacy|terms|404|memorial|royal"
+        $_.Name -notmatch $excludePattern
     } | Measure-Object).Count
     return $count
 }
@@ -630,12 +671,12 @@ function Set-ForceApi {
 }
 
 # ============================================================
-# 3. 主選單
+# 主選單
 # ============================================================
 function Show-MainMenu {
     Clear-Host
     Write-Host "============================================================" -ForegroundColor Cyan
-    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v8.3" -ForegroundColor Cyan
+    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v8.4" -ForegroundColor Cyan
     Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "📊 系統狀態：" -ForegroundColor Yellow
@@ -669,10 +710,11 @@ function Show-MainMenu {
     Write-Host "   [6] 只做 Git + 部署 (不生成)"
     Write-Host "   [7] 檢查文章狀態"
     Write-Host "   [8] 查看系統狀態 (含餘額)"
-    Write-Host "   [9] 📊 目錄深度分析 (文章分布/大小/佔比)"  # 🆕 v8.3
+    Write-Host "   [9] 📊 目錄深度分析 (文章分布/大小/佔比)"
     Write-Host ""
     Write-Host "   [S] 🔍 SEO 基礎檔案驗證 (robots.txt / ads.txt / sitemap.xml)"
     Write-Host "   [E] 📊 完整 SEO 檢查 (含文章狀態與檔案存在性)"
+    Write-Host "   [H] 🤖 AI 系統交接掃描 (完整備份與報告)"  # 🆕 v8.4
     Write-Host "   [T] 🛠️ 系統工具與診斷 (開機優化/硬體報告/備份)"
     Write-Host ""
     Write-Host "   [A] 🔧 強制使用 Gemini (尖峰時段也適用)"
@@ -692,11 +734,13 @@ function Show-MainMenu {
         "6" { Invoke-GitAndDeploy }
         "7" { Invoke-CheckArticles }
         "8" { Invoke-SystemStatus }
-        "9" { Invoke-DirectoryAnalysis -TxtOnly }  # 🆕 v8.3
+        "9" { Invoke-DirectoryAnalysis -TxtOnly }
         "S" { Invoke-SeoValidation -Master }
         "s" { Invoke-SeoValidation -Master }
         "E" { Invoke-SeoFullCheck }
         "e" { Invoke-SeoFullCheck }
+        "H" { Invoke-AIHandover }  # 🆕 v8.4
+        "h" { Invoke-AIHandover }  # 🆕 v8.4
         "T" { Invoke-SystemToolkit }
         "t" { Invoke-SystemToolkit }
         "A" { Set-ForceApi "gemini" }
@@ -708,10 +752,10 @@ function Show-MainMenu {
 }
 
 # ============================================================
-# 4. 啟動
+# 啟動
 # ============================================================
 if ($Action) {
-    Write-Host "🦞 AHPAL 萬能總指揮 v8.3 (命令列模式)" -ForegroundColor Cyan
+    Write-Host "🦞 AHPAL 萬能總指揮 v8.4 (命令列模式)" -ForegroundColor Cyan
     Write-Host "   Action: $Action" -ForegroundColor Gray
     
     switch ($Action) {
@@ -725,7 +769,8 @@ if ($Action) {
         "status" { Invoke-SystemStatus }
         "seo" { Invoke-SeoValidation -Master }
         "toolkit" { Invoke-SystemToolkit }
-        "analyze" { Invoke-DirectoryAnalysis -TxtOnly }  # 🆕 v8.3
+        "analyze" { Invoke-DirectoryAnalysis -TxtOnly }
+        "handover" { Invoke-AIHandover }  # 🆕 v8.4
         default { Write-Host "❌ 未知 Action: $Action" -ForegroundColor Red }
     }
 } elseif ($ForceApi) {

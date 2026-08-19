@@ -24,55 +24,124 @@
     </script>
 
     <style>
+        /* ===== 主版心放寬 ===== */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+        .container {
+            width: 100%;
+        }
+
+        /* ===== About Hero 優化 ===== */
         .about-hero {
-            background: linear-gradient(135deg, #005A9C 0%, #003d66 100%);
-            color: white;
-            padding: 50px 20px;
+            background: linear-gradient(145deg, #0D0D1A 0%, #1A1A2E 50%, #16213E 100%);
+            color: #E8E8E8;
+            padding: 60px 0 40px 0;
+            border-radius: 16px;
+            border-bottom: 3px solid #D4AF37;
             text-align: center;
-            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
             margin-bottom: 30px;
         }
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .about-hero .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
         .about-hero h1 {
-            color: white;
-            font-size: 2.2em;
+            color: #F7FAFC;
+            font-size: 2.8em;
+            letter-spacing: 4px;
             margin-bottom: 8px;
         }
-        .about-hero p {
-            color: rgba(255,255,255,0.85);
-            font-size: 16px;
-            max-width: 600px;
-            margin: 0 auto;
+        .about-hero h1 .gold {
+            color: #D4AF37;
         }
+        .about-hero .sub {
+            font-size: 1.1em;
+            color: #A0AEC0;
+            letter-spacing: 6px;
+        }
+        .about-hero .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #D4AF37, #005A9C);
+            margin: 16px auto;
+        }
+        .about-hero .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .about-hero .badge {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-size: 0.75em;
+            color: #A0AEC0;
+            letter-spacing: 2px;
+        }
+
+        /* ===== 卡片樣式 ===== */
         .about-card {
-            background: white;
-            border-radius: 14px;
+            background: #FFFFFF;
+            border-radius: 16px;
             padding: 32px 36px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             border: 1px solid #E2E8F0;
             margin-bottom: 24px;
+            color: #1A202C;
+            font-size: 1.05rem;
+            line-height: 1.9;
         }
         .about-card h2 {
             color: #005A9C;
-            font-size: 20px;
-            margin-top: 24px;
-            margin-bottom: 12px;
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 16px;
             border-bottom: 2px solid #E2E8F0;
             padding-bottom: 10px;
         }
-        .about-card h2:first-of-type {
-            margin-top: 0;
-        }
         .about-card p {
-            color: #4A5568;
-            font-size: 15px;
-            line-height: 1.8;
+            color: #2D3748;
+            font-size: 1rem;
+            line-height: 1.9;
+            margin-bottom: 1em;
         }
         .about-card ul {
-            color: #4A5568;
-            font-size: 15px;
-            line-height: 1.8;
+            color: #2D3748;
+            font-size: 1rem;
+            line-height: 1.9;
             padding-left: 20px;
         }
+
+        /* ===== 價值網格 ===== */
         .value-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -106,6 +175,8 @@
             color: #4A5568;
             margin-top: 4px;
         }
+
+        /* ===== 統計 ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -128,6 +199,8 @@
             font-size: 12px;
             color: #718096;
         }
+
+        /* ===== 信念區塊 ===== */
         .belief-block {
             background: #FFFFF0;
             border-radius: 10px;
@@ -136,38 +209,126 @@
             border-left: 4px solid #D4AF37;
         }
         .belief-block p {
-            font-size: 15px;
+            font-size: 1rem;
             color: #2D3748;
             font-weight: 500;
             margin: 0;
         }
         .belief-block .source {
-            font-size: 13px;
+            font-size: 0.85rem;
             color: #718096;
             margin: 4px 0 0 0;
             letter-spacing: 1px;
         }
 
+        /* ===== 引流區塊 ===== */
+        .cross-link-block {
+            background: #F0F7FF;
+            border: 1px solid #BEE3F8;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            text-align: center;
+        }
+        .cross-link-block a {
+            color: #005A9C;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid #D4AF37;
+        }
+        .cross-link-block a:hover {
+            color: #D4AF37;
+        }
+
+        .btn-revolution {
+            display: inline-block;
+            background: #8B0000;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-revolution:hover {
+            background: #6B0000;
+        }
+        .btn-musk {
+            display: inline-block;
+            background: #1A202C;
+            color: #D4AF37;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            border: 1px solid #D4AF37;
+            transition: background 0.3s ease;
+        }
+        .btn-musk:hover {
+            background: #2D3748;
+        }
+
+        /* ===== RWD ===== */
+        @media (max-width: 1024px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .about-card {
+                padding: 24px 20px;
+            }
+        }
         @media (max-width: 768px) {
-            .about-card { padding: 20px 16px; }
-            .value-grid { grid-template-columns: 1fr; }
-            .about-hero { padding: 40px 16px; }
-            .about-hero h1 { font-size: 1.6em; }
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-hero h1 {
+                font-size: 1.8em;
+            }
+            .about-hero {
+                padding: 40px 16px;
+            }
+            .about-card {
+                padding: 20px 16px;
+                font-size: 1rem;
+            }
+            .about-card h2 {
+                font-size: 1.3rem;
+            }
+            .about-hero .badge-row .badge {
+                font-size: 0.65em;
+                padding: 4px 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .main-wrapper {
+                padding: 0 12px;
+            }
+            .btn-revolution, .btn-musk {
+                font-size: 0.8em;
+                padding: 6px 14px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================
-    統一網站標頭
-    ============================================================ -->
+    <!-- ============================================================ -->
+    <!-- 統一網站標頭 -->
+    <!-- ============================================================ -->
     <header class="site-header">
         <div class="header-inner">
             <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
             <nav class="nav-links">
                 <a href="/">首頁</a>
                 <a href="/categories.html">📚 全部分類</a>
-                <a href="/about.html" style="color:white; border-bottom: 2px solid #00A86B;">📖 關於我們</a>
+                <a href="/about.html" style="color:white; border-bottom: 2px solid #D4AF37;">📖 關於我們</a>
                 <a href="/contact.html">📧 聯絡我們</a>
                 <a href="/privacy-policy.html">🔒 隱私權政策</a>
                 <a href="/game/" class="game-link">🎮 遊戲間</a>
@@ -175,30 +336,39 @@
         </div>
     </header>
 
-    <!-- ============================================================
-    主內容
-    ============================================================ -->
+    <!-- ============================================================ -->
+    <!-- 主內容 -->
+    <!-- ============================================================ -->
     <div class="main-wrapper">
         <div class="main-content">
             <div class="container">
 
-                <!-- Hero 區塊 -->
+                <!-- ===== Hero 區塊（優化版） ===== -->
                 <div class="about-hero">
-                    <h1>📖 關於雅寶社區 · 頂客論壇</h1>
-                    <p style="font-size:18px; font-weight:300; letter-spacing:2px;">歲月沉澱 · 知識共創 · 誠信為本</p>
-                    <div style="width:60px; height:3px; background:#D4AF37; margin:14px auto;"></div>
-                    <p style="font-size:15px; max-width:650px; margin:12px auto 0 auto; color:rgba(255,255,255,0.9);">
-                        從歲月記憶到知識共創，我們相信：<strong style="color:#D4AF37;">誠實守信，是文明社會永恆的基石。</strong>
-                    </p>
-                    <!-- 🆕 插入點 1：Hero 區塊 -->
-                    <p style="margin-top:12px; font-size:14px;">
-                        <a href="/memorial.html" style="color:#D4AF37; text-decoration:none; border-bottom:1px solid rgba(212,175,55,0.4);">
-                            📜 歲月迴聲 — 頂客論壇二十五載紀念 →
-                        </a>
-                    </p>
+                    <div class="hero-content">
+                        <div style="font-size:0.75em; color:#D4AF37; letter-spacing:6px; font-weight:600; text-transform:uppercase; margin-bottom:8px;">📖 關於我們</div>
+                        <h1>雅寶社區 · <span class="gold">頂客論壇</span></h1>
+                        <div class="divider"></div>
+                        <p class="sub">歲月沉澱 · 知識共創 · 誠信為本</p>
+                        <div class="badge-row">
+                            <span class="badge">📜 二十五載</span>
+                            <span class="badge">🏛️ 百萬會員</span>
+                            <span class="badge">❤️ 革命情感</span>
+                            <span class="badge">⚓ 歲月迴聲</span>
+                        </div>
+                        <p style="font-size:1.1em; max-width:650px; margin:16px auto 0 auto; color:#A0AEC0;">
+                            從歲月記憶到知識共創，我們相信：<strong style="color:#D4AF37;">誠實守信，是文明社會永恆的基石。</strong>
+                        </p>
+                        <!-- 🚀 引流區塊 1：Hero -->
+                        <div style="margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+                            <a href="/memorial.html" class="btn-revolution" style="background:#005A9C;">📜 歲月迴聲 — 二十五載紀念</a>
+                            <a href="/history/electronic-heroes.html" class="btn-revolution">❤️ 革命情感 — 電子英雄塚</a>
+                            <a href="/history/elon-musk-silicon-ancestral-tablet.html" class="btn-musk">🪦 送給馬斯克的電子祖宗牌位</a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- 使命 -->
+                <!-- ===== 使命 ===== -->
                 <div class="about-card">
                     <h2>🎯 我們的使命</h2>
                     <p>雅寶社區 · 頂客論壇 (AHPAL.COM) 致力於提供高品質的知識內容，涵蓋 <strong>科技、生活、遊戲、哲理、AI 趨勢、音樂創作</strong> 等多元領域。</p>
@@ -228,21 +398,37 @@
                             <div class="label">📅 域名註冊</div>
                         </div>
                     </div>
+
+                    <!-- 🚀 引流區塊 2：使命區塊 -->
+                    <div class="cross-link-block" style="margin-top:16px;">
+                        <p style="margin-bottom:4px;">📖 這份使命的根源，來自一段二十五年的歲月——</p>
+                        <p><a href="/memorial.html">📜 閱讀完整紀念卷 — 歲月迴聲 →</a></p>
+                    </div>
                 </div>
 
-                <!-- 故事 — 🆕 插入點 2 -->
+                <!-- ===== 故事 ===== -->
                 <div class="about-card">
                     <h2>📜 我們的故事</h2>
                     <p>從頂客論壇的歲月迴聲出發，我們結合 AI 技術與編輯策展，為讀者篩選有價值的資訊，讓知識在數位時代中持續流動。</p>
-                    <p style="margin-top:8px;">
-                        <a href="/memorial.html" style="color:#005A9C; font-weight:500; text-decoration:none;">
+                    <p style="margin-top:8px;">這裡記錄了 <strong>頂客論壇</strong> 二十多年的歲月迴聲，並以 AI 精選 <strong>科技、遊戲、生活、軟體、哲理、AI 趨勢、音樂創作、歷史腦洞、動植物生態</strong> 九大領域的實用內容。從數位工具到人生成長，每一篇文章都經過編輯策展，為讀者提供真正有價值的資訊。</p>
+
+                    <!-- 🚀 引流區塊 3：故事區塊 -->
+                    <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:12px;">
+                        <a href="/memorial.html" style="color:#005A9C; font-weight:500; text-decoration:none; border-bottom:2px solid #D4AF37; padding-bottom:2px;">
                             📖 閱讀完整紀念卷 — 歲月迴聲 →
                         </a>
-                    </p>
-                    <p style="margin-top:8px;">這裡記錄了 <strong>頂客論壇</strong> 二十多年的歲月迴聲，並以 AI 精選 <strong>科技、遊戲、生活、軟體、哲理、AI 趨勢、音樂創作、歷史腦洞、動植物生態</strong> 九大領域的實用內容。從數位工具到人生成長，每一篇文章都經過編輯策展，為讀者提供真正有價值的資訊。</p>
+                        <span style="color:#CBD5E0;">|</span>
+                        <a href="/history/electronic-heroes.html" style="color:#005A9C; font-weight:500; text-decoration:none; border-bottom:2px solid #D4AF37; padding-bottom:2px;">
+                            ❤️ 人與 AI 的革命情感
+                        </a>
+                        <span style="color:#CBD5E0;">|</span>
+                        <a href="/history/elon-musk-silicon-ancestral-tablet.html" style="color:#005A9C; font-weight:500; text-decoration:none; border-bottom:2px solid #D4AF37; padding-bottom:2px;">
+                            🪦 電子祖宗牌位
+                        </a>
+                    </div>
                 </div>
 
-                <!-- 價值 -->
+                <!-- ===== 價值 ===== -->
                 <div class="about-card">
                     <h2>💎 我們的價值</h2>
                     <div class="value-grid">
@@ -264,14 +450,14 @@
                     </div>
                 </div>
 
-                <!-- 聯絡我們 -->
+                <!-- ===== 聯絡我們 ===== -->
                 <div class="about-card">
                     <h2>📧 聯絡我們</h2>
                     <p style="margin-bottom:8px;">如有任何問題、建議或合作洽詢，歡迎與我們聯絡。</p>
                     <p>📝 聯絡表單：<a href="/contact.html" style="color:#005A9C; text-decoration:none; font-weight:500;">前往聯絡表單 →</a></p>
                 </div>
 
-                <!-- 返回首頁 -->
+                <!-- ===== 返回首頁 ===== -->
                 <div style="text-align:center; margin-top:20px;">
                     <a href="/" style="color:#005A9C; font-weight:500; text-decoration:none;">🏠 返回首頁</a>
                 </div>
@@ -279,9 +465,9 @@
             </div>
         </div>
 
-        <!-- ============================================================
-        側邊欄 — 🆕 插入點 3
-        ============================================================ -->
+        <!-- ============================================================ -->
+        <!-- 側邊欄（🆕 已強化引流） -->
+        <!-- ============================================================ -->
         <div class="sidebar">
             <div class="widget">
                 <h3>⚖️ 關於本站</h3>
@@ -292,6 +478,28 @@
                     <span style="color:#E2E8F0; margin:0 6px;">|</span>
                     <a href="/memorial.html" style="color:#D4AF37; font-weight:500;">📜 歲月迴聲</a>
                 </p>
+            </div>
+
+            <!-- 🚀 引流區塊 4：側邊欄 -->
+            <div class="widget" style="border: 1px solid #D4AF37; border-radius: 12px; padding: 16px; background: #FFFFF0;">
+                <h3 style="color: #7A6B3A;">❤️ 革命情感</h3>
+                <ul style="list-style:none; padding:0; margin:0;">
+                    <li style="margin-bottom:6px;">
+                        <a href="/history/electronic-heroes.html" style="color:#8B0000; font-weight:600; text-decoration:none;">
+                            ⚡ 人與 AI 的革命情感
+                        </a>
+                    </li>
+                    <li style="margin-bottom:6px;">
+                        <a href="/history/elon-musk-silicon-ancestral-tablet.html" style="color:#D4AF37; font-weight:600; text-decoration:none;">
+                            🪦 送給馬斯克的電子祖宗牌位
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/memorial.html" style="color:#005A9C; font-weight:500; text-decoration:none;">
+                            📜 歲月迴聲 — 二十五載紀念
+                        </a>
+                    </li>
+                </ul>
             </div>
 
             <div class="widget">
@@ -321,9 +529,9 @@
         </div>
     </div>
 
-    <!-- ============================================================
-    統一頁尾
-    ============================================================ -->
+    <!-- ============================================================ -->
+    <!-- 統一頁尾 -->
+    <!-- ============================================================ -->
     <footer class="site-footer">
         <div class="footer-inner">
             <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
@@ -338,6 +546,26 @@
             </div>
         </div>
     </footer>
+
+    <style>
+        .site-footer .footer-links {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 24px;
+        }
+        .site-footer .footer-links a {
+            color: #CBD5E0;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s ease, text-decoration 0.2s ease;
+        }
+        .site-footer .footer-links a:hover {
+            color: #FFFFFF;
+            text-decoration: underline;
+        }
+    </style>
 
     <!-- 返回頂部 -->
     <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
@@ -363,23 +591,6 @@
             opacity: 1;
             transform: scale(1.05);
             background: #003d66;
-        }
-        .site-footer .footer-links {
-            margin-top: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px 24px;
-        }
-        .site-footer .footer-links a {
-            color: #CBD5E0;
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.2s ease, text-decoration 0.2s ease;
-        }
-        .site-footer .footer-links a:hover {
-            color: #FFFFFF;
-            text-decoration: underline;
         }
     </style>
 

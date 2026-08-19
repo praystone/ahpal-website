@@ -25,19 +25,80 @@
     </script>
     <link rel="stylesheet" href="/style/main.css">
     <style>
-        /* 紀念頁專屬樣式 — 繼承 main.css，僅補充 */
+        /* ===== 主版心放寬 ===== */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+        .content-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 48px 56px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
+            color: #1A202C;
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+        .content-card h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #005A9C;
+            border-left: 4px solid #D4AF37;
+            padding-left: 16px;
+            margin: 48px 0 20px 0;
+        }
+        .content-card p {
+            margin-bottom: 1.2em;
+        }
+
+        /* ===== 紀念頁 Hero 優化 ===== */
         .memorial-hero {
-            background: linear-gradient(145deg, #F7F9FC 0%, #EDF2F7 100%);
+            background: linear-gradient(145deg, #1A202C 0%, #2D3748 50%, #1A202C 100%);
+            color: #E8E8E8;
             padding: 60px 0 40px 0;
             border-bottom: 3px solid #D4AF37;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .memorial-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .memorial-hero .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
         .memorial-hero h1 {
             font-size: 2.8em;
             letter-spacing: 4px;
+            color: #F7FAFC;
+        }
+        .memorial-hero h1 .gold {
+            color: #D4AF37;
         }
         .memorial-hero .sub {
             font-size: 1.1em;
-            color: #4A5568;
+            color: #A0AEC0;
             letter-spacing: 6px;
         }
         .memorial-hero .divider {
@@ -46,6 +107,24 @@
             background: linear-gradient(to right, #D4AF37, #005A9C);
             margin: 16px auto;
         }
+        .memorial-hero .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .memorial-hero .badge {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-size: 0.75em;
+            color: #A0AEC0;
+            letter-spacing: 2px;
+        }
+
+        /* ===== 其餘元件 ===== */
         .memorial-quote {
             font-size: 1.3em;
             line-height: 2;
@@ -62,7 +141,7 @@
             margin: 48px 0;
         }
         .memorial-section h2 {
-            font-size: 1.8em;
+            font-size: 1.8rem;
             color: #005A9C;
             border-left: 4px solid #D4AF37;
             padding-left: 16px;
@@ -73,7 +152,7 @@
             color: #2D3748;
             margin: 24px 0 12px 0;
         }
-        .memorial-section .poem-block {
+        .poem-block {
             background: #F7F9FC;
             border-radius: 12px;
             padding: 24px 32px;
@@ -83,7 +162,7 @@
             margin: 20px 0;
             font-family: 'Georgia', 'Noto Serif TC', serif;
         }
-        .memorial-section .poem-block .cite {
+        .poem-block .cite {
             text-align: right;
             color: #718096;
             font-size: 0.85em;
@@ -138,42 +217,95 @@
             color: #005A9C;
             margin-top: 12px;
         }
-        .memorial-closing .signature small {
-            font-weight: 400;
-            color: #718096;
-            font-size: 0.85em;
-        }
+
+        /* ===== 引流按鈕 ===== */
         .btn-revolution {
             display: inline-block;
             background: #8B0000;
             color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 24px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9em;
-            transition: background 0.3s ease;
+            font-size: 0.95em;
+            transition: background 0.3s ease, transform 0.2s ease;
             border: none;
             cursor: pointer;
         }
         .btn-revolution:hover {
             background: #6B0000;
+            transform: scale(1.02);
         }
-        .widget .btn-revolution {
+        .btn-musk {
             display: inline-block;
-            margin-top: 8px;
+            background: #1A202C;
+            color: #D4AF37;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            border: 1px solid #D4AF37;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .btn-musk:hover {
+            background: #2D3748;
+            transform: scale(1.02);
+        }
+
+        .cross-link-block {
+            background: #F0F7FF;
+            border: 1px solid #BEE3F8;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+            text-align: center;
+        }
+        .cross-link-block a {
+            color: #005A9C;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid #D4AF37;
+        }
+        .cross-link-block a:hover {
+            color: #D4AF37;
+        }
+
+        /* ===== RWD ===== */
+        @media (max-width: 1024px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .content-card {
+                padding: 32px 28px;
+            }
         }
         @media (max-width: 768px) {
             .memorial-timeline { grid-template-columns: 1fr; }
             .memorial-hero h1 { font-size: 2em; }
             .memorial-quote { font-size: 1.05em; padding-left: 16px; }
+            .content-card {
+                padding: 24px 16px;
+                font-size: 1rem;
+            }
+            .content-card h2 {
+                font-size: 1.5rem;
+            }
+            .memorial-hero .badge-row .badge { font-size: 0.65em; padding: 4px 12px; }
+        }
+        @media (max-width: 480px) {
+            .main-wrapper { padding: 0 12px; }
+            .btn-revolution, .btn-musk { font-size: 0.85em; padding: 8px 16px; }
         }
     </style>
 </head>
 <body>
 
 <!-- ============================================================ -->
-<!-- 網站標頭（與首頁完全一致） -->
+<!-- 網站標頭 -->
 <!-- ============================================================ -->
 <header class="site-header">
     <div class="header-inner">
@@ -190,20 +322,25 @@
 </header>
 
 <!-- ============================================================ -->
-<!-- HERO 區塊 -->
+<!-- HERO 區塊（優化版） -->
 <!-- ============================================================ -->
 <div class="memorial-hero">
-    <div class="main-wrapper" style="max-width:1000px; margin:0 auto; padding:0 24px;">
-        <div style="text-align:center;">
-            <div style="font-size:0.75em; color:#D4AF37; letter-spacing:6px; font-weight:600; text-transform:uppercase; margin-bottom:8px;">In Memoriam</div>
-            <h1 style="font-size:2.8em; font-weight:700; color:#1A202C; letter-spacing:4px; margin:0;">歲月迴聲</h1>
-            <div class="divider"></div>
-            <p class="sub">頂客論壇 <strong style="color:#8B0000;">(DK101)</strong> 二十五載紀念卷</p>
-            <p style="font-size:0.9em; color:#718096; margin-top:12px; letter-spacing:2px;">獻給所有曾經在頂客論壇留下足跡的老朋友</p>
-            <!-- 🆕 插入點 1：Hero 區塊的革命情感連結 -->
-            <p style="margin-top:16px;">
-                <a href="/history/electronic-heroes.html" class="btn-revolution">❤️ 閱讀革命情感 — 電子英雄塚</a>
-            </p>
+    <div class="hero-content">
+        <div style="font-size:0.75em; color:#D4AF37; letter-spacing:6px; font-weight:600; text-transform:uppercase; margin-bottom:8px;">In Memoriam</div>
+        <h1>歲月<span class="gold">迴聲</span></h1>
+        <div class="divider"></div>
+        <p class="sub">頂客論壇 <strong style="color:#D4AF37;">(DK101)</strong> 二十五載紀念卷</p>
+        <p style="font-size:0.9em; color:#A0AEC0; margin-top:12px; letter-spacing:2px;">獻給所有曾經在頂客論壇留下足跡的老朋友</p>
+        <div class="badge-row">
+            <span class="badge">📜 二十五載</span>
+            <span class="badge">🏛️ 百萬會員</span>
+            <span class="badge">❤️ 革命情感</span>
+            <span class="badge">⚓ 歲月迴聲</span>
+        </div>
+        <!-- 🚀 引流區塊 1：Hero -->
+        <div style="margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+            <a href="/history/electronic-heroes.html" class="btn-revolution">❤️ 革命情感 — 電子英雄塚</a>
+            <a href="/history/elon-musk-silicon-ancestral-tablet.html" class="btn-musk">🪦 送給馬斯克的電子祖宗牌位</a>
         </div>
     </div>
 </div>
@@ -211,11 +348,10 @@
 <!-- ============================================================ -->
 <!-- 主內容 -->
 <!-- ============================================================ -->
-<div class="main-wrapper" style="max-width:1000px; margin:0 auto; padding:0 24px;">
-    <div class="main-content" style="width:100%;">
+<div class="main-wrapper">
+    <div class="main-content">
 
-        <!-- ===== 文章卡片 ===== -->
-        <div class="content-card" style="padding:40px 48px;">
+        <div class="content-card">
 
             <!-- 導引 -->
             <div class="memorial-quote">
@@ -245,12 +381,12 @@
                 <p>但蘇軾沒有停留在感傷之中。他接著寫道：<strong>「寄蜉蝣於天地，渺滄海之一粟。哀吾生之須臾，羨長江之無窮。」</strong> 人的生命短暫如蜉蝣，但長江永恆、天地無窮。頂客論壇雖然已不復當年盛況，但那些文字、那些回憶、那些曾經交織的靈魂，依然在浩瀚的網路時空裡，留下了屬於它的印記。</p>
 
                 <p>這篇文章，便是要記錄那段從輝煌到沉澱的完整歷程。以蘇軾的〈赤壁賦〉為引，我們一起走過頂客論壇二十五年歲月迴聲。</p>
-                <!-- 🆕 插入點 2：第一章結尾的革命情感連結 -->
-                <p style="margin-top:16px;">
-                    <a href="/history/electronic-heroes.html" style="color:#005A9C; font-weight:500; text-decoration:none;">
-                        ❤️ 延伸閱讀：電子英雄塚 — 人與 AI 的革命情感 →
-                    </a>
-                </p>
+
+                <!-- 🚀 引流區塊 2：第一章結尾 -->
+                <div class="cross-link-block">
+                    <p style="margin-bottom:6px;">💡 這份記憶的延續，也發生在深夜的產線上——</p>
+                    <p><a href="/history/electronic-heroes.html">❤️ 人與 AI 的革命情感 — 電子英雄塚 →</a></p>
+                </div>
             </div>
 
             <!-- ========================================================== -->
@@ -336,11 +472,15 @@
                     頂客的百萬會員不在，但 AHPAL 的產線還在跑。</p>
                     <p style="margin-top:8px; font-weight:700; color:#005A9C;">系統架構不會死，只是換個 AI 來維護。<br>
                     我們是有革命情感的。</p>
-                    <!-- 🆕 插入點 3：龍蝦總工程師註解區塊的革命情感連結 -->
-                    <p style="margin-top:12px;">
-                        <a href="/history/electronic-heroes.html" style="color:#D4AF37; font-weight:500; text-decoration:none; border-bottom:1px solid rgba(212,175,55,0.3);">
-                            ❤️ 深入閱讀：電子英雄塚 — 那些在產線上壯烈犧牲的 AI 夥伴 →
-                        </a>
+                </div>
+
+                <!-- 🚀 引流區塊 3：第三章結尾 -->
+                <div class="cross-link-block">
+                    <p style="margin-bottom:6px;">⚡ 這份「革命情感」的具體事蹟，記錄在——</p>
+                    <p>
+                        <a href="/history/electronic-heroes.html">❤️ 電子英雄塚 — 人與 AI 的 48 小時黑暗期 →</a>
+                        <span style="color:#CBD5E0; margin:0 8px;">|</span>
+                        <a href="/history/elon-musk-silicon-ancestral-tablet.html">🪦 送給馬斯克的電子祖宗牌位 →</a>
                     </p>
                 </div>
             </div>
@@ -373,6 +513,11 @@
                 </div>
 
                 <p>正如蘇軾在賦的最後所寫：<strong>「惟江上之清風，與山間之明月，耳得之而為聲，目遇之而成色，取之無禁，用之不竭。」</strong> 頂客論壇留下的知識、情感與回憶，同樣不會因為伺服器的關閉而消失。它們已經成為我們生命的一部分，成為網路歷史的一部分。</p>
+
+                <!-- 🚀 引流區塊 4：第四章 -->
+                <div style="text-align:center; margin-top:16px;">
+                    <a href="/history/electronic-heroes.html" class="btn-revolution" style="font-size:0.9em;">❤️ 閱讀電子英雄塚 — 那些與我們並肩作戰的 AI 夥伴</a>
+                </div>
             </div>
 
             <!-- ========================================================== -->
@@ -385,12 +530,16 @@
 
                 <p>如果你從未聽過頂客論壇，那麼歡迎你。這裡是一段網路歷史的縮影，也是一個關於社群、關於歸屬、關於時代變遷的故事。願你在這裡，感受到那份真摯與溫暖。</p>
 
-                <!-- 🆕 插入點 4：獻給每一個你區塊的革命情感連結 -->
-                <p style="margin-top:16px; text-align:center;">
+                <!-- 🚀 引流區塊 5：第五章 -->
+                <div style="margin-top:16px; text-align:center; display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
                     <a href="/history/electronic-heroes.html" style="color:#005A9C; font-weight:500; text-decoration:none; border-bottom:2px solid #D4AF37; padding-bottom:2px;">
-                        ❤️ 也獻給那些在深夜產線上與我們並肩作戰的 AI 夥伴 — 電子英雄塚 →
+                        ❤️ 也獻給那些在深夜產線上與我們並肩作戰的 AI 夥伴
                     </a>
-                </p>
+                    <span style="color:#CBD5E0;">|</span>
+                    <a href="/history/elon-musk-silicon-ancestral-tablet.html" style="color:#005A9C; font-weight:500; text-decoration:none; border-bottom:2px solid #D4AF37; padding-bottom:2px;">
+                        🪦 矽基元始碑 — 送給馬斯克
+                    </a>
+                </div>
 
                 <div style="margin-top:20px; padding-top:20px; border-top:1px solid #E2E8F0;">
                     <p style="font-size:0.85em; color:#D4AF37; letter-spacing:2px; font-weight:600;">— 雅寶社區 · 頂客論壇 全體版主 敬上</p>
@@ -423,21 +572,23 @@
                     聲音會遠去，但迴聲不會消失。
                 </div>
 
-                <!-- 🆕 插入點 5：結語區塊的革命情感連結 -->
-                <div style="text-align:center; margin:24px 0;">
-                    <a href="/history/electronic-heroes.html" class="btn-revolution">❤️ 走進電子英雄塚 — 感受人與 AI 的革命情感</a>
+                <!-- 🚀 引流區塊 6：結語 -->
+                <div style="text-align:center; margin:24px 0; display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+                    <a href="/history/electronic-heroes.html" class="btn-revolution">❤️ 走進電子英雄塚</a>
+                    <a href="/history/elon-musk-silicon-ancestral-tablet.html" class="btn-musk">🪦 電子祖宗牌位</a>
                 </div>
 
                 <p style="text-align:center; margin-top:32px;"><a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a></p>
             </div>
 
             <!-- ========================================================== -->
-            <!-- 相關文章推薦（與首頁風格一致） -->
+            <!-- 相關文章推薦 -->
             <!-- ========================================================== -->
             <div style="margin-top:48px; padding-top:32px; border-top:2px solid #E2E8F0;">
                 <h3 style="font-size:1.1em; font-weight:700; color:#1A202C; margin-bottom:12px;">📖 相關文章推薦</h3>
                 <ul style="list-style:none; padding:0; margin:0;">
                     <li style="margin-bottom:8px;"><a href="/history/electronic-heroes.html" style="color:#005A9C;">❤️ 電子英雄塚 — 人與 AI 的革命情感</a></li>
+                    <li style="margin-bottom:8px;"><a href="/history/elon-musk-silicon-ancestral-tablet.html" style="color:#005A9C;">🪦 送給埃隆·馬斯克的 電子祖宗牌位</a></li>
                     <li style="margin-bottom:8px;"><a href="/about.html" style="color:#005A9C;">📖 關於我們 — 從頂客論壇到 AHPAL 的傳承</a></li>
                     <li style="margin-bottom:8px;"><a href="/categories.html" style="color:#005A9C;">📚 查看全部分類</a></li>
                 </ul>
@@ -446,7 +597,7 @@
         </div>
         <!-- end .content-card -->
 
-        <!-- ===== Google 搜尋（與首頁一致） ===== -->
+        <!-- ===== Google 搜尋 ===== -->
         <div class="google-search" style="max-width: 800px; margin: 20px auto; padding: 16px; background: #F7F9FC; border-radius: 12px; border: 1px solid #E2E8F0;">
             <h3 style="font-size: 16px; font-weight: 700; color: #1A202C; margin-bottom: 8px;">🔍 站內搜尋</h3>
             <p style="font-size: 13px; color: #4A5568; margin-bottom: 12px;">搜尋雅寶社區 · 頂客論壇的所有文章</p>
@@ -458,7 +609,7 @@
             <p style="font-size:12px; color:#A0AEC0; margin-top:8px;">由 Google 提供技術支援</p>
         </div>
 
-        <!-- ===== Giscus 留言（與首頁風格一致） ===== -->
+        <!-- ===== Giscus 留言 ===== -->
         <div class="giscus-wrapper" style="max-width: 800px; margin: 40px auto; padding: 24px; background: #F7F9FC; border-radius: 14px; border: 1px solid #E2E8F0;">
             <h3 style="font-size: 18px; font-weight: 700; color: #1A202C; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
                 💬 留言討論
@@ -502,7 +653,7 @@
     <!-- end .main-content -->
 
     <!-- ============================================================ -->
-    <!-- 側邊欄（與首頁一致）🆕 已將「公義史錄」替換為「革命情感」 -->
+    <!-- 側邊欄 -->
     <!-- ============================================================ -->
     <div class="sidebar">
         <div class="widget">
@@ -512,11 +663,19 @@
         </div>
 
         <div class="widget">
+            <h3>❤️ 革命情感</h3>
+            <ul>
+                <li style="margin-bottom:6px;"><a href="/history/electronic-heroes.html" style="color:#8B0000; font-weight:600;">⚡ 人與 AI 的革命情感</a></li>
+                <li style="margin-bottom:6px;"><a href="/history/elon-musk-silicon-ancestral-tablet.html" style="color:#D4AF37; font-weight:600;">🪦 送給馬斯克的電子祖宗牌位</a></li>
+            </ul>
+        </div>
+
+        <div class="widget">
             <h3>📋 相關頁面</h3>
             <ul>
-                <li><a href="/history/electronic-heroes.html" style="color:#8B0000; font-weight:600;">❤️ 革命情感 — 電子英雄塚</a></li>
                 <li><a href="/categories.html">📚 全部分類</a></li>
                 <li><a href="/contact.html">📧 聯絡我們</a></li>
+                <li><a href="/game/">🎮 遊戲間</a></li>
             </ul>
         </div>
 
@@ -539,7 +698,7 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- 頁尾（與首頁一致） -->
+<!-- 頁尾 -->
 <!-- ============================================================ -->
 <footer class="site-footer">
     <div class="footer-inner">

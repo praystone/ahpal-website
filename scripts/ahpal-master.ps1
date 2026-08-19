@@ -1,14 +1,16 @@
-﻿﻿# ============================================================
-# 雅寶社區 · 頂客論壇 - 萬能總指揮 v8.5
+﻿# ============================================================
+# 雅寶社區 · 頂客論壇 - 萬能總指揮 v8.6
 # ============================================================
 # 功能：備份、處理待新增文章、生成遊戲、生成文章、Git 提交、
-#       Cloudflare 部署、SEO 驗證、系統工具整合、餘額檢查、
-#       目錄深度分析、AI 系統交接掃描
+#       Cloudflare 部署、SEO 驗證、系統工具整合、目錄深度分析、
+#       AI 系統交接掃描、產線運維四件套 (W/F/A/D)
 # ============================================================
-# 🆕 v8.5 變更 (2026-08-19)：
-#   - 🆕 Invoke-SeoValidation 加入死命令 11 檢查 (SEO 四大件嚴禁 noindex)
-#   - 🆕 調用 check-seo-noindex.ps1 獨立檢查腳本
-#   - 🔧 [S] 和 [E] 共用同一檢查邏輯
+# 🆕 v8.6 變更 (2026-08-19)：
+#   - 🔥 移除餘額檢查 (Invoke-BalanceCheck)
+#   - 🔧 修正按鍵衝突：產線運維改為 [W][F][A][D]
+#   - 🔧 API 強制切換改為 [G] Gemini / [K] DeepSeek / [B] 自動
+#   - 🔧 優化選單結構與使用者體驗
+#   - 🆕 整合產線運維四件套 (W/F/A/D)
 # ============================================================
 
 param(
@@ -40,10 +42,8 @@ if (-not $ScriptDir) { $ScriptDir = Get-Location }
 $ProjectRoot = Split-Path -Parent $ScriptDir
 Set-Location $ProjectRoot
 
-# 載入核心配置
 $ConfigPath = Join-Path $ScriptDir "config.ps1"
 if (Test-Path $ConfigPath) {
-    # 靜默載入，避免 Export-ModuleMember 警告
     $oldErrorAction = $ErrorActionPreference
     $ErrorActionPreference = "SilentlyContinue"
     . $ConfigPath
@@ -74,7 +74,7 @@ if (Test-Path ".env") {
 }
 
 # ============================================================
-# 🎨 顏色函數 (完整定義)
+# 🎨 顏色函數
 # ============================================================
 function Write-Info { Write-Host $args -ForegroundColor Cyan }
 function Write-Success { Write-Host $args -ForegroundColor Green }
@@ -119,31 +119,6 @@ function Invoke-ProcessPending {
     } catch {
         Write-Host "   ⚠️ pending-articles.json 格式有誤，跳過處理" -ForegroundColor Yellow
         return $false
-    }
-}
-
-# ============================================================
-# 輔助函數：檢查 DeepSeek 餘額
-# ============================================================
-function Invoke-BalanceCheck {
-    Write-Host ""
-    Write-Host "💰 檢查 DeepSeek 餘額..." -ForegroundColor Yellow
-    Write-Host "────────────────────────────────────────────────────────" -ForegroundColor Gray
-    
-    $BalanceScript = "$ScriptDir\check-deepseek-balance.ps1"
-    if (Test-Path $BalanceScript) {
-        & $BalanceScript
-        if ($LASTEXITCODE -eq 1) {
-            Write-Host "   ❌ 餘額不足，請儲值後再執行" -ForegroundColor Red
-            return $false
-        } elseif ($LASTEXITCODE -eq 2) {
-            Write-Host "   ⚠️ 餘額查詢失敗，繼續執行..." -ForegroundColor Yellow
-            return $true
-        }
-        return $true
-    } else {
-        Write-Host "   ⚠️ 找不到 check-deepseek-balance.ps1，跳過餘額檢查" -ForegroundColor Yellow
-        return $true
     }
 }
 
@@ -195,7 +170,7 @@ function Invoke-SystemToolkit {
 }
 
 # ============================================================
-# v8.4: 輔助函數：AI 系統交接掃描
+# AI 系統交接掃描
 # ============================================================
 function Invoke-AIHandover {
     Write-Section "🤖 AI 系統交接掃描"
@@ -232,7 +207,7 @@ function Invoke-AIHandover {
 }
 
 # ============================================================
-# 輔助函數：目錄深度分析
+# 目錄深度分析
 # ============================================================
 function Invoke-DirectoryAnalysis {
     param(
@@ -270,7 +245,7 @@ function Invoke-DirectoryAnalysis {
 }
 
 # ============================================================
-# 完整 SEO 檢查（含文章狀態）v3.1
+# 完整 SEO 檢查（含文章狀態）
 # ============================================================
 function Invoke-SeoFullCheck {
     Write-Section "🔍 完整 SEO 檢查 v3.1"
@@ -477,7 +452,7 @@ function Invoke-SeoValidation {
     }
 
     # ============================================================
-    # 🆕 v8.5: 死命令 11 — SEO 四大件嚴禁 noindex
+    # 死命令 11 — SEO 四大件嚴禁 noindex
     # ============================================================
     Write-Host ""
     Write-Host "📋 死命令 11 檢查：SEO 四大件嚴禁 noindex" -ForegroundColor Yellow
@@ -514,11 +489,62 @@ function Invoke-SeoValidation {
 }
 
 # ============================================================
+# 🆕 產線運維四件套函數 (v8.6)
+# ============================================================
+
+function Invoke-WatchPipeline {
+    Write-Section "📡 產線健康監控"
+    $ScriptPath = Join-Path $ScriptDir "watch-pipeline.ps1"
+    if (Test-Path $ScriptPath) {
+        & $ScriptPath -SendReport
+    } else {
+        Write-Error "❌ 找不到 watch-pipeline.ps1"
+        Write-Info "📌 請確認路徑：$ScriptPath"
+    }
+    Read-Host "`n按 Enter 返回"
+}
+
+function Invoke-SeoDefense {
+    Write-Section "🔍 SEO 爬蟲防線檢查"
+    $ScriptPath = Join-Path $ScriptDir "check-seo-defense.ps1"
+    if (Test-Path $ScriptPath) {
+        & $ScriptPath -Fix
+    } else {
+        Write-Error "❌ 找不到 check-seo-defense.ps1"
+        Write-Info "📌 請確認路徑：$ScriptPath"
+    }
+    Read-Host "`n按 Enter 返回"
+}
+
+function Invoke-AuditQuality {
+    Write-Section "📝 內容品質審查"
+    $ScriptPath = Join-Path $ScriptDir "audit-content-quality.ps1"
+    if (Test-Path $ScriptPath) {
+        & $ScriptPath -SampleSize 50 -Category "life"
+    } else {
+        Write-Error "❌ 找不到 audit-content-quality.ps1"
+        Write-Info "📌 請確認路徑：$ScriptPath"
+    }
+    Read-Host "`n按 Enter 返回"
+}
+
+function Invoke-SeoDigest {
+    Write-Section "📊 SEO 數據彙整"
+    $ScriptPath = Join-Path $ScriptDir "seo-digest.ps1"
+    if (Test-Path $ScriptPath) {
+        & $ScriptPath -SendReport
+    } else {
+        Write-Error "❌ 找不到 seo-digest.ps1"
+        Write-Info "📌 請確認路徑：$ScriptPath"
+    }
+    Read-Host "`n按 Enter 返回"
+}
+
+# ============================================================
 # 核心功能函數
 # ============================================================
 
 function Get-ArticleCount {
-    # v8.4: 排除更多系統頁面
     $excludePattern = "index|categories|dashboard|about|contact|privacy|terms|404|memorial|royal|category-"
     $count = (Get-ChildItem -Recurse -Filter "*.html" | Where-Object { 
         $_.DirectoryName -notmatch "game" -and 
@@ -529,13 +555,6 @@ function Get-ArticleCount {
 
 function Invoke-FullPipeline {
     Write-Section "▶️ 執行完整流程 (備份 + 處理待新增 + 生成 + Git + 部署)"
-    
-    if (-not $SkipBalance) {
-        if (-not (Invoke-BalanceCheck)) {
-            Write-Error "❌ 餘額不足，停止執行"
-            return
-        }
-    }
     
     if (-not $SkipPreflight) {
         if (-not (Invoke-PreflightCheck)) {
@@ -567,13 +586,6 @@ function Invoke-FullPipeline {
 
 function Invoke-QuickUpdate {
     Write-Section "▶️ 執行快速更新 (跳過備份)"
-    
-    if (-not $SkipBalance) {
-        if (-not (Invoke-BalanceCheck)) {
-            Write-Error "❌ 餘額不足，停止執行"
-            return
-        }
-    }
     
     Write-Host "   [1/4] 處理待新增文章..." -ForegroundColor Yellow
     Invoke-ProcessPending
@@ -669,10 +681,6 @@ function Invoke-SystemStatus {
         }
     }
     Write-Host "   🎮 遊戲攻略：$gameCount 款" -ForegroundColor Gray
-    
-    Write-Host ""
-    Write-Host "💰 餘額狀態：" -ForegroundColor Yellow
-    & "$ScriptDir\check-deepseek-balance.ps1" 2>$null
 }
 
 function Set-ForceApi {
@@ -695,7 +703,7 @@ function Set-ForceApi {
 function Show-MainMenu {
     Clear-Host
     Write-Host "============================================================" -ForegroundColor Cyan
-    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v8.5" -ForegroundColor Cyan
+    Write-Host "  雅寶社區 · 頂客論壇 - 萬能總指揮 v8.6" -ForegroundColor Cyan
     Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "📊 系統狀態：" -ForegroundColor Yellow
@@ -728,16 +736,22 @@ function Show-MainMenu {
     Write-Host "   [5] 只做備份 (不生成、不部署)"
     Write-Host "   [6] 只做 Git + 部署 (不生成)"
     Write-Host "   [7] 檢查文章狀態"
-    Write-Host "   [8] 查看系統狀態 (含餘額)"
+    Write-Host "   [8] 查看系統狀態"
     Write-Host "   [9] 📊 目錄深度分析 (文章分布/大小/佔比)"
     Write-Host ""
     Write-Host "   [S] 🔍 SEO 基礎檔案驗證 (robots.txt / ads.txt / sitemap.xml)"
     Write-Host "   [E] 📊 完整 SEO 檢查 (含文章狀態與檔案存在性)"
     Write-Host "   [H] 🤖 AI 系統交接掃描 (完整備份與報告)"
-    Write-Host "   [T] 🛠️ 系統工具與診斷 (開機優化/硬體報告/備份)"
+    Write-Host "   [T] 🛠️ 系統工具整合器 v5.2 (含系統報告/產線運維四件套)"
     Write-Host ""
-    Write-Host "   [A] 🔧 強制使用 Gemini (尖峰時段也適用)"
-    Write-Host "   [D] 🔧 強制使用 DeepSeek"
+    Write-Host "📡 產線運維工具：" -ForegroundColor Yellow
+    Write-Host "   [W] 📡 產線健康監控 (日誌摘要)" -ForegroundColor Cyan
+    Write-Host "   [F] 🔍 SEO 爬蟲防線 (預警檢查)" -ForegroundColor Cyan
+    Write-Host "   [A] 📝 內容品質審查 (抽樣稽核)" -ForegroundColor Cyan
+    Write-Host "   [D] 📊 SEO 數據彙整 (流量日報)" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "   [G] 🔧 強制使用 Gemini"
+    Write-Host "   [K] 🔧 強制使用 DeepSeek"
     Write-Host "   [B] 🔄 恢復自動切換模式"
     Write-Host ""
     Write-Host "   [0] 退出腳本"
@@ -762,11 +776,23 @@ function Show-MainMenu {
         "h" { Invoke-AIHandover }
         "T" { Invoke-SystemToolkit }
         "t" { Invoke-SystemToolkit }
-        "A" { Set-ForceApi "gemini" }
-        "D" { Set-ForceApi "deepseek" }
+        "W" { Invoke-WatchPipeline }
+        "w" { Invoke-WatchPipeline }
+        "F" { Invoke-SeoDefense }
+        "f" { Invoke-SeoDefense }
+        "A" { Invoke-AuditQuality }
+        "a" { Invoke-AuditQuality }
+        "D" { Invoke-SeoDigest }
+        "d" { Invoke-SeoDigest }
+        "G" { Set-ForceApi "gemini" }
+        "K" { Set-ForceApi "deepseek" }
         "B" { Set-ForceApi "auto" }
         "0" { exit }
-        default { Write-Host "❌ 無效選項，請重新選擇" -ForegroundColor Red; Start-Sleep 2; Show-MainMenu }
+        default { 
+            Write-Host "❌ 無效選項，請重新選擇" -ForegroundColor Red
+            Start-Sleep 1.5
+            Show-MainMenu 
+        }
     }
 }
 
@@ -774,7 +800,7 @@ function Show-MainMenu {
 # 啟動
 # ============================================================
 if ($Action) {
-    Write-Host "🦞 AHPAL 萬能總指揮 v8.5 (命令列模式)" -ForegroundColor Cyan
+    Write-Host "🦞 AHPAL 萬能總指揮 v8.6 (命令列模式)" -ForegroundColor Cyan
     Write-Host "   Action: $Action" -ForegroundColor Gray
     
     switch ($Action) {

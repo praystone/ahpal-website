@@ -1,20 +1,12 @@
 # ============================================================
-# html_builder.py - HTML 建構模組 v7.4 (Emoji 修復 + Nature 支援)
+# html_builder.py - HTML 建構模組 v7.5 (完整修正版)
 # ============================================================
-# 修復 (v7.3)：
-#   - 🔧 恢復所有被破壞的 Emoji (🎮📊🤖📚🔍💬📖📄等)
-#   - 🔧 修復 CATEGORY_EMOJI_MAP 映射
-#   - 🔧 修復 SITE_HEADER 和 SITE_FOOTER 中的 Emoji
-#   - 🔧 修復 create_default_index() 中的分類顯示
-#   - 🔧 修復 GOOGLE_CSE 中的搜尋圖示
-#   - ✅ 繼承 v7.2 所有功能
-#
-# v7.4 變更：
-#   - 🆕 CATEGORY_EMOJI_MAP 新增 "🌳": "🌳 動植物生態"
-#   - 🆕 category_dirs 新增 "nature": "🌳 動植物生態"
-#   - 🆕 create_default_index() 分類網格自動支援 nature/
-#   - 🆕 generate_categories_page() 自動讀取 config.py 中的 CATEGORIES
-#   - 🆕 generate_category_pages() 自動讀取 config.py 中的 CATEGORIES
+# 修復 (v7.5)：
+#   - 🔧 修正 generate_category_pages() 縮排錯誤 (第 1183-1194 行)
+#   - 🆕 文章列表按修改時間排序 (最新文章置頂)
+#   - 🆕 檄文自動置頂機制 (denounce-google-adsense.html 永遠在最前面)
+#   - 🔧 完整保留 v7.4 所有功能 (Emoji 修復 + Nature 支援)
+#   - 🔧 分類頁面側邊欄與主站一致
 # ============================================================
 
 import hashlib
@@ -631,7 +623,7 @@ def build_music_schema(keyword, video_id=None, category=None):
   }}
 '''
     schema += '''
-}}
+}
 </script>'''
     return schema
 
@@ -1396,11 +1388,11 @@ def generate_categories_page():
 
 
 # ============================================================
-# 生成各分類獨立頁面（v7.2 — Emoji 修復版）
+# 🆕 生成各分類獨立頁面（v7.5 — 縮排修正 + 時間排序 + 檄文置頂）
 # ============================================================
 
 def generate_category_pages():
-    """生成各分類的獨立頁面（與原 ahpal_generator.py 相容）"""
+    """生成各分類的獨立頁面（v7.5 — 按時間排序 + 檄文置頂 + 縮排修正）"""
     print("📄 正在生成分類頁面...")
 
     from src.config import CATEGORIES as CATEGORIES_CONFIG
@@ -1413,23 +1405,35 @@ def generate_category_pages():
         page_path = os.path.join(OUTPUT_DIR, f"category-{cat_id}.html")
 
         dir_path = os.path.join(OUTPUT_DIR, cat_id)
-articles = []
-if os.path.exists(dir_path):
-    for f in os.listdir(dir_path):
-        if f.endswith('.html'):
-            file_path = os.path.join(dir_path, f)
-            try:
-                with open(file_path, "r", encoding="utf-8") as file:
-                    content = file.read()
-                    title = extract_clean_title(content, f)
-            except:
-                title = f.replace(".html", "").replace("-", " ").title()
-            # 🆕 取得檔案修改時間
-            mtime = os.path.getmtime(file_path)
-            articles.append({"filename": f"{cat_id}/{f}", "title": title, "mtime": mtime})
+        articles = []
+        if os.path.exists(dir_path):
+            for f in os.listdir(dir_path):
+                if f.endswith('.html'):
+                    file_path = os.path.join(dir_path, f)
+                    try:
+                        with open(file_path, "r", encoding="utf-8") as file:
+                            content = file.read()
+                            title = extract_clean_title(content, f)
+                    except:
+                        title = f.replace(".html", "").replace("-", " ").title()
+                    # 🆕 取得檔案修改時間
+                    mtime = os.path.getmtime(file_path)
+                    articles.append({
+                        "filename": f"{cat_id}/{f}",
+                        "title": title,
+                        "mtime": mtime,
+                        "name": f  # 用於判斷是否為檄文
+                    })
 
-# 🆕 依照修改時間降冪排列（最新的在前）
-articles.sort(key=lambda x: x.get("mtime", 0), reverse=True)
+        # 🆕 v7.5：排序規則 — 檄文永遠置頂，其餘依時間排序
+        def sort_articles(article):
+            # 檄文強制置頂（永遠排在最前面）
+            if article["name"] == "denounce-google-adsense.html":
+                return (0, 0)  # 第一優先級
+            # 其餘依時間降冪（最新的在前）
+            return (1, -article.get("mtime", 0))
+
+        articles.sort(key=sort_articles)
 
         html_content = f'''<!DOCTYPE html>
 <html lang="zh-TW">
@@ -1456,10 +1460,13 @@ articles.sort(key=lambda x: x.get("mtime", 0), reverse=True)
                     <h2>📖 全部文章</h2>
                     <ul id="article-list">
 '''
-
         if articles:
             for article in articles:
-                html_content += f'                        <li><a href="/{article["filename"]}">{article["title"]}</a></li>\n'
+                # 🆕 檄文標記為紅色醒目
+                if article["name"] == "denounce-google-adsense.html":
+                    html_content += f'                        <li style="background:#FFF8F8; border-left:4px solid #8B0000;"><a href="/{article["filename"]}" style="color:#8B0000; font-weight:700;">⚔️ {article["title"]}</a></li>\n'
+                else:
+                    html_content += f'                        <li><a href="/{article["filename"]}">{article["title"]}</a></li>\n'
         else:
             html_content += '                        <li style="color:#718096;">目前尚無文章，敬請期待！</li>\n'
 
@@ -1473,7 +1480,6 @@ articles.sort(key=lambda x: x.get("mtime", 0), reverse=True)
                 <h3>📂 全部分類</h3>
                 <ul>
 '''
-
         for cid, cinfo in CATEGORIES_CONFIG.items():
             html_content += f'                    <li><a href="/category-{cid}.html">{cinfo["name"]}</a></li>\n'
 

@@ -301,6 +301,18 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/docs/企畫書-四大篇章系列.html</loc>
+        <lastmod>2026-08-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/企畫書-四大篇章系列.html8b.html</loc>
+        <lastmod>2026-08-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/docs/打一份AI交接與新進工程師交接手冊.html</loc>
         <lastmod>2026-08-21</lastmod>
         <changefreq>monthly</changefreq>
@@ -12357,6 +12369,24 @@
     <url>
         <loc>https://www.ahpal.com/review/密碼管理工具怎麼選.html</loc>
         <lastmod>2026-07-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/strategy/stand-and-earn-2.html</loc>
+        <lastmod>2026-08-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/strategy/stand-and-earn-3.html</loc>
+        <lastmod>2026-08-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/strategy/stand-and-earn.html</loc>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>

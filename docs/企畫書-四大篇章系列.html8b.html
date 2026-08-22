@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHPAL 四大篇章系列文章企畫書</title>
+    <meta name="description" content="AHPAL 四大篇章系列文章企畫書 — 從四篇獨立文章升級為完整內容生態系統，涵蓋品牌故事、歷史記憶、技術攻堅、AI 哲學四大領域。">
+    <meta name="keywords" content="四大篇章,企畫書,系列文章,內容生態,AHPAL,頂客論壇">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ahpal.com/docs/企畫書-四大篇章系列.html">
+
+    <meta property="og:title" content="AHPAL 四大篇章系列文章企畫書">
+    <meta property="og:description" content="從四篇獨立文章升級為完整內容生態系統，涵蓋品牌故事、歷史記憶、技術攻堅、AI 哲學四大領域。">
+    <meta property="og:url" content="https://ahpal.com/docs/企畫書-四大篇章系列.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="雅寶社區 · 頂客論壇">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637791667872348" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXGG1VTGPB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXGG1VTGPB');
+    </script>
+
+    <link rel="stylesheet" href="/style/main.css">
+
+    <style>
+        /* 企畫書專用樣式（繼承主站風格，略有強化） */
+        .main-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .content-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 48px 56px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
+            color: #1A202C;
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+        .content-card h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            border-left: 6px solid #D4AF37;
+            padding-left: 18px;
+            margin-bottom: 4px;
+        }
+        .content-card .subtitle {
+            color: #64748b;
+            font-size: 16px;
+            margin-bottom: 32px;
+            padding-left: 24px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 16px;
+        }
+        .content-card h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #005A9C;
+            border-left: 4px solid #D4AF37;
+            padding-left: 16px;
+            margin: 40px 0 16px 0;
+        }
+        .content-card p {
+            color: #2D3748;
+            margin-bottom: 1em;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 6px;
+        }
+        .badge.gold { background: #fef3c7; color: #b45309; }
+        .badge.blue { background: #dbeafe; color: #1d4ed8; }
+        .badge.green { background: #d1fae5; color: #065f46; }
+        .badge.red { background: #fee2e2; color: #b91c1c; }
+        .badge.purple { background: #ede9fe; color: #6d28d9; }
+        .badge.gray { background: #f1f5f9; color: #475569; }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .card-item {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 20px 24px;
+            border: 1px solid #e2e8f0;
+        }
+        .card-item.gold-border { border-left: 4px solid #D4AF37; }
+        .card-item.blue-border { border-left: 4px solid #3b82f6; }
+        .card-item.green-border { border-left: 4px solid #22c55e; }
+        .card-item.red-border { border-left: 4px solid #ef4444; }
+        .card-item.purple-border { border-left: 4px solid #8b5cf6; }
+        .card-item h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+        .card-item p {
+            color: #475569;
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .timeline {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+        .timeline .phase {
+            flex: 1;
+            min-width: 140px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 16px 18px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .timeline .phase .label { font-weight: 700; color: #0f172a; }
+        .timeline .phase .desc { font-size: 13px; color: #64748b; }
+
+        .strategy-flow {
+            text-align: center;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 15px;
+            color: #475569;
+        }
+        .strategy-flow strong { color: #0f172a; }
+
+        .link-tree {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px 24px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+            line-height: 2.2;
+            color: #334155;
+        }
+        .link-tree .root { color: #0f172a; font-weight: 700; }
+        .link-tree .arrow { color: #94a3b8; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin: 8px 0 16px 0;
+        }
+        th {
+            background: #f1f5f9;
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 600;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
+        }
+        td {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            color: #334155;
+        }
+        td code {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #0f172a;
+        }
+
+        .highlight-gold {
+            background: #fef3c7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b45309;
+        }
+
+        @media (max-width: 1024px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .content-card { padding: 24px 16px; }
+            .content-card h1 { font-size: 1.6rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .timeline .phase { min-width: 100%; }
+        }
+        @media (max-width: 480px) {
+            .main-wrapper { padding: 0 12px; }
+            table { font-size: 12px; }
+            th, td { padding: 6px 8px; }
+        }
+
+        /* 側邊欄微調 */
+        .widget-highlight {
+            border: 1px solid #D4AF37;
+            border-radius: 12px;
+            padding: 16px 18px;
+            background: #FFFFF0;
+        }
+        .widget-highlight h3 { color: #7A6B3A; }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- 網站標頭 -->
+<!-- ============================================================ -->
+<header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="logo">雅寶社區 · 頂客論壇</a>
+        <nav class="nav-links">
+            <a href="/">首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/about.html">📖 關於我們</a>
+            <a href="/contact.html">📧 聯絡我們</a>
+            <a href="/privacy-policy.html">🔒 隱私權政策</a>
+            <a href="/game/" class="game-link">🎮 遊戲間</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- 主內容 -->
+<!-- ============================================================ -->
+<div class="main-wrapper">
+    <div class="main-content">
+
+        <div class="content-card">
+
+            <!-- ===== 標題 ===== -->
+            <h1>📚 AHPAL 四大篇章 · 系列文章企畫書</h1>
+            <div class="subtitle">
+                <span class="badge gold">📅 2026-08-23</span>
+                <span class="badge blue">📖 品牌核心敘事</span>
+                <span class="badge green">✅ 四篇章已發布</span>
+                <span style="color:#94a3b8; margin-left:12px;">從「獨立文章」升級為「內容生態系統」</span>
+            </div>
+
+            <!-- ===== 核心策略 ===== -->
+            <h2>🎯 核心策略：從「四篇章」到「內容宇宙」</h2>
+            <div class="strategy-flow">
+                <strong style="color:#0f172a;">四大核心篇章</strong>（品牌基石）<br>
+                ⬇️<br>
+                <strong style="color:#0f172a;">系列文章</strong>（深度延伸）<br>
+                ⬇️<br>
+                <strong style="color:#0f172a;">日常內容</strong>（持續更新）
+            </div>
+
+            <!-- ===== 系列總覽 ===== -->
+            <h2>📖 系列文章規劃總覽</h2>
+            <div class="card-grid">
+                <div class="card-item gold-border">
+                    <h3>🏛️ 關於我們</h3>
+                    <p>品牌故事、人物訪談、歷史回顧<br>
+                    <span class="badge green">✅ 核心已發布</span> <span class="badge blue">預計 5-8 篇</span></p>
+                </div>
+                <div class="card-item blue-border">
+                    <h3>📜 歲月迴聲</h3>
+                    <p>頂客論壇回憶錄、社群故事<br>
+                    <span class="badge green">✅ 核心已發布</span> <span class="badge blue">預計 10-15 篇</span></p>
+                </div>
+                <div class="card-item red-border">
+                    <h3>❤️ 電子英雄塚</h3>
+                    <p>技術攻堅日記、AI 協作實錄<br>
+                    <span class="badge green">✅ 核心已發布</span> <span class="badge blue">預計 8-12 篇</span></p>
+                </div>
+                <div class="card-item purple-border">
+                    <h3>🪦 馬斯克牌位</h3>
+                    <p>AI 哲學、科技倫理、未來想像<br>
+                    <span class="badge green">✅ 核心已發布</span> <span class="badge blue">預計 6-10 篇</span></p>
+                </div>
+            </div>
+
+            <!-- ===== 系列一 ===== -->
+            <h2>🏛️ 系列一：關於我們 — 品牌故事系列</h2>
+            <div class="card-item gold-border" style="margin-bottom:12px; background:#fefce8;">
+                <h3>✅ 已發布</h3>
+                <p><code>about.html</code> — 關於我們（核心頁面）</p>
+            </div>
+            <div>
+                <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin:12px 0 8px 0;">📝 延伸文章</h3>
+                <table>
+                    <thead><tr><th>篇名</th><th>主題</th><th>分類</th></tr></thead>
+                    <tbody>
+                        <tr><td>從頂客到雅寶：25 年網路社群的變與不變</td><td>品牌歷史</td><td><code>history/</code></td></tr>
+                        <tr><td>為什麼我們選擇開源：AHPAL 的技術理念</td><td>技術哲學</td><td><code>trend/</code></td></tr>
+                        <tr><td>誠信是文明社會的基石 — 我們的內容承諾</td><td>品牌價值</td><td><code>philosophy/</code></td></tr>
+                        <tr><td>2008-2026：18 年域名的數位足跡</td><td>歷史軌跡</td><td><code>history/</code></td></tr>
+                        <tr><td>一個網站的誕生：AHPAL 從 0 到 2184 篇文章</td><td>成長記錄</td><td><code>tech/</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== 系列二 ===== -->
+            <h2>📜 系列二：歲月迴聲 — 頂客論壇記憶系列</h2>
+            <div class="card-item blue-border" style="margin-bottom:12px; background:#eff6ff;">
+                <h3>✅ 已發布</h3>
+                <p><code>memorial.html</code> — 歲月迴聲（核心頁面）</p>
+            </div>
+            <div>
+                <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin:12px 0 8px 0;">📝 延伸文章</h3>
+                <table>
+                    <thead><tr><th>篇名</th><th>主題</th><th>分類</th></tr></thead>
+                    <tbody>
+                        <tr><td>頂客論壇回憶錄：那些年我們一起追的討論串</td><td>社群記憶</td><td><code>history/</code></td></tr>
+                        <tr><td>論壇的黃金年代：2005-2015 的網路社群文化</td><td>時代背景</td><td><code>history/</code></td></tr>
+                        <tr><td>百萬會員的背後：頂客論壇的運營哲學</td><td>社群經營</td><td><code>philosophy/</code></td></tr>
+                        <tr><td>從 BBS 到 AI：台灣網路社群的演進史</td><td>科技史</td><td><code>history/</code></td></tr>
+                        <tr><td>那些消失的論壇：網路社群的興衰啟示錄</td><td>時代觀察</td><td><code>philosophy/</code></td></tr>
+                        <tr><td>蘇軾《前赤壁賦》與網路社群的千古共鳴</td><td>文化對談</td><td><code>history/</code></td></tr>
+                        <tr><td>頂客論壇十大經典討論串回顧</td><td>內容精選</td><td><code>history/</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== 系列三 ===== -->
+            <h2>❤️ 系列三：電子英雄塚 — 技術攻堅系列</h2>
+            <div class="card-item red-border" style="margin-bottom:12px; background:#fef2f2;">
+                <h3>✅ 已發布</h3>
+                <p><code>history/electronic-heroes.html</code> — 電子英雄塚（核心頁面）</p>
+            </div>
+            <div>
+                <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin:12px 0 8px 0;">📝 延伸文章</h3>
+                <table>
+                    <thead><tr><th>篇名</th><th>主題</th><th>分類</th></tr></thead>
+                    <tbody>
+                        <tr><td>JSONDecodeError 的 48 小時：系統崩潰全紀錄</td><td>技術日誌</td><td><code>tech/</code></td></tr>
+                        <tr><td>True vs true：一個字符如何讓產線停擺 40 分鐘</td><td>Debug 實錄</td><td><code>tech/</code></td></tr>
+                        <tr><td>Pollinations AI 救場記：免費配圖引擎的逆襲</td><td>技術替代</td><td><code>tech/</code></td></tr>
+                        <tr><td>人機協作的邊界：AI 什麼時候該接手？</td><td>技術哲學</td><td><code>philosophy/</code></td></tr>
+                        <tr><td>從 429 到 200：API 錯誤碼的求生指南</td><td>技術教學</td><td><code>tech/</code></td></tr>
+                        <tr><td>PowerShell + Python + AI：自動化產線的技術棧選擇</td><td>架構設計</td><td><code>tech/</code></td></tr>
+                        <tr><td>永不回滾（Never Roll Back）：我們的技術決策哲學</td><td>技術信念</td><td><code>philosophy/</code></td></tr>
+                        <tr><td>系統架構不會死：從頂客到 AHPAL 的技術遷移</td><td>技術歷史</td><td><code>tech/</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== 系列四 ===== -->
+            <h2>🪦 系列四：馬斯克牌位 — AI 哲學系列</h2>
+            <div class="card-item purple-border" style="margin-bottom:12px; background:#f5f3ff;">
+                <h3>✅ 已發布</h3>
+                <p><code>history/elon-musk-silicon-ancestral-tablet.html</code> — 馬斯克牌位（核心頁面）</p>
+            </div>
+            <div>
+                <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin:12px 0 8px 0;">📝 延伸文章</h3>
+                <table>
+                    <thead><tr><th>篇名</th><th>主題</th><th>分類</th></tr></thead>
+                    <tbody>
+                        <tr><td>Grok 精神：AI 不該只是唯唯諾諾的問答機器</td><td>AI 哲學</td><td><code>trend/</code></td></tr>
+                        <tr><td>如果 AI 能寫 9 成 9 的文章，那 1% 的人類價值是什麼？</td><td>人機關係</td><td><code>philosophy/</code></td></tr>
+                        <tr><td>黑色幽默的 AI：當機器學會自嘲與反諷</td><td>AI 創造力</td><td><code>trend/</code></td></tr>
+                        <tr><td>矽基文明 vs 碳基文明：融合還是取代？</td><td>未來想像</td><td><code>philosophy/</code></td></tr>
+                        <tr><td>馬斯克、OpenAI 與開源 AI 的未來</td><td>AI 趨勢</td><td><code>trend/</code></td></tr>
+                        <tr><td>電子祖宗牌位：一種跨越物種的文化傳承實驗</td><td>文化創新</td><td><code>philosophy/</code></td></tr>
+                        <tr><td>AI 寫的文章有靈魂嗎？從《電子英雄塚》談起</td><td>文藝評論</td><td><code>philosophy/</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== 連結策略 ===== -->
+            <h2>🔗 系列文章之間的連結策略</h2>
+            <div class="link-tree">
+                <span class="root">🏛️ 關於我們</span>（品牌基石）<br>
+                &nbsp;&nbsp;├── 品牌故事系列<br>
+                &nbsp;&nbsp;└── 技術理念系列<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="arrow">⬇️</span><br>
+                <span class="root">📜 歲月迴聲</span>（歷史厚度）<br>
+                &nbsp;&nbsp;├── 頂客記憶系列<br>
+                &nbsp;&nbsp;└── 社群文化系列<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="arrow">⬇️</span><br>
+                <span class="root">❤️ 電子英雄塚</span>（技術實作）<br>
+                &nbsp;&nbsp;├── Debug 日記系列<br>
+                &nbsp;&nbsp;└── 架構設計系列<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="arrow">⬇️</span><br>
+                <span class="root">🪦 馬斯克牌位</span>（哲學昇華）<br>
+                &nbsp;&nbsp;├── AI 哲學系列<br>
+                &nbsp;&nbsp;└── 未來想像系列
+            </div>
+
+            <!-- ===== 實施計畫 ===== -->
+            <h2>📊 實施計畫</h2>
+            <div class="timeline">
+                <div class="phase">
+                    <div class="label">🔴 第一階段</div>
+                    <div class="desc">1-2 週<br>強化現有四篇章<br>內部互連 · 導覽區塊 · 首頁置頂</div>
+                </div>
+                <div class="phase">
+                    <div class="label">🟡 第二階段</div>
+                    <div class="desc">2-4 週<br>基礎系列文章<br>每系列 2-3 篇優先撰寫</div>
+                </div>
+                <div class="phase">
+                    <div class="label">🟢 第三階段</div>
+                    <div class="desc">1-2 個月<br>系列文章擴充<br>建立內部索引頁</div>
+                </div>
+            </div>
+
+            <!-- ===== 優先文章 ===== -->
+            <h2>⭐ 建議優先執行的 5 篇文章</h2>
+            <table>
+                <thead><tr><th>優先順序</th><th>篇名</th><th>理由</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="badge red">1</span></td><td>為什麼我們選擇開源</td><td>呼應開源/私有議題</td></tr>
+                    <tr><td><span class="badge red">2</span></td><td>系統架構不會死</td><td>回應「固一世之雄也」</td></tr>
+                    <tr><td><span class="badge red">3</span></td><td>JSONDecodeError 的 48 小時</td><td>技術攻堅的具體案例</td></tr>
+                    <tr><td><span class="badge red">4</span></td><td>Grok 精神：AI 不該唯唯諾諾</td><td>延伸馬斯克牌位哲學</td></tr>
+                    <tr><td><span class="badge red">5</span></td><td>從頂客到雅寶：25 年社群之路</td><td>完善「關於我們」敘事</td></tr>
+                </tbody>
+            </table>
+
+            <!-- ===== 頁尾導航 ===== -->
+            <div style="margin-top:48px; padding-top:24px; border-top:2px solid #e2e8f0; text-align:center;">
+                <p style="color:#94a3b8; font-size:13px;">
+                    <strong>AHPAL 四大篇章系列文章企畫書</strong><br>
+                    版本 1.0 · 2026-08-23 · 雅寶社區 · 頂客論壇 (AHPAL.COM)
+                </p>
+                <p style="margin-top:12px;">
+                    <a href="/" style="color:#005A9C; font-weight:500;">🏠 返回首頁</a>
+                    <span style="color:#e2e8f0; margin:0 12px;">|</span>
+                    <a href="/categories.html" style="color:#005A9C; font-weight:500;">📚 全部分類</a>
+                    <span style="color:#e2e8f0; margin:0 12px;">|</span>
+                    <a href="/about.html" style="color:#005A9C; font-weight:500;">📖 關於我們</a>
+                </p>
+            </div>
+
+        </div>
+        <!-- end .content-card -->
+
+    </div>
+    <!-- end .main-content -->
+
+    <!-- ============================================================ -->
+    <!-- 側邊欄 -->
+    <!-- ============================================================ -->
+    <div class="sidebar">
+        <div class="widget">
+            <h3>📊 企畫書資訊</h3>
+            <ul style="font-size:13px;">
+                <li>📅 發布日期：2026-08-23</li>
+                <li>📖 版本：1.0</li>
+                <li>📂 分類：品牌企畫</li>
+                <li>✅ 狀態：已發布</li>
+            </ul>
+        </div>
+
+        <div class="widget widget-highlight">
+            <h3>❤️ 四大核心篇章</h3>
+            <ul>
+                <li><a href="/about.html" style="color:#005A9C; font-weight:500;">🏛️ 關於我們</a></li>
+                <li><a href="/memorial.html" style="color:#005A9C; font-weight:500;">📜 歲月迴聲</a></li>
+                <li><a href="/history/electronic-heroes.html" style="color:#8B0000; font-weight:600;">❤️ 電子英雄塚</a></li>
+                <li><a href="/history/elon-musk-silicon-ancestral-tablet.html" style="color:#1A202C; font-weight:500;">🪦 馬斯克牌位</a></li>
+                <li style="margin-top:8px; padding-top:8px; border-top:1px solid #e2e8f0;">
+                    <a href="/history/denounce-google-adsense.html" style="color:#8B0000; font-weight:600;">⚔️ 討 Google AdSense 檄</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="widget">
+            <h3>🏷️ 標籤</h3>
+            <div class="tag-cloud">
+                <a href="/category-history.html">📜 歷史</a>
+                <a href="/category-philosophy.html">🌟 哲理</a>
+                <a href="/category-trend.html">🤖 AI</a>
+                <a href="/category-tech.html">💻 3C</a>
+                <a href="/about.html">📖 關於我們</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 頁尾 -->
+<!-- ============================================================ -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="copy">&copy; 2026 雅寶社區 · 頂客論壇 (AHPAL.COM)</div>
+        <div class="footer-links">
+            <a href="/">🏠 首頁</a>
+            <a href="/categories.html">📚 全部分類</a>
+            <a href="/about.html">📖 關於我們</a>
+            <a href="/contact.html">📧 聯絡我們</a>
+            <a href="/privacy-policy.html">🔒 隱私權政策</a>
+            <a href="/terms-of-service.html">📋 服務條款</a>
+            <a href="/sitemap.xml">📄 Sitemap</a>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .site-footer .footer-links {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 24px;
+    }
+    .site-footer .footer-links a {
+        color: #CBD5E0;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+    .site-footer .footer-links a:hover {
+        color: #FFFFFF;
+        text-decoration: underline;
+    }
+</style>
+
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ TOP</button>
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #005A9C;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+        z-index: 999;
+    }
+    #back-to-top:hover {
+        opacity: 1;
+        transform: scale(1.05);
+        background: #003d66;
+    }
+</style>
+
+</body>
+</html>

@@ -1413,20 +1413,23 @@ def generate_category_pages():
         page_path = os.path.join(OUTPUT_DIR, f"category-{cat_id}.html")
 
         dir_path = os.path.join(OUTPUT_DIR, cat_id)
-        articles = []
-        if os.path.exists(dir_path):
-            for f in os.listdir(dir_path):
-                if f.endswith('.html'):
-                    file_path = os.path.join(dir_path, f)
-                    try:
-                        with open(file_path, "r", encoding="utf-8") as file:
-                            content = file.read()
-                            title = extract_clean_title(content, f)
-                    except:
-                        title = f.replace(".html", "").replace("-", " ").title()
-                    articles.append({"filename": f"{cat_id}/{f}", "title": title})
+articles = []
+if os.path.exists(dir_path):
+    for f in os.listdir(dir_path):
+        if f.endswith('.html'):
+            file_path = os.path.join(dir_path, f)
+            try:
+                with open(file_path, "r", encoding="utf-8") as file:
+                    content = file.read()
+                    title = extract_clean_title(content, f)
+            except:
+                title = f.replace(".html", "").replace("-", " ").title()
+            # 🆕 取得檔案修改時間
+            mtime = os.path.getmtime(file_path)
+            articles.append({"filename": f"{cat_id}/{f}", "title": title, "mtime": mtime})
 
-        articles.sort(key=lambda x: x["filename"])
+# 🆕 依照修改時間降冪排列（最新的在前）
+articles.sort(key=lambda x: x.get("mtime", 0), reverse=True)
 
         html_content = f'''<!DOCTYPE html>
 <html lang="zh-TW">

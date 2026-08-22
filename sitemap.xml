@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.ahpal.com/</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-tech.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-game.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-life.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-review.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-philosophy.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/category-trend.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/about.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.ahpal.com/contact.html</loc>
-        <lastmod>2026-08-16</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -297,6 +297,12 @@
     <url>
         <loc>https://www.ahpal.com/docs/_archive/未完成AHPAL-交接手冊-v3.1.html</loc>
         <lastmod>2026-08-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://www.ahpal.com/docs/打一份AI交接與新進工程師交接手冊.html</loc>
+        <lastmod>2026-08-21</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1285,6 +1291,12 @@
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://www.ahpal.com/history/denounce-google-adsense.html</loc>
+        <lastmod>2026-08-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>https://www.ahpal.com/history/digital-marketer-spring-autumn-kol.html</loc>
         <lastmod>2026-08-16</lastmod>
         <changefreq>monthly</changefreq>
@@ -1388,7 +1400,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/electronic-heroes.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -1400,7 +1412,7 @@
     </url>
     <url>
         <loc>https://www.ahpal.com/history/elon-musk-silicon-ancestral-tablet.html</loc>
-        <lastmod>2026-08-19</lastmod>
+        <lastmod>2026-08-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
